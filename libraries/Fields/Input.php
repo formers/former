@@ -4,11 +4,11 @@
  *
  * Renders all basic input types
  */
-namespace Former;
+namespace Former\Fields;
 
-use Form;
+use \Form, Former\Helpers;
 
-class Input extends Field
+class Input extends \Former\Field
 {
   /**
    * Current datalist stored

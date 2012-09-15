@@ -93,7 +93,7 @@ class Former
     }
 
     // Listing parameters
-    $class = '\Former\\'.$class;
+    $class = '\Former\Fields\\'.$class;
     static::$field = new $class(
       $method,
       array_get($parameters, 0),

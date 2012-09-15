@@ -1,9 +1,9 @@
 <?php
-namespace Former;
+namespace Former\Fields;
 
 use \Form;
 
-class Select extends Field
+class Select extends \Former\Field
 {
   /**
    * The select options

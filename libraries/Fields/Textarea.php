@@ -1,9 +1,9 @@
 <?php
-namespace Former;
+namespace Former\Fields;
 
 use \Form;
 
-class Textarea extends Field
+class Textarea extends \Former\Field
 {
   public function __toString()
   {
