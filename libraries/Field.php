@@ -38,11 +38,6 @@ abstract class Field
   //////////////////////////// INTERFACE /////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
-public static function lol()
-{
-  return $this->attributes;
-}
-
   /**
    * Set up a Field instance
    *
@@ -50,14 +45,17 @@ public static function lol()
    */
   public function __construct($type, $name, $label, $value, $attributes)
   {
-    // Field
+    // Set base parameters
     $this->type = $type;
-    $this->setAttributes($attributes);
-    $this->name($name);
-    $this->value($value);
+    $this->value = $value;
+    $this->attributes = (array) $attributes;
 
-    // Control group
-    $this->controlGroup = new ControlGroup($label);
+    // Set magic parameters (repopulated value, translated label, etc)
+    $this->ponder($name, $label);
+    $this->repopulate();
+
+    // Link Control group
+    $this->controlGroup = new ControlGroup($this->label);
   }
 
   /**
@@ -68,18 +66,8 @@ public static function lol()
    */
   public function __call($method, $parameters)
   {
-    // Dynamic attributes
-    switch($method) {
-      case 'autofocus':
-      case 'disabled':
-      case 'multiple':
-      case 'required':
-        $this->setAttribute($method, 'true');
-        break;
-      default:
-        $this->setAttribute($method, $parameters[0]);
-        break;
-    }
+    $value = array_get($parameters, 0, 'true');
+    $this->setAttribute($method, $value);
 
     return $this;
   }
@@ -94,6 +82,20 @@ public static function lol()
   {
     if(isset($this->$attribute)) return $this->$attribute;
     else return array_get($this->attributes, $attribute);
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////// FUNCTIONS //////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Whether the current field is required or not
+   *
+   * @return boolean
+   */
+  public function isRequired()
+  {
+    return isset($this->attributes['required']);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -152,18 +154,58 @@ public static function lol()
    */
   public function setAttributes($attributes, $merge = true)
   {
+    $attributes = (array) $attributes;
+
     $this->attributes = $merge
       ? array_merge($this->attributes, $attributes)
       : $attributes;
   }
 
   /**
-   * Whether the current field is required or not
+   * Add a class to the current field
    *
-   * @return boolean
+   * @param string $class The class to add
    */
-  public function isRequired()
+  public function addClass($class)
   {
-    return isset($this->attributes['required']);
+    $this->attributes = Helpers::addClass($this->attributes, $class);
+  }
+
+  /**
+   * Use values stored in Former to populate the current field
+   */
+  private function repopulate()
+  {
+    $value = Former::getValue($this->name);
+
+    // If nothing found, replace by fallback
+    if(!$value) $value = $this->value;
+
+    // Overwrite value by POST if present
+    $value = \Input::get($this->name, \Input::old($this->name, $value));
+
+    $this->value = $value;
+  }
+
+  /**
+   * Ponders a label and a field name, and tries to get the best out of it
+   *
+   * @param  string $label A label
+   * @param  string $name  A field name
+   * @return array         A label and a field name
+   */
+  private function ponder($name, $label)
+  {
+    // Check for the two possibilities
+    if($label and !$name) $name = \Str::slug($label);
+    elseif(!$label and $name) $label = $name;
+
+    // Attempt to translate the label
+    $label = Helpers::translate($label);
+    $label = ucfirst($label);
+
+    // Save values
+    $this->name  = $name;
+    $this->label = $label;
   }
 }
