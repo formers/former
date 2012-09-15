@@ -12,6 +12,24 @@ class Select extends Field
   private $options = array();
 
   /**
+   * Easier arguments order for selects
+   *
+   * @param string $type       select or multiselect
+   * @param string $name       Field name
+   * @param string $label      Field label
+   * @param array  $options    Its options
+   * @param mixed  $selected   Selected entry
+   * @param array  $attributes Attributes
+   */
+  public function __construct($type, $name, $label, $options, $selected, $attributes)
+  {
+    $this->options = $options;
+    $this->value = $selected;
+
+    parent::__construct($type, $name, $label, $selected, $attributes);
+  }
+
+  /**
    * Set the select options
    *
    * @param  array $options  The options as an array
