@@ -34,6 +34,9 @@ class Input extends Field
    */
   public function __toString()
   {
+    // Particular case of the search element
+    if($this->type == 'search') $this->asSearch();
+
     // Render main input
     $input = Form::input($this->type, $this->name, $this->value, $this->attributes);
 
@@ -43,6 +46,15 @@ class Input extends Field
     }
 
     return $input;
+  }
+
+  /**
+   * Render a text element as a search element
+   */
+  private function asSearch()
+  {
+    $this->type = 'text';
+    $this->attributes = Helpers::addClass($this->attributes, 'search-query');
   }
 
   /**
