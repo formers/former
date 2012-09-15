@@ -8,9 +8,6 @@
  */
 namespace Former;
 
-use Cerberus\Toolkit\Laravel,
-    \Input;
-
 class Former
 {
   /**
@@ -96,25 +93,23 @@ class Former
     }
 
     // Listing parameters
-    $name       = array_get($parameters, 0);
-    $label      = array_get($parameters, 1);
-    $value      = array_get($parameters, 2);
-    $attributes = array_get($parameters, 3, array());
-
-    // Process data
-    $value = static::getValue($name, $value);
-    list($label, $name) = static::getLabelName($label, $name);
+    $class = '\Former\\'.$class;
+    static::$field = new $class(
+      $method,
+      array_get($parameters, 0),
+      array_get($parameters, 1),
+      array_get($parameters, 2),
+      array_get($parameters, 3),
+      array_get($parameters, 4),
+      array_get($parameters, 5)
+    );
 
     // Add any size we found
     $sizes = array_intersect(static::$FIELD_SIZES, $classes);
     if($sizes) {
       $size = $sizes[key($sizes)];
-      $attributes = Helpers::addClass($attributes, 'input-'.$size);
+      static::$field->addClass('input-'.$size);
     }
-
-    // Calling the selected class
-    $class = '\Former\\'.$class;
-    static::$field = new $class($method, $name, $label, $value, $attributes);
 
     return new Former;
   }
@@ -173,30 +168,21 @@ class Former
    *
    * @param mixed $values Can be an Eloquent object or an array
    */
-  public static function setValues($values)
+  public static function populate($values)
   {
     static::$values = $values;
+  }
+
+  public static function getValue($name)
+  {
+    return is_object(static::$values)
+      ? static::$values->{$name}
+      : array_get(static::$values, $name);
   }
 
   public static function setErrors($errors)
   {
     static::$errors = $errors;
-  }
-
-  public static function getValue($key, $fallback = null)
-  {
-    // Get value from either object or array
-    $value = is_object(static::$values)
-      ? static::$values->{$key}
-      : array_get(static::$values, $key);
-
-    // If nothing found, replace by fallback
-    if(!$value) $value = $fallback;
-
-    // Overwrite value by POST if present
-    $value = Input::get($key, Input::old($key, $value));
-
-    return $value;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -264,26 +250,6 @@ class Former
     if(static::$errors) {
       return static::$errors->first(static::$field->name);
     }
-  }
-
-  /**
-   * Ponders a label and a field name, and tries to gets the best out of it
-   *
-   * @param  string $label     A label
-   * @param  string $fieldname A field name
-   * @return array             A label and a field name
-   */
-  private static function getLabelName($label, $fieldname = null)
-  {
-    // Check for the two possibilities
-    if($label and !$fieldname) $fieldname = \Str::slug($label);
-    elseif(!$label and $fieldname) $label = $fieldname;
-
-    // Attempt to translate the label
-    $label = Helpers::translate($label);
-    $label = ucfirst($label);
-
-    return array($label, $fieldname);
   }
 
   /**
