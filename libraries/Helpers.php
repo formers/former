@@ -48,4 +48,26 @@ class Helpers
 
     return $attributes;
   }
+
+  /**
+   * Translates a string by trying several fallbacks
+   *
+   * @param  string $key      The key to translate
+   * @param  string $fallback The ultimate fallback
+   * @return string           A translated string
+   */
+  public static function translate($key, $fallback = null)
+  {
+    if(!$fallback) $fallback = $key;
+
+    // Search for the key itself
+    $translation = \Lang::line($key)->get(null, '');
+
+    // If not found, search in the field attributes
+    if(!$translation) $translation =
+      \Lang::line('validation.attributes.'.$key)->get(null,
+      $fallback);
+
+    return ucfirst($translation);
+  }
 }

@@ -280,7 +280,7 @@ class Former
     elseif(!$label and $fieldname) $label = $fieldname;
 
     // Attempt to translate the label
-    $label = Laravel::translate($label);
+    $label = Helpers::translate($label);
     $label = ucfirst($label);
 
     return array($label, $fieldname);
