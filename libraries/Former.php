@@ -50,6 +50,10 @@ class Former
    */
   private static $FIELD_SIZES = array('mini', 'small', 'medium', 'large', 'xlarge', 'xxlarge');
 
+  /**
+   * The available form types
+   * @var array
+   */
   private static $FORM_TYPES = array('horizontal', 'vertical', 'inline', 'search');
 
   ////////////////////////////////////////////////////////////////////
@@ -173,6 +177,12 @@ class Former
     static::$values = $values;
   }
 
+  /**
+   * Get a value from the object/array
+   *
+   * @param  string $name The key to retrieve
+   * @return mixed        Its value
+   */
   public static function getValue($name)
   {
     return is_object(static::$values)
@@ -180,6 +190,11 @@ class Former
       : array_get(static::$values, $name);
   }
 
+  /**
+   * Set the errors to use for validations
+   *
+   * @param Message $errors The result from a validation
+   */
   public static function setErrors($errors)
   {
     static::$errors = $errors;
@@ -189,6 +204,12 @@ class Former
   ////////////////////////////// BUILDERS ////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
+  /**
+   * Opens a form dynamically
+   * @param  string $static     The method called
+   * @param  array  $parameters Its parameters
+   * @return string             A form opening tag
+   */
   private static function openForm($static, $parameters)
   {
     $method     = 'POST';
@@ -217,6 +238,16 @@ class Former
 
     // Open the form
     return \Form::open($action, $method, $attributes, $secure);
+  }
+
+  /**
+   * Closes a form
+   *
+   * @return string A form closing tag
+   */
+  public static function close()
+  {
+    return '</close>';
   }
 
   /**
