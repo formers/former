@@ -89,15 +89,53 @@ There are a lot of tweaks and changes, things to make your life easier.
 
 ----------
 
+Checkboxes and radios, man, aren't those annoying ? Even more when you have to create several of them, and you think in your head "WHEN CAN'T I VALIDATE ALL THESE LIMES ?". With Former it's all a little easier :
+
+```php
+// Create a one-off checkbox
+Former::checkbox('checkme')
+
+// Create a one-off checkbox with a text
+Former::checkbox('checkme')->text('YO CHECK THIS OUT')
+
+// Create five related checkboxes
+Former::checkboxes('checkme')->checkboxes('first', 'second', 'third', 'fourth')
+
+// Create five related checkboxes, and inline them
+Former::checkboxes('checkme')->checkboxes($checkboxes)->inline()
+
+// Everything that works on a checkbox also works on a radio element
+Former::radios('radio')->radios(array('value' => 'text', 'value' => 'text'))->stacked()
+```
+
+When creating checkables via the checkboxes/radios() method, by default for each checkable name attribute it will use the original name you specified and append it a number (here in our exemple it would be `<input type="checkbox" name="checkme_2">`).
+It also repopulates it, meaning a checked input will stayed checked on submit.
+
+----------
+
 # ULTIMATE SHOWDOWN
 
 ```php
+// Laravel
+<div class="control-group">
+  <label for="input01" class="control-label">Text input</label>
+  <div class="controls">
+    <div class="input-prepend input-append">
+      <span class="add-on">@</span>
+      {{ Form::text('input01', 'myname', null, array('class' => 'input-xlarge')) }}
+      <span class="add-on">$</span>
+    </div>
+    <p class="help-block">This is an help text</p>
+  </div>
+</div>
+
 // Bootstrapper
 echo Form::prepend_append(
   Form::control_group(
     Form::label('input01', 'Text input'),
     Form::xlarge_text('input01'),
     (Input::get('input01', Input::old('input01', 'myname'))),
+    $validation->errors->get('input01'),
     Form::block_help('This is an help text')
   ),
   '@', '$'
@@ -109,3 +147,27 @@ Former::xlarge_text('input01', 'Text input')
   ->prepend('@')->append('$')
   ->value('myname')
 ```
+
+```php
+// Laravel
+Man don't even get me started
+
+// Boostrapper
+echo Form::control_group(
+  Form::label('checkboxes', 'Check those boxes'),
+  Form::inline_labelled_checkbox('check1', 'Check me', 1, Input::get('check1', Input::old('check1'))).
+  Form::inline_labelled_checkbox('check2', 'Ccheck me too', 1, Input::get('check1', Input::old('check1'))),
+  $validation->errors->get('check1'),
+  Form::block_help('I SAID CHECK THOSE DOUBLES')
+);
+
+// Former
+Former::checkboxes('check')->checkboxes('Check me', 'Check me too')
+  ->blockHelp('I SAID CHECK THOSE DOUBLES')
+```
+
+----
+
+# Sidebar
+
+It may seems like I'm spitting on both Laravel and Bootstrapper here but bare with me — I'm totally not. I love Laravel, it's an amazing and elegant framework, and I couldn't stress out enough how every one of you should have Bootstrapper installed somewhere in your bundles — hell I'm even collaborating actively on the project. I even inteded Former to replace Bootstrapper's Form class but to me it was just a little too much out of its scope.
