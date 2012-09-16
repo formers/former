@@ -82,26 +82,26 @@ class Former
     switch($method) {
       case 'select':
       case 'multiselect':
-        $method = 'Select';
+        $callClass = 'Select';
         break;
       case 'checkbox':
       case 'checkboxes':
-        $method = 'Checkbox';
+        $callClass = 'Checkbox';
         break;
       case 'textarea':
-        $method = 'Textarea';
+        $callClass = 'Textarea';
         break;
       case 'radio':
       case 'radios':
-        $method = 'Radio';
+        $callClass = 'Radio';
         break;
       default:
-        $method = 'Input';
+        $callClass = 'Input';
         break;
     }
 
     // Listing parameters
-    $class = '\Former\Fields\\'.$method;
+    $class = '\Former\Fields\\'.$callClass;
     static::$field = new $class(
       $method,
       array_get($parameters, 0),
@@ -113,7 +113,7 @@ class Former
     );
 
     // Inline checkboxes
-    if(in_array($method, array('Checkbox', 'Radio')) and
+    if(in_array($callClass, array('Checkbox', 'Radio')) and
       in_array('inline', $classes)) {
       static::$field->inline();
     }
