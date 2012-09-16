@@ -82,22 +82,22 @@ class Former
     switch($method) {
       case 'select':
       case 'multiselect':
-        $class = 'Select';
+        $method = 'Select';
         break;
       case 'checkbox':
       case 'checkboxes':
-        $class = 'Checkbox';
+        $method = 'Checkbox';
         break;
       case 'textarea':
-        $class = 'Textarea';
+        $method = 'Textarea';
         break;
       default:
-        $class = 'Input';
+        $method = 'Input';
         break;
     }
 
     // Listing parameters
-    $class = '\Former\Fields\\'.$class;
+    $class = '\Former\Fields\\'.$method;
     static::$field = new $class(
       $method,
       array_get($parameters, 0),
@@ -107,6 +107,11 @@ class Former
       array_get($parameters, 4),
       array_get($parameters, 5)
     );
+
+    // Inline checkboxes
+    if($method == 'Checkbox' and in_array('inline', $classes)) {
+      static::$field->inline();
+    }
 
     // Add any size we found
     $sizes = array_intersect(static::$FIELD_SIZES, $classes);
