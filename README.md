@@ -151,7 +151,7 @@ Former::xlarge_text('input01', 'Text input')
 
 ```php
 // Laravel
-Man don't even get me started
+// Man don't even get me started
 
 // Boostrapper
 echo Form::control_group(
