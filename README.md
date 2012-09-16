@@ -111,6 +111,20 @@ Former::radios('radio')->radios(array('value' => 'text', 'value' => 'text'))->st
 When creating checkables via the checkboxes/radios() method, by default for each checkable name attribute it will use the original name you specified and append it a number (here in our exemple it would be `<input type="checkbox" name="checkme_2">`).
 It also repopulates it, meaning a checked input will stay checked on submit.
 
+---------
+
+For those of you that work on multingual projects, Former is also here to help. By default, when creating a field, if no label is specified Former will use the field name by default. But more importantly it will try and translate it automatically, which means the following :
+
+```php
+// This
+Former::text('name', __('validation.custom.name'))
+
+// Is the same as this
+Former::text('name')
+```
+
+Which you know, is kind of cool. I plan on letting you set where you want Former to look for the translated field names, and add more localization magic in general, but this is all yet to come. 
+
 ----------
 
 # ULTIMATE SHOWDOWN
