@@ -122,7 +122,7 @@ It also repopulates it, meaning a checked input will stayed checked on submit.
   <div class="controls">
     <div class="input-prepend input-append">
       <span class="add-on">@</span>
-      {{ Form::text('input01', 'myname', null, array('class' => 'input-xlarge')) }}
+      {{ Form::text('input01', 'myname', (Input::get('input01', Input::old('input01')), array('class' => 'input-xlarge')) }}
       <span class="add-on">$</span>
     </div>
     <p class="help-block">This is an help text</p>
@@ -142,6 +142,7 @@ echo Form::prepend_append(
 );
 
 // Former
+Former::setErrors($validation);
 Former::xlarge_text('input01', 'Text input')
   ->blockHelp('This is an help text')
   ->prepend('@')->append('$')
@@ -162,6 +163,7 @@ echo Form::control_group(
 );
 
 // Former
+Former::setErrors($validation);
 Former::checkboxes('check')->checkboxes('Check me', 'Check me too')
   ->blockHelp('I SAID CHECK THOSE DOUBLES')
 ```
