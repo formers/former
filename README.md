@@ -118,7 +118,7 @@ It also repopulates it, meaning a checked input will stayed checked on submit.
 ```php
 // Laravel
 <div class="control-group">
-  <label for="input01" class="control-label">Text input</label>
+  {{ Form::label('input01', 'Text input', array('class' => 'control-label') )}}
   <div class="controls">
     <div class="input-prepend input-append">
       <span class="add-on">@</span>
