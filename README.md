@@ -89,7 +89,7 @@ There are a lot of tweaks and changes, things to make your life easier.
 
 ----------
 
-Checkboxes and radios, man, aren't those annoying ? Even more when you have to create several of them, and you think in your head "WHEN CAN'T I VALIDATE ALL THESE LIMES ?". With Former it's all a little easier :
+Checkboxes and radios, man, aren't those annoying ? Even more when you have to create several of them, and you think in your head "WHY CAN'T I VALIDATE ALL THESE LIMES ?". With Former it's all a little easier :
 
 ```php
 // Create a one-off checkbox
