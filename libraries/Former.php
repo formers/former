@@ -147,18 +147,21 @@ class Former
     if(static::$field->type == 'hidden' or
       static::$formType == 'search' or
       static::$formType == 'inline') {
-      return static::$field->__toString();
+        $html = static::$field->__toString();
+    } else {
+      $controlGroup = $this->control();
+
+      $html = $controlGroup->open();
+        $html .= $controlGroup->getLabel(static::$field->name);
+        $html .= '<div class="controls">';
+          $html .= $controlGroup->prependAppend(static::$field);
+          $html .= $controlGroup->getHelp();
+        $html .= '</div>';
+      $html .= $controlGroup->close();
     }
 
-    $controlGroup = $this->control();
-
-    $html = $controlGroup->open();
-     $html .= $controlGroup->getLabel(static::$field->name);
-      $html .= '<div class="controls">';
-        $html .= $controlGroup->prependAppend(static::$field);
-        $html .= $controlGroup->getHelp();
-      $html .= '</div>';
-    $html .= $controlGroup->close();
+    // Destroy field instance
+    static::$field = null;
 
     return $html;
   }
