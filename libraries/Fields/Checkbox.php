@@ -10,8 +10,15 @@ use Form;
 
 class Checkbox extends \Former\Checkable
 {
+  /**
+   * The currently stored checkboxes
+   * @var array
+   */
   private $checkboxes = array();
 
+  /**
+   * Create a serie of checkboxes
+   */
   public function checkboxes()
   {
     $_checkboxes = func_get_args();
@@ -28,6 +35,9 @@ class Checkbox extends \Former\Checkable
     $this->checkboxes = $checkboxes;
   }
 
+  /**
+   * Prints out the currently stored checkboxes
+   */
   public function __toString()
   {
     if($this->checkboxes) {
@@ -38,7 +48,7 @@ class Checkbox extends \Former\Checkable
       return $html;
     }
 
-    return $this->createCheckbox($this->name, $this->labels);
+    return $this->createCheckbox($this->name, $this->text);
   }
 
   ////////////////////////////////////////////////////////////////////
