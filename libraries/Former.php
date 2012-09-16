@@ -91,6 +91,10 @@ class Former
       case 'textarea':
         $method = 'Textarea';
         break;
+      case 'radio':
+      case 'radios':
+        $method = 'Radio';
+        break;
       default:
         $method = 'Input';
         break;
@@ -109,7 +113,8 @@ class Former
     );
 
     // Inline checkboxes
-    if($method == 'Checkbox' and in_array('inline', $classes)) {
+    if(in_array($method, array('Checkbox', 'Radio')) and
+      in_array('inline', $classes)) {
       static::$field->inline();
     }
 

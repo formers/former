@@ -1,6 +1,8 @@
 <?php
 namespace Former;
 
+use \Form;
+
 class Checkable extends Field
 {
   /**
@@ -10,13 +12,29 @@ class Checkable extends Field
   protected $inline = false;
 
   /**
-   * Add a text to a single checkbox
+   * Add a text to a single element
    * @var string
    */
   protected $text = null;
 
   /**
-   * Set the checkboxes as inline
+   * The checkable items currently stored
+   * @var array
+   */
+  protected $items = array();
+
+  /**
+   * The type of checkable item
+   * @var string
+   */
+  protected $checkable = null;
+
+  ////////////////////////////////////////////////////////////////////
+  ///////////////////////// PUBLIC INTERFACE /////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Set the checkables as inline
    */
   public function inline()
   {
@@ -24,7 +42,7 @@ class Checkable extends Field
   }
 
   /**
-   * Set the checkboxes as stacked
+   * Set the checkables as stacked
    */
   public function stacked()
   {
@@ -32,7 +50,7 @@ class Checkable extends Field
   }
 
   /**
-   * Adds text to a single checkable
+   * Add text to a single checkable
    *
    * @param  string $text The checkable label
    */
@@ -41,8 +59,33 @@ class Checkable extends Field
     $this->text = $text;
   }
 
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////////// HELPERS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
   /**
-   * Check if a checkbox is checked
+   * Creates a serie of checkable items
+   *
+   * @param array $_items Items to create
+   */
+  protected function items($_items)
+  {
+    // If passing an array
+    if(sizeof($_items) == 1 and
+       is_array($_items[0]))
+         $_items = $_items[0];
+
+    // Iterate through items, assign a name and a label to each
+    $count = 0;
+    foreach($_items as $name => $label) {
+      if(!is_string($name)) $name = $this->name.'_'.$count;
+      $this->items[$name] = $label;
+      $count++;
+    }
+  }
+
+  /**
+   * Check if a checkable is checked
    *
    * @return boolean Checked or not
    */
@@ -53,4 +96,39 @@ class Checkable extends Field
 
     return $value ? true : false;
   }
+
+  /**
+   * Renders a checkable
+   *
+   * @param  string $name  Its name
+   * @param  string $label Its value
+   * @return string        A checkable item
+   */
+  protected function createCheckable($name, $label)
+  {
+    // If inline items, add class
+    $isInline = $this->inline ? ' inline' : null;
+
+    return
+      '<label class="' .$this->checkable.$isInline. '">' .
+        call_user_func('\Form::'.$this->checkable, $name, 'true', $this->isChecked($name), $this->attributes).
+      $label.'</label>';
+  }
+
+  /**
+   * Prints out the currently stored checkables
+   */
+  public function __toString()
+  {
+    if($this->items) {
+      $html  = null;
+      foreach($this->items as $name => $label) {
+        $html .= $this->createCheckable($name, $label);
+      }
+      return $html;
+    }
+
+    return $this->createCheckable($this->name, $this->text);
+  }
+
 }
