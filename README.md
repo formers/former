@@ -109,7 +109,7 @@ Former::radios('radio')->radios(array('value' => 'text', 'value' => 'text'))->st
 ```
 
 When creating checkables via the checkboxes/radios() method, by default for each checkable name attribute it will use the original name you specified and append it a number (here in our exemple it would be `<input type="checkbox" name="checkme_2">`).
-It also repopulates it, meaning a checked input will stayed checked on submit.
+It also repopulates it, meaning a checked input will stay checked on submit.
 
 ----------
 
