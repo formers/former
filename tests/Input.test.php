@@ -44,11 +44,11 @@ class InputTest extends FormerTests
 
   public function testMagicAttribute()
   {
-    $static = Former::text('foo')->class('foo')->bar('bar')->__toString();
-    $input  = Former::text('foo', null, null, array('class' => 'foo', 'bar' => 'bar'))->__toString();
+    $static = Former::text('foo')->class('foo')->data_bar('bar')->__toString();
+    $input  = Former::text('foo', null, null, array('class' => 'foo', 'data-bar' => 'bar'))->__toString();
     $matcher = $this->cg(
       '<label for="foo" class="control-label">Foo</label>',
-      '<input class="foo" bar="bar" type="text" name="foo" id="foo">');
+      '<input class="foo" data-bar="bar" type="text" name="foo" id="foo">');
 
     $this->assertEquals($matcher, $input);
     $this->assertEquals($matcher, $static);
@@ -64,5 +64,18 @@ class InputTest extends FormerTests
 
     $this->assertEquals($matcher, $input);
     $this->assertEquals($matcher, $static);
+  }
+
+  public function testMagicMethods()
+  {
+    foreach(array('mini', 'small', 'medium', 'large', 'xlarge', 'xxlarge') as $size) {
+      $method = $size.'_text';
+      $static = Former::$method('foo')->addClass('bar')->__toString();
+      $matcher = $this->cg(
+        '<label for="foo" class="control-label">Foo</label>',
+        '<input class="input-' .$size. ' bar" type="text" name="foo" id="foo">');
+
+      $this->assertEquals($matcher, $static);
+    }
   }
 }

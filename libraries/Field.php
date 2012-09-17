@@ -75,6 +75,10 @@ abstract class Field
    */
   public function __call($method, $parameters)
   {
+    // Replace underscores
+    $method = str_replace('_', '-', $method);
+
+    // Get value and set it
     $value = array_get($parameters, 0, 'true');
     $this->setAttribute($method, $value);
 
