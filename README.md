@@ -6,6 +6,8 @@ Laravel's original Form class is great — simplistic and full of little helpers
 
 Former is still in beta, it's not yet published on Laravel's bundle repo. It's working, but I encourage you to post any question, idea or bug as an issue on this repo and i'll be there for you (cause you're there for me too).
 
+-----
+
 ## Introduction
 
 Former aims to re-laravelize form creation by transforming each field into its own model, with its own methods and attributes. This means that you can do this sort of stuff :
@@ -30,6 +32,30 @@ Former::textarea('comments', null, null, array('rows' => 10, 'columns' => 20, 'a
 ```
 
 The advantages of the first option being that you can skip arguments. If you want to set one single class on a text field, you don't have to go and set the label and the value and the yada yada to `null`, you just do `Former::text('name')->class('class')`.
+
+## Installation
+
+Installing Former is easy as hell. You just type the following in your Terminal :
+
+```bash
+php artisan bundle:install former
+```
+
+Add the following to your `bundles.php` file :
+
+```php
+return array(
+  'former' => array('auto' => true),
+)
+```
+
+And finally for easier use I recommand adding this alias to your alias array in `application.php` :
+
+```php
+'Former'   => 'Former\Former',
+``
+
+----
 
 ## Out-of-the-box integration to Bootstrap
 
