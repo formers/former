@@ -53,9 +53,11 @@ And finally for easier use I recommand adding this alias to your alias array in 
 
 ```php
 'Former'   => 'Former\Former',
-``
+```
 
 ----
+
+# Features
 
 ## Out-of-the-box integration to Bootstrap
 
