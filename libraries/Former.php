@@ -29,6 +29,19 @@ class Former
   private static $errors;
 
   /**
+   * An array of rules to use
+   * @var array
+   */
+  private static $rules = array();
+
+  /**
+   * An array of the rules usable in live validation
+   * @var array
+   */
+  private static $supportedRules = array(
+    'alpha', 'required', 'max', 'numeric', 'not_numeric');
+
+  /**
    * The type of form we're displaying
    * @var string
    */
@@ -46,7 +59,7 @@ class Former
    * Whether Former should use Bootstrap's syntax
    * @var boolean
    */
-  public static $useBootstrap = false;
+  public static $useBootstrap = true;
 
   // Field types --------------------------------------------------- /
 
@@ -230,6 +243,28 @@ class Former
     static::$errors = $validator;
   }
 
+  public static function withRules($rules)
+  {
+    // Parse the rules according to Laravel conventions
+    foreach($rules as $name => $fieldRules) {
+      foreach(explode('|', $fieldRules) as $rule) {
+
+        // If we have a rule with a value
+        if(($colon = strpos($rule, ':')) !== false) {
+          $parameters = str_getcsv(substr($rule, $colon + 1));
+       }
+
+       // Exclude unsupported rules
+       $rule = is_numeric($colon) ? substr($rule, 0, $colon) : $rule;
+       if(!in_array($rule, static::$supportedRules)) continue;
+
+       // Store processed rule in Former's array
+       if(!isset($parameters)) $parameters = array();
+       static::$rules[$name][$rule] = $parameters;
+      }
+    }
+  }
+
   /**
    * Set the useBootstrap option
    *
@@ -321,6 +356,11 @@ class Former
     if(static::$errors) {
       return static::$errors->first(static::$field->name);
     }
+  }
+
+  public static function getRules($name)
+  {
+    return array_get(static::$rules, $name);
   }
 
   /**

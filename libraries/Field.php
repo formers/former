@@ -59,6 +59,7 @@ abstract class Field
     // Set magic parameters (repopulated value, translated label, etc)
     $this->ponder($name, $label);
     $this->repopulate();
+    $this->addRules();
 
     // Link Control group
     if(Former::$useBootstrap) {
@@ -216,5 +217,33 @@ abstract class Field
     // Save values
     $this->name  = $name;
     $this->label = $label;
+  }
+
+  private function addRules()
+  {
+    // Get the different rules assigned to this field
+    $rules = Former::getRules($this->name);
+    if(!$rules) return false;
+
+    // Iterate through them and add the attributes
+    foreach ($rules as $rule => $parameters) {
+      switch ($rule) {
+        case 'required';
+          $this->required();
+          break;
+        case 'max':
+          $this->attributes['maxlength'] = array_get($parameters, 0);
+          break;
+        case 'numeric':
+          $this->attributes['pattern'] = '[0-9]+';
+          break;
+        case 'not_numeric':
+          $this->attributes['pattern'] = '[^0-9]+';
+          break;
+        case 'alpha':
+          $this->attributes['pattern'] = '[a-zA-Z]+';
+          break;
+      }
+    }
   }
 }
