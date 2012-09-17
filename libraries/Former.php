@@ -115,7 +115,7 @@ class Former
         $callClass = 'Radio';
         break;
       case 'uneditable':
-        $callClass 'Uneditable';
+        $callClass = 'Uneditable';
         break;
       default:
         $callClass = 'Input';
