@@ -170,13 +170,17 @@ For those of you that work on multingual projects, Former is also here to help. 
 
 ```php
 // This
-Former::text('name', __('validation.custom.name'))
+Former::text('name', __('validation.attributes.name'))
+
+Former::checkbox('rules')->text(__('my.translation'))
 
 // Is the same as this
 Former::text('name')
+
+Former::checkbox('rules')->text('my.translation')
 ```
 
-Which you know, is kind of cool. I plan on letting you set where you want Former to look for the translated field names, and add more localization magic in general, but this is all yet to come.
+Which you know, is kind of cool. Former will first try to translate the string in itself, ie `my.text` will return `__('my.text')` and if that fails, it will look for it in a fallback placE. You can set where Former look for translations by changing the following variable : `Former::$translateFrom' (defaults to `validation.attributes`). Note that **it must be an array**.
 
 ----------
 
@@ -185,7 +189,7 @@ Which you know, is kind of cool. I plan on letting you set where you want Former
 ```php
 // Laravel
 <div class="control-group">
-  {{ Form::label('input01', __('validation.custom.input01'), array('class' => 'control-label') )}}
+  {{ Form::label('input01', __('validation.attributes.input01'), array('class' => 'control-label') )}}
   <div class="controls">
     <div class="input-prepend input-append">
       <span class="add-on">@</span>
@@ -199,7 +203,7 @@ Which you know, is kind of cool. I plan on letting you set where you want Former
 // Bootstrapper
 echo Form::prepend_append(
   Form::control_group(
-    Form::label('input01', __('validation.custom.input01')),
+    Form::label('input01', __('validation.attributes.input01')),
     Form::xlarge_text('input01'),
     (Input::get('input01', Input::old('input01', 'myname'))),
     $validation->errors->get('input01'),

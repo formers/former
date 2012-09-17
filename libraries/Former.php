@@ -61,6 +61,12 @@ class Former
    */
   public static $useBootstrap = true;
 
+  /**
+   * The main place where former will look for translations
+   * @var string
+   */
+  public static $translateFrom = 'validation.attributes';
+
   // Field types --------------------------------------------------- /
 
   /**
