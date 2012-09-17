@@ -164,7 +164,7 @@ class ControlGroup
    * @param  string $label A label
    * @return ControlGroup
    */
-  private function setLabel($label, $attributes = array())
+  public function setLabel($label, $attributes = array())
   {
     $this->label = array('label' => $label, 'attributes' => $attributes);
 
