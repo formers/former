@@ -116,6 +116,9 @@ class ControlGroup
    */
   public function inlineHelp($help, $attributes = array())
   {
+    // Attempt to translate help text
+    $help = Helpers::translate($help);
+
     $this->help['inline'] = Helpers::inlineHelp($help, $attributes);
   }
 
@@ -127,6 +130,9 @@ class ControlGroup
    */
   public function blockHelp($help, $attributes = array())
   {
+    // Attempt to translate help text
+    $help = Helpers::translate($help);
+
     $this->help['block'] = Helpers::blockHelp($help, $attributes);
   }
 
