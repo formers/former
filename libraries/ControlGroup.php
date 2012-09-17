@@ -166,9 +166,14 @@ class ControlGroup
    */
   public function setLabel($label, $attributes = array())
   {
-    $this->label = array('label' => $label, 'attributes' => $attributes);
+    // Attempt to translate the label
+    $label = Helpers::translate($label);
+    $label = ucfirst($label);
 
-    return $this;
+    // Set control-group label
+    $this->label = array(
+      'label' => $label,
+      'attributes' => $attributes);
   }
 
   /**
