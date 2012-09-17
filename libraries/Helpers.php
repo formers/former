@@ -1,7 +1,7 @@
 <?php
 namespace Former;
 
-use \HTML;
+use \HTML, \Lang;
 
 class Helpers
 {
@@ -61,11 +61,11 @@ class Helpers
     if(!$fallback) $fallback = $key;
 
     // Search for the key itself
-    $translation = \Lang::line($key)->get(null, '');
+    $translation = Lang::line($key)->get(null, '');
 
     // If not found, search in the field attributes
     if(!$translation) $translation =
-      \Lang::line('validation.attributes.'.$key)->get(null,
+      Lang::line(Former::$translateFrom.'.'.$key)->get(null,
       $fallback);
 
     return ucfirst($translation);
