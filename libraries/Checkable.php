@@ -114,7 +114,7 @@ class Checkable extends Field
 
     return
       '<label class="' .$this->checkable.$isInline. '">' .
-        call_user_func('\Form::'.$this->checkable, $name, 'true', $this->isChecked($name), $this->attributes).
+        call_user_func('\Form::'.$this->checkable, $name, '1', $this->isChecked($name), $this->attributes).
       $label.'</label>';
   }
 
