@@ -39,7 +39,7 @@ class Former
    * @var array
    */
   private static $supportedRules = array(
-    'alpha', 'required', 'max', 'numeric', 'not_numeric');
+    'alpha', 'required', 'min', 'max', 'numeric', 'not_numeric');
 
   /**
    * The type of form we're displaying
@@ -243,6 +243,11 @@ class Former
     static::$errors = $validator;
   }
 
+  /**
+   * Add live validation rules
+   *
+   * @param  array $rules An array of Laravel rules
+   */
   public static function withRules($rules)
   {
     // Parse the rules according to Laravel conventions
@@ -281,6 +286,7 @@ class Former
 
   /**
    * Opens a form dynamically
+   *
    * @param  string $static     The method called
    * @param  array  $parameters Its parameters
    * @return string             A form opening tag
@@ -358,6 +364,12 @@ class Former
     }
   }
 
+  /**
+   * Get a rule from the Rules array
+   *
+   * @param  string $name The field to fetch
+   * @return array        An array of rules
+   */
   public static function getRules($name)
   {
     return array_get(static::$rules, $name);
@@ -375,6 +387,11 @@ class Former
     return static::$field->getControl();
   }
 
+  /**
+   * Get the current field instance
+   *
+   * @return Field
+   */
   public static function field()
   {
     if(!static::$field) return false;

@@ -219,6 +219,9 @@ abstract class Field
     $this->label = $label;
   }
 
+  /**
+   * Add the corresponding rules to the field's attributes
+   */
   private function addRules()
   {
     // Get the different rules assigned to this field
@@ -233,6 +236,9 @@ abstract class Field
           break;
         case 'max':
           $this->attributes['maxlength'] = array_get($parameters, 0);
+          break;
+        case 'min':
+          $this->attributes['minlength'] = array_get($parameters, 0);
           break;
         case 'numeric':
           $this->attributes['pattern'] = '[0-9]+';

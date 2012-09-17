@@ -7,8 +7,7 @@
  */
 namespace Former;
 
-use \HTML,
-    \Bootstrapper\Form;
+use \HTML, \Form;
 
 class ControlGroup
 {
@@ -42,8 +41,16 @@ class ControlGroup
    */
   private $help = null;
 
+  /**
+   * An array of elements to preprend the field
+   * @var array
+   */
   private $prepend = array();
 
+  /**
+   * An array of elements to append the field
+   * @var array
+   */
   private $append = array();
 
   public function __construct($label)
@@ -51,6 +58,7 @@ class ControlGroup
     // Add base class
     $this->attributes['class'] = 'control-group';
 
+    // Set control group label
     $this->setLabel($label);
 
     return $this;
@@ -88,6 +96,11 @@ class ControlGroup
   //////////////////////// PUBLIC INTERFACE //////////////////////////
   ////////////////////////////////////////////////////////////////////
 
+  /**
+   * Set the state of the control group
+   *
+   * @param  string $state A Bootstrap state class
+   */
   public function state($state)
   {
     if(!in_array($state, $this->states)) return false;
@@ -95,16 +108,31 @@ class ControlGroup
     $this->state = $state;
   }
 
+  /**
+   * Add an inline help
+   *
+   * @param  string $help       The help text
+   * @param  array  $attributes Facultative attributes
+   */
   public function inlineHelp($help, $attributes = array())
   {
     $this->help['inline'] = Helpers::inlineHelp($help, $attributes);
   }
 
+  /**
+   * Add an block help
+   *
+   * @param  string $help       The help text
+   * @param  array  $attributes Facultative attributes
+   */
   public function blockHelp($help, $attributes = array())
   {
     $this->help['block'] = Helpers::blockHelp($help, $attributes);
   }
 
+  /**
+   * Prepend elements to the field
+   */
   public function prepend()
   {
     $prepend = func_get_args();
@@ -113,6 +141,9 @@ class ControlGroup
     }
   }
 
+  /**
+   * Append elements to the field
+   */
   public function append()
   {
     $append = func_get_args();
@@ -153,7 +184,7 @@ class ControlGroup
     extract($this->label);
     $attributes = Helpers::addClass($attributes, 'control-label');
 
-    return Form::label($name, $label, $attributes);
+    return \Form::label($name, $label, $attributes);
   }
 
   /**
@@ -167,11 +198,17 @@ class ControlGroup
     $block  = array_get($this->help, 'block');
 
     $errors = Former::getErrors();
-    if ($errors) $inline = Form::inline_help($errors);
+    if ($errors) $inline = Helpers::inlineHelp($errors);
 
     return join(null, array($inline, $block));
   }
 
+  /**
+   * Format the field with prepended/appended elements
+   *
+   * @param  string $field The field to format
+   * @return string        Field plus supplementary elements
+   */
   public function prependAppend($field)
   {
     if(!$this->prepend and !$this->append) return $field;
@@ -191,6 +228,11 @@ class ControlGroup
     return $return;
   }
 
+  /**
+   * Get the Field instance from Former
+   *
+   * @return Field
+   */
   private function field()
   {
     return Former::$field;
