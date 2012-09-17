@@ -57,15 +57,26 @@ What you actually get is the following output :
 
 ----------
 
-So ok, that's already a lot of clutter removed by not having to call the lenghty `Form::control_group()` function. Now I hear you coming : "but you know I still have to manually validate my form and su"— Well no you don't. Enters Former's magic helper `setErrors`; what it does is pretty simple. Since it's already wrapping your nice fields into control groups, it goes the distance, and gently check the `Message` object for any errors that field might have, and set that error as an `.help-inline`. Now we're talking !
+So ok, that's already a lot of clutter removed by not having to call the lenghty `Form::control_group()` function. Now I hear you coming : "but you know I still have to manually validate my form and su"— Well no you don't. Enters Former's magic helper `withErrors`; what it does is pretty simple. Since it's already wrapping your nice fields into control groups, it goes the distance, and gently check the `Message` object for any errors that field might have, and set that error as an `.help-inline`. Now we're talking !
 
 To use it, simply do the following, be it in your controller or in your view (better if you redirect on validation fail) :
 
 ```php
+// Use directly in the controller if rendering the view directly
 if($validation->fails()) {
-  Former::setErrors($validation);
+  Former::withErrors($validation);
   return View::make('myview');
 }
+
+// OR if redirection after a fail
+if($validation->fails()) {
+  return View::make('myview')
+    ->with_errors($validator);
+}
+
+// And then in your view
+{{ Former::withErrors($errors) }}
+
 ```
 
 But what else does it do ? Datalists, it can do datalists. You don't know what they are ? Ok; you know how sometimes you would like to make people chose between something in a select but also being able to type what they want if it's not in it ? That's a datalist. In Former you can simply create one like that :
@@ -169,7 +180,7 @@ echo Form::prepend_append(
 );
 
 // Former
-Former::setErrors($validation);
+Former::withErrors($validation);
 Former::xlarge_text('input01', 'Text input')
   ->blockHelp('This is an help text')
   ->prepend('@')->append('$')
@@ -190,7 +201,7 @@ echo Form::control_group(
 );
 
 // Former
-Former::setErrors($validation);
+Former::withErrors($validation);
 Former::checkboxes('check')->checkboxes('Check me', 'Check me too')
   ->blockHelp('I SAID CHECK THOSE DOUBLES')
 ```

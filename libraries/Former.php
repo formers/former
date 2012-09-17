@@ -206,11 +206,24 @@ class Former
   /**
    * Set the errors to use for validations
    *
-   * @param Message $errors The result from a validation
+   * @param Message $validator The result from a validation
    */
-  public static function setErrors($errors)
+  public static function withErrors($validator)
   {
-    static::$errors = $errors;
+    // If we're given a raw Validator, go fetch the errors in it
+    if($validator instanceof Validator) $validator = $validator->errors;
+
+    static::$errors = $validator;
+  }
+
+  /**
+   * Set the useBootstrap option
+   *
+   * @param  boolean $boolean Whether we should use Bootstrap syntax or not
+   */
+  public function useBootstrap($boolean = true)
+  {
+    static::$useBootstrap = $boolean;
   }
 
   ////////////////////////////////////////////////////////////////////
