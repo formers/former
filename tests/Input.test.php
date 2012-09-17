@@ -49,6 +49,16 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $static);
   }
 
+  public function testMagicAttributeUnvalue()
+  {
+    $static = Former::text('foo')->require()->__toString();
+    $matcher = $this->cg(
+      '<label for="foo" class="control-label">Foo</label>',
+      '<input require="true" type="text" name="foo" id="foo">');
+
+    $this->assertEquals($matcher, $static);
+  }
+
   public function testAddClass()
   {
     $static = Former::text('foo')->class('foo')->addClass('bar')->__toString();

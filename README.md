@@ -154,7 +154,7 @@ What Former will do is look for fields that match the keys and apply the best it
 Note that you can always add custom rules the way you'd add any attributes, since the pattern attribute uses a Regex.
 
 ```php
-Former::number('age')->min(18)
+Former::number('age')->minlength(18)
 
 Former::text('client_code')->pattern('[a-z]{4}[0-9]{2}')
 ```
