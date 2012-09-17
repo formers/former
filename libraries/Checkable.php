@@ -56,7 +56,10 @@ class Checkable extends Field
    */
   public function text($text)
   {
-    $this->text = $text;
+    // In case people try to pass Lang objects
+    if(is_object($text)) $text = $text->get();
+
+    $this->text = Helpers::translate($text);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -79,7 +82,7 @@ class Checkable extends Field
     $count = 0;
     foreach($_items as $name => $label) {
       if(!is_string($name)) $name = $this->name.'_'.$count;
-      $this->items[$name] = $label;
+      $this->items[$name] = Helpers::translate($label);
       $count++;
     }
   }
