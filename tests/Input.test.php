@@ -3,11 +3,6 @@ include 'start.php';
 
 class InputTest extends FormerTests
 {
-  private function cg($label, $input)
-  {
-    return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';
-  }
-
   public function testText()
   {
     $input = Former::text('foo')->__toString();
