@@ -80,7 +80,7 @@ abstract class Checkable extends Field
 
     // Iterate through items, assign a name and a label to each
     $count = 0;
-    foreach($_items as $name => $label) {
+    foreach ($_items as $name => $label) {
       if(!is_string($name)) $name = $this->name.'_'.$count;
       $this->items[$name] = Helpers::translate($label);
       $count++;
@@ -123,11 +123,12 @@ abstract class Checkable extends Field
    */
   public function __toString()
   {
-    if($this->items) {
+    if ($this->items) {
       $html  = null;
-      foreach($this->items as $name => $label) {
+      foreach ($this->items as $name => $label) {
         $html .= $this->createCheckable($name, $label);
       }
+
       return $html;
     }
 

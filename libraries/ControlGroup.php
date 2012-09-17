@@ -142,7 +142,7 @@ class ControlGroup
   public function prepend()
   {
     $prepend = func_get_args();
-    foreach($prepend as $p) {
+    foreach ($prepend as $p) {
       $this->prepend[] = '<span class="add-on">'.$p.'</span>';
     }
   }
@@ -153,7 +153,7 @@ class ControlGroup
   public function append()
   {
     $append = func_get_args();
-    foreach($append as $p) {
+    foreach ($append as $p) {
       if(!($p instanceof \Bootstrapper\Buttons))
         $p = '<span class="add-on">'.$p.'</span>';
       $this->append[] = $p;
@@ -209,7 +209,6 @@ class ControlGroup
 
     $errors = Former::getErrors();
     if ($errors) $inline = Helpers::inlineHelp($errors);
-
     return join(null, array($inline, $block));
   }
 

@@ -95,7 +95,7 @@ class Former
   public static function __callStatic($method, $parameters)
   {
     // Form opener
-    if(str_contains($method, 'open')) {
+    if (str_contains($method, 'open')) {
       return static::openForm($method, $parameters);
     }
 
@@ -104,7 +104,7 @@ class Former
     $method  = array_pop($classes);
 
     // Picking the right class
-    switch($method) {
+    switch ($method) {
       case 'select':
       case 'multiselect':
         $callClass = 'Select';
@@ -148,7 +148,7 @@ class Former
 
     // Add any size we found
     $sizes = array_intersect(static::$FIELD_SIZES, $classes);
-    if($sizes) {
+    if ($sizes) {
       $size = $sizes[key($sizes)];
       static::$field->addClass('input-'.$size);
     }
@@ -183,11 +183,11 @@ class Former
   public function __toString()
   {
     // Dry syntax (hidden fields, plain fields)
-    if(static::$field->type == 'hidden' or
+    if (static::$field->type == 'hidden' or
       static::$formType == 'search' or
       static::$formType == 'inline') {
         $html = static::$field->__toString();
-    } elseif(static::$useBootstrap) {
+    } elseif (static::$useBootstrap) {
 
       // Bootstrap syntax
       $controlGroup = $this->control();
@@ -260,11 +260,11 @@ class Former
   public static function withRules($rules)
   {
     // Parse the rules according to Laravel conventions
-    foreach($rules as $name => $fieldRules) {
-      foreach(explode('|', $fieldRules) as $rule) {
+    foreach ($rules as $name => $fieldRules) {
+      foreach (explode('|', $fieldRules) as $rule) {
 
         // If we have a rule with a value
-        if(($colon = strpos($rule, ':')) !== false) {
+        if (($colon = strpos($rule, ':')) !== false) {
           $parameters = str_getcsv(substr($rule, $colon + 1));
        }
 
@@ -315,8 +315,8 @@ class Former
     if(str_contains($static, 'for_files')) $attributes['enctype'] = 'multipart/form-data';
 
     // Look for a file type
-    foreach(static::$FORM_TYPES as $class) {
-      if(str_contains($static, $class)) {
+    foreach (static::$FORM_TYPES as $class) {
+      if (str_contains($static, $class)) {
         $type = $class;
         break;
       }
@@ -382,7 +382,7 @@ class Former
    */
   public static function getErrors()
   {
-    if(static::$errors) {
+    if (static::$errors) {
       return static::$errors->first(static::$field->name);
     }
   }

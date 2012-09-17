@@ -6,8 +6,6 @@
  */
 namespace Former\Fields;
 
-use Form;
-
 class Radio extends \Former\Checkable
 {
   protected $checkable = 'radio';

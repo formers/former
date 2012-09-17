@@ -62,7 +62,7 @@ abstract class Field
     $this->addRules();
 
     // Link Control group
-    if(Former::$useBootstrap) {
+    if (Former::$useBootstrap) {
       $this->controlGroup = new ControlGroup($this->label);
     }
   }
@@ -135,7 +135,6 @@ abstract class Field
   {
     if(Former::$useBootstrap) $this->controlGroup->setLabel($text);
     else $this->label = $text;
-
     return $this;
   }
 

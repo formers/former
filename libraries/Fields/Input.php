@@ -41,7 +41,7 @@ class Input extends \Former\Field
     $input = Form::input($this->type, $this->name, $this->value, $this->attributes);
 
     // If we have a datalist to append, print it out
-    if($this->datalist) {
+    if ($this->datalist) {
       $input .= self::renderDatalist('datalist_'.$this->name, $this->datalist);
     }
 
@@ -67,7 +67,7 @@ class Input extends \Former\Field
   private function renderDatalist($name, $list)
   {
     $datalist = '<datalist id="' .$name. '">';
-      foreach($list as $key => $value) {
+      foreach ($list as $key => $value) {
         $datalist .= '<option value="' .$value. '">' .$key. '</option>';
       }
     $datalist .= '</datalist>';

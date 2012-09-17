@@ -14,7 +14,7 @@ class Uneditable extends \Former\Fields
   {
     $this->attributes = Helpers::addClass($this->atteibutes, 'uneditable-input');
 
-    return 
+    return
       '<span'.HTML::attributes($attributes).'>'.
         HTML::entities($value).
       '</span>';
