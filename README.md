@@ -6,7 +6,7 @@ Laravel's original Form class is great — simplistic and full of little helpers
 
 Former is still in beta, it's not yet published on Laravel's bundle repo. It's working, but I encourage you to post any question, idea or bug as an issue on this repo and i'll be there for you (cause you're there for me too).
 
-## Introduction
+## Introduction
 
 Former aims to re-laravelize form creation by transforming each field into its own model, with its own methods and attributes. This means that you can do this sort of stuff :
 
@@ -31,7 +31,7 @@ Former::textarea('comments', null, null, array('rows' => 10, 'columns' => 20, 'a
 
 The advantages of the first option being that you can skip arguments. If you want to set one single class on a text field, you don't have to go and set the label and the value and the yada yada to `null`, you just do `Former::text('name')->class('class')`.
 
-## Out-of-the-box integration to Bootstrap
+## Out-of-the-box integration to Bootstrap
 
 So that's pretty nice, but so far that just looks like a modification of Laravel's Form class I mean, what's so Bootstrappy about all that ? That's where the magic underneath lies : Former recognizes when you create an horizontal or veritcal form, and goes the extra mile of wrapping each field in a control group, all behind the scenes.
 That means that when you type this :
@@ -65,7 +65,7 @@ Former::useBootstrap(false);
 Former::useBootstrap();
 ```
 
-## Ties-in with Laravel's Validator
+## Ties-in with Laravel's Validator
 
 So ok, that's already a lot of clutter removed by not having to call the lenghty `Form::control_group()` function. Now I hear you coming : "but you know I still have to manually validate my form and su"— Well no you don't. Enters Former's magic helper `withErrors`; what it does is pretty simple. Since it's already wrapping your nice fields into control groups, it goes the distance, and gently check the `Message` object for any errors that field might have, and set that error as an `.help-inline`. Now we're talking !
 
@@ -89,7 +89,7 @@ if($validation->fails()) {
 
 ```
 
-## Datalists
+## Datalists
 
 But what else does it do ? Datalists, it can do datalists. You don't know what they are ? Ok; you know how sometimes you would like to make people chose between something in a select but also being able to type what they want if it's not in it ? That's a datalist. In Former you can simply create one like that :
 
@@ -99,7 +99,7 @@ Former::text('clients')->useDatalist($clients)
 
 It will automatically generate the corresponding `<datalist>` and link it by `id` to that field. Which means your text input will get populated by the values in your array, while still letting people type whatever they want if they don't find happiness and/or are little pains in the ass.
 
-## Live validation
+## Live validation
 
 MORE. Ok, instant validation, we all like that don't we ? Now as some of you may know, all modern browsers support instant validation via HTML attributes — no Javascript needed nor script nor polyfill. There are a few attributes that can do that kind of job for you, `pattern`, `required`, `max/min` to name a few.
 Now you know when you validate your POST data with that little `$rules` array stuff ? Wouldn't it be awesome to just be able to pass that array to your form and let it transcribe your rules into real-live validation ? Yes ? Because you totally can with Former, just sayin'.
@@ -112,16 +112,30 @@ $rules = array(
 );
 ```
 
-What Former will do is look for fields that match the keys and apply the best it can those rules :
+What Former will do is look for fields that match the keys and apply the best it can those rules. There's not a lot of supported rules for now but I plan on adding more.
 
 ```html
 <input type="text" name="name" required pattern="[a-zA-Z]+" />
 <input type="number" min="18" />
 ```
 
+Note that you can always add custom rules the way you'd add any attributes, since the pattern attribute uses a Regex.
+
+```php
+Former::number('age')->min(18)
+
+Former::text('client_code')->pattern('[a-z]{4}[0-9]{2}')
+```
+
 And that's it ! And the best news : since Bootstrap recognizes live validation, if say you try to type something that doesn't match the `alpha` pattern in your name field, it will automatically turn red just like when your control group is set to `error`. Just like that, fingers snappin' and all, nothing to do but sit back, relax, and watch Chrome/Firefox/whatever pop up a sweet little box saying "You have to fill that field dude".
 
-## Checkboxes and Radios
+You can also, mid-course, manually set the state of a control group — that's a feature of course available only if you're using Bootstrap's syntax. You can use any of the control group states which include `success`, `warning`, `error` and `info`.
+
+```php
+Former::text('name')->state('error')
+```
+
+## Checkboxes and Radios
 
 Checkboxes and radios, man, aren't those annoying ? Even more when you have to create several of them, and you think in your head "WHY CAN'T I VALIDATE ALL THESE LIMES ?". With Former it's all a little easier :
 
