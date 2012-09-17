@@ -23,6 +23,12 @@ abstract class Field
   protected $value;
 
   /**
+   * A label for the field (if not using Bootstrap)
+   * @var string
+   */
+  protected $label;
+
+  /**
    * The field attributes
    * @var array
    */
@@ -55,7 +61,9 @@ abstract class Field
     $this->repopulate();
 
     // Link Control group
-    $this->controlGroup = new ControlGroup($this->label);
+    if(Former::$useBootstrap) {
+      $this->controlGroup = new ControlGroup($this->label);
+    }
   }
 
   /**
@@ -113,14 +121,15 @@ abstract class Field
   }
 
   /**
-   * Adds a label to the control group
+   * Adds a label to the control group/field
    *
    * @param  string $text A label
    * @return Field        A field
    */
   public function label($text)
   {
-    $this->controlGroup->setLabel($text);
+    if(Former::$useBootstrap) $this->controlGroup->setLabel($text);
+    else $this->label = $text;
 
     return $this;
   }

@@ -42,6 +42,12 @@ class Former
    */
   public static $requiredClass = 'required';
 
+  /**
+   * Whether Former should use Bootstrap's syntax
+   * @var boolean
+   */
+  public static $useBootstrap = false;
+
   // Field types --------------------------------------------------- /
 
   /**
@@ -141,6 +147,7 @@ class Former
       ? $this->control()
       : static::$field;
 
+    // Call the function on the corresponding class
     call_user_func_array(array($object, $method), $parameters);
 
     return $this;
@@ -153,12 +160,14 @@ class Former
    */
   public function __toString()
   {
-    // Hidden fields don't need no control group
+    // Dry syntax (hidden fields, plain fields)
     if(static::$field->type == 'hidden' or
       static::$formType == 'search' or
       static::$formType == 'inline') {
         $html = static::$field->__toString();
-    } else {
+    } elseif(static::$useBootstrap) {
+
+      // Bootstrap syntax
       $controlGroup = $this->control();
 
       $html = $controlGroup->open();
@@ -168,6 +177,11 @@ class Former
           $html .= $controlGroup->getHelp();
         $html .= '</div>';
       $html .= $controlGroup->close();
+    } else {
+
+      // Classic syntax
+      $html = \Form::label(static::$field->name, static::$field->label);
+      $html .= static::$field;
     }
 
     // Destroy field instance
