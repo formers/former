@@ -39,12 +39,13 @@ That means that when you type this :
 ```php
 Former::select('clients')->options($clients, 2)
   ->inlineHelp('Pick some dude')
+  ->state('warning')
 ```
 
 What you actually get is the following output :
 
 ```html
-<div class='control-group'>
+<div class='control-group warning'>
   <label for='clients'>Clients</label>
   <select name='clients'>
     <option value='0'>Michael</option>
@@ -80,7 +81,7 @@ if($validation->fails()) {
 
 // OR if redirection after a fail
 if($validation->fails()) {
-  return View::make('myview')
+  return Redirect::to('login')
     ->with_errors($validator);
 }
 
