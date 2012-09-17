@@ -5,7 +5,7 @@ Session::start('file');
 
 class FormerTests extends PHPUnit_Framework_TestCase
 {
-  private function cg($label, $input)
+  protected function cg($label, $input)
   {
     return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';
   }
