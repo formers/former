@@ -3,7 +3,7 @@ namespace Former;
 
 use \Form;
 
-class Checkable extends Field
+abstract class Checkable extends Field
 {
   /**
    * Renders the checkables as inline
