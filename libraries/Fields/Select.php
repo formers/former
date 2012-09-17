@@ -23,8 +23,8 @@ class Select extends \Former\Field
    */
   public function __construct($type, $name, $label, $options, $selected, $attributes)
   {
-    $this->options = $options;
-    $this->value = $selected;
+    if($options) $this->options = $options;
+    if($value) $this->value = $selected;
 
     parent::__construct($type, $name, $label, $selected, $attributes);
   }
