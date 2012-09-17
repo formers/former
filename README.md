@@ -6,6 +6,8 @@ Laravel's original Form class is great — simplistic and full of little helpers
 
 Former is still in beta, it's not yet published on Laravel's bundle repo. It's working, but I encourage you to post any question, idea or bug as an issue on this repo and i'll be there for you (cause you're there for me too).
 
+-----
+
 ## Introduction
 
 Former aims to re-laravelize form creation by transforming each field into its own model, with its own methods and attributes. This means that you can do this sort of stuff :
@@ -33,6 +35,32 @@ The advantages of the first option being that you can skip arguments. If you wan
 
 Everytime you call a method that doesn't actually exist, Former assumes you're trying to set an attribute and creates it magically. That's why you can do in the above example `->rows(10)` ; in case you want to set attributes that contain dashes, just replace them by underscores : `->data_foo('bar')` equals `data-foo="bar"`.
 Now of course in case you want to set an attribute that actually contains an underscore (jeez aren't you the little smartass) you can always use the fallback method `setAttribute('data_foo', 'bar')`. You're welcome.
+
+## Installation
+
+Installing Former is easy as hell. You just type the following in your Terminal :
+
+```bash
+php artisan bundle:install former
+```
+
+Add the following to your `bundles.php` file :
+
+```php
+return array(
+  'former' => array('auto' => true),
+)
+```
+
+And finally for easier use I recommand adding this alias to your alias array in `application.php` :
+
+```php
+'Former'   => 'Former\Former',
+```
+
+----
+
+# Features
 
 ## Out-of-the-box integration to Bootstrap
 
@@ -169,17 +197,21 @@ It also repopulates it, meaning a checked input will stay checked on submit.
 
 ## Localization helpers
 
-For those of you that work on multingual projects, Former is also here to help. By default, when creating a field, if no label is specified Former will use the field name by default. But more importantly it will try and translate it automatically, which means the following :
+For those of you that work on multingual projects, Former is also here to help. By default, when creating a field, if no label is specified Former will use the field name by default. But more importantly it will try and translate it automatically. Same goes for checkboxes labels and form legends. Which means the following :
 
 ```php
 // This
-Former::text('name', __('validation.custom.name'))
+Former::text('name', __('validation.attributes.name'))
+Former::checkbox('rules')->text(__('my.translation'))
+<legend>{{ __('validation.attributes.mylegend') }}</legend>
 
 // Is the same as this
 Former::text('name')
+Former::checkbox('rules')->text('my.translation')
+Former::legend('mylegend')
 ```
 
-Which you know, is kind of cool. I plan on letting you set where you want Former to look for the translated field names, and add more localization magic in general, but this is all yet to come.
+Which you know, is kind of cool. Former will first try to translate the string in itself, ie `my.text` will return `__('my.text')` and if that fails, it will look for it in a fallback placE. You can set where Former look for translations by changing the following variable : `Former::$translateFrom' (defaults to `validation.attributes`). Note that **it must be an array**.
 
 ----------
 
@@ -188,7 +220,7 @@ Which you know, is kind of cool. I plan on letting you set where you want Former
 ```php
 // Laravel
 <div class="control-group">
-  {{ Form::label('input01', __('validation.custom.input01'), array('class' => 'control-label') )}}
+  {{ Form::label('input01', __('validation.attributes.input01'), array('class' => 'control-label') )}}
   <div class="controls">
     <div class="input-prepend input-append">
       <span class="add-on">@</span>
@@ -202,7 +234,7 @@ Which you know, is kind of cool. I plan on letting you set where you want Former
 // Bootstrapper
 echo Form::prepend_append(
   Form::control_group(
-    Form::label('input01', __('validation.custom.input01')),
+    Form::label('input01', __('validation.attributes.input01')),
     Form::xlarge_text('input01'),
     (Input::get('input01', Input::old('input01', 'myname'))),
     $validation->errors->get('input01'),

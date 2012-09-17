@@ -61,6 +61,12 @@ class Former
    */
   public static $useBootstrap = true;
 
+  /**
+   * The main place where former will look for translations
+   * @var string
+   */
+  public static $translateFrom = 'validation.attributes';
+
   // Field types --------------------------------------------------- /
 
   /**
@@ -332,6 +338,20 @@ class Former
   public static function close()
   {
     return '</close>';
+  }
+
+  /**
+   * Creates a form legend
+   *
+   * @param  string $legend     The text
+   * @param  array  $attributes Its attributes
+   * @return string             A legend tag
+   */
+  public static function legend($legend, $attributes = array())
+  {
+    $legend = Helpers::translate($legend);
+
+    return '<legend'.\HTML::attributes($attributes).'>' .$legend. '</legend>';
   }
 
   /**

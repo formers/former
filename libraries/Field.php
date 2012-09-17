@@ -216,7 +216,6 @@ abstract class Field
 
     // Attempt to translate the label
     $label = Helpers::translate($label);
-    $label = ucfirst($label);
 
     // Save values
     $this->name  = $name;

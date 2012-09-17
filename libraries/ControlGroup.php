@@ -168,7 +168,6 @@ class ControlGroup
   {
     // Attempt to translate the label
     $label = Helpers::translate($label);
-    $label = ucfirst($label);
 
     // Set control-group label
     $this->label = array(
