@@ -341,6 +341,20 @@ class Former
   }
 
   /**
+   * Creates a form legend
+   *
+   * @param  string $legend     The text
+   * @param  array  $attributes Its attributes
+   * @return string             A legend tag
+   */
+  public static function legend($legend, $attributes = array())
+  {
+    $legend = Helpers::translate($legend);
+
+    return '<legend'.\HTML::attributes($attributes).'>' .$legend. '</legend>';
+  }
+
+  /**
    * Writes the form actions
    *
    * @return string A .form-actions block

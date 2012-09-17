@@ -166,18 +166,18 @@ It also repopulates it, meaning a checked input will stay checked on submit.
 
 ## Localization helpers
 
-For those of you that work on multingual projects, Former is also here to help. By default, when creating a field, if no label is specified Former will use the field name by default. But more importantly it will try and translate it automatically, which means the following :
+For those of you that work on multingual projects, Former is also here to help. By default, when creating a field, if no label is specified Former will use the field name by default. But more importantly it will try and translate it automatically. Same goes for checkboxes labels and form legends. Which means the following :
 
 ```php
 // This
 Former::text('name', __('validation.attributes.name'))
-
 Former::checkbox('rules')->text(__('my.translation'))
+<legend>{{ __('validation.attributes.mylegend') }}</legend>
 
 // Is the same as this
 Former::text('name')
-
 Former::checkbox('rules')->text('my.translation')
+Former::legend('mylegend')
 ```
 
 Which you know, is kind of cool. Former will first try to translate the string in itself, ie `my.text` will return `__('my.text')` and if that fails, it will look for it in a fallback placE. You can set where Former look for translations by changing the following variable : `Former::$translateFrom' (defaults to `validation.attributes`). Note that **it must be an array**.
