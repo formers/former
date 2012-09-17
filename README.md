@@ -4,6 +4,8 @@
 Former is the name of a little project I'd like to present you — it's a bundle, a superset of Bootstrapper, and a really nice guy too.
 Laravel's original Form class is great — simplistic and full of little helpers, but a tad unelegant compared to the rest of the framework. When you add Bootstrapper classes above it, it just becomes intoxicating ; the mere amount of lines you need to type to create a five fields form with control groups is simply discouraging.
 
+Former is still in beta, it's not yet published on Laravel's bundle repo. It's working, but I encourage you to post any question, idea or bug as an issue on this repo and i'll be there for you (cause you're there for me too).
+
 ----------
 
 Former aims to re-laravelize form creation by transforming each field into its own model, with its own methods and attributes. This means that you can do this sort of stuff :
@@ -57,6 +59,15 @@ What you actually get is the following output :
 
 So ok, that's already a lot of clutter removed by not having to call the lenghty `Form::control_group()` function. Now I hear you coming : "but you know I still have to manually validate my form and su"— Well no you don't. Enters Former's magic helper `setErrors`; what it does is pretty simple. Since it's already wrapping your nice fields into control groups, it goes the distance, and gently check the `Message` object for any errors that field might have, and set that error as an `.help-inline`. Now we're talking !
 
+To use it, simply do the following, be it in your controller or in your view (better if you redirect on validation fail) :
+
+```php
+if($validation->fails()) {
+  Former::setErrors($validation);
+  return View::make('myview');
+}
+```
+
 But what else does it do ? Datalists, it can do datalists. You don't know what they are ? Ok; you know how sometimes you would like to make people chose between something in a select but also being able to type what they want if it's not in it ? That's a datalist. In Former you can simply create one like that :
 
 ```php
@@ -85,8 +96,6 @@ What Former will do is look for fields that match the keys and apply the best it
 
 And that's it ! And the best news : since Bootstrap recognizes live validation, if say you try to type something that doesn't match the `alpha` pattern in your name field, it will automatically turn red just like when your control group is set to `error`. Just like that, fingers snappin' and all, nothing to do but sit back, relax, and watch Chrome/Firefox/whatever pop up a sweet little box saying "You have to fill that field dude".
 
-There are a lot of tweaks and changes, things to make your life easier.
-
 ----------
 
 Checkboxes and radios, man, aren't those annoying ? Even more when you have to create several of them, and you think in your head "WHY CAN'T I VALIDATE ALL THESE LIMES ?". With Former it's all a little easier :
@@ -98,14 +107,18 @@ Former::checkbox('checkme')
 // Create a one-off checkbox with a text
 Former::checkbox('checkme')->text('YO CHECK THIS OUT')
 
-// Create five related checkboxes
-Former::checkboxes('checkme')->checkboxes('first', 'second', 'third', 'fourth')
+// Create four related checkboxes
+Former::checkboxes('checkme')
+  ->checkboxes('first', 'second', 'third', 'fourth')
 
-// Create five related checkboxes, and inline them
-Former::checkboxes('checkme')->checkboxes($checkboxes)->inline()
+// Create related checkboxes, and inline them
+Former::checkboxes('checkme')
+  ->checkboxes($checkboxes)->inline()
 
 // Everything that works on a checkbox also works on a radio element
-Former::radios('radio')->radios(array('value' => 'text', 'value' => 'text'))->stacked()
+Former::radios('radio')
+  ->radios(array('value' => 'text', 'value' => 'text'))
+  ->stacked()
 ```
 
 When creating checkables via the checkboxes/radios() method, by default for each checkable name attribute it will use the original name you specified and append it a number (here in our exemple it would be `<input type="checkbox" name="checkme_2">`).
