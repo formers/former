@@ -73,7 +73,10 @@ class Former
    * The available input sizes
    * @var array
    */
-  private static $FIELD_SIZES = array('mini', 'small', 'medium', 'large', 'xlarge', 'xxlarge');
+  private static $FIELD_SIZES = array(
+    'mini', 'small', 'medium', 'large', 'xlarge', 'xxlarge',
+    'span1', 'span2', 'span3', 'span4', 'span5', 'span6', 'span7',
+    'span8', 'span9', 'span10', 'span11', 'span12');
 
   /**
    * The available form types
