@@ -108,28 +108,23 @@ class Former
     $method  = array_pop($classes);
 
     // Picking the right class
-    switch ($method) {
-      case 'select':
-      case 'multiselect':
-        $callClass = 'Select';
-        break;
-      case 'checkbox':
-      case 'checkboxes':
-        $callClass = 'Checkbox';
-        break;
-      case 'textarea':
-        $callClass = 'Textarea';
-        break;
-      case 'radio':
-      case 'radios':
-        $callClass = 'Radio';
-        break;
-      case 'uneditable':
-        $callClass = 'Uneditable';
-        break;
-      default:
-        $callClass = 'Input';
-        break;
+    if(class_exists('\Former\Fields\\'.ucfirst($method))) {
+      $callClass = ucfirst($method);
+    } else {
+      switch ($method) {
+        case 'multiselect':
+          $callClass = 'Select';
+          break;
+        case 'checkboxes':
+          $callClass = 'Checkbox';
+          break;
+        case 'radios':
+          $callClass = 'Radio';
+          break;
+        default:
+          $callClass = 'Input';
+          break;
+      }
     }
 
     // Listing parameters
