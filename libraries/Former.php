@@ -39,7 +39,8 @@ class Former
    * @var array
    */
   private static $supportedRules = array(
-    'alpha', 'required', 'min', 'max', 'numeric', 'not_numeric');
+    'alpha', 'required', 'min', 'max', 'numeric', 'not_numeric',
+    'between', 'in', 'not_in', 'match');
 
   /**
    * The type of form we're displaying

@@ -247,13 +247,27 @@ abstract class Field
           $this->attributes['minlength'] = array_get($parameters, 0);
           break;
         case 'numeric':
-          $this->attributes['pattern'] = '[0-9]+';
+          $this->attributes['pattern'] = '\d+';
           break;
         case 'not_numeric':
-          $this->attributes['pattern'] = '[^0-9]+';
+          $this->attributes['pattern'] = '\D+';
           break;
         case 'alpha':
           $this->attributes['pattern'] = '[a-zA-Z]+';
+          break;
+        case 'between':
+          list($min, $max) = $parameters;
+          $this->attributes['min'] = $min;
+          $this->attributes['max'] = $max;
+          break;
+        case 'in':
+          $this->attributes['pattern'] = '^(' .join('|', $parameters). ')$';
+          break;
+        case 'not_in':
+          $this->attributes['pattern'] = '(?:(?!^' .join('$|^', $parameters). '$).)*';
+          break;
+        case 'match':
+          $this->attributes['pattern'] = substr($parameters[0], 1, -1);
           break;
       }
     }
