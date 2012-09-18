@@ -8,9 +8,11 @@ class CheckboxTest extends FormerTests
     return '<label class="checkbox"><input id="foo" type="checkbox" name="' .$name. '" value="' .$value. '">' .$label. '</label>';
   }
 
-  private function cx($name = 'foo', $label = null, $value = 1)
+  private function cx($name = 'foo', $label = null, $value = 1, $inline = false)
   {
-    return '<label class="checkbox"><input type="checkbox" name="' .$name. '" value="' .$value. '">' .$label. '</label>';
+    $inline = $inline ? ' inline' : null;
+
+    return '<label class="checkbox' .$inline. '"><input type="checkbox" name="' .$name. '" value="' .$value. '">' .$label. '</label>';
   }
 
   public function testSingle()
@@ -33,6 +35,14 @@ class CheckboxTest extends FormerTests
   {
     $checkboxes = Former::checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
     $matcher = $this->cg($this->cx('foo_0', 'Foo').$this->cx('foo_1', 'Bar'));
+
+    $this->assertEquals($matcher, $checkboxes);
+  }
+
+  public function testInline()
+  {
+    $checkboxes = Former::inline_checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
+    $matcher = $this->cg($this->cx('foo_0', 'Foo', 1, true).$this->cx('foo_1', 'Bar', 1, true));
 
     $this->assertEquals($matcher, $checkboxes);
   }

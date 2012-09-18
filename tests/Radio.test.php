@@ -1,9 +1,11 @@
 <?php
 class RadioTest extends FormerTests
 {
-  private function r($name = 'foo', $label = null, $value = 1)
+  private function r($name = 'foo', $label = null, $value = 1, $inline = false)
   {
-    return '<label class="radio"><input id="foo" type="radio" name="' .$name. '" value="' .$value. '">' .$label. '</label>';
+    $inline = $inline ? ' inline' : null;
+
+    return '<label class="radio' .$inline. '"><input id="foo" type="radio" name="' .$name. '" value="' .$value. '">' .$label. '</label>';
   }
 
   private function rx($name = 'foo', $label = null, $value = 1)
@@ -31,6 +33,14 @@ class RadioTest extends FormerTests
   {
     $radios = Former::radios('foo')->radios('foo', 'bar')->__toString();
     $matcher = $this->cg($this->r('foo', 'Foo', 0).$this->r('foo', 'Bar'));
+
+    $this->assertEquals($matcher, $radios);
+  }
+
+  public function testInline()
+  {
+    $radios = Former::inline_radios('foo')->radios('foo', 'bar')->__toString();
+    $matcher = $this->cg($this->r('foo', 'Foo', 0, true).$this->r('foo', 'Bar', 1, true));
 
     $this->assertEquals($matcher, $radios);
   }
