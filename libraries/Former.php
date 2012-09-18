@@ -308,7 +308,7 @@ class Former
     $attributes = array_get($parameters, 1);
 
     // Look for HTTPS form
-    if(str_contains($static, 'secure')) $scure = true;
+    if(str_contains($static, 'secure')) $secure = true;
 
     // Look for file form
     if(str_contains($static, 'for_files')) $attributes['enctype'] = 'multipart/form-data';
