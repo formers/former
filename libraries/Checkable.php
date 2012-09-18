@@ -81,8 +81,14 @@ abstract class Checkable extends Field
     // Iterate through items, assign a name and a label to each
     $count = 0;
     foreach ($_items as $name => $label) {
-      if(!is_string($name)) $name = $this->name.'_'.$count;
-      $this->items[$name] = Helpers::translate($label);
+
+      // If we haven't any name defined for the checkable, try to compute some
+      if(!is_string($name)) {
+        $name = $this->name;
+        if($this->checkable == 'checkbox') $name .= '_'.$count;
+      }
+
+      $this->items[] = array('name' => $name, 'label' => Helpers::translate($label));
       $count++;
     }
   }
@@ -107,14 +113,14 @@ abstract class Checkable extends Field
    * @param  string $label Its value
    * @return string        A checkable item
    */
-  protected function createCheckable($name, $label)
+  protected function createCheckable($name, $label, $value = 1)
   {
     // If inline items, add class
     $isInline = $this->inline ? ' inline' : null;
 
     return
       '<label class="' .$this->checkable.$isInline. '">' .
-        call_user_func('\Form::'.$this->checkable, $name, '1', $this->isChecked($name), $this->attributes).
+        call_user_func('\Form::'.$this->checkable, $name, $value, $this->isChecked($name), $this->attributes).
       $label.'</label>';
   }
 
@@ -124,9 +130,11 @@ abstract class Checkable extends Field
   public function __toString()
   {
     if ($this->items) {
-      $html  = null;
-      foreach ($this->items as $name => $label) {
-        $html .= $this->createCheckable($name, $label);
+      $html = null;
+      foreach ($this->items as $key => $item) {
+        extract($item);
+        $value = $this->checkable == 'checkbox' ? 1 : $key;
+        $html .= $this->createCheckable($name, $label, $value);
       }
 
       return $html;
