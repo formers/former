@@ -151,10 +151,10 @@ class Former
     }
 
     // Add any size we found
-    $sizes = array_intersect(static::$FIELD_SIZES, $classes);
-    if ($sizes) {
+    if ($sizes = array_intersect(static::$FIELD_SIZES, $classes)) {
       $size = $sizes[key($sizes)];
-      static::$field->addClass('input-'.$size);
+      $size = starts_with($size, 'span') ? $size : 'input-'.$size;
+      static::$field->addClass($size);
     }
 
     return new Former;
