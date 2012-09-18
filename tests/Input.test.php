@@ -1,6 +1,4 @@
 <?php
-include 'start.php';
-
 class InputTest extends FormerTests
 {
   public function testText()

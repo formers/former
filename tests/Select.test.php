@@ -23,7 +23,7 @@ class SelectTest extends FormerTests
   {
     $select = Former::select('foo')->data_foo('bar')->options($this->options, 'kal')->__toString();
     $matcher = $this->cg(
-    '<select data-foo="bar"id="foo" name="foo">'.
+    '<select data-foo="bar" id="foo" name="foo">'.
       '<option value="foo">bar</option>'.
       '<option value="kal" selected="selected">ter</option>'.
     '</select>');
