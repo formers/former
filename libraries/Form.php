@@ -1,10 +1,9 @@
 <?php
 /**
  *
- * Field
+ * Form
  *
- * Abstracts general fields parameters (type, value, name) and
- * reforms a correct form field depending on what was asked
+ * Construct and maanges the form wrapping all fields
  */
 namespace Former;
 
