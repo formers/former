@@ -17,6 +17,12 @@ class Former
   private static $field;
 
   /**
+   * The current form being worked on
+   * @var Form
+   */
+  private static $form;
+
+  /**
    * Values populating the form
    * @var array
    */
@@ -79,12 +85,6 @@ class Former
     'span1', 'span2', 'span3', 'span4', 'span5', 'span6', 'span7',
     'span8', 'span9', 'span10', 'span11', 'span12');
 
-  /**
-   * The available form types
-   * @var array
-   */
-  private static $FORM_TYPES = array('horizontal', 'vertical', 'inline', 'search');
-
   ////////////////////////////////////////////////////////////////////
   //////////////////////////// INTERFACE /////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -100,7 +100,7 @@ class Former
   {
     // Form opener
     if (str_contains($method, 'open')) {
-      return static::openForm($method, $parameters);
+      return static::form()->open($method, $parameters);
     }
 
     // Checking for any supplementary classes
@@ -305,50 +305,16 @@ class Former
   ////////////////////////////////////////////////////////////////////
 
   /**
-   * Opens a form dynamically
-   *
-   * @param  string $static     The method called
-   * @param  array  $parameters Its parameters
-   * @return string             A form opening tag
-   */
-  private static function openForm($static, $parameters)
-  {
-    $method     = 'POST';
-    $secure     = false;
-    $type       = 'vertical';
-    $action     = array_get($parameters, 0);
-    $attributes = array_get($parameters, 1);
-
-    // Look for HTTPS form
-    if(str_contains($static, 'secure')) $secure = true;
-
-    // Look for file form
-    if(str_contains($static, 'for_files')) $attributes['enctype'] = 'multipart/form-data';
-
-    // Look for a file type
-    foreach (static::$FORM_TYPES as $class) {
-      if (str_contains($static, $class)) {
-        $type = $class;
-        break;
-      }
-    }
-    $attributes = Helpers::addClass($attributes, 'form-'.$class);
-
-    // Store current form's type
-    static::$formType = $class;
-
-    // Open the form
-    return \Form::open($action, $method, $attributes, $secure);
-  }
-
-  /**
    * Closes a form
    *
    * @return string A form closing tag
    */
   public static function close()
   {
-    return '</form>';
+    static::$form->close();
+
+    // Destroy Form instance
+    static::$form = null;
   }
 
   /**
@@ -419,6 +385,18 @@ class Former
     if(!static::$field) return false;
 
     return static::$field->getControl();
+  }
+
+  /**
+   * Returns the current Form
+   *
+   * @return Form
+   */
+  public static function form()
+  {
+    if (!static::$form) static::$form = new Form;
+
+    return static::$form;
   }
 
   /**

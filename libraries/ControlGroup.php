@@ -7,7 +7,7 @@
  */
 namespace Former;
 
-use \HTML, \Form;
+use \HTML;
 
 class ControlGroup
 {
