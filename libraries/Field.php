@@ -139,13 +139,26 @@ abstract class Field
   }
 
   /**
-   * Set the Field value
+   * Set the Field value no matter what
    *
    * @param string $value A new value
    */
-  public function value($value)
+  public function forceValue($value)
   {
     $this->value = $value;
+  }
+
+  /**
+   * Classic setting of attribute, won't overwrite any populate() attempt
+   *
+   * @param  string $value A new value
+   */
+  public function value($value)
+  {
+    // Check if we already have a value stored for this field or in POST data
+    $already = Former::getValue($this->name) or Former::getPost($this->name);
+
+    if(!$already) $this->value = $value;
   }
 
   /**

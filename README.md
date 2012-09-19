@@ -213,6 +213,15 @@ Former::legend('mylegend')
 
 Which you know, is kind of cool. Former will first try to translate the string in itself, ie `my.text` will return `__('my.text')` and if that fails, it will look for it in a fallback placE. You can set where Former look for translations by changing the following variable : `Former::$translateFrom' (defaults to `validation.attributes`). Note that **it must be an array**.
 
+## Notes on setting field values
+
+All form classes encounter a problem at one point : what kind of data takes precedence over what kind ? To populate your field, Former set the following priorities to found values :
+
+* POST data takes precedence over everything – if a user just typed something in a field, chances are this *is* what they want to see in it next time
+* Then comes data set via the `->forceValue()` method – it's a special branch of `->value()` created to force a value in a field no matter what happens
+* Then any values set via `Former::populate()` – that means that if you're editing something or are repopulating with some value, it can be overwritten with `forceValue`
+* Finally the classic `->value()` gets the least priority – it is created for minimum and default field values and thus gets overwritten by population and POST data
+
 ----------
 
 # ULTIMATE SHOWDOWN
