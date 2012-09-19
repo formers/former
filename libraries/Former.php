@@ -348,7 +348,7 @@ class Former
    */
   public static function close()
   {
-    return '</close>';
+    return '</form>';
   }
 
   /**
