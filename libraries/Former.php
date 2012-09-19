@@ -239,6 +239,18 @@ class Former
   }
 
   /**
+   * Fetch a field value from both the new and old POST array
+   *
+   * @param  string $name     A field name
+   * @param  string $fallback A fallback if nothing was found
+   * @return string           The results
+   */
+  public static function getPost($name, $fallback = null)
+  {
+    return \Input::get($name, \Input::old($name, $fallback));
+  }
+
+  /**
    * Set the errors to use for validations
    *
    * @param Message $validator The result from a validation

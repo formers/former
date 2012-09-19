@@ -101,7 +101,7 @@ abstract class Checkable extends Field
   protected function isChecked($name = null)
   {
     if(!$name) $name = $this->name;
-    $value = \Input::get($name, \Input::old($name));
+    $value = Former::getPost($name);
 
     return $value ? true : false;
   }

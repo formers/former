@@ -199,7 +199,7 @@ abstract class Field
     if(!$value) $value = $this->value;
 
     // Overwrite value by POST if present
-    $value = \Input::get($this->name, \Input::old($this->name, $value));
+    $value = Former::getPost($this->name, $value);
 
     $this->value = $value;
   }
