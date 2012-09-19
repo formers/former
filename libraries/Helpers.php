@@ -60,6 +60,9 @@ class Helpers
   {
     if(!$fallback) $fallback = $key;
 
+    // Assure we don't already have a Lang object
+    if($key instanceof Lang) return $key->get();
+
     // Search for the key itself
     $translation = Lang::line($key)->get(null, '');
 
