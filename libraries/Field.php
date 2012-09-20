@@ -134,7 +134,7 @@ abstract class Field
   public function label($text)
   {
     if(Former::$useBootstrap) $this->controlGroup->setLabel($text);
-    else $this->label = $text;
+    else $this->label = Helpers::translate($text);
     return $this;
   }
 
