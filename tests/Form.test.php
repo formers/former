@@ -1,12 +1,18 @@
 <?php
 class FormTest extends FormerTests
 {
-  public function createMatcher($type = 'horizontal', $forFiles = false)
+  // Helpers ------------------------------------------------------- /
+
+  public function createMatcher($type = 'horizontal', $forFiles = false, $action = '#')
   {
     $forFiles = $forFiles ? 'enctype="multipart/form-data" ' : null;
 
-    return '<form ' .$forFiles. 'class="form-' .$type. '" method="POST" action="#" accept-charset="UTF-8">';
+    return '<form ' .$forFiles. 'class="form-' .$type. '" method="POST" action="' .$action. '" accept-charset="UTF-8">';
   }
+
+  // Tests --------------------------------------------------------- /
+
+  // Basic tests
 
   public function testClose()
   {
@@ -22,6 +28,8 @@ class FormTest extends FormerTests
 
     $this->assertEquals($matcher, $open);
   }
+
+  // __callStatic tests
 
   public function testHorizontalOpen()
   {
@@ -63,6 +71,8 @@ class FormTest extends FormerTests
     $this->assertEquals($matcher, $open);
   }
 
+  // Combining features
+
   public function testInlineFilesOpen()
   {
     $open = Former::inline_open_for_files('#');
@@ -73,8 +83,8 @@ class FormTest extends FormerTests
 
   public function testSecureInlineFilesOpen()
   {
-    $open = Former::inline_secure_open_for_files('#');
-    $matcher = $this->createMatcher('inline', true);
+    $open = Former::inline_secure_open_for_files(url('foo'));
+    $matcher = $this->createMatcher('inline', true, 'https://:/http://:/foo');
 
     $this->assertEquals($matcher, $open);
   }
