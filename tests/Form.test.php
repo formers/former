@@ -85,8 +85,8 @@ class FormTest extends FormerTests
 
   public function testSecureInlineFilesOpen()
   {
-    $open = Former::inline_secure_open_for_files(url('foo'));
-    $matcher = $this->createMatcher('inline', true, 'https://:/http://:/foo');
+    $open = Former::inline_secure_open_for_files('#');
+    $matcher = $this->createMatcher('inline', true);
 
     $this->assertEquals($matcher, $open);
   }
