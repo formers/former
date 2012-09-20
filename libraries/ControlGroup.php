@@ -269,14 +269,4 @@ class ControlGroup
       $this->{$place}[] = $i;
     }
   }
-
-  /**
-   * Get the Field instance from Former
-   *
-   * @return Field
-   */
-  private function field()
-  {
-    return Former::$field;
-  }
 }
