@@ -43,10 +43,22 @@ class CheckboxTest extends FormerTests
 
   public function testInline()
   {
-    $checkboxes = Former::inline_checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
+    $checkboxes1 = Former::inline_checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
+    $checkboxes2 = Former::checkboxes('foo')->inline()->checkboxes('foo', 'bar')->__toString();
     $matcher = $this->cg($this->cx('foo_0', 'Foo', 1, true).$this->cx('foo_1', 'Bar', 1, true));
 
-    $this->assertEquals($matcher, $checkboxes);
+    $this->assertEquals($matcher, $checkboxes1);
+    $this->assertEquals($matcher, $checkboxes2);
+  }
+
+  public function testStacked()
+  {
+    $checkboxes1 = Former::stacked_checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
+    $checkboxes2 = Former::checkboxes('foo')->stacked()->checkboxes('foo', 'bar')->__toString();
+    $matcher = $this->cg($this->cx('foo_0', 'Foo', 1).$this->cx('foo_1', 'Bar', 1));
+
+    $this->assertEquals($matcher, $checkboxes1);
+    $this->assertEquals($matcher, $checkboxes2);
   }
 
   public function testMultipleCustom()

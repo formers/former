@@ -41,10 +41,22 @@ class RadioTest extends FormerTests
 
   public function testInline()
   {
-    $radios = Former::inline_radios('foo')->radios('foo', 'bar')->__toString();
+    $radios1 = Former::inline_radios('foo')->radios('foo', 'bar')->__toString();
+    $radios2 = Former::radios('foo')->inline()->radios('foo', 'bar')->__toString();
     $matcher = $this->cg($this->r('foo', 'Foo', 0, true).$this->r('foo', 'Bar', 1, true));
 
-    $this->assertEquals($matcher, $radios);
+    $this->assertEquals($matcher, $radios1);
+    $this->assertEquals($matcher, $radios2);
+  }
+
+  public function testStacked()
+  {
+    $radios1 = Former::stacked_radios('foo')->radios('foo', 'bar')->__toString();
+    $radios2 = Former::radios('foo')->stacked()->radios('foo', 'bar')->__toString();
+    $matcher = $this->cg($this->r('foo', 'Foo', 0).$this->r('foo', 'Bar', 1));
+
+    $this->assertEquals($matcher, $radios1);
+    $this->assertEquals($matcher, $radios2);
   }
 
   public function testMultipleCustom()
