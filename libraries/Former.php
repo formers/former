@@ -74,6 +74,12 @@ class Former
    */
   public static $translateFrom = 'validation.attributes';
 
+  /**
+   * The default fallback form type if none specificed (Former::open)
+   * @var string
+   */
+  public static $defaultFormType = 'horizontal';
+
   // Field types --------------------------------------------------- /
 
   /**

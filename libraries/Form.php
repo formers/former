@@ -10,12 +10,6 @@ namespace Former;
 class Form
 {
   /**
-   * Fallback type for forms
-   * @var string
-   */
-  private $defaultType = 'horizontal';
-
-  /**
    * The Form type
    * @var string
    */
@@ -42,7 +36,7 @@ class Form
     $attributes = array_get($parameters, 1);
 
     // If classic form
-    if($typeAsked == 'open') $type = $this->defaultType;
+    if($typeAsked == 'open') $type = Former::$defaultFormType;
     else
     {
       // Look for HTTPS form
@@ -59,7 +53,7 @@ class Form
 
       // Calculate form type
       $type = trim(str_replace('open', null, $typeAsked), '_');
-      if(!in_array($type, $this->availableTypes)) $type = $this->defaultType;
+      if(!in_array($type, $this->availableTypes)) $type = Former::$defaultFormType;
     }
 
     // Add the final form type
@@ -74,6 +68,7 @@ class Form
 
   /**
    * Closes a Form
+   *
    * @return string A closing <form> tag
    */
   public function close()
