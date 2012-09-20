@@ -68,6 +68,26 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $static);
   }
 
+  public function testSetAttributes()
+  {
+    $attributes = array('class' => 'foo', 'data-foo' => 'bar');
+
+    $static = Former::text('foo')->require()->setAttributes($attributes)->__toString();
+    $matcher = $this->cg('<input require="true" class="foo" data-foo="bar" type="text" name="foo" id="foo">');
+
+    $this->assertEquals($matcher, $static);
+  }
+
+  public function testSetAttributesOverwrite()
+  {
+    $attributes = array('class' => 'foo', 'data-foo' => 'bar');
+
+    $static = Former::text('foo')->require()->setAttributes($attributes, false)->__toString();
+    $matcher = $this->cg('<input class="foo" data-foo="bar" type="text" name="foo" id="foo">');
+
+    $this->assertEquals($matcher, $static);
+  }
+
   public function testAddClass()
   {
     $static = Former::text('foo')->class('foo')->addClass('bar')->__toString();
