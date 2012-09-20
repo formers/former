@@ -10,10 +10,16 @@ namespace Former;
 class Form
 {
   /**
+   * Fallback type for forms
+   * @var string
+   */
+  private $defaultType = 'horizontal';
+
+  /**
    * The Form type
    * @var string
    */
-  private $type = 'form-horizontal';
+  private $type = null;
 
   /**
    * The available form types
@@ -21,31 +27,46 @@ class Form
    */
   private $availableTypes = array('horizontal', 'vertical', 'inline', 'search');
 
-  public function open($formType, $parameters)
+  /**
+   * Opens up magically a form
+   *
+   * @param  string $typeAsked  The form type asked
+   * @param  array  $parameters Parameters passed
+   * @return string             A form opening tag
+   */
+  public function open($typeAsked, $parameters)
   {
     $method     = 'POST';
     $secure     = false;
-    $type       = 'vertical';
     $action     = array_get($parameters, 0);
     $attributes = array_get($parameters, 1);
 
-    // Look for HTTPS form
-    if(str_contains($formType, 'secure')) $secure = true;
-
-    // Look for file form
-    if(str_contains($formType, 'for_files')) $attributes['enctype'] = 'multipart/form-data';
-
-    // Look for a file type
-    foreach ($this->availableTypes as $class) {
-      if (str_contains($formType, $class)) {
-        $type = $class;
-        break;
+    // If classic form
+    if($typeAsked == 'open') $type = $this->defaultType;
+    else
+    {
+      // Look for HTTPS form
+      if(str_contains($typeAsked, 'secure')) {
+        $typeAsked = str_replace('secure', null, $typeAsked);
+        $secure = true;
       }
-    }
-    $attributes = Helpers::addClass($attributes, 'form-'.$class);
 
-    // Store current form's type
-    $this->type = $class;
+      // Look for file form
+      if(str_contains($typeAsked, 'for_files')) {
+        $typeAsked = str_replace('for_files', null, $typeAsked);
+        $attributes['enctype'] = 'multipart/form-data';
+      }
+
+      // Calculate form type
+      $type = trim(str_replace('open', null, $typeAsked), '_');
+      if(!in_array($type, $this->availableTypes)) $type = $this->defaultType;
+    }
+
+    // Add the final form type
+    $attributes = Helpers::addClass($attributes, 'form-'.$type);
+
+    // Store it
+    $this->type = $type;
 
     // Open the form
     return \Form::open($action, $method, $attributes, $secure);
