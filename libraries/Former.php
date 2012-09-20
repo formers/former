@@ -181,6 +181,17 @@ class Former
   }
 
   /**
+   * Get an attribute/value from the Field instance
+   *
+   * @param  string $attribute The requested attribute
+   * @return string            Its value
+   */
+  public function __get($attribute)
+  {
+    return $this->field()->$attribute;
+  }
+
+  /**
    * Prints out Field wrapped in ControlGroup
    *
    * @return string A form field
