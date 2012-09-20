@@ -1,4 +1,6 @@
 <?php
+use \Former\Former;
+
 // Stub class for Buttons
 class Buttons
 {

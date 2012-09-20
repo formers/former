@@ -1,4 +1,6 @@
 <?php
+use \Former\Former;
+
 class SelectTest extends FormerTests
 {
   private $options = array('foo' => 'bar', 'kal' => 'ter');

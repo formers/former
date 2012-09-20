@@ -1,4 +1,6 @@
 <?php
+use \Former\Former;
+
 class InputTest extends FormerTests
 {
   public function testText()
