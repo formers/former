@@ -1,6 +1,8 @@
 # Former
 ## A Laravelish way to create and format forms
 
+Travis status : [![Build Status](https://secure.travis-ci.org/Anahkiasen/former.png)](http://travis-ci.org/Anahkiasen/former)
+
 Former is the name of a little project I'd like to present you — it's a bundle, a superset of Bootstrapper, and a really nice guy too.
 Laravel's original Form class is great — simplistic and full of little helpers, but a tad unelegant compared to the rest of the framework. When you add Bootstrapper classes above it, it just becomes intoxicating ; the mere amount of lines you need to type to create a five fields form with control groups is simply discouraging.
 
