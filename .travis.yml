@@ -5,9 +5,9 @@ php:
   - 5.4
 
 before_install:
-  - git clone git://github.com/Anahkiasen/former.git
+  - cd ~/builds
   - git clone git://github.com/laravel/laravel.git
-  - mv ./former ./laravel/bundles/former
+  - mv ./Anahkiasen/former ./laravel/bundles/former
   - echo "<?php return array('former' => array('auto' => true));" > ./laravel/application/bundles.php
   - cd ./laravel
 
