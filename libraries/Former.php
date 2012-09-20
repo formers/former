@@ -195,15 +195,7 @@ class Former
     } elseif (static::$useBootstrap) {
 
       // Bootstrap syntax
-      $controlGroup = $this->control();
-
-      $html = $controlGroup->open();
-        $html .= $controlGroup->getLabel(static::$field->name);
-        $html .= '<div class="controls">';
-          $html .= $controlGroup->prependAppend(static::$field);
-          $html .= $controlGroup->getHelp();
-        $html .= '</div>';
-      $html .= $controlGroup->close();
+      $html = $this->control()->wrapField(static::$field);
     } else {
 
       // Classic syntax

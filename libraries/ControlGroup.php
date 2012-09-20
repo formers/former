@@ -53,6 +53,10 @@ class ControlGroup
    */
   private $append = array();
 
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////////// BUILDERS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
   public function __construct($label)
   {
     // Add base class
@@ -69,7 +73,7 @@ class ControlGroup
    *
    * @return string Opening tag
    */
-  public function open()
+  private function open()
   {
     // If any errors, set state to errors
     $errors = Former::getErrors();
@@ -83,13 +87,88 @@ class ControlGroup
   }
 
   /**
+   * Prints out the current label
+   *
+   * @param  string $name A field to link the label to
+   * @return string       A <label> tag
+   */
+  private function getLabel($name)
+  {
+    if(!$this->label) return false;
+
+    extract($this->label);
+    $attributes = Helpers::addClass($attributes, 'control-label');
+
+    return \Form::label($name, $label, $attributes);
+  }
+
+  /**
+   * Prints out the current help
+   *
+   * @return string A .help-block or .help-inline
+   */
+  private function getHelp()
+  {
+    $inline = array_get($this->help, 'inline');
+    $block  = array_get($this->help, 'block');
+
+    $errors = Former::getErrors();
+    if ($errors) $inline = Helpers::inlineHelp($errors);
+    return join(null, array($inline, $block));
+  }
+
+  /**
+   * Format the field with prepended/appended elements
+   *
+   * @param  string $field The field to format
+   * @return string        Field plus supplementary elements
+   */
+  private function prependAppend($field)
+  {
+    if(!$this->prepend and !$this->append) return $field;
+
+    // Prepare wrapping div
+    $class = null;
+    if($this->prepend) $class = 'input-prepend';
+    if($this->append) $class .= ' input-append';
+
+    // Build div
+    $return = '<div class="' .$class. '">';
+      $return .= join(null, $this->prepend);
+      $return .= $field;
+      $return .= join(null, $this->append);
+    $return .= '</div>';
+
+    return $return;
+  }
+
+  /**
    * Closes a control group
    *
    * @return string Closing tag
    */
-  public function close()
+  private function close()
   {
     return '</div>';
+  }
+
+  /**
+   * Wrap a Field with the current control group
+   *
+   * @param  Field  $field A Field instance
+   * @return string        A .control-group
+   */
+  public function wrapField($field)
+  {
+    $html = $this->open();
+      $html .= $this->getLabel($field->name);
+      $html .= '<div class="controls">';
+        $html .= $this->prependAppend($field);
+        $html .= $this->getHelp();
+      $html .= '</div>';
+    $html .= $this->close();
+
+    return $html;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -160,10 +239,6 @@ class ControlGroup
     }
   }
 
-  ////////////////////////////////////////////////////////////////////
-  //////////////////////////// INTERFACE /////////////////////////////
-  ////////////////////////////////////////////////////////////////////
-
   /**
    * Adds a label
    *
@@ -181,61 +256,9 @@ class ControlGroup
       'attributes' => $attributes);
   }
 
-  /**
-   * Prints out the current label
-   *
-   * @param  string $name A field to link the label to
-   * @return string       A <label> tag
-   */
-  public function getLabel($name)
-  {
-    if(!$this->label) return false;
-
-    extract($this->label);
-    $attributes = Helpers::addClass($attributes, 'control-label');
-
-    return \Form::label($name, $label, $attributes);
-  }
-
-  /**
-   * Prints out the current help
-   *
-   * @return string A .help-block or .help-inline
-   */
-  public function getHelp()
-  {
-    $inline = array_get($this->help, 'inline');
-    $block  = array_get($this->help, 'block');
-
-    $errors = Former::getErrors();
-    if ($errors) $inline = Helpers::inlineHelp($errors);
-    return join(null, array($inline, $block));
-  }
-
-  /**
-   * Format the field with prepended/appended elements
-   *
-   * @param  string $field The field to format
-   * @return string        Field plus supplementary elements
-   */
-  public function prependAppend($field)
-  {
-    if(!$this->prepend and !$this->append) return $field;
-
-    // Prepare wrapping div
-    $class = null;
-    if($this->prepend) $class = 'input-prepend';
-    if($this->append) $class .= ' input-append';
-
-    // Build div
-    $return = '<div class="' .$class. '">';
-      $return .= join(null, $this->prepend);
-      $return .= $field;
-      $return .= join(null, $this->append);
-    $return .= '</div>';
-
-    return $return;
-  }
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////////// HELPERS ////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Get the Field instance from Former
