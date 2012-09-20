@@ -3,6 +3,11 @@ use \Former\Former;
 
 class InputTest extends FormerTests
 {
+  public function tearDown()
+  {
+    Former::$useBootstrap = true;
+  }
+
   public function testText()
   {
     $input = Former::text('foo')->__toString();
@@ -18,6 +23,18 @@ class InputTest extends FormerTests
     $matcher = $this->cg(
       '<input type="text" name="foo" id="foo">',
       '<label for="foo" class="control-label">Bar</label>');
+
+    $this->assertEquals($matcher, $input);
+    $this->assertEquals($matcher, $static);
+  }
+
+  public function testTextLabelWithoutBootstrap()
+  {
+    Former::$useBootstrap = false;
+
+    $static = Former::text('foo')->label('bar')->__toString();
+    $input  = Former::text('foo', 'bar')->__toString();
+    $matcher = '<label for="foo">Bar</label><input type="text" name="foo" id="foo">';
 
     $this->assertEquals($matcher, $input);
     $this->assertEquals($matcher, $static);
