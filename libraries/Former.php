@@ -293,7 +293,7 @@ class Former
    *
    * @param  boolean $boolean Whether we should use Bootstrap syntax or not
    */
-  public function useBootstrap($boolean = true)
+  public static function useBootstrap($boolean = true)
   {
     static::$useBootstrap = $boolean;
   }
