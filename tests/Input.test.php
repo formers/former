@@ -5,13 +5,31 @@ class InputTest extends FormerTests
 {
   public function tearDown()
   {
-    Former::$useBootstrap = true;
+    Former::useBootstrap(true);
   }
 
   public function testText()
   {
     $input = Former::text('foo')->__toString();
     $matcher = $this->cg('<input type="text" name="foo" id="foo">');
+
+    $this->assertEquals($matcher, $input);
+  }
+
+  public function testTextWithoutBootstrap()
+  {
+    Former::useBootstrap(false);
+
+    $input = Former::text('foo')->data('foo')->class('bar')->__toString();
+    $matcher = '<label for="foo">Foo</label><input data="foo" class="bar" type="text" name="foo" id="foo">';
+
+    $this->assertEquals($matcher, $input);
+  }
+
+  public function testHiddenField()
+  {
+    $input = Former::hidden('foo')->value('bar')->__toString();
+    $matcher = '<input type="hidden" name="foo" value="bar" id="foo">';
 
     $this->assertEquals($matcher, $input);
   }
@@ -30,7 +48,7 @@ class InputTest extends FormerTests
 
   public function testTextLabelWithoutBootstrap()
   {
-    Former::$useBootstrap = false;
+    Former::useBootstrap(false);
 
     $static = Former::text('foo')->label('bar')->__toString();
     $input  = Former::text('foo', 'bar')->__toString();
@@ -86,6 +104,14 @@ class InputTest extends FormerTests
     $matcher = $this->cg('<input class="foo" data-foo="bar" type="text" name="foo" id="foo">');
 
     $this->assertEquals($matcher, $static);
+  }
+
+  public function testGetAttribute()
+  {
+    $former = Former::span1_text('name')->foo('bar');
+
+    $this->assertEquals('span1', $former->class);
+    $this->assertEquals('bar', $former->foo);
   }
 
   public function testAddClass()
