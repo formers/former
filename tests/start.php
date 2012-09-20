@@ -20,6 +20,16 @@ class FormerTests extends PHPUnit_Framework_TestCase
     return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';
   }
 
+  public static function setUpBeforeClass()
+  {
+    Former::horizontal_open();
+  }
+
+  public static function tearDownAfterClass()
+  {
+    Former::close();
+  }
+
   /**
    * This function has no points
    * It's only here because I can't extend Framework_TestCase otherwise
