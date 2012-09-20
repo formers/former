@@ -311,10 +311,12 @@ class Former
    */
   public static function close()
   {
-    static::$form->close();
+    $close = static::form()->close();
 
     // Destroy Form instance
     static::$form = null;
+
+    return $close;
   }
 
   /**
