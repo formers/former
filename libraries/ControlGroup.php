@@ -220,10 +220,8 @@ class ControlGroup
    */
   public function prepend()
   {
-    $prepend = func_get_args();
-    foreach ($prepend as $p) {
-      $this->prepend[] = '<span class="add-on">'.$p.'</span>';
-    }
+    $append = func_get_args();
+    $this->placeAround($append, 'prepend');
   }
 
   /**
@@ -232,11 +230,7 @@ class ControlGroup
   public function append()
   {
     $append = func_get_args();
-    foreach ($append as $p) {
-      if(!($p instanceof \Bootstrapper\Buttons))
-        $p = '<span class="add-on">'.$p.'</span>';
-      $this->append[] = $p;
-    }
+    $this->placeAround($append, 'append');
   }
 
   /**
@@ -259,6 +253,22 @@ class ControlGroup
   ////////////////////////////////////////////////////////////////////
   /////////////////////////////// HELPERS ////////////////////////////
   ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Place elements around the field
+   *
+   * @param  array  $items An array of items to place
+   * @param  string $place Where they should end up (prepend|append)
+   */
+  private function placeAround($items, $place)
+  {
+    foreach ($items as $i) {
+      if(!($i instanceof \Bootstrapper\Buttons) and !starts_with($i, '<button')) {
+        $i = '<span class="add-on">'.$i.'</span>';
+      }
+      $this->{$place}[] = $i;
+    }
+  }
 
   /**
    * Get the Field instance from Former
