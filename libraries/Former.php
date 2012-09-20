@@ -48,12 +48,6 @@ class Former
     'alpha', 'required', 'min', 'max', 'numeric', 'not_numeric',
     'between', 'in', 'not_in', 'match');
 
-  /**
-   * The type of form we're displaying
-   * @var string
-   */
-  private static $formType;
-
   // Former options ------------------------------------------------ /
 
   /**
@@ -200,8 +194,8 @@ class Former
   {
     // Dry syntax (hidden fields, plain fields)
     if (static::$field->type == 'hidden' or
-      static::$formType == 'search' or
-      static::$formType == 'inline') {
+      static::$form->type == 'search' or
+      static::$form->type == 'inline') {
         $html = static::$field->__toString();
     } elseif (static::$useBootstrap) {
 

@@ -13,7 +13,7 @@ class Form
    * The Form type
    * @var string
    */
-  private $type = null;
+  public $type = null;
 
   /**
    * The available form types
