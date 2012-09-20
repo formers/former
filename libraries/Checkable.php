@@ -1,8 +1,6 @@
 <?php
 namespace Former;
 
-use \Form;
-
 abstract class Checkable extends Field
 {
   /**

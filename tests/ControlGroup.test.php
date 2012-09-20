@@ -1,4 +1,13 @@
 <?php
+// Stub class for Buttons
+class Buttons
+{
+  public static function normal($text)
+  {
+    return '<button type="button" class="btn">' .$text. '</button>';
+  }
+}
+
 class ControlGroupTest extends FormerTests
 {
   // Data providers ------------------------------------------------ /
