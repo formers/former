@@ -10,4 +10,12 @@ class FormerTest extends FormerTests
 
     $this->assertEquals($matcher, $legend);
   }
+
+  public function testToken()
+  {
+    $token = Former::token();
+    $matcher = '<input type="hidden" name="csrf_token">';
+
+    $this->assertEquals($matcher, $token);
+  }
 }

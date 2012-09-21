@@ -326,6 +326,16 @@ class Former
   }
 
   /**
+   * Generate a hidden field containing the current CSRF token.
+   *
+   * @return string
+   */
+  public static function token()
+  {
+    return static::hidden(\Session::csrf_token, \Session::token())->__toString();
+  }
+
+  /**
    * Creates a form legend
    *
    * @param  string $legend     The text
