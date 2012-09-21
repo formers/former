@@ -123,6 +123,23 @@ if($validation->fails()) {
 
 ```
 
+## Form populating
+
+You can populate a form with value quite easily with the `Former::populate` function. There is two ways to do that. The first way is the usual passing of an array of values, like this :
+
+```php
+// Will populate the field 'name' with the value 'value'
+Former::populate( array('name' => 'value') )
+```
+
+You can also populate a form by passing an Eloquent model to it, say you have a Client model, you can do that :
+
+```php
+Former::populate( Client::find(2) )
+```
+
+Former will recognize the model and populate the field with the model's attribute. If here per example our client has a `name` set to 'Foo' and a `firstname` set to 'Bar', Former will look for fields named 'name' and 'firstname' and fill them respectively with 'Foo' and 'Bar'.
+
 ## Datalists
 
 But what else does it do ? Datalists, it can do datalists. You don't know what they are ? Ok; you know how sometimes you would like to make people chose between something in a select but also being able to type what they want if it's not in it ? That's a datalist. In Former you can simply create one like that :
