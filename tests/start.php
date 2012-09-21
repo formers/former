@@ -22,12 +22,12 @@ class FormerTests extends PHPUnit_Framework_TestCase
 
   public static function setUpBeforeClass()
   {
-    Former::horizontal_open();
+    \Former\Former::horizontal_open();
   }
 
   public static function tearDownAfterClass()
   {
-    Former::close();
+    \Former\Former::close();
   }
 
   /**
