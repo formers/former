@@ -100,6 +100,7 @@ class Former
   {
     // Form opener
     if (str_contains($method, 'open')) {
+      static::$form = new Form;
       return static::form()->open($method, $parameters);
     }
 
@@ -194,16 +195,18 @@ class Former
   {
     // Dry syntax (hidden fields, plain fields)
     if (static::$field->type == 'hidden' or
-      static::$form->type == 'search' or
-      static::$form->type == 'inline') {
-        $html = static::$field->__toString();
-    } elseif (static::$useBootstrap) {
+        static::form()->type == 'search' or
+        static::form()->type == 'inline') {
+          $html = static::$field->__toString();
+    }
 
-      // Bootstrap syntax
+    // Bootstrap syntax
+    elseif (static::$useBootstrap and static::form()->type) {
       $html = $this->control()->wrapField(static::$field);
-    } else {
+    }
 
-      // Classic syntax
+    // Classic syntax
+    else {
       $html = \Form::label(static::$field->name, static::$field->label);
       $html .= static::$field;
     }
@@ -399,7 +402,7 @@ class Former
    */
   public static function form()
   {
-    if (!static::$form) static::$form = new Form;
+    if (!static::$form) return new Form;
 
     return static::$form;
   }

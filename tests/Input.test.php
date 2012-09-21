@@ -26,6 +26,18 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $input);
   }
 
+  public function testTextWithoutFormInstance()
+  {
+    Former::close();
+
+    $input = Former::text('foo')->data('foo')->class('bar')->__toString();
+    $matcher = '<label for="foo">Foo</label><input data="foo" class="bar" type="text" name="foo" id="foo">';
+
+    $this->assertEquals($matcher, $input);
+
+    Former::horizontal_open();
+  }
+
   public function testHiddenField()
   {
     $input = Former::hidden('foo')->value('bar')->__toString();
