@@ -15,14 +15,18 @@ Former is still in beta, it's not yet published on Laravel's bundle repo. It's w
 Former aims to re-laravelize form creation by transforming each field into its own model, with its own methods and attributes. This means that you can do this sort of stuff :
 
 ```php
-Former::xlarge_text('name')
-  ->class('myclass')
-  ->value('Joseph')
-  ->require();
+Former::horizontal_open()
 
-Former::textarea('comments')
-  ->rows(10)->columns(20)
-  ->autofocus();
+  Former::xlarge_text('name')
+    ->class('myclass')
+    ->value('Joseph')
+    ->require();
+
+  Former::textarea('comments')
+    ->rows(10)->columns(20)
+    ->autofocus();
+
+Former::close()
 ```
 
 While also being able to do – just like in the days of old :
