@@ -131,9 +131,12 @@ abstract class Checkable extends Field
     // Merge custom attributes with global attributes
     $attributes = array_merge($this->attributes, $attributes);
 
+    // Register the field with Laravel
+    \Form::$labels[] = $name;
+
     return
-      '<label class="' .$this->checkable.$isInline. '">' .
-        call_user_func('\Form::'.$this->checkable, $name, $value, $this->isChecked($name), $attributes).
+      '<label for="' .$name. '" class="' .$this->checkable.$isInline. '">' .
+      call_user_func('\Form::'.$this->checkable, $name, $value, $this->isChecked($name), $attributes).
       $label.'</label>';
   }
 

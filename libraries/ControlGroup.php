@@ -89,15 +89,21 @@ class ControlGroup
   /**
    * Prints out the current label
    *
-   * @param  string $name A field to link the label to
-   * @return string       A <label> tag
+   * @param  string $field The field to create a label for
+   * @return string        A <label> tag
    */
-  private function getLabel($name)
+  private function getLabel($field)
   {
     if(!$this->label) return false;
 
     extract($this->label);
     $attributes = Helpers::addClass($attributes, 'control-label');
+
+    // Get the field name to link the label to it
+    $name = $field->name;
+    if($field->type == 'checkboxes' or $field->type == 'radios') {
+      return '<label'.HTML::attributes($attributes).'>'.$label.'</label>';
+    }
 
     return \Form::label($name, $label, $attributes);
   }
@@ -161,7 +167,7 @@ class ControlGroup
   public function wrapField($field)
   {
     $html = $this->open();
-      $html .= $this->getLabel($field->name);
+      $html .= $this->getLabel($field);
       $html .= '<div class="controls">';
         $html .= $this->prependAppend($field);
         $html .= $this->getHelp();

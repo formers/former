@@ -5,16 +5,11 @@ include 'start.php';
 
 class CheckboxTest extends FormerTests
 {
-  private function cb($name = 'foo', $label = null, $value = 1)
-  {
-    return '<label class="checkbox"><input id="foo" type="checkbox" name="' .$name. '" value="' .$value. '">' .$label. '</label>';
-  }
-
-  private function cx($name = 'foo', $label = null, $value = 1, $inline = false)
+  private function cb($name = 'foo', $label = null, $value = 1, $inline = false)
   {
     $inline = $inline ? ' inline' : null;
 
-    return '<label class="checkbox' .$inline. '"><input type="checkbox" name="' .$name. '" value="' .$value. '">' .$label. '</label>';
+    return '<label for="' .$name. '" class="checkbox' .$inline. '"><input id="' .$name. '" type="checkbox" name="' .$name. '" value="' .$value. '">' .$label. '</label>';
   }
 
   public function testSingle()
@@ -44,7 +39,7 @@ class CheckboxTest extends FormerTests
   public function testMultiple()
   {
     $checkboxes = Former::checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
-    $matcher = $this->cg($this->cx('foo_0', 'Foo').$this->cx('foo_1', 'Bar'));
+    $matcher = $this->cgm($this->cb('foo_0', 'Foo').$this->cb('foo_1', 'Bar'));
 
     $this->assertEquals($matcher, $checkboxes);
   }
@@ -53,7 +48,7 @@ class CheckboxTest extends FormerTests
   {
     $checkboxes1 = Former::inline_checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
     $checkboxes2 = Former::checkboxes('foo')->inline()->checkboxes('foo', 'bar')->__toString();
-    $matcher = $this->cg($this->cx('foo_0', 'Foo', 1, true).$this->cx('foo_1', 'Bar', 1, true));
+    $matcher = $this->cgm($this->cb('foo_0', 'Foo', 1, true).$this->cb('foo_1', 'Bar', 1, true));
 
     $this->assertEquals($matcher, $checkboxes1);
     $this->assertEquals($matcher, $checkboxes2);
@@ -63,7 +58,7 @@ class CheckboxTest extends FormerTests
   {
     $checkboxes1 = Former::stacked_checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
     $checkboxes2 = Former::checkboxes('foo')->stacked()->checkboxes('foo', 'bar')->__toString();
-    $matcher = $this->cg($this->cx('foo_0', 'Foo', 1).$this->cx('foo_1', 'Bar', 1));
+    $matcher = $this->cgm($this->cb('foo_0', 'Foo', 1).$this->cb('foo_1', 'Bar', 1));
 
     $this->assertEquals($matcher, $checkboxes1);
     $this->assertEquals($matcher, $checkboxes2);
@@ -72,7 +67,7 @@ class CheckboxTest extends FormerTests
   public function testMultipleArray()
   {
     $checkboxes = Former::checkboxes('foo')->checkboxes(array('Foo' => 'foo', 'Bar' => 'bar'))->__toString();
-    $matcher = $this->cg($this->cb('foo', 'Foo').$this->cx('bar', 'Bar'));
+    $matcher = $this->cgm($this->cb('foo', 'Foo').$this->cb('bar', 'Bar'));
 
     $this->assertEquals($matcher, $checkboxes);
   }
@@ -80,12 +75,12 @@ class CheckboxTest extends FormerTests
   public function testMultipleCustom()
   {
     $radios = Former::checkboxes('foo')->checkboxes($this->checkables)->__toString();
-    $matcher = $this->cg(
-    '<label class="checkbox">'.
+    $matcher = $this->cgm(
+    '<label for="foo" class="checkbox">'.
       '<input data-foo="bar" value="bar" id="foo" type="checkbox" name="foo">'.
       'Foo'.
     '</label>'.
-    '<label class="checkbox">'.
+    '<label for="foo" class="checkbox">'.
       '<input data-foo="bar" value="bar" id="bar" type="checkbox" name="foo">'.
       'Bar'.
     '</label>');
@@ -100,12 +95,12 @@ class CheckboxTest extends FormerTests
     unset($checkables['Bar']['name']);
 
     $radios = Former::checkboxes('foo')->checkboxes($checkables)->__toString();
-    $matcher = $this->cg(
-    '<label class="checkbox">'.
-      '<input data-foo="bar" value="bar" type="checkbox" name="foo_0">'.
+    $matcher = $this->cgm(
+    '<label for="foo_0" class="checkbox">'.
+      '<input data-foo="bar" value="bar" id="foo_0" type="checkbox" name="foo_0">'.
       'Foo'.
     '</label>'.
-    '<label class="checkbox">'.
+    '<label for="foo_1" class="checkbox">'.
       '<input data-foo="bar" value="bar" id="bar" type="checkbox" name="foo_1">'.
       'Bar'.
     '</label>');
