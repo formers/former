@@ -61,7 +61,7 @@ abstract class Checkable extends Field
   }
 
   ////////////////////////////////////////////////////////////////////
-  //////////////////////////////// HELPERS ///////////////////////////
+  ///////////////////////////// CORE FUNCTIONS ///////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**
@@ -78,18 +78,91 @@ abstract class Checkable extends Field
 
     // Iterate through items, assign a name and a label to each
     $count = 0;
-    foreach ($_items as $name => $label) {
+    foreach ($_items as $label => $name) {
 
       // If we haven't any name defined for the checkable, try to compute some
-      if(!is_string($name)) {
+      if(!is_string($label) and !is_array($name)) {
+        $label = $name;
         $name = $this->name;
         if($this->checkable == 'checkbox') $name .= '_'.$count;
       }
 
-      $this->items[] = array('name' => $name, 'label' => Helpers::translate($label));
+      // If we gave custom information on the item, add them
+      if(is_array($name)) {
+        $attributes = $name;
+        $name = array_get($attributes, 'name');
+        unset($attributes['name']);
+      }
+
+      // Store all informations we have in an array
+      $item = array(
+        'name' => $name,
+        'label' => Helpers::translate($label),
+      );
+      if(isset($attributes)) $item['attributes'] = $attributes;
+
+      $this->items[] = $item;
       $count++;
     }
   }
+
+  /**
+   * Renders a checkable
+   *
+   * @param  string $item          A checkable item
+   * @param  string $fallbackValue A fallback value if none is set
+   * @return string
+   */
+  protected function createCheckable($item, $fallbackValue = 1)
+  {
+    // Extract informations
+    extract($item);
+
+    // Set default values
+    if(!isset($attributes)) $attributes = array();
+    if(isset($attributes['value'])) $value = $attributes['value'];
+    if(!isset($value)) $value = $fallbackValue;
+
+    // If inline items, add class
+    $isInline = $this->inline ? ' inline' : null;
+
+    // Merge custom attributes with global attributes
+    $attributes = array_merge($this->attributes, $attributes);
+
+    return
+      '<label class="' .$this->checkable.$isInline. '">' .
+        call_user_func('\Form::'.$this->checkable, $name, $value, $this->isChecked($name), $attributes).
+      $label.'</label>';
+  }
+
+  /**
+   * Prints out the currently stored checkables
+   */
+  public function __toString()
+  {
+    $html = null;
+
+    // Multiple items
+    if ($this->items) {
+      foreach ($this->items as $key => $item) {
+        $fallbackValue = $this->isCheckbox() ? 1 : $key;
+        $html .= $this->createCheckable($item, $fallbackValue);
+      }
+
+      return $html;
+    }
+
+    // Single item
+    return $this->createCheckable(array(
+      'name'  => $this->name,
+      'label' => $this->text,
+      'value' => $this->value
+    ));
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  ///////////////////////////// HELPERS //////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Check if a checkable is checked
@@ -105,40 +178,13 @@ abstract class Checkable extends Field
   }
 
   /**
-   * Renders a checkable
+   * Check if the current element is a checkbox
    *
-   * @param  string $name  Its name
-   * @param  string $label Its value
-   * @return string        A checkable item
+   * @return boolean Checkbox or radio
    */
-  protected function createCheckable($name, $label, $value = 1)
+  protected function isCheckbox()
   {
-    // If inline items, add class
-    $isInline = $this->inline ? ' inline' : null;
-
-    return
-      '<label class="' .$this->checkable.$isInline. '">' .
-        call_user_func('\Form::'.$this->checkable, $name, $value, $this->isChecked($name), $this->attributes).
-      $label.'</label>';
-  }
-
-  /**
-   * Prints out the currently stored checkables
-   */
-  public function __toString()
-  {
-    if ($this->items) {
-      $html = null;
-      foreach ($this->items as $key => $item) {
-        extract($item);
-        $value = $this->checkable == 'checkbox' ? 1 : $key;
-        $html .= $this->createCheckable($name, $label, $value);
-      }
-
-      return $html;
-    }
-
-    return $this->createCheckable($this->name, $this->text);
+    return $this->checkable == 'checkbox';
   }
 
 }

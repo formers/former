@@ -13,6 +13,20 @@ Session::start('file');
 // Base Test class for matchers
 class FormerTests extends PHPUnit_Framework_TestCase
 {
+  protected $checkables = array(
+    'Foo' => array(
+      'data-foo' => 'bar',
+      'value' => 'bar',
+      'name' => 'foo',
+    ),
+    'Bar' => array(
+      'data-foo' => 'bar',
+      'value' => 'bar',
+      'name' => 'foo',
+      'id' => 'bar',
+    ),
+  );
+
   protected function cg(
     $input,
     $label = '<label for="foo" class="control-label">Foo</label>')

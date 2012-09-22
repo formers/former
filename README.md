@@ -211,8 +211,15 @@ Former::checkboxes('checkme')
 
 // Everything that works on a checkbox also works on a radio element
 Former::radios('radio')
-  ->radios(array('value' => 'text', 'value' => 'text'))
+  ->radios(array('label' => 'name', 'label' => 'name'))
   ->stacked()
+
+// Fine tune checkable elements
+Former::radios('radio')
+  ->radios(array(
+    'label' => array('name' => 'foo', 'value' => 'bar', 'data-foo' => 'bar'),
+    'label' => array('name' => 'foo', 'value' => 'bar', 'data-foo' => 'bar'),
+  ))
 ```
 
 When creating checkables via the checkboxes/radios() method, by default for each checkable name attribute it will use the original name you specified and append it a number (here in our exemple it would be `<input type="checkbox" name="checkme_2">`).

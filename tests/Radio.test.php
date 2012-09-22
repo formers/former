@@ -31,6 +31,14 @@ class RadioTest extends FormerTests
     $this->assertEquals($matcher, $radio);
   }
 
+  public function testSingleWithValue()
+  {
+    $radio = Former::radio('foo')->text('bar')->value('foo')->__toString();
+    $matcher = $this->cg($this->r('foo', 'Bar', 'foo'));
+
+    $this->assertEquals($matcher, $radio);
+  }
+
   public function testMultiple()
   {
     $radios = Former::radios('foo')->radios('foo', 'bar')->__toString();
@@ -59,10 +67,26 @@ class RadioTest extends FormerTests
     $this->assertEquals($matcher, $radios2);
   }
 
+  public function testMultipleArray()
+  {
+    $radios = Former::radios('foo')->radios(array('Foo' => 'foo', 'Bar' => 'bar'))->__toString();
+    $matcher = $this->cg($this->r('foo', 'Foo', 0).$this->rx('bar', 'Bar'));
+
+    $this->assertEquals($matcher, $radios);
+  }
+
   public function testMultipleCustom()
   {
-    $radios = Former::radios('foo')->radios(array('foo' => 'Foo', 'bar' => 'Bar'))->__toString();
-    $matcher = $this->cg($this->r('foo', 'Foo', 0).$this->rx('bar', 'Bar'));
+    $radios = Former::radios('foo')->radios($this->checkables)->__toString();
+    $matcher = $this->cg(
+    '<label class="radio">'.
+      '<input data-foo="bar" value="bar" id="foo" type="radio" name="foo">'.
+      'Foo'.
+    '</label>'.
+    '<label class="radio">'.
+      '<input data-foo="bar" value="bar" id="bar" type="radio" name="foo">'.
+      'Bar'.
+    '</label>');
 
     $this->assertEquals($matcher, $radios);
   }

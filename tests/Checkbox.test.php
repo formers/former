@@ -33,6 +33,14 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkbox);
   }
 
+  public function testSingleWithValue()
+  {
+    $checkbox = Former::checkbox('foo')->text('bar')->value('foo')->__toString();
+    $matcher = $this->cg($this->cb('foo', 'Bar', 'foo'));
+
+    $this->assertEquals($matcher, $checkbox);
+  }
+
   public function testMultiple()
   {
     $checkboxes = Former::checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
@@ -61,11 +69,27 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkboxes2);
   }
 
-  public function testMultipleCustom()
+  public function testMultipleArray()
   {
-    $checkboxes = Former::checkboxes('foo')->checkboxes(array('foo' => 'Foo', 'bar' => 'Bar'))->__toString();
+    $checkboxes = Former::checkboxes('foo')->checkboxes(array('Foo' => 'foo', 'Bar' => 'bar'))->__toString();
     $matcher = $this->cg($this->cb('foo', 'Foo').$this->cx('bar', 'Bar'));
 
     $this->assertEquals($matcher, $checkboxes);
+  }
+
+  public function testMultipleCustom()
+  {
+    $radios = Former::checkboxes('foo')->checkboxes($this->checkables)->__toString();
+    $matcher = $this->cg(
+    '<label class="checkbox">'.
+      '<input data-foo="bar" value="bar" id="foo" type="checkbox" name="foo">'.
+      'Foo'.
+    '</label>'.
+    '<label class="checkbox">'.
+      '<input data-foo="bar" value="bar" id="bar" type="checkbox" name="foo">'.
+      'Bar'.
+    '</label>');
+
+    $this->assertEquals($matcher, $radios);
   }
 }
