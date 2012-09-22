@@ -261,12 +261,16 @@ class Former
    *
    * @param Message $validator The result from a validation
    */
-  public static function withErrors($validator)
+  public static function withErrors($validator = null)
   {
-    // If we're given a raw Validator, go fetch the errors in it
-    if($validator instanceof Validator) $validator = $validator->errors;
+    // Try to get the errors form the session
+    if(\Session::has('errors')) $errors = \Session::get('errors');
 
-    static::$errors = $validator;
+    // If we're given a raw Validator, go fetch the errors in it
+    if($validator instanceof Validator) $errors = $validator->errors;
+
+    // If we found errors, bind them to the form
+    if(isset($errors)) static::$errors = $errors;
   }
 
   /**

@@ -123,9 +123,11 @@ if($validation->fails()) {
 }
 
 // And then in your view
-{{ Former::withErrors($errors) }}
+{{ Former::withErrors() }}
 
 ```
+
+Former will automatically get the `$errors` variable from the session so you don't actually need to pass anything to the `withErrors()` method, **nor do you actually need to check for it** like you usually do (`if(isset($errors)) { }`).
 
 ## Form populating
 
