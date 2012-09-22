@@ -90,4 +90,24 @@ class RadioTest extends FormerTests
 
     $this->assertEquals($matcher, $radios);
   }
+
+  public function testMultipleCustomNoName()
+  {
+    $checkables = $this->checkables;
+    unset($checkables['Foo']['name']);
+    unset($checkables['Bar']['name']);
+
+    $radios = Former::radios('foo')->radios($checkables)->__toString();
+    $matcher = $this->cg(
+    '<label class="radio">'.
+      '<input data-foo="bar" value="bar" id="foo" type="radio" name="foo">'.
+      'Foo'.
+    '</label>'.
+    '<label class="radio">'.
+      '<input data-foo="bar" value="bar" id="bar" type="radio" name="foo">'.
+      'Bar'.
+    '</label>');
+
+    $this->assertEquals($matcher, $radios);
+  }
 }

@@ -92,4 +92,24 @@ class CheckboxTest extends FormerTests
 
     $this->assertEquals($matcher, $radios);
   }
+
+  public function testMultipleCustomNoName()
+  {
+    $checkables = $this->checkables;
+    unset($checkables['Foo']['name']);
+    unset($checkables['Bar']['name']);
+
+    $radios = Former::checkboxes('foo')->checkboxes($checkables)->__toString();
+    $matcher = $this->cg(
+    '<label class="checkbox">'.
+      '<input data-foo="bar" value="bar" type="checkbox" name="foo_0">'.
+      'Foo'.
+    '</label>'.
+    '<label class="checkbox">'.
+      '<input data-foo="bar" value="bar" id="bar" type="checkbox" name="foo_1">'.
+      'Bar'.
+    '</label>');
+
+    $this->assertEquals($matcher, $radios);
+  }
 }
