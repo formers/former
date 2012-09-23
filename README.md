@@ -284,7 +284,6 @@ echo Form::prepend_append(
 );
 
 // Former
-Former::withErrors();
 Former::xlarge_text('input01', 'Text input')
   ->blockHelp('This is an help text')
   ->prepend('@')->append('$')
@@ -305,7 +304,6 @@ echo Form::control_group(
 );
 
 // Former
-Former::withErrors();
 Former::checkboxes('check')->checkboxes('Check me', 'Check me too')
   ->blockHelp('I SAID CHECK THOSE DOUBLES')
 ```
