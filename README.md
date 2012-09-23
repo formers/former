@@ -243,7 +243,7 @@ Former::checkbox('rules')->text('my.translation')
 Former::legend('mylegend')
 ```
 
-Which you know, is kind of cool. Former will first try to translate the string in itself, ie `my.text` will return `__('my.text')` and if that fails, it will look for it in a fallback placE. You can set where Former look for translations by changing the following variable : `Former::$translateFrom' (defaults to `validation.attributes`). Note that **it must be an array**.
+Which you know, is kind of cool. Former will first try to translate the string in itself, ie `my.text` will return `__('my.text')` and if that fails, it will look for it in a fallback placE. You can set where Former look for translations by changing the following variable : `Former::$translateFrom` (defaults to `validation.attributes`). Note that **it must be an array**.
 
 ## Notes on setting field values
 
@@ -285,7 +285,7 @@ echo Form::prepend_append(
 );
 
 // Former
-Former::withErrors($validation);
+Former::withErrors();
 Former::xlarge_text('input01', 'Text input')
   ->blockHelp('This is an help text')
   ->prepend('@')->append('$')
@@ -306,7 +306,7 @@ echo Form::control_group(
 );
 
 // Former
-Former::withErrors($validation);
+Former::withErrors();
 Former::checkboxes('check')->checkboxes('Check me', 'Check me too')
   ->blockHelp('I SAID CHECK THOSE DOUBLES')
 ```
