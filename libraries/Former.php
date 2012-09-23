@@ -74,6 +74,12 @@ class Former
    */
   public static $defaultFormType = 'horizontal';
 
+  /**
+   * Whether Former should always call withErrors() by itself when opening a form
+   * @var boolean
+   */
+  public static $fetchErrors = true;
+
   // Field types --------------------------------------------------- /
 
   /**

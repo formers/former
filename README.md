@@ -107,27 +107,26 @@ Former::useBootstrap();
 
 So ok, that's already a lot of clutter removed by not having to call the lenghty `Form::control_group()` function. Now I hear you coming : "but you know I still have to manually validate my form and su"— Well no you don't. Enters Former's magic helper `withErrors`; what it does is pretty simple. Since it's already wrapping your nice fields into control groups, it goes the distance, and gently check the `Message` object for any errors that field might have, and set that error as an `.help-inline`. Now we're talking !
 
-To use it, simply do the following, be it in your controller or in your view (better if you redirect on validation fail) :
+Now you use it differently according to how your code reacts after a failed validation :
 
+### If your render a view on failed validation (no redirection)
 ```php
-// Use directly in the controller if rendering the view directly
 if($validation->fails()) {
   Former::withErrors($validation);
   return View::make('myview');
 }
+```
 
-// OR if redirection after a fail
+### If your redirect on failed validation
+```php
 if($validation->fails()) {
   return Redirect::to('login')
     ->with_errors($validator);
 }
-
-// And then in your view
-{{ Former::withErrors() }}
-
 ```
 
-Former will automatically get the `$errors` variable from the session so you don't actually need to pass anything to the `withErrors()` method, **nor do you actually need to check for it** like you usually do (`if(isset($errors)) { }`).
+Now on the last example you never actually call Former, be it in your controller or in your view. Why is that ? That's because when Former opens a form on a page, it will automatically check in Session if there's not an object called `errors` and if there is, it will try to use it without requiring you to call anything.
+You can disable Former's automatic errors fetching with the following option : `Former::$fetchErrors = false`.
 
 ## Form populating
 

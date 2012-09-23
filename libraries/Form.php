@@ -62,6 +62,11 @@ class Form
     // Store it
     $this->type = $type;
 
+    // Fetch errors if asked for
+    if (Former::$fetchErrors) {
+      Former::withErrors();
+    }
+
     // Open the form
     return \Form::open($action, $method, $attributes, $secure);
   }
