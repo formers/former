@@ -168,7 +168,7 @@ class InputTest extends FormerTests
       '<label for="required" class="control-label">Required</label>'.
       '<div class="controls">'.
         '<input type="text" name="required" id="required">'.
-        '<span  class="help-inline">The required field is required</span>'.
+        '<span  class="help-inline">The required field is required.</span>'.
       '</div>'.
     '</div>';
 
