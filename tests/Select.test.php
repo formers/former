@@ -10,7 +10,15 @@ class SelectTest extends FormerTests
     $select = Former::select('foo')->__toString();
     $matcher = $this->cg('<select id="foo" name="foo"></select>');
 
-    $this->assertEquals($select, $matcher);
+    $this->assertEquals($matcher, $select);
+  }
+
+  public function testMultiselect()
+  {
+    $select = Former::multiselect('foo')->__toString();
+    $matcher = $this->cg('<select multiple="true" id="foo" name="foo"></select>');
+
+    $this->assertEquals($matcher, $select);
   }
 
   public function testSelectOptions()
@@ -18,7 +26,7 @@ class SelectTest extends FormerTests
     $select = Former::select('foo')->options($this->options)->__toString();
     $matcher = $this->cg('<select id="foo" name="foo"><option value="foo">bar</option><option value="kal">ter</option></select>');
 
-    $this->assertEquals($select, $matcher);
+    $this->assertEquals($matcher, $select);
   }
 
   public function testSelectOptionsValue()
@@ -30,7 +38,7 @@ class SelectTest extends FormerTests
       '<option value="kal" selected="selected">ter</option>'.
     '</select>');
 
-    $this->assertEquals($select, $matcher);
+    $this->assertEquals($matcher, $select);
   }
 
   public function testSelectOptionsValueMethod()
@@ -42,6 +50,6 @@ class SelectTest extends FormerTests
       '<option value="kal" selected="selected">ter</option>'.
     '</select>');
 
-    $this->assertEquals($select, $matcher);
+    $this->assertEquals($matcher, $select);
   }
 }

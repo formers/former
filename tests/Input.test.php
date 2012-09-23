@@ -16,6 +16,14 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $input);
   }
 
+  public function testSearch()
+  {
+    $input = Former::search('foo')->__toString();
+    $matcher = $this->cg('<input class="search-query" type="text" name="foo" id="foo">');
+
+    $this->assertEquals($matcher, $input);
+  }
+
   public function testTextWithoutBootstrap()
   {
     Former::useBootstrap(false);
@@ -146,4 +154,52 @@ class InputTest extends FormerTests
       $this->assertEquals($matcher, $static);
     }
   }
+
+  public function testErrors()
+  {
+    $validator = Validator::make(array('required' => null), array('required' => 'required'));
+    $validator->speaks('en');
+    $validator->valid();
+
+    Former::withErrors($validator);
+    $required = Former::text('required')->__toString();
+    $matcher =
+    '<div class="control-group error">'.
+      '<label for="required" class="control-label">Required</label>'.
+      '<div class="controls">'.
+        '<input type="text" name="required" id="required">'.
+        '<span  class="help-inline">validation.required</span>'.
+      '</div>'.
+    '</div>';
+
+    $this->assertEquals($matcher, $required);
+  }
+
+  public function testPopulate()
+  {
+    Former::populate(array('foo' => 'bar'));
+    $required = Former::text('foo')->__toString();
+    $matcher = $this->cg('<input type="text" name="foo" value="bar" id="foo">');
+
+    $this->assertEquals($matcher, $required);
+  }
+
+  public function testDatalist()
+  {
+    $datalist = Former::text('foo')->useDatalist(array('foo' => 'bar', 'kel' => 'tar'))->__toString();
+    $matcher =
+    '<div class="control-group">'.
+      '<label for="foo" class="control-label">Foo</label>'.
+      '<div class="controls">'.
+        '<input list="datalist_foo" type="text" name="foo" id="foo">'.
+        '<datalist id="datalist_foo">'.
+          '<option value="bar">foo</option>'.
+          '<option value="tar">kel</option>'.
+        '</datalist>'.
+      '</div>'.
+    '</div>';
+
+    $this->assertEquals($matcher, $datalist);
+  }
+
 }

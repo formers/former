@@ -37,12 +37,14 @@ class FormerTests extends PHPUnit_Framework_TestCase
     return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';
   }
 
-  public static function setUpBeforeClass()
+  public function setUp()
   {
     \Former\Former::horizontal_open();
+    \Former\Former::populate(array());
+    \Former\Former::withErrors(null);
   }
 
-  public static function tearDownAfterClass()
+  public function tearDown()
   {
     \Former\Former::close();
   }
