@@ -167,8 +167,7 @@ $rules = array(
   'age'    => 'between:,18,24',
   'email'  => 'email',
   'show'   => 'in:batman,spiderman',
-  'random' => 'match:/[a-zA-Z]+/'
-  ''
+  'random' => 'match:/[a-zA-Z]+/',
 );
 ```
 
