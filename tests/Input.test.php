@@ -211,4 +211,22 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $datalist);
   }
 
+  public function testDatalistCustomList()
+  {
+    $datalist = Former::text('foo')->list('bar')->useDatalist(array('foo' => 'bar', 'kel' => 'tar'))->__toString();
+    $matcher =
+    '<div class="control-group">'.
+      '<label for="foo" class="control-label">Foo</label>'.
+      '<div class="controls">'.
+        '<input list="bar" type="text" name="foo" id="foo">'.
+        '<datalist id="bar">'.
+          '<option value="bar">foo</option>'.
+          '<option value="tar">kel</option>'.
+        '</datalist>'.
+      '</div>'.
+    '</div>';
+
+    $this->assertEquals($matcher, $datalist);
+  }
+
 }

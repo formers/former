@@ -24,7 +24,10 @@ class Input extends \Former\Field
    */
   public function useDatalist($datalist)
   {
-    $this->list('datalist_'.$this->name);
+    $list = $this->list ?: 'datalist_'.$this->name;
+
+    // Create the link to the datalist
+    $this->list($list);
     $this->datalist = $datalist;
   }
 
@@ -43,7 +46,7 @@ class Input extends \Former\Field
 
     // If we have a datalist to append, print it out
     if ($this->datalist) {
-      $input .= self::renderDatalist('datalist_'.$this->name, $this->datalist);
+      $input .= self::renderDatalist();
     }
 
     return $input;
@@ -65,14 +68,12 @@ class Input extends \Former\Field
   /**
    * Renders a datalist
    *
-   * @param  string $name The datalist name
-   * @param  array  $list Its values
    * @return string       A <datalist> tag
    */
-  private function renderDatalist($name, $list)
+  private function renderDatalist()
   {
-    $datalist = '<datalist id="' .$name. '">';
-      foreach ($list as $key => $value) {
+    $datalist = '<datalist id="' .$this->list. '">';
+      foreach ($this->datalist as $key => $value) {
         $datalist .= '<option value="' .$value. '">' .$key. '</option>';
       }
     $datalist .= '</datalist>';
