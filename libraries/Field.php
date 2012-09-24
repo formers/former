@@ -198,7 +198,7 @@ abstract class Field
   }
 
   ////////////////////////////////////////////////////////////////////
-  //////////////////////////////// HELPERS //////////////////////////
+  //////////////////////////////// HELPERS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**
@@ -215,6 +215,28 @@ abstract class Field
     $value = Former::getPost($this->name, $value);
 
     $this->value = $value;
+  }
+
+  /**
+   * Set a maximum value to a field
+   *
+   * @param integer $max
+   */
+  private function setMax($max)
+  {
+    $attribute = $this->type == 'number' ? 'max' : 'maxlength';
+    $this->attributes[$attribute] = $max;
+  }
+
+  /**
+   * Set a minimum value to a field
+   *
+   * @param integer $min
+   */
+  private function setMin($min)
+  {
+    $attribute = $this->type == 'number' ? 'min' : 'minlength';
+    $this->attributes[$attribute] = $min;
   }
 
   /**
@@ -257,10 +279,10 @@ abstract class Field
           $this->required();
           break;
         case 'max':
-          $this->attributes['maxlength'] = array_get($parameters, 0);
+          $this->setMax(array_get($parameters, 0));
           break;
         case 'min':
-          $this->attributes['minlength'] = array_get($parameters, 0);
+          $this->setMin(array_get($parameters, 0));
           break;
         case 'numeric':
           $this->attributes['pattern'] = '\d+';
@@ -273,8 +295,8 @@ abstract class Field
           break;
         case 'between':
           list($min, $max) = $parameters;
-          $this->attributes['min'] = $min;
-          $this->attributes['max'] = $max;
+          $this->setMin($min);
+          $this->setMax($max);
           break;
         case 'in':
           $this->attributes['pattern'] = '^(' .join('|', $parameters). ')$';
