@@ -250,6 +250,9 @@ abstract class Field
     // Iterate through them and add the attributes
     foreach ($rules as $rule => $parameters) {
       switch ($rule) {
+        case 'email':
+          $this->type = 'email';
+          break;
         case 'required';
           $this->required();
           break;
