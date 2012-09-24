@@ -9,7 +9,7 @@ namespace Former\Fields;
 use \Former\Helpers;
 use \HTML;
 
-class Uneditable extends \Former\Fields
+class Uneditable extends \Former\Field
 {
   /**
    * Prints out the current tag
@@ -18,11 +18,11 @@ class Uneditable extends \Former\Fields
    */
   public function __toString()
   {
-    $this->attributes = Helpers::addClass($this->atteibutes, 'uneditable-input');
+    $this->attributes = Helpers::addClass($this->attributes, 'uneditable-input');
 
     return
-      '<span'.HTML::attributes($attributes).'>'.
-        HTML::entities($value).
+      '<span'.HTML::attributes($this->attributes).'>'.
+        HTML::entities($this->value).
       '</span>';
   }
 }
