@@ -27,6 +27,11 @@ class FormerTests extends PHPUnit_Framework_TestCase
     ),
   );
 
+  protected function cgr($input, $label = '<label for="foo" class="control-label">Foo</label>')
+  {
+    return '<div class="control-group required">'.$label.'<div class="controls">'.$input.'</div></div>';
+  }
+
   protected function cg($input, $label = '<label for="foo" class="control-label">Foo</label>')
   {
     return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';

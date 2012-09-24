@@ -299,7 +299,8 @@ abstract class Field
           $this->setMax($max);
           break;
         case 'in':
-          $this->attributes['pattern'] = '^(' .join('|', $parameters). ')$';
+          $possible = (sizeof($parameters) == 1) ? $parameters[0] : '('.join('|', $parameters).')';
+          $this->attributes['pattern'] = '^' .$possible. '$';
           break;
         case 'not_in':
           $this->attributes['pattern'] = '(?:(?!^' .join('$|^', $parameters). '$).)*';
