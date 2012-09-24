@@ -183,7 +183,7 @@ You can disable Former's automatic errors fetching with the following option : <
 
 <p>Former will recognize the model and populate the field with the model's attribute. If here per example our client has a <code>name</code> set to 'Foo' and a <code>firstname</code> set to 'Bar', Former will look for fields named 'name' and 'firstname' and fill them respectively with 'Foo' and 'Bar'.</p>
 
-<p>For the rest of the form, dilling fields is basically as easy as doing <code>-&gt;value('something')</code>.</p>
+<p>For the rest of the form, filling fields is basically as easy as doing <code>-&gt;value('something')</code>.</p>
 
 <p>To generate a list of options for a <code>&lt;select&gt;</code> you call <code>Former::select('foo')-&gt;options([array], [facultative: selected value])</code>.
 You can also use the results from an Eloquent/Fluent query as options for a select, like this :</p>
@@ -200,17 +200,18 @@ You can also use the results from an Eloquent/Fluent query as options for a sele
 <div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'clients'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">useDatalist</span><span class="p">(</span><span class="nv">$clients</span><span class="p">)</span>
 </pre></div>
 
-<p>It will automatically generate the corresponding <code>&lt;datalist&gt;</code> and link it by <code>id</code> to that field. Which means your text input will get populated by the values in your array, while still letting people type whatever they want if they don't find happiness and/or are little pains in the ass.</p>
+<p>You can also (if you need to) set a custom id on the created datalist by doing <code>Former::text('foo')-&gt;list('myId')-&gt;useDatalist()</code>.
+From there it will automatically generate the corresponding <code>&lt;datalist&gt;</code> and link it by <code>id</code> to that field. Which means your text input will get populated by the values in your array, while still letting people type whatever they want if they don't find happiness and/or are little pains in the ass.</p>
 
 <h2>Live validation</h2>
 
 <p>MORE. Ok, instant validation, we all like that don't we ? Now as some of you may know, all modern browsers support instant validation via HTML attributes — no Javascript needed nor script nor polyfill. There are a few attributes that can do that kind of job for you, <code>pattern</code>, <code>required</code>, <code>max/min</code> to name a few.
 Now you know when you validate your POST data with that little <code>$rules</code> array stuff ? Wouldn't it be awesome to just be able to pass that array to your form and let it transcribe your rules into real-live validation ? Yes ? Because you totally can with Former, just sayin'.
-Take the following (simple) rules array :</p>
+Take the following (far-fetched) rules array :</p>
 
 <div class="highlight"><pre><span class="nv">$rules</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
   <span class="s1">'name'</span>   <span class="o">=&gt;</span> <span class="s1">'required|max:20|alpha'</span><span class="p">,</span>
-  <span class="s1">'age'</span>    <span class="o">=&gt;</span> <span class="s1">'between:,18,24'</span><span class="p">,</span>
+  <span class="s1">'age'</span>    <span class="o">=&gt;</span> <span class="s1">'between:18,24'</span><span class="p">,</span>
   <span class="s1">'email'</span>  <span class="o">=&gt;</span> <span class="s1">'email'</span><span class="p">,</span>
   <span class="s1">'show'</span>   <span class="o">=&gt;</span> <span class="s1">'in:batman,spiderman'</span><span class="p">,</span>
   <span class="s1">'random'</span> <span class="o">=&gt;</span> <span class="s1">'match:/[a-zA-Z]+/'</span><span class="p">,</span>
@@ -226,14 +227,14 @@ Take the following (simple) rules array :</p>
 <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"random"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">pattern=</span><span class="s">"[a-zA-Z]+"</span> <span class="nt">/&gt;</span>
 </pre></div>
 
-<p>Note that you can always add custom rules the way you'd add any attributes, since the pattern attribute uses a Regex.</p>
+<p>Note that you can always add custom rules the way you'd add any attributes, since the pattern attribute uses a Regex (and if you don't speak Regex you totally should because it will guide you through life or something).</p>
 
 <div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">number</span><span class="p">(</span><span class="s1">'age'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">min</span><span class="p">(</span><span class="mi">18</span><span class="p">)</span>
 
 <span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'client_code'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">pattern</span><span class="p">(</span><span class="s1">'[a-z]{4}[0-9]{2}'</span><span class="p">)</span>
 </pre></div>
 
-<p>And that's it ! And the best news : since Bootstrap recognizes live validation, if say you try to type something that doesn't match the <code>alpha</code> pattern in your name field, it will automatically turn red just like when your control group is set to <code>error</code>. Just like that, fingers snappin' and all, nothing to do but sit back, relax, and watch Chrome/Firefox/whatever pop up a sweet little box saying "You have to fill that field dude".</p>
+<p>And that's it ! And the best news : since Bootstrap recognizes live validation, if say you try to type something that doesn't match the <code>alpha</code> pattern in your name field, it will automatically turn red just like when your control group is set to <code>error</code>. Just like that, fingers snappin' and all, nothing to do but sit back, relax, and watch Chrome/Firefox/whatever pop up a sweet little box saying "You have to fill that field dude" or "That is not email, what are you trying to do, fool me or something ?".</p>
 
 <p>You can also, mid-course, manually set the state of a control group — that's a feature of course available only if you're using Bootstrap's syntax. You can use any of the control group states which include <code>success</code>, <code>warning</code>, <code>error</code> and <code>info</code>.</p>
 
@@ -276,20 +277,22 @@ It also repopulates it, meaning a checked input will stay checked on submit.</p>
 
 <h2>Localization helpers</h2>
 
-<p>For those of you that work on multingual projects, Former is also here to help. By default, when creating a field, if no label is specified Former will use the field name by default. But more importantly it will try and translate it automatically. Same goes for checkboxes labels and form legends. Which means the following :</p>
+<p>For those of you that work on multingual projects, Former is also here to help. By default, when creating a field, if no label is specified Former will use the field name by default. But more importantly it will try and translate it automatically. Same goes for checkboxes labels, help texts and form legends. Which means the following :</p>
 
 <div class="highlight"><pre><span class="c1">// This</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="nx">__</span><span class="p">(</span><span class="s1">'validation.attributes.name'</span><span class="p">))</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">inlineHelp</span><span class="p">(</span><span class="nx">__</span><span class="p">(</span><span class="s1">'help.name'</span><span class="p">))</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">checkbox</span><span class="p">(</span><span class="s1">'rules'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">text</span><span class="p">(</span><span class="nx">__</span><span class="p">(</span><span class="s1">'my.translation'</span><span class="p">))</span>
 <span class="o">&lt;</span><span class="nx">legend</span><span class="o">&gt;</span><span class="p">{{</span> <span class="nx">__</span><span class="p">(</span><span class="s1">'validation.attributes.mylegend'</span><span class="p">)</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="nx">legend</span><span class="o">&gt;</span>
 
 <span class="c1">// Is the same as this</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">inlineHelp</span><span class="p">(</span><span class="s1">'help.name'</span><span class="p">)</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">checkbox</span><span class="p">(</span><span class="s1">'rules'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">text</span><span class="p">(</span><span class="s1">'my.translation'</span><span class="p">)</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">legend</span><span class="p">(</span><span class="s1">'mylegend'</span><span class="p">)</span>
 </pre></div>
 
-<p>Which you know, is kind of cool. Former will first try to translate the string in itself, ie <code>my.text</code> will return <code>__('my.text')</code> and if that fails, it will look for it in a fallback placE. You can set where Former look for translations by changing the following variable : <code>Former::$translateFrom</code> (defaults to <code>validation.attributes</code>). Note that <strong>it must be an array</strong>.</p>
+<p>Which you know, is kind of cool. Former will first try to translate the string in itself, ie <code>my.text</code> will return <code>__('my.text')</code> and if that fails, it will look for it in a fallback place. You can set where Former look for translations by changing the following variable : <code>Former::$translateFrom</code> (defaults to <code>validation.attributes</code>). Note that <strong>it must be an array</strong>.</p>
 
 <h2>Notes on setting field values</h2>
 
@@ -348,7 +351,8 @@ It also repopulates it, meaning a checked input will stay checked on submit.</p>
 <span class="p">);</span>
 
 <span class="c1">// Former</span>
-<span class="nx">Former</span><span class="o">::</span><span class="na">checkboxes</span><span class="p">(</span><span class="s1">'check'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">checkboxes</span><span class="p">(</span><span class="s1">'Check me'</span><span class="p">,</span> <span class="s1">'Check me too'</span><span class="p">)</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">checkboxes</span><span class="p">(</span><span class="s1">'check'</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">checkboxes</span><span class="p">(</span><span class="s1">'Check me'</span><span class="p">,</span> <span class="s1">'Check me too'</span><span class="p">)</span>
   <span class="o">-&gt;</span><span class="na">blockHelp</span><span class="p">(</span><span class="s1">'I SAID CHECK THOSE DOUBLES'</span><span class="p">)</span>
 </pre></div>
 
