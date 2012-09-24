@@ -96,14 +96,16 @@ Former::select('clients')->options($clients, 2)
 What you actually get is the following output :
 
 ```html
-<div class='control-group warning'>
-  <label for='clients'>Clients</label>
-  <select name='clients'>
-    <option value='0'>Michael</option>
-    <option value='1'>Joseph</option>
-    <option value='2' selected>Patrick</option>
+<div class="control-group warning">
+  <label for="clients" class="control-label">Clients</label>
+  <div class="controls">
+    <select id="clients" name="clients">
+      <option value="0">Mickael</option>
+      <option value="1">Joseph</option>
+      <option value="2" selected="selected">Patrick</option>
   </select>
-  <span class='help-inline'>Pick some dude</span>
+    <span class="help-inline">Pick some dude</span>
+  </div>
 </div>
 ```
 
