@@ -1,0 +1,15 @@
+{
+    "name": "anahkiasen/former",
+    "description": "A powerful form builder for the Laravel framework",
+    "authors": [
+        {
+            "name": "Maxime Fabre",
+            "email": "ehtnam6@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Former": "libraries/"
+        }
+    }
+}
