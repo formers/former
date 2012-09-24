@@ -48,6 +48,33 @@ class Select extends \Former\Field
   }
 
   /**
+   * Use the results from a Fluent/Eloquent query as options
+   *
+   * @param  array  $results  An array of Eloquent models
+   * @param  string $value    The attribute to use as text
+   * @param  string $key      The attribute to use as value
+   */
+  public function fromQuery($results, $value, $key = 'id')
+  {
+    // Fetch the Query if it hasn't been
+    if($results instanceof \Laravel\Database\Eloquent\Query) {
+      $results = $results->get();
+    }
+
+    // Populates the new options
+    foreach($results as $model) {
+
+      // Filter out wrong attributes
+      if(!isset($model->$value)) continue;
+      if(!isset($model->$key)) $key = $value;
+
+      $options[$model->$key] = $model->$value;
+    }
+
+    if(isset($options)) $this->options = $options;
+  }
+
+  /**
    * Select a particular list item
    *
    * @param  mixed $selected Selected item

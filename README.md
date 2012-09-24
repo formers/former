@@ -103,7 +103,7 @@ What you actually get is the following output :
       <option value="0">Mickael</option>
       <option value="1">Joseph</option>
       <option value="2" selected="selected">Patrick</option>
-  </select>
+    </select>
     <span class="help-inline">Pick some dude</span>
   </div>
 </div>
@@ -160,6 +160,17 @@ Former::populate( Client::find(2) )
 ```
 
 Former will recognize the model and populate the field with the model's attribute. If here per example our client has a `name` set to 'Foo' and a `firstname` set to 'Bar', Former will look for fields named 'name' and 'firstname' and fill them respectively with 'Foo' and 'Bar'.
+
+For the rest of the form, dilling fields is basically as easy as doing `->value('something')`.
+
+To generate a list of options for a `<select>` you call `Former::select('foo')->options([array], [facultative: selected value])`.
+You can also use the results from an Eloquent/Fluent query as options for a select, like this :
+
+```php
+Former::select('foo')->fromQuery(Client::all(), 'name', 'id')
+```
+
+Where the second argument is which attribute will be used for the option's text, and the third facultative argument is which attribute will be used for the option's value (defaults to the `id` attribute).
 
 ## Datalists
 
