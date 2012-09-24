@@ -163,22 +163,29 @@ Take the following (simple) rules array :
 
 ```php
 $rules = array(
-  'name' => 'required|alpha',
-  'age'  => 'min:18'
+  'name'   => 'required|max:20|alpha',
+  'age'    => 'between:,18,24',
+  'email'  => 'email',
+  'show'   => 'in:batman,spiderman',
+  'random' => 'match:/[a-zA-Z]+/'
+  ''
 );
 ```
 
 What Former will do is look for fields that match the keys and apply the best it can those rules. There's not a lot of supported rules for now but I plan on adding more.
 
 ```html
-<input type="text" name="name" required pattern="[a-zA-Z]+" />
-<input type="number" min="18" />
+<input name="name" type="text" required maxlength="20" pattern="[a-zA-Z]+" />
+<input name="age" type="number" min="18" max="24" />
+<input name="email" type="email" />
+<input name="show" type="text" pattern="^(batman|spiderman)$" />
+<input name="random" type="text" pattern="[a-zA-Z]+" />
 ```
 
 Note that you can always add custom rules the way you'd add any attributes, since the pattern attribute uses a Regex.
 
 ```php
-Former::number('age')->minlength(18)
+Former::number('age')->min(18)
 
 Former::text('client_code')->pattern('[a-z]{4}[0-9]{2}')
 ```
