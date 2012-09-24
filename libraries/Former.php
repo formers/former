@@ -323,6 +323,11 @@ class Former
     // Destroy Form instance
     static::$form = null;
 
+    // Reset all values
+    static::$values = null;
+    static::$errors = null;
+    static::$rules  = null;
+
     return $close;
   }
 
