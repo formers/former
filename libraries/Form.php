@@ -1,9 +1,8 @@
 <?php
 /**
- *
  * Form
  *
- * Construct and maanges the form wrapping all fields
+ * Construct and manages the form wrapping all fields
  */
 namespace Former;
 

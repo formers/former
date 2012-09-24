@@ -1,4 +1,9 @@
 <?php
+/**
+ * Select
+ *
+ * Everything list-related (select, multiselect, ...)
+ */
 namespace Former\Fields;
 
 use \Form;

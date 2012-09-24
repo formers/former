@@ -1,7 +1,13 @@
 <?php
+/**
+ * Uneditable
+ *
+ * Uneditable inputs (which aren't actually fields but you know)
+ */
 namespace Former\Fields;
 
-use \HTML, \Former\Helpers;
+use \Former\Helpers;
+use \HTML;
 
 class Uneditable extends \Former\Fields
 {

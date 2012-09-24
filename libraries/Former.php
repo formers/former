@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Former
  *
  * Superset of Field ; helps the user interact with it and its classes

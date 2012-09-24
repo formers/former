@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Field
  *
  * Abstracts general fields parameters (type, value, name) and

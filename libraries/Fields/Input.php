@@ -6,7 +6,8 @@
  */
 namespace Former\Fields;
 
-use \Form, Former\Helpers;
+use \Form;
+use \Former\Helpers;
 
 class Input extends \Former\Field
 {
@@ -47,6 +48,10 @@ class Input extends \Former\Field
 
     return $input;
   }
+
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////////// HELPERS ////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Render a text element as a search element

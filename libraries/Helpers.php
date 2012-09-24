@@ -1,4 +1,9 @@
 <?php
+/**
+ * Helpers
+ *
+ * Various helpers used by all Former classes
+ */
 namespace Former;
 
 use \HTML, \Lang;

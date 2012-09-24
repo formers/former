@@ -8,6 +8,10 @@ namespace Former\Fields;
 
 class Checkbox extends \Former\Checkable
 {
+  /**
+   * The current checkable type
+   * @var string
+   */
   protected $checkable = 'checkbox';
 
   /**

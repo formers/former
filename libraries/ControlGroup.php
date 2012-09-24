@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * ControlGroup
  *
  * Helper class to build Bootstrap control-groups

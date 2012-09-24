@@ -1,4 +1,9 @@
 <?php
+/**
+ * Checkable
+ *
+ * Abstract methods inherited by Checkbox and Radio
+ */
 namespace Former;
 
 abstract class Checkable extends Field
