@@ -161,7 +161,7 @@ Former::populate( Client::find(2) )
 
 Former will recognize the model and populate the field with the model's attribute. If here per example our client has a `name` set to 'Foo' and a `firstname` set to 'Bar', Former will look for fields named 'name' and 'firstname' and fill them respectively with 'Foo' and 'Bar'.
 
-For the rest of the form, dilling fields is basically as easy as doing `->value('something')`.
+For the rest of the form, filling fields is basically as easy as doing `->value('something')`.
 
 To generate a list of options for a `<select>` you call `Former::select('foo')->options([array], [facultative: selected value])`.
 You can also use the results from an Eloquent/Fluent query as options for a select, like this :
@@ -180,18 +180,19 @@ But what else does it do ? Datalists, it can do datalists. You don't know what t
 Former::text('clients')->useDatalist($clients)
 ```
 
-It will automatically generate the corresponding `<datalist>` and link it by `id` to that field. Which means your text input will get populated by the values in your array, while still letting people type whatever they want if they don't find happiness and/or are little pains in the ass.
+You can also (if you need to) set a custom id on the created datalist by doing `Former::text('foo')->list('myId')->useDatalist()`.
+From there it will automatically generate the corresponding `<datalist>` and link it by `id` to that field. Which means your text input will get populated by the values in your array, while still letting people type whatever they want if they don't find happiness and/or are little pains in the ass.
 
 ## Live validation
 
 MORE. Ok, instant validation, we all like that don't we ? Now as some of you may know, all modern browsers support instant validation via HTML attributes — no Javascript needed nor script nor polyfill. There are a few attributes that can do that kind of job for you, `pattern`, `required`, `max/min` to name a few.
 Now you know when you validate your POST data with that little `$rules` array stuff ? Wouldn't it be awesome to just be able to pass that array to your form and let it transcribe your rules into real-live validation ? Yes ? Because you totally can with Former, just sayin'.
-Take the following (simple) rules array :
+Take the following (far-fetched) rules array :
 
 ```php
 $rules = array(
   'name'   => 'required|max:20|alpha',
-  'age'    => 'between:,18,24',
+  'age'    => 'between:18,24',
   'email'  => 'email',
   'show'   => 'in:batman,spiderman',
   'random' => 'match:/[a-zA-Z]+/',
@@ -208,7 +209,7 @@ What Former will do is look for fields that match the keys and apply the best it
 <input name="random" type="text" pattern="[a-zA-Z]+" />
 ```
 
-Note that you can always add custom rules the way you'd add any attributes, since the pattern attribute uses a Regex.
+Note that you can always add custom rules the way you'd add any attributes, since the pattern attribute uses a Regex (and if you don't speak Regex you totally should because it will guide you through life or something).
 
 ```php
 Former::number('age')->min(18)
@@ -216,7 +217,7 @@ Former::number('age')->min(18)
 Former::text('client_code')->pattern('[a-z]{4}[0-9]{2}')
 ```
 
-And that's it ! And the best news : since Bootstrap recognizes live validation, if say you try to type something that doesn't match the `alpha` pattern in your name field, it will automatically turn red just like when your control group is set to `error`. Just like that, fingers snappin' and all, nothing to do but sit back, relax, and watch Chrome/Firefox/whatever pop up a sweet little box saying "You have to fill that field dude".
+And that's it ! And the best news : since Bootstrap recognizes live validation, if say you try to type something that doesn't match the `alpha` pattern in your name field, it will automatically turn red just like when your control group is set to `error`. Just like that, fingers snappin' and all, nothing to do but sit back, relax, and watch Chrome/Firefox/whatever pop up a sweet little box saying "You have to fill that field dude" or "That is not email, what are you trying to do, fool me or something ?".
 
 You can also, mid-course, manually set the state of a control group — that's a feature of course available only if you're using Bootstrap's syntax. You can use any of the control group states which include `success`, `warning`, `error` and `info`.
 
@@ -261,21 +262,23 @@ It also repopulates it, meaning a checked input will stay checked on submit.
 
 ## Localization helpers
 
-For those of you that work on multingual projects, Former is also here to help. By default, when creating a field, if no label is specified Former will use the field name by default. But more importantly it will try and translate it automatically. Same goes for checkboxes labels and form legends. Which means the following :
+For those of you that work on multingual projects, Former is also here to help. By default, when creating a field, if no label is specified Former will use the field name by default. But more importantly it will try and translate it automatically. Same goes for checkboxes labels, help texts and form legends. Which means the following :
 
 ```php
 // This
 Former::text('name', __('validation.attributes.name'))
+Former::text('name')->inlineHelp(__('help.name'))
 Former::checkbox('rules')->text(__('my.translation'))
 <legend>{{ __('validation.attributes.mylegend') }}</legend>
 
 // Is the same as this
 Former::text('name')
+Former::text('name')->inlineHelp('help.name')
 Former::checkbox('rules')->text('my.translation')
 Former::legend('mylegend')
 ```
 
-Which you know, is kind of cool. Former will first try to translate the string in itself, ie `my.text` will return `__('my.text')` and if that fails, it will look for it in a fallback placE. You can set where Former look for translations by changing the following variable : `Former::$translateFrom` (defaults to `validation.attributes`). Note that **it must be an array**.
+Which you know, is kind of cool. Former will first try to translate the string in itself, ie `my.text` will return `__('my.text')` and if that fails, it will look for it in a fallback place. You can set where Former look for translations by changing the following variable : `Former::$translateFrom` (defaults to `validation.attributes`). Note that **it must be an array**.
 
 ## Notes on setting field values
 
@@ -337,7 +340,8 @@ echo Form::control_group(
 );
 
 // Former
-Former::checkboxes('check')->checkboxes('Check me', 'Check me too')
+Former::checkboxes('check')
+  ->checkboxes('Check me', 'Check me too')
   ->blockHelp('I SAID CHECK THOSE DOUBLES')
 ```
 
