@@ -52,7 +52,6 @@ class ControlGroupTest extends FormerTests
     if($prepend) $class = "input-prepend";
     if($append) $class .= " input-append";
 
-
     return
     '<div class="control-group">' .
       '<label for="foo" class="control-label">Foo</label>' .

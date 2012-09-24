@@ -146,7 +146,7 @@ class InputTest extends FormerTests
 
   public function testMagicMethods()
   {
-    foreach(array('mini', 'small', 'medium', 'large', 'xlarge', 'xxlarge') as $size) {
+    foreach (array('mini', 'small', 'medium', 'large', 'xlarge', 'xxlarge') as $size) {
       $method = $size.'_text';
       $static = Former::$method('foo')->addClass('bar')->__toString();
       $matcher = $this->cg('<input class="input-' .$size. ' bar" type="text" name="foo" id="foo">');

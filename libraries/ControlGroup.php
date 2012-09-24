@@ -100,7 +100,7 @@ class ControlGroup
 
     // Get the field name to link the label to it
     $name = $field->name;
-    if($field->type == 'checkboxes' or $field->type == 'radios') {
+    if ($field->type == 'checkboxes' or $field->type == 'radios') {
       return '<label'.HTML::attributes($attributes).'>'.$label.'</label>';
     }
 
@@ -268,7 +268,7 @@ class ControlGroup
   private function placeAround($items, $place)
   {
     foreach ($items as $i) {
-      if(!($i instanceof \Bootstrapper\Buttons) and !starts_with($i, '<button')) {
+      if (!($i instanceof \Bootstrapper\Buttons) and !starts_with($i, '<button')) {
         $i = '<span class="add-on">'.$i.'</span>';
       }
       $this->{$place}[] = $i;

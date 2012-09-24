@@ -98,6 +98,7 @@ class Former
     // Form opener
     if (str_contains($method, 'open')) {
       static::$form = new Form;
+
       return static::form()->open($method, $parameters);
     }
 
@@ -106,7 +107,7 @@ class Former
     $method  = array_pop($classes);
 
     // Picking the right class
-    if(class_exists('\Former\Fields\\'.ucfirst($method))) {
+    if (class_exists('\Former\Fields\\'.ucfirst($method))) {
       $callClass = ucfirst($method);
     } else {
       switch ($method) {
@@ -418,7 +419,6 @@ class Former
   public static function form()
   {
     if (!static::$form) return new Form;
-
     return static::$form;
   }
 

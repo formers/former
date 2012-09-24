@@ -89,13 +89,13 @@ abstract class Checkable extends Field
       $fallbackName = $this->isCheckbox() ? $this->name.'_'.$count : $this->name;
 
       // If we haven't any name defined for the checkable, try to compute some
-      if(!is_string($label) and !is_array($name)) {
+      if (!is_string($label) and !is_array($name)) {
         $label = $name;
         $name = $fallbackName;
       }
 
       // If we gave custom information on the item, add them
-      if(is_array($name)) {
+      if (is_array($name)) {
         $attributes = $name;
         $name = array_get($attributes, 'name', $fallbackName);
         unset($attributes['name']);

@@ -3,7 +3,7 @@
 Bundle::start('former');
 
 // Start Bootstrapper if installed (as it sometimes alias Form)
-if(Bundle::exists('bootstrapper')) {
+if (Bundle::exists('bootstrapper')) {
   Bundle::start('bootstrapper');
 }
 

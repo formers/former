@@ -36,16 +36,15 @@ class Form
 
     // If classic form
     if($typeAsked == 'open') $type = Former::$defaultFormType;
-    else
-    {
+    else {
       // Look for HTTPS form
-      if(str_contains($typeAsked, 'secure')) {
+      if (str_contains($typeAsked, 'secure')) {
         $typeAsked = str_replace('secure', null, $typeAsked);
         $secure = true;
       }
 
       // Look for file form
-      if(str_contains($typeAsked, 'for_files')) {
+      if (str_contains($typeAsked, 'for_files')) {
         $typeAsked = str_replace('for_files', null, $typeAsked);
         $attributes['enctype'] = 'multipart/form-data';
       }
