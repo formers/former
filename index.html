@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Former by Anahkiasen</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Former</h1>
+        <h2>A powerful form builder for the Laravel framework</h2>
+        <a href="https://github.com/Anahkiasen/former" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>Former</h1>
+
+<h2>A Laravelish way to create and format forms</h2>
+
+<p>Travis status : <a href="http://travis-ci.org/Anahkiasen/former"><img src="https://secure.travis-ci.org/Anahkiasen/former.png" alt="Build Status"></a></p>
+
+<p>Former is the name of a little project I'd like to present you — it's a bundle, a superset of Bootstrapper, and a really nice guy too.
+Laravel's original Form class is great — simplistic and full of little helpers, but a tad unelegant compared to the rest of the framework. When you add Bootstrapper classes above it, it just becomes intoxicating ; the mere amount of lines you need to type to create a five fields form with control groups is simply discouraging.</p>
+
+<p>Former is still in beta, it's not yet published on Laravel's bundle repo. It's working, but I encourage you to post any question, idea or bug as an issue on this repo and i'll be there for you (cause you're there for me too).</p>
+
+<hr><h2>Introduction</h2>
+
+<p>Former aims to re-laravelize form creation by transforming each field into its own model, with its own methods and attributes. This means that you can do this sort of stuff :</p>
+
+<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">horizontal_open</span><span class="p">()</span>
+
+  <span class="nx">Former</span><span class="o">::</span><span class="na">xlarge_text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">class</span><span class="p">(</span><span class="s1">'myclass'</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">value</span><span class="p">(</span><span class="s1">'Joseph'</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">require</span><span class="p">();</span>
+
+  <span class="nx">Former</span><span class="o">::</span><span class="na">textarea</span><span class="p">(</span><span class="s1">'comments'</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">rows</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">columns</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">autofocus</span><span class="p">();</span>
+
+<span class="nx">Former</span><span class="o">::</span><span class="na">close</span><span class="p">()</span>
+</pre></div>
+
+<p>While also being able to do – just like in the days of old :</p>
+
+<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">xlarge_text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="s1">'Joseph'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'require'</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span> <span class="s1">'class'</span> <span class="o">=&gt;</span> <span class="s1">'myclass'</span><span class="p">))</span>
+
+<span class="nx">Former</span><span class="o">::</span><span class="na">textarea</span><span class="p">(</span><span class="s1">'comments'</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'rows'</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">'columns'</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">'autofocus'</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">))</span>
+</pre></div>
+
+<p>The advantages of the first option being that you can skip arguments. If you want to set one single class on a text field, you don't have to go and set the label and the value and the yada yada to <code>null</code>, you just do <code>Former::text('name')-&gt;class('class')</code>.</p>
+
+<p>Everytime you call a method that doesn't actually exist, Former assumes you're trying to set an attribute and creates it magically. That's why you can do in the above example <code>-&gt;rows(10)</code> ; in case you want to set attributes that contain dashes, just replace them by underscores : <code>-&gt;data_foo('bar')</code> equals <code>data-foo="bar"</code>.
+Now of course in case you want to set an attribute that actually contains an underscore (jeez aren't you the little smartass) you can always use the fallback method <code>setAttribute('data_foo', 'bar')</code>. You're welcome.</p>
+
+<h2>Installation</h2>
+
+<p>Installing Former is easy as hell. You just type the following in your Terminal :</p>
+
+<div class="highlight"><pre>php artisan bundle:install former
+</pre></div>
+
+<p>Add the following to your <code>bundles.php</code> file :</p>
+
+<div class="highlight"><pre><span class="s1">'former'</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">'auto'</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">),</span>
+</pre></div>
+
+<p>And finally for easier use I recommand adding this alias to your alias array in <code>application.php</code> :</p>
+
+<div class="highlight"><pre><span class="s1">'Former'</span> <span class="o">=&gt;</span> <span class="s1">'Former\Former'</span><span class="p">,</span>
+</pre></div>
+
+<hr><h1>Features</h1>
+
+<h2>Out-of-the-box integration to Bootstrap</h2>
+
+<p>So that's pretty nice, but so far that just looks like a modification of Laravel's Form class I mean, what's so Bootstrappy about all that ? That's where the magic underneath lies : Former recognizes when you create an horizontal or veritcal form, and goes the extra mile of wrapping each field in a control group, all behind the scenes.
+That means that when you type this :</p>
+
+<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">select</span><span class="p">(</span><span class="s1">'clients'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">options</span><span class="p">(</span><span class="nv">$clients</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">inlineHelp</span><span class="p">(</span><span class="s1">'Pick some dude'</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">state</span><span class="p">(</span><span class="s1">'warning'</span><span class="p">)</span>
+</pre></div>
+
+<p>What you actually get is the following output :</p>
+
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">'control-group warning'</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">'clients'</span><span class="nt">&gt;</span>Clients<span class="nt">&lt;/label&gt;</span>
+  <span class="nt">&lt;select</span> <span class="na">name=</span><span class="s">'clients'</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">'0'</span><span class="nt">&gt;</span>Michael<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">'1'</span><span class="nt">&gt;</span>Joseph<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">'2'</span> <span class="na">selected</span><span class="nt">&gt;</span>Patrick<span class="nt">&lt;/option&gt;</span>
+  <span class="nt">&lt;/select&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">'help-inline'</span><span class="nt">&gt;</span>Pick some dude<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+<p>All the Bootstrap syntax although useful to a lot of people, can be desactivated with the following option :</p>
+
+<div class="highlight"><pre><span class="c1">// Turn off Bootstrap syntax</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">useBootstrap</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+
+<span class="c1">// Turn it on again (MAKE UP YOUR MIND JEEZ)</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">useBootstrap</span><span class="p">();</span>
+</pre></div>
+
+<h2>Ties-in with Laravel's Validator</h2>
+
+<p>So ok, that's already a lot of clutter removed by not having to call the lenghty <code>Form::control_group()</code> function. Now I hear you coming : "but you know I still have to manually validate my form and su"— Well no you don't. Enters Former's magic helper <code>withErrors</code>; what it does is pretty simple. Since it's already wrapping your nice fields into control groups, it goes the distance, and gently check the <code>Message</code> object for any errors that field might have, and set that error as an <code>.help-inline</code>. Now we're talking !</p>
+
+<p>Now you use it differently according to how your code reacts after a failed validation :</p>
+
+<h3>If your render a view on failed validation (no redirection)</h3>
+
+<div class="highlight"><pre><span class="k">if</span><span class="p">(</span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">fails</span><span class="p">())</span> <span class="p">{</span>
+  <span class="nx">Former</span><span class="o">::</span><span class="na">withErrors</span><span class="p">(</span><span class="nv">$validation</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">View</span><span class="o">::</span><span class="na">make</span><span class="p">(</span><span class="s1">'myview'</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>If your redirect on failed validation</h3>
+
+<div class="highlight"><pre><span class="k">if</span><span class="p">(</span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">fails</span><span class="p">())</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">Redirect</span><span class="o">::</span><span class="na">to</span><span class="p">(</span><span class="s1">'login'</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">with_errors</span><span class="p">(</span><span class="nv">$validation</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Now on the last example you never actually call Former, be it in your controller or in your view. Why is that ? That's because when Former opens a form on a page, it will automatically check in Session if there's not an object called <code>errors</code> and if there is, it will try to use it without requiring you to call anything.
+You can disable Former's automatic errors fetching with the following option : <code>Former::$fetchErrors = false</code>.</p>
+
+<h2>Form populating</h2>
+
+<p>You can populate a form with value quite easily with the <code>Former::populate</code> function. There is two ways to do that. The first way is the usual passing of an array of values, like this :</p>
+
+<div class="highlight"><pre><span class="c1">// Will populate the field 'name' with the value 'value'</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">populate</span><span class="p">(</span> <span class="k">array</span><span class="p">(</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'value'</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+
+<p>You can also populate a form by passing an Eloquent model to it, say you have a Client model, you can do that :</p>
+
+<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">populate</span><span class="p">(</span> <span class="nx">Client</span><span class="o">::</span><span class="na">find</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+
+<p>Former will recognize the model and populate the field with the model's attribute. If here per example our client has a <code>name</code> set to 'Foo' and a <code>firstname</code> set to 'Bar', Former will look for fields named 'name' and 'firstname' and fill them respectively with 'Foo' and 'Bar'.</p>
+
+<h2>Datalists</h2>
+
+<p>But what else does it do ? Datalists, it can do datalists. You don't know what they are ? Ok; you know how sometimes you would like to make people chose between something in a select but also being able to type what they want if it's not in it ? That's a datalist. In Former you can simply create one like that :</p>
+
+<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'clients'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">useDatalist</span><span class="p">(</span><span class="nv">$clients</span><span class="p">)</span>
+</pre></div>
+
+<p>It will automatically generate the corresponding <code>&lt;datalist&gt;</code> and link it by <code>id</code> to that field. Which means your text input will get populated by the values in your array, while still letting people type whatever they want if they don't find happiness and/or are little pains in the ass.</p>
+
+<h2>Live validation</h2>
+
+<p>MORE. Ok, instant validation, we all like that don't we ? Now as some of you may know, all modern browsers support instant validation via HTML attributes — no Javascript needed nor script nor polyfill. There are a few attributes that can do that kind of job for you, <code>pattern</code>, <code>required</code>, <code>max/min</code> to name a few.
+Now you know when you validate your POST data with that little <code>$rules</code> array stuff ? Wouldn't it be awesome to just be able to pass that array to your form and let it transcribe your rules into real-live validation ? Yes ? Because you totally can with Former, just sayin'.
+Take the following (simple) rules array :</p>
+
+<div class="highlight"><pre><span class="nv">$rules</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+  <span class="s1">'name'</span>   <span class="o">=&gt;</span> <span class="s1">'required|max:20|alpha'</span><span class="p">,</span>
+  <span class="s1">'age'</span>    <span class="o">=&gt;</span> <span class="s1">'between:,18,24'</span><span class="p">,</span>
+  <span class="s1">'email'</span>  <span class="o">=&gt;</span> <span class="s1">'email'</span><span class="p">,</span>
+  <span class="s1">'show'</span>   <span class="o">=&gt;</span> <span class="s1">'in:batman,spiderman'</span><span class="p">,</span>
+  <span class="s1">'random'</span> <span class="o">=&gt;</span> <span class="s1">'match:/[a-zA-Z]+/'</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+
+<p>What Former will do is look for fields that match the keys and apply the best it can those rules. There's not a lot of supported rules for now but I plan on adding more.</p>
+
+<div class="highlight"><pre><span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"name"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">required</span> <span class="na">maxlength=</span><span class="s">"20"</span> <span class="na">pattern=</span><span class="s">"[a-zA-Z]+"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"age"</span> <span class="na">type=</span><span class="s">"number"</span> <span class="na">min=</span><span class="s">"18"</span> <span class="na">max=</span><span class="s">"24"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"email"</span> <span class="na">type=</span><span class="s">"email"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"show"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">pattern=</span><span class="s">"^(batman|spiderman)$"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"random"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">pattern=</span><span class="s">"[a-zA-Z]+"</span> <span class="nt">/&gt;</span>
+</pre></div>
+
+<p>Note that you can always add custom rules the way you'd add any attributes, since the pattern attribute uses a Regex.</p>
+
+<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">number</span><span class="p">(</span><span class="s1">'age'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">min</span><span class="p">(</span><span class="mi">18</span><span class="p">)</span>
+
+<span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'client_code'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">pattern</span><span class="p">(</span><span class="s1">'[a-z]{4}[0-9]{2}'</span><span class="p">)</span>
+</pre></div>
+
+<p>And that's it ! And the best news : since Bootstrap recognizes live validation, if say you try to type something that doesn't match the <code>alpha</code> pattern in your name field, it will automatically turn red just like when your control group is set to <code>error</code>. Just like that, fingers snappin' and all, nothing to do but sit back, relax, and watch Chrome/Firefox/whatever pop up a sweet little box saying "You have to fill that field dude".</p>
+
+<p>You can also, mid-course, manually set the state of a control group — that's a feature of course available only if you're using Bootstrap's syntax. You can use any of the control group states which include <code>success</code>, <code>warning</code>, <code>error</code> and <code>info</code>.</p>
+
+<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">state</span><span class="p">(</span><span class="s1">'error'</span><span class="p">)</span>
+</pre></div>
+
+<h2>Checkboxes and Radios</h2>
+
+<p>Checkboxes and radios, man, aren't those annoying ? Even more when you have to create several of them, and you think in your head "WHY CAN'T I VALIDATE ALL THESE LIMES ?". With Former it's all a little easier :</p>
+
+<div class="highlight"><pre><span class="c1">// Create a one-off checkbox</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">checkbox</span><span class="p">(</span><span class="s1">'checkme'</span><span class="p">)</span>
+
+<span class="c1">// Create a one-off checkbox with a text</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">checkbox</span><span class="p">(</span><span class="s1">'checkme'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">text</span><span class="p">(</span><span class="s1">'YO CHECK THIS OUT'</span><span class="p">)</span>
+
+<span class="c1">// Create four related checkboxes</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">checkboxes</span><span class="p">(</span><span class="s1">'checkme'</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">checkboxes</span><span class="p">(</span><span class="s1">'first'</span><span class="p">,</span> <span class="s1">'second'</span><span class="p">,</span> <span class="s1">'third'</span><span class="p">,</span> <span class="s1">'fourth'</span><span class="p">)</span>
+
+<span class="c1">// Create related checkboxes, and inline them</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">checkboxes</span><span class="p">(</span><span class="s1">'checkme'</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">checkboxes</span><span class="p">(</span><span class="nv">$checkboxes</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">inline</span><span class="p">()</span>
+
+<span class="c1">// Everything that works on a checkbox also works on a radio element</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">radios</span><span class="p">(</span><span class="s1">'radio'</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">radios</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'label'</span> <span class="o">=&gt;</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'label'</span> <span class="o">=&gt;</span> <span class="s1">'name'</span><span class="p">))</span>
+  <span class="o">-&gt;</span><span class="na">stacked</span><span class="p">()</span>
+
+<span class="c1">// Fine tune checkable elements</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">radios</span><span class="p">(</span><span class="s1">'radio'</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">radios</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">'label'</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'foo'</span><span class="p">,</span> <span class="s1">'value'</span> <span class="o">=&gt;</span> <span class="s1">'bar'</span><span class="p">,</span> <span class="s1">'data-foo'</span> <span class="o">=&gt;</span> <span class="s1">'bar'</span><span class="p">),</span>
+    <span class="s1">'label'</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'foo'</span><span class="p">,</span> <span class="s1">'value'</span> <span class="o">=&gt;</span> <span class="s1">'bar'</span><span class="p">,</span> <span class="s1">'data-foo'</span> <span class="o">=&gt;</span> <span class="s1">'bar'</span><span class="p">),</span>
+  <span class="p">))</span>
+</pre></div>
+
+<p>When creating checkables via the checkboxes/radios() method, by default for each checkable name attribute it will use the original name you specified and append it a number (here in our exemple it would be <code>&lt;input type="checkbox" name="checkme_2"&gt;</code>).
+It also repopulates it, meaning a checked input will stay checked on submit.</p>
+
+<h2>Localization helpers</h2>
+
+<p>For those of you that work on multingual projects, Former is also here to help. By default, when creating a field, if no label is specified Former will use the field name by default. But more importantly it will try and translate it automatically. Same goes for checkboxes labels and form legends. Which means the following :</p>
+
+<div class="highlight"><pre><span class="c1">// This</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="nx">__</span><span class="p">(</span><span class="s1">'validation.attributes.name'</span><span class="p">))</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">checkbox</span><span class="p">(</span><span class="s1">'rules'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">text</span><span class="p">(</span><span class="nx">__</span><span class="p">(</span><span class="s1">'my.translation'</span><span class="p">))</span>
+<span class="o">&lt;</span><span class="nx">legend</span><span class="o">&gt;</span><span class="p">{{</span> <span class="nx">__</span><span class="p">(</span><span class="s1">'validation.attributes.mylegend'</span><span class="p">)</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="nx">legend</span><span class="o">&gt;</span>
+
+<span class="c1">// Is the same as this</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">checkbox</span><span class="p">(</span><span class="s1">'rules'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">text</span><span class="p">(</span><span class="s1">'my.translation'</span><span class="p">)</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">legend</span><span class="p">(</span><span class="s1">'mylegend'</span><span class="p">)</span>
+</pre></div>
+
+<p>Which you know, is kind of cool. Former will first try to translate the string in itself, ie <code>my.text</code> will return <code>__('my.text')</code> and if that fails, it will look for it in a fallback placE. You can set where Former look for translations by changing the following variable : <code>Former::$translateFrom</code> (defaults to <code>validation.attributes</code>). Note that <strong>it must be an array</strong>.</p>
+
+<h2>Notes on setting field values</h2>
+
+<p>All form classes encounter a problem at one point : what kind of data takes precedence over what kind ? To populate your field, Former set the following priorities to found values :</p>
+
+<ul>
+<li>POST data takes precedence over everything – if a user just typed something in a field, chances are this <em>is</em> what they want to see in it next time</li>
+<li>Then comes data set via the <code>-&gt;forceValue()</code> method – it's a special branch of <code>-&gt;value()</code> created to force a value in a field no matter what happens</li>
+<li>Then any values set via <code>Former::populate()</code> – that means that if you're editing something or are repopulating with some value, it can be overwritten with <code>forceValue</code>
+</li>
+<li>Finally the classic <code>-&gt;value()</code> gets the least priority – it is created for minimum and default field values and thus gets overwritten by population and POST data</li>
+</ul><hr><h1>ULTIMATE SHOWDOWN</h1>
+
+<div class="highlight"><pre><span class="c1">// Laravel</span>
+<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"control-group"</span><span class="o">&gt;</span>
+  <span class="p">{{</span> <span class="nx">Form</span><span class="o">::</span><span class="na">label</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="nx">__</span><span class="p">(</span><span class="s1">'validation.attributes.input01'</span><span class="p">),</span> <span class="k">array</span><span class="p">(</span><span class="s1">'class'</span> <span class="o">=&gt;</span> <span class="s1">'control-label'</span><span class="p">)</span> <span class="p">)}}</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"controls"</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"input-prepend input-append"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"add-on"</span><span class="o">&gt;@&lt;/</span><span class="nx">span</span><span class="o">&gt;</span>
+      <span class="p">{{</span> <span class="nx">Form</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="s1">'myname'</span><span class="p">,</span> <span class="p">(</span><span class="nx">Input</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="nx">Input</span><span class="o">::</span><span class="na">old</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">)),</span> <span class="k">array</span><span class="p">(</span><span class="s1">'class'</span> <span class="o">=&gt;</span> <span class="s1">'input-xlarge'</span><span class="p">))</span> <span class="p">}}</span>
+      <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"add-on"</span><span class="o">&gt;</span><span class="err">$</span><span class="o">&lt;/</span><span class="nx">span</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="nx">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">p</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"help-block"</span><span class="o">&gt;</span><span class="k">This</span> <span class="nx">is</span> <span class="nx">an</span> <span class="nx">help</span> <span class="nx">text</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="nx">div</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nx">div</span><span class="o">&gt;</span>
+
+<span class="c1">// Bootstrapper</span>
+<span class="k">echo</span> <span class="nx">Form</span><span class="o">::</span><span class="na">prepend_append</span><span class="p">(</span>
+  <span class="nx">Form</span><span class="o">::</span><span class="na">control_group</span><span class="p">(</span>
+    <span class="nx">Form</span><span class="o">::</span><span class="na">label</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="nx">__</span><span class="p">(</span><span class="s1">'validation.attributes.input01'</span><span class="p">)),</span>
+    <span class="nx">Form</span><span class="o">::</span><span class="na">xlarge_text</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">),</span>
+    <span class="p">(</span><span class="nx">Input</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="nx">Input</span><span class="o">::</span><span class="na">old</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="s1">'myname'</span><span class="p">))),</span>
+    <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">errors</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">),</span>
+    <span class="nx">Form</span><span class="o">::</span><span class="na">block_help</span><span class="p">(</span><span class="s1">'This is an help text'</span><span class="p">)</span>
+  <span class="p">),</span>
+  <span class="s1">'@'</span><span class="p">,</span> <span class="s1">'$'</span>
+<span class="p">);</span>
+
+<span class="c1">// Former</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">xlarge_text</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="s1">'Text input'</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">blockHelp</span><span class="p">(</span><span class="s1">'This is an help text'</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">prepend</span><span class="p">(</span><span class="s1">'@'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">append</span><span class="p">(</span><span class="s1">'$'</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">value</span><span class="p">(</span><span class="s1">'myname'</span><span class="p">)</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="c1">// Laravel</span>
+<span class="c1">// Man don't even get me started</span>
+
+<span class="c1">// Boostrapper</span>
+<span class="k">echo</span> <span class="nx">Form</span><span class="o">::</span><span class="na">control_group</span><span class="p">(</span>
+  <span class="nx">Form</span><span class="o">::</span><span class="na">label</span><span class="p">(</span><span class="s1">'checkboxes'</span><span class="p">,</span> <span class="s1">'Check those boxes'</span><span class="p">),</span>
+  <span class="nx">Form</span><span class="o">::</span><span class="na">inline_labelled_checkbox</span><span class="p">(</span><span class="s1">'check1'</span><span class="p">,</span> <span class="s1">'Check me'</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">Input</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'check1'</span><span class="p">,</span> <span class="nx">Input</span><span class="o">::</span><span class="na">old</span><span class="p">(</span><span class="s1">'check1'</span><span class="p">)))</span><span class="o">.</span>
+  <span class="nx">Form</span><span class="o">::</span><span class="na">inline_labelled_checkbox</span><span class="p">(</span><span class="s1">'check2'</span><span class="p">,</span> <span class="s1">'Ccheck me too'</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">Input</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'check1'</span><span class="p">,</span> <span class="nx">Input</span><span class="o">::</span><span class="na">old</span><span class="p">(</span><span class="s1">'check1'</span><span class="p">))),</span>
+  <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">errors</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'check1'</span><span class="p">),</span>
+  <span class="nx">Form</span><span class="o">::</span><span class="na">block_help</span><span class="p">(</span><span class="s1">'I SAID CHECK THOSE DOUBLES'</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="c1">// Former</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">checkboxes</span><span class="p">(</span><span class="s1">'check'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">checkboxes</span><span class="p">(</span><span class="s1">'Check me'</span><span class="p">,</span> <span class="s1">'Check me too'</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">blockHelp</span><span class="p">(</span><span class="s1">'I SAID CHECK THOSE DOUBLES'</span><span class="p">)</span>
+</pre></div>
+
+<hr><h1>Sidebar</h1>
+
+<p>It may seems like I'm spitting on both Laravel and Bootstrapper here but bare with me — I'm totally not. I love Laravel, it's an amazing and elegant framework, and I couldn't stress out enough how every one of you should have Bootstrapper installed somewhere in your bundles — hell I'm even collaborating actively on the project. I even inteded Former to replace Bootstrapper's Form class but to me it was just a little too much out of its scope.</p>
+
+<p>Anyway, that's all for now, hope you enjoy it and don't forget to report any question/bug/idea/issue in the, well, Issues.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/Anahkiasen/former/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/Anahkiasen/former/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/Anahkiasen/former"></a> is maintained by <a href="https://github.com/Anahkiasen">Anahkiasen</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
