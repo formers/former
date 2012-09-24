@@ -178,10 +178,19 @@ class InputTest extends FormerTests
   public function testPopulate()
   {
     Former::populate(array('foo' => 'bar'));
-    $required = Former::text('foo')->__toString();
+    $populate = Former::text('foo')->__toString();
     $matcher = $this->cg('<input type="text" name="foo" value="bar" id="foo">');
 
-    $this->assertEquals($matcher, $required);
+    $this->assertEquals($matcher, $populate);
+  }
+
+  public function testNoPopulatingPasswords()
+  {
+    Former::populate(array('foo' => 'bar'));
+    $populate = Former::password('foo')->__toString();
+    $matcher = $this->cg('<input type="password" name="foo" id="foo">');
+
+    $this->assertEquals($matcher, $populate);
   }
 
   public function testDatalist()

@@ -58,7 +58,7 @@ abstract class Field
 
     // Set magic parameters (repopulated value, translated label, etc)
     $this->ponder($name, $label);
-    $this->repopulate();
+    if($type != 'password') $this->repopulate();
     $this->addRules();
 
     // Link Control group
