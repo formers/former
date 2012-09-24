@@ -37,9 +37,30 @@
 <p>Former is the name of a little project I'd like to present you — it's a bundle, a superset of Bootstrapper, and a really nice guy too.
 Laravel's original Form class is great — simplistic and full of little helpers, but a tad unelegant compared to the rest of the framework. When you add Bootstrapper classes above it, it just becomes intoxicating ; the mere amount of lines you need to type to create a five fields form with control groups is simply discouraging.</p>
 
-<p>Former is still in beta, it's not yet published on Laravel's bundle repo. It's working, but I encourage you to post any question, idea or bug as an issue on this repo and i'll be there for you (cause you're there for me too).</p>
+<p>Enter Former, a powerful form builder with helpers for localization, validation, repopulation, and ties-in directly to Bootstrap.</p>
 
-<hr><h2>Introduction</h2>
+<h3>Table of contents</h3>
+
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#installation">Installation</a></li>
+<li>
+<a href="#features">Features</a>
+
+<ul>
+<li><a href="#out-of-the-box-integration-to-bootstrap">Out-of-the-box integration to Bootstrap</a></li>
+<li><a href="#ties-in-with-laravels-validator">Ties-in with Laravel's Validator</a></li>
+<li><a href="#form-populating">Form population</a></li>
+<li><a href="#datalists">Datalists</a></li>
+<li><a href="#live-validation">Live validation</a></li>
+<li><a href="#checkboxes-and-radios">Checkboxes and radios</a></li>
+<li><a href="#localization-helpers">Localization helpers</a></li>
+<li><a href="#notes-on-setting-field-values">Notes on setting field values</a></li>
+</ul>
+</li>
+<li><a href="#ultimate-showdown">Ultimate showdown</a></li>
+<li><a href="#sidebar">Sidebar</a></li>
+</ul><hr><h2>Introduction</h2>
 
 <p>Former aims to re-laravelize form creation by transforming each field into its own model, with its own methods and attributes. This means that you can do this sort of stuff :</p>
 
