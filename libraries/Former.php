@@ -40,14 +40,6 @@ class Former
    */
   private static $rules = array();
 
-  /**
-   * An array of the rules usable in live validation
-   * @var array
-   */
-  private static $supportedRules = array(
-    'alpha', 'required', 'min', 'max', 'numeric', 'not_numeric',
-    'between', 'in', 'not_in', 'match');
-
   // Former options ------------------------------------------------ /
 
   /**
@@ -297,7 +289,6 @@ class Former
 
        // Exclude unsupported rules
        $rule = is_numeric($colon) ? substr($rule, 0, $colon) : $rule;
-       if(!in_array($rule, static::$supportedRules)) continue;
 
        // Store processed rule in Former's array
        if(!isset($parameters)) $parameters = array();

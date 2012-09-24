@@ -282,6 +282,9 @@ abstract class Field
         case 'match':
           $this->attributes['pattern'] = substr($parameters[0], 1, -1);
           break;
+        default:
+          continue;
+          break;
       }
     }
   }
