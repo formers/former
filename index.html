@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Former : A powerful form builder for the Laravel framework" />
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Former by Anahkiasen</title>
+    <title>Former</title>
   </head>
 
   <body>
-    <header>
-      <div class="inner">
-        <h1>Former</h1>
-        <h2>A powerful form builder for the Laravel framework</h2>
-        <a href="https://github.com/Anahkiasen/former" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1>Former</h1>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Anahkiasen/former">View on GitHub</a>
+
+          <h1 id="project_title">Former</h1>
+          <h2 id="project_tagline">A powerful form builder for the Laravel framework</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Anahkiasen/former/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Anahkiasen/former/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>Former</h1>
 
 <h2>A Laravelish way to create and format forms</h2>
 
@@ -121,14 +124,16 @@ That means that when you type this :</p>
 
 <p>What you actually get is the following output :</p>
 
-<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">'control-group warning'</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">'clients'</span><span class="nt">&gt;</span>Clients<span class="nt">&lt;/label&gt;</span>
-  <span class="nt">&lt;select</span> <span class="na">name=</span><span class="s">'clients'</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">'0'</span><span class="nt">&gt;</span>Michael<span class="nt">&lt;/option&gt;</span>
-    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">'1'</span><span class="nt">&gt;</span>Joseph<span class="nt">&lt;/option&gt;</span>
-    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">'2'</span> <span class="na">selected</span><span class="nt">&gt;</span>Patrick<span class="nt">&lt;/option&gt;</span>
-  <span class="nt">&lt;/select&gt;</span>
-  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">'help-inline'</span><span class="nt">&gt;</span>Pick some dude<span class="nt">&lt;/span&gt;</span>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"control-group warning"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"clients"</span> <span class="na">class=</span><span class="s">"control-label"</span><span class="nt">&gt;</span>Clients<span class="nt">&lt;/label&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"controls"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">"clients"</span> <span class="na">name=</span><span class="s">"clients"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"0"</span><span class="nt">&gt;</span>Mickael<span class="nt">&lt;/option&gt;</span>
+      <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"1"</span><span class="nt">&gt;</span>Joseph<span class="nt">&lt;/option&gt;</span>
+      <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"2"</span> <span class="na">selected=</span><span class="s">"selected"</span><span class="nt">&gt;</span>Patrick<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;/select&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"help-inline"</span><span class="nt">&gt;</span>Pick some dude<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;/div&gt;</span>
 </pre></div>
 
@@ -180,6 +185,16 @@ You can disable Former's automatic errors fetching with the following option : <
 </pre></div>
 
 <p>Former will recognize the model and populate the field with the model's attribute. If here per example our client has a <code>name</code> set to 'Foo' and a <code>firstname</code> set to 'Bar', Former will look for fields named 'name' and 'firstname' and fill them respectively with 'Foo' and 'Bar'.</p>
+
+<p>For the rest of the form, dilling fields is basically as easy as doing <code>-&gt;value('something')</code>.</p>
+
+<p>To generate a list of options for a <code>&lt;select&gt;</code> you call <code>Former::select('foo')-&gt;options([array], [facultative: selected value])</code>.
+You can also use the results from an Eloquent/Fluent query as options for a select, like this :</p>
+
+<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">select</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">fromQuery</span><span class="p">(</span><span class="nx">Client</span><span class="o">::</span><span class="na">all</span><span class="p">(),</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'id'</span><span class="p">)</span>
+</pre></div>
+
+<p>Where the second argument is which attribute will be used for the option's text, and the third facultative argument is which attribute will be used for the option's value (defaults to the <code>id</code> attribute).</p>
 
 <h2>Datalists</h2>
 
@@ -345,25 +360,18 @@ It also repopulates it, meaning a checked input will stay checked on submit.</p>
 <p>It may seems like I'm spitting on both Laravel and Bootstrapper here but bare with me — I'm totally not. I love Laravel, it's an amazing and elegant framework, and I couldn't stress out enough how every one of you should have Bootstrapper installed somewhere in your bundles — hell I'm even collaborating actively on the project. I even inteded Former to replace Bootstrapper's Form class but to me it was just a little too much out of its scope.</p>
 
 <p>Anyway, that's all for now, hope you enjoy it and don't forget to report any question/bug/idea/issue in the, well, Issues.</p>
-        </section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/Anahkiasen/former/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/Anahkiasen/former/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/Anahkiasen/former"></a> is maintained by <a href="https://github.com/Anahkiasen">Anahkiasen</a>.</p>
-
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
+      </section>
     </div>
 
-  
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Former maintained by <a href="https://github.com/Anahkiasen">Anahkiasen</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
   </body>
 </html>
