@@ -87,7 +87,7 @@ Laravel's original Form class is great — simplistic and full of little helpers
 
 <p>The advantages of the first option being that you can skip arguments. If you want to set one single class on a text field, you don't have to go and set the label and the value and the yada yada to <code>null</code>, you just do <code>Former::text('name')-&gt;class('class')</code>.</p>
 
-<p>Everytime you call a method that doesn't actually exist, Former assumes you're trying to set an attribute and creates it magically. That's why you can do in the above example <code>-&gt;rows(10)</code> ; in case you want to set attributes that contain dashes, just replace them by underscores : <code>-&gt;data_foo('bar')</code> equals <code>data-foo="bar"</code>.
+<p>Every time you call a method that doesn't actually exist, Former assumes you're trying to set an attribute and creates it magically. That's why you can do in the above example <code>-&gt;rows(10)</code> ; in case you want to set attributes that contain dashes, just replace them by underscores : <code>-&gt;data_foo('bar')</code> equals <code>data-foo="bar"</code>.
 Now of course in case you want to set an attribute that actually contains an underscore (jeez aren't you the little smartass) you can always use the fallback method <code>setAttribute('data_foo', 'bar')</code>. You're welcome.</p>
 
 <h2>Installation</h2>
@@ -111,7 +111,7 @@ Now of course in case you want to set an attribute that actually contains an und
 
 <h2>Out-of-the-box integration to Bootstrap</h2>
 
-<p>So that's pretty nice, but so far that just looks like a modification of Laravel's Form class I mean, what's so Bootstrappy about all that ? That's where the magic underneath lies : Former recognizes when you create an horizontal or veritcal form, and goes the extra mile of wrapping each field in a control group, all behind the scenes.
+<p>So that's pretty nice, but so far that just looks like a modification of Laravel's Form class I mean, what's so Bootstrappy about all that ? That's where the magic underneath lies : Former recognizes when you create an horizontal or vertical form, and goes the extra mile of wrapping each field in a control group, all behind the scenes.
 That means that when you type this :</p>
 
 <div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">select</span><span class="p">(</span><span class="s1">'clients'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">options</span><span class="p">(</span><span class="nv">$clients</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
@@ -277,7 +277,7 @@ It also repopulates it, meaning a checked input will stay checked on submit.</p>
 
 <h2>Localization helpers</h2>
 
-<p>For those of you that work on multingual projects, Former is also here to help. By default, when creating a field, if no label is specified Former will use the field name by default. But more importantly it will try and translate it automatically. Same goes for checkboxes labels, help texts and form legends. Which means the following :</p>
+<p>For those of you that work on multilingual projects, Former is also here to help. By default, when creating a field, if no label is specified Former will use the field name by default. But more importantly it will try and translate it automatically. Same goes for checkboxes labels, help texts and form legends. Which means the following :</p>
 
 <div class="highlight"><pre><span class="c1">// This</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="nx">__</span><span class="p">(</span><span class="s1">'validation.attributes.name'</span><span class="p">))</span>
@@ -358,7 +358,7 @@ It also repopulates it, meaning a checked input will stay checked on submit.</p>
 
 <hr><h1>Sidebar</h1>
 
-<p>It may seems like I'm spitting on both Laravel and Bootstrapper here but bare with me — I'm totally not. I love Laravel, it's an amazing and elegant framework, and I couldn't stress out enough how every one of you should have Bootstrapper installed somewhere in your bundles — hell I'm even collaborating actively on the project. I even inteded Former to replace Bootstrapper's Form class but to me it was just a little too much out of its scope.</p>
+<p>It may seems like I'm spitting on both Laravel and Bootstrapper here but bare with me — I'm totally not. I love Laravel, it's an amazing and elegant framework, and I couldn't stress out enough how every one of you should have Bootstrapper installed somewhere in your bundles — hell I'm even collaborating actively on the project. I even intended Former to replace Bootstrapper's Form class but to me it was just a little too much out of its scope.</p>
 
 <p>Anyway, that's all for now, hope you enjoy it and don't forget to report any question/bug/idea/issue in the, well, Issues.</p>
         </section>
