@@ -53,15 +53,13 @@ php artisan bundle:install former
 Add the following to your `bundles.php` file :
 
 ```php
-return array(
-  'former' => array('auto' => true),
-)
+'former' => array('auto' => true),
 ```
 
 And finally for easier use I recommand adding this alias to your alias array in `application.php` :
 
 ```php
-'Former'   => 'Former\Former',
+'Former' => 'Former\Former',
 ```
 
 ----
