@@ -121,7 +121,7 @@ if($validation->fails()) {
 ```php
 if($validation->fails()) {
   return Redirect::to('login')
-    ->with_errors($validator);
+    ->with_errors($validation);
 }
 ```
 
