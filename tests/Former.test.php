@@ -18,4 +18,20 @@ class FormerTest extends FormerTests
 
     $this->assertEquals($matcher, $token);
   }
+
+  public function testAction()
+  {
+    $action = Former::actions('foo');
+    $matcher = '<div class="form-actions">foo</div>';
+
+    $this->assertEquals($matcher, $action);
+  }
+
+  public function testActions()
+  {
+    $actions = Former::actions('foo', 'bar');
+    $matcher = '<div class="form-actions">foo bar</div>';
+
+    $this->assertEquals($matcher, $actions);
+  }
 }
