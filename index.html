@@ -198,6 +198,9 @@ You can also use the results from an Eloquent/Fluent query as options for a sele
 <p>But what else does it do ? Datalists, it can do datalists. You don't know what they are ? Ok; you know how sometimes you would like to make people chose between something in a select but also being able to type what they want if it's not in it ? That's a datalist. In Former you can simply create one like that :</p>
 
 <div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'clients'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">useDatalist</span><span class="p">(</span><span class="nv">$clients</span><span class="p">)</span>
+
+<span class="c1">// Or use a Query object, same syntax than fromQuery()</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'projects'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">useDatalist</span><span class="p">(</span><span class="nx">Project</span><span class="o">::</span><span class="na">all</span><span class="p">(),</span> <span class="s1">'name'</span><span class="p">)</span>
 </pre></div>
 
 <p>You can also (if you need to) set a custom id on the created datalist by doing <code>Former::text('foo')-&gt;list('myId')-&gt;useDatalist()</code>.
