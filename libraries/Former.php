@@ -71,6 +71,12 @@ class Former
    */
   public static $fetchErrors = true;
 
+  /**
+   * Whether Former should translate rules passed to it to live validation
+   * @var boolean
+   */
+  public static $liveValidation = true;
+
   // Field types --------------------------------------------------- /
 
   /**

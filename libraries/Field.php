@@ -58,7 +58,7 @@ abstract class Field
     // Set magic parameters (repopulated value, translated label, etc)
     $this->ponder($name, $label);
     if($type != 'password') $this->repopulate();
-    $this->addRules();
+    if(Former::$liveValidation) $this->addRules();
 
     // Link Control group
     if (Former::$useBootstrap) {
