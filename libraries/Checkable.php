@@ -91,7 +91,7 @@ abstract class Checkable extends Field
       // If we haven't any name defined for the checkable, try to compute some
       if (!is_string($label) and !is_array($name)) {
         $label = $name;
-        $name = $fallbackName;
+        $name  = $fallbackName;
       }
 
       // If we gave custom information on the item, add them
@@ -139,10 +139,13 @@ abstract class Checkable extends Field
     // Register the field with Laravel
     \Form::$labels[] = $name;
 
-    return
-      '<label for="' .$name. '" class="' .$this->checkable.$isInline. '">' .
-      call_user_func('\Form::'.$this->checkable, $name, $value, $this->isChecked($name), $attributes).
-      $label.'</label>';
+    // Create field
+    $field = call_user_func('\Form::'.$this->checkable, $name, $value, $this->isChecked($name), $attributes);
+
+    // If no label to wrap, return plain checkable
+    if(!$label) return $field;
+
+    return '<label for="' .$name. '" class="' .$this->checkable.$isInline. '">' .$field.$label. '</label>';
   }
 
   /**

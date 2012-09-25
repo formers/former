@@ -6,8 +6,9 @@ class RadioTest extends FormerTests
   private function r($name = 'foo', $label = null, $value = 1, $inline = false)
   {
     $inline = $inline ? ' inline' : null;
+    $radio = '<input id="' .$name. '" type="radio" name="' .$name. '" value="' .$value. '">';
 
-    return '<label for="' .$name. '" class="radio' .$inline. '"><input id="' .$name. '" type="radio" name="' .$name. '" value="' .$value. '">' .$label. '</label>';
+    return $label ? '<label for="' .$name. '" class="radio' .$inline. '">' .$radio.$label. '</label>' : $radio;
   }
 
   public function testSingle()

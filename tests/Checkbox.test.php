@@ -8,8 +8,9 @@ class CheckboxTest extends FormerTests
   private function cb($name = 'foo', $label = null, $value = 1, $inline = false)
   {
     $inline = $inline ? ' inline' : null;
+    $checkbox = '<input id="' .$name. '" type="checkbox" name="' .$name. '" value="' .$value. '">';
 
-    return '<label for="' .$name. '" class="checkbox' .$inline. '"><input id="' .$name. '" type="checkbox" name="' .$name. '" value="' .$value. '">' .$label. '</label>';
+    return $label ? '<label for="' .$name. '" class="checkbox' .$inline. '">' .$checkbox.$label. '</label>' : $checkbox;
   }
 
   public function testSingle()
