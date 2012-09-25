@@ -8,6 +8,16 @@ class InputTest extends FormerTests
     Former::useBootstrap(true);
   }
 
+  public function sizes()
+  {
+    $_sizes = array('mini', 'small', 'medium', 'large', 'xlarge', 'xxlarge', 'span1', 'span6', 'span12');
+    foreach($_sizes as $s) $sizes[] = array($s);
+
+    return $sizes;
+  }
+
+  // Tests --------------------------------------------------------- /
+
   public function testText()
   {
     $input = Former::text('foo')->__toString();
@@ -144,15 +154,18 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $static);
   }
 
-  public function testMagicMethods()
+  /**
+   * @dataProvider sizes
+   */
+  public function testMagicMethods($size)
   {
-    foreach (array('mini', 'small', 'medium', 'large', 'xlarge', 'xxlarge') as $size) {
-      $method = $size.'_text';
-      $static = Former::$method('foo')->addClass('bar')->__toString();
-      $matcher = $this->cg('<input class="input-' .$size. ' bar" type="text" name="foo" id="foo">');
+    $method = $size.'_text';
+    $class = starts_with($size, 'span') ? $size : 'input-'.$size;
+    $static = Former::$method('foo')->addClass('bar')->__toString();
+    var_dump($static);
+    $matcher = $this->cg('<input class="' .$class. ' bar" type="text" name="foo" id="foo">');
 
-      $this->assertEquals($matcher, $static);
-    }
+    $this->assertEquals($matcher, $static);
   }
 
   public function testErrors()
