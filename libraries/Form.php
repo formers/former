@@ -29,10 +29,10 @@ class Form
    */
   public function open($typeAsked, $parameters)
   {
-    $method     = 'POST';
-    $secure     = false;
     $action     = array_get($parameters, 0);
-    $attributes = array_get($parameters, 1);
+    $method     = array_get($parameters, 1, 'POST');
+    $attributes = array_get($parameters, 2, array());
+    $secure     = array_get($parameters, 3, false);
 
     // If classic form
     if($typeAsked == 'open') $type = Former::$defaultFormType;

@@ -31,6 +31,14 @@ class FormTest extends FormerTests
     $this->assertEquals($matcher, $open);
   }
 
+  public function testOpenCustom()
+  {
+    $open = Former::open('#', 'GET', $this->testAttributes);
+    $matcher = '<form class="foo form-horizontal" data-foo="bar" method="GET" action="#" accept-charset="UTF-8">';
+
+    $this->assertEquals($matcher, $open);
+  }
+
   // __callStatic tests
 
   public function testHorizontalOpen()
