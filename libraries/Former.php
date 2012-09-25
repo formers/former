@@ -381,10 +381,12 @@ class Former
    * @param  string $name A field name
    * @return string       An error message
    */
-  public static function getErrors()
+  public static function getErrors($name = null)
   {
+    if(!$name) $name = static::$field->name;
+
     if (static::$errors) {
-      return static::$errors->first(static::$field->name);
+      return static::$errors->first($name);
     }
   }
 
