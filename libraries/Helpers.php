@@ -78,4 +78,38 @@ class Helpers
 
     return ucfirst($translation);
   }
+
+  /**
+   * Transforms a Fluent/Eloquent query to an array
+   *
+   * @param  object $query The query
+   * @param  string $value The attribute to use as value
+   * @param  string $key   The attribute to use as key
+   * @return array         A data array
+   */
+  public static function queryToArray($query, $value, $key)
+  {
+    if(!$key) $key = 'id';
+
+    // Fetch the Query if it hasn't been
+    if($query instanceof \Laravel\Database\Eloquent\Query or
+       $query instanceof \Laravel\Database\Query) {
+      $query = $query->get();
+    }
+
+    // Populates the new options
+    foreach($query as $model) {
+
+      // If not an array, convert to object
+      if(is_array($model)) $model = (object) $model;
+
+      // Filter out wrong attributes
+      if(!isset($model->$value)) continue;
+      if(!isset($model->$key)) $key = $value;
+
+      $array[$model->$key] = $model->$value;
+    }
+
+    return isset($array) ? $array : $query;
+  }
 }

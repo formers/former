@@ -7,6 +7,7 @@
 namespace Former\Fields;
 
 use \Form;
+use \Former\Helpers;
 
 class Select extends \Former\Field
 {
@@ -54,22 +55,9 @@ class Select extends \Former\Field
    * @param  string $value    The attribute to use as text
    * @param  string $key      The attribute to use as value
    */
-  public function fromQuery($results, $value, $key = 'id')
+  public function fromQuery($results, $value, $key = null)
   {
-    // Fetch the Query if it hasn't been
-    if($results instanceof \Laravel\Database\Eloquent\Query) {
-      $results = $results->get();
-    }
-
-    // Populates the new options
-    foreach($results as $model) {
-
-      // Filter out wrong attributes
-      if(!isset($model->$value)) continue;
-      if(!isset($model->$key)) $key = $value;
-
-      $options[$model->$key] = $model->$value;
-    }
+    $options = Helpers::queryToArray($results, $value, $key);
 
     if(isset($options)) $this->options = $options;
   }

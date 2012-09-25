@@ -178,6 +178,9 @@ But what else does it do ? Datalists, it can do datalists. You don't know what t
 
 ```php
 Former::text('clients')->useDatalist($clients)
+
+// Or use a Query object, same syntax than fromQuery()
+Former::text('projects')->useDatalist(Project::all(), 'name')
 ```
 
 You can also (if you need to) set a custom id on the created datalist by doing `Former::text('foo')->list('myId')->useDatalist()`.

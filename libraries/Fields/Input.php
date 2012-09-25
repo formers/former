@@ -22,8 +22,10 @@ class Input extends \Former\Field
    *
    * @param  array $datalist An array to use a source
    */
-  public function useDatalist($datalist)
+  public function useDatalist($datalist, $value = null, $key = null)
   {
+    $datalist = Helpers::queryToArray($datalist, $value, $key);
+
     $list = $this->list ?: 'datalist_'.$this->name;
 
     // Create the link to the datalist

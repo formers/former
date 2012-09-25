@@ -58,9 +58,9 @@ class SelectTest extends FormerTests
 
   public function testSelectEloquentArray()
   {
-    for($i = 0; $i < 2; $i++) $eloquent[] = $this->options;
-    $select = Former::select('foo')->fromQuery($eloquent, 'foo')->__toString();
-    $matcher = $this->cg('<select id="foo" name="foo"></select>');
+    for($i = 0; $i < 2; $i++) $eloquent[] = (object) array('age' => $i, 'foo' => 'bar');
+    $select = Former::select('foo')->fromQuery($eloquent, 'foo', 'age')->__toString();
+    $matcher = $this->cg('<select id="foo" name="foo"><option value="0">bar</option><option value="1">bar</option></select>');
 
     $this->assertEquals($matcher, $select);
   }
