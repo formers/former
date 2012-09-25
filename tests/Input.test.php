@@ -98,6 +98,15 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $static);
   }
 
+  public function testForceValue()
+  {
+    Former::populate(array('foo' => 'unbar'));
+    $static = Former::text('foo')->forceValue('bar')->__toString();
+    $matcher = $this->cg('<input type="text" name="foo" value="bar" id="foo">');
+
+    $this->assertEquals($matcher, $static);
+  }
+
   public function testMagicAttribute()
   {
     $static = Former::text('foo')->class('foo')->data_bar('bar')->__toString();
@@ -162,7 +171,7 @@ class InputTest extends FormerTests
     $method = $size.'_text';
     $class = starts_with($size, 'span') ? $size : 'input-'.$size;
     $static = Former::$method('foo')->addClass('bar')->__toString();
-    var_dump($static);
+
     $matcher = $this->cg('<input class="' .$class. ' bar" type="text" name="foo" id="foo">');
 
     $this->assertEquals($matcher, $static);
