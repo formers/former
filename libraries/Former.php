@@ -48,7 +48,7 @@ class Former
   public static $requiredClass = 'required';
 
   /**
-   * Whether Former should use Bootstrap's syntax
+   * What framework should be used
    * @var boolean
    */
   public static $useBootstrap = true;
@@ -151,11 +151,8 @@ class Former
     }
 
     // Add any size we found
-    if ($sizes = array_intersect(static::$FIELD_SIZES, $classes)) {
-      $size = $sizes[key($sizes)];
-      $size = starts_with($size, 'span') ? $size : 'input-'.$size;
-      static::$field->addClass($size);
-    }
+    $size = Framework::getFieldSizes($classes);
+    if($size) static::$field->addClass($size);
 
     return new Former;
   }
