@@ -53,16 +53,45 @@ class Framework
     // List all available sizes
     $available = array_get(static::$sizes, static::$framework, array());
 
-    if ($sizes = array_intersect($available, $sizes)) {
+    // Filter sizes
+    $sizes = array_intersect($available, $sizes);
 
-      // Get size from array and format it
-      $size = $sizes[key($sizes)];
-      if(static::$framework == 'bootstrap') {
-        $size = starts_with($size, 'span') ? $size : 'input-'.$size;
-      }
-      elseif(static::$framework == 'zurb') $size = $size. ' columns';
-      else $size = null;
+    // Get size from array and format it
+    $size = array_pop($sizes);
+    if(static::$framework == 'bootstrap') {
+      $size = starts_with($size, 'span') ? $size : 'input-'.$size;
+    }
+    elseif(static::$framework == 'zurb') $size = $size. ' columns';
+    else $size = null;
 
-      return $size;
+    return $size;
+  }
+
+  /**
+   * Build an inline help
+   *
+   * @param  string $value      The help text
+   * @param  array  $attributes Its attributes
+   * @return string             A .help-inline p
+   */
+  public static function inlineHelp($value, $attributes = array())
+  {
+    $attributes = static::addClass($attributes, 'help-inline');
+
+    return '<span '.HTML::attributes($attributes).'>'.$value.'</span>';
+  }
+
+  /**
+   * Build a block help
+   *
+   * @param  string $value      The help text
+   * @param  array  $attributes Its attributes
+   * @return string             A .help-block p
+   */
+  public static function blockHelp($value, $attributes = array())
+  {
+    $attributes = static::addClass($attributes, 'help-block');
+
+    return '<p '.HTML::attributes($attributes).'>'.$value.'</p>';
   }
 }

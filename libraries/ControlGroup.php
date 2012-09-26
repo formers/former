@@ -118,7 +118,7 @@ class ControlGroup
     $block  = array_get($this->help, 'block');
 
     $errors = Former::getErrors();
-    if ($errors) $inline = Helpers::inlineHelp($errors);
+    if ($errors) $inline = Framework::inlineHelp($errors);
     return join(null, array($inline, $block));
   }
 
@@ -203,7 +203,7 @@ class ControlGroup
     // Attempt to translate help text
     $help = Helpers::translate($help);
 
-    $this->help['inline'] = Helpers::inlineHelp($help, $attributes);
+    $this->help['inline'] = Framework::inlineHelp($help, $attributes);
   }
 
   /**
@@ -217,7 +217,7 @@ class ControlGroup
     // Attempt to translate help text
     $help = Helpers::translate($help);
 
-    $this->help['block'] = Helpers::blockHelp($help, $attributes);
+    $this->help['block'] = Framework::blockHelp($help, $attributes);
   }
 
   /**
