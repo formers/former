@@ -251,8 +251,8 @@ abstract class Field
   private function ponder($name, $label)
   {
     // Check for the two possibilities
-    if($label and !$name) $name = \Str::slug($label);
-    elseif(!$label and $name) $label = $name;
+    if($label and is_null($name)) $name = \Str::slug($label);
+    elseif(is_null($label) and $name) $label = $name;
 
     // Attempt to translate the label
     $label = Helpers::translate($label);
