@@ -197,6 +197,32 @@ Former::select('foo')->fromQuery(Client::all(), 'name', 'id')
 ```
 
 Where the second argument is which attribute will be used for the option's text, and the third facultative argument is which attribute will be used for the option's value (defaults to the `id` attribute).
+Former also does some magic if none of those two arguments are specified. Say you pass Eloquent models to Former and don't specify what is to be used as key or value. Former will obtain the key by using Eloquent's `get_key()` method, and use any `__toString()` method binded to the model as raw value. Take this example :
+
+```php
+class Client extends Eloquent
+{
+  public static $key = 'code';
+
+  public function __toString()
+  {
+    return $this->name;
+  }
+}
+
+Former::select('tasks')->fromQuery(Client::all());
+```
+
+Is the same as doing this but you know, in less painful and DRYer
+
+```html
+@foreach(Client::all() as $task)
+  <option value="{{ $task->code }}">{{ $task->name }}</option>
+@endforeach
+```
+
+This will use each Task's default key, and output the Task's name as the option's label.
+Kudos to [cviebrock](https://github.com/cviebrock) for the original idea.
 
 ## Datalists
 
