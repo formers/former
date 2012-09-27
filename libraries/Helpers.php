@@ -35,6 +35,10 @@ class Helpers
    */
   public static function translate($key, $fallback = null)
   {
+    // If nothing was given, return nothing, bitch
+    if(!$key) return null;
+
+    // If no fallback, use the key
     if(!$fallback) $fallback = $key;
 
     // Assure we don't already have a Lang object
