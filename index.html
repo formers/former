@@ -199,6 +199,13 @@ You can disable Former's automatic errors fetching with the following option : <
 
 <p>Former will recognize the model and populate the field with the model's attribute. If here per example our client has a <code>name</code> set to 'Foo' and a <code>firstname</code> set to 'Bar', Former will look for fields named 'name' and 'firstname' and fill them respectively with 'Foo' and 'Bar'.</p>
 
+<p>Alternatively you can also populate a specific field after you've populated the whole form (for a relationship per example) by doing this :</p>
+
+<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">populate</span><span class="p">(</span><span class="nv">$project</span><span class="p">)</span>
+
+<span class="nx">Former</span><span class="o">::</span><span class="na">populateField</span><span class="p">(</span><span class="s1">'client'</span><span class="p">,</span> <span class="nv">$project</span><span class="o">-&gt;</span><span class="na">client</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">)</span>
+</pre></div>
+
 <p>For the rest of the form, filling fields is basically as easy as doing <code>-&gt;value('something')</code>.</p>
 
 <p>To generate a list of options for a <code>&lt;select&gt;</code> you call <code>Former::select('foo')-&gt;options([array], [facultative: selected value])</code>.
