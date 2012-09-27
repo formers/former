@@ -1,5 +1,4 @@
 <?php
-include 'start.php';
 use \Former\Former;
 
 class ZurbTest extends FormerTests
