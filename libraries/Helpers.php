@@ -70,22 +70,24 @@ class Helpers
     // Populates the new options
     foreach($query as $model) {
 
-      // If not an array, convert to object
+      // If it's an array, convert to object
       if(is_array($model)) $model = (object) $model;
 
-      // Filter out wrong attributes
-      $key = isset($model->$key) ? $model->$key : $model->get_key();
-      $value = isset($model->$value)
-        ? $model->$value
-        : method_exists($model, '__toString()')
-          ? $model->__toString()
-          : null;
+      // Calculate the value
+      if($value and isset($model->$value)) $modelValue = $model->$value;
+      elseif(method_exists($model, '__toString')) $modelValue = $model->__toString();
+      else $modelValue = null;
+
+      // Calculate the key
+      if($key and isset($model->$key)) $modelKey = $model->$key;
+      elseif(method_exists($model, 'get_key')) $modelKey = $model->get_key();
+      elseif(isset($model->id)) $modelKey = $model->id;
+      else $modelKey = $modelValue;
 
       // Skip if no text value found
-      if(!$value) continue;
-      if(!$key) $key = $value;
+      if(!$modelValue) continue;
 
-      $array[$key] = $value;
+      $array[$modelKey] = $modelValue;
     }
 
     return isset($array) ? $array : $query;

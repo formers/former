@@ -65,6 +65,27 @@ class SelectTest extends FormerTests
     $this->assertEquals($matcher, $select);
   }
 
+  public function testSelectEloquentMagicMethods()
+  {
+    for($i = 0; $i < 2; $i++) {
+      $eloquentObject = $this->getMock('Foo', array('__toString', 'get_key'));
+      $eloquentObject
+        ->expects($this->any())
+        ->method('__toString')
+        ->will($this->returnValue('bar'));
+      $eloquentObject
+        ->expects($this->any())
+        ->method('get_key')
+        ->will($this->returnValue($i));
+      $eloquent[] = $eloquentObject;
+    }
+
+    $select = Former::select('foo')->fromQuery($eloquent)->__toString();
+    $matcher = $this->cg('<select id="foo" name="foo"><option value="0">bar</option><option value="1">bar</option></select>');
+
+    $this->assertEquals($matcher, $select);
+  }
+
   public function testSelectOptionsValue()
   {
     $select = Former::select('foo')->data_foo('bar')->options($this->options, 'kal')->__toString();
