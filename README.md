@@ -210,7 +210,7 @@ class Client extends Eloquent
   }
 }
 
-Former::select('tasks')->fromQuery(Client::all());
+Former::select('clients')->fromQuery(Client::all());
 ```
 
 Is the same as doing this but you know, in less painful and DRYer
