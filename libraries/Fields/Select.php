@@ -55,7 +55,7 @@ class Select extends \Former\Field
    * @param  string $value    The attribute to use as text
    * @param  string $key      The attribute to use as value
    */
-  public function fromQuery($results, $value, $key = null)
+  public function fromQuery($results, $value = null, $key = null)
   {
     $options = Helpers::queryToArray($results, $value, $key);
 

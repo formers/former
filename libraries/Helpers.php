@@ -61,8 +61,6 @@ class Helpers
    */
   public static function queryToArray($query, $value, $key)
   {
-    if(!$key) $key = 'id';
-
     // Fetch the Query if it hasn't been
     if($query instanceof \Laravel\Database\Eloquent\Query or
        $query instanceof \Laravel\Database\Query) {
@@ -76,10 +74,18 @@ class Helpers
       if(is_array($model)) $model = (object) $model;
 
       // Filter out wrong attributes
-      if(!isset($model->$value)) continue;
-      if(!isset($model->$key)) $key = $value;
+      $key = isset($model->$key) ? $model->$key : $model->get_key();
+      $value = isset($model->$value)
+        ? $model->$value
+        : method_exists($model, '__toString()')
+          ? $model->__toString()
+          : null;
 
-      $array[$model->$key] = $model->$value;
+      // Skip if no text value found
+      if(!$value) continue;
+      if(!$key) $key = $value;
+
+      $array[$key] = $value;
     }
 
     return isset($array) ? $array : $query;
