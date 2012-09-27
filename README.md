@@ -216,9 +216,20 @@ Former::select('clients')->fromQuery(Client::all());
 Is the same as doing this but you know, in less painful and DRYer
 
 ```html
-@foreach(Client::all() as $task)
-  <option value="{{ $task->code }}">{{ $task->name }}</option>
-@endforeach
+<div class="control-group">
+  <label for="foo" class="control-label">Foo</label>
+  <div class="controls">
+    <select id="foo" name="foo">
+      @foreach(Client::all() as $task)
+        @if(Input::get('foo', Input::old('foo')) == $task->code)
+          <option selected="selected" value="{{ $task->code }}">{{ $task->name }}</option>
+        @else
+          <option value="{{ $task->code }}">{{ $task->name }}</option>
+        @endif
+      @endforeach
+    </select>
+  </div>
+</div>
 ```
 
 This will use each Task's default key, and output the Task's name as the option's label.
