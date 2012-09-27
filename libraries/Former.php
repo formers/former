@@ -106,6 +106,9 @@ class Former
     $classes = explode('_', $method);
     $method  = array_pop($classes);
 
+    // Destroy previous field instance
+    static::$field = null;
+
     // Picking the right class
     if (class_exists('\Former\Fields\\'.ucfirst($method))) {
       $callClass = ucfirst($method);
@@ -205,9 +208,6 @@ class Former
       $html = \Form::label(static::$field->name, static::$field->label);
       $html .= static::$field;
     }
-
-    // Destroy field instance
-    static::$field = null;
 
     return $html;
   }

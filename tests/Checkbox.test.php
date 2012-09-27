@@ -108,4 +108,14 @@ class CheckboxTest extends FormerTests
 
     $this->assertEquals($matcher, $radios);
   }
+
+  public function testRepeatedOutput()
+  {
+    $checkbox = Former::checkbox('foo');
+
+    $content = HTML::decode($checkbox);
+    $content = HTML::decode($checkbox);
+
+    $this->assertEquals($content, Former::checkbox('foo')->__toString());
+  }
 }
