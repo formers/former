@@ -214,7 +214,31 @@ You can also use the results from an Eloquent/Fluent query as options for a sele
 <div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">select</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">fromQuery</span><span class="p">(</span><span class="nx">Client</span><span class="o">::</span><span class="na">all</span><span class="p">(),</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'id'</span><span class="p">)</span>
 </pre></div>
 
-<p>Where the second argument is which attribute will be used for the option's text, and the third facultative argument is which attribute will be used for the option's value (defaults to the <code>id</code> attribute).</p>
+<p>Where the second argument is which attribute will be used for the option's text, and the third facultative argument is which attribute will be used for the option's value (defaults to the <code>id</code> attribute).
+Former also does some magic if none of those two arguments are specified. Say you pass Eloquent models to Former and don't specify what is to be used as key or value. Former will obtain the key by using Eloquent's <code>get_key()</code> method, and use any <code>__toString()</code> method binded to the model as raw value. Take this example :</p>
+
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Client</span> <span class="k">extends</span> <span class="nx">Eloquent</span>
+<span class="p">{</span>
+  <span class="k">public</span> <span class="k">static</span> <span class="nv">$key</span> <span class="o">=</span> <span class="s1">'code'</span><span class="p">;</span>
+
+  <span class="k">public</span> <span class="k">function</span> <span class="nf">__toString</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">Former</span><span class="o">::</span><span class="na">select</span><span class="p">(</span><span class="s1">'clients'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">fromQuery</span><span class="p">(</span><span class="nx">Client</span><span class="o">::</span><span class="na">all</span><span class="p">());</span>
+</pre></div>
+
+<p>Is the same as doing this but you know, in less painful and DRYer</p>
+
+<div class="highlight"><pre>@foreach(Client::all() as $task)
+  <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"{{ $task-&gt;code }}"</span><span class="nt">&gt;</span>{{ $task-&gt;name }}<span class="nt">&lt;/option&gt;</span>
+@endforeach
+</pre></div>
+
+<p>This will use each Task's default key, and output the Task's name as the option's label.
+Kudos to <a href="https://github.com/cviebrock">cviebrock</a> for the original idea.</p>
 
 <h2>Datalists</h2>
 
