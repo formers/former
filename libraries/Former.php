@@ -71,16 +71,11 @@ class Former
    */
   public static $liveValidation = true;
 
-  // Field types --------------------------------------------------- /
-
   /**
-   * The available input sizes
-   * @var array
+   * Whether Former should automatically fill the label if none is found
+   * @var boolean
    */
-  private static $FIELD_SIZES = array(
-    'mini', 'small', 'medium', 'large', 'xlarge', 'xxlarge',
-    'span1', 'span2', 'span3', 'span4', 'span5', 'span6', 'span7',
-    'span8', 'span9', 'span10', 'span11', 'span12');
+  public static $automaticLabel = true;
 
   ////////////////////////////////////////////////////////////////////
   //////////////////////////// INTERFACE /////////////////////////////

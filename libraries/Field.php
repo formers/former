@@ -51,12 +51,14 @@ abstract class Field
   public function __construct($type, $name, $label, $value, $attributes)
   {
     // Set base parameters
-    $this->type = $type;
-    $this->value = $value;
     $this->attributes = (array) $attributes;
+    $this->label      = $label;
+    $this->name       = $name;
+    $this->type       = $type;
+    $this->value      = $value;
 
     // Set magic parameters (repopulated value, translated label, etc)
-    $this->ponder($name, $label);
+    if(Former::$automaticLabel) $this->ponder($name, $label);
     if($type != 'password') $this->repopulate();
     if(Former::$liveValidation) $this->addRules();
 

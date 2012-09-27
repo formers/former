@@ -26,6 +26,16 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $input);
   }
 
+  public function testTextWithoutLabel()
+  {
+    Former::$automaticLabel = false;
+
+    $input = Former::text('foo')->__toString();
+    $matcher = $this->cg('<input type="text" name="foo" id="foo">', null);
+
+    $this->assertEquals($matcher, $input);
+  }
+
   public function testSearch()
   {
     $input = Former::search('foo')->__toString();

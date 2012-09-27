@@ -98,7 +98,7 @@ class ControlGroup
    */
   private function getLabel($field)
   {
-    if(!$this->label) return false;
+    if(!$this->label or !array_get($this->label, 'label')) return false;
 
     extract($this->label);
 
