@@ -5,7 +5,7 @@ class InputTest extends FormerTests
 {
   public function tearDown()
   {
-    Former::useBootstrap(true);
+    Former::framework('bootstrap');
   }
 
   public function sizes()
@@ -36,7 +36,7 @@ class InputTest extends FormerTests
 
   public function testTextWithoutBootstrap()
   {
-    Former::useBootstrap(false);
+    Former::framework(null);
 
     $input = Former::text('foo')->data('foo')->class('bar')->__toString();
     $matcher = '<label for="foo">Foo</label><input data="foo" class="bar" type="text" name="foo" id="foo">';
@@ -78,7 +78,7 @@ class InputTest extends FormerTests
 
   public function testTextLabelWithoutBootstrap()
   {
-    Former::useBootstrap(false);
+    Former::framework(null);
 
     $static = Former::text('foo')->label('bar')->__toString();
     $input  = Former::text('foo', 'bar')->__toString();
@@ -190,7 +190,7 @@ class InputTest extends FormerTests
       '<label for="required" class="control-label">Required</label>'.
       '<div class="controls">'.
         '<input type="text" name="required" id="required">'.
-        '<span  class="help-inline">The required field is required.</span>'.
+        '<span class="help-inline">The required field is required.</span>'.
       '</div>'.
     '</div>';
 

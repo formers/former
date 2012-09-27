@@ -61,7 +61,7 @@ abstract class Field
     if(Former::$liveValidation) $this->addRules();
 
     // Link Control group
-    if (Former::$useBootstrap) {
+    if (Framework::isnt(null)) {
       $this->controlGroup = new ControlGroup($this->label);
     }
   }
@@ -132,8 +132,9 @@ abstract class Field
    */
   public function label($text)
   {
-    if(Former::$useBootstrap) $this->controlGroup->setLabel($text);
+    if($this->controlGroup) $this->controlGroup->setLabel($text);
     else $this->label = Helpers::translate($text);
+
     return $this;
   }
 

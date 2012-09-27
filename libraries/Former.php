@@ -48,12 +48,6 @@ class Former
   public static $requiredClass = 'required';
 
   /**
-   * What framework should be used
-   * @var boolean
-   */
-  public static $useBootstrap = true;
-
-  /**
    * The main place where former will look for translations
    * @var string
    */
@@ -202,7 +196,7 @@ class Former
     }
 
     // Bootstrap syntax
-    elseif (static::$useBootstrap and static::form()->type) {
+    elseif (Framework::isnt(null) and static::$form) {
       $html = $this->control()->wrapField(static::$field);
     }
 
@@ -305,9 +299,9 @@ class Former
    *
    * @param  boolean $boolean Whether we should use Bootstrap syntax or not
    */
-  public static function useBootstrap($boolean = true)
+  public static function framework($framework)
   {
-    static::$useBootstrap = $boolean;
+    return Framework::useFramework($framework) == $framework;
   }
 
   ////////////////////////////////////////////////////////////////////

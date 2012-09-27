@@ -29,7 +29,7 @@ class ControlGroupTest extends FormerTests
   public function createMatcher($state = null, $inlineHelp = null, $blockHelp = null)
   {
     if($state) $state = ' ' .$state;
-    if($inlineHelp) $inlineHelp = '<span  class="help-inline">' .ucfirst($inlineHelp). '</span>';
+    if($inlineHelp) $inlineHelp = '<span class="help-inline">' .ucfirst($inlineHelp). '</span>';
     if($blockHelp)  $blockHelp  = '<p  class="help-block">' .ucfirst($blockHelp). '</p>';
 
     return
@@ -187,7 +187,7 @@ class ControlGroupTest extends FormerTests
             '<span class="add-on">$</span>'.
             '<button type="button" class="btn">foo</button>'.
           '</div>'.
-        '<span  class="help-inline">Foo</span>'.
+        '<span class="help-inline">Foo</span>'.
         '<p  class="help-block">Bar</p>'.
       '</div>'.
     '</div>';

@@ -11,12 +11,6 @@ use \HTML;
 class ControlGroup
 {
   /**
-   * The availables states for a control group
-   * @var array
-   */
-  private $states = array('success', 'warning', 'error', 'info');
-
-  /**
    * The control group attributes
    * @var array
    */
@@ -56,10 +50,15 @@ class ControlGroup
   /////////////////////////////// BUILDERS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
 
+  /**
+   * Creates a control group
+   *
+   * @param string $label Its label
+   */
   public function __construct($label)
   {
-    // Add base class
-    $this->attributes['class'] = 'control-group';
+    // Get special classes
+    $this->attributes = Framework::getGroupClasses($this->attributes);
 
     // Set control group label
     $this->setLabel($label);
@@ -79,8 +78,14 @@ class ControlGroup
     if($errors) $this->state('error');
 
     // Retrieve state and append it to classes
-    if($this->state) $this->attributes['class'] .= ' '.$this->state;
-    if(Former::field()->isRequired()) $this->attributes['class'] .= ' ' .Former::$requiredClass;
+    if($this->state) {
+      $this->attributes = Helpers::addClass($this->attributes, $this->state);
+    }
+
+    // Required state
+    if(Former::field()->isRequired()) {
+      $this->attributes = Helpers::addClass($this->attributes, Former::$requiredClass);
+    }
 
     return '<div'.HTML::attributes($this->attributes). '>';
   }
@@ -96,7 +101,9 @@ class ControlGroup
     if(!$this->label) return false;
 
     extract($this->label);
-    $attributes = Helpers::addClass($attributes, 'control-label');
+
+    // Add bootstrap class if necessary
+    $attributes = Framework::getLabelClasses($attributes);
 
     // Get the field name to link the label to it
     $name = $field->name;
@@ -166,11 +173,10 @@ class ControlGroup
   public function wrapField($field)
   {
     $html = $this->open();
-      $html .= $this->getLabel($field);
-      $html .= '<div class="controls">';
-        $html .= $this->prependAppend($field);
-        $html .= $this->getHelp();
-      $html .= '</div>';
+      $html  .= $this->getLabel($field);
+      $field  = $this->prependAppend($field);
+      $field .= $this->getHelp();
+      $html  .= Framework::getFieldClasses($field);
     $html .= $this->close();
 
     return $html;
@@ -187,7 +193,9 @@ class ControlGroup
    */
   public function state($state)
   {
-    if(!in_array($state, $this->states)) return false;
+    // Filter state
+    $state = Framework::getState($state);
+    if(!$state) return false;
 
     $this->state = $state;
   }
