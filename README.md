@@ -93,7 +93,7 @@ Former::select('clients')->options($clients, 2)
   ->state('warning')
 ```
 
-What you actually get is the following output :
+What you actually get is the following output (with Bootstrap) :
 
 ```html
 <div class="control-group warning">
@@ -109,14 +109,14 @@ What you actually get is the following output :
 </div>
 ```
 
-All the Bootstrap syntax although useful to a lot of people, can be desactivated with the following option :
+You can select which framework to use with the method `Former::framework()`, for the moment Former supports `'bootstrap'` for Twitter Bootstrap, `'zurb'` for Zurb Foundation, and `null` for no framework.
 
 ```php
 // Turn off Bootstrap syntax
-Former::useBootstrap(false);
+Former::framework(null);
 
 // Turn it on again (MAKE UP YOUR MIND JEEZ)
-Former::useBootstrap();
+Former::framework('bootstrap');
 ```
 
 ## Ties-in with Laravel's Validator
