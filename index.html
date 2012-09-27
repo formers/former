@@ -37,7 +37,7 @@
 <p>Former is the name of a little project I'd like to present you — it's a bundle for the Laravel framework, and a really nice guy too once you get to know him.
 Laravel's original Form class is great — simplistic and full of little helpers, but a tad unelegant compared to the rest of the framework. When you add Bootstrapper classes above it, it just becomes intoxicating ; the mere amount of lines you need to type to create a five fields form with control groups is simply discouraging.</p>
 
-<p>Enter Former, a powerful form builder with helpers for localization, validation, repopulation, and ties-in directly to Bootstrap.</p>
+<p>Enter Former, a powerful form builder with helpers for localization, validation, repopulation, and ties-in directly to both Bootstrap and Foundation.</p>
 
 <h3>Table of contents</h3>
 
@@ -48,7 +48,7 @@ Laravel's original Form class is great — simplistic and full of little helpers
 <a href="#features">Features</a>
 
 <ul>
-<li><a href="#out-of-the-box-integration-to-bootstrap">Out-of-the-box integration to Bootstrap</a></li>
+<li><a href="#out-of-the-box-integration-to-bootstrap-and-foundation">Out-of-the-box integration to Bootstrap and Foundation</a></li>
 <li><a href="#ties-in-with-laravels-validator">Ties-in with Laravel's Validator</a></li>
 <li><a href="#form-populating">Form population</a></li>
 <li><a href="#datalists">Datalists</a></li>
@@ -109,9 +109,9 @@ Now of course in case you want to set an attribute that actually contains an und
 
 <hr><h1>Features</h1>
 
-<h2>Out-of-the-box integration to Bootstrap</h2>
+<h2>Out-of-the-box integration to Bootstrap and Foundation</h2>
 
-<p>So that's pretty nice, but so far that just looks like a modification of Laravel's Form class I mean, what's so Bootstrappy about all that ? That's where the magic underneath lies : Former recognizes when you create an horizontal or vertical form, and goes the extra mile of wrapping each field in a control group, all behind the scenes.
+<p>So that's pretty nice, but so far that just looks like a modification of Laravel's Form class I mean, what's so fancy about all that ? That's where the magic underneath lies : Former recognizes when you create an horizontal or vertical form, and goes the extra mile of wrapping each field in a control group, all behind the scenes.
 That means that when you type this :</p>
 
 <div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">select</span><span class="p">(</span><span class="s1">'clients'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">options</span><span class="p">(</span><span class="nv">$clients</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
@@ -119,7 +119,7 @@ That means that when you type this :</p>
   <span class="o">-&gt;</span><span class="na">state</span><span class="p">(</span><span class="s1">'warning'</span><span class="p">)</span>
 </pre></div>
 
-<p>What you actually get is the following output :</p>
+<p>What you actually get is the following output (with Bootstrap) :</p>
 
 <div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"control-group warning"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"clients"</span> <span class="na">class=</span><span class="s">"control-label"</span><span class="nt">&gt;</span>Clients<span class="nt">&lt;/label&gt;</span>
@@ -134,13 +134,29 @@ That means that when you type this :</p>
 <span class="nt">&lt;/div&gt;</span>
 </pre></div>
 
-<p>All the Bootstrap syntax although useful to a lot of people, can be desactivated with the following option :</p>
+<p>By default Former will use Twitter Bootstrap for its syntax but you can select which framework to use with the method <code>Former::framework()</code>. For the moment Former supports <code>'bootstrap'</code> for Twitter Bootstrap, <code>'zurb'</code> for Zurb Foundation, and <code>null</code> for no framework.</p>
 
 <div class="highlight"><pre><span class="c1">// Turn off Bootstrap syntax</span>
-<span class="nx">Former</span><span class="o">::</span><span class="na">useBootstrap</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">framework</span><span class="p">(</span><span class="k">null</span><span class="p">);</span>
 
 <span class="c1">// Turn it on again (MAKE UP YOUR MIND JEEZ)</span>
-<span class="nx">Former</span><span class="o">::</span><span class="na">useBootstrap</span><span class="p">();</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">framework</span><span class="p">(</span><span class="s1">'bootstrap'</span><span class="p">);</span>
+</pre></div>
+
+<p>Here is an example of code for Foundation :</p>
+
+<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">framework</span><span class="p">(</span><span class="s1">'zurb'</span><span class="p">);</span>
+
+<span class="nx">Former</span><span class="o">::</span><span class="na">four_text</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">state</span><span class="p">(</span><span class="s1">'error'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">inlineHelp</span><span class="p">(</span><span class="s1">'bar'</span><span class="p">)</span>
+</pre></div>
+
+<p>Outputs :</p>
+
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"error"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"foo"</span><span class="nt">&gt;</span>Foo<span class="nt">&lt;/label&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"four"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"foo"</span> <span class="na">id=</span><span class="s">"foo"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;small&gt;</span>Bar<span class="nt">&lt;/small&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
 </pre></div>
 
 <h2>Ties-in with Laravel's Validator</h2>
@@ -239,7 +255,7 @@ Take the following (far-fetched) rules array :</p>
 
 <p>And that's it ! And the best news : since Bootstrap recognizes live validation, if say you try to type something that doesn't match the <code>alpha</code> pattern in your name field, it will automatically turn red just like when your control group is set to <code>error</code>. Just like that, fingers snappin' and all, nothing to do but sit back, relax, and watch Chrome/Firefox/whatever pop up a sweet little box saying "You have to fill that field dude" or "That is not email, what are you trying to do, fool me or something ?".</p>
 
-<p>You can also, mid-course, manually set the state of a control group — that's a feature of course available only if you're using Bootstrap's syntax. You can use any of the control group states which include <code>success</code>, <code>warning</code>, <code>error</code> and <code>info</code>.</p>
+<p>You can also, mid-course, manually set the state of a control group — that's a feature of course available only if you're using either Bootstrap or Foundation. You can use any of the control group states which include <code>success</code>, <code>warning</code>, <code>error</code> and <code>info</code>.</p>
 
 <div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">state</span><span class="p">(</span><span class="s1">'error'</span><span class="p">)</span>
 </pre></div>
