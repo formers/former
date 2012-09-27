@@ -6,14 +6,14 @@ Travis status : [![Build Status](https://secure.travis-ci.org/Anahkiasen/former.
 Former is the name of a little project I'd like to present you — it's a bundle for the Laravel framework, and a really nice guy too once you get to know him.
 Laravel's original Form class is great — simplistic and full of little helpers, but a tad unelegant compared to the rest of the framework. When you add Bootstrapper classes above it, it just becomes intoxicating ; the mere amount of lines you need to type to create a five fields form with control groups is simply discouraging.
 
-Enter Former, a powerful form builder with helpers for localization, validation, repopulation, and ties-in directly to Bootstrap.
+Enter Former, a powerful form builder with helpers for localization, validation, repopulation, and ties-in directly to both Bootstrap and Foundation.
 
 ### Table of contents
 
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Features](#features)
-    * [Out-of-the-box integration to Bootstrap](#out-of-the-box-integration-to-bootstrap)
+    * [Out-of-the-box integration to Bootstrap and Foundation](#out-of-the-box-integration-to-bootstrap-and-foundation)
     * [Ties-in with Laravel's Validator](#ties-in-with-laravels-validator)
     * [Form population](#form-populating)
     * [Datalists](#datalists)
@@ -82,9 +82,9 @@ And finally for easier use I recommand adding this alias to your alias array in 
 
 # Features
 
-## Out-of-the-box integration to Bootstrap
+## Out-of-the-box integration to Bootstrap and Foundation
 
-So that's pretty nice, but so far that just looks like a modification of Laravel's Form class I mean, what's so Bootstrappy about all that ? That's where the magic underneath lies : Former recognizes when you create an horizontal or vertical form, and goes the extra mile of wrapping each field in a control group, all behind the scenes.
+So that's pretty nice, but so far that just looks like a modification of Laravel's Form class I mean, what's so fancy about all that ? That's where the magic underneath lies : Former recognizes when you create an horizontal or vertical form, and goes the extra mile of wrapping each field in a control group, all behind the scenes.
 That means that when you type this :
 
 ```php
@@ -109,7 +109,7 @@ What you actually get is the following output (with Bootstrap) :
 </div>
 ```
 
-You can select which framework to use with the method `Former::framework()`, for the moment Former supports `'bootstrap'` for Twitter Bootstrap, `'zurb'` for Zurb Foundation, and `null` for no framework.
+By default Former will use Twitter Bootstrap for its syntax but you can select which framework to use with the method `Former::framework()`. For the moment Former supports `'bootstrap'` for Twitter Bootstrap, `'zurb'` for Zurb Foundation, and `null` for no framework.
 
 ```php
 // Turn off Bootstrap syntax
@@ -117,6 +117,24 @@ Former::framework(null);
 
 // Turn it on again (MAKE UP YOUR MIND JEEZ)
 Former::framework('bootstrap');
+```
+
+Here is an example of code for Foundation :
+
+```php
+Former::framework('zurb');
+
+Former::four_text('foo')->state('error')->inlineHelp('bar')
+```
+
+Outputs :
+
+```html
+<div class="error">
+  <label for="foo">Foo</label>
+  <input class="four" type="text" name="foo" id="foo">
+  <small>Bar</small>
+</div>
 ```
 
 ## Ties-in with Laravel's Validator
@@ -222,7 +240,7 @@ Former::text('client_code')->pattern('[a-z]{4}[0-9]{2}')
 
 And that's it ! And the best news : since Bootstrap recognizes live validation, if say you try to type something that doesn't match the `alpha` pattern in your name field, it will automatically turn red just like when your control group is set to `error`. Just like that, fingers snappin' and all, nothing to do but sit back, relax, and watch Chrome/Firefox/whatever pop up a sweet little box saying "You have to fill that field dude" or "That is not email, what are you trying to do, fool me or something ?".
 
-You can also, mid-course, manually set the state of a control group — that's a feature of course available only if you're using Bootstrap's syntax. You can use any of the control group states which include `success`, `warning`, `error` and `info`.
+You can also, mid-course, manually set the state of a control group — that's a feature of course available only if you're using either Bootstrap or Foundation. You can use any of the control group states which include `success`, `warning`, `error` and `info`.
 
 ```php
 Former::text('name')->state('error')
