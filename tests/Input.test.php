@@ -200,8 +200,20 @@ class InputTest extends FormerTests
   public function testPopulate()
   {
     Former::populate(array('foo' => 'bar'));
+
     $populate = Former::text('foo')->__toString();
     $matcher = $this->cg('<input type="text" name="foo" value="bar" id="foo">');
+
+    $this->assertEquals($matcher, $populate);
+  }
+
+  public function testPopulateWithSpecificValue()
+  {
+    Former::populate(array('foo' => 'bar'));
+    Former::populateField('foo', 'foo');
+
+    $populate = Former::text('foo')->__toString();
+    $matcher = $this->cg('<input type="text" name="foo" value="foo" id="foo">');
 
     $this->assertEquals($matcher, $populate);
   }

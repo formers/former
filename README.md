@@ -179,6 +179,14 @@ Former::populate( Client::find(2) )
 
 Former will recognize the model and populate the field with the model's attribute. If here per example our client has a `name` set to 'Foo' and a `firstname` set to 'Bar', Former will look for fields named 'name' and 'firstname' and fill them respectively with 'Foo' and 'Bar'.
 
+Alternatively you can also populate a specific field after you've populated the whole form (for a relationship per example) by doing this :
+
+```php
+Former::populate($project)
+
+Former::populateField('client', $project->client->name)
+```
+
 For the rest of the form, filling fields is basically as easy as doing `->value('something')`.
 
 To generate a list of options for a `<select>` you call `Former::select('foo')->options([array], [facultative: selected value])`.

@@ -227,6 +227,17 @@ class Former
   }
 
   /**
+   * Set a specific value in the population array
+   *
+   * @param string $key   The key to change
+   * @param string $value The new value
+   */
+  public static function populateField($key, $value)
+  {
+    static::$values[$key] = $value;
+  }
+
+  /**
    * Get a value from the object/array
    *
    * @param  string $name The key to retrieve
