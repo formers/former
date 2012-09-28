@@ -299,8 +299,10 @@ Checkboxes and radios, man, aren't those annoying ? Even more when you have to c
 // Create a one-off checkbox
 Former::checkbox('checkme')
 
-// Create a one-off checkbox with a text
-Former::checkbox('checkme')->text('YO CHECK THIS OUT')
+// Create a one-off checkbox with a text, and check it
+Former::checkbox('checkme')
+  ->text('YO CHECK THIS OUT')
+  ->check()
 
 // Create four related checkboxes
 Former::checkboxes('checkme')

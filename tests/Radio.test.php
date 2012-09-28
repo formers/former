@@ -10,6 +10,13 @@ class RadioTest extends FormerTests
 
     return $label ? '<label for="' .$name. '" class="radio' .$inline. '">' .$radio.$label. '</label>' : $radio;
   }
+  private function rc($name = 'foo', $label = null, $value = 1, $inline = false)
+  {
+    $inline = $inline ? ' inline' : null;
+    $radio = '<input checked="checked" id="' .$name. '" type="radio" name="' .$name. '" value="' .$value. '">';
+
+    return $label ? '<label for="' .$name. '" class="radio' .$inline. '">' .$radio.$label. '</label>' : $radio;
+  }
 
   public function testSingle()
   {
@@ -103,6 +110,42 @@ class RadioTest extends FormerTests
       '<input data-foo="bar" value="bar" id="bar" type="radio" name="foo">'.
       'Bar'.
     '</label>');
+
+    $this->assertEquals($matcher, $radios);
+  }
+
+  public function testCheck()
+  {
+    $radio = Former::radio('foo')->check()->__toString();
+    $matcher = $this->cg($this->rc());
+
+    $this->assertEquals($matcher, $radio);
+  }
+
+  public function testCheckMultiple()
+  {
+    $radios = Former::radios('foo')->radios('foo', 'bar')->check(0)->__toString();
+    $matcher = $this->cgm($this->rc('foo', 'Foo', 0).$this->r('foo', 'Bar', 1));
+
+    $this->assertEquals($matcher, $radios);
+  }
+
+  public function testRepopulateFromPost()
+  {
+    Input::merge(array('foo' => 0));
+
+    $radios = Former::radios('foo')->radios('foo', 'bar')->__toString();
+    $matcher = $this->cgm($this->rc('foo', 'Foo', 0).$this->r('foo', 'Bar', 1));
+
+    $this->assertEquals($matcher, $radios);
+  }
+
+  public function testRepopulateFromModel()
+  {
+    Former::populate((object) array('foo' => 0));
+
+    $radios = Former::radios('foo')->radios('foo', 'bar')->__toString();
+    $matcher = $this->cgm($this->rc('foo', 'Foo', 0).$this->r('foo', 'Bar', 1));
 
     $this->assertEquals($matcher, $radios);
   }

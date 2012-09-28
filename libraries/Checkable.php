@@ -32,6 +32,12 @@ abstract class Checkable extends Field
    */
   protected $checkable = null;
 
+  /**
+   * An array of checked items
+   * @var array
+   */
+  protected $checked = array();
+
   ////////////////////////////////////////////////////////////////////
   ///////////////////////// PUBLIC INTERFACE /////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -63,6 +69,19 @@ abstract class Checkable extends Field
     if(is_object($text)) $text = $text->get();
 
     $this->text = Helpers::translate($text);
+  }
+
+  /**
+   * Check a specific item
+   *
+   * @param  string $name The checkable to check
+   */
+  public function check($name = null)
+  {
+    if(!$name) $name = $this->name;
+
+    if($this->isCheckbox()) $this->checked[] = $name;
+    else $this->checked = array($name);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -140,7 +159,7 @@ abstract class Checkable extends Field
     \Form::$labels[] = $name;
 
     // Create field
-    $field = call_user_func('\Form::'.$this->checkable, $name, $value, $this->isChecked($name), $attributes);
+    $field = call_user_func('\Form::'.$this->checkable, $name, $value, $this->isChecked($name, $value), $attributes);
 
     // If no label to wrap, return plain checkable
     if(!$label) return $field;
@@ -182,12 +201,30 @@ abstract class Checkable extends Field
    *
    * @return boolean Checked or not
    */
-  protected function isChecked($name = null)
+  protected function isChecked($name = null, $value = null)
   {
     if(!$name) $name = $this->name;
-    $value = Former::getPost($name);
 
-    return $value ? true : false;
+    // If it's a checkbox, see if we marqued that one as checked in the array
+    // Or if it's a single radio, simply see if we called check
+    if($this->isCheckbox() or
+      !$this->isCheckbox() and !$this->items)
+        $checked = in_array($name, $this->checked);
+
+    // If there are multiple, search for the value
+    // as the name are the same between radios
+    else $checked = in_array($value, $this->checked);
+
+    // Check the values and POST array
+    $post   = Former::getPost($name);
+    $static = Former::getValue($name);
+    $manual = $checked;
+
+    if(!is_null($post)) $isChecked = ($post == $value);
+    elseif(!is_null($static)) $isChecked = ($static == $value);
+    else $isChecked = $checked;
+
+    return $isChecked ? true : false;
   }
 
   /**
