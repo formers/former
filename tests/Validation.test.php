@@ -3,7 +3,7 @@ use \Former\Former;
 
 class ValidationTest extends FormerTests
 {
-  private function field($attributes, $type = 'text')
+  private function field($attributes = array(), $type = 'text')
   {
     return '<input' .\HTML::attributes($attributes). ' type="' .$type. '" name="foo" id="foo">';
   }
@@ -126,6 +126,20 @@ class ValidationTest extends FormerTests
 
     $input = Former::text('foo')->__toString();
     $matcher = $this->cg($this->field(array('pattern' => '[a-z]+')));
+
+    $this->assertEquals($matcher, $input);
+  }
+
+  public function testDisablingValidation()
+  {
+    Former::config('live_validation', false);
+    Former::withRules(array('foo' => 'required'));
+
+    $input = Former::text('foo')->__toString();
+    $matcher = $this->cg(
+      $this->field(),
+      '<label for="foo" class="control-label">Foo</label>'
+    );
 
     $this->assertEquals($matcher, $input);
   }

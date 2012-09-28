@@ -160,7 +160,7 @@ if($validation->fails()) {
 ```
 
 Now on the last example you never actually call Former, be it in your controller or in your view. Why is that ? That's because when Former opens a form on a page, it will automatically check in Session if there's not an object called `errors` and if there is, it will try to use it without requiring you to call anything.
-You can disable Former's automatic errors fetching with the following option : `Former::$fetchErrors = false`.
+You can disable Former's automatic errors fetching with the following option : `Former::config('fetch_errors', false)`.
 
 ## Form populating
 
@@ -344,7 +344,7 @@ Former::checkbox('rules')->text('my.translation')
 Former::legend('mylegend')
 ```
 
-Which you know, is kind of cool. Former will first try to translate the string in itself, ie `my.text` will return `__('my.text')` and if that fails, it will look for it in a fallback place. You can set where Former look for translations by changing the following variable : `Former::$translateFrom` (defaults to `validation.attributes`). Note that **it must be an array**.
+Which you know, is kind of cool. Former will first try to translate the string in itself, ie `my.text` will return `__('my.text')` and if that fails, it will look for it in a fallback place. You can set where Former look for translations by changing the following variable : `Former::config('translate_from', [boolean])` (defaults to `validation.attributes`). Note that **it must be an array**.
 
 ## Notes on setting field values
 
