@@ -3,10 +3,32 @@ use \Former\Former;
 
 class ValidationTest extends FormerTests
 {
-  private function field($attributes = array(), $type = 'text')
+  private function field($attributes = array(), $type = 'text', $name = 'foo')
   {
-    return '<input' .\HTML::attributes($attributes). ' type="' .$type. '" name="foo" id="foo">';
+    return '<input' .\HTML::attributes($attributes). ' type="' .$type. '" name="' .$name. '" id="' .$name. '">';
   }
+
+  public function testMultipleRulesArray()
+  {
+    Former::withRules(array('foo' => 'required'), array('bar' => 'email'));
+
+    // First field
+    $input = Former::text('foo')->__toString();
+    $matcher = $this->cgr(
+      $this->field(array('required' => 'true')),
+      '<label for="foo" class="control-label">Foo</label>'
+    );
+
+    // Second field
+    $email = Former::text('bar')->__toString();
+    $emailMatcher = $this->cg(
+      $this->field(null, 'email', 'bar'),
+      '<label for="bar" class="control-label">Bar</label>');
+
+    $this->assertEquals($matcher, $input);
+    $this->assertEquals($emailMatcher, $email);
+  }
+
   public function testRequired()
   {
     Former::withRules(array('foo' => 'required'));
