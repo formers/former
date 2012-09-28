@@ -60,7 +60,9 @@ Laravel's original Form class is great — simplistic and full of little helpers
 </li>
 <li><a href="#ultimate-showdown">Ultimate showdown</a></li>
 <li><a href="#sidebar">Sidebar</a></li>
-</ul><hr><h2>Introduction</h2>
+</ul><hr><p><a name="introduction"></a></p>
+
+<h2>Introduction</h2>
 
 <p>Former aims to re-laravelize form creation by transforming each field into its own model, with its own methods and attributes. This means that you can do this sort of stuff :</p>
 
@@ -90,6 +92,8 @@ Laravel's original Form class is great — simplistic and full of little helpers
 <p>Every time you call a method that doesn't actually exist, Former assumes you're trying to set an attribute and creates it magically. That's why you can do in the above example <code>-&gt;rows(10)</code> ; in case you want to set attributes that contain dashes, just replace them by underscores : <code>-&gt;data_foo('bar')</code> equals <code>data-foo="bar"</code>.
 Now of course in case you want to set an attribute that actually contains an underscore (jeez aren't you the little smartass) you can always use the fallback method <code>setAttribute('data_foo', 'bar')</code>. You're welcome.</p>
 
+<p><a name="installation"></a></p>
+
 <h2>Installation</h2>
 
 <p>Installing Former is easy as hell. You just type the following in your Terminal :</p>
@@ -107,7 +111,11 @@ Now of course in case you want to set an attribute that actually contains an und
 <div class="highlight"><pre><span class="s1">'Former'</span> <span class="o">=&gt;</span> <span class="s1">'Former\Former'</span><span class="p">,</span>
 </pre></div>
 
-<hr><h1>Features</h1>
+<hr><p><a name="features"></a></p>
+
+<h1>Features</h1>
+
+<p><a name="out-of-the-box-integration-to-bootstrap-and-foundation"></a></p>
 
 <h2>Out-of-the-box integration to Bootstrap and Foundation</h2>
 
@@ -159,6 +167,8 @@ That means that when you type this :</p>
 <span class="nt">&lt;/div&gt;</span>
 </pre></div>
 
+<p><a name="ties-in-with-laravels-validator"></a></p>
+
 <h2>Ties-in with Laravel's Validator</h2>
 
 <p>So ok, that's already a lot of clutter removed by not having to call the lenghty <code>Form::control_group()</code> function. Now I hear you coming : "but you know I still have to manually validate my form and su"— Well no you don't. Enters Former's magic helper <code>withErrors</code>; what it does is pretty simple. Since it's already wrapping your nice fields into control groups, it goes the distance, and gently check the <code>Message</code> object for any errors that field might have, and set that error as an <code>.help-inline</code>. Now we're talking !</p>
@@ -183,6 +193,8 @@ That means that when you type this :</p>
 
 <p>Now on the last example you never actually call Former, be it in your controller or in your view. Why is that ? That's because when Former opens a form on a page, it will automatically check in Session if there's not an object called <code>errors</code> and if there is, it will try to use it without requiring you to call anything.
 You can disable Former's automatic errors fetching with the following option : <code>Former::config('fetch_errors', false)</code>.</p>
+
+<p><a name="form-populating"></a></p>
 
 <h2>Form populating</h2>
 
@@ -251,6 +263,8 @@ Former also does some magic if none of those two arguments are specified. Say yo
 <p>This will use each Task's default key, and output the Task's name as the option's label.
 Kudos to <a href="https://github.com/cviebrock">cviebrock</a> for the original idea.</p>
 
+<p><a name="datalists"></a></p>
+
 <h2>Datalists</h2>
 
 <p>But what else does it do ? Datalists, it can do datalists. You don't know what they are ? Ok; you know how sometimes you would like to make people chose between something in a select but also being able to type what they want if it's not in it ? That's a datalist. In Former you can simply create one like that :</p>
@@ -263,6 +277,8 @@ Kudos to <a href="https://github.com/cviebrock">cviebrock</a> for the original i
 
 <p>You can also (if you need to) set a custom id on the created datalist by doing <code>Former::text('foo')-&gt;list('myId')-&gt;useDatalist()</code>.
 From there it will automatically generate the corresponding <code>&lt;datalist&gt;</code> and link it by <code>id</code> to that field. Which means your text input will get populated by the values in your array, while still letting people type whatever they want if they don't find happiness and/or are little pains in the ass.</p>
+
+<p><a name="live-validation"></a></p>
 
 <h2>Live validation</h2>
 
@@ -302,6 +318,8 @@ Take the following (far-fetched) rules array :</p>
 <div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">state</span><span class="p">(</span><span class="s1">'error'</span><span class="p">)</span>
 </pre></div>
 
+<p><a name="checkboxes-and-radios"></a></p>
+
 <h2>Checkboxes and Radios</h2>
 
 <p>Checkboxes and radios, man, aren't those annoying ? Even more when you have to create several of them, and you think in your head "WHY CAN'T I VALIDATE ALL THESE LIMES ?". With Former it's all a little easier :</p>
@@ -327,6 +345,10 @@ Take the following (far-fetched) rules array :</p>
   <span class="o">-&gt;</span><span class="na">radios</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'label'</span> <span class="o">=&gt;</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'label'</span> <span class="o">=&gt;</span> <span class="s1">'name'</span><span class="p">))</span>
   <span class="o">-&gt;</span><span class="na">stacked</span><span class="p">()</span>
 
+<span class="c1">// Stacked and inline can also be called as magic methods</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">inline_checkboxes</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">checkboxes</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">,</span> <span class="s1">'bar'</span><span class="p">)</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">stacked_radios</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">radios</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">,</span> <span class="s1">'bar'</span><span class="p">)</span>
+
 <span class="c1">// Fine tune checkable elements</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">radios</span><span class="p">(</span><span class="s1">'radio'</span><span class="p">)</span>
   <span class="o">-&gt;</span><span class="na">radios</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
@@ -337,6 +359,8 @@ Take the following (far-fetched) rules array :</p>
 
 <p>When creating checkables via the checkboxes/radios() method, by default for each checkable name attribute it will use the original name you specified and append it a number (here in our exemple it would be <code>&lt;input type="checkbox" name="checkme_2"&gt;</code>).
 It also repopulates it, meaning a checked input will stay checked on submit.</p>
+
+<p><a name="localization-helpers"></a></p>
 
 <h2>Localization helpers</h2>
 
@@ -357,6 +381,8 @@ It also repopulates it, meaning a checked input will stay checked on submit.</p>
 
 <p>Which you know, is kind of cool. Former will first try to translate the string in itself, ie <code>my.text</code> will return <code>__('my.text')</code> and if that fails, it will look for it in a fallback place. You can set where Former look for translations by changing the following variable : <code>Former::config('translate_from', [boolean])</code> (defaults to <code>validation.attributes</code>). Note that <strong>it must be an array</strong>.</p>
 
+<p><a name="notes-on-setting-field-values"></a></p>
+
 <h2>Notes on setting field values</h2>
 
 <p>All form classes encounter a problem at one point : what kind of data takes precedence over what kind ? To populate your field, Former set the following priorities to found values :</p>
@@ -367,7 +393,9 @@ It also repopulates it, meaning a checked input will stay checked on submit.</p>
 <li>Then any values set via <code>Former::populate()</code> – that means that if you're editing something or are repopulating with some value, it can be overwritten with <code>forceValue</code>
 </li>
 <li>Finally the classic <code>-&gt;value()</code> gets the least priority – it is created for minimum and default field values and thus gets overwritten by population and POST data</li>
-</ul><hr><h1>ULTIMATE SHOWDOWN</h1>
+</ul><hr><p><a name="ultimate-showdown"></a></p>
+
+<h1>ULTIMATE SHOWDOWN</h1>
 
 <div class="highlight"><pre><span class="c1">// Laravel</span>
 <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"control-group"</span><span class="o">&gt;</span>
@@ -419,7 +447,9 @@ It also repopulates it, meaning a checked input will stay checked on submit.</p>
   <span class="o">-&gt;</span><span class="na">blockHelp</span><span class="p">(</span><span class="s1">'I SAID CHECK THOSE DOUBLES'</span><span class="p">)</span>
 </pre></div>
 
-<hr><h1>Sidebar</h1>
+<hr><p><a name="sidebar"></a></p>
+
+<h1>Sidebar</h1>
 
 <p>It may seems like I'm spitting on both Laravel and Bootstrapper here but bare with me — I'm totally not. I love Laravel, it's an amazing and elegant framework, and I couldn't stress out enough how every one of you should have Bootstrapper installed somewhere in your bundles — hell I'm even collaborating actively on the project. I even intended Former to replace Bootstrapper's Form class but to me it was just a little too much out of its scope.</p>
 
