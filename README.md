@@ -317,6 +317,10 @@ Former::radios('radio')
   ->radios(array('label' => 'name', 'label' => 'name'))
   ->stacked()
 
+// Stacked and inline can also be called as magic methods
+Former::inline_checkboxes('foo')->checkboxes('foo', 'bar')
+Former::stacked_radios('foo')->radios('foo', 'bar')
+
 // Fine tune checkable elements
 Former::radios('radio')
   ->radios(array(
