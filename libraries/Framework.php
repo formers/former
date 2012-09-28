@@ -22,7 +22,7 @@ class Framework
    */
   private static $states = array(
     'bootstrap' => array('success', 'warning', 'error', 'info'),
-    'zurb'     => array('error')
+    'zurb'      => array('error')
   );
 
   /**
@@ -54,7 +54,7 @@ class Framework
   public static function inlineHelp($value, $attributes = array())
   {
     // Return the correct syntax according to framework
-    switch(static::$framework) {
+    switch(static::current()) {
       case 'bootstrap':
         $attributes = Helpers::addClass($attributes, 'help-inline');
         $help = '<span'.HTML::attributes($attributes).'>'.$value.'</span>';
@@ -140,7 +140,7 @@ class Framework
     if(self::is(null)) return null;
 
     // List all available sizes
-    $available = array_get(static::$sizes, static::$framework, array());
+    $available = array_get(static::$sizes, static::current(), array());
 
     // Filter sizes
     $sizes = array_intersect($available, $sizes);
@@ -164,7 +164,7 @@ class Framework
    */
   public static function getState($state)
   {
-    if(in_array($state, static::$states[static::$framework])) return $state;
+    if(in_array($state, static::$states[static::current()])) return $state;
     else return null;
   }
 
@@ -191,8 +191,10 @@ class Framework
   {
     if (in_array($framework, array('bootstrap', 'zurb')) or
         is_null($framework)) {
-      static::$framework = $framework;
+      Config::set('framework', $framework);
     }
+
+    return static::current();
   }
 
   /**
@@ -203,7 +205,7 @@ class Framework
    */
   public static function is($framework)
   {
-    return static::$framework == $framework;
+    return static::current() == $framework;
   }
 
   /**
@@ -214,7 +216,7 @@ class Framework
    */
   public static function isnt($framework)
   {
-    return static::$framework != $framework;
+    return static::current() != $framework;
   }
 
 }
