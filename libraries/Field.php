@@ -59,7 +59,7 @@ abstract class Field
 
     // Set magic parameters (repopulated value, translated label, etc)
     if(Config::get('automatic_label')) $this->ponder($name, $label);
-    if($type != 'password') $this->repopulate();
+    if($type != 'password') $this->value = $this->repopulate();
     if(Config::get('live_validation')) $this->addRules();
 
     // Link Control group
@@ -158,7 +158,7 @@ abstract class Field
   public function value($value)
   {
     // Check if we already have a value stored for this field or in POST data
-    $already = Former::getValue($this->name) or Former::getPost($this->name);
+    $already = $this->repopulate();
 
     if(!$already) $this->value = $value;
   }
@@ -206,17 +206,20 @@ abstract class Field
   /**
    * Use values stored in Former to populate the current field
    */
-  private function repopulate()
+  private function repopulate($fallback = null)
   {
-    $value = Former::getValue($this->name);
+    if(is_null($fallback)) $fallback = $this->value;
 
-    // If nothing found, replace by fallback
-    if(!$value) $value = $this->value;
+    // Get values from POST, populated, and manually set value
+    $post     = Former::getPost($this->name);
+    $populate = Former::getValue($this->name);
 
-    // Overwrite value by POST if present
-    $value = Former::getPost($this->name, $value);
+    // Assign a priority to each
+    if(!is_null($post)) $value = $post;
+    elseif(!is_null($populate)) $value = $populate;
+    else $value = $fallback;
 
-    $this->value = $value;
+    return $value;
   }
 
   /**
