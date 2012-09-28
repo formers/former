@@ -242,10 +242,12 @@ class Former
   /**
    * Add live validation rules
    *
-   * @param  array $rules An array of Laravel rules
+   * @param  array *$rules An array of Laravel rules
    */
-  public static function withRules($rules)
+  public static function withRules()
   {
+    $rules = call_user_func_array('array_merge', func_get_args());
+
     // Parse the rules according to Laravel conventions
     foreach ($rules as $name => $fieldRules) {
       foreach (explode('|', $fieldRules) as $rule) {
