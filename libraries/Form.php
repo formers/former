@@ -35,7 +35,7 @@ class Form
     $secure     = array_get($parameters, 3, false);
 
     // If classic form
-    if($typeAsked == 'open') $type = Former::$defaultFormType;
+    if($typeAsked == 'open') $type = Config::get('default_form_type');
     else {
       // Look for HTTPS form
       if (str_contains($typeAsked, 'secure')) {
@@ -51,7 +51,7 @@ class Form
 
       // Calculate form type
       $type = trim(str_replace('open', null, $typeAsked), '_');
-      if(!in_array($type, $this->availableTypes)) $type = Former::$defaultFormType;
+      if(!in_array($type, $this->availableTypes)) $type = Config::get('default_form_type');
     }
 
     // Add the final form type
@@ -61,7 +61,7 @@ class Form
     $this->type = $type;
 
     // Fetch errors if asked for
-    if (Former::$fetchErrors) {
+    if (Config::get('fetch_errors')) {
       Former::withErrors();
     }
 

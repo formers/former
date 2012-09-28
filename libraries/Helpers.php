@@ -49,7 +49,7 @@ class Helpers
 
     // If not found, search in the field attributes
     if(!$translation) $translation =
-      Lang::line(Former::$translateFrom.'.'.$key)->get(null,
+      Lang::line(Config::get('translate_from').'.'.$key)->get(null,
       $fallback);
 
     return ucfirst($translation);

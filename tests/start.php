@@ -52,7 +52,7 @@ class FormerTests extends PHPUnit_Framework_TestCase
     \Former\Former::horizontal_open();
     \Former\Former::populate(array());
     \Former\Former::withErrors(null);
-    \Former\Former::$automaticLabel = true;
+    \Former\Config::set('automatic_label', true);
   }
 
   public function tearDown()

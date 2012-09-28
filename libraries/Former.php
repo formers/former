@@ -39,44 +39,6 @@ class Former
    */
   private static $rules = array();
 
-  // Former options ------------------------------------------------ /
-
-  /**
-   * A class to be added to required fields
-   * @var string
-   */
-  public static $requiredClass = 'required';
-
-  /**
-   * The main place where former will look for translations
-   * @var string
-   */
-  public static $translateFrom = 'validation.attributes';
-
-  /**
-   * The default fallback form type if none specificed (Former::open)
-   * @var string
-   */
-  public static $defaultFormType = 'horizontal';
-
-  /**
-   * Whether Former should always call withErrors() by itself when opening a form
-   * @var boolean
-   */
-  public static $fetchErrors = true;
-
-  /**
-   * Whether Former should translate rules passed to it to live validation
-   * @var boolean
-   */
-  public static $liveValidation = true;
-
-  /**
-   * Whether Former should automatically fill the label if none is found
-   * @var boolean
-   */
-  public static $automaticLabel = true;
-
   ////////////////////////////////////////////////////////////////////
   //////////////////////////// INTERFACE /////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -298,6 +260,17 @@ class Former
        static::$rules[$name][$rule] = $parameters;
       }
     }
+  }
+
+  /**
+   * Alter Former's settings
+   *
+   * @param  string $key   The option to change
+   * @param  string $value Its new value
+   */
+  public static function config($key, $value)
+  {
+    Config::set($key, $value);
   }
 
   /**

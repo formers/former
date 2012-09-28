@@ -1,5 +1,6 @@
 <?php
 use \Former\Former;
+use \Former\Config;
 
 class InputTest extends FormerTests
 {
@@ -28,7 +29,7 @@ class InputTest extends FormerTests
 
   public function testTextWithoutLabel()
   {
-    Former::$automaticLabel = false;
+    Former::config('automatic_label', false);
 
     $input = Former::text('foo')->__toString();
     $matcher = $this->cg('<input type="text" name="foo" id="foo">', null);

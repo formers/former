@@ -84,7 +84,7 @@ class ControlGroup
 
     // Required state
     if(Former::field()->isRequired()) {
-      $this->attributes = Helpers::addClass($this->attributes, Former::$requiredClass);
+      $this->attributes = Helpers::addClass($this->attributes, Config::get('required_class'));
     }
 
     return '<div'.HTML::attributes($this->attributes). '>';

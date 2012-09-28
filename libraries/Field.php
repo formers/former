@@ -58,9 +58,9 @@ abstract class Field
     $this->value      = $value;
 
     // Set magic parameters (repopulated value, translated label, etc)
-    if(Former::$automaticLabel) $this->ponder($name, $label);
+    if(Config::get('automatic_label')) $this->ponder($name, $label);
     if($type != 'password') $this->repopulate();
-    if(Former::$liveValidation) $this->addRules();
+    if(Config::get('live_validation')) $this->addRules();
 
     // Link Control group
     if (Framework::isnt(null)) {

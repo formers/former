@@ -14,7 +14,7 @@ class Framework
    * The current framework being used
    * @var string
    */
-  private static $framework = 'bootstrap';
+  private static $framework;
 
   /**
    * The availables states for a control group
