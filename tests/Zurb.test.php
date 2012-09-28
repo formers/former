@@ -3,8 +3,9 @@ use \Former\Former;
 
 class ZurbTest extends FormerTests
 {
-  public static function setUpBeforeClass()
+  public function setUp()
   {
+    parent::setUp();
     Former::framework('zurb');
   }
 

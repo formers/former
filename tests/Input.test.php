@@ -6,6 +6,7 @@ class InputTest extends FormerTests
 {
   public function tearDown()
   {
+    parent::tearDown();
     Former::framework('bootstrap');
   }
 

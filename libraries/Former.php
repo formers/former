@@ -270,7 +270,9 @@ class Former
    */
   public static function config($key, $value)
   {
-    Config::set($key, $value);
+    if($key == 'framework') return Framework::useFramework($value);
+
+    return Config::set($key, $value);
   }
 
   /**
