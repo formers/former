@@ -197,14 +197,17 @@ class Former
   /**
    * Get a value from the object/array
    *
-   * @param  string $name The key to retrieve
-   * @return mixed        Its value
+   * @param  string $name     The key to retrieve
+   * @param  string $fallback Fallback value if nothing found
+   * @return mixed            Its value
    */
-  public static function getValue($name)
+  public static function getValue($name, $fallback = null)
   {
     return is_object(static::$values)
-      ? static::$values->{$name}
-      : array_get(static::$values, $name);
+      ? (isset(static::$values->$name)
+        ? static::$values->$name
+        : $fallback)
+      : array_get(static::$values, $name, $fallback);
   }
 
   /**
