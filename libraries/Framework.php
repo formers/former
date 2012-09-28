@@ -173,6 +173,16 @@ class Framework
   ////////////////////////////////////////////////////////////////////
 
   /**
+   * Get current framework in use
+   *
+   * @return string The framework used by Former
+   */
+  public static function current()
+  {
+    return Config::get('framework');
+  }
+
+  /**
    * Change the framework currently being used by Former
    *
    * @param  string $framework A framework, or null for none
