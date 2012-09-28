@@ -182,7 +182,7 @@ That means that when you type this :</p>
 </pre></div>
 
 <p>Now on the last example you never actually call Former, be it in your controller or in your view. Why is that ? That's because when Former opens a form on a page, it will automatically check in Session if there's not an object called <code>errors</code> and if there is, it will try to use it without requiring you to call anything.
-You can disable Former's automatic errors fetching with the following option : <code>Former::$fetchErrors = false</code>.</p>
+You can disable Former's automatic errors fetching with the following option : <code>Former::config('fetch_errors', false)</code>.</p>
 
 <h2>Form populating</h2>
 
@@ -309,8 +309,10 @@ Take the following (far-fetched) rules array :</p>
 <div class="highlight"><pre><span class="c1">// Create a one-off checkbox</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">checkbox</span><span class="p">(</span><span class="s1">'checkme'</span><span class="p">)</span>
 
-<span class="c1">// Create a one-off checkbox with a text</span>
-<span class="nx">Former</span><span class="o">::</span><span class="na">checkbox</span><span class="p">(</span><span class="s1">'checkme'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">text</span><span class="p">(</span><span class="s1">'YO CHECK THIS OUT'</span><span class="p">)</span>
+<span class="c1">// Create a one-off checkbox with a text, and check it</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">checkbox</span><span class="p">(</span><span class="s1">'checkme'</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">text</span><span class="p">(</span><span class="s1">'YO CHECK THIS OUT'</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">check</span><span class="p">()</span>
 
 <span class="c1">// Create four related checkboxes</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">checkboxes</span><span class="p">(</span><span class="s1">'checkme'</span><span class="p">)</span>
@@ -353,7 +355,7 @@ It also repopulates it, meaning a checked input will stay checked on submit.</p>
 <span class="nx">Former</span><span class="o">::</span><span class="na">legend</span><span class="p">(</span><span class="s1">'mylegend'</span><span class="p">)</span>
 </pre></div>
 
-<p>Which you know, is kind of cool. Former will first try to translate the string in itself, ie <code>my.text</code> will return <code>__('my.text')</code> and if that fails, it will look for it in a fallback place. You can set where Former look for translations by changing the following variable : <code>Former::$translateFrom</code> (defaults to <code>validation.attributes</code>). Note that <strong>it must be an array</strong>.</p>
+<p>Which you know, is kind of cool. Former will first try to translate the string in itself, ie <code>my.text</code> will return <code>__('my.text')</code> and if that fails, it will look for it in a fallback place. You can set where Former look for translations by changing the following variable : <code>Former::config('translate_from', [boolean])</code> (defaults to <code>validation.attributes</code>). Note that <strong>it must be an array</strong>.</p>
 
 <h2>Notes on setting field values</h2>
 
