@@ -1,5 +1,9 @@
 ## Changelog
 
+### 2.*.*
+
+- [add] Added `->check()` method on radios and checkboxes
+
 ### 2.0.0
 
 - **[add] Former now uses Laravel's Config class to manage settings, letting the user create a `former.php` file in `application/config` to override default options**

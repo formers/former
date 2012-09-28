@@ -26,6 +26,7 @@ Enter Former, a powerful form builder with helpers for localization, validation,
 
 -----
 
+<a name='introduction'></a>
 ## Introduction
 
 Former aims to re-laravelize form creation by transforming each field into its own model, with its own methods and attributes. This means that you can do this sort of stuff :
@@ -58,6 +59,7 @@ The advantages of the first option being that you can skip arguments. If you wan
 Every time you call a method that doesn't actually exist, Former assumes you're trying to set an attribute and creates it magically. That's why you can do in the above example `->rows(10)` ; in case you want to set attributes that contain dashes, just replace them by underscores : `->data_foo('bar')` equals `data-foo="bar"`.
 Now of course in case you want to set an attribute that actually contains an underscore (jeez aren't you the little smartass) you can always use the fallback method `setAttribute('data_foo', 'bar')`. You're welcome.
 
+<a name='installation'></a>
 ## Installation
 
 Installing Former is easy as hell. You just type the following in your Terminal :
@@ -80,8 +82,10 @@ And finally for easier use I recommand adding this alias to your alias array in 
 
 ----
 
+<a name='features'></a>
 # Features
 
+<a name='out-of-the-box-integration-to-bootstrap-and-foundation'></a>
 ## Out-of-the-box integration to Bootstrap and Foundation
 
 So that's pretty nice, but so far that just looks like a modification of Laravel's Form class I mean, what's so fancy about all that ? That's where the magic underneath lies : Former recognizes when you create an horizontal or vertical form, and goes the extra mile of wrapping each field in a control group, all behind the scenes.
@@ -137,6 +141,7 @@ Outputs :
 </div>
 ```
 
+<a name='ties-in-with-laravels-validator'></a>
 ## Ties-in with Laravel's Validator
 
 So ok, that's already a lot of clutter removed by not having to call the lenghty `Form::control_group()` function. Now I hear you coming : "but you know I still have to manually validate my form and su"— Well no you don't. Enters Former's magic helper `withErrors`; what it does is pretty simple. Since it's already wrapping your nice fields into control groups, it goes the distance, and gently check the `Message` object for any errors that field might have, and set that error as an `.help-inline`. Now we're talking !
@@ -162,6 +167,7 @@ if($validation->fails()) {
 Now on the last example you never actually call Former, be it in your controller or in your view. Why is that ? That's because when Former opens a form on a page, it will automatically check in Session if there's not an object called `errors` and if there is, it will try to use it without requiring you to call anything.
 You can disable Former's automatic errors fetching with the following option : `Former::config('fetch_errors', false)`.
 
+<a name='form-populating'></a>
 ## Form populating
 
 You can populate a form with value quite easily with the `Former::populate` function. There is two ways to do that. The first way is the usual passing of an array of values, like this :
@@ -235,6 +241,7 @@ Is the same as doing this but you know, in less painful and DRYer
 This will use each Task's default key, and output the Task's name as the option's label.
 Kudos to [cviebrock](https://github.com/cviebrock) for the original idea.
 
+<a name='datalists'></a>
 ## Datalists
 
 But what else does it do ? Datalists, it can do datalists. You don't know what they are ? Ok; you know how sometimes you would like to make people chose between something in a select but also being able to type what they want if it's not in it ? That's a datalist. In Former you can simply create one like that :
@@ -249,6 +256,7 @@ Former::text('projects')->useDatalist(Project::all(), 'name')
 You can also (if you need to) set a custom id on the created datalist by doing `Former::text('foo')->list('myId')->useDatalist()`.
 From there it will automatically generate the corresponding `<datalist>` and link it by `id` to that field. Which means your text input will get populated by the values in your array, while still letting people type whatever they want if they don't find happiness and/or are little pains in the ass.
 
+<a name='live-validation'></a>
 ## Live validation
 
 MORE. Ok, instant validation, we all like that don't we ? Now as some of you may know, all modern browsers support instant validation via HTML attributes — no Javascript needed nor script nor polyfill. There are a few attributes that can do that kind of job for you, `pattern`, `required`, `max/min` to name a few.
@@ -291,6 +299,7 @@ You can also, mid-course, manually set the state of a control group — that's a
 Former::text('name')->state('error')
 ```
 
+<a name='checkboxes-and-radios'></a>
 ## Checkboxes and Radios
 
 Checkboxes and radios, man, aren't those annoying ? Even more when you have to create several of them, and you think in your head "WHY CAN'T I VALIDATE ALL THESE LIMES ?". With Former it's all a little easier :
@@ -332,6 +341,7 @@ Former::radios('radio')
 When creating checkables via the checkboxes/radios() method, by default for each checkable name attribute it will use the original name you specified and append it a number (here in our exemple it would be `<input type="checkbox" name="checkme_2">`).
 It also repopulates it, meaning a checked input will stay checked on submit.
 
+<a name='localization-helpers'></a>
 ## Localization helpers
 
 For those of you that work on multilingual projects, Former is also here to help. By default, when creating a field, if no label is specified Former will use the field name by default. But more importantly it will try and translate it automatically. Same goes for checkboxes labels, help texts and form legends. Which means the following :
@@ -352,6 +362,7 @@ Former::legend('mylegend')
 
 Which you know, is kind of cool. Former will first try to translate the string in itself, ie `my.text` will return `__('my.text')` and if that fails, it will look for it in a fallback place. You can set where Former look for translations by changing the following variable : `Former::config('translate_from', [boolean])` (defaults to `validation.attributes`). Note that **it must be an array**.
 
+<a name='notes-on-setting-field-values'></a>
 ## Notes on setting field values
 
 All form classes encounter a problem at one point : what kind of data takes precedence over what kind ? To populate your field, Former set the following priorities to found values :
@@ -363,6 +374,7 @@ All form classes encounter a problem at one point : what kind of data takes prec
 
 ----------
 
+<a name='ultimate-showdown'></a>
 # ULTIMATE SHOWDOWN
 
 ```php
@@ -419,6 +431,7 @@ Former::checkboxes('check')
 
 ----
 
+<a name='sidebar'></a>
 # Sidebar
 
 It may seems like I'm spitting on both Laravel and Bootstrapper here but bare with me — I'm totally not. I love Laravel, it's an amazing and elegant framework, and I couldn't stress out enough how every one of you should have Bootstrapper installed somewhere in your bundles — hell I'm even collaborating actively on the project. I even intended Former to replace Bootstrapper's Form class but to me it was just a little too much out of its scope.
