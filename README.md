@@ -93,7 +93,7 @@ That means that when you type this :
 
 ```php
 Former::select('clients')->options($clients, 2)
-  ->inlineHelp('Pick some dude')
+  ->help('Pick some dude')
   ->state('warning')
 ```
 
@@ -128,7 +128,7 @@ Here is an example of code for Foundation :
 ```php
 Former::framework('zurb');
 
-Former::four_text('foo')->state('error')->inlineHelp('bar')
+Former::four_text('foo')->state('error')->help('bar')
 ```
 
 Outputs :

@@ -201,6 +201,14 @@ class ControlGroup
   }
 
   /**
+   * Alias for inlineHelp
+   */
+  public function help($help, $attributes = array())
+  {
+    return $this->inlineHelp($help, $attributes);
+  }
+
+  /**
    * Add an inline help
    *
    * @param  string $help       The help text
