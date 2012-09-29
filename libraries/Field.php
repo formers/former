@@ -7,6 +7,8 @@
  */
 namespace Former;
 
+use \File;
+
 abstract class Field
 {
   /**
@@ -280,8 +282,23 @@ abstract class Field
         case 'email':
           $this->type = 'email';
           break;
+        case 'url':
+          $this->type = 'url';
+          break;
         case 'required';
           $this->required();
+          break;
+        case 'after':
+          $format = 'Y-m-d';
+          if ($this->type == 'datetime' || $this->type == 'datetime-local')
+            $format .= '\TH:i:s';
+          $this->attributes['min'] = date($format,strtotime(array_get($parameters, 0)));
+          break;
+        case 'before':
+          $format = 'Y-m-d';
+          if ($this->type == 'datetime' || $this->type == 'datetime-local')
+            $format .= '\TH:i:s';
+          $this->attributes['max'] = date($format,strtotime(array_get($parameters, 0)));
           break;
         case 'max':
           $this->setMax(array_get($parameters, 0));
@@ -289,14 +306,36 @@ abstract class Field
         case 'min':
           $this->setMin(array_get($parameters, 0));
           break;
-        case 'numeric':
+        case 'integer':
           $this->attributes['pattern'] = '\d+';
+          break;
+        case 'mimes':
+        case 'image':
+          if ($this->type == 'file')
+          {
+            $ext = $rule == 'image' ? array('jpg', 'png', 'gif', 'bmp') : $parameters;
+            $mimes = array_map('File::mime', $ext);
+            $this->attributes['accept'] = implode(',', $mimes);
+          }
+          break;
+        case 'numeric':
+          if ($this->type == 'number') {
+				$this->attributes['step'] = 'any';
+			 }else{
+				$this->attributes['pattern'] = '[+-]?\d*\.?\d+';
+			 }
           break;
         case 'not_numeric':
           $this->attributes['pattern'] = '\D+';
           break;
         case 'alpha':
           $this->attributes['pattern'] = '[a-zA-Z]+';
+          break;
+        case 'alpha_num':
+          $this->attributes['pattern'] = '[a-zA-Z0-9]+';
+          break;
+        case 'alpha_dash':
+          $this->attributes['pattern'] = '[a-zA-Z0-9_\-]+';
           break;
         case 'between':
           list($min, $max) = $parameters;
