@@ -290,13 +290,13 @@ abstract class Field
           break;
         case 'after':
           $format = 'Y-m-d';
-          if ($this->type == 'datetime')
+          if ($this->type == 'datetime' || $this->type == 'datetime-local')
             $format .= '\TH:i:s';
           $this->attributes['min'] = date($format,strtotime(array_get($parameters, 0)));
           break;
         case 'before':
           $format = 'Y-m-d';
-          if ($this->type == 'datetime')
+          if ($this->type == 'datetime' || $this->type == 'datetime-local')
             $format .= '\TH:i:s';
           $this->attributes['max'] = date($format,strtotime(array_get($parameters, 0)));
           break;
