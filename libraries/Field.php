@@ -319,7 +319,11 @@ abstract class Field
           }
           break;
         case 'numeric':
-          $this->attributes['pattern'] = '[+-]?\d*\.?\d+';
+          if ($this->type == 'number') {
+				$this->attributes['step'] = 'any';
+			 }else{
+				$this->attributes['pattern'] = '[+-]?\d*\.?\d+';
+			 }
           break;
         case 'not_numeric':
           $this->attributes['pattern'] = '\D+';
