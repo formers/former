@@ -204,7 +204,7 @@ You can disable Former's automatic errors fetching with the following option : <
 <span class="nx">Former</span><span class="o">::</span><span class="na">populate</span><span class="p">(</span> <span class="k">array</span><span class="p">(</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'value'</span><span class="p">)</span> <span class="p">)</span>
 </pre></div>
 
-<p>You can also populate a form by passing an Eloquent model to it, say you have a Client model, you can do that :</p>
+<p>You can also populate a form by passing an Eloquent model to it, say you have a Client model, you can do that. This allows for a lot of goodies, I'll get back to it.</p>
 
 <div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">populate</span><span class="p">(</span> <span class="nx">Client</span><span class="o">::</span><span class="na">find</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span>
 </pre></div>
@@ -218,9 +218,8 @@ You can disable Former's automatic errors fetching with the following option : <
 <span class="nx">Former</span><span class="o">::</span><span class="na">populateField</span><span class="p">(</span><span class="s1">'client'</span><span class="p">,</span> <span class="nv">$project</span><span class="o">-&gt;</span><span class="na">client</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">)</span>
 </pre></div>
 
-<p>For the rest of the form, filling fields is basically as easy as doing <code>-&gt;value('something')</code>.</p>
-
-<p>To generate a list of options for a <code>&lt;select&gt;</code> you call <code>Former::select('foo')-&gt;options([array], [facultative: selected value])</code>.
+<p>For the rest of the form, filling fields is basically as easy as doing <code>-&gt;value('something')</code>.
+To generate a list of options for a <code>&lt;select&gt;</code> you call <code>Former::select('foo')-&gt;options([array], [facultative: selected value])</code>.
 You can also use the results from an Eloquent/Fluent query as options for a select, like this :</p>
 
 <div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">select</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">fromQuery</span><span class="p">(</span><span class="nx">Client</span><span class="o">::</span><span class="na">all</span><span class="p">(),</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'id'</span><span class="p">)</span>
@@ -242,7 +241,7 @@ Former also does some magic if none of those two arguments are specified. Say yo
 <span class="nx">Former</span><span class="o">::</span><span class="na">select</span><span class="p">(</span><span class="s1">'clients'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">fromQuery</span><span class="p">(</span><span class="nx">Client</span><span class="o">::</span><span class="na">all</span><span class="p">());</span>
 </pre></div>
 
-<p>Is the same as doing this but you know, in less painful and DRYer</p>
+<p>Is the same as doing this but you know, in less painful and DRYer. This will use each Task's default key, and output the Task's name as the option's label.</p>
 
 <div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"control-group"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"foo"</span> <span class="na">class=</span><span class="s">"control-label"</span><span class="nt">&gt;</span>Foo<span class="nt">&lt;/label&gt;</span>
@@ -260,8 +259,34 @@ Former also does some magic if none of those two arguments are specified. Say yo
 <span class="nt">&lt;/div&gt;</span>
 </pre></div>
 
-<p>This will use each Task's default key, and output the Task's name as the option's label.
-Kudos to <a href="https://github.com/cviebrock">cviebrock</a> for the original idea.</p>
+<p>Former is also able to populate fields with relationships. Now an example is worth a thousand words (excepted if, you know, your example is a thousand words long) :</p>
+
+<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">populate</span><span class="p">(</span><span class="s1">'Client'</span><span class="p">)</span>
+
+<span class="c1">// Will populate with $client-&gt;name</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span>
+
+<span class="c1">// Will populate with $client-&gt;store-&gt;name</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'store.name'</span><span class="p">)</span>
+
+<span class="c1">// You can go as deep as you need to</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'customer.name.adress'</span><span class="p">)</span>
+
+<span class="c1">// Will populate with the date from all of the client's reservations</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">select</span><span class="p">(</span><span class="s1">'reservations.date'</span><span class="p">)</span>
+
+<span class="c1">// Which is the same as this ^</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">select</span><span class="p">(</span><span class="s1">'reservations'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">fromQuery</span><span class="p">(</span><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">reservations</span><span class="p">,</span> <span class="s1">'date'</span><span class="p">)</span>
+
+<span class="c1">// If you're using a text and not a select, instead of listing the</span>
+<span class="c1">// relationship's models as options, it wil concatenate them</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'customers.name'</span><span class="p">)</span> <span class="c1">// Will display "name, name, name"</span>
+
+<span class="c1">// You can rename a field afterwards for easier Input handling</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'comment.title'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">(</span><span class="s1">'title'</span><span class="p">)</span>
+</pre></div>
+
+<p>Kudos to <a href="https://github.com/cviebrock">cviebrock</a> for the original idea.</p>
 
 <p><a name="datalists"></a></p>
 
@@ -294,7 +319,6 @@ Take the following (far-fetched) rules array :</p>
   <span class="s1">'random'</span>   <span class="o">=&gt;</span> <span class="s1">'match:/[a-zA-Z]+/'</span><span class="p">,</span>
   <span class="s1">'birthday'</span> <span class="o">=&gt;</span> <span class="s1">'before:1968-12-03'</span><span class="p">,</span>
   <span class="s1">'avatar'</span>   <span class="o">=&gt;</span> <span class="s1">'image'</span><span class="p">,</span>
-
 <span class="p">);</span>
 </pre></div>
 
@@ -305,7 +329,7 @@ Take the following (far-fetched) rules array :</p>
 <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"email"</span>     <span class="na">type=</span><span class="s">"email"</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"show"</span>      <span class="na">type=</span><span class="s">"text"</span>   <span class="na">pattern=</span><span class="s">"^(batman|spiderman)$"</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"random"</span>    <span class="na">type=</span><span class="s">"text"</span>   <span class="na">pattern=</span><span class="s">"[a-zA-Z]+"</span> <span class="nt">/&gt;</span>
-<span class="nt">&lt;input</span> <span class="na">name =</span><span class="s">"birthday"</span> <span class="na">type=</span><span class="s">"date"</span>   <span class="na">max=</span><span class="s">"1968-12-03"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"birthday"</span>  <span class="na">type=</span><span class="s">"date"</span>   <span class="na">max=</span><span class="s">"1968-12-03"</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"avatar"</span>    <span class="na">type=</span><span class="s">"file"</span>   <span class="na">accept=</span><span class="s">"image/jpeg,image/png,image/gif,image/bmp"</span> <span class="nt">/&gt;</span>
 </pre></div>
 
