@@ -448,15 +448,15 @@ Former::xlarge_text('input01', 'Text input')
 echo Form::control_group(
   Form::label('checkboxes', 'Check those boxes'),
   Form::inline_labelled_checkbox('check1', 'Check me', 1, Input::get('check1', Input::old('check1'))).
-  Form::inline_labelled_checkbox('check2', 'Ccheck me too', 1, Input::get('check1', Input::old('check1'))),
+  Form::inline_labelled_checkbox('check2', 'Check me too', 1, Input::get('check2', Input::old('check2'))),
   $validation->errors->get('check1'),
-  Form::block_help('I SAID CHECK THOSE DOUBLES')
+  Form::help_help('I SAID CHECK THOSE DOUBLES')
 );
 
 // Former
 Former::checkboxes('check')
   ->checkboxes('Check me', 'Check me too')
-  ->blockHelp('I SAID CHECK THOSE DOUBLES')
+  ->help('I SAID CHECK THOSE DOUBLES')
 ```
 
 ----
