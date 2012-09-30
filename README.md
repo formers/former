@@ -177,7 +177,7 @@ You can populate a form with value quite easily with the `Former::populate` func
 Former::populate( array('name' => 'value') )
 ```
 
-You can also populate a form by passing an Eloquent model to it, say you have a Client model, you can do that :
+You can also populate a form by passing an Eloquent model to it, say you have a Client model, you can do that. This allows for a lot of goodies, I'll get back to it.
 
 ```php
 Former::populate( Client::find(2) )
@@ -194,7 +194,6 @@ Former::populateField('client', $project->client->name)
 ```
 
 For the rest of the form, filling fields is basically as easy as doing `->value('something')`.
-
 To generate a list of options for a `<select>` you call `Former::select('foo')->options([array], [facultative: selected value])`.
 You can also use the results from an Eloquent/Fluent query as options for a select, like this :
 
@@ -219,7 +218,7 @@ class Client extends Eloquent
 Former::select('clients')->fromQuery(Client::all());
 ```
 
-Is the same as doing this but you know, in less painful and DRYer
+Is the same as doing this but you know, in less painful and DRYer. This will use each Task's default key, and output the Task's name as the option's label.
 
 ```html
 <div class="control-group">
@@ -238,7 +237,34 @@ Is the same as doing this but you know, in less painful and DRYer
 </div>
 ```
 
-This will use each Task's default key, and output the Task's name as the option's label.
+Former is also able to populate fields with relationships. Now an example is worth a thousand words (excepted if, you know, your example is a thousand words long) :
+
+```php
+Former::populate('Client')
+
+// Will populate with $client->name
+Former::text('name')
+
+// Will populate with $client->store->name
+Former::text('store.name')
+
+// You can go as deep as you need to
+Former::text('customer.name.adress')
+
+// Will populate with the date from all of the client's reservations
+Former::select('reservations.date')
+
+// Which is the same as this ^
+Former::select('reservations')->fromQuery($client->reservations, 'date')
+
+// If you're using a text and not a select, instead of listing the
+// relationship's models as options, it wil concatenate them
+Former::text('customers.name') // Will display "name, name, name"
+
+// You can rename a field afterwards for easier Input handling
+Former::text('comment.title')->name('title')
+```
+
 Kudos to [cviebrock](https://github.com/cviebrock) for the original idea.
 
 <a name='datalists'></a>

@@ -65,6 +65,20 @@ class SelectTest extends FormerTests
     $this->assertEquals($matcher, $select);
   }
 
+  public function testNestedRelationships()
+  {
+    for($i = 0; $i < 2; $i++) $bar[] = (object) array('id' => $i, 'kal' => 'val'.$i);
+    $foo = (object) array('bar' => $bar);
+    Former::populate($foo);
+
+    $select =Former::select('bar.kal')->__toString();
+    $matcher = $this->cg(
+      '<select id="bar.kal" name="bar.kal"><option value="0">val0</option><option value="1">val1</option></select>',
+      '<label for="bar.kal" class="control-label">Bar.kal</label>');
+
+    $this->assertEquals($matcher, $select);
+  }
+
   public function testSelectEloquentMagicMethods()
   {
     for($i = 0; $i < 2; $i++) {

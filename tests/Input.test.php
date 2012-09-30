@@ -256,6 +256,46 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $populate);
   }
 
+  public function testNestedRelationships()
+  {
+    $foo = (object) array('bar' => (object) array('kal' => (object) array('ter' => 'men')));
+    Former::populate($foo);
+
+    $text = Former::text('bar.kal.ter')->__toString();
+    $matcher = $this->cg(
+      '<input type="text" name="bar.kal.ter" value="men" id="bar.kal.ter">',
+      '<label for="bar.kal.ter" class="control-label">Bar.kal.ter</label>');
+
+    $this->assertEquals($matcher, $text);
+  }
+
+  public function testNestedRelationshipsRenamedField()
+  {
+    $foo = (object) array('bar' => (object) array('kal' => (object) array('ter' => 'men')));
+    Former::populate($foo);
+
+    $text = Former::text('bar.kal.ter')->name('ter')->__toString();
+    $matcher = $this->cg(
+      '<input type="text" name="ter" value="men" id="ter">',
+      '<label for="ter" class="control-label">Ter</label>');
+
+    $this->assertEquals($matcher, $text);
+  }
+
+  public function testMultipleNestedRelationships()
+  {
+    for($i = 0; $i < 2; $i++) $bar[] = (object) array('kal' => 'val'.$i);
+    $foo = (object) array('bar' => $bar);
+    Former::populate($foo);
+
+    $text = Former::text('bar.kal')->__toString();
+    $matcher = $this->cg(
+      '<input type="text" name="bar.kal" value="val0, val1" id="bar.kal">',
+      '<label for="bar.kal" class="control-label">Bar.kal</label>');
+
+    $this->assertEquals($matcher, $text);
+  }
+
   public function testNoPopulatingPasswords()
   {
     Former::populate(array('foo' => 'bar'));

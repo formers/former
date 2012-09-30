@@ -33,6 +33,12 @@ class Select extends \Former\Field
     if($selected) $this->value = $selected;
 
     parent::__construct($type, $name, $label, $selected, $attributes);
+
+    // Multiple models population
+    if(is_array($this->value)) {
+      $this->fromQuery($this->value);
+      $this->value = $selected ?: null;
+    }
   }
 
   /**

@@ -206,14 +206,34 @@ class Former
     // Object values
     if(is_object(static::$values)) {
 
-      // Relationships
-      if(str_contains($name, '.')) {
-        $name = str_replace('.', '->', $name);
+      // Transform the name into an array
+      $value = static::$values;
+      $name = str_contains($name, '.') ? explode('.', $name) : (array) $name;
+
+      // Dive into the model
+      foreach($name as $k => $r) {
+
+        // Multiple results relation
+        if(is_array($value)) {
+          foreach($value as $subkey => $submodel) {
+            $value[$subkey] = isset($submodel->$r) ? $submodel->$r : $fallback;
+          }
+          continue;
+        }
+
+        // Single model relation
+        if(isset($value->$r)) $value = $value->$r;
+        else {
+          $value = $fallback;
+          break;
+        }
       }
-      return isset(static::$values->$name) ? static::$values->$name : $fallback;
-    } else {
-      return array_get(static::$values, $name, $fallback);
+
+      return $value;
     }
+
+    // Plain array
+    return array_get(static::$values, $name, $fallback);
   }
 
   /**
