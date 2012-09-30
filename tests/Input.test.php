@@ -12,7 +12,7 @@ class InputTest extends FormerTests
 
   public function sizes()
   {
-    $_sizes = array('mini', 'small', 'medium', 'large', 'xlarge', 'xxlarge', 'span1', 'span6', 'span12');
+    $_sizes = array('mini', 'small', 'medium', 'large', 'xlarge', 'xxlarge', 'span1', 'span6', 'span12', 'foo');
     foreach($_sizes as $s) $sizes[] = array($s);
 
     return $sizes;
@@ -196,10 +196,11 @@ class InputTest extends FormerTests
   public function testMagicMethods($size)
   {
     $method = $size.'_text';
-    $class = starts_with($size, 'span') ? $size : 'input-'.$size;
+    $class = starts_with($size, 'span') ? $size. ' ' : 'input-'.$size. ' ';
     $static = Former::$method('foo')->addClass('bar')->__toString();
+    if($class == 'input-foo ') $class = null;
 
-    $matcher = $this->cg('<input class="' .$class. ' bar" type="text" name="foo" id="foo">');
+    $matcher = $this->cg('<input class="' .$class. 'bar" type="text" name="foo" id="foo">');
 
     $this->assertEquals($matcher, $static);
   }

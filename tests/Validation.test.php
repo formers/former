@@ -3,10 +3,43 @@ use \Former\Former;
 
 class ValidationTest extends FormerTests
 {
+
+  // Matchers ------------------------------------------------------ /
+
   private function field($attributes = array(), $type = 'text', $name = 'foo')
   {
     return '<input' .\HTML::attributes($attributes). ' type="' .$type. '" name="' .$name. '" id="' .$name. '">';
   }
+
+  // Data providers ------------------------------------------------ /
+
+  public function patterns()
+  {
+    foreach(array(
+      'alpha'          => '[a-zA-Z]+',
+      'alpha_dash'     => '[a-zA-Z0-9_\-]+',
+      'alpha_num'      => '[a-zA-Z0-9]+',
+      'in:foo'         => '^foo$',
+      'in:foo,bar'     => '^(foo|bar)$',
+      'integer'        => '\d+',
+      'match:/[a-z]+/' => '[a-z]+',
+      'not_in:foo,bar' => '(?:(?!^foo$|^bar$).)*',
+      'not_numeric'    => '\D+',
+      'numeric'        => '[+-]?\d*\.?\d+',
+    ) as $type => $pattern) $patterns[] = array($type, $pattern);
+
+    return $patterns;
+  }
+
+  public function types()
+  {
+    return array(
+      array('email'),
+      array('url'),
+    );
+  }
+
+  // Tests --------------------------------------------------------- /
 
   public function testMultipleRulesArray()
   {
@@ -38,16 +71,6 @@ class ValidationTest extends FormerTests
       $this->field(array('required' => 'true')),
       '<label for="foo" class="control-label">Foo</label>'
     );
-
-    $this->assertEquals($matcher, $input);
-  }
-
-  public function testEmail()
-  {
-    Former::withRules(array('foo' => 'email'));
-
-    $input = Former::text('foo')->__toString();
-    $matcher = $this->cg($this->field(null, 'email'));
 
     $this->assertEquals($matcher, $input);
   }
@@ -92,12 +115,78 @@ class ValidationTest extends FormerTests
     $this->assertEquals($matcher, $input);
   }
 
-  public function testNumeric()
+  /**
+   * @dataProvider patterns
+   */
+  public function testPatterns($type, $pattern)
+  {
+    Former::withRules(array('foo' => $type));
+
+    $input = Former::text('foo')->__toString();
+    $matcher = $this->cg($this->field(array('pattern' => $pattern)));
+
+    $this->assertEquals($matcher, $input);
+  }
+
+  public function testNumericWithNumberField()
   {
     Former::withRules(array('foo' => 'numeric'));
 
+    $input = Former::number('foo')->__toString();
+    $matcher = $this->cg($this->field(array('step' => 'any'), 'number'));
+
+    $this->assertEquals($matcher, $input);
+  }
+
+  public function testBefore()
+  {
+    Former::withRules(array('foo' => 'before:2012-03-03'));
+
+    $input = Former::date('foo')->__toString();
+    $matcher = $this->cg($this->field(array('max' => '2012-03-03'), 'date'));
+
+    $this->assertEquals($matcher, $input);
+  }
+
+  public function testAfter()
+  {
+    Former::withRules(array('foo' => 'after:2012-03-03'));
+
+    $input = Former::date('foo')->__toString();
+    $matcher = $this->cg($this->field(array('min' => '2012-03-03'), 'date'));
+
+    $this->assertEquals($matcher, $input);
+  }
+
+  public function testMimes()
+  {
+    Former::withRules(array('foo' => 'mimes:jpg,gif'));
+
+    $input = Former::file('foo')->__toString();
+    $matcher = $this->cg($this->field(array('accept' => 'image/jpeg,image/gif'), 'file'));
+
+    $this->assertEquals($matcher, $input);
+  }
+
+  public function testImage()
+  {
+    Former::withRules(array('foo' => 'image'));
+
+    $input = Former::file('foo')->__toString();
+    $matcher = $this->cg($this->field(array('accept' => 'image/jpeg,image/png,image/gif,image/bmp'), 'file'));
+
+    $this->assertEquals($matcher, $input);
+  }
+
+  /**
+   * @dataProvider types
+   */
+  public function testTypeChangers($type)
+  {
+    Former::withRules(array('foo' => $type));
+
     $input = Former::text('foo')->__toString();
-    $matcher = $this->cg($this->field(array('pattern' => '[+-]?\d*\.?\d+')));
+    $matcher = $this->cg($this->field(null, $type));
 
     $this->assertEquals($matcher, $input);
   }
@@ -118,36 +207,6 @@ class ValidationTest extends FormerTests
 
     $input = Former::number('foo')->__toString();
     $matcher = $this->cg($this->field(array('min' => '1', 'max' => '10'), 'number'));
-
-    $this->assertEquals($matcher, $input);
-  }
-
-  public function testIn()
-  {
-    Former::withRules(array('foo' => 'in:foo'));
-
-    $input = Former::text('foo')->__toString();
-    $matcher = $this->cg($this->field(array('pattern' => '^foo$')));
-
-    $this->assertEquals($matcher, $input);
-  }
-
-  public function testInMultiple()
-  {
-    Former::withRules(array('foo' => 'in:foo,bar'));
-
-    $input = Former::text('foo')->__toString();
-    $matcher = $this->cg($this->field(array('pattern' => '^(foo|bar)$')));
-
-    $this->assertEquals($matcher, $input);
-  }
-
-  public function testMatch()
-  {
-    Former::withRules(array('foo' => 'match:/[a-z]+/'));
-
-    $input = Former::text('foo')->__toString();
-    $matcher = $this->cg($this->field(array('pattern' => '[a-z]+')));
 
     $this->assertEquals($matcher, $input);
   }
