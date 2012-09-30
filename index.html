@@ -261,7 +261,7 @@ Former also does some magic if none of those two arguments are specified. Say yo
 
 <p>Former is also able to populate fields with relationships. Now an example is worth a thousand words (excepted if, you know, your example is a thousand words long) :</p>
 
-<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">populate</span><span class="p">(</span><span class="s1">'Client'</span><span class="p">)</span>
+<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">populate</span><span class="p">(</span><span class="nx">Client</span><span class="o">::</span><span class="na">find</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 
 <span class="c1">// Will populate with $client-&gt;name</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span>
