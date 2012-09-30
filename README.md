@@ -265,22 +265,27 @@ Take the following (far-fetched) rules array :
 
 ```php
 $rules = array(
-  'name'   => 'required|max:20|alpha',
-  'age'    => 'between:18,24',
-  'email'  => 'email',
-  'show'   => 'in:batman,spiderman',
-  'random' => 'match:/[a-zA-Z]+/',
+  'name'     => 'required|max:20|alpha',
+  'age'      => 'between:18,24',
+  'email'    => 'email',
+  'show'     => 'in:batman,spiderman',
+  'random'   => 'match:/[a-zA-Z]+/',
+  'birthday' => 'before:1968-12-03',
+  'avatar'   => 'image',
+
 );
 ```
 
 What Former will do is look for fields that match the keys and apply the best it can those rules. There's not a lot of supported rules for now but I plan on adding more.
 
 ```html
-<input name="name" type="text" required maxlength="20" pattern="[a-zA-Z]+" />
-<input name="age" type="number" min="18" max="24" />
-<input name="email" type="email" />
-<input name="show" type="text" pattern="^(batman|spiderman)$" />
-<input name="random" type="text" pattern="[a-zA-Z]+" />
+<input name="name"      type="text"   required maxlength="20" pattern="[a-zA-Z]+" />
+<input name="age"       type="number" min="18" max="24" />
+<input name="email"     type="email" />
+<input name="show"      type="text"   pattern="^(batman|spiderman)$" />
+<input name="random"    type="text"   pattern="[a-zA-Z]+" />
+<input name ="birthday" type="date"   max="1968-12-03" />
+<input name="avatar"    type="file"   accept="image/jpeg,image/png,image/gif,image/bmp" />
 ```
 
 Note that you can always add custom rules the way you'd add any attributes, since the pattern attribute uses a Regex (and if you don't speak Regex you totally should because it will guide you through life or something).
