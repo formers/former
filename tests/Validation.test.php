@@ -97,7 +97,7 @@ class ValidationTest extends FormerTests
     Former::withRules(array('foo' => 'numeric'));
 
     $input = Former::text('foo')->__toString();
-    $matcher = $this->cg($this->field(array('pattern' => '\d+')));
+    $matcher = $this->cg($this->field(array('pattern' => '[+-]?\d*\.?\d+')));
 
     $this->assertEquals($matcher, $input);
   }
