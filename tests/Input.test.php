@@ -115,6 +115,16 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $static);
   }
 
+  public function testRenameField()
+  {
+    $input = Former::text('foo')->name('bar')->__toString();
+    $matcher = $this->cg(
+      '<input type="text" name="bar" id="bar">',
+      '<label for="bar" class="control-label">Bar</label>');
+
+    $this->assertEquals($matcher, $input);
+  }
+
   public function testValue()
   {
     $static = Former::text('foo')->value('bar')->__toString();

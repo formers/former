@@ -166,6 +166,19 @@ abstract class Field
   }
 
   /**
+   * Change the field's name
+   *
+   * @param  string $name The new name
+   */
+  public function name($name)
+  {
+    $this->name = $name;
+
+    // Also relink the label to the new name
+    Former::control()->setLabel($name);
+  }
+
+  /**
    * Set an attribute
    *
    * @param string $attribute An attribute
