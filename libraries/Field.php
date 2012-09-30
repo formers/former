@@ -289,16 +289,16 @@ abstract class Field
           $this->required();
           break;
         case 'after':
-          $format = 'Y-m-d';
-          if ($this->type == 'datetime' || $this->type == 'datetime-local')
-            $format .= '\TH:i:s';
-          $this->attributes['min'] = date($format,strtotime(array_get($parameters, 0)));
-          break;
         case 'before':
           $format = 'Y-m-d';
-          if ($this->type == 'datetime' || $this->type == 'datetime-local')
-            $format .= '\TH:i:s';
-          $this->attributes['max'] = date($format,strtotime(array_get($parameters, 0)));
+          if ($this->type == 'datetime' or
+              $this->type == 'datetime-local') {
+                $format .= '\TH:i:s';
+          }
+
+          $date = strtotime(array_get($parameters, 0));
+          $attribute = ($rule == 'before') ? 'max' : 'min';
+          $this->attributes[$attribute] = date($format, $date);
           break;
         case 'max':
           $this->setMax(array_get($parameters, 0));
@@ -311,19 +311,15 @@ abstract class Field
           break;
         case 'mimes':
         case 'image':
-          if ($this->type == 'file')
-          {
+          if ($this->type == 'file') {
             $ext = $rule == 'image' ? array('jpg', 'png', 'gif', 'bmp') : $parameters;
             $mimes = array_map('File::mime', $ext);
             $this->attributes['accept'] = implode(',', $mimes);
           }
           break;
         case 'numeric':
-          if ($this->type == 'number') {
-				$this->attributes['step'] = 'any';
-			 }else{
-				$this->attributes['pattern'] = '[+-]?\d*\.?\d+';
-			 }
+          if ($this->type == 'number') $this->attributes['step'] = 'any';
+          else $this->attributes['pattern'] = '[+-]?\d*\.?\d+';
           break;
         case 'not_numeric':
           $this->attributes['pattern'] = '\D+';
