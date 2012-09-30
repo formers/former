@@ -272,7 +272,6 @@ $rules = array(
   'random'   => 'match:/[a-zA-Z]+/',
   'birthday' => 'before:1968-12-03',
   'avatar'   => 'image',
-
 );
 ```
 
@@ -284,7 +283,7 @@ What Former will do is look for fields that match the keys and apply the best it
 <input name="email"     type="email" />
 <input name="show"      type="text"   pattern="^(batman|spiderman)$" />
 <input name="random"    type="text"   pattern="[a-zA-Z]+" />
-<input name ="birthday" type="date"   max="1968-12-03" />
+<input name="birthday"  type="date"   max="1968-12-03" />
 <input name="avatar"    type="file"   accept="image/jpeg,image/png,image/gif,image/bmp" />
 ```
 
