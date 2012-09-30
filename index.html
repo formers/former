@@ -123,7 +123,7 @@ Now of course in case you want to set an attribute that actually contains an und
 That means that when you type this :</p>
 
 <div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">select</span><span class="p">(</span><span class="s1">'clients'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">options</span><span class="p">(</span><span class="nv">$clients</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-  <span class="o">-&gt;</span><span class="na">inlineHelp</span><span class="p">(</span><span class="s1">'Pick some dude'</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">help</span><span class="p">(</span><span class="s1">'Pick some dude'</span><span class="p">)</span>
   <span class="o">-&gt;</span><span class="na">state</span><span class="p">(</span><span class="s1">'warning'</span><span class="p">)</span>
 </pre></div>
 
@@ -155,7 +155,7 @@ That means that when you type this :</p>
 
 <div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">framework</span><span class="p">(</span><span class="s1">'zurb'</span><span class="p">);</span>
 
-<span class="nx">Former</span><span class="o">::</span><span class="na">four_text</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">state</span><span class="p">(</span><span class="s1">'error'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">inlineHelp</span><span class="p">(</span><span class="s1">'bar'</span><span class="p">)</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">four_text</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">state</span><span class="p">(</span><span class="s1">'error'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">help</span><span class="p">(</span><span class="s1">'bar'</span><span class="p">)</span>
 </pre></div>
 
 <p>Outputs :</p>
@@ -287,21 +287,26 @@ Now you know when you validate your POST data with that little <code>$rules</cod
 Take the following (far-fetched) rules array :</p>
 
 <div class="highlight"><pre><span class="nv">$rules</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-  <span class="s1">'name'</span>   <span class="o">=&gt;</span> <span class="s1">'required|max:20|alpha'</span><span class="p">,</span>
-  <span class="s1">'age'</span>    <span class="o">=&gt;</span> <span class="s1">'between:18,24'</span><span class="p">,</span>
-  <span class="s1">'email'</span>  <span class="o">=&gt;</span> <span class="s1">'email'</span><span class="p">,</span>
-  <span class="s1">'show'</span>   <span class="o">=&gt;</span> <span class="s1">'in:batman,spiderman'</span><span class="p">,</span>
-  <span class="s1">'random'</span> <span class="o">=&gt;</span> <span class="s1">'match:/[a-zA-Z]+/'</span><span class="p">,</span>
+  <span class="s1">'name'</span>     <span class="o">=&gt;</span> <span class="s1">'required|max:20|alpha'</span><span class="p">,</span>
+  <span class="s1">'age'</span>      <span class="o">=&gt;</span> <span class="s1">'between:18,24'</span><span class="p">,</span>
+  <span class="s1">'email'</span>    <span class="o">=&gt;</span> <span class="s1">'email'</span><span class="p">,</span>
+  <span class="s1">'show'</span>     <span class="o">=&gt;</span> <span class="s1">'in:batman,spiderman'</span><span class="p">,</span>
+  <span class="s1">'random'</span>   <span class="o">=&gt;</span> <span class="s1">'match:/[a-zA-Z]+/'</span><span class="p">,</span>
+  <span class="s1">'birthday'</span> <span class="o">=&gt;</span> <span class="s1">'before:1968-12-03'</span><span class="p">,</span>
+  <span class="s1">'avatar'</span>   <span class="o">=&gt;</span> <span class="s1">'image'</span><span class="p">,</span>
+
 <span class="p">);</span>
 </pre></div>
 
 <p>What Former will do is look for fields that match the keys and apply the best it can those rules. There's not a lot of supported rules for now but I plan on adding more.</p>
 
-<div class="highlight"><pre><span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"name"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">required</span> <span class="na">maxlength=</span><span class="s">"20"</span> <span class="na">pattern=</span><span class="s">"[a-zA-Z]+"</span> <span class="nt">/&gt;</span>
-<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"age"</span> <span class="na">type=</span><span class="s">"number"</span> <span class="na">min=</span><span class="s">"18"</span> <span class="na">max=</span><span class="s">"24"</span> <span class="nt">/&gt;</span>
-<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"email"</span> <span class="na">type=</span><span class="s">"email"</span> <span class="nt">/&gt;</span>
-<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"show"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">pattern=</span><span class="s">"^(batman|spiderman)$"</span> <span class="nt">/&gt;</span>
-<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"random"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">pattern=</span><span class="s">"[a-zA-Z]+"</span> <span class="nt">/&gt;</span>
+<div class="highlight"><pre><span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"name"</span>      <span class="na">type=</span><span class="s">"text"</span>   <span class="na">required</span> <span class="na">maxlength=</span><span class="s">"20"</span> <span class="na">pattern=</span><span class="s">"[a-zA-Z]+"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"age"</span>       <span class="na">type=</span><span class="s">"number"</span> <span class="na">min=</span><span class="s">"18"</span> <span class="na">max=</span><span class="s">"24"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"email"</span>     <span class="na">type=</span><span class="s">"email"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"show"</span>      <span class="na">type=</span><span class="s">"text"</span>   <span class="na">pattern=</span><span class="s">"^(batman|spiderman)$"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"random"</span>    <span class="na">type=</span><span class="s">"text"</span>   <span class="na">pattern=</span><span class="s">"[a-zA-Z]+"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">name =</span><span class="s">"birthday"</span> <span class="na">type=</span><span class="s">"date"</span>   <span class="na">max=</span><span class="s">"1968-12-03"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"avatar"</span>    <span class="na">type=</span><span class="s">"file"</span>   <span class="na">accept=</span><span class="s">"image/jpeg,image/png,image/gif,image/bmp"</span> <span class="nt">/&gt;</span>
 </pre></div>
 
 <p>Note that you can always add custom rules the way you'd add any attributes, since the pattern attribute uses a Regex (and if you don't speak Regex you totally should because it will guide you through life or something).</p>
