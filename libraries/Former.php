@@ -203,11 +203,17 @@ class Former
    */
   public static function getValue($name, $fallback = null)
   {
-    return is_object(static::$values)
-      ? (isset(static::$values->$name)
-        ? static::$values->$name
-        : $fallback)
-      : array_get(static::$values, $name, $fallback);
+    // Object values
+    if(is_object(static::$values)) {
+
+      // Relationships
+      if(str_contains($name, '.')) {
+        $name = str_replace('.', '->', $name);
+      }
+      return isset(static::$values->$name) ? static::$values->$name : $fallback;
+    } else {
+      return array_get(static::$values, $name, $fallback);
+    }
   }
 
   /**
