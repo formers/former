@@ -240,7 +240,7 @@ Is the same as doing this but you know, in less painful and DRYer. This will use
 Former is also able to populate fields with relationships. Now an example is worth a thousand words (excepted if, you know, your example is a thousand words long) :
 
 ```php
-Former::populate('Client')
+Former::populate(Client::find(2))
 
 // Will populate with $client->name
 Former::text('name')
