@@ -131,14 +131,16 @@ abstract class Field
   /**
    * Adds a label to the control group/field
    *
-   * @param  string $text A label
-   * @return Field        A field
+   * @param  string $text       A label
+   * @param  array  $attributes The label's attributes
+   * @return Field              A field
    */
-  public function label($text)
+  public function label($text, $attributes = array())
   {
-    if($this->controlGroup) $this->controlGroup->setLabel($text);
-    else $this->label = Helpers::translate($text);
-
+    if($this->controlGroup) $this->controlGroup->setLabel($text, $attributes);
+    else $this->label = array(
+      'label' => Helpers::translate($text),
+      'attributes' => $attributes);
     return $this;
   }
 

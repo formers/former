@@ -93,26 +93,30 @@ class InputTest extends FormerTests
 
   public function testTextLabel()
   {
-    $static = Former::text('foo')->label('bar')->__toString();
-    $input  = Former::text('foo', 'bar')->__toString();
+    $static  = Former::text('foo')->label('bar', $this->testAttributes)->__toString();
+    $matcher = $this->cg(
+      '<input type="text" name="foo" id="foo">',
+      '<label for="foo" class="foo control-label" data-foo="bar">Bar</label>');
+    $this->assertEquals($matcher, $static);
+
+    $input   = Former::text('foo', 'bar')->__toString();
     $matcher = $this->cg(
       '<input type="text" name="foo" id="foo">',
       '<label for="foo" class="control-label">Bar</label>');
-
     $this->assertEquals($matcher, $input);
-    $this->assertEquals($matcher, $static);
   }
 
   public function testTextLabelWithoutBootstrap()
   {
     Former::framework(null);
 
-    $static = Former::text('foo')->label('bar')->__toString();
+    $static = Former::text('foo')->label('bar', $this->testAttributes)->__toString();
+    $matcher = '<label for="foo" class="foo" data-foo="bar">Bar</label><input type="text" name="foo" id="foo">';
+    $this->assertEquals($matcher, $static);
+
     $input  = Former::text('foo', 'bar')->__toString();
     $matcher = '<label for="foo">Bar</label><input type="text" name="foo" id="foo">';
-
     $this->assertEquals($matcher, $input);
-    $this->assertEquals($matcher, $static);
   }
 
   public function testRenameField()

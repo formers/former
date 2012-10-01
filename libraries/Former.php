@@ -162,7 +162,13 @@ class Former
 
     // Classic syntax
     else {
-      $html = \Form::label(static::$field->name, static::$field->label);
+
+      // Get label
+      $label = static::$field->label;
+      $labelText = is_array($label) ? array_get($label, 'label') : $label;
+      $labelAttributes = is_array($label) ? array_get($label, 'attributes') : array();
+
+      $html = \Form::label(static::$field->name, $labelText, $labelAttributes);
       $html .= static::$field;
     }
 
