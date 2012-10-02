@@ -13,10 +13,18 @@ class CheckboxTest extends FormerTests
     return $label ? '<label for="' .$name. '" class="checkbox' .$inline. '">' .$checkbox.$label. '</label>' : $checkbox;
   }
 
+  private function cbc($name = 'foo', $label = null, $value = 1, $inline = false)
+  {
+    $inline = $inline ? ' inline' : null;
+    $checkbox = '<input checked="checked" id="' .$name. '" type="checkbox" name="' .$name. '" value="' .$value. '">';
+
+    return $label ? '<label for="' .$name. '" class="checkbox' .$inline. '">' .$checkbox.$label. '</label>' : $checkbox;
+  }
+
   public function testSingle()
   {
     $checkbox = Former::checkbox('foo')->__toString();
-    $matcher = $this->cg($this->cb());
+    $matcher = $this->cg($this->cb('foo'));
 
     $this->assertEquals($matcher, $checkbox);
   }
@@ -107,6 +115,42 @@ class CheckboxTest extends FormerTests
     '</label>');
 
     $this->assertEquals($matcher, $radios);
+  }
+
+  public function testCheck()
+  {
+    $checkbox = Former::checkbox('foo')->check()->__toString();
+    $matcher = $this->cg($this->cbc());
+
+    $this->assertEquals($matcher, $checkbox);
+  }
+
+  public function testCheckMultiple()
+  {
+    $checkboxes = Former::checkboxes('foo')->checkboxes('foo', 'bar')->check('foo_1')->__toString();
+    $matcher = $this->cgm($this->cb('foo_0', 'Foo').$this->cbc('foo_1', 'Bar'));
+
+    $this->assertEquals($matcher, $checkboxes);
+  }
+
+  public function testRepopulateFromPost()
+  {
+    Input::merge(array('foo_0' => true));
+
+    $checkboxes = Former::checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
+    $matcher = $this->cgm($this->cbc('foo_0', 'Foo').$this->cb('foo_1', 'Bar'));
+
+    $this->assertEquals($matcher, $checkboxes);
+  }
+
+  public function testRepopulateFromModel()
+  {
+    Former::populate((object) array('foo_0' => true));
+
+    $checkboxes = Former::checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
+    $matcher = $this->cgm($this->cbc('foo_0', 'Foo').$this->cb('foo_1', 'Bar'));
+
+    $this->assertEquals($matcher, $checkboxes);
   }
 
   public function testRepeatedOutput()

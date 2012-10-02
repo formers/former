@@ -162,7 +162,13 @@ class Former
 
     // Classic syntax
     else {
-      $html = \Form::label(static::$field->name, static::$field->label);
+
+      // Get label
+      $label = static::$field->label;
+      $labelText = is_array($label) ? array_get($label, 'label') : $label;
+      $labelAttributes = is_array($label) ? array_get($label, 'attributes') : array();
+
+      $html = \Form::label(static::$field->name, $labelText, $labelAttributes);
       $html .= static::$field;
     }
 
@@ -197,14 +203,43 @@ class Former
   /**
    * Get a value from the object/array
    *
-   * @param  string $name The key to retrieve
-   * @return mixed        Its value
+   * @param  string $name     The key to retrieve
+   * @param  string $fallback Fallback value if nothing found
+   * @return mixed            Its value
    */
-  public static function getValue($name)
+  public static function getValue($name, $fallback = null)
   {
-    return is_object(static::$values)
-      ? static::$values->{$name}
-      : array_get(static::$values, $name);
+    // Object values
+    if(is_object(static::$values)) {
+
+      // Transform the name into an array
+      $value = static::$values;
+      $name = str_contains($name, '.') ? explode('.', $name) : (array) $name;
+
+      // Dive into the model
+      foreach($name as $k => $r) {
+
+        // Multiple results relation
+        if(is_array($value)) {
+          foreach($value as $subkey => $submodel) {
+            $value[$subkey] = isset($submodel->$r) ? $submodel->$r : $fallback;
+          }
+          continue;
+        }
+
+        // Single model relation
+        if(isset($value->$r)) $value = $value->$r;
+        else {
+          $value = $fallback;
+          break;
+        }
+      }
+
+      return $value;
+    }
+
+    // Plain array
+    return array_get(static::$values, $name, $fallback);
   }
 
   /**
@@ -239,10 +274,12 @@ class Former
   /**
    * Add live validation rules
    *
-   * @param  array $rules An array of Laravel rules
+   * @param  array *$rules An array of Laravel rules
    */
-  public static function withRules($rules)
+  public static function withRules()
   {
+    $rules = call_user_func_array('array_merge', func_get_args());
+
     // Parse the rules according to Laravel conventions
     foreach ($rules as $name => $fieldRules) {
       foreach (explode('|', $fieldRules) as $rule) {

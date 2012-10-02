@@ -7,6 +7,8 @@
  */
 namespace Former;
 
+use \File;
+
 abstract class Field
 {
   /**
@@ -59,7 +61,7 @@ abstract class Field
 
     // Set magic parameters (repopulated value, translated label, etc)
     if(Config::get('automatic_label')) $this->ponder($name, $label);
-    if($type != 'password') $this->repopulate();
+    if($type != 'password') $this->value = $this->repopulate();
     if(Config::get('live_validation')) $this->addRules();
 
     // Link Control group
@@ -129,14 +131,16 @@ abstract class Field
   /**
    * Adds a label to the control group/field
    *
-   * @param  string $text A label
-   * @return Field        A field
+   * @param  string $text       A label
+   * @param  array  $attributes The label's attributes
+   * @return Field              A field
    */
-  public function label($text)
+  public function label($text, $attributes = array())
   {
-    if($this->controlGroup) $this->controlGroup->setLabel($text);
-    else $this->label = Helpers::translate($text);
-
+    if($this->controlGroup) $this->controlGroup->setLabel($text, $attributes);
+    else $this->label = array(
+      'label' => Helpers::translate($text),
+      'attributes' => $attributes);
     return $this;
   }
 
@@ -158,9 +162,22 @@ abstract class Field
   public function value($value)
   {
     // Check if we already have a value stored for this field or in POST data
-    $already = Former::getValue($this->name) or Former::getPost($this->name);
+    $already = $this->repopulate();
 
     if(!$already) $this->value = $value;
+  }
+
+  /**
+   * Change the field's name
+   *
+   * @param  string $name The new name
+   */
+  public function name($name)
+  {
+    $this->name = $name;
+
+    // Also relink the label to the new name
+    Former::control()->setLabel($name);
   }
 
   /**
@@ -206,17 +223,20 @@ abstract class Field
   /**
    * Use values stored in Former to populate the current field
    */
-  private function repopulate()
+  private function repopulate($fallback = null)
   {
-    $value = Former::getValue($this->name);
+    if(is_null($fallback)) $fallback = $this->value;
 
-    // If nothing found, replace by fallback
-    if(!$value) $value = $this->value;
+    // Get values from POST, populated, and manually set value
+    $post     = Former::getPost($this->name);
+    $populate = Former::getValue($this->name);
 
-    // Overwrite value by POST if present
-    $value = Former::getPost($this->name, $value);
+    // Assign a priority to each
+    if(!is_null($post)) $value = $post;
+    elseif(!is_null($populate)) $value = $populate;
+    else $value = $fallback;
 
-    $this->value = $value;
+    return $value;
   }
 
   /**
@@ -277,8 +297,23 @@ abstract class Field
         case 'email':
           $this->type = 'email';
           break;
+        case 'url':
+          $this->type = 'url';
+          break;
         case 'required';
           $this->required();
+          break;
+        case 'after':
+        case 'before':
+          $format = 'Y-m-d';
+          if ($this->type == 'datetime' or
+              $this->type == 'datetime-local') {
+                $format .= '\TH:i:s';
+          }
+
+          $date = strtotime(array_get($parameters, 0));
+          $attribute = ($rule == 'before') ? 'max' : 'min';
+          $this->attributes[$attribute] = date($format, $date);
           break;
         case 'max':
           $this->setMax(array_get($parameters, 0));
@@ -286,14 +321,32 @@ abstract class Field
         case 'min':
           $this->setMin(array_get($parameters, 0));
           break;
-        case 'numeric':
+        case 'integer':
           $this->attributes['pattern'] = '\d+';
+          break;
+        case 'mimes':
+        case 'image':
+          if ($this->type == 'file') {
+            $ext = $rule == 'image' ? array('jpg', 'png', 'gif', 'bmp') : $parameters;
+            $mimes = array_map('File::mime', $ext);
+            $this->attributes['accept'] = implode(',', $mimes);
+          }
+          break;
+        case 'numeric':
+          if ($this->type == 'number') $this->attributes['step'] = 'any';
+          else $this->attributes['pattern'] = '[+-]?\d*\.?\d+';
           break;
         case 'not_numeric':
           $this->attributes['pattern'] = '\D+';
           break;
         case 'alpha':
           $this->attributes['pattern'] = '[a-zA-Z]+';
+          break;
+        case 'alpha_num':
+          $this->attributes['pattern'] = '[a-zA-Z0-9]+';
+          break;
+        case 'alpha_dash':
+          $this->attributes['pattern'] = '[a-zA-Z0-9_\-]+';
           break;
         case 'between':
           list($min, $max) = $parameters;

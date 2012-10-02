@@ -91,7 +91,7 @@ class Helpers
       // Skip if no text value found
       if(!$modelValue) continue;
 
-      $array[$modelKey] = $modelValue;
+      $array[$modelKey] = (string) $modelValue;
     }
 
     return isset($array) ? $array : $query;

@@ -21,6 +21,7 @@ class ControlGroupTest extends FormerTests
       array('info'),
       array('success'),
       array('warning'),
+      array('foo'),
     );
   }
 
@@ -28,7 +29,7 @@ class ControlGroupTest extends FormerTests
 
   public function createMatcher($state = null, $inlineHelp = null, $blockHelp = null)
   {
-    if($state) $state = ' ' .$state;
+    $state = ($state and $state != 'foo') ? ' ' .$state : null;
     if($inlineHelp) $inlineHelp = '<span class="help-inline">' .ucfirst($inlineHelp). '</span>';
     if($blockHelp)  $blockHelp  = '<p  class="help-block">' .ucfirst($blockHelp). '</p>';
 
@@ -82,6 +83,14 @@ class ControlGroupTest extends FormerTests
   {
     $control = Former::text('foo')->state($state)->__toString();
     $matcher = $this->createMatcher($state);
+
+    $this->assertEquals($matcher, $control);
+  }
+
+  public function testHelp()
+  {
+    $control = Former::text('foo')->help('foo')->__toString();
+    $matcher = $this->createMatcher(null, 'foo');
 
     $this->assertEquals($matcher, $control);
   }

@@ -17,6 +17,17 @@ class Input extends \Former\Field
    */
   private $datalist = array();
 
+  public function __construct($type, $name, $label, $value, $attributes)
+  {
+    parent::__construct($type, $name, $label, $value, $attributes);
+
+    // Multiple models population
+    if(is_array($this->value)) {
+      foreach($this->value as $v) $_value[] = is_object($v) ? $v->__toString() : $v;
+      $this->value = implode(', ', $_value);
+    }
+  }
+
   /**
    * Adds a datalist to the current field
    *

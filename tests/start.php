@@ -49,6 +49,7 @@ class FormerTests extends PHPUnit_Framework_TestCase
 
   public function setUp()
   {
+    Input::clear();
     \Former\Former::horizontal_open();
     \Former\Former::populate(array());
     \Former\Former::withErrors(null);

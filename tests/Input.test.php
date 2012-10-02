@@ -12,7 +12,7 @@ class InputTest extends FormerTests
 
   public function sizes()
   {
-    $_sizes = array('mini', 'small', 'medium', 'large', 'xlarge', 'xxlarge', 'span1', 'span6', 'span12');
+    $_sizes = array('mini', 'small', 'medium', 'large', 'xlarge', 'xxlarge', 'span1', 'span6', 'span12', 'foo');
     foreach($_sizes as $s) $sizes[] = array($s);
 
     return $sizes;
@@ -93,26 +93,40 @@ class InputTest extends FormerTests
 
   public function testTextLabel()
   {
-    $static = Former::text('foo')->label('bar')->__toString();
-    $input  = Former::text('foo', 'bar')->__toString();
+    $static  = Former::text('foo')->label('bar', $this->testAttributes)->__toString();
+    $matcher = $this->cg(
+      '<input type="text" name="foo" id="foo">',
+      '<label for="foo" class="foo control-label" data-foo="bar">Bar</label>');
+    $this->assertEquals($matcher, $static);
+
+    $input   = Former::text('foo', 'bar')->__toString();
     $matcher = $this->cg(
       '<input type="text" name="foo" id="foo">',
       '<label for="foo" class="control-label">Bar</label>');
-
     $this->assertEquals($matcher, $input);
-    $this->assertEquals($matcher, $static);
   }
 
   public function testTextLabelWithoutBootstrap()
   {
     Former::framework(null);
 
-    $static = Former::text('foo')->label('bar')->__toString();
+    $static = Former::text('foo')->label('bar', $this->testAttributes)->__toString();
+    $matcher = '<label for="foo" class="foo" data-foo="bar">Bar</label><input type="text" name="foo" id="foo">';
+    $this->assertEquals($matcher, $static);
+
     $input  = Former::text('foo', 'bar')->__toString();
     $matcher = '<label for="foo">Bar</label><input type="text" name="foo" id="foo">';
+    $this->assertEquals($matcher, $input);
+  }
+
+  public function testRenameField()
+  {
+    $input = Former::text('foo')->name('bar')->__toString();
+    $matcher = $this->cg(
+      '<input type="text" name="bar" id="bar">',
+      '<label for="bar" class="control-label">Bar</label>');
 
     $this->assertEquals($matcher, $input);
-    $this->assertEquals($matcher, $static);
   }
 
   public function testValue()
@@ -196,10 +210,11 @@ class InputTest extends FormerTests
   public function testMagicMethods($size)
   {
     $method = $size.'_text';
-    $class = starts_with($size, 'span') ? $size : 'input-'.$size;
+    $class = starts_with($size, 'span') ? $size. ' ' : 'input-'.$size. ' ';
     $static = Former::$method('foo')->addClass('bar')->__toString();
+    if($class == 'input-foo ') $class = null;
 
-    $matcher = $this->cg('<input class="' .$class. ' bar" type="text" name="foo" id="foo">');
+    $matcher = $this->cg('<input class="' .$class. 'bar" type="text" name="foo" id="foo">');
 
     $this->assertEquals($matcher, $static);
   }
@@ -243,6 +258,46 @@ class InputTest extends FormerTests
     $matcher = $this->cg('<input type="text" name="foo" value="foo" id="foo">');
 
     $this->assertEquals($matcher, $populate);
+  }
+
+  public function testNestedRelationships()
+  {
+    $foo = (object) array('bar' => (object) array('kal' => (object) array('ter' => 'men')));
+    Former::populate($foo);
+
+    $text = Former::text('bar.kal.ter')->__toString();
+    $matcher = $this->cg(
+      '<input type="text" name="bar.kal.ter" value="men" id="bar.kal.ter">',
+      '<label for="bar.kal.ter" class="control-label">Bar.kal.ter</label>');
+
+    $this->assertEquals($matcher, $text);
+  }
+
+  public function testNestedRelationshipsRenamedField()
+  {
+    $foo = (object) array('bar' => (object) array('kal' => (object) array('ter' => 'men')));
+    Former::populate($foo);
+
+    $text = Former::text('bar.kal.ter')->name('ter')->__toString();
+    $matcher = $this->cg(
+      '<input type="text" name="ter" value="men" id="ter">',
+      '<label for="ter" class="control-label">Ter</label>');
+
+    $this->assertEquals($matcher, $text);
+  }
+
+  public function testMultipleNestedRelationships()
+  {
+    for($i = 0; $i < 2; $i++) $bar[] = (object) array('kal' => 'val'.$i);
+    $foo = (object) array('bar' => $bar);
+    Former::populate($foo);
+
+    $text = Former::text('bar.kal')->__toString();
+    $matcher = $this->cg(
+      '<input type="text" name="bar.kal" value="val0, val1" id="bar.kal">',
+      '<label for="bar.kal" class="control-label">Bar.kal</label>');
+
+    $this->assertEquals($matcher, $text);
   }
 
   public function testNoPopulatingPasswords()
