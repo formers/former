@@ -450,7 +450,7 @@ echo Form::control_group(
   Form::inline_labelled_checkbox('check1', 'Check me', 1, Input::get('check1', Input::old('check1'))).
   Form::inline_labelled_checkbox('check2', 'Check me too', 1, Input::get('check2', Input::old('check2'))),
   $validation->errors->get('check1'),
-  Form::help_help('I SAID CHECK THOSE DOUBLES')
+  Form::inline_help('I SAID CHECK THOSE DOUBLES')
 );
 
 // Former

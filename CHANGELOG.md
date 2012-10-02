@@ -2,7 +2,13 @@
 
 ### 2.*.*
 
+- [add] Add ability to set attributes for a label
+- [add] Add ability to set a placeholder option for select fields
+
+### 2.1.0
+
 - [add] Added `->check()` method on radios and checkboxes
+- **[add] Add ability to populate field with a model's relationships**
 
 ### 2.0.0
 
