@@ -29,6 +29,32 @@ class SelectTest extends FormerTests
     $this->assertEquals($matcher, $select);
   }
 
+  public function testSelectPlaceholder()
+  {
+    $select = Former::select('foo')->options($this->options)->placeholder('Pick something')->__toString();
+    $matcher = $this->cg(
+      '<select id="foo" name="foo">'.
+        '<option value="" disabled="" selected="">Pick something</option>'.
+        '<option value="foo">bar</option>'.
+        '<option value="kal">ter</option>'.
+      '</select>');
+
+    $this->assertEquals($matcher, $select);
+  }
+
+  public function testPlaceholderUnselected()
+  {
+    $select = Former::select('foo')->value('foo')->options($this->options)->placeholder('Pick something')->__toString();
+    $matcher = $this->cg(
+      '<select id="foo" name="foo">'.
+        '<option value="" disabled="">Pick something</option>'.
+        '<option value="foo" selected="selected">bar</option>'.
+        '<option value="kal">ter</option>'.
+      '</select>');
+
+    $this->assertEquals($matcher, $select);
+  }
+
   public function testSelectEloquent()
   {
     for($i = 0; $i < 2; $i++) $eloquent[] = (object) array('id' => $i, 'foo' => 'bar');

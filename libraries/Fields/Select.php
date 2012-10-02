@@ -8,6 +8,7 @@ namespace Former\Fields;
 
 use \Form;
 use \Former\Helpers;
+use \HTML;
 
 class Select extends \Former\Field
 {
@@ -16,6 +17,12 @@ class Select extends \Former\Field
    * @var array
    */
   private $options = array();
+
+  /**
+   * The select's placeholder
+   * @var string
+   */
+  private $placeholder = null;
 
   /**
    * Easier arguments order for selects
@@ -73,14 +80,39 @@ class Select extends \Former\Field
   }
 
   /**
+   * Add a placeholder to the current select
+   *
+   * @param  string $placeholder The placeholder text
+   */
+  public function placeholder($placeholder)
+  {
+    $this->placeholder = $placeholder;
+  }
+
+  /**
    * Renders the select
    *
    * @return string A <select> tag
    */
   public function __toString()
   {
-    if($this->type == 'multiselect') $this->multiple();
+    // Multiselects
+    if($this->type == 'multiselect') {
+      $this->multiple();
+    }
 
-    return Form::select($this->name, $this->options, $this->value, $this->attributes);
+    // Render select
+    $select = Form::select($this->name, $this->options, $this->value, $this->attributes);
+
+    // Add placeholder text if any
+    if($this->placeholder) {
+      $placeholder = array('value' => '', 'disabled' => '');
+      if(!$this->value) $placeholder['selected'] = '';
+      $placeholder = '<option'.HTML::attributes($placeholder).'>' .$this->placeholder. '</option>';
+
+      $select = preg_replace('#<select([^>]+)>#', '$0'.$placeholder, $select);
+    }
+
+    return $select;
   }
 }
