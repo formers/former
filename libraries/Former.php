@@ -80,6 +80,9 @@ class Former
         case 'radios':
           $callClass = 'Radio';
           break;
+        case 'files':
+          $callClass = 'File';
+          break;
         default:
           $callClass = 'Input';
           break;

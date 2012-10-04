@@ -18,6 +18,7 @@ Enter Former, a powerful form builder with helpers for localization, validation,
     * [Form population](#form-populating)
     * [Datalists](#datalists)
     * [Live validation](#live-validation)
+    * [Files handling](#files-handling)
     * [Checkboxes and radios](#checkboxes-and-radios)
     * [Localization helpers](#localization-helpers)
     * [Notes on setting field values](#notes-on-setting-field-values)
@@ -328,6 +329,33 @@ You can also, mid-course, manually set the state of a control group — that's a
 ```php
 Former::text('name')->state('error')
 ```
+<a name='files-handling'></a>
+## Files handling
+
+In Former like in Laravel you can create a simple file field with `Former::file`. What's new, is you can also create a multiple files field by calling `Former::files` which which will generate `<input type="file" name="foo[]" multiple />`.
+
+One of the special method is the `->accept()` with which you can do the following :
+
+```php
+// Use a shortcut (image, video or audio)
+Former::files('avatar')->accept('image')
+
+// Use an extension which will be converted to MIME by Laravel
+Former::files('avatar')->accept('gif', 'jpg')
+
+// Or directly use a MIME
+Former::files('avatar')->accept('image/jpeg', 'image/png')
+```
+
+You can also set a maximum size easily by using either bits or bytes
+
+```php
+Former::file('foo')->max(2, 'MB')
+Former::file('foo')->max(400, 'Ko')
+Former::file('foo')->max(1, 'TB')
+```
+
+This will create an hidden `MAX_FILE_SIZE` field with the correct value in bytes.
 
 <a name='checkboxes-and-radios'></a>
 ## Checkboxes and Radios
