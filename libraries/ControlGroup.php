@@ -216,6 +216,9 @@ class ControlGroup
    */
   public function inlineHelp($help, $attributes = array())
   {
+    // If no help text, do nothing
+    if (empty($help)) return false;
+
     // Attempt to translate help text
     $help = Helpers::translate($help);
 
@@ -230,10 +233,9 @@ class ControlGroup
    */
   public function blockHelp($help, $attributes = array())
   {
-    
     // If no help text, do nothing
-    if (empty($help)) return;
-    
+    if (empty($help)) return false;
+
     // Attempt to translate help text
     $help = Helpers::translate($help);
 

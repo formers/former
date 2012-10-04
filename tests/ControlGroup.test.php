@@ -103,10 +103,26 @@ class ControlGroupTest extends FormerTests
     $this->assertEquals($matcher, $control);
   }
 
+  public function testEmptyInlineHelp()
+  {
+    $control = Former::text('foo')->inlineHelp(null)->__toString();
+    $matcher = $this->createMatcher();
+
+    $this->assertEquals($matcher, $control);
+  }
+
   public function testBlockHelp()
   {
     $control = Former::text('foo')->blockHelp('foo')->__toString();
     $matcher = $this->createMatcher(null, null, 'foo');
+
+    $this->assertEquals($matcher, $control);
+  }
+
+  public function testEmptyBlockHelp()
+  {
+    $control = Former::text('foo')->blockHelp(null)->__toString();
+    $matcher = $this->createMatcher();
 
     $this->assertEquals($matcher, $control);
   }
