@@ -52,4 +52,12 @@ class FileTest extends FormerTests
 
     $this->assertEquals($matcher, $file);
   }
+
+  public function testMaxSizeOctets()
+  {
+    $file = Former::file('foo')->max(2, 'Mo')->__toString();
+    $matcher = $this->cg('<input type="file" name="foo" id="foo"><input type="hidden" name="MAX_FILE_SIZE" value="2097152">');
+
+    $this->assertEquals($matcher, $file);
+  }
 }
