@@ -222,6 +222,10 @@ class ControlGroup
    */
   public function blockHelp($help, $attributes = array())
   {
+    
+    // If no help text, do nothing
+    if (empty($help)) return;
+    
     // Attempt to translate help text
     $help = Helpers::translate($help);
 
