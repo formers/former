@@ -53,6 +53,7 @@ Laravel's original Form class is great — simplistic and full of little helpers
 <li><a href="#form-populating">Form population</a></li>
 <li><a href="#datalists">Datalists</a></li>
 <li><a href="#live-validation">Live validation</a></li>
+<li><a href="#files-handling">Files handling</a></li>
 <li><a href="#checkboxes-and-radios">Checkboxes and radios</a></li>
 <li><a href="#localization-helpers">Localization helpers</a></li>
 <li><a href="#notes-on-setting-field-values">Notes on setting field values</a></li>
@@ -346,6 +347,33 @@ Take the following (far-fetched) rules array :</p>
 
 <div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">state</span><span class="p">(</span><span class="s1">'error'</span><span class="p">)</span>
 </pre></div>
+
+<p><a name="files-handling"></a></p>
+
+<h2>Files handling</h2>
+
+<p>In Former like in Laravel you can create a simple file field with <code>Former::file</code>. What's new, is you can also create a multiple files field by calling <code>Former::files</code> which which will generate <code>&lt;input type="file" name="foo[]" multiple /&gt;</code>.</p>
+
+<p>One of the special method is the <code>-&gt;accept()</code> with which you can do the following :</p>
+
+<div class="highlight"><pre><span class="c1">// Use a shortcut (image, video or audio)</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">files</span><span class="p">(</span><span class="s1">'avatar'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">accept</span><span class="p">(</span><span class="s1">'image'</span><span class="p">)</span>
+
+<span class="c1">// Use an extension which will be converted to MIME by Laravel</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">files</span><span class="p">(</span><span class="s1">'avatar'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">accept</span><span class="p">(</span><span class="s1">'gif'</span><span class="p">,</span> <span class="s1">'jpg'</span><span class="p">)</span>
+
+<span class="c1">// Or directly use a MIME</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">files</span><span class="p">(</span><span class="s1">'avatar'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">accept</span><span class="p">(</span><span class="s1">'image/jpeg'</span><span class="p">,</span> <span class="s1">'image/png'</span><span class="p">)</span>
+</pre></div>
+
+<p>You can also set a maximum size easily by using either bits or bytes</p>
+
+<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">file</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'MB'</span><span class="p">)</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">file</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">max</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="s1">'Ko'</span><span class="p">)</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">file</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'TB'</span><span class="p">)</span>
+</pre></div>
+
+<p>This will create an hidden <code>MAX_FILE_SIZE</code> field with the correct value in bytes.</p>
 
 <p><a name="checkboxes-and-radios"></a></p>
 
