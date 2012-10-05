@@ -59,6 +59,15 @@ class Former
       return static::form()->open($method, $parameters);
     }
 
+    // Avoid conflict with chained label method
+    if($method == 'label') {
+      return static::_label(
+        array_get($parameters, 0),
+        array_get($parameters, 1),
+        array_get($parameters, 2)
+      );
+    }
+
     // Checking for any supplementary classes
     $classes = explode('_', $method);
     $method  = array_pop($classes);
@@ -367,7 +376,7 @@ class Former
    * @param  array  $attributes The label's attributes
    * @return string             A <label> tag
    */
-  public static function label($label, $name = null, $attributes = array())
+  public static function _label($label, $name = null, $attributes = array())
   {
     $label = Helpers::translate($label);
 

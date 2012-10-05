@@ -16,6 +16,13 @@ class FormTest extends FormerTests
 
   // Basic tests
 
+  public function testLabel()
+  {
+    $label = Former::label('foo');
+
+    $this->assertEquals('<label for="">Foo</label>', $label);
+  }
+
   public function testClose()
   {
     $close = Former::close();
