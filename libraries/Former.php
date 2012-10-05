@@ -61,11 +61,7 @@ class Former
 
     // Avoid conflict with chained label method
     if($method == 'label') {
-      return static::_label(
-        array_get($parameters, 0),
-        array_get($parameters, 1),
-        array_get($parameters, 2)
-      );
+      return call_user_func_array('static::_label', $parameters);
     }
 
     // Checking for any supplementary classes
