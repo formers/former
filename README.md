@@ -406,12 +406,14 @@ For those of you that work on multilingual projects, Former is also here to help
 
 ```php
 // This
+Former::label(__('validation.attributes.name'))
 Former::text('name', __('validation.attributes.name'))
 Former::text('name')->inlineHelp(__('help.name'))
 Former::checkbox('rules')->text(__('my.translation'))
 <legend>{{ __('validation.attributes.mylegend') }}</legend>
 
 // Is the same as this
+Former::label('name')
 Former::text('name')
 Former::text('name')->inlineHelp('help.name')
 Former::checkbox('rules')->text('my.translation')

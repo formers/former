@@ -360,6 +360,21 @@ class Former
   }
 
   /**
+   * Creates a label tag
+   *
+   * @param  string $label      The label content
+   * @param  string $name       The field the label's for
+   * @param  array  $attributes The label's attributes
+   * @return string             A <label> tag
+   */
+  public static function label($label, $name = null, $attributes = array())
+  {
+    $label = Helpers::translate($label);
+
+    return \Form::label($name, $label, $attributes);
+  }
+
+  /**
    * Creates a form legend
    *
    * @param  string $legend     The text
