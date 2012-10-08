@@ -122,10 +122,18 @@ class RadioTest extends FormerTests
     $this->assertEquals($matcher, $radio);
   }
 
-  public function testCheckMultiple()
+  public function testCheckOneInSeveral()
   {
     $radios = Former::radios('foo')->radios('foo', 'bar')->check(0)->__toString();
     $matcher = $this->cgm($this->rc('foo', 'Foo', 0).$this->r('foo', 'Bar', 1));
+
+    $this->assertEquals($matcher, $radios);
+  }
+
+  public function testCheckMultiple()
+  {
+    $radios = Former::radios('foo')->radios('foo', 'bar')->check(array(0 => false, 1 => true))->__toString();
+    $matcher = $this->cgm($this->r('foo', 'Foo', 0).$this->rc('foo', 'Bar', 1));
 
     $this->assertEquals($matcher, $radios);
   }

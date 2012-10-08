@@ -388,6 +388,11 @@ Former::radios('radio')
 Former::inline_checkboxes('foo')->checkboxes('foo', 'bar')
 Former::stacked_radios('foo')->radios('foo', 'bar')
 
+// Set which checkables are checked or not in one move
+Former::checkboxes('level')
+  ->checkboxes(0, 1, 2)
+  ->check(array('level_0' => true, 'level_1' => false, 'level_2' => true))
+
 // Fine tune checkable elements
 Former::radios('radio')
   ->radios(array(

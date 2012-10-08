@@ -74,14 +74,19 @@ abstract class Checkable extends Field
   /**
    * Check a specific item
    *
-   * @param  string $name The checkable to check
+   * @param  string $checked The checkable to check, or an array of checked items
    */
-  public function check($name = null)
+  public function check($checked = null)
   {
-    if(!$name) $name = $this->name;
+    // If we're setting all the checked items at once
+    if(is_array($checked)) {
+      return $this->checked = $checked;
+    }
 
-    if($this->isCheckbox()) $this->checked[] = $name;
-    else $this->checked = array($name);
+    // Else we're setting a single item
+    if(is_null($checked)) $checked = $this->name;
+
+    $this->checked[$checked] = true;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -209,11 +214,11 @@ abstract class Checkable extends Field
     // Or if it's a single radio, simply see if we called check
     if($this->isCheckbox() or
       !$this->isCheckbox() and !$this->items)
-        $checked = in_array($name, $this->checked);
+        $checked = array_get($this->checked, $name, false);
 
     // If there are multiple, search for the value
     // as the name are the same between radios
-    else $checked = in_array($value, $this->checked);
+    else $checked = array_get($this->checked, $value, false);
 
     // Check the values and POST array
     $post   = Former::getPost($name);
