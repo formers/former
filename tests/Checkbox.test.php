@@ -170,4 +170,34 @@ class CheckboxTest extends FormerTests
 
     $this->assertEquals($content, Former::checkbox('foo')->__toString());
   }
+
+  public function testPushedCheckboxes()
+  {
+    Former::config('push_checkboxes', true);
+    $checkbox = Former::checkbox('foo')->text('foo')->__toString();
+    $matcher = $this->cg(
+      '<label for="foo" class="checkbox">'.
+        '<input type="hidden" name="foo" id="foo">'.
+        $this->cb('foo').'Foo'.
+      '</label>');
+
+    $this->assertEquals($matcher, $checkbox);
+    Former::config('push_checkboxes', false);
+  }
+
+  public function testCheckboxesKeepOriginalValueOnSubmit()
+  {
+    Input::merge(array('foo' => ''));
+
+    Former::config('push_checkboxes', true);
+    $checkbox = Former::checkbox('foo')->text('foo')->__toString();
+    $matcher = $this->cg(
+      '<label for="foo" class="checkbox">'.
+        '<input type="hidden" name="foo" id="foo">'.
+        $this->cb('foo').'Foo'.
+      '</label>');
+
+    $this->assertEquals($matcher, $checkbox);
+    Former::config('push_checkboxes', false);
+  }
 }

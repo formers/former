@@ -54,6 +54,7 @@ class FormerTests extends PHPUnit_Framework_TestCase
     \Former\Former::populate(array());
     \Former\Former::withErrors(null);
     \Former\Former::config('automatic_label', true);
+    \Former\Former::config('push_checkboxes', false);
     \Former\Former::framework('bootstrap');
   }
 

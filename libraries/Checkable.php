@@ -110,18 +110,18 @@ abstract class Checkable extends Field
     foreach ($_items as $label => $name) {
 
       // Define a fallback name in case none is found
-      $fallbackName = $this->isCheckbox() ? $this->name.'_'.$count : $this->name;
+      $fallback = $this->isCheckbox() ? $this->name.'_'.$count : $this->name;
 
       // If we haven't any name defined for the checkable, try to compute some
       if (!is_string($label) and !is_array($name)) {
         $label = $name;
-        $name  = $fallbackName;
+        $name  = $fallback;
       }
 
       // If we gave custom information on the item, add them
       if (is_array($name)) {
         $attributes = $name;
-        $name = array_get($attributes, 'name', $fallbackName);
+        $name = array_get($attributes, 'name', $fallback);
         unset($attributes['name']);
       }
 
@@ -152,7 +152,7 @@ abstract class Checkable extends Field
     // Set default values
     if(!isset($attributes)) $attributes = array();
     if(isset($attributes['value'])) $value = $attributes['value'];
-    if(!isset($value)) $value = $fallbackValue;
+    if(!isset($value) or $value === '') $value = $fallbackValue;
 
     // If inline items, add class
     $isInline = $this->inline ? ' inline' : null;
@@ -165,6 +165,11 @@ abstract class Checkable extends Field
 
     // Create field
     $field = call_user_func('\Form::'.$this->checkable, $name, $value, $this->isChecked($name, $value), $attributes);
+
+    // Add hidden checkbox if requested
+    if(Config::get('push_checkboxes')) {
+      $field = \Form::hidden($name, null) . $field;
+    }
 
     // If no label to wrap, return plain checkable
     if(!$label) return $field;
@@ -182,8 +187,8 @@ abstract class Checkable extends Field
     // Multiple items
     if ($this->items) {
       foreach ($this->items as $key => $item) {
-        $fallbackValue = $this->isCheckbox() ? 1 : $key;
-        $html .= $this->createCheckable($item, $fallbackValue);
+        $value = $this->isCheckbox() ? 1 : $key;
+        $html .= $this->createCheckable($item, $value);
       }
 
       return $html;
@@ -225,7 +230,7 @@ abstract class Checkable extends Field
     $static = Former::getValue($name);
     $manual = $checked;
 
-    if(!is_null($post)) $isChecked = ($post == $value);
+    if(!is_null($post) and $post !== '') $isChecked = ($post == $value);
     elseif(!is_null($static)) $isChecked = ($static == $value);
     else $isChecked = $checked;
 

@@ -15,6 +15,10 @@
   // Whether Former should try to apply Validator rules as attributes
   'live_validation'   => true,
 
+  // Whether checkboxes should always be present in the POST data,
+  // no matter if you checked them or not
+  'push_checkboxes'   => true,
+
   // The class to be added to required fields
   'required_class'    => 'required',
 

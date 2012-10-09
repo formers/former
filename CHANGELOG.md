@@ -2,6 +2,7 @@
 
 ### 2.2.0
 
+- **[add] Add `push_checkboxes` option which forces the submiting of unchecked fields to the POST array**
 - **[add] Add `Former::field()` and `fields()` with methods `->max` and `->accept`**
 - [add] Add ability to set attributes for a label
 - [add] Add ability to set a placeholder option for select fields
