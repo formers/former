@@ -406,6 +406,11 @@ Take the following (far-fetched) rules array :</p>
 <span class="nx">Former</span><span class="o">::</span><span class="na">inline_checkboxes</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">checkboxes</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">,</span> <span class="s1">'bar'</span><span class="p">)</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">stacked_radios</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">radios</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">,</span> <span class="s1">'bar'</span><span class="p">)</span>
 
+<span class="c1">// Set which checkables are checked or not in one move</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">checkboxes</span><span class="p">(</span><span class="s1">'level'</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">checkboxes</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">check</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'level_0'</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span> <span class="s1">'level_1'</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span> <span class="s1">'level_2'</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">))</span>
+
 <span class="c1">// Fine tune checkable elements</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">radios</span><span class="p">(</span><span class="s1">'radio'</span><span class="p">)</span>
   <span class="o">-&gt;</span><span class="na">radios</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
@@ -413,6 +418,8 @@ Take the following (far-fetched) rules array :</p>
     <span class="s1">'label'</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'foo'</span><span class="p">,</span> <span class="s1">'value'</span> <span class="o">=&gt;</span> <span class="s1">'bar'</span><span class="p">,</span> <span class="s1">'data-foo'</span> <span class="o">=&gt;</span> <span class="s1">'bar'</span><span class="p">),</span>
   <span class="p">))</span>
 </pre></div>
+
+<p><strong>Important point :</strong> Former gives you an option to force the pushing of checkboxes. What is that you mean ? That's when your checkboxes still pop up in your POST data even when they're unchecked. That sounds pretty normal but is actually the opposite of the weird-ass default behavior of forms. "IT'S UNCHECKED ? I HAVE NO RECOLLECTION WHATSOEVER OF THAT FIELD HAVING EVER EXISTED".</p>
 
 <p>When creating checkables via the checkboxes/radios() method, by default for each checkable name attribute it will use the original name you specified and append it a number (here in our exemple it would be <code>&lt;input type="checkbox" name="checkme_2"&gt;</code>).
 It also repopulates it, meaning a checked input will stay checked on submit.</p>
@@ -424,12 +431,14 @@ It also repopulates it, meaning a checked input will stay checked on submit.</p>
 <p>For those of you that work on multilingual projects, Former is also here to help. By default, when creating a field, if no label is specified Former will use the field name by default. But more importantly it will try and translate it automatically. Same goes for checkboxes labels, help texts and form legends. Which means the following :</p>
 
 <div class="highlight"><pre><span class="c1">// This</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">label</span><span class="p">(</span><span class="nx">__</span><span class="p">(</span><span class="s1">'validation.attributes.name'</span><span class="p">))</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="nx">__</span><span class="p">(</span><span class="s1">'validation.attributes.name'</span><span class="p">))</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">inlineHelp</span><span class="p">(</span><span class="nx">__</span><span class="p">(</span><span class="s1">'help.name'</span><span class="p">))</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">checkbox</span><span class="p">(</span><span class="s1">'rules'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">text</span><span class="p">(</span><span class="nx">__</span><span class="p">(</span><span class="s1">'my.translation'</span><span class="p">))</span>
 <span class="o">&lt;</span><span class="nx">legend</span><span class="o">&gt;</span><span class="p">{{</span> <span class="nx">__</span><span class="p">(</span><span class="s1">'validation.attributes.mylegend'</span><span class="p">)</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="nx">legend</span><span class="o">&gt;</span>
 
 <span class="c1">// Is the same as this</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">label</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">inlineHelp</span><span class="p">(</span><span class="s1">'help.name'</span><span class="p">)</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">checkbox</span><span class="p">(</span><span class="s1">'rules'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">text</span><span class="p">(</span><span class="s1">'my.translation'</span><span class="p">)</span>
