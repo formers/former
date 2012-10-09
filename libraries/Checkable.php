@@ -152,7 +152,7 @@ abstract class Checkable extends Field
     // Set default values
     if(!isset($attributes)) $attributes = array();
     if(isset($attributes['value'])) $value = $attributes['value'];
-    if(!isset($value) or $value === '') $value = $fallbackValue;
+    if(!isset($value) or $value === Config::get('unchecked_value')) $value = $fallbackValue;
 
     // If inline items, add class
     $isInline = $this->inline ? ' inline' : null;
@@ -168,7 +168,7 @@ abstract class Checkable extends Field
 
     // Add hidden checkbox if requested
     if(Config::get('push_checkboxes')) {
-      $field = \Form::hidden($name, null) . $field;
+      $field = \Form::hidden($name, Config::get('unchecked_value')) . $field;
     }
 
     // If no label to wrap, return plain checkable
@@ -230,7 +230,7 @@ abstract class Checkable extends Field
     $static = Former::getValue($name);
     $manual = $checked;
 
-    if(!is_null($post) and $post !== '') $isChecked = ($post == $value);
+    if(!is_null($post) and $post !== Config::get('unchecked_value')) $isChecked = ($post == $value);
     elseif(!is_null($static)) $isChecked = ($static == $value);
     else $isChecked = $checked;
 

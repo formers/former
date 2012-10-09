@@ -1,5 +1,9 @@
 ## Changelog
 
+### 2.X.X
+
+- [add] Add `unchecked_value` option to decide what value unchecked checkboxes have in the POST array
+
 ### 2.3.0
 
 - **[add] Add `push_checkboxes` option which forces the submiting of unchecked fields to the POST array**

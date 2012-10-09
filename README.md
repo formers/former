@@ -402,6 +402,7 @@ Former::radios('radio')
 ```
 
 **Important point :** Former gives you an option to force the pushing of checkboxes. What is that you mean ? That's when your checkboxes still pop up in your POST data even when they're unchecked. That sounds pretty normal but is actually the opposite of the weird-ass default behavior of forms. "IT'S UNCHECKED ? I HAVE NO RECOLLECTION WHATSOEVER OF THAT FIELD HAVING EVER EXISTED".
+You can change what value an unchecked checkbox possesses in the POST array via the `unchecked_value` option.
 
 When creating checkables via the checkboxes/radios() method, by default for each checkable name attribute it will use the original name you specified and append it a number (here in our exemple it would be `<input type="checkbox" name="checkme_2">`).
 It also repopulates it, meaning a checked input will stay checked on submit.

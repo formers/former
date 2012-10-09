@@ -177,7 +177,7 @@ class CheckboxTest extends FormerTests
     $checkbox = Former::checkbox('foo')->text('foo')->__toString();
     $matcher = $this->cg(
       '<label for="foo" class="checkbox">'.
-        '<input type="hidden" name="foo" id="foo">'.
+        '<input type="hidden" name="foo" value="" id="foo">'.
         $this->cb('foo').'Foo'.
       '</label>');
 
@@ -193,7 +193,22 @@ class CheckboxTest extends FormerTests
     $checkbox = Former::checkbox('foo')->text('foo')->__toString();
     $matcher = $this->cg(
       '<label for="foo" class="checkbox">'.
-        '<input type="hidden" name="foo" id="foo">'.
+        '<input type="hidden" name="foo" value="" id="foo">'.
+        $this->cb('foo').'Foo'.
+      '</label>');
+
+    $this->assertEquals($matcher, $checkbox);
+    Former::config('push_checkboxes', false);
+  }
+
+  public function testCustomUncheckedValue()
+  {
+    Former::config('push_checkboxes', true);
+    Former::config('unchecked_value', 'unchecked');
+    $checkbox = Former::checkbox('foo')->text('foo')->__toString();
+    $matcher = $this->cg(
+      '<label for="foo" class="checkbox">'.
+        '<input type="hidden" name="foo" value="unchecked" id="foo">'.
         $this->cb('foo').'Foo'.
       '</label>');
 
