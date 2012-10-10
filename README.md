@@ -38,7 +38,7 @@ Former::horizontal_open()
   Former::xlarge_text('name')
     ->class('myclass')
     ->value('Joseph')
-    ->require();
+    ->required();
 
   Former::textarea('comments')
     ->rows(10)->columns(20)
@@ -50,7 +50,7 @@ Former::close()
 While also being able to do – just like in the days of old :
 
 ```php
-Former::xlarge_text('name', null, 'Joseph', array('require' => true, 'class' => 'myclass'))
+Former::xlarge_text('name', null, 'Joseph', array('required' => true, 'class' => 'myclass'))
 
 Former::textarea('comments', null, null, array('rows' => 10, 'columns' => 20, 'autofocus' => true))
 ```
