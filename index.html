@@ -72,7 +72,7 @@ Laravel's original Form class is great — simplistic and full of little helpers
   <span class="nx">Former</span><span class="o">::</span><span class="na">xlarge_text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">class</span><span class="p">(</span><span class="s1">'myclass'</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">value</span><span class="p">(</span><span class="s1">'Joseph'</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">require</span><span class="p">();</span>
+    <span class="o">-&gt;</span><span class="na">required</span><span class="p">();</span>
 
   <span class="nx">Former</span><span class="o">::</span><span class="na">textarea</span><span class="p">(</span><span class="s1">'comments'</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">rows</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">columns</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
@@ -83,7 +83,7 @@ Laravel's original Form class is great — simplistic and full of little helpers
 
 <p>While also being able to do – just like in the days of old :</p>
 
-<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">xlarge_text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="s1">'Joseph'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'require'</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span> <span class="s1">'class'</span> <span class="o">=&gt;</span> <span class="s1">'myclass'</span><span class="p">))</span>
+<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">xlarge_text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="s1">'Joseph'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'required'</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span> <span class="s1">'class'</span> <span class="o">=&gt;</span> <span class="s1">'myclass'</span><span class="p">))</span>
 
 <span class="nx">Former</span><span class="o">::</span><span class="na">textarea</span><span class="p">(</span><span class="s1">'comments'</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'rows'</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">'columns'</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">'autofocus'</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">))</span>
 </pre></div>
@@ -419,7 +419,8 @@ Take the following (far-fetched) rules array :</p>
   <span class="p">))</span>
 </pre></div>
 
-<p><strong>Important point :</strong> Former gives you an option to force the pushing of checkboxes. What is that you mean ? That's when your checkboxes still pop up in your POST data even when they're unchecked. That sounds pretty normal but is actually the opposite of the weird-ass default behavior of forms. "IT'S UNCHECKED ? I HAVE NO RECOLLECTION WHATSOEVER OF THAT FIELD HAVING EVER EXISTED".</p>
+<p><strong>Important point :</strong> Former gives you an option to force the pushing of checkboxes. What is that you mean ? That's when your checkboxes still pop up in your POST data even when they're unchecked. That sounds pretty normal but is actually the opposite of the weird-ass default behavior of forms. "IT'S UNCHECKED ? I HAVE NO RECOLLECTION WHATSOEVER OF THAT FIELD HAVING EVER EXISTED".
+You can change what value an unchecked checkbox possesses in the POST array via the <code>unchecked_value</code> option.</p>
 
 <p>When creating checkables via the checkboxes/radios() method, by default for each checkable name attribute it will use the original name you specified and append it a number (here in our exemple it would be <code>&lt;input type="checkbox" name="checkme_2"&gt;</code>).
 It also repopulates it, meaning a checked input will stay checked on submit.</p>
