@@ -36,6 +36,8 @@ class Config
    */
   public static function get($key, $fallback = null)
   {
+    if(!$key) return static::$options;
+
     return array_get(static::$options, $key, $fallback);
   }
 
@@ -48,5 +50,15 @@ class Config
   public static function set($key, $value)
   {
     static::$options[$key] = $value;
+  }
+
+  /**
+   * Replace the current array of options with another
+   *
+   * @param  array $options The new options
+   */
+  public static function replace($options)
+  {
+    static::$options = $options;
   }
 }
