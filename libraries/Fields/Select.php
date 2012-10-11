@@ -92,7 +92,7 @@ class Select extends \Former\Field
    */
   public function placeholder($placeholder)
   {
-    $this->placeholder = $placeholder;
+    $this->placeholder = Helpers::translate($placeholder);
   }
 
   /**
