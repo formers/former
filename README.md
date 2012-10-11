@@ -219,18 +219,18 @@ class Client extends Eloquent
 Former::select('clients')->fromQuery(Client::all());
 ```
 
-Is the same as doing this but you know, in less painful and DRYer. This will use each Task's default key, and output the Task's name as the option's label.
+Is the same as doing this but you know, in less painful and DRYer. This will use each Client's default key, and output the Client's name as the option's label.
 
 ```html
 <div class="control-group">
   <label for="foo" class="control-label">Foo</label>
   <div class="controls">
     <select id="foo" name="foo">
-      @foreach(Client::all() as $task)
-        @if(Input::get('foo', Input::old('foo')) == $task->code)
-          <option selected="selected" value="{{ $task->code }}">{{ $task->name }}</option>
+      @foreach(Client::all() as $client)
+        @if(Input::get('foo', Input::old('foo')) == $client->code)
+          <option selected="selected" value="{{ $client->code }}">{{ $client->name }}</option>
         @else
-          <option value="{{ $task->code }}">{{ $task->name }}</option>
+          <option value="{{ $client->code }}">{{ $client->name }}</option>
         @endif
       @endforeach
     </select>
