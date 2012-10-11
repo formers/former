@@ -222,7 +222,7 @@ class Former
 
       // Transform the name into an array
       $value = static::$values;
-      $name = str_contains($name, '.') ? explode('.', $name) : (array) $name;
+      $name  = str_contains($name, '.') ? explode('.', $name) : (array) $name;
 
       // Dive into the model
       foreach($name as $k => $r) {
@@ -236,7 +236,7 @@ class Former
         }
 
         // Single model relation
-        if(isset($value->$r)) $value = $value->$r;
+        if(isset($value->$r) or method_exists($value, 'get_'.$r)) $value = $value->$r;
         else {
           $value = $fallback;
           break;
