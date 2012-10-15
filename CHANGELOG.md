@@ -3,6 +3,7 @@
 ### 2.X.X
 
 - [add] Add `unchecked_value` option to decide what value unchecked checkboxes have in the POST array
+- [fix] Automatically fetch Lang objects passed to `->options`
 
 ### 2.3.0
 
