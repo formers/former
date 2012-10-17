@@ -170,8 +170,8 @@ class ControlGroupTest extends FormerTests
   public function testPrependAppendMix()
   {
     $control = Former::text('foo')
-      ->prepend('@', Buttons::normal('foo'))
-      ->append('@', Buttons::normal('foo'))
+      ->prepend('@', Button::normal('foo'))
+      ->append('@', Button::normal('foo'))
       ->__toString();
     $matcher = $this->createPrependAppendMatcher(
       array('@', '<button type="button" class="btn">foo</button>'),
@@ -182,7 +182,7 @@ class ControlGroupTest extends FormerTests
 
   public function testPrependButton()
   {
-    $control1 = Former::text('foo')->prepend(Buttons::normal('Submit'))->__toString();
+    $control1 = Former::text('foo')->prepend(Button::normal('Submit'))->__toString();
     $control2 = Former::text('foo')->prepend('<button type="button" class="btn">Submit</button>')->__toString();
     $matcher = $this->createPrependAppendMatcher(array('<button type="button" class="btn">Submit</button>'));
 
@@ -196,8 +196,8 @@ class ControlGroupTest extends FormerTests
       ->state('error')
       ->inlineHelp('foo')
       ->blockHelp('bar')
-      ->prepend('@', '$', Buttons::normal('foo'))
-      ->append('@', '$', Buttons::normal('foo'))
+      ->prepend('@', '$', Button::normal('foo'))
+      ->append('@', '$', Button::normal('foo'))
       ->__toString();
     $matcher =
     '<div class="control-group error">'.
