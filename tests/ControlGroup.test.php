@@ -2,7 +2,7 @@
 use \Former\Former;
 
 // Stub class for Buttons
-class Buttons
+class Button
 {
   public static function normal($text)
   {
