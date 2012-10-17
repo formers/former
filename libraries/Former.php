@@ -421,7 +421,9 @@ class Former
    */
   public static function getErrors($name = null)
   {
+    // Get name and translate array notation
     if(!$name) $name = static::$field->name;
+    $name = preg_replace('/\[([a-z]+)\]/', '.$1', $name);
 
     if (static::$errors) {
       return static::$errors->first($name);
