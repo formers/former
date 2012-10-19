@@ -65,11 +65,18 @@ class Helpers
    */
   public static function queryToArray($query, $value, $key)
   {
+    // Automatically fetch Lang objects for people who store translated options lists
+    if($query instanceof \Laravel\Lang) {
+      $query = $query->get();
+    }
+
     // Fetch the Query if it hasn't been
     if($query instanceof \Laravel\Database\Eloquent\Query or
        $query instanceof \Laravel\Database\Query) {
       $query = $query->get();
     }
+
+    if(!is_array($query)) $query = (array) $query;
 
     // Populates the new options
     foreach($query as $model) {

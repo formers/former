@@ -58,11 +58,6 @@ class Select extends \Former\Field
    */
   public function options($_options, $selected = null, $valuesAsKeys = false)
   {
-    // Automatically fetch Lang objects for people who store translated options lists
-    if($_options instanceof \Laravel\Lang) {
-      $_options = $_options->get();
-    }
-
     // If valuesAsKeys is true, use the values as keys
     if($valuesAsKeys) {
       foreach($_options as $v) $options[$v] = $v;

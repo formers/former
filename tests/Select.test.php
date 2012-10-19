@@ -82,6 +82,22 @@ class SelectTest extends FormerTests
     $this->assertEquals($matcher, $select);
   }
 
+  public function testSelectWithAString()
+  {
+    $select = Former::select('foo')->fromQuery('This is not an array', 'foo', 'id')->__toString();
+    $matcher = $this->cg('<select id="foo" name="foo"><option value="0">This is not an array</option></select>');
+
+    $this->assertEquals($matcher, $select);
+  }
+
+  public function testSelectWithAnInteger()
+  {
+    $select = Former::select('foo')->fromQuery(456, 'foo', 'id')->__toString();
+    $matcher = $this->cg('<select id="foo" name="foo"><option value="0">456</option></select>');
+
+    $this->assertEquals($matcher, $select);
+  }
+
   public function testSelectEloquentArray()
   {
     for($i = 0; $i < 2; $i++) $eloquent[] = (object) array('age' => $i, 'foo' => 'bar');
