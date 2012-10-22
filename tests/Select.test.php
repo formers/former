@@ -5,6 +5,11 @@ class SelectTest extends FormerTests
 {
   private $options = array('foo' => 'bar', 'kal' => 'ter');
 
+  public static function setUpBeforeClass()
+  {
+    Config::set('application.language', 'en');
+  }
+
   public function testSelect()
   {
     $select = Former::select('foo')->__toString();
@@ -51,6 +56,18 @@ class SelectTest extends FormerTests
         '<option value="foo" selected="selected">bar</option>'.
         '<option value="kal">ter</option>'.
       '</select>');
+
+    $this->assertEquals($matcher, $select);
+  }
+
+  public function testSelectLang()
+  {
+    $select = Former::select('foo')->options(Lang::line('pagination'), 'previous')->__toString();
+    $matcher = $this->cg(
+    '<select id="foo" name="foo">'.
+      '<option value="previous" selected="selected">&laquo; Previous</option>'.
+      '<option value="next">Next &raquo;</option>'.
+    '</select>');
 
     $this->assertEquals($matcher, $select);
   }
