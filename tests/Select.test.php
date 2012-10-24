@@ -34,6 +34,13 @@ class SelectTest extends FormerTests
     $this->assertEquals($matcher, $select);
   }
 
+  public function testGetSelectOptions()
+  {
+    $select = Former::select('foo')->options($this->options);
+
+    $this->assertEquals($select::field()->getOptions(), $this->options);
+  }
+
   public function testSelectPlaceholder()
   {
     $select = Former::select('foo')->options($this->options)->placeholder('Pick something')->__toString();

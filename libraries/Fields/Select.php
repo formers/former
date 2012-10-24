@@ -108,6 +108,16 @@ class Select extends \Former\Field
   }
 
   /**
+   * Returns the current options in memory for manipulations
+   *
+   * @return array The current options array
+   */
+  public function getOptions()
+  {
+    return $this->options;
+  }
+
+  /**
    * Renders the select
    *
    * @return string A <select> tag
