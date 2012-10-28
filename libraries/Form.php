@@ -6,10 +6,8 @@
  */
 namespace Former;
 
-class Form
+class Form extends Traits\FormerObject
 {
-  use Traits\FormerObject;
-
   /**
    * The Form type
    * @var string

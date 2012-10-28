@@ -6,7 +6,7 @@
  */
 namespace Former\Traits;
 
-trait FormerObject
+abstract class FormerObject
 {
   /**
    * The Form open tag's attribute

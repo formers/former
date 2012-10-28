@@ -9,10 +9,8 @@ namespace Former;
 
 use \File;
 
-abstract class Field
+abstract class Field extends Traits\FormerObject
 {
-  use Traits\FormerObject;
-
   /**
    * The field type
    * @var string
