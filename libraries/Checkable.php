@@ -76,17 +76,22 @@ abstract class Checkable extends Field
    *
    * @param  string $checked The checkable to check, or an array of checked items
    */
-  public function check($checked = null)
+  public function check($checked = true)
   {
     // If we're setting all the checked items at once
-    if(is_array($checked)) {
-      return $this->checked = $checked;
+    if (is_array($checked)) {
+        return $this->checked = $checked;
     }
 
-    // Else we're setting a single item
-    if(is_null($checked)) $checked = $this->name;
+    // Checking an item in particular
+    if(is_string($checked) or is_int($checked)) {
+      return $this->checked[$checked] = true;
+    }
 
-    $this->checked[$checked] = true;
+    // Only setting a single item
+    $this->checked[$this->name] = (bool) $checked;
+
+    return (bool) $checked;
   }
 
   ////////////////////////////////////////////////////////////////////

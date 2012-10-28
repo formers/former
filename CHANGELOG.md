@@ -1,8 +1,11 @@
 ## Changelog
 
-### 2.X.X
+### 2.4.0
 
+- **[add] Chained methods now work on Form openers too**
 - [add] Add `unchecked_value` option to decide what value unchecked checkboxes have in the POST array
+- [add] Allow booleans to be passed to Checkable->check() on single items
+- [mod] Disable `push_checkbox` option by default
 - [fix] Automatically fetch Lang objects passed to `->options`
 
 ### 2.3.0
