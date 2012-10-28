@@ -1,4 +1,9 @@
 <?php
+/**
+ * FormerObject
+ *
+ * Base Former object that allows chained attributes setting
+ */
 namespace Former\Traits;
 
 trait FormerObject
