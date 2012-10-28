@@ -17,7 +17,7 @@
 
   // Whether checkboxes should always be present in the POST data,
   // no matter if you checked them or not
-  'push_checkboxes'   => true,
+  'push_checkboxes'   => false,
 
   // The value a checkbox will have in the POST array if unchecked
   'unchecked_value'   => '',
