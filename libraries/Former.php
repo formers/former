@@ -56,7 +56,9 @@ class Former
     if (str_contains($method, 'open')) {
       static::$form = new Form;
 
-      return static::form()->open($method, $parameters);
+      static::form()->open($method, $parameters);
+
+      return new static;
     }
 
     // Avoid conflict with chained label method
@@ -116,7 +118,7 @@ class Former
     $size = Framework::getFieldSizes($classes);
     if($size) static::$field->addClass($size);
 
-    return new Former;
+    return new static;
   }
 
   /**
@@ -128,9 +130,13 @@ class Former
    */
   public function __call($method, $parameters)
   {
-    $object = method_exists($this->control(), $method)
-      ? $this->control()
-      : static::$field;
+    if(!static::form()->isOpened() and static::$form) {
+      $object = static::$form;
+    } else {
+      $object = method_exists($this->control(), $method)
+        ? $this->control()
+        : static::$field;
+    }
 
     // Call the function on the corresponding class
     call_user_func_array(array($object, $method), $parameters);
@@ -156,6 +162,10 @@ class Former
    */
   public function __toString()
   {
+    if(static::$form and !static::$form->isOpened()) {
+      return static::form()->__toString();
+    }
+
     // Dry syntax (hidden fields, plain fields)
     if (static::$field->type == 'hidden' or
         static::form()->type == 'search' or

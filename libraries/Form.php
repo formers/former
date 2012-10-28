@@ -8,6 +8,8 @@ namespace Former;
 
 class Form
 {
+  use Traits\FormerObject;
+
   /**
    * The Form type
    * @var string
@@ -19,6 +21,30 @@ class Form
    * @var array
    */
   private $availableTypes = array('horizontal', 'vertical', 'inline', 'search');
+
+  /**
+   * The destination of the current form
+   * @var string
+   */
+  private $action;
+
+  /**
+   * The form method
+   * @var string
+   */
+  private $method;
+
+  /**
+   * Whether the form should be secured or not
+   * @var boolean
+   */
+  private $secure;
+
+  /**
+   * Whether the current form is opened or not
+   * @var boolean
+   */
+  private $opened = false;
 
   /**
    * Opens up magically a form
@@ -66,7 +92,12 @@ class Form
     }
 
     // Open the form
-    return \Form::open($action, $method, $attributes, $secure);
+    $this->action     = $action;
+    $this->method     = $method;
+    $this->attributes = $attributes;
+    $this->secure     = $secure;
+
+    return $this;
   }
 
   /**
@@ -77,5 +108,18 @@ class Form
   public function close()
   {
     return '</form>';
+  }
+
+  public function isOpened()
+  {
+    return $this->opened;
+  }
+
+  public function __toString()
+  {
+    // Mark the form as opened
+    $this->opened = true;
+
+    return \Form::open($this->action, $this->method, $this->attributes, $this->secure);
   }
 }

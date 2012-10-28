@@ -11,7 +11,7 @@ if (Bundle::exists('bootstrapper')) {
 Session::start('file');
 
 // Base Test class for matchers
-class FormerTests extends PHPUnit_Framework_TestCase
+abstract class FormerTests extends PHPUnit_Framework_TestCase
 {
   protected $checkables = array(
     'Foo' => array(
@@ -50,7 +50,7 @@ class FormerTests extends PHPUnit_Framework_TestCase
   public function setUp()
   {
     Input::clear();
-    \Former\Former::horizontal_open();
+    \Former\Former::horizontal_open()->__toString();
     \Former\Former::populate(array());
     \Former\Former::withErrors(null);
     \Former\Former::config('automatic_label', true);
@@ -61,14 +61,5 @@ class FormerTests extends PHPUnit_Framework_TestCase
   public function tearDown()
   {
     \Former\Former::close();
-  }
-
-  /**
-   * This function has no points
-   * It's only here because I can't extend Framework_TestCase otherwise
-   */
-  public function testTrue()
-  {
-    $this->assertTrue(true);
   }
 }
