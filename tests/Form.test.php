@@ -121,8 +121,8 @@ class FormTest extends FormerTests
 
   public function testChainedFormParameters()
   {
-    $open = Former::open()->method('GET')->action('#')->addClass('foo')->__toString();
-    $matcher = '<form class="form-horizontal foo" method="GET" action="#" accept-charset="UTF-8">';
+    $open = Former::open()->method('GET')->id('form')->action('#')->addClass('foo')->__toString();
+    $matcher = '<form class="form-horizontal foo" id="form" method="GET" action="#" accept-charset="UTF-8">';
 
     $this->assertEquals($matcher, $open);
   }
