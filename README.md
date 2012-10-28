@@ -34,6 +34,9 @@ Former aims to re-laravelize form creation by transforming each field into its o
 
 ```php
 Former::horizontal_open()
+  ->id('MyForm')
+  ->secure()
+  ->method('GET')
 
   Former::xlarge_text('name')
     ->class('myclass')

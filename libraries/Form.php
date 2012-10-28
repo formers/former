@@ -110,9 +110,48 @@ class Form
     return '</form>';
   }
 
+
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////////// HELPERS ////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
   public function isOpened()
   {
     return $this->opened;
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////// CHAINED METHODS /////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Change the form's action
+   *
+   * @param  string $action The new action
+   */
+  public function action($action)
+  {
+    $this->action = $action;
+  }
+
+  /**
+   * Change the form's method
+   *
+   * @param  string $method The method to use
+   */
+  public function method($method)
+  {
+    $this->method = $method;
+  }
+
+  /**
+   * Whether the form should be secure
+   *
+   * @param  boolean $secure Secure or not
+   */
+  public function secure(boolean $secure)
+  {
+    $this->secure = $secure;
   }
 
   public function __toString()
