@@ -3,6 +3,7 @@
 ### 2.5.0 (in progress)
 
 - **[add] Add basic button class that allow Bootstrappy submit/buttons**
+- [add] Ability to pass an array of classes to add to Field->addClass
 
 ### 2.4.0
 
