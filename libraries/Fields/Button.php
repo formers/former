@@ -19,7 +19,9 @@ class Button extends \Former\Field
    */
   public function __construct($type, $value, $attributes)
   {
-    parent::__construct($type, '', '', $value, $attributes);
+    $this->attributes = (array) $attributes;
+    $this->type = $type;
+    $this->value($value);
   }
 
   /**
@@ -40,6 +42,8 @@ class Button extends \Former\Field
    */
   public function __toString()
   {
-    return Form::submit($this->value, $this->attributes);
+    $type = $this->type;
+
+    return Form::$type($this->value, $this->attributes);
   }
 }

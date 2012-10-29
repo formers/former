@@ -8,7 +8,7 @@ class ButtonTest extends FormerTests
   public function testButton()
   {
     $button = Former::button('Save')->__toString();
-    $matcher = '<input type="submit" value="Save">';
+    $matcher = '<button class="btn">Save</button>';
 
     $this->assertEquals($matcher, $button);
   }
@@ -16,7 +16,7 @@ class ButtonTest extends FormerTests
   public function testButtonMethods()
   {
     $button = Former::button('Save')->class('btn btn-primary')->value('Cancel')->__toString();
-    $matcher = '<input class="btn btn-primary" type="submit" value="Cancel">';
+    $matcher = '<button class="btn btn-primary">Cancel</button>';
 
     $this->assertEquals($matcher, $button);
   }
@@ -31,8 +31,17 @@ class ButtonTest extends FormerTests
 
   public function testAttributes()
   {
-    $button = Former::button('validation.url')->setAttributes($this->testAttributes)->__toString();
-    $matcher = '<input class="foo" data-foo="bar" type="submit" value="Click me">';
+    $button = Former::button('pagination.next')->setAttributes($this->testAttributes)->__toString();
+    $matcher = '<button class="foo" data-foo="bar">Next &raquo;</button>';
+
+    $this->assertEquals($matcher, $button);
+  }
+
+  public function testDynamicCalls()
+  {
+    $button = Former::primary_submit('Save')->__toString();
+    $button = Former::large_block_primary_submit('Save')->__toString();
+    $matcher = '<input class="btn-large btn-block btn-primary btn" type="submit" value="Save">';
 
     $this->assertEquals($matcher, $button);
   }

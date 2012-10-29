@@ -123,9 +123,13 @@ class Former
       static::$field->inline();
     }
 
-    // Add any size we found
-    $size = Framework::getFieldSizes($classes);
-    if($size) static::$field->addClass($size);
+    // Filter classes according to field type
+    $classes = $callClass == 'Button'
+      ? Framework::getButtonTypes($classes)
+      : Framework::getFieldSizes($classes);
+
+    // Add any supplementary classes we found
+    if($classes) static::$field->addClass($classes);
 
     return new static;
   }
