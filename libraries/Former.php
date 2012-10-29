@@ -39,6 +39,11 @@ class Former
    */
   private static $rules = array();
 
+  /**
+   * The namespace of fields
+   */
+  const FIELDSPACE = '\Former\Fields\\';
+
   ////////////////////////////////////////////////////////////////////
   //////////////////////////// INTERFACE /////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -74,8 +79,7 @@ class Former
     static::$field = null;
 
     // Picking the right class
-    $fieldspace = '\\' .__NAMESPACE__. '\\Fields\\';
-    if (class_exists($fieldspace.ucfirst($method))) {
+    if (class_exists(static::FIELDSPACE.ucfirst($method))) {
       $callClass = ucfirst($method);
     } else {
       switch ($method) {
@@ -101,12 +105,12 @@ class Former
     }
 
     // Check for potential errors
-    if(!class_exists($fieldspace.$callClass)) {
-      throw new \Exception('The class "' .$fieldspace.$callClass. '" called by field "' .$method. '" doesn\'t exist');
+    if(!class_exists(static::FIELDSPACE.$callClass)) {
+      throw new \Exception('The class "' .static::FIELDSPACE.$callClass. '" called by field "' .$method. '" doesn\'t exist');
     }
 
     // Listing parameters
-    $class = $fieldspace.$callClass;
+    $class = static::FIELDSPACE.$callClass;
     static::$field = new $class(
       $method,
       array_get($parameters, 0),

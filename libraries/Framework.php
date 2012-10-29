@@ -88,7 +88,7 @@ class Framework
   public static function blockHelp($value, $attributes = array())
   {
     // Block helps are only available in Bootstrap
-    if(self::isnt('bootstrap')) return static::inlineHelp($value, $attributes);
+    if(static::isnt('bootstrap')) return static::inlineHelp($value, $attributes);
 
     $attributes = Helpers::addClass($attributes, 'help-block');
 
@@ -102,7 +102,7 @@ class Framework
   public static function getFieldClasses($field)
   {
     // Wrap field in .controls if necessary
-    if(self::is('bootstrap')) {
+    if(static::is('bootstrap')) {
       $field = '<div class="controls">' .$field. '</div>';
     }
 
@@ -147,7 +147,7 @@ class Framework
    */
   public static function getFieldSizes($sizes)
   {
-    if(self::is(null)) return null;
+    if(static::is(null)) return null;
 
     // Filter sizes
     $sizes = static::getAvailable($sizes, 'sizes');
@@ -155,8 +155,8 @@ class Framework
     // Get size from array and format it
     $size = array_pop($sizes);
     if($size) {
-      if(self::is('bootstrap')) $size = starts_with($size, 'span') ? $size : 'input-'.$size;
-      elseif(self::is('zurb')) $size;
+      if(static::is('bootstrap')) $size = starts_with($size, 'span') ? $size : 'input-'.$size;
+      elseif(static::is('zurb')) $size;
       else $size = null;
     }
 
@@ -171,13 +171,13 @@ class Framework
    */
   public static function getButtonTypes($types)
   {
-    if(self::is(null)) return null;
+    if(static::is(null)) return null;
 
     // Filter types
     $types = static::getAvailable($types, 'types');
 
     // Format classes
-    if(self::is('bootstrap')) {
+    if(static::is('bootstrap')) {
       $types = static::prependClasses($types, 'btn-');
       $types[] = 'btn';
     }
@@ -260,7 +260,7 @@ class Framework
    * @param  string $class   The string to prepend them with
    * @return array           An array of prepended classes
    */
-  public static function prependClasses($classes, $class)
+  private static function prependClasses($classes, $class)
   {
     // Add prefix to each class
     foreach($classes as $key => $value) {
