@@ -26,6 +26,16 @@ class Framework
   );
 
   /**
+   * The button types available
+   * @var array
+   */
+  private static $types = array(
+    'bootstrap' => array(
+      'large', 'small', 'mini',
+      'block', 'info', 'inverse', 'link', 'primary', 'success', 'warning'),
+  );
+
+  /**
    * The field sizes available
    * @var array
    */
@@ -139,11 +149,8 @@ class Framework
   {
     if(self::is(null)) return null;
 
-    // List all available sizes
-    $available = array_get(static::$sizes, static::current(), array());
-
     // Filter sizes
-    $sizes = array_intersect($available, $sizes);
+    $sizes = static::getAvailable($sizes, 'sizes');
 
     // Get size from array and format it
     $size = array_pop($sizes);
@@ -154,6 +161,29 @@ class Framework
     }
 
     return $size;
+  }
+
+  /**
+   * Filter a button type according to the framework
+   *
+   * @param  array $types An array of types
+   * @return array        A filtered array
+   */
+  public static function getButtonTypes($types)
+  {
+    if(self::is(null)) return null;
+
+    // Filter types
+    $types = static::getAvailable($types, 'types');
+
+    // Format classes
+    if(self::is('bootstrap')) {
+      $types = static::prependClasses($types, 'btn-');
+      $types[] = 'btn';
+    }
+    else $types = null;
+
+    return $types;
   }
 
   /**
@@ -217,6 +247,43 @@ class Framework
   public static function isnt($framework)
   {
     return static::current() != $framework;
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////// HELPERS ///////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Prepend an array of classes with a string
+   *
+   * @param  array  $classes An array of classes
+   * @param  string $class   The string to prepend them with
+   * @return array           An array of prepended classes
+   */
+  public static function prependClasses($classes, $class)
+  {
+    // Add prefix to each class
+    foreach($classes as $key => $value) {
+      if($value != $class) $classes[$key] = $class.$value;
+    }
+
+    return $classes;
+  }
+
+  /**
+   * Get all available classes from an array of classes
+   *
+   * @param  array  $classes An array of classes to filter
+   * @param  string $from    The kind of classes to get
+   * @return array           Filtered array
+   */
+  private static function getAvailable($classes, $from)
+  {
+    // List all available classes
+    $available = array_get(static::$$from, static::current(), array());
+
+    // Filter classes
+    return array_intersect($available, $classes);
   }
 
 }
