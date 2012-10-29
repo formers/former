@@ -74,7 +74,8 @@ class Former
     static::$field = null;
 
     // Picking the right class
-    if (class_exists('\Former\Fields\\'.ucfirst($method))) {
+    $fieldspace = '\\' .__NAMESPACE__. '\\Fields\\';
+    if (class_exists($fieldspace.ucfirst($method))) {
       $callClass = ucfirst($method);
     } else {
       switch ($method) {
@@ -96,8 +97,13 @@ class Former
       }
     }
 
+    // Check for potential errors
+    if(!class_exists($fieldspace.$callClass)) {
+      throw new \Exception('The class "' .$fieldspace.$callClass. '" called by field "' .$method. '" doesn\'t exist');
+    }
+
     // Listing parameters
-    $class = '\Former\Fields\\'.$callClass;
+    $class = $fieldspace.$callClass;
     static::$field = new $class(
       $method,
       array_get($parameters, 0),
