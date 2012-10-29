@@ -79,6 +79,9 @@ class Former
       $callClass = ucfirst($method);
     } else {
       switch ($method) {
+        case 'submit':
+          $callClass = 'Button';
+          break;
         case 'multiselect':
           $callClass = 'Select';
           break;
@@ -174,6 +177,8 @@ class Former
 
     // Dry syntax (hidden fields, plain fields)
     if (static::$field->type == 'hidden' or
+        static::$field->type == 'button' or
+        static::$field->type == 'submit' or
         static::form()->type == 'search' or
         static::form()->type == 'inline') {
           $html = static::$field->__toString();
