@@ -39,9 +39,16 @@ class ButtonTest extends FormerTests
 
   public function testDynamicCalls()
   {
-    $button = Former::primary_submit('Save')->__toString();
     $button = Former::large_block_primary_submit('Save')->__toString();
     $matcher = '<input class="btn-large btn-block btn-primary btn" type="submit" value="Save">';
+
+    $this->assertEquals($matcher, $button);
+  }
+
+  public function testResetButton()
+  {
+    $button = Former::large_block_inverse_reset('Reset')->__toString();
+    $matcher = '<input class="btn-large btn-block btn-inverse btn" type="reset" value="Reset">';
 
     $this->assertEquals($matcher, $button);
   }

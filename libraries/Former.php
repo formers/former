@@ -84,6 +84,7 @@ class Former
     } else {
       switch ($method) {
         case 'submit':
+        case 'reset':
           $callClass = 'Button';
           break;
         case 'multiselect':
@@ -184,10 +185,7 @@ class Former
     }
 
     // Dry syntax (hidden fields, plain fields)
-    if (static::$field->type == 'hidden' or
-        static::$field->type == 'button' or
-        static::$field->type == 'submit' or
-        static::form()->type == 'search' or
+    if (static::$field->isUnwrappable() or
         static::form()->type == 'inline') {
           $html = static::$field->__toString();
     }

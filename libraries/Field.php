@@ -78,6 +78,16 @@ abstract class Field extends Traits\FormerObject
     return isset($this->attributes['required']);
   }
 
+  /**
+   * Check if a field is unwrappable (no label)
+   *
+   * @return boolean
+   */
+  public function isUnwrappable()
+  {
+    return in_array($this->type, array('hidden', 'submit', 'button', 'reset'));
+  }
+
   ////////////////////////////////////////////////////////////////////
   //////////////////////// SETTERS AND GETTERS ///////////////////////
   ////////////////////////////////////////////////////////////////////
