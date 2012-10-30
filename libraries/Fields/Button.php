@@ -44,6 +44,6 @@ class Button extends \Former\Field
   {
     $type = $this->type;
 
-    return Form::$type($this->value, $this->attributes);
+    return \Laravel\Form::$type($this->value, $this->attributes);
   }
 }
