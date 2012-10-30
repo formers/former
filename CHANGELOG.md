@@ -1,5 +1,10 @@
 ## Changelog
 
+### 2.5.0 (in progress)
+
+- **[add] Add basic button class that allow Bootstrappy submit/buttons**
+- [add] Ability to pass an array of classes to add to Field->addClass
+
 ### 2.4.0
 
 - **[add] Form openers are now objects too and accept chained methods**

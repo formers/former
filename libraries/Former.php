@@ -39,6 +39,11 @@ class Former
    */
   private static $rules = array();
 
+  /**
+   * The namespace of fields
+   */
+  const FIELDSPACE = '\Former\Fields\\';
+
   ////////////////////////////////////////////////////////////////////
   //////////////////////////// INTERFACE /////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -74,10 +79,14 @@ class Former
     static::$field = null;
 
     // Picking the right class
-    if (class_exists('\Former\Fields\\'.ucfirst($method))) {
+    if (class_exists(static::FIELDSPACE.ucfirst($method))) {
       $callClass = ucfirst($method);
     } else {
       switch ($method) {
+        case 'submit':
+        case 'reset':
+          $callClass = 'Button';
+          break;
         case 'multiselect':
           $callClass = 'Select';
           break;
@@ -96,8 +105,13 @@ class Former
       }
     }
 
+    // Check for potential errors
+    if(!class_exists(static::FIELDSPACE.$callClass)) {
+      throw new \Exception('The class "' .static::FIELDSPACE.$callClass. '" called by field "' .$method. '" doesn\'t exist');
+    }
+
     // Listing parameters
-    $class = '\Former\Fields\\'.$callClass;
+    $class = static::FIELDSPACE.$callClass;
     static::$field = new $class(
       $method,
       array_get($parameters, 0),
@@ -114,9 +128,13 @@ class Former
       static::$field->inline();
     }
 
-    // Add any size we found
-    $size = Framework::getFieldSizes($classes);
-    if($size) static::$field->addClass($size);
+    // Filter classes according to field type
+    $classes = $callClass == 'Button'
+      ? Framework::getButtonTypes($classes)
+      : Framework::getFieldSizes($classes);
+
+    // Add any supplementary classes we found
+    if($classes) static::$field->addClass($classes);
 
     return new static;
   }
@@ -167,8 +185,7 @@ class Former
     }
 
     // Dry syntax (hidden fields, plain fields)
-    if (static::$field->type == 'hidden' or
-        static::form()->type == 'search' or
+    if (static::$field->isUnwrappable() or
         static::form()->type == 'inline') {
           $html = static::$field->__toString();
     }

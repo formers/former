@@ -47,6 +47,11 @@ Former::horizontal_open()
     ->rows(10)->columns(20)
     ->autofocus();
 
+  Former::actions (
+    Former::large_primary_submit('Submit'),
+    Former::large_inverse_reset('Reset')
+  )
+
 Former::close()
 ```
 

@@ -1,8 +1,6 @@
 <?php
 use \Former\Former;
 
-include 'start.php';
-
 class CheckboxTest extends FormerTests
 {
   private function cb($name = 'foo', $label = null, $value = 1, $inline = false)

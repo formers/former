@@ -75,6 +75,8 @@ abstract class FormerObject
    */
   public function addClass($class)
   {
+    if(is_array($class)) $class = implode(' ', $class);
+
     $this->attributes = \Former\Helpers::addClass($this->attributes, $class);
   }
 
