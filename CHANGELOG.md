@@ -4,6 +4,7 @@
 
 - **[add] Add basic button class that allow Bootstrappy submit/buttons**
 - [add] Ability to pass an array of classes to add to Field->addClass
+- [fix] Fix instantiated classes bug in PHP 5.3.2
 
 ### 2.4.0
 
