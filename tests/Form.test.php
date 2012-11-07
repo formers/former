@@ -125,4 +125,20 @@ class FormTest extends FormerTests
 
     $this->assertEquals($matcher, $open);
   }
+
+  public function testSingleAction()
+  {
+    $action = Former::actions('<button>Submit</button>');
+    $matcher = '<div class="form-actions"><button>Submit</button></div>';
+
+    $this->assertEquals($matcher, $action);
+  }
+
+  public function testMultipleStringActions()
+  {
+    $actions = Former::actions('<button>Submit</button>', '<button type="reset">Reset</button>');
+    $matcher = '<div class="form-actions"><button>Submit</button> <button type="reset">Reset</button></div>';
+
+    $this->assertEquals($matcher, $actions);
+  }
 }

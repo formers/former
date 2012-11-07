@@ -52,3 +52,16 @@ class ButtonTest extends FormerTests
 
     $this->assertEquals($matcher, $button);
   }
+
+  public function testMultipleInstances()
+  {
+    $actions = Former::actions(Former::submit('submit'), Former::reset('reset'));
+    $matcher =
+      '<div class="form-actions">'.
+        '<input class="btn" type="submit" value="submit"> '.
+        '<input class="btn" type="reset" value="Reset">'.
+      '</div>';
+
+    $this->assertEquals($matcher, $actions);
+  }
+}
