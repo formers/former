@@ -11,6 +11,12 @@ use \Form;
 class Button extends \Former\Field
 {
   /**
+   * Current Button instance
+   * @var Button
+   */
+  private static $instance;
+
+  /**
    * Easier arguments order for button fields
    *
    * @param string $type       button/submit
@@ -38,6 +44,7 @@ class Button extends \Former\Field
 
   /**
    * Renders the button
+   *
    * @return string A form button
    */
   public function __toString()

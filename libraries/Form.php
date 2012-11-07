@@ -151,6 +151,11 @@ class Form extends Traits\FormerObject
     $this->secure = $secure;
   }
 
+  /**
+   * Outputs the current form opened
+   *
+   * @return string A <form> opening tag
+   */
   public function __toString()
   {
     // Mark the form as opened
