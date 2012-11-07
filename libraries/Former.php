@@ -430,7 +430,7 @@ class Former
     $buttons = func_get_args();
 
     $actions  = '<div class="form-actions">';
-    $actions .= is_array($buttons) ? implode(' ', $buttons) : $buttons;
+      $actions .= implode(' ', (array) $buttons);
     $actions .= '</div>';
 
     return $actions;
