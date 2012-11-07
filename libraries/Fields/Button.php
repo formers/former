@@ -34,6 +34,8 @@ class Button extends \Former\Field
     $value = \Former\Helpers::translate($value);
 
     $this->value = $value;
+
+    return $this;
   }
 
   /**

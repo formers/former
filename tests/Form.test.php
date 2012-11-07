@@ -141,4 +141,16 @@ class FormTest extends FormerTests
 
     $this->assertEquals($matcher, $actions);
   }
+
+  public function testMultipleObjectActions()
+  {
+    $actions = Former::actions(Former::submit('submit'), Former::reset('reset'));
+    $matcher =
+      '<div class="form-actions">'.
+        '<input class="btn" type="submit" value="Submit"> '.
+        '<input class="btn" type="reset" value="Reset">'.
+      '</div>';
+
+    $this->assertEquals($matcher, $actions);
+  }
 }

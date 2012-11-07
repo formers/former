@@ -60,7 +60,6 @@ class Former
     // Form opener
     if (str_contains($method, 'open')) {
       static::$form = new Form;
-
       static::form()->open($method, $parameters);
 
       return new static;
@@ -135,6 +134,9 @@ class Former
 
     // Add any supplementary classes we found
     if($classes) static::$field->addClass($classes);
+
+    // As Buttons are more of a helper class, we return them directly
+    if($callClass == 'Button') return static::$field;
 
     return new static;
   }

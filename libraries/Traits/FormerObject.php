@@ -28,6 +28,8 @@ abstract class FormerObject
     // Get value and set it
     $value = array_get($parameters, 0, 'true');
     $this->setAttribute($method, $value);
+
+    return $this;
   }
 
   /**
@@ -51,6 +53,8 @@ abstract class FormerObject
   public function setAttribute($attribute, $value = null)
   {
     $this->attributes[$attribute] = $value;
+
+    return $this;
   }
 
   /**
@@ -66,6 +70,8 @@ abstract class FormerObject
     $this->attributes = $merge
       ? array_merge($this->attributes, $attributes)
       : $attributes;
+
+    return $this;
   }
 
   /**
@@ -78,6 +84,8 @@ abstract class FormerObject
     if(is_array($class)) $class = implode(' ', $class);
 
     $this->attributes = \Former\Helpers::addClass($this->attributes, $class);
+
+    return $this;
   }
 
 }
