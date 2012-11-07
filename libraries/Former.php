@@ -67,7 +67,7 @@ class Former
     }
 
     // Avoid conflict with chained label method
-    if($method == 'label') {
+    if ($method == 'label') {
       return call_user_func_array('static::_label', $parameters);
     }
 
@@ -106,7 +106,7 @@ class Former
     }
 
     // Check for potential errors
-    if(!class_exists(static::FIELDSPACE.$callClass)) {
+    if (!class_exists(static::FIELDSPACE.$callClass)) {
       throw new \Exception('The class "' .static::FIELDSPACE.$callClass. '" called by field "' .$method. '" doesn\'t exist');
     }
 
@@ -148,7 +148,7 @@ class Former
    */
   public function __call($method, $parameters)
   {
-    if(!static::form()->isOpened() and static::$form) {
+    if (!static::form()->isOpened() and static::$form) {
       $object = static::$form;
     } else {
       $object = method_exists($this->control(), $method)
@@ -180,7 +180,7 @@ class Former
    */
   public function __toString()
   {
-    if(static::$form and !static::$form->isOpened()) {
+    if (static::$form and !static::$form->isOpened()) {
       return static::form()->__toString();
     }
 
@@ -245,18 +245,18 @@ class Former
   public static function getValue($name, $fallback = null)
   {
     // Object values
-    if(is_object(static::$values)) {
+    if (is_object(static::$values)) {
 
       // Transform the name into an array
       $value = static::$values;
       $name  = str_contains($name, '.') ? explode('.', $name) : (array) $name;
 
       // Dive into the model
-      foreach($name as $k => $r) {
+      foreach ($name as $k => $r) {
 
         // Multiple results relation
-        if(is_array($value)) {
-          foreach($value as $subkey => $submodel) {
+        if (is_array($value)) {
+          foreach ($value as $subkey => $submodel) {
             $value[$subkey] = isset($submodel->$r) ? $submodel->$r : $fallback;
           }
           continue;

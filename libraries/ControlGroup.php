@@ -78,12 +78,12 @@ class ControlGroup
     if($errors) $this->state('error');
 
     // Retrieve state and append it to classes
-    if($this->state) {
+    if ($this->state) {
       $this->attributes = Helpers::addClass($this->attributes, $this->state);
     }
 
     // Required state
-    if(Former::field()->isRequired()) {
+    if (Former::field()->isRequired()) {
       $this->attributes = Helpers::addClass($this->attributes, Config::get('required_class'));
     }
 

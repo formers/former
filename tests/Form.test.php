@@ -114,7 +114,6 @@ class FormTest extends FormerTests
     $matcher1 = $this->createMatcher('form-horizontal foo');
     $matcher2 = $this->createMatcher('form-vertical bar');
 
-
     $this->assertEquals($matcher1, $open1);
     $this->assertEquals($matcher2, $open2);
   }

@@ -115,6 +115,7 @@ abstract class Field extends Traits\FormerObject
     else $this->label = array(
       'label' => Helpers::translate($text),
       'attributes' => $attributes);
+
     return $this;
   }
 
@@ -173,7 +174,6 @@ abstract class Field extends Traits\FormerObject
     if(!is_null($post)) $value = $post;
     elseif(!is_null($populate)) $value = $populate;
     else $value = $fallback;
-
     return $value;
   }
 

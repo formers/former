@@ -64,7 +64,7 @@ class Framework
   public static function inlineHelp($value, $attributes = array())
   {
     // Return the correct syntax according to framework
-    switch(static::current()) {
+    switch (static::current()) {
       case 'bootstrap':
         $attributes = Helpers::addClass($attributes, 'help-inline');
         $help = '<span'.HTML::attributes($attributes).'>'.$value.'</span>';
@@ -102,7 +102,7 @@ class Framework
   public static function getFieldClasses($field)
   {
     // Wrap field in .controls if necessary
-    if(static::is('bootstrap')) {
+    if (static::is('bootstrap')) {
       $field = '<div class="controls">' .$field. '</div>';
     }
 
@@ -117,7 +117,7 @@ class Framework
    */
   public static function getLabelClasses($attributes)
   {
-    if(static::is('bootstrap')) {
+    if (static::is('bootstrap')) {
       $attributes = Helpers::addClass($attributes, 'control-label');
     }
 
@@ -132,7 +132,7 @@ class Framework
    */
   public static function getGroupClasses($attributes)
   {
-    if(static::is('bootstrap')) {
+    if (static::is('bootstrap')) {
       $attributes = Helpers::addClass($attributes, 'control-group');
     }
 
@@ -154,7 +154,7 @@ class Framework
 
     // Get size from array and format it
     $size = array_pop($sizes);
-    if($size) {
+    if ($size) {
       if(static::is('bootstrap')) $size = starts_with($size, 'span') ? $size : 'input-'.$size;
       elseif(static::is('zurb')) $size;
       else $size = null;
@@ -177,11 +177,10 @@ class Framework
     $types = static::getAvailable($types, 'types');
 
     // Format classes
-    if(static::is('bootstrap')) {
+    if (static::is('bootstrap')) {
       $types = static::prependClasses($types, 'btn-');
       $types[] = 'btn';
-    }
-    else $types = null;
+    } else $types = null;
 
     return $types;
   }
@@ -263,7 +262,7 @@ class Framework
   private static function prependClasses($classes, $class)
   {
     // Add prefix to each class
-    foreach($classes as $key => $value) {
+    foreach ($classes as $key => $value) {
       if($value != $class) $classes[$key] = $class.$value;
     }
 

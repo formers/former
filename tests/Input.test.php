@@ -37,6 +37,7 @@ class InputTest extends FormerTests
 
     $this->assertEquals($matcher, $input);
   }
+
   public function testSingleTextWithoutLabelOnStart()
   {
     $input = Former::text('foo', '')->__toString();

@@ -52,4 +52,3 @@ class ButtonTest extends FormerTests
 
     $this->assertEquals($matcher, $button);
   }
-}

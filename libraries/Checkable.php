@@ -84,7 +84,7 @@ abstract class Checkable extends Field
     }
 
     // Checking an item in particular
-    if(is_string($checked) or is_int($checked)) {
+    if (is_string($checked) or is_int($checked)) {
       return $this->checked[$checked] = true;
     }
 
@@ -172,7 +172,7 @@ abstract class Checkable extends Field
     $field = call_user_func('\Form::'.$this->checkable, $name, $value, $this->isChecked($name, $value), $attributes);
 
     // Add hidden checkbox if requested
-    if(Config::get('push_checkboxes')) {
+    if (Config::get('push_checkboxes')) {
       $field = \Form::hidden($name, Config::get('unchecked_value')) . $field;
     }
 
@@ -238,7 +238,6 @@ abstract class Checkable extends Field
     if(!is_null($post) and $post !== Config::get('unchecked_value')) $isChecked = ($post == $value);
     elseif(!is_null($static)) $isChecked = ($static == $value);
     else $isChecked = $checked;
-
     return $isChecked ? true : false;
   }
 

@@ -29,7 +29,7 @@ class File extends \Former\Field
     parent::__construct($type, $name, $label, $value, $attributes);
 
     // Multiple files field
-    if($this->type == 'files') {
+    if ($this->type == 'files') {
       $this->multiple();
       $this->type = 'file';
       $this->name = $this->name.'[]';
@@ -42,7 +42,7 @@ class File extends \Former\Field
   public function accept()
   {
     $shortcuts = array('audio', 'video', 'image');
-    foreach(func_get_args() as $mime) {
+    foreach (func_get_args() as $mime) {
 
       // Shortcuts and extensions
       if(in_array($mime, $shortcuts)) $mime .= '/*';
@@ -67,7 +67,7 @@ class File extends \Former\Field
     if($unit == 'b') $size = $size / 8;
 
     // Convert
-    switch($units[0]) {
+    switch ($units[0]) {
       case 'K':
         $size = $size * $base;
         break;
