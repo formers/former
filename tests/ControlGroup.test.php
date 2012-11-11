@@ -190,6 +190,30 @@ class ControlGroupTest extends FormerTests
     $this->assertEquals($matcher, $control2);
   }
 
+  public function testPrependRawIcon()
+  {
+    $control = Former::text('foo')->prepend('<i class="icon-enveloppe"></i>')->__toString();
+    $matcher = $this->createPrependAppendMatcher(array('<i class="icon-enveloppe"></i>'));
+
+    $this->assertEquals($matcher, $control);
+  }
+
+  public function testPrependIcon()
+  {
+    $control = Former::text('foo')->prependIcon('enveloppe')->__toString();
+    $matcher = $this->createPrependAppendMatcher(array('<i class="icon-enveloppe"></i>'));
+
+    $this->assertEquals($matcher, $control);
+  }
+
+  public function testAppendWhiteIcon()
+  {
+    $control = Former::text('foo')->appendIcon('white-something')->__toString();
+    $matcher = $this->createPrependAppendMatcher(array(), array('<i class="icon-white icon-something"></i>'));
+
+    $this->assertEquals($matcher, $control);
+  }
+
   public function testAllTheThings()
   {
     $control = Former::text('foo')

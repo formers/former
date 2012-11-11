@@ -261,6 +261,32 @@ class ControlGroup
   }
 
   /**
+   * Prepends an icon to a field
+   *
+   * @param string $icon       The icon to prepend
+   * @param array  $attributes Its attributes
+   */
+  public function prependIcon($icon, $attributes = array())
+  {
+    $icon = Framework::icon($icon, $attributes);
+
+    $this->placeAround($icon, 'prepend');
+  }
+
+  /**
+   * Append an icon to a field
+   *
+   * @param string $icon       The icon to prepend
+   * @param array  $attributes Its attributes
+   */
+  public function appendIcon($icon, $attributes = array())
+  {
+    $icon = Framework::icon($icon, $attributes);
+
+    $this->placeAround($icon, 'append');
+  }
+
+  /**
    * Adds a label
    *
    * @param  string $label A label
@@ -289,6 +315,9 @@ class ControlGroup
    */
   private function placeAround($items, $place)
   {
+    $items = (array) $items;
+
+    // Iterate over the items and place them where they should
     foreach ($items as $i) {
       if (!($i instanceof \Bootstrapper\Buttons) and !starts_with($i, '<button')) {
         $i = '<span class="add-on">'.$i.'</span>';

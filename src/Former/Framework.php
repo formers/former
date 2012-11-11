@@ -99,6 +99,35 @@ class Framework
   /////////////////////////// FIELD WRAPPERS /////////////////////////
   ////////////////////////////////////////////////////////////////////
 
+  /**
+   * Creates a basic icon
+   *
+   * @param string $icon       The icon id
+   * @param array  $attributes Facultative attributes
+   *
+   * @return string An icon tag
+   */
+  public static function icon($icon, $attributes = array())
+  {
+    if (static::is('bootstrap')) {
+
+      // White icon
+      if (str_contains($icon, 'white')) {
+        $icon = trim(str_replace('white', null, $icon), '-');
+        $attributes = Helpers::addClass($attributes, 'icon-white');
+      }
+
+      // Check for empty icons
+      if (!$icon) return false;
+      $attributes = Helpers::addClass($attributes, 'icon-'.$icon);
+
+      // Create icon
+      $icon = '<i'.HTML::attributes($attributes).'></i>';
+    }
+
+    return $icon;
+  }
+
   public static function getFieldClasses($field)
   {
     // Wrap field in .controls if necessary

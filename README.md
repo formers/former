@@ -461,7 +461,7 @@ All form classes encounter a problem at one point : what kind of data takes prec
     <div class="input-prepend input-append">
       <span class="add-on">@</span>
       {{ Form::text('input01', 'myname', (Input::get('input01', Input::old('input01')), array('class' => 'input-xlarge')) }}
-      <span class="add-on">$</span>
+      <span class="add-on"><i class="icon-white icon-enveloppe"></i></span>
     </div>
     <p class="help-block">This is an help text</p>
   </div>
@@ -476,13 +476,13 @@ echo Form::prepend_append(
     $validation->errors->get('input01'),
     Form::block_help('This is an help text')
   ),
-  '@', '$'
+  '@', Icon::white_enveloppe()
 );
 
 // Former
 Former::xlarge_text('input01', 'Text input')
   ->blockHelp('This is an help text')
-  ->prepend('@')->append('$')
+  ->prepend('@')->appendIcon('white-enveloppe')
   ->value('myname')
 ```
 
