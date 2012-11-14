@@ -70,6 +70,7 @@ Laravel's original Form class is great — simplistic and full of little helpers
 <div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">horizontal_open</span><span class="p">()</span>
   <span class="o">-&gt;</span><span class="na">id</span><span class="p">(</span><span class="s1">'MyForm'</span><span class="p">)</span>
   <span class="o">-&gt;</span><span class="na">secure</span><span class="p">()</span>
+  <span class="o">-&gt;</span><span class="na">rules</span><span class="p">(</span><span class="k">array</span><span class="p">(</span> <span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'required'</span> <span class="p">))</span>
   <span class="o">-&gt;</span><span class="na">method</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">)</span>
 
   <span class="nx">Former</span><span class="o">::</span><span class="na">xlarge_text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span>
@@ -320,7 +321,7 @@ From there it will automatically generate the corresponding <code>&lt;datalist&g
 Now you know when you validate your POST data with that little <code>$rules</code> array stuff ? Wouldn't it be awesome to just be able to pass that array to your form and let it transcribe your rules into real-live validation ? Yes ? Because you totally can with Former, just sayin'.
 Take the following (far-fetched) rules array :</p>
 
-<div class="highlight"><pre><span class="nv">$rules</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">open</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">rules</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
   <span class="s1">'name'</span>     <span class="o">=&gt;</span> <span class="s1">'required|max:20|alpha'</span><span class="p">,</span>
   <span class="s1">'age'</span>      <span class="o">=&gt;</span> <span class="s1">'between:18,24'</span><span class="p">,</span>
   <span class="s1">'email'</span>    <span class="o">=&gt;</span> <span class="s1">'email'</span><span class="p">,</span>
@@ -328,7 +329,7 @@ Take the following (far-fetched) rules array :</p>
   <span class="s1">'random'</span>   <span class="o">=&gt;</span> <span class="s1">'match:/[a-zA-Z]+/'</span><span class="p">,</span>
   <span class="s1">'birthday'</span> <span class="o">=&gt;</span> <span class="s1">'before:1968-12-03'</span><span class="p">,</span>
   <span class="s1">'avatar'</span>   <span class="o">=&gt;</span> <span class="s1">'image'</span><span class="p">,</span>
-<span class="p">);</span>
+<span class="p">));</span>
 </pre></div>
 
 <p>What Former will do is look for fields that match the keys and apply the best it can those rules. There's not a lot of supported rules for now but I plan on adding more.</p>
@@ -479,7 +480,7 @@ It also repopulates it, meaning a checked input will stay checked on submit.</p>
     <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"input-prepend input-append"</span><span class="o">&gt;</span>
       <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"add-on"</span><span class="o">&gt;@&lt;/</span><span class="nx">span</span><span class="o">&gt;</span>
       <span class="p">{{</span> <span class="nx">Form</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="s1">'myname'</span><span class="p">,</span> <span class="p">(</span><span class="nx">Input</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="nx">Input</span><span class="o">::</span><span class="na">old</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">)),</span> <span class="k">array</span><span class="p">(</span><span class="s1">'class'</span> <span class="o">=&gt;</span> <span class="s1">'input-xlarge'</span><span class="p">))</span> <span class="p">}}</span>
-      <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"add-on"</span><span class="o">&gt;</span><span class="err">$</span><span class="o">&lt;/</span><span class="nx">span</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"add-on"</span><span class="o">&gt;&lt;</span><span class="nx">i</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"icon-white icon-enveloppe"</span><span class="o">&gt;&lt;/</span><span class="nx">i</span><span class="o">&gt;&lt;/</span><span class="nx">span</span><span class="o">&gt;</span>
     <span class="o">&lt;/</span><span class="nx">div</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="nx">p</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"help-block"</span><span class="o">&gt;</span><span class="k">This</span> <span class="nx">is</span> <span class="nx">an</span> <span class="nx">help</span> <span class="nx">text</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
   <span class="o">&lt;/</span><span class="nx">div</span><span class="o">&gt;</span>
@@ -494,13 +495,13 @@ It also repopulates it, meaning a checked input will stay checked on submit.</p>
     <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">errors</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">),</span>
     <span class="nx">Form</span><span class="o">::</span><span class="na">block_help</span><span class="p">(</span><span class="s1">'This is an help text'</span><span class="p">)</span>
   <span class="p">),</span>
-  <span class="s1">'@'</span><span class="p">,</span> <span class="s1">'$'</span>
+  <span class="s1">'@'</span><span class="p">,</span> <span class="nx">Icon</span><span class="o">::</span><span class="na">white_enveloppe</span><span class="p">()</span>
 <span class="p">);</span>
 
 <span class="c1">// Former</span>
 <span class="nx">Former</span><span class="o">::</span><span class="na">xlarge_text</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="s1">'Text input'</span><span class="p">)</span>
   <span class="o">-&gt;</span><span class="na">blockHelp</span><span class="p">(</span><span class="s1">'This is an help text'</span><span class="p">)</span>
-  <span class="o">-&gt;</span><span class="na">prepend</span><span class="p">(</span><span class="s1">'@'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">append</span><span class="p">(</span><span class="s1">'$'</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="na">prepend</span><span class="p">(</span><span class="s1">'@'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">appendIcon</span><span class="p">(</span><span class="s1">'white-enveloppe'</span><span class="p">)</span>
   <span class="o">-&gt;</span><span class="na">value</span><span class="p">(</span><span class="s1">'myname'</span><span class="p">)</span>
 </pre></div>
 
