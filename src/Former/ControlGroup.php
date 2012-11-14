@@ -26,7 +26,10 @@ class ControlGroup
    * The control group label
    * @var string
    */
-  private $label = null;
+  private $label = array(
+    'label'      => null,
+    'attributes' => array()
+  );
 
   /**
    * The control group help
@@ -98,20 +101,9 @@ class ControlGroup
    */
   private function getLabel($field)
   {
-    if(!$this->label or !array_get($this->label, 'label')) return false;
+    $this->label['attributes'] = Framework::getLabelClasses($this->label['attributes']);
 
-    extract($this->label);
-
-    // Add bootstrap class if necessary
-    $attributes = Framework::getLabelClasses($attributes);
-
-    // Get the field name to link the label to it
-    $name = $field->name;
-    if ($field->type == 'checkboxes' or $field->type == 'radios') {
-      return '<label'.HTML::attributes($attributes).'>'.$label.'</label>';
-    }
-
-    return \Form::label($name, $label, $attributes);
+    return Framework::label($field, $this->label);
   }
 
   /**
@@ -292,15 +284,9 @@ class ControlGroup
    * @param  string $label A label
    * @return ControlGroup
    */
-  public function setLabel($label, $attributes = array())
+  public function setLabel($label)
   {
-    // Attempt to translate the label
-    $label = Helpers::translate($label);
-
-    // Set control-group label
-    $this->label = array(
-      'label' => $label,
-      'attributes' => $attributes);
+    $this->label = $label;
   }
 
   ////////////////////////////////////////////////////////////////////

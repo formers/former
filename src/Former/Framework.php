@@ -6,6 +6,7 @@
  */
 namespace Former;
 
+use \Form;
 use \HTML;
 
 class Framework
@@ -128,6 +129,40 @@ class Framework
     return $icon;
   }
 
+  /**
+   * Creates a field for a label
+   *
+   * @param Field $field The field
+   * @return string A field label
+   */
+  public static function label($field, $label = null)
+  {
+    // Get the label and its informations
+    if (!$label) $label = $field->label;
+
+    $attributes = array_get($label, 'attributes', array());
+    $label = array_get($label, 'label');
+    if (!$label) return false;
+
+    // Append required text
+    if ($field->isRequired()) {
+      $label .= Config::get('required_text');
+    }
+
+    // Get the field name to link the label to it
+    if ($field->isCheckable()) {
+      return '<label'.HTML::attributes($attributes).'>'.$label.'</label>';
+    }
+
+    return Form::label($field->name, $label, $attributes);
+  }
+
+  /**
+   * Wrap fields in a control wrapper
+   *
+   * @param Field $field The field to wrap
+   * @return string A wrapped field
+   */
   public static function getFieldClasses($field)
   {
     // Wrap field in .controls if necessary

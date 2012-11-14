@@ -27,7 +27,10 @@ abstract class Field extends Traits\FormerObject
    * A label for the field (if not using Bootstrap)
    * @var string
    */
-  protected $label;
+  protected $label = array(
+    'label'      => null,
+    'attributes' => array()
+  );
 
   /**
    * The field's control group
@@ -48,7 +51,7 @@ abstract class Field extends Traits\FormerObject
   {
     // Set base parameters
     $this->attributes = (array) $attributes;
-    $this->label      = $label;
+    $this->label($label);
     $this->name       = $name;
     $this->type       = $type;
     $this->value      = $value;
@@ -85,7 +88,19 @@ abstract class Field extends Traits\FormerObject
    */
   public function isUnwrappable()
   {
-    return in_array($this->type, array('hidden', 'submit', 'button', 'reset'));
+    return
+      Former::form()->type == 'inline' or
+      in_array($this->type, array('hidden', 'submit', 'button', 'reset'));
+  }
+
+  /**
+   * Check if field is a checkbox or a radio
+   *
+   * @return boolean
+   */
+  public function isCheckable()
+  {
+    return  in_array($this->type, array('checkboxes', 'radios'));
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -111,10 +126,12 @@ abstract class Field extends Traits\FormerObject
    */
   public function label($text, $attributes = array())
   {
-    if($this->controlGroup) $this->controlGroup->setLabel($text, $attributes);
-    else $this->label = array(
+    $label = array(
       'label' => Helpers::translate($text),
       'attributes' => $attributes);
+
+    if($this->controlGroup) $this->controlGroup->setLabel($label);
+    else $this->label = $label;
 
     return $this;
   }
@@ -152,7 +169,7 @@ abstract class Field extends Traits\FormerObject
     $this->name = $name;
 
     // Also relink the label to the new name
-    Former::control()->setLabel($name);
+    $this->label($name);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -217,7 +234,7 @@ abstract class Field extends Traits\FormerObject
 
     // Save values
     $this->name  = $name;
-    $this->label = $label;
+    $this->label($label);
   }
 
   /**

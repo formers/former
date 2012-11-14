@@ -6,7 +6,8 @@
  */
 namespace Former;
 
-use \HTML, \Lang;
+use \HTML;
+use \Lang;
 
 class Helpers
 {
@@ -19,9 +20,12 @@ class Helpers
    */
   public static function addClass($attributes, $class)
   {
-    $attributes['class'] = isset($attributes['class'])
-      ? $attributes['class']. ' ' .$class
-      : $class;
+    if (!isset($attributes['class'])) $attributes['class'] = null;
+
+    // Prevent adding a class twice
+    if (!str_contains($attributes['class'], $class)) {
+      $attributes['class'] = trim($attributes['class']. ' ' .$class);
+    }
 
     return $attributes;
   }
@@ -102,5 +106,26 @@ class Helpers
     }
 
     return isset($array) ? $array : $query;
+  }
+
+  public static function renderLabel($label, $field)
+  {
+    // Get the label and its informations
+    extract($label);
+
+    // Add classes to the attributes
+    $attributes = Framework::getLabelClasses($attributes);
+
+    // Append required text
+    if ($field->isRequired()) {
+      $label .= Config::get('required_text');
+    }
+
+    // Get the field name to link the label to it
+    if ($field->isCheckable()) {
+      return '<label'.HTML::attributes($attributes).'>'.$label.'</label>';
+    }
+
+    return \Form::label($field->name, $label, $attributes);
   }
 }

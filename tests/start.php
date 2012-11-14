@@ -51,6 +51,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
   {
     Input::clear();
     Config::set('application.language', 'en');
+    \Former\Config::set('required_text', '*');
     \Former\Former::horizontal_open()->__toString();
     \Former\Former::populate(array());
     \Former\Former::withErrors(null);

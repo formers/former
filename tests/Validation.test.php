@@ -49,7 +49,7 @@ class ValidationTest extends FormerTests
     $input = Former::text('foo')->__toString();
     $matcher = $this->cgr(
       $this->field(array('required' => 'true')),
-      '<label for="foo" class="control-label">Foo</label>'
+      '<label for="foo" class="control-label">Foo*</label>'
     );
 
     // Second field
@@ -69,8 +69,19 @@ class ValidationTest extends FormerTests
     $input = Former::text('foo')->__toString();
     $matcher = $this->cgr(
       $this->field(array('required' => 'true')),
-      '<label for="foo" class="control-label">Foo</label>'
+      '<label for="foo" class="control-label">Foo*</label>'
     );
+
+    $this->assertEquals($matcher, $input);
+  }
+
+  public function testCanAddRequiredTextToPlainFields()
+  {
+    Former::close();
+    Former::withRules(array('foo' => 'required'));
+
+    $input = Former::text('foo')->__toString();
+    $matcher = '<label for="foo">Foo*</label><input required="true" type="text" name="foo" id="foo">';
 
     $this->assertEquals($matcher, $input);
   }

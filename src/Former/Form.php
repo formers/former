@@ -158,7 +158,7 @@ class Form extends Traits\FormerObject
    */
   public function rules()
   {
-    return call_user_func_array('Former::withRules', func_get_args());
+    return call_user_func_array('\Former\Former::withRules', func_get_args());
   }
 
   /**

@@ -3,6 +3,7 @@
 ### 2.6.0 (unreleased)
 
 - **[add] Former::open()->rules([]) as alias to Former::withRules**
+- **[add] 'required_text' to append a text to required fields's labels**
 
 ### 2.5.0
 

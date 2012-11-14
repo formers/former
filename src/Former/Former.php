@@ -187,9 +187,8 @@ class Former
     }
 
     // Dry syntax (hidden fields, plain fields)
-    if (static::$field->isUnwrappable() or
-        static::form()->type == 'inline') {
-          $html = static::$field->__toString();
+    if (static::$field->isUnwrappable()) {
+      $html = static::$field->__toString();
     }
 
     // Bootstrap syntax
@@ -199,13 +198,7 @@ class Former
 
     // Classic syntax
     else {
-
-      // Get label
-      $label = static::$field->label;
-      $labelText = is_array($label) ? array_get($label, 'label') : $label;
-      $labelAttributes = is_array($label) ? array_get($label, 'attributes') : array();
-
-      $html = \Form::label(static::$field->name, $labelText, $labelAttributes);
+      $html  = Framework::label(static::$field);
       $html .= static::$field;
     }
 

@@ -25,6 +25,9 @@
   // The class to be added to required fields
   'required_class'    => 'required',
 
+  // A facultative text to append to the labels of required fields
+  'required_text'     => '<sup>*</sup>',
+
   // Where Former should look for translations
   'translate_from'    => 'validation.attributes',
 );
