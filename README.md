@@ -36,6 +36,7 @@ Former aims to re-laravelize form creation by transforming each field into its o
 Former::horizontal_open()
   ->id('MyForm')
   ->secure()
+  ->rules(array( 'name' => 'required' ))
   ->method('GET')
 
   Former::xlarge_text('name')
@@ -299,7 +300,7 @@ Now you know when you validate your POST data with that little `$rules` array st
 Take the following (far-fetched) rules array :
 
 ```php
-$rules = array(
+Former::open()->rules(array(
   'name'     => 'required|max:20|alpha',
   'age'      => 'between:18,24',
   'email'    => 'email',
@@ -307,7 +308,7 @@ $rules = array(
   'random'   => 'match:/[a-zA-Z]+/',
   'birthday' => 'before:1968-12-03',
   'avatar'   => 'image',
-);
+));
 ```
 
 What Former will do is look for fields that match the keys and apply the best it can those rules. There's not a lot of supported rules for now but I plan on adding more.
