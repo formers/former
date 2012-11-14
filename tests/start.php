@@ -37,7 +37,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     return '<div class="control-group required">'.$label.'<div class="controls">'.$input.'</div></div>';
   }
 
-  protected function cg($input, $label = '<label for="foo" class="control-label">Foo</label>')
+  protected function cg($input = '<input type="text" name="foo" id="foo">', $label = '<label for="foo" class="control-label">Foo</label>')
   {
     return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';
   }

@@ -1,5 +1,9 @@
 ## Changelog
 
+### 2.6.0 (unreleased)
+
+- **[add] Former::open()->rules([]) as alias to Former::withRules**
+
 ### 2.5.0
 
 - **[add] ControlGroup->prependIcon and appendIcon methods**

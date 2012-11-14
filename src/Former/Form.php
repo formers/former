@@ -152,6 +152,16 @@ class Form extends Traits\FormerObject
   }
 
   /**
+   * Alias for Former::withRules
+   *
+   * @param array $rules Rules
+   */
+  public function rules()
+  {
+    return call_user_func_array('Former::withRules', func_get_args());
+  }
+
+  /**
    * Outputs the current form opened
    *
    * @return string A <form> opening tag

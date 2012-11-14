@@ -118,6 +118,15 @@ class FormTest extends FormerTests
     $this->assertEquals($matcher2, $open2);
   }
 
+  public function testCanChainRulesToForm()
+  {
+    $open = Former::open('#')->rules(array())->addClass('foo')->__toString();
+    $open .= Former::text('foo')->__toString();
+    $matcher = $this->createMatcher('form-horizontal foo').$this->cg();
+
+    $this->assertEquals($matcher, $open);
+  }
+
   public function testChainedFormParameters()
   {
     $open = Former::open()->method('GET')->id('form')->action('#')->addClass('foo')->__toString();
