@@ -53,6 +53,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     Config::set('application.languages', array('fr', 'en'));
     Config::set('application.index', '');
     Config::set('application.language', 'en');
+    Config::set('application.ssl', true);
   }
 
   public function setUp()
@@ -63,7 +64,6 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     \Former\Former::withErrors(null);
     \Former\Former::config('automatic_label', true);
     \Former\Former::config('push_checkboxes', false);
-    \Former\Former::config('required_text', '*');
     \Former\Former::framework('bootstrap');
   }
 

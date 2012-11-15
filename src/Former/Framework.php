@@ -154,7 +154,7 @@ class Framework
       return '<label'.HTML::attributes($attributes).'>'.$label.'</label>';
     }
 
-    return Form::label($field->name, $label, $attributes);
+    return HTML::decode(Form::label($field->name, $label, $attributes));
   }
 
   /**
