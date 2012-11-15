@@ -47,18 +47,23 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';
   }
 
+  public static function setUpBeforeClass()
+  {
+    URL::$base = 'http://test';
+    Config::set('application.languages', array('fr', 'en'));
+    Config::set('application.index', '');
+    Config::set('application.language', 'en');
+  }
+
   public function setUp()
   {
     Input::clear();
-    URL::$base = 'http://test';
-    Config::set('application.language', 'en');
-    Config::set('application.index', '');
-    \Former\Config::set('required_text', '*');
     \Former\Former::horizontal_open()->__toString();
     \Former\Former::populate(array());
     \Former\Former::withErrors(null);
     \Former\Former::config('automatic_label', true);
     \Former\Former::config('push_checkboxes', false);
+    \Former\Former::config('required_text', '*');
     \Former\Former::framework('bootstrap');
   }
 
