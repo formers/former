@@ -50,7 +50,9 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
   public function setUp()
   {
     Input::clear();
+    URL::$base = 'http://test';
     Config::set('application.language', 'en');
+    Config::set('application.index', '');
     \Former\Config::set('required_text', '*');
     \Former\Former::horizontal_open()->__toString();
     \Former\Former::populate(array());

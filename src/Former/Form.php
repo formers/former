@@ -146,7 +146,7 @@ class Form extends Traits\FormerObject
    *
    * @param  boolean $secure Secure or not
    */
-  public function secure(boolean $secure)
+  public function secure($secure = true)
   {
     $this->secure = $secure;
   }

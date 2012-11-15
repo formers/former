@@ -109,9 +109,9 @@ class FormTest extends FormerTests
 
   public function testChainedMethods()
   {
-    $open1 = Former::open('#')->addClass('foo')->__toString();
+    $open1 = Former::open('test')->secure()->addClass('foo')->method('GET')->__toString();
     $open2 = Former::horizontal_open('#')->class('form-vertical bar')->__toString();
-    $matcher1 = $this->createMatcher('form-horizontal foo');
+    $matcher1 = '<form class="form-horizontal foo" method="GET" action="https://test/en/test" accept-charset="UTF-8">';
     $matcher2 = $this->createMatcher('form-vertical bar');
 
     $this->assertEquals($matcher1, $open1);
