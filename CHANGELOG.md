@@ -4,6 +4,7 @@
 
 - **[add] Former::open()->rules([]) as alias to Former::withRules**
 - **[add] 'required_text' to append a text to required fields's labels**
+- [fix] Fix a bug where labels for radios would fail because of identical ids
 
 ### 2.5.0
 
