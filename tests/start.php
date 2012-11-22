@@ -58,6 +58,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
 
   public function setUp()
   {
+    $this->resetLabels();
     Input::clear();
     \Former\Former::horizontal_open()->__toString();
     \Former\Former::populate(array());
@@ -70,5 +71,10 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
   public function tearDown()
   {
     \Former\Former::close();
+  }
+
+  public function resetLabels()
+  {
+    \Form::$labels = array();
   }
 }

@@ -33,7 +33,7 @@ class InputTest extends FormerTests
     Former::config('automatic_label', false);
 
     $input = Former::text('foo')->__toString();
-    $matcher = $this->cg('<input type="text" name="foo" id="foo">', null);
+    $matcher = $this->cg('<input type="text" name="foo">', null);
 
     $this->assertEquals($matcher, $input);
   }
@@ -41,7 +41,7 @@ class InputTest extends FormerTests
   public function testSingleTextWithoutLabelOnStart()
   {
     $input = Former::text('foo', '')->__toString();
-    $matcher = $this->cg('<input type="text" name="foo" id="foo">', null);
+    $matcher = $this->cg('<input type="text" name="foo">', null);
 
     $this->assertEquals($matcher, $input);
   }
@@ -49,7 +49,7 @@ class InputTest extends FormerTests
   public function testSingleTextWithoutLabel()
   {
     $input = Former::text('foo')->label(null)->__toString();
-    $matcher = $this->cg('<input type="text" name="foo" id="foo">', null);
+    $matcher = $this->cg('<input type="text" name="foo">', null);
 
     $this->assertEquals($matcher, $input);
   }
@@ -87,7 +87,7 @@ class InputTest extends FormerTests
   public function testHiddenField()
   {
     $input = Former::hidden('foo')->value('bar')->__toString();
-    $matcher = '<input type="hidden" name="foo" value="bar" id="foo">';
+    $matcher = '<input type="hidden" name="foo" value="bar">';
 
     $this->assertEquals($matcher, $input);
   }
