@@ -164,9 +164,7 @@ abstract class Checkable extends Field
 
     // Merge custom attributes with global attributes
     $attributes = array_merge($this->attributes, $attributes);
-
-    // Register the field with Laravel
-    \Form::$labels[] = $name;
+    if (!isset($attributes['id'])) $attributes['id'] = $name.$this->unique($name);
 
     // Create field
     $field = call_user_func('\Form::'.$this->checkable, $name, $value, $this->isChecked($name, $value), $attributes);
@@ -179,7 +177,30 @@ abstract class Checkable extends Field
     // If no label to wrap, return plain checkable
     if(!$label) return $field;
 
-    return '<label for="' .$name. '" class="' .$this->checkable.$isInline. '">' .$field.$label. '</label>';
+    return '<label for="' .$attributes['id']. '" class="' .$this->checkable.$isInline. '">' .$field.$label. '</label>';
+  }
+
+  /**
+   * Generate an unique ID for a field
+   *
+   * @param string $name The field's name
+   * @return string A field number to use
+   */
+  protected function unique($name)
+  {
+    // Register the field with Laravel
+    \Form::$labels[] = $name;
+
+    // Count number of fields with the same ID
+    $where = array_filter(\Form::$labels, function($label) use ($name) {
+      return $label == $name;
+    });
+    $unique = sizeof($where);
+
+    // In case the field doesn't need to be numbered
+    if ($unique < 2 or empty($this->items)) return false;
+
+    return $unique;
   }
 
   /**
@@ -233,7 +254,6 @@ abstract class Checkable extends Field
     // Check the values and POST array
     $post   = Former::getPost($name);
     $static = Former::getValue($name);
-    $manual = $checked;
 
     if(!is_null($post) and $post !== Config::get('unchecked_value')) $isChecked = ($post == $value);
     elseif(!is_null($static)) $isChecked = ($static == $value);

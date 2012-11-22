@@ -3,20 +3,30 @@ use \Former\Former;
 
 class CheckboxTest extends FormerTests
 {
-  private function cb($name = 'foo', $label = null, $value = 1, $inline = false)
+  private function cb($name = 'foo', $label = null, $value = 1, $inline = false, $checked = false)
   {
-    $inline = $inline ? ' inline' : null;
-    $checkbox = '<input id="' .$name. '" type="checkbox" name="' .$name. '" value="' .$value. '">';
+    $checkAttr = array(
+      'id'      => $name,
+      'checked' => 'checked',
+      'type'    => 'checkbox',
+      'name'    => $name,
+      'value'   => $value,
+    );
+    $labelAttr = array(
+      'for'   => $name,
+      'class' => 'checkbox',
+    );
+    if ($inline) $labelAttr['class'] .= ' inline';
+    if (!$checked) unset($checkAttr['checked']);
 
-    return $label ? '<label for="' .$name. '" class="checkbox' .$inline. '">' .$checkbox.$label. '</label>' : $checkbox;
+    $radio = '<input'.HTML::attributes($checkAttr).'>';
+
+    return $label ? '<label'.HTML::attributes($labelAttr). '>' .$radio.$label. '</label>' : $radio;
   }
 
   private function cbc($name = 'foo', $label = null, $value = 1, $inline = false)
   {
-    $inline = $inline ? ' inline' : null;
-    $checkbox = '<input checked="checked" id="' .$name. '" type="checkbox" name="' .$name. '" value="' .$value. '">';
-
-    return $label ? '<label for="' .$name. '" class="checkbox' .$inline. '">' .$checkbox.$label. '</label>' : $checkbox;
+    return $this->cb($name, $label, $value, $inline, true);
   }
 
   public function testSingle()
@@ -54,6 +64,7 @@ class CheckboxTest extends FormerTests
   public function testInline()
   {
     $checkboxes1 = Former::inline_checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
+    $this->resetLabels();
     $checkboxes2 = Former::checkboxes('foo')->inline()->checkboxes('foo', 'bar')->__toString();
     $matcher = $this->cgm($this->cb('foo_0', 'Foo', 1, true).$this->cb('foo_1', 'Bar', 1, true));
 
@@ -64,6 +75,7 @@ class CheckboxTest extends FormerTests
   public function testStacked()
   {
     $checkboxes1 = Former::stacked_checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
+    $this->resetLabels();
     $checkboxes2 = Former::checkboxes('foo')->stacked()->checkboxes('foo', 'bar')->__toString();
     $matcher = $this->cgm($this->cb('foo_0', 'Foo', 1).$this->cb('foo_1', 'Bar', 1));
 
@@ -87,7 +99,7 @@ class CheckboxTest extends FormerTests
       '<input data-foo="bar" value="bar" id="foo" type="checkbox" name="foo">'.
       'Foo'.
     '</label>'.
-    '<label for="foo" class="checkbox">'.
+    '<label for="bar" class="checkbox">'.
       '<input data-foo="bar" value="bar" id="bar" type="checkbox" name="foo">'.
       'Bar'.
     '</label>');
@@ -107,7 +119,7 @@ class CheckboxTest extends FormerTests
       '<input data-foo="bar" value="bar" id="foo_0" type="checkbox" name="foo_0">'.
       'Foo'.
     '</label>'.
-    '<label for="foo_1" class="checkbox">'.
+    '<label for="bar" class="checkbox">'.
       '<input data-foo="bar" value="bar" id="bar" type="checkbox" name="foo_1">'.
       'Bar'.
     '</label>');
