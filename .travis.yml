@@ -11,4 +11,7 @@ before_install:
   - echo "<?php return array('former' => array('auto' => true));" > ./laravel/application/bundles.php
   - cd ./laravel
 
-script: "php artisan test former"
+script: php artisan test former --coverage-clover "clover"
+
+after_success:
+  - curl -sL https://bit.ly/artifact-uploader | php
