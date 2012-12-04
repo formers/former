@@ -227,7 +227,10 @@ class Former
    */
   public static function populateField($key, $value)
   {
-    static::$values[$key] = $value;
+    if (is_object(static::$values))
+      static::$values->$key = $values;
+    else
+      static::$values[$key] = $value;
   }
 
   /**
