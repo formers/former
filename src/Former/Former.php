@@ -13,31 +13,31 @@ class Former
    * The current field being worked on
    * @var Field
    */
-  private static $field;
+  protected static $field;
 
   /**
    * The current form being worked on
    * @var Form
    */
-  private static $form;
+  protected static $form;
 
   /**
    * Values populating the form
    * @var array
    */
-  private static $values;
+  protected static $values;
 
   /**
    * The form's errors
    * @var Message
    */
-  private static $errors;
+  protected static $errors;
 
   /**
    * An array of rules to use
    * @var array
    */
-  private static $rules = array();
+  protected static $rules = array();
 
   /**
    * The namespace of fields
