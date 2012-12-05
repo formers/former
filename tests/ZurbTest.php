@@ -6,12 +6,12 @@ class ZurbTest extends FormerTests
   public function setUp()
   {
     parent::setUp();
-    Former::framework('zurb');
+    $this->app['former']->framework('zurb');
   }
 
   public function testMagicMethods()
   {
-    $text = Former::three_text('foo')->__toString();
+    $text = $this->app['former']->three_text('foo')->__toString();
     $matcher = '<div><label for="foo">Foo</label><input class="three" type="text" name="foo" id="foo"></div>';
 
     $this->assertEquals($matcher, $text);
@@ -19,7 +19,7 @@ class ZurbTest extends FormerTests
 
   public function testErrorState()
   {
-    $text = Former::text('foo')->state('error')->__toString();
+    $text = $this->app['former']->text('foo')->state('error')->__toString();
     $matcher = '<div class="error"><label for="foo">Foo</label><input type="text" name="foo" id="foo"></div>';
 
     $this->assertEquals($matcher, $text);
@@ -27,8 +27,8 @@ class ZurbTest extends FormerTests
 
   public function testHelp()
   {
-    $text1 = Former::text('foo')->inlineHelp('bar')->__toString();
-    $text2 = Former::text('foo')->blockHelp('bar')->__toString();
+    $text1 = $this->app['former']->text('foo')->inlineHelp('bar')->__toString();
+    $text2 = $this->app['former']->text('foo')->blockHelp('bar')->__toString();
     $matcher = '<div><label for="foo">Foo</label><input type="text" name="foo" id="foo"><small>Bar</small></div>';
 
     $this->assertEquals($matcher, $text1);

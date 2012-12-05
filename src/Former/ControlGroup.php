@@ -113,8 +113,8 @@ class ControlGroup
    */
   private function getHelp()
   {
-    $inline = array_get($this->help, 'inline');
-    $block  = array_get($this->help, 'block');
+    $inline = Arrays::get($this->help, 'inline');
+    $block  = Arrays::get($this->help, 'block');
 
     $errors = Former::getErrors();
     if ($errors) $inline = $this->app['former.framework']->inlineHelp($errors);

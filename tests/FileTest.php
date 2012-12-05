@@ -5,7 +5,7 @@ class FileTest extends FormerTests
 {
   public function testFile()
   {
-    $file = Former::file('foo')->__toString();
+    $file = $this->app['former']->file('foo')->__toString();
     $matcher = $this->cg('<input type="file" name="foo" id="foo">');
 
     $this->assertEquals($matcher, $file);
@@ -13,7 +13,7 @@ class FileTest extends FormerTests
 
   public function testFiles()
   {
-    $file = Former::files('foo')->__toString();
+    $file = $this->app['former']->files('foo')->__toString();
     $matcher = $this->cg(
       '<input multiple="true" type="file" name="foo[]" id="foo[]">',
       '<label for="foo[]" class="control-label">Foo</label>');
@@ -23,7 +23,7 @@ class FileTest extends FormerTests
 
   public function testAccept()
   {
-    $file = Former::file('foo')->accept('video', 'image', 'audio', 'jpeg', 'image/gif')->__toString();
+    $file = $this->app['former']->file('foo')->accept('video', 'image', 'audio', 'jpeg', 'image/gif')->__toString();
     $matcher = $this->cg('<input accept="video/*|image/*|audio/*|image/jpeg|image/gif" type="file" name="foo" id="foo">');
 
     $this->assertEquals($matcher, $file);
@@ -31,7 +31,7 @@ class FileTest extends FormerTests
 
   public function testMaxSizeBytes()
   {
-    $file = Former::file('foo')->max(1, 'KB')->__toString();
+    $file = $this->app['former']->file('foo')->max(1, 'KB')->__toString();
     $matcher = $this->cg('<input type="file" name="foo" id="foo"><input type="hidden" name="MAX_FILE_SIZE" value="1024">');
 
     $this->assertEquals($matcher, $file);
@@ -39,7 +39,7 @@ class FileTest extends FormerTests
 
   public function testMaxSizeMegatoSingle()
   {
-    $file = Former::file('foo')->max(2, 'MB')->__toString();
+    $file = $this->app['former']->file('foo')->max(2, 'MB')->__toString();
     $matcher = $this->cg('<input type="file" name="foo" id="foo"><input type="hidden" name="MAX_FILE_SIZE" value="2097152">');
 
     $this->assertEquals($matcher, $file);
@@ -47,7 +47,7 @@ class FileTest extends FormerTests
 
   public function testMaxSizeBits()
   {
-    $file = Former::file('foo')->max(1, 'Mb')->__toString();
+    $file = $this->app['former']->file('foo')->max(1, 'Mb')->__toString();
     $matcher = $this->cg('<input type="file" name="foo" id="foo"><input type="hidden" name="MAX_FILE_SIZE" value="131072">');
 
     $this->assertEquals($matcher, $file);
@@ -55,7 +55,7 @@ class FileTest extends FormerTests
 
   public function testMaxSizeOctets()
   {
-    $file = Former::file('foo')->max(2, 'Mo')->__toString();
+    $file = $this->app['former']->file('foo')->max(2, 'Mo')->__toString();
     $matcher = $this->cg('<input type="file" name="foo" id="foo"><input type="hidden" name="MAX_FILE_SIZE" value="2097152">');
 
     $this->assertEquals($matcher, $file);

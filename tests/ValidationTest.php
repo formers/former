@@ -8,7 +8,7 @@ class ValidationTest extends FormerTests
 
   private function field($attributes = array(), $type = 'text', $name = 'foo')
   {
-    return '<input' .\$this->app['former.helpers']->attributes($attributes). ' type="' .$type. '" name="' .$name. '" id="' .$name. '">';
+    return '<input' .$this->app['former.helpers']->attributes($attributes). ' type="' .$type. '" name="' .$name. '" id="' .$name. '">';
   }
 
   // Data providers ------------------------------------------------ /
@@ -43,17 +43,17 @@ class ValidationTest extends FormerTests
 
   public function testMultipleRulesArray()
   {
-    Former::withRules(array('foo' => 'required'), array('bar' => 'email'));
+    $this->app['former']->withRules(array('foo' => 'required'), array('bar' => 'email'));
 
     // First field
-    $input = Former::text('foo')->__toString();
+    $input = $this->app['former']->text('foo')->__toString();
     $matcher = $this->cgr(
       $this->field(array('required' => 'true')),
       '<label for="foo" class="control-label">Foo<sup>*</sup></label>'
     );
 
     // Second field
-    $email = Former::text('bar')->__toString();
+    $email = $this->app['former']->text('bar')->__toString();
     $emailMatcher = $this->cg(
       $this->field(null, 'email', 'bar'),
       '<label for="bar" class="control-label">Bar</label>');
@@ -64,9 +64,9 @@ class ValidationTest extends FormerTests
 
   public function testRequired()
   {
-    Former::withRules(array('foo' => 'required'));
+    $this->app['former']->withRules(array('foo' => 'required'));
 
-    $input = Former::text('foo')->__toString();
+    $input = $this->app['former']->text('foo')->__toString();
     $matcher = $this->cgr(
       $this->field(array('required' => 'true')),
       '<label for="foo" class="control-label">Foo<sup>*</sup></label>'
@@ -77,10 +77,10 @@ class ValidationTest extends FormerTests
 
   public function testCanAddRequiredTextToPlainFields()
   {
-    Former::close();
-    Former::withRules(array('foo' => 'required'));
+    $this->app['former']->close();
+    $this->app['former']->withRules(array('foo' => 'required'));
 
-    $input = Former::text('foo')->__toString();
+    $input = $this->app['former']->text('foo')->__toString();
     $matcher = '<label for="foo">Foo<sup>*</sup></label><input required="true" type="text" name="foo" id="foo">';
 
     $this->assertEquals($matcher, $input);
@@ -88,9 +88,9 @@ class ValidationTest extends FormerTests
 
   public function testMax()
   {
-    Former::withRules(array('foo' => 'max:42'));
+    $this->app['former']->withRules(array('foo' => 'max:42'));
 
-    $input = Former::text('foo')->__toString();
+    $input = $this->app['former']->text('foo')->__toString();
     $matcher = $this->cg($this->field(array('maxlength' => '42')));
 
     $this->assertEquals($matcher, $input);
@@ -98,9 +98,9 @@ class ValidationTest extends FormerTests
 
   public function testMaxNumber()
   {
-    Former::withRules(array('foo' => 'max:42'));
+    $this->app['former']->withRules(array('foo' => 'max:42'));
 
-    $input = Former::number('foo')->__toString();
+    $input = $this->app['former']->number('foo')->__toString();
     $matcher = $this->cg($this->field(array('max' => '42'), 'number'));
 
     $this->assertEquals($matcher, $input);
@@ -108,9 +108,9 @@ class ValidationTest extends FormerTests
 
   public function testMin()
   {
-    Former::withRules(array('foo' => 'min:42'));
+    $this->app['former']->withRules(array('foo' => 'min:42'));
 
-    $input = Former::text('foo')->__toString();
+    $input = $this->app['former']->text('foo')->__toString();
     $matcher = $this->cg($this->field(array('minlength' => '42')));
 
     $this->assertEquals($matcher, $input);
@@ -118,9 +118,9 @@ class ValidationTest extends FormerTests
 
   public function testMinNumber()
   {
-    Former::withRules(array('foo' => 'min:42'));
+    $this->app['former']->withRules(array('foo' => 'min:42'));
 
-    $input = Former::number('foo')->__toString();
+    $input = $this->app['former']->number('foo')->__toString();
     $matcher = $this->cg($this->field(array('min' => '42'), 'number'));
 
     $this->assertEquals($matcher, $input);
@@ -131,9 +131,9 @@ class ValidationTest extends FormerTests
    */
   public function testPatterns($type, $pattern)
   {
-    Former::withRules(array('foo' => $type));
+    $this->app['former']->withRules(array('foo' => $type));
 
-    $input = Former::text('foo')->__toString();
+    $input = $this->app['former']->text('foo')->__toString();
     $matcher = $this->cg($this->field(array('pattern' => $pattern)));
 
     $this->assertEquals($matcher, $input);
@@ -141,9 +141,9 @@ class ValidationTest extends FormerTests
 
   public function testNumericWithNumberField()
   {
-    Former::withRules(array('foo' => 'numeric'));
+    $this->app['former']->withRules(array('foo' => 'numeric'));
 
-    $input = Former::number('foo')->__toString();
+    $input = $this->app['former']->number('foo')->__toString();
     $matcher = $this->cg($this->field(array('step' => 'any'), 'number'));
 
     $this->assertEquals($matcher, $input);
@@ -151,9 +151,9 @@ class ValidationTest extends FormerTests
 
   public function testBefore()
   {
-    Former::withRules(array('foo' => 'before:2012-03-03'));
+    $this->app['former']->withRules(array('foo' => 'before:2012-03-03'));
 
-    $input = Former::date('foo')->__toString();
+    $input = $this->app['former']->date('foo')->__toString();
     $matcher = $this->cg($this->field(array('max' => '2012-03-03'), 'date'));
 
     $this->assertEquals($matcher, $input);
@@ -161,9 +161,9 @@ class ValidationTest extends FormerTests
 
   public function testAfter()
   {
-    Former::withRules(array('foo' => 'after:2012-03-03'));
+    $this->app['former']->withRules(array('foo' => 'after:2012-03-03'));
 
-    $input = Former::date('foo')->__toString();
+    $input = $this->app['former']->date('foo')->__toString();
     $matcher = $this->cg($this->field(array('min' => '2012-03-03'), 'date'));
 
     $this->assertEquals($matcher, $input);
@@ -171,9 +171,9 @@ class ValidationTest extends FormerTests
 
   public function testMimes()
   {
-    Former::withRules(array('foo' => 'mimes:jpg,gif'));
+    $this->app['former']->withRules(array('foo' => 'mimes:jpg,gif'));
 
-    $input = Former::file('foo')->__toString();
+    $input = $this->app['former']->file('foo')->__toString();
     $matcher = $this->cg($this->field(array('accept' => 'image/jpeg,image/gif'), 'file'));
 
     $this->assertEquals($matcher, $input);
@@ -181,9 +181,9 @@ class ValidationTest extends FormerTests
 
   public function testImage()
   {
-    Former::withRules(array('foo' => 'image'));
+    $this->app['former']->withRules(array('foo' => 'image'));
 
-    $input = Former::file('foo')->__toString();
+    $input = $this->app['former']->file('foo')->__toString();
     $matcher = $this->cg($this->field(array('accept' => 'image/jpeg,image/png,image/gif,image/bmp'), 'file'));
 
     $this->assertEquals($matcher, $input);
@@ -194,9 +194,9 @@ class ValidationTest extends FormerTests
    */
   public function testTypeChangers($type)
   {
-    Former::withRules(array('foo' => $type));
+    $this->app['former']->withRules(array('foo' => $type));
 
-    $input = Former::text('foo')->__toString();
+    $input = $this->app['former']->text('foo')->__toString();
     $matcher = $this->cg($this->field(null, $type));
 
     $this->assertEquals($matcher, $input);
@@ -204,9 +204,9 @@ class ValidationTest extends FormerTests
 
   public function testBetween()
   {
-    Former::withRules(array('foo' => 'between:1,10'));
+    $this->app['former']->withRules(array('foo' => 'between:1,10'));
 
-    $input = Former::text('foo')->__toString();
+    $input = $this->app['former']->text('foo')->__toString();
     $matcher = $this->cg($this->field(array('minlength' => '1', 'maxlength' => '10')));
 
     $this->assertEquals($matcher, $input);
@@ -214,9 +214,9 @@ class ValidationTest extends FormerTests
 
   public function testBetweenNumber()
   {
-    Former::withRules(array('foo' => 'between:1,10'));
+    $this->app['former']->withRules(array('foo' => 'between:1,10'));
 
-    $input = Former::number('foo')->__toString();
+    $input = $this->app['former']->number('foo')->__toString();
     $matcher = $this->cg($this->field(array('min' => '1', 'max' => '10'), 'number'));
 
     $this->assertEquals($matcher, $input);
@@ -224,10 +224,10 @@ class ValidationTest extends FormerTests
 
   public function testDisablingValidation()
   {
-    Former::config('live_validation', false);
-    Former::withRules(array('foo' => 'required'));
+    $this->app['former']->config('live_validation', false);
+    $this->app['former']->withRules(array('foo' => 'required'));
 
-    $input = Former::text('foo')->__toString();
+    $input = $this->app['former']->text('foo')->__toString();
     $matcher = $this->cg(
       $this->field(),
       '<label for="foo" class="control-label">Foo</label>'

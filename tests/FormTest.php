@@ -19,21 +19,21 @@ class FormTest extends FormerTests
 
   public function testLabel()
   {
-    $label = Former::label('foo');
+    $label = $this->app['former']->label('foo');
 
     $this->assertEquals('<label for="">Foo</label>', $label);
   }
 
   public function testClose()
   {
-    $close = Former::close();
+    $close = $this->app['former']->close();
 
     $this->assertEquals('</form>', $close);
   }
 
   public function testOpen()
   {
-    $open = Former::open('#')->__toString();
+    $open = $this->app['former']->open('#')->__toString();
     $matcher = $this->createMatcher();
 
     $this->assertEquals($matcher, $open);
@@ -41,7 +41,7 @@ class FormTest extends FormerTests
 
   public function testOpenCustom()
   {
-    $open = Former::open('#', 'GET', $this->testAttributes)->__toString();
+    $open = $this->app['former']->open('#', 'GET', $this->testAttributes)->__toString();
     $matcher = '<form class="foo form-horizontal" data-foo="bar" method="GET" action="#" accept-charset="UTF-8">';
 
     $this->assertEquals($matcher, $open);
@@ -51,7 +51,7 @@ class FormTest extends FormerTests
 
   public function testHorizontalOpen()
   {
-    $open = Former::horizontal_open('#')->__toString();
+    $open = $this->app['former']->horizontal_open('#')->__toString();
     $matcher = $this->createMatcher();
 
     $this->assertEquals($matcher, $open);
@@ -59,7 +59,7 @@ class FormTest extends FormerTests
 
   public function testVerticalOpen()
   {
-    $open = Former::vertical_open('#')->__toString();
+    $open = $this->app['former']->vertical_open('#')->__toString();
     $matcher = $this->createMatcher('vertical');
 
     $this->assertEquals($matcher, $open);
@@ -67,7 +67,7 @@ class FormTest extends FormerTests
 
   public function testSearchOpen()
   {
-    $open = Former::search_open('#')->__toString();
+    $open = $this->app['former']->search_open('#')->__toString();
     $matcher = $this->createMatcher('search');
 
     $this->assertEquals($matcher, $open);
@@ -75,7 +75,7 @@ class FormTest extends FormerTests
 
   public function testInlineOpen()
   {
-    $open = Former::inline_open('#')->__toString();
+    $open = $this->app['former']->inline_open('#')->__toString();
     $matcher = $this->createMatcher('inline');
 
     $this->assertEquals($matcher, $open);
@@ -83,7 +83,7 @@ class FormTest extends FormerTests
 
   public function testFilesOpen()
   {
-    $open = Former::open_for_files('#')->__toString();
+    $open = $this->app['former']->open_for_files('#')->__toString();
     $matcher = $this->createMatcher('horizontal', true);
 
     $this->assertEquals($matcher, $open);
@@ -93,7 +93,7 @@ class FormTest extends FormerTests
 
   public function testInlineFilesOpen()
   {
-    $open = Former::inline_open_for_files('#')->__toString();
+    $open = $this->app['former']->inline_open_for_files('#')->__toString();
     $matcher = $this->createMatcher('inline', true);
 
     $this->assertEquals($matcher, $open);
@@ -101,7 +101,7 @@ class FormTest extends FormerTests
 
   public function testSecureInlineFilesOpen()
   {
-    $open = Former::inline_secure_open_for_files('#')->__toString();
+    $open = $this->app['former']->inline_secure_open_for_files('#')->__toString();
     $matcher = $this->createMatcher('inline', true);
 
     $this->assertEquals($matcher, $open);
@@ -109,8 +109,8 @@ class FormTest extends FormerTests
 
   public function testChainedMethods()
   {
-    $open1 = Former::open('test')->secure()->addClass('foo')->method('GET')->__toString();
-    $open2 = Former::horizontal_open('#')->class('form-vertical bar')->__toString();
+    $open1 = $this->app['former']->open('test')->secure()->addClass('foo')->method('GET')->__toString();
+    $open2 = $this->app['former']->horizontal_open('#')->class('form-vertical bar')->__toString();
     $matcher1 = '<form class="form-horizontal foo" method="GET" action="https://test/en/test" accept-charset="UTF-8">';
     $matcher2 = $this->createMatcher('form-vertical bar');
 
@@ -120,8 +120,8 @@ class FormTest extends FormerTests
 
   public function testCanChainRulesToForm()
   {
-    $open = Former::open('#')->rules(array())->addClass('foo')->__toString();
-    $open .= Former::text('foo')->__toString();
+    $open = $this->app['former']->open('#')->rules(array())->addClass('foo')->__toString();
+    $open .= $this->app['former']->text('foo')->__toString();
     $matcher = $this->createMatcher('form-horizontal foo').$this->cg();
 
     $this->assertEquals($matcher, $open);
@@ -129,7 +129,7 @@ class FormTest extends FormerTests
 
   public function testChainedFormParameters()
   {
-    $open = Former::open()->method('GET')->id('form')->action('#')->addClass('foo')->__toString();
+    $open = $this->app['former']->open()->method('GET')->id('form')->action('#')->addClass('foo')->__toString();
     $matcher = '<form class="form-horizontal foo" id="form" method="GET" action="#" accept-charset="UTF-8">';
 
     $this->assertEquals($matcher, $open);
@@ -137,7 +137,7 @@ class FormTest extends FormerTests
 
   public function testSingleAction()
   {
-    $action = Former::actions('<button>Submit</button>');
+    $action = $this->app['former']->actions('<button>Submit</button>');
     $matcher = '<div class="form-actions"><button>Submit</button></div>';
 
     $this->assertEquals($matcher, $action);
@@ -145,7 +145,7 @@ class FormTest extends FormerTests
 
   public function testMultipleStringActions()
   {
-    $actions = Former::actions('<button>Submit</button>', '<button type="reset">Reset</button>');
+    $actions = $this->app['former']->actions('<button>Submit</button>', '<button type="reset">Reset</button>');
     $matcher = '<div class="form-actions"><button>Submit</button> <button type="reset">Reset</button></div>';
 
     $this->assertEquals($matcher, $actions);
@@ -153,7 +153,7 @@ class FormTest extends FormerTests
 
   public function testMultipleObjectActions()
   {
-    $actions = Former::actions(Former::submit('submit'), Former::reset('reset'));
+    $actions = $this->app['former']->actions($this->app['former']->submit('submit'), $this->app['former']->reset('reset'));
     $matcher =
       '<div class="form-actions">'.
         '<input class="btn" type="submit" value="Submit"> '.

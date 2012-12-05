@@ -6,6 +6,9 @@
  */
 namespace Former;
 
+use \Underscore\Arrays;
+use \Underscore\String;
+
 class Form extends Traits\FormerObject
 {
   /**
@@ -53,22 +56,22 @@ class Form extends Traits\FormerObject
    */
   public function open($typeAsked, $parameters)
   {
-    $action     = array_get($parameters, 0);
-    $method     = array_get($parameters, 1, 'POST');
-    $attributes = array_get($parameters, 2, array());
-    $secure     = array_get($parameters, 3, false);
+    $action     = Arrays::get($parameters, 0);
+    $method     = Arrays::get($parameters, 1, 'POST');
+    $attributes = Arrays::get($parameters, 2, array());
+    $secure     = Arrays::get($parameters, 3, false);
 
     // If classic form
     if($typeAsked == 'open') $type = Config::get('default_form_type');
     else {
       // Look for HTTPS form
-      if (str_contains($typeAsked, 'secure')) {
+      if (String::contains($typeAsked, 'secure')) {
         $typeAsked = str_replace('secure', null, $typeAsked);
         $secure = true;
       }
 
       // Look for file form
-      if (str_contains($typeAsked, 'for_files')) {
+      if (String::contains($typeAsked, 'for_files')) {
         $typeAsked = str_replace('for_files', null, $typeAsked);
         $attributes['enctype'] = 'multipart/form-data';
       }

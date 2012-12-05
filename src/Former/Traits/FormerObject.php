@@ -6,6 +6,8 @@
  */
 namespace Former\Traits;
 
+use \Underscore\Arrays;
+
 abstract class FormerObject
 {
   /**
@@ -26,7 +28,7 @@ abstract class FormerObject
     $method = str_replace('_', '-', $method);
 
     // Get value and set it
-    $value = array_get($parameters, 0, 'true');
+    $value = Arrays::get($parameters, 0, 'true');
     $this->setAttribute($method, $value);
 
     return $this;
@@ -41,7 +43,7 @@ abstract class FormerObject
   public function __get($attribute)
   {
     if(isset($this->$attribute)) return $this->$attribute;
-    else return array_get($this->attributes, $attribute);
+    else return Arrays::get($this->attributes, $attribute);
   }
 
   /**

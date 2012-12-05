@@ -1,18 +1,9 @@
 <?php
-// Start Former
-Bundle::start('former');
-
-// Start Bootstrapper if installed (as it sometimes alias Form)
-if (Bundle::exists('bootstrapper')) {
-  Bundle::start('bootstrapper');
-}
-
-// Start session (don't know why I get bugs with this sometimes)
-Session::start('file');
-
 // Base Test class for matchers
 abstract class FormerTests extends PHPUnit_Framework_TestCase
 {
+  protected $app;
+
   protected $checkables = array(
     'Foo' => array(
       'data-foo' => 'bar',
@@ -47,34 +38,35 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';
   }
 
-  public static function setUpBeforeClass()
-  {
-    URL::$base = 'http://test';
-    Config::set('application.languages', array('fr', 'en'));
-    Config::set('application.index', '');
-    Config::set('application.language', 'en');
-    Config::set('application.ssl', true);
-  }
-
   public function setUp()
   {
+    $this->app = $this->getApplication();
     $this->resetLabels();
-    Input::clear();
-    \Former\Former::horizontal_open()->__toString();
-    \Former\Former::populate(array());
-    \Former\Former::withErrors(null);
-    \Former\Former::config('automatic_label', true);
-    \Former\Former::config('push_checkboxes', false);
-    \Former\Former::framework('bootstrap');
+    //Input::clear();
+    $this->app['former']->horizontal_open()->__toString();
+    $this->app['former']->populate(array());
+    $this->app['former']->withErrors(null);
+    $this->app['former']->config('automatic_label', true);
+    $this->app['former']->config('push_checkboxes', false);
+    $this->app['former']->framework('bootstrap');
   }
 
   public function tearDown()
   {
-    \Former\Former::close();
+    $this->app['former']->close();
   }
 
   public function resetLabels()
   {
-    \Form::$labels = array();
+    \Laravel\Form::$labels = array();
+  }
+
+  protected function getApplication()
+  {
+    $app = new Illuminate\Container;
+    $app['former'] = new Former\Former($app);
+    $app['former.helpers'] = new Former\Helpers($app);
+
+    return $app;
   }
 }

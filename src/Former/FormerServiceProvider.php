@@ -1,8 +1,9 @@
-<?php namespace Former;
+<?php
+namespace Former;
 
 use Illuminate\Support\ServiceProvider;
 
-define('FORMER_VERSION', '2.6.0');
+define('FORMER_VERSION', '3.0.0');
 
 class FormerServiceProvider extends ServiceProvider
 {

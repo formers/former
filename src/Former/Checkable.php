@@ -126,7 +126,7 @@ abstract class Checkable extends Field
       // If we gave custom information on the item, add them
       if (is_array($name)) {
         $attributes = $name;
-        $name = array_get($attributes, 'name', $fallback);
+        $name = Arrays::get($attributes, 'name', $fallback);
         unset($attributes['name']);
       }
 
@@ -245,11 +245,11 @@ abstract class Checkable extends Field
     // Or if it's a single radio, simply see if we called check
     if($this->isCheckbox() or
       !$this->isCheckbox() and !$this->items)
-        $checked = array_get($this->checked, $name, false);
+        $checked = Arrays::get($this->checked, $name, false);
 
     // If there are multiple, search for the value
     // as the name are the same between radios
-    else $checked = array_get($this->checked, $value, false);
+    else $checked = Arrays::get($this->checked, $value, false);
 
     // Check the values and POST array
     $post   = Former::getPost($name);

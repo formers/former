@@ -1,6 +1,7 @@
 {
   "name": "anahkiasen/former",
   "description": "A powerful form builder for the Laravel framework",
+  "license": "BSD",
   "keywords": [
     "form",
     "bootstrap",
@@ -12,6 +13,10 @@
       "email": "ehtnam6@gmail.com"
     }
   ],
+  "require": {
+    "illuminate/container": ">=1.0.0",
+    "anahkiasen/underscore-php": "dev-master"
+  },
   "autoload": {
     "psr-0": {
       "Former": "src/",

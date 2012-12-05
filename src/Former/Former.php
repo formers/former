@@ -69,7 +69,7 @@ class Former
   public function __call($method, $parameters)
   {
     // Form opener
-    if (str_contains($method, 'open')) {
+    if (strpos($method, 'open') !== false) {
       $this->form = new Form;
       $this->form()->open($method, $parameters);
 
@@ -125,12 +125,12 @@ class Former
     $this->field = new $class(
       $this->app,
       $method,
-      array_get($parameters, 0),
-      array_get($parameters, 1),
-      array_get($parameters, 2),
-      array_get($parameters, 3),
-      array_get($parameters, 4),
-      array_get($parameters, 5)
+      Arrays::get($parameters, 0),
+      Arrays::get($parameters, 1),
+      Arrays::get($parameters, 2),
+      Arrays::get($parameters, 3),
+      Arrays::get($parameters, 4),
+      Arrays::get($parameters, 5)
     );
 
     // Inline checkboxes
@@ -261,7 +261,7 @@ class Former
 
       // Transform the name into an array
       $value = $this->values;
-      $name  = str_contains($name, '.') ? explode('.', $name) : (array) $name;
+      $name  = String::contains($name, '.') ? explode('.', $name) : (array) $name;
 
       // Dive into the model
       foreach ($name as $r) {
@@ -286,7 +286,7 @@ class Former
     }
 
     // Plain array
-    return array_get($this->values, $name, $fallback);
+    return Arrays::get($this->values, $name, $fallback);
   }
 
   /**
@@ -477,7 +477,7 @@ class Former
    */
   public function getRules($name)
   {
-    return array_get($this->rules, $name);
+    return Arrays::get($this->rules, $name);
   }
 
   /**

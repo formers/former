@@ -38,7 +38,7 @@ class Config
   {
     if(!$key) return static::$options;
 
-    return array_get(static::$options, $key, $fallback);
+    return Arrays::get(static::$options, $key, $fallback);
   }
 
   /**

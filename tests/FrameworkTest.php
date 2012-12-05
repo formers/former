@@ -6,7 +6,7 @@ class FrameworkTest extends FormerTests
 {
   public function testChangeViaFormerOptions()
   {
-    Former::config('framework', 'zurb');
+    $this->app['former']->config('framework', 'zurb');
 
     $this->assertEquals(Framework::current(), 'zurb');
   }
@@ -20,7 +20,7 @@ class FrameworkTest extends FormerTests
 
   public function testChangeViaFormer()
   {
-    Former::framework('zurb');
+    $this->app['former']->framework('zurb');
 
     $this->assertEquals(Framework::current(), 'zurb');
   }

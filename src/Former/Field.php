@@ -274,15 +274,15 @@ abstract class Field extends Traits\FormerObject
                 $format .= '\TH:i:s';
           }
 
-          $date = strtotime(array_get($parameters, 0));
+          $date = strtotime(Arrays::get($parameters, 0));
           $attribute = ($rule == 'before') ? 'max' : 'min';
           $this->attributes[$attribute] = date($format, $date);
           break;
         case 'max':
-          $this->setMax(array_get($parameters, 0));
+          $this->setMax(Arrays::get($parameters, 0));
           break;
         case 'min':
-          $this->setMin(array_get($parameters, 0));
+          $this->setMin(Arrays::get($parameters, 0));
           break;
         case 'integer':
           $this->attributes['pattern'] = '\d+';

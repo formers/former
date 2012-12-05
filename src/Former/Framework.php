@@ -124,7 +124,7 @@ class Framework
     if ($this->is('bootstrap')) {
 
       // White icon
-      if (str_contains($icon, 'white')) {
+      if (String::contains($icon, 'white')) {
         $icon = trim(str_replace('white', null, $icon), '-');
         $attributes = $this->app['former.helpers']->addClass($attributes, 'icon-white');
       }
@@ -151,8 +151,8 @@ class Framework
     // Get the label and its informations
     if (!$label) $label = $field->label;
 
-    $attributes = array_get($label, 'attributes', array());
-    $label = array_get($label, 'label');
+    $attributes = Arrays::get($label, 'attributes', array());
+    $label = Arrays::get($label, 'label');
     if (!$label) return false;
 
     // Append required text
@@ -354,7 +354,7 @@ class Framework
   private function getAvailable($classes, $from)
   {
     // List all available classes
-    $available = array_get($this->from, $this->current(), array());
+    $available = Arrays::get($this->from, $this->current(), array());
 
     // Filter classes
     return array_intersect($available, $classes);

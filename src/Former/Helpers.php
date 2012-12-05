@@ -55,7 +55,7 @@ class Helpers
     if (!isset($attributes['class'])) $attributes['class'] = null;
 
     // Prevent adding a class twice
-    if (!str_contains($attributes['class'], $class)) {
+    if (!String::contains($attributes['class'], $class)) {
       $attributes['class'] = trim($attributes['class']. ' ' .$class);
     }
 
