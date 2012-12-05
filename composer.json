@@ -1,15 +1,21 @@
 {
-    "name": "anahkiasen/former",
-    "description": "A powerful form builder for the Laravel framework",
-    "authors": [
-        {
-            "name": "Maxime Fabre",
-            "email": "ehtnam6@gmail.com"
-        }
-    ],
-    "autoload": {
-        "psr-0": {
-            "Former": "libraries/"
-        }
+  "name": "anahkiasen/former",
+  "description": "A powerful form builder for the Laravel framework",
+  "keywords": [
+    "form",
+    "bootstrap",
+    "foundation"
+  ],
+  "authors": [
+    {
+      "name": "Maxime Fabre",
+      "email": "ehtnam6@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-0": {
+      "Former": "src/"
+    }
+  },
+  "minimum-stability": "dev"
 }
