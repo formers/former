@@ -79,7 +79,7 @@ class Form extends Traits\FormerObject
     }
 
     // Add the final form type
-    $attributes = Helpers::addClass($attributes, 'form-'.$type);
+    $attributes = $this->app['former.helpers']->addClass($attributes, 'form-'.$type);
 
     // Store it
     $this->type = $type;

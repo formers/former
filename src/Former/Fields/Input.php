@@ -17,9 +17,9 @@ class Input extends \Former\Field
    */
   private $datalist = array();
 
-  public function __construct($type, $name, $label, $value, $attributes)
+  public function __construct($app, $type, $name, $label, $value, $attributes)
   {
-    parent::__construct($type, $name, $label, $value, $attributes);
+    parent::__construct($app, $type, $name, $label, $value, $attributes);
 
     // Multiple models population
     if (is_array($this->value)) {
@@ -35,7 +35,7 @@ class Input extends \Former\Field
    */
   public function useDatalist($datalist, $value = null, $key = null)
   {
-    $datalist = Helpers::queryToArray($datalist, $value, $key);
+    $datalist = $this->app['former.helpers']->queryToArray($datalist, $value, $key);
 
     $list = $this->list ?: 'datalist_'.$this->name;
 
@@ -55,7 +55,7 @@ class Input extends \Former\Field
     if($this->type == 'search') $this->asSearch();
 
     // Render main input
-    $input = Form::input($this->type, $this->name, $this->value, $this->attributes);
+    $input = \Laravel\Form::input($this->type, $this->name, $this->value, $this->attributes);
 
     // If we have a datalist to append, print it out
     if ($this->datalist) {
@@ -75,7 +75,7 @@ class Input extends \Former\Field
   private function asSearch()
   {
     $this->type = 'text';
-    $this->attributes = Helpers::addClass($this->attributes, 'search-query');
+    $this->attributes = $this->app['former.helpers']->addClass($this->attributes, 'search-query');
   }
 
   /**

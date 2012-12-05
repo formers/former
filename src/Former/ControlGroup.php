@@ -61,7 +61,7 @@ class ControlGroup
   public function __construct($label)
   {
     // Get special classes
-    $this->attributes = Framework::getGroupClasses($this->attributes);
+    $this->attributes = $this->app['former.framework']->getGroupClasses($this->attributes);
 
     // Set control group label
     $this->setLabel($label);
@@ -82,15 +82,15 @@ class ControlGroup
 
     // Retrieve state and append it to classes
     if ($this->state) {
-      $this->attributes = Helpers::addClass($this->attributes, $this->state);
+      $this->attributes = $this->app['former.helpers']->addClass($this->attributes, $this->state);
     }
 
     // Required state
     if (Former::field()->isRequired()) {
-      $this->attributes = Helpers::addClass($this->attributes, Config::get('required_class'));
+      $this->attributes = $this->app['former.helpers']->addClass($this->attributes, Config::get('required_class'));
     }
 
-    return '<div'.HTML::attributes($this->attributes). '>';
+    return '<div'.$this->app['former.helpers']->attributes($this->attributes). '>';
   }
 
   /**
@@ -101,9 +101,9 @@ class ControlGroup
    */
   private function getLabel($field)
   {
-    $this->label['attributes'] = Framework::getLabelClasses($this->label['attributes']);
+    $this->label['attributes'] = $this->app['former.framework']->getLabelClasses($this->label['attributes']);
 
-    return Framework::label($field, $this->label);
+    return $this->app['former.framework']->label($field, $this->label);
   }
 
   /**
@@ -117,7 +117,7 @@ class ControlGroup
     $block  = array_get($this->help, 'block');
 
     $errors = Former::getErrors();
-    if ($errors) $inline = Framework::inlineHelp($errors);
+    if ($errors) $inline = $this->app['former.framework']->inlineHelp($errors);
     return join(null, array($inline, $block));
   }
 
@@ -168,7 +168,7 @@ class ControlGroup
       $html  .= $this->getLabel($field);
       $field  = $this->prependAppend($field);
       $field .= $this->getHelp();
-      $html  .= Framework::getFieldClasses($field);
+      $html  .= $this->app['former.framework']->getFieldClasses($field);
     $html .= $this->close();
 
     return $html;
@@ -186,7 +186,7 @@ class ControlGroup
   public function state($state)
   {
     // Filter state
-    $state = Framework::getState($state);
+    $state = $this->app['former.framework']->getState($state);
     if(!$state) return false;
 
     $this->state = $state;
@@ -212,9 +212,9 @@ class ControlGroup
     if (empty($help)) return false;
 
     // Attempt to translate help text
-    $help = Helpers::translate($help);
+    $help = $this->app['former.helpers']->translate($help);
 
-    $this->help['inline'] = Framework::inlineHelp($help, $attributes);
+    $this->help['inline'] = $this->app['former.framework']->inlineHelp($help, $attributes);
   }
 
   /**
@@ -229,9 +229,9 @@ class ControlGroup
     if (empty($help)) return false;
 
     // Attempt to translate help text
-    $help = Helpers::translate($help);
+    $help = $this->app['former.helpers']->translate($help);
 
-    $this->help['block'] = Framework::blockHelp($help, $attributes);
+    $this->help['block'] = $this->app['former.framework']->blockHelp($help, $attributes);
   }
 
   /**
@@ -260,7 +260,7 @@ class ControlGroup
    */
   public function prependIcon($icon, $attributes = array())
   {
-    $icon = Framework::icon($icon, $attributes);
+    $icon = $this->app['former.framework']->icon($icon, $attributes);
 
     $this->placeAround($icon, 'prepend');
   }
@@ -273,7 +273,7 @@ class ControlGroup
    */
   public function appendIcon($icon, $attributes = array())
   {
-    $icon = Framework::icon($icon, $attributes);
+    $icon = $this->app['former.framework']->icon($icon, $attributes);
 
     $this->placeAround($icon, 'append');
   }

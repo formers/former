@@ -83,7 +83,7 @@ abstract class FormerObject
   {
     if(is_array($class)) $class = implode(' ', $class);
 
-    $this->attributes = \Former\Helpers::addClass($this->attributes, $class);
+    $this->attributes = $this->app['former.helpers']->addClass($this->attributes, $class);
 
     return $this;
   }

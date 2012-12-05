@@ -18,10 +18,10 @@ class Uneditable extends \Former\Field
    */
   public function __toString()
   {
-    $this->attributes = Helpers::addClass($this->attributes, 'uneditable-input');
+    $this->attributes = $this->app['former.helpers']->addClass($this->attributes, 'uneditable-input');
 
     return
-      '<span'.HTML::attributes($this->attributes).'>'.
+      '<span'.$this->app['former.helpers']->attributes($this->attributes).'>'.
         HTML::entities($this->value).
       '</span>';
   }

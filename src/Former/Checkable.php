@@ -68,7 +68,7 @@ abstract class Checkable extends Field
     // In case people try to pass Lang objects
     if(is_object($text)) $text = $text->get();
 
-    $this->text = Helpers::translate($text);
+    $this->text = $this->app['former.helpers']->translate($text);
   }
 
   /**
@@ -133,7 +133,7 @@ abstract class Checkable extends Field
       // Store all informations we have in an array
       $item = array(
         'name' => $name,
-        'label' => Helpers::translate($label),
+        'label' => $this->app['former.helpers']->translate($label),
       );
       if(isset($attributes)) $item['attributes'] = $attributes;
 

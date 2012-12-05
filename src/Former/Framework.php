@@ -12,16 +12,22 @@ use \HTML;
 class Framework
 {
   /**
+   * Illuminate application instance.
+   * @var Illuminate/Foundation/Application
+   */
+  protected $app;
+
+  /**
    * The current framework being used
    * @var string
    */
-  private static $framework;
+  private $framework;
 
   /**
    * The availables states for a control group
    * @var array
    */
-  private static $states = array(
+  private $states = array(
     'bootstrap' => array('success', 'warning', 'error', 'info'),
     'zurb'      => array('error')
   );
@@ -30,7 +36,7 @@ class Framework
    * The button types available
    * @var array
    */
-  private static $types = array(
+  private $types = array(
     'bootstrap' => array(
       'large', 'small', 'mini',
       'block', 'info', 'inverse', 'link', 'primary', 'success', 'warning'),
@@ -40,7 +46,7 @@ class Framework
    * The field sizes available
    * @var array
    */
-  private static $sizes = array(
+  private $sizes = array(
     'bootstrap' => array(
       'mini', 'small', 'medium', 'large', 'xlarge', 'xxlarge',
       'span1', 'span2', 'span3', 'span4', 'span5', 'span6', 'span7',
@@ -50,6 +56,11 @@ class Framework
       'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight',
       'nine', 'ten', 'eleven', 'twelve'),
   );
+
+  public function __construct($app)
+  {
+    $this->app = $app;
+  }
 
   ////////////////////////////////////////////////////////////////////
   /////////////////////////// FIELD ELEMENTS /////////////////////////
@@ -62,17 +73,17 @@ class Framework
    * @param  array  $attributes Its attributes
    * @return string             A .help-inline p
    */
-  public static function inlineHelp($value, $attributes = array())
+  public function inlineHelp($value, $attributes = array())
   {
     // Return the correct syntax according to framework
-    switch (static::current()) {
+    switch ($this->current()) {
       case 'bootstrap':
-        $attributes = Helpers::addClass($attributes, 'help-inline');
-        $help = '<span'.HTML::attributes($attributes).'>'.$value.'</span>';
+        $attributes = $this->app['former.helpers']->addClass($attributes, 'help-inline');
+        $help = '<span'.$this->app['former.helpers']->attributes($attributes).'>'.$value.'</span>';
         break;
       case 'zurb':
       default:
-        $help = '<small' .HTML::attributes($attributes). '>' .$value. '</small>';
+        $help = '<small' .$this->app['former.helpers']->attributes($attributes). '>' .$value. '</small>';
         break;
     }
 
@@ -86,14 +97,14 @@ class Framework
    * @param  array  $attributes Its attributes
    * @return string             A .help-block p
    */
-  public static function blockHelp($value, $attributes = array())
+  public function blockHelp($value, $attributes = array())
   {
     // Block helps are only available in Bootstrap
-    if(static::isnt('bootstrap')) return static::inlineHelp($value, $attributes);
+    if($this->isnt('bootstrap')) return $this->inlineHelp($value, $attributes);
 
-    $attributes = Helpers::addClass($attributes, 'help-block');
+    $attributes = $this->app['former.helpers']->addClass($attributes, 'help-block');
 
-    return '<p '.HTML::attributes($attributes).'>'.$value.'</p>';
+    return '<p '.$this->app['former.helpers']->attributes($attributes).'>'.$value.'</p>';
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -108,22 +119,22 @@ class Framework
    *
    * @return string An icon tag
    */
-  public static function icon($icon, $attributes = array())
+  public function icon($icon, $attributes = array())
   {
-    if (static::is('bootstrap')) {
+    if ($this->is('bootstrap')) {
 
       // White icon
       if (str_contains($icon, 'white')) {
         $icon = trim(str_replace('white', null, $icon), '-');
-        $attributes = Helpers::addClass($attributes, 'icon-white');
+        $attributes = $this->app['former.helpers']->addClass($attributes, 'icon-white');
       }
 
       // Check for empty icons
       if (!$icon) return false;
-      $attributes = Helpers::addClass($attributes, 'icon-'.$icon);
+      $attributes = $this->app['former.helpers']->addClass($attributes, 'icon-'.$icon);
 
       // Create icon
-      $icon = '<i'.HTML::attributes($attributes).'></i>';
+      $icon = '<i'.$this->app['former.helpers']->attributes($attributes).'></i>';
     }
 
     return $icon;
@@ -135,7 +146,7 @@ class Framework
    * @param Field $field The field
    * @return string A field label
    */
-  public static function label($field, $label = null)
+  public function label($field, $label = null)
   {
     // Get the label and its informations
     if (!$label) $label = $field->label;
@@ -151,7 +162,7 @@ class Framework
 
     // Get the field name to link the label to it
     if ($field->isCheckable()) {
-      return '<label'.HTML::attributes($attributes).'>'.$label.'</label>';
+      return '<label'.$this->app['former.helpers']->attributes($attributes).'>'.$label.'</label>';
     }
 
     return HTML::decode(Form::label($field->name, $label, $attributes));
@@ -163,10 +174,10 @@ class Framework
    * @param Field $field The field to wrap
    * @return string A wrapped field
    */
-  public static function getFieldClasses($field)
+  public function getFieldClasses($field)
   {
     // Wrap field in .controls if necessary
-    if (static::is('bootstrap')) {
+    if ($this->is('bootstrap')) {
       $field = '<div class="controls">' .$field. '</div>';
     }
 
@@ -179,10 +190,10 @@ class Framework
    * @param  array $attributes The label's attributes
    * @return array             The modified attributes
    */
-  public static function getLabelClasses($attributes)
+  public function getLabelClasses($attributes)
   {
-    if (static::is('bootstrap')) {
-      $attributes = Helpers::addClass($attributes, 'control-label');
+    if ($this->is('bootstrap')) {
+      $attributes = $this->app['former.helpers']->addClass($attributes, 'control-label');
     }
 
     return $attributes;
@@ -194,10 +205,10 @@ class Framework
    * @param  array $attributes The group's attributes
    * @return array             The modified attributes
    */
-  public static function getGroupClasses($attributes)
+  public function getGroupClasses($attributes)
   {
-    if (static::is('bootstrap')) {
-      $attributes = Helpers::addClass($attributes, 'control-group');
+    if ($this->is('bootstrap')) {
+      $attributes = $this->app['former.helpers']->addClass($attributes, 'control-group');
     }
 
     return $attributes;
@@ -209,18 +220,18 @@ class Framework
    * @param  array  $sizes An array of asked classes
    * @return string        A field size
    */
-  public static function getFieldSizes($sizes)
+  public function getFieldSizes($sizes)
   {
-    if(static::is(null)) return null;
+    if($this->is(null)) return null;
 
     // Filter sizes
-    $sizes = static::getAvailable($sizes, 'sizes');
+    $sizes = $this->getAvailable($sizes, 'sizes');
 
     // Get size from array and format it
     $size = array_pop($sizes);
     if ($size) {
-      if(static::is('bootstrap')) $size = starts_with($size, 'span') ? $size : 'input-'.$size;
-      elseif(static::is('zurb')) $size;
+      if($this->is('bootstrap')) $size = starts_with($size, 'span') ? $size : 'input-'.$size;
+      elseif($this->is('zurb')) $size;
       else $size = null;
     }
 
@@ -233,16 +244,16 @@ class Framework
    * @param  array $types An array of types
    * @return array        A filtered array
    */
-  public static function getButtonTypes($types)
+  public function getButtonTypes($types)
   {
-    if(static::is(null)) return null;
+    if($this->is(null)) return null;
 
     // Filter types
-    $types = static::getAvailable($types, 'types');
+    $types = $this->getAvailable($types, 'types');
 
     // Format classes
-    if (static::is('bootstrap')) {
-      $types = static::prependClasses($types, 'btn-');
+    if ($this->is('bootstrap')) {
+      $types = $this->prependClasses($types, 'btn-');
       $types[] = 'btn';
     } else $types = null;
 
@@ -255,9 +266,9 @@ class Framework
    * @param  string $state A state to apply
    * @return mixed         The filtered state or null
    */
-  public static function getState($state)
+  public function getState($state)
   {
-    if(in_array($state, static::$states[static::current()])) return $state;
+    if(in_array($state, $this->states[$this->current()])) return $state;
     else return null;
   }
 
@@ -270,7 +281,7 @@ class Framework
    *
    * @return string The framework used by Former
    */
-  public static function current()
+  public function current()
   {
     return Config::get('framework');
   }
@@ -280,14 +291,14 @@ class Framework
    *
    * @param  string $framework A framework, or null for none
    */
-  public static function useFramework($framework = null)
+  public function useFramework($framework = null)
   {
     if (in_array($framework, array('bootstrap', 'zurb')) or
         is_null($framework)) {
       Config::set('framework', $framework);
     }
 
-    return static::current();
+    return $this->current();
   }
 
   /**
@@ -296,9 +307,9 @@ class Framework
    * @param  string  $framework The framework to check against
    * @return boolean            In use or not
    */
-  public static function is($framework)
+  public function is($framework)
   {
-    return static::current() == $framework;
+    return $this->current() == $framework;
   }
 
   /**
@@ -307,9 +318,9 @@ class Framework
    * @param  string  $framework The framework to check against
    * @return boolean            Not in use or not
    */
-  public static function isnt($framework)
+  public function isnt($framework)
   {
-    return static::current() != $framework;
+    return $this->current() != $framework;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -323,7 +334,7 @@ class Framework
    * @param  string $class   The string to prepend them with
    * @return array           An array of prepended classes
    */
-  private static function prependClasses($classes, $class)
+  private function prependClasses($classes, $class)
   {
     // Add prefix to each class
     foreach ($classes as $key => $value) {
@@ -340,10 +351,10 @@ class Framework
    * @param  string $from    The kind of classes to get
    * @return array           Filtered array
    */
-  private static function getAvailable($classes, $from)
+  private function getAvailable($classes, $from)
   {
     // List all available classes
-    $available = array_get(static::$$from, static::current(), array());
+    $available = array_get($this->from, $this->current(), array());
 
     // Filter classes
     return array_intersect($available, $classes);

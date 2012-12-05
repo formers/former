@@ -31,7 +31,7 @@ class Button extends \Former\Field
    */
   public function value($value)
   {
-    $value = \Former\Helpers::translate($value);
+    $value = $this->app['former.helpers']->translate($value);
 
     $this->value = $value;
 

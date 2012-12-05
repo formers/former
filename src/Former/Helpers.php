@@ -11,6 +11,38 @@ use \Lang;
 
 class Helpers
 {
+  public function __construct($app)
+  {
+    $this->app = $app;
+  }
+
+  /**
+   * Build a list of HTML attributes from an array.
+   *
+   * @param  array  $attributes
+   * @return string
+   */
+  public function attributes($attributes)
+  {
+    $html = array();
+
+    foreach ((array) $attributes as $key => $value)
+    {
+      // For numeric keys, we will assume that the key and the value are the
+      // same, as this will convert HTML attributes such as "required" that
+      // may be specified as required="required", etc.
+      if (is_numeric($key)) $key = $value;
+
+      if ( ! is_null($value))
+      {
+        //$html[] = $key.'="'.$this->entities($value).'"';
+        $html[] = $key.'="'.$value.'"';
+      }
+    }
+
+    return (count($html) > 0) ? ' '.implode(' ', $html) : '';
+  }
+
   /**
    * Adds a class to an attributes array
    *
@@ -18,7 +50,7 @@ class Helpers
    * @param  string $class      The class to add
    * @return array              The modified attributes array
    */
-  public static function addClass($attributes, $class)
+  public function addClass($attributes, $class)
   {
     if (!isset($attributes['class'])) $attributes['class'] = null;
 
@@ -37,7 +69,7 @@ class Helpers
    * @param  string $fallback The ultimate fallback
    * @return string           A translated string
    */
-  public static function translate($key, $fallback = null)
+  public function translate($key, $fallback = null)
   {
     // If nothing was given, return nothing, bitch
     if(!$key) return null;
@@ -67,7 +99,7 @@ class Helpers
    * @param  string $key   The attribute to use as key
    * @return array         A data array
    */
-  public static function queryToArray($query, $value, $key)
+  public function queryToArray($query, $value, $key)
   {
     // Automatically fetch Lang objects for people who store translated options lists
     if ($query instanceof \Laravel\Lang) {
@@ -108,13 +140,13 @@ class Helpers
     return isset($array) ? $array : $query;
   }
 
-  public static function renderLabel($label, $field)
+  public function renderLabel($label, $field)
   {
     // Get the label and its informations
     extract($label);
 
     // Add classes to the attributes
-    $attributes = Framework::getLabelClasses($attributes);
+    $attributes = $this->app['former.framework']->getLabelClasses($attributes);
 
     // Append required text
     if ($field->isRequired()) {
@@ -123,7 +155,7 @@ class Helpers
 
     // Get the field name to link the label to it
     if ($field->isCheckable()) {
-      return '<label'.HTML::attributes($attributes).'>'.$label.'</label>';
+      return '<label'.$this->app['former.helpers']->attributes($attributes).'>'.$label.'</label>';
     }
 
     return \Form::label($field->name, $label, $attributes);

@@ -8,7 +8,7 @@ class ValidationTest extends FormerTests
 
   private function field($attributes = array(), $type = 'text', $name = 'foo')
   {
-    return '<input' .\HTML::attributes($attributes). ' type="' .$type. '" name="' .$name. '" id="' .$name. '">';
+    return '<input' .\$this->app['former.helpers']->attributes($attributes). ' type="' .$type. '" name="' .$name. '" id="' .$name. '">';
   }
 
   // Data providers ------------------------------------------------ /

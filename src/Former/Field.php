@@ -18,6 +18,13 @@ abstract class Field extends Traits\FormerObject
   protected $type;
 
   /**
+   * Illuminate application instance.
+   *
+   * @var Illuminate\Foundation\Application  $app
+   */
+  protected $app;
+
+  /**
    * The field value
    * @var string
    */
@@ -47,9 +54,10 @@ abstract class Field extends Traits\FormerObject
    *
    * @param string $type A field type
    */
-  public function __construct($type, $name, $label, $value, $attributes)
+  public function __construct($app, $type, $name, $label, $value, $attributes)
   {
     // Set base parameters
+    $this->app        = $app;
     $this->attributes = (array) $attributes;
     $this->label($label);
     $this->name       = $name;
@@ -62,7 +70,7 @@ abstract class Field extends Traits\FormerObject
     if(Config::get('live_validation')) $this->addRules();
 
     // Link Control group
-    if (Framework::isnt(null)) {
+    if ($this->app['former.framework']->isnt(null)) {
       $this->controlGroup = new ControlGroup($this->label);
     }
   }
@@ -89,7 +97,7 @@ abstract class Field extends Traits\FormerObject
   public function isUnwrappable()
   {
     return
-      Former::form()->type == 'inline' or
+      $this->app['former']->form()->type == 'inline' or
       in_array($this->type, array('hidden', 'submit', 'button', 'reset'));
   }
 
@@ -127,7 +135,7 @@ abstract class Field extends Traits\FormerObject
   public function label($text, $attributes = array())
   {
     $label = array(
-      'label' => Helpers::translate($text),
+      'label' => $this->app['former.helpers']->translate($text),
       'attributes' => $attributes);
 
     if($this->controlGroup) $this->controlGroup->setLabel($label);
@@ -184,8 +192,8 @@ abstract class Field extends Traits\FormerObject
     if(is_null($fallback)) $fallback = $this->value;
 
     // Get values from POST, populated, and manually set value
-    $post     = Former::getPost($this->name);
-    $populate = Former::getValue($this->name);
+    $post     = $this->app['former']->getPost($this->name);
+    $populate = $this->app['former']->getPost($this->name);
 
     // Assign a priority to each
     if(!is_null($post)) $value = $post;
@@ -230,7 +238,7 @@ abstract class Field extends Traits\FormerObject
     elseif(is_null($label) and $name) $label = $name;
 
     // Attempt to translate the label
-    $label = Helpers::translate($label);
+    $label = $this->app['former.helpers']->translate($label);
 
     // Save values
     $this->name  = $name;

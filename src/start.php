@@ -1,4 +1,4 @@
-<?php
+/*<?php
 use \Former\Config;
 use \Former\Framework;
 
@@ -14,4 +14,5 @@ Autoloader::namespaces(array(
 new Config;
 
 // Set default framework
-Framework::useFramework(Config::get('framework'));
+$this->app['former.framework']->useFramework(Config::get('framework'));
+*/

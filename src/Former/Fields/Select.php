@@ -82,7 +82,7 @@ class Select extends \Former\Field
    */
   public function fromQuery($results, $value = null, $key = null)
   {
-    $options = Helpers::queryToArray($results, $value, $key);
+    $options = $this->app['former.helpers']->queryToArray($results, $value, $key);
 
     if(isset($options)) $this->options = $options;
   }
@@ -104,7 +104,7 @@ class Select extends \Former\Field
    */
   public function placeholder($placeholder)
   {
-    $this->placeholder = Helpers::translate($placeholder);
+    $this->placeholder = $this->app['former.helpers']->translate($placeholder);
   }
 
   /**
@@ -136,7 +136,7 @@ class Select extends \Former\Field
     if ($this->placeholder) {
       $placeholder = array('value' => '', 'disabled' => '');
       if(!$this->value) $placeholder['selected'] = '';
-      $placeholder = '<option'.HTML::attributes($placeholder).'>' .$this->placeholder. '</option>';
+      $placeholder = '<option'.$this->app['former.helpers']->attributes($placeholder).'>' .$this->placeholder. '</option>';
 
       $select = preg_replace('#<select([^>]+)>#', '$0'.$placeholder, $select);
     }
