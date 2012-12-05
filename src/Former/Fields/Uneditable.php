@@ -6,9 +6,6 @@
  */
 namespace Former\Fields;
 
-use \Former\Helpers;
-use \HTML;
-
 class Uneditable extends \Former\Field
 {
   /**

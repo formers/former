@@ -71,16 +71,15 @@ class Former
   public function __call($method, $parameters)
   {
     // Form opener
-    if (strpos($method, 'open') !== false) {
+    if (strpos($method, 'open') !== false and strpos($method, 'open') >= 0) {
       $this->form = new Form($this->app);
-      $this->form()->open($method, $parameters);
 
-      return $this;
+      return $this->form->open($method, $parameters);
     }
 
     // Avoid conflict with chained label method
     if ($method == 'label') {
-      return call_user_func_array('$this->_label', $parameters);
+      return $this->_label($parameters[0], Arrays::get($parameters, 1));
     }
 
     // Checking for any supplementary classes
@@ -152,7 +151,7 @@ class Former
     // As Buttons are more of a helper class, we return them directly
     if($callClass == 'Button') return $this->field;
 
-    return $this;
+    return $this->field;
   }
 
   /**
@@ -299,9 +298,9 @@ class Former
    */
   public function getPost($name, $fallback = null)
   {
-    $old = $this->app['input']->old($name, $fallback);
+    $old = $this->app['request']->old($name, $fallback);
 
-    return $this->app['input']->get($name, $old);
+    return $this->app['request']->get($name, $old);
   }
 
   /**
@@ -504,7 +503,7 @@ class Former
    */
   public function form()
   {
-    if (!$this->form) return new Form;
+    if (!$this->form) return new Form($this->app);
     return $this->form;
   }
 

@@ -129,6 +129,8 @@ class Form extends Traits\FormerObject
   public function isOpened()
   {
     return $this->opened;
+
+    return $this;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -143,6 +145,8 @@ class Form extends Traits\FormerObject
   public function action($action)
   {
     $this->action = $action;
+
+    return $this;
   }
 
   /**
@@ -153,6 +157,8 @@ class Form extends Traits\FormerObject
   public function method($method)
   {
     $this->method = $method;
+
+    return $this;
   }
 
   /**
@@ -163,6 +169,8 @@ class Form extends Traits\FormerObject
   public function secure($secure = true)
   {
     $this->secure = $secure;
+
+    return $this;
   }
 
   /**
@@ -172,7 +180,9 @@ class Form extends Traits\FormerObject
    */
   public function rules()
   {
-    return call_user_func_array(array($this->app['former'], 'withRules'), func_get_args());
+    call_user_func_array(array($this->app['former'], 'withRules'), func_get_args());
+
+    return $this;
   }
 
   /**

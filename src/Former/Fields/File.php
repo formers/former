@@ -24,9 +24,9 @@ class File extends \Former\Field
    * @param string $value      Its value
    * @param array  $attributes Attributes
    */
-  public function __construct($type, $name, $label, $value, $attributes)
+  public function __construct($app, $type, $name, $label, $value, $attributes)
   {
-    parent::__construct($type, $name, $label, $value, $attributes);
+    parent::__construct($app, $type, $name, $label, $value, $attributes);
 
     // Multiple files field
     if ($this->type == 'files') {

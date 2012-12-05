@@ -90,10 +90,8 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
 
     $app['request'] = Mockery::mock('request');
     $app['request']->shouldReceive('url')->andReturn('#');
-
-    $app['input'] = Mockery::mock('input');
-    $app['input']->shouldReceive('get')->andReturn(null);
-    $app['input']->shouldReceive('old')->andReturn(null);
+    $app['request']->shouldReceive('get')->andReturn(null);
+    $app['request']->shouldReceive('old')->andReturn(null);
 
     $app['url'] = Mockery::mock('url');
     $app['url']->shouldReceive('to')->andReturnUsing(function($url) {
