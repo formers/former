@@ -22,23 +22,19 @@ class FormerServiceProvider extends ServiceProvider
    */
   public function registerBindings()
   {
-    $this->app['former'] = $this->app->share(function($app)
-    {
+    $this->app['former'] = $this->app->share(function($app) {
       return new Former($app);
     });
 
-    $this->app['former.framework'] = $this->app->share(function($app)
-    {
+    $this->app['former.framework'] = $this->app->share(function($app) {
       return new Framework($app);
     });
 
-    $this->app['former.helpers'] = $this->app->share(function($app)
-    {
+    $this->app['former.helpers'] = $this->app->share(function($app) {
       return new Helpers($app);
     });
 
-    $this->app['former.laravel.form'] = $this->app->share(function($app)
-    {
+    $this->app['former.laravel.form'] = $this->app->share(function($app) {
       return new \Laravel\Form($app);
     });
   }

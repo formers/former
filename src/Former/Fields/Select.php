@@ -8,7 +8,6 @@ namespace Former\Fields;
 
 use \Form;
 use \Former\Helpers;
-use \HTML;
 
 class Select extends \Former\Field
 {

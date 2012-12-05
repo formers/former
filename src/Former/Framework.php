@@ -156,7 +156,7 @@ class Framework
 
     // Append required text
     if ($field->isRequired()) {
-      $label .= $this->app['config']->get('required_text');
+      $label .= $this->app['config']->get('former::required_text');
     }
 
     // Get the field name to link the label to it
@@ -164,7 +164,7 @@ class Framework
       return '<label'.$this->app['former.helpers']->attributes($attributes).'>'.$label.'</label>';
     }
 
-    return HTML::decode($this->app['former.laravel.form']->label($field->name, $label, $attributes));
+    return $this->app['former.laravel.html']->decode($this->app['former.laravel.form']->label($field->name, $label, $attributes));
   }
 
   /**
@@ -353,7 +353,7 @@ class Framework
   private function getAvailable($classes, $from)
   {
     // List all available classes
-    $available = Arrays::get($from, $this->current(), array());
+    $available = Arrays::get($this->$from, $this->current(), array());
 
     // Filter classes
     return array_intersect($available, $classes);

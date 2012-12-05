@@ -65,13 +65,13 @@ abstract class Field extends Traits\FormerObject
     $this->value      = $value;
 
     // Set magic parameters (repopulated value, translated label, etc)
-    if($this->app['config']->get('automatic_label')) $this->ponder($name, $label);
+    if($this->app['config']->get('former::automatic_label')) $this->ponder($name, $label);
     if($type != 'password') $this->value = $this->repopulate();
-    if($this->app['config']->get('live_validation')) $this->addRules();
+    if($this->app['config']->get('former::live_validation')) $this->addRules();
 
     // Link Control group
     if ($this->app['former.framework']->isnt(null)) {
-      $this->controlGroup = new ControlGroup($this->label);
+      $this->controlGroup = new ControlGroup($this->app, $this->label);
     }
   }
 
@@ -140,7 +140,6 @@ abstract class Field extends Traits\FormerObject
 
     if($this->controlGroup) $this->controlGroup->setLabel($label);
     else $this->label = $label;
-
     return $this;
   }
 
@@ -251,7 +250,7 @@ abstract class Field extends Traits\FormerObject
   private function addRules()
   {
     // Get the different rules assigned to this field
-    $rules = Former::getRules($this->name);
+    $rules = $this->app['former']->getRules($this->name);
     if(!$rules) return false;
 
     // Iterate through them and add the attributes

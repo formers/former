@@ -157,7 +157,7 @@ abstract class Checkable extends Field
     // Set default values
     if(!isset($attributes)) $attributes = array();
     if(isset($attributes['value'])) $value = $attributes['value'];
-    if(!isset($value) or $value === $this->app['config']->get('unchecked_value')) $value = $fallbackValue;
+    if(!isset($value) or $value === $this->app['config']->get('former::unchecked_value')) $value = $fallbackValue;
 
     // If inline items, add class
     $isInline = $this->inline ? ' inline' : null;
@@ -170,8 +170,8 @@ abstract class Checkable extends Field
     $field = call_user_func('$this->app['former.laravel.form']->'.$this->checkable, $name, $value, $this->isChecked($name, $value), $attributes);
 
     // Add hidden checkbox if requested
-    if ($this->app['config']->get('push_checkboxes')) {
-      $field = $this->app['former.laravel.form']->hidden($name, $this->app['config']->get('unchecked_value')) . $field;
+    if ($this->app['config']->get('former::push_checkboxes')) {
+      $field = $this->app['former.laravel.form']->hidden($name, $this->app['config']->get('former::unchecked_value')) . $field;
     }
 
     // If no label to wrap, return plain checkable
@@ -199,7 +199,6 @@ abstract class Checkable extends Field
 
     // In case the field doesn't need to be numbered
     if ($unique < 2 or empty($this->items)) return false;
-
     return $unique;
   }
 
@@ -252,10 +251,10 @@ abstract class Checkable extends Field
     else $checked = Arrays::get($this->checked, $value, false);
 
     // Check the values and POST array
-    $post   = Former::getPost($name);
-    $static = Former::getValue($name);
+    $post   = $this->app['former']->getPost($name);
+    $static = $this->app['former']->getValue($name);
 
-    if(!is_null($post) and $post !== $this->app['config']->get('unchecked_value')) $isChecked = ($post == $value);
+    if(!is_null($post) and $post !== $this->app['config']->get('former::unchecked_value')) $isChecked = ($post == $value);
     elseif(!is_null($static)) $isChecked = ($static == $value);
     else $isChecked = $checked;
     return $isChecked ? true : false;

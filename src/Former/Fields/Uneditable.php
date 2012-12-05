@@ -22,7 +22,7 @@ class Uneditable extends \Former\Field
 
     return
       '<span'.$this->app['former.helpers']->attributes($this->attributes).'>'.
-        HTML::entities($this->value).
+        $this->app['former.laravel.html']->entities($this->value).
       '</span>';
   }
 }

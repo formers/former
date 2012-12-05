@@ -82,7 +82,7 @@ class Form {
       $append = $this->hidden(Request::spoofer, $method);
     }
 
-    return '<form'.HTML::attributes($attributes).'>'.$append;
+    return '<form'.$this->app['former.laravel.html']->attributes($attributes).'>'.$append;
   }
 
   /**
@@ -107,10 +107,9 @@ class Form {
    */
   protected function action($action, $https)
   {
-    return 'foo';
-    $uri = (is_null($action)) ? URI::current() : $action;
+    $uri = (is_null($action)) ? $this->app['request']->url() : $action;
 
-    return HTML::entities(URL::to($uri, $https));
+    return $this->app['former.laravel.html']->entities($this->app['url']->to($uri, $https));
   }
 
   /**
@@ -192,9 +191,9 @@ class Form {
   {
     $this->labels[] = $name;
 
-    $attributes = HTML::attributes($attributes);
+    $attributes = $this->app['former.laravel.html']->attributes($attributes);
 
-    $value = HTML::entities($value);
+    $value = $this->app['former.laravel.html']->entities($value);
 
     return '<label for="'.$name.'"'.$attributes.'>'.$value.'</label>';
   }
@@ -224,7 +223,7 @@ class Form {
 
     $attributes = array_merge($attributes, compact('type', 'name', 'value', 'id'));
 
-    return '<input'.HTML::attributes($attributes).'>';
+    return '<input'.$this->app['former.laravel.html']->attributes($attributes).'>';
   }
 
   /**
@@ -373,7 +372,7 @@ class Form {
 
     if ( ! isset($attributes['cols'])) $attributes['cols'] = 50;
 
-    return '<textarea'.HTML::attributes($attributes).'>'.HTML::entities($value).'</textarea>';
+    return '<textarea'.$this->app['former.laravel.html']->attributes($attributes).'>'.$this->app['former.laravel.html']->entities($value).'</textarea>';
   }
 
   /**
@@ -413,7 +412,7 @@ class Form {
       }
     }
 
-    return '<select'.HTML::attributes($attributes).'>'.implode('', $html).'</select>';
+    return '<select'.$this->app['former.laravel.html']->attributes($attributes).'>'.implode('', $html).'</select>';
   }
 
   /**
@@ -433,7 +432,7 @@ class Form {
       $html[] = $this->option($value, $display, $selected);
     }
 
-    return '<optgroup label="'.HTML::entities($label).'">'.implode('', $html).'</optgroup>';
+    return '<optgroup label="'.$this->app['former.laravel.html']->entities($label).'">'.implode('', $html).'</optgroup>';
   }
 
   /**
@@ -455,9 +454,9 @@ class Form {
       $selected = ((string) $value == (string) $selected) ? 'selected' : null;
     }
 
-    $attributes = array('value' => HTML::entities($value), 'selected' => $selected);
+    $attributes = array('value' => $this->app['former.laravel.html']->entities($value), 'selected' => $selected);
 
-    return '<option'.HTML::attributes($attributes).'>'.HTML::entities($display).'</option>';
+    return '<option'.$this->app['former.laravel.html']->attributes($attributes).'>'.$this->app['former.laravel.html']->entities($display).'</option>';
   }
 
   /**
@@ -578,7 +577,7 @@ class Form {
    */
   public function button($value = null, $attributes = array())
   {
-    return '<button'.HTML::attributes($attributes).'>'.HTML::entities($value).'</button>';
+    return '<button'.$this->app['former.laravel.html']->attributes($attributes).'>'.$this->app['former.laravel.html']->entities($value).'</button>';
   }
 
   /**

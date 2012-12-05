@@ -2,19 +2,26 @@
 
 class HTML {
 
+  private $app;
+
   /**
    * The registered custom macros.
    *
    * @var array
    */
-  public static $macros = array();
+  public $macros = array();
 
   /**
    * Cache application encoding locally to save expensive calls to config::get().
    *
    * @var string
    */
-  public static $encoding = null;
+  public $encoding = null;
+
+  public function __construct($app)
+  {
+    $this->app = $app;
+  }
 
   /**
    * Registers a custom macro.
@@ -23,9 +30,9 @@ class HTML {
    * @param  Closure  $macro
    * @return void
    */
-  public static function macro($name, $macro)
+  public function macro($name, $macro)
   {
-    static::$macros[$name] = $macro;
+    $this->macros[$name] = $macro;
   }
 
   /**
@@ -36,9 +43,9 @@ class HTML {
    * @param  string  $value
    * @return string
    */
-  public static function entities($value)
+  public function entities($value)
   {
-    return htmlentities($value, ENT_QUOTES, static::encoding(), false);
+    return htmlentities($value, ENT_QUOTES, $this->encoding(), false);
   }
 
   /**
@@ -47,9 +54,9 @@ class HTML {
    * @param  string  $value
    * @return string
    */
-  public static function decode($value)
+  public function decode($value)
   {
-    return html_entity_decode($value, ENT_QUOTES, static::encoding());
+    return html_entity_decode($value, ENT_QUOTES, $this->encoding());
   }
 
   /**
@@ -60,9 +67,9 @@ class HTML {
    * @param  string  $value
    * @return string
    */
-  public static function specialchars($value)
+  public function specialchars($value)
   {
-    return htmlspecialchars($value, ENT_QUOTES, static::encoding(), false);
+    return htmlspecialchars($value, ENT_QUOTES, $this->encoding(), false);
   }
 
   /**
@@ -80,11 +87,11 @@ class HTML {
    * @param  array   $attributes
    * @return string
    */
-  public static function script($url, $attributes = array())
+  public function script($url, $attributes = array())
   {
     $url = URL::to_asset($url);
 
-    return '<script src="'.$url.'"'.static::attributes($attributes).'></script>'.PHP_EOL;
+    return '<script src="'.$url.'"'.$this->attributes($attributes).'></script>'.PHP_EOL;
   }
 
   /**
@@ -104,7 +111,7 @@ class HTML {
    * @param  array   $attributes
    * @return string
    */
-  public static function style($url, $attributes = array())
+  public function style($url, $attributes = array())
   {
     $defaults = array('media' => 'all', 'type' => 'text/css', 'rel' => 'stylesheet');
 
@@ -112,7 +119,7 @@ class HTML {
 
     $url = URL::to_asset($url);
 
-    return '<link href="'.$url.'"'.static::attributes($attributes).'>'.PHP_EOL;
+    return '<link href="'.$url.'"'.$this->attributes($attributes).'>'.PHP_EOL;
   }
 
   /**
@@ -122,9 +129,9 @@ class HTML {
    * @param  array   $attributes
    * @return string
    */
-  public static function span($value, $attributes = array())
+  public function span($value, $attributes = array())
   {
-    return '<span'.static::attributes($attributes).'>'.static::entities($value).'</span>';
+    return '<span'.$this->attributes($attributes).'>'.$this->entities($value).'</span>';
   }
 
   /**
@@ -144,13 +151,13 @@ class HTML {
    * @param  bool    $https
    * @return string
    */
-  public static function link($url, $title = null, $attributes = array(), $https = null)
+  public function link($url, $title = null, $attributes = array(), $https = null)
   {
     $url = URL::to($url, $https);
 
     if (is_null($title)) $title = $url;
 
-    return '<a href="'.$url.'"'.static::attributes($attributes).'>'.static::entities($title).'</a>';
+    return '<a href="'.$url.'"'.$this->attributes($attributes).'>'.$this->entities($title).'</a>';
   }
 
   /**
@@ -161,9 +168,9 @@ class HTML {
    * @param  array   $attributes
    * @return string
    */
-  public static function link_to_secure($url, $title = null, $attributes = array())
+  public function link_to_secure($url, $title = null, $attributes = array())
   {
-    return static::link($url, $title, $attributes, true);
+    return $this->link($url, $title, $attributes, true);
   }
 
   /**
@@ -177,13 +184,13 @@ class HTML {
    * @param  bool    $https
    * @return string
    */
-  public static function link_to_asset($url, $title = null, $attributes = array(), $https = null)
+  public function link_to_asset($url, $title = null, $attributes = array(), $https = null)
   {
     $url = URL::to_asset($url, $https);
 
     if (is_null($title)) $title = $url;
 
-    return '<a href="'.$url.'"'.static::attributes($attributes).'>'.static::entities($title).'</a>';
+    return '<a href="'.$url.'"'.$this->attributes($attributes).'>'.$this->entities($title).'</a>';
   }
 
   /**
@@ -194,9 +201,9 @@ class HTML {
    * @param  array   $attributes
    * @return string
    */
-  public static function link_to_secure_asset($url, $title = null, $attributes = array())
+  public function link_to_secure_asset($url, $title = null, $attributes = array())
   {
-    return static::link_to_asset($url, $title, $attributes, true);
+    return $this->link_to_asset($url, $title, $attributes, true);
   }
 
   /**
@@ -218,9 +225,9 @@ class HTML {
    * @param  array   $attributes
    * @return string
    */
-  public static function link_to_route($name, $title = null, $parameters = array(), $attributes = array())
+  public function link_to_route($name, $title = null, $parameters = array(), $attributes = array())
   {
-    return static::link(URL::to_route($name, $parameters), $title, $attributes);
+    return $this->link(URL::to_route($name, $parameters), $title, $attributes);
   }
 
   /**
@@ -242,9 +249,9 @@ class HTML {
    * @param  array   $attributes
    * @return string
    */
-  public static function link_to_action($action, $title = null, $parameters = array(), $attributes = array())
+  public function link_to_action($action, $title = null, $parameters = array(), $attributes = array())
   {
-    return static::link(URL::to_action($action, $parameters), $title, $attributes);
+    return $this->link(URL::to_action($action, $parameters), $title, $attributes);
   }
 
   /**
@@ -257,15 +264,15 @@ class HTML {
    * @param  array   $attributes
    * @return string
    */
-  public static function mailto($email, $title = null, $attributes = array())
+  public function mailto($email, $title = null, $attributes = array())
   {
-    $email = static::email($email);
+    $email = $this->email($email);
 
     if (is_null($title)) $title = $email;
 
     $email = '&#109;&#097;&#105;&#108;&#116;&#111;&#058;'.$email;
 
-    return '<a href="'.$email.'"'.static::attributes($attributes).'>'.static::entities($title).'</a>';
+    return '<a href="'.$email.'"'.$this->attributes($attributes).'>'.$this->entities($title).'</a>';
   }
 
   /**
@@ -274,9 +281,9 @@ class HTML {
    * @param  string  $email
    * @return string
    */
-  public static function email($email)
+  public function email($email)
   {
-    return str_replace('@', '&#64;', static::obfuscate($email));
+    return str_replace('@', '&#64;', $this->obfuscate($email));
   }
 
   /**
@@ -287,11 +294,11 @@ class HTML {
    * @param  array   $attributes
    * @return string
    */
-  public static function image($url, $alt = '', $attributes = array())
+  public function image($url, $alt = '', $attributes = array())
   {
     $attributes['alt'] = $alt;
 
-    return '<img src="'.URL::to_asset($url).'"'.static::attributes($attributes).'>';
+    return '<img src="'.URL::to_asset($url).'"'.$this->attributes($attributes).'>';
   }
 
   /**
@@ -301,9 +308,9 @@ class HTML {
    * @param  array   $attributes
    * @return string
    */
-  public static function ol($list, $attributes = array())
+  public function ol($list, $attributes = array())
   {
-    return static::listing('ol', $list, $attributes);
+    return $this->listing('ol', $list, $attributes);
   }
 
   /**
@@ -313,9 +320,9 @@ class HTML {
    * @param  array   $attributes
    * @return string
    */
-  public static function ul($list, $attributes = array())
+  public function ul($list, $attributes = array())
   {
-    return static::listing('ul', $list, $attributes);
+    return $this->listing('ul', $list, $attributes);
   }
 
   /**
@@ -326,7 +333,7 @@ class HTML {
    * @param  array   $attributes
    * @return string
    */
-  private static function listing($type, $list, $attributes = array())
+  private function listing($type, $list, $attributes = array())
   {
     $html = '';
 
@@ -341,20 +348,20 @@ class HTML {
       {
         if (is_int($key))
         {
-          $html .= static::listing($type, $value);
+          $html .= $this->listing($type, $value);
         }
         else
         {
-          $html .= '<li>'.$key.static::listing($type, $value).'</li>';
+          $html .= '<li>'.$key.$this->listing($type, $value).'</li>';
         }
       }
       else
       {
-        $html .= '<li>'.static::entities($value).'</li>';
+        $html .= '<li>'.$this->entities($value).'</li>';
       }
     }
 
-    return '<'.$type.static::attributes($attributes).'>'.$html.'</'.$type.'>';
+    return '<'.$type.$this->attributes($attributes).'>'.$html.'</'.$type.'>';
   }
 
   /**
@@ -364,7 +371,7 @@ class HTML {
    * @param  array   $attributes
    * @return string
    */
-  public static function dl($list, $attributes = array())
+  public function dl($list, $attributes = array())
   {
     $html = '';
 
@@ -372,11 +379,11 @@ class HTML {
 
     foreach ($list as $term => $description)
     {
-      $html .= '<dt>'.static::entities($term).'</dt>';
-      $html .= '<dd>'.static::entities($description).'</dd>';
+      $html .= '<dt>'.$this->entities($term).'</dt>';
+      $html .= '<dd>'.$this->entities($description).'</dd>';
     }
 
-    return '<dl'.static::attributes($attributes).'>'.$html.'</dl>';
+    return '<dl'.$this->attributes($attributes).'>'.$html.'</dl>';
   }
 
   /**
@@ -385,7 +392,7 @@ class HTML {
    * @param  array   $attributes
    * @return string
    */
-  public static function attributes($attributes)
+  public function attributes($attributes)
   {
     $html = array();
 
@@ -398,7 +405,7 @@ class HTML {
 
       if ( ! is_null($value))
       {
-        $html[] = $key.'="'.static::entities($value).'"';
+        $html[] = $key.'="'.$this->entities($value).'"';
       }
     }
 
@@ -411,7 +418,7 @@ class HTML {
    * @param  string  $value
    * @return string
    */
-  protected static function obfuscate($value)
+  protected function obfuscate($value)
   {
     $safe = '';
 
@@ -443,9 +450,9 @@ class HTML {
    *
    * @return string
    */
-  protected static function encoding()
+  protected function encoding()
   {
-    return static::$encoding ?: static::$encoding = 'UTF-8';
+    return $this->encoding ?: $this->encoding = 'UTF-8';
   }
 
   /**
@@ -455,11 +462,11 @@ class HTML {
    * @param  array   $parameters
    * @return mixed
    */
-  public static function __callStatic($method, $parameters)
+  public function __call($method, $parameters)
   {
-      if (isset(static::$macros[$method]))
+      if (isset($this->macros[$method]))
       {
-          return call_user_func_array(static::$macros[$method], $parameters);
+          return call_user_func_array($this->macros[$method], $parameters);
       }
 
       throw new \Exception("Method [$method] does not exist.");

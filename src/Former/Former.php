@@ -187,7 +187,6 @@ class Former
   public function __get($attribute)
   {
     if (!$this->field) return false;
-
     return $this->field()->$attribute;
   }
 
@@ -300,7 +299,9 @@ class Former
    */
   public function getPost($name, $fallback = null)
   {
-    return \Input::get($name, \Input::old($name, $fallback));
+    $old = $this->app['input']->old($name, $fallback);
+
+    return $this->app['input']->get($name, $old);
   }
 
   /**

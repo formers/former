@@ -73,7 +73,7 @@ class Form extends Traits\FormerObject
     $secure     = Arrays::get($parameters, 3, false);
 
     // If classic form
-    if($typeAsked == 'open') $type = $this->app['config']->get('default_form_type');
+    if($typeAsked == 'open') $type = $this->app['config']->get('former::default_form_type');
     else {
       // Look for HTTPS form
       if (String::contains($typeAsked, 'secure')) {
@@ -89,7 +89,7 @@ class Form extends Traits\FormerObject
 
       // Calculate form type
       $type = trim(str_replace('open', null, $typeAsked), '_');
-      if(!in_array($type, $this->availableTypes)) $type = $this->app['config']->get('default_form_type');
+      if(!in_array($type, $this->availableTypes)) $type = $this->app['config']->get('former::default_form_type');
     }
 
     // Add the final form type
@@ -166,13 +166,13 @@ class Form extends Traits\FormerObject
   }
 
   /**
-   * Alias for Former::withRules
+   * Alias for $this->app['former']->withRules
    *
    * @param array $rules Rules
    */
   public function rules()
   {
-    return call_user_func_array('\Former\Former::withRules', func_get_args());
+    return call_user_func_array(array($this->app['former'], 'withRules'), func_get_args());
   }
 
   /**

@@ -6,10 +6,12 @@
  */
 namespace Former;
 
-use \HTML;
+use \Underscore\Arrays;
 
 class ControlGroup
 {
+  protected $app;
+
   /**
    * The control group attributes
    * @var array
@@ -58,9 +60,10 @@ class ControlGroup
    *
    * @param string $label Its label
    */
-  public function __construct($label)
+  public function __construct($app, $label)
   {
     // Get special classes
+    $this->app = $app;
     $this->attributes = $this->app['former.framework']->getGroupClasses($this->attributes);
 
     // Set control group label
@@ -77,7 +80,7 @@ class ControlGroup
   private function open()
   {
     // If any errors, set state to errors
-    $errors = Former::getErrors();
+    $errors = $this->app['former']->getErrors();
     if($errors) $this->state('error');
 
     // Retrieve state and append it to classes
@@ -86,8 +89,8 @@ class ControlGroup
     }
 
     // Required state
-    if (Former::field()->isRequired()) {
-      $this->attributes = $this->app['former.helpers']->addClass($this->attributes, $this->app['config']->get('required_class'));
+    if ($this->app['former']->field()->isRequired()) {
+      $this->attributes = $this->app['former.helpers']->addClass($this->attributes, $this->app['config']->get('former::required_class'));
     }
 
     return '<div'.$this->app['former.helpers']->attributes($this->attributes). '>';
@@ -116,7 +119,7 @@ class ControlGroup
     $inline = Arrays::get($this->help, 'inline');
     $block  = Arrays::get($this->help, 'block');
 
-    $errors = Former::getErrors();
+    $errors = $this->app['former']->getErrors();
     if ($errors) $inline = $this->app['former.framework']->inlineHelp($errors);
     return join(null, array($inline, $block));
   }

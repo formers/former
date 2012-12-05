@@ -27,15 +27,13 @@ class Helpers
   {
     $html = array();
 
-    foreach ((array) $attributes as $key => $value)
-    {
+    foreach ((array) $attributes as $key => $value) {
       // For numeric keys, we will assume that the key and the value are the
       // same, as this will convert HTML attributes such as "required" that
       // may be specified as required="required", etc.
       if (is_numeric($key)) $key = $value;
 
-      if ( ! is_null($value))
-      {
+      if ( ! is_null($value)) {
         //$html[] = $key.'="'.$this->entities($value).'"';
         $html[] = $key.'="'.$value.'"';
       }
@@ -86,7 +84,7 @@ class Helpers
 
     // If not found, search in the field attributes
     if(!$translation) $translation =
-      $this->app['translator']->get($this->app['config']->get('translate_from').'.'.$key);
+      $this->app['translator']->get($this->app['config']->get('former::translate_from').'.'.$key);
 
     return ucfirst($translation);
   }
@@ -150,7 +148,7 @@ class Helpers
 
     // Append required text
     if ($field->isRequired()) {
-      $label .= $this->app['config']->get('required_text');
+      $label .= $this->app['config']->get('former::required_text');
     }
 
     // Get the field name to link the label to it
