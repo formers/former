@@ -12,6 +12,6 @@ class Textarea extends \Former\Field
    */
   public function __toString()
   {
-    return Form::textarea($this->name, $this->value, $this->attributes);
+    return $this->app['former.laravel.form']->textarea($this->name, $this->value, $this->attributes);
   }
 }

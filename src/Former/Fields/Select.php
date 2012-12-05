@@ -130,7 +130,7 @@ class Select extends \Former\Field
     }
 
     // Render select
-    $select = Form::select($this->name, $this->options, $this->value, $this->attributes);
+    $select = $this->app['former.laravel.form']->select($this->name, $this->options, $this->value, $this->attributes);
 
     // Add placeholder text if any
     if ($this->placeholder) {

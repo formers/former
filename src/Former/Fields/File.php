@@ -91,9 +91,9 @@ class File extends \Former\Field
   {
     // Maximum file size
     $hidden = $this->maxSize
-      ? Form::hidden('MAX_FILE_SIZE', $this->maxSize)
+      ? $this->app['former.laravel.form']->hidden('MAX_FILE_SIZE', $this->maxSize)
       : null;
 
-    return Form::input($this->type, $this->name, $this->value, $this->attributes).$hidden;
+    return $this->app['former.laravel.form']->input($this->type, $this->name, $this->value, $this->attributes).$hidden;
   }
 }

@@ -55,7 +55,7 @@ class Input extends \Former\Field
     if($this->type == 'search') $this->asSearch();
 
     // Render main input
-    $input = \Laravel\Form::input($this->type, $this->name, $this->value, $this->attributes);
+    $input = $this->app['former.laravel.form']->input($this->type, $this->name, $this->value, $this->attributes);
 
     // If we have a datalist to append, print it out
     if ($this->datalist) {

@@ -157,7 +157,7 @@ abstract class Checkable extends Field
     // Set default values
     if(!isset($attributes)) $attributes = array();
     if(isset($attributes['value'])) $value = $attributes['value'];
-    if(!isset($value) or $value === Config::get('unchecked_value')) $value = $fallbackValue;
+    if(!isset($value) or $value === $this->app['config']->get('unchecked_value')) $value = $fallbackValue;
 
     // If inline items, add class
     $isInline = $this->inline ? ' inline' : null;
@@ -167,11 +167,11 @@ abstract class Checkable extends Field
     if (!isset($attributes['id'])) $attributes['id'] = $name.$this->unique($name);
 
     // Create field
-    $field = call_user_func('\Form::'.$this->checkable, $name, $value, $this->isChecked($name, $value), $attributes);
+    $field = call_user_func('$this->app['former.laravel.form']->'.$this->checkable, $name, $value, $this->isChecked($name, $value), $attributes);
 
     // Add hidden checkbox if requested
-    if (Config::get('push_checkboxes')) {
-      $field = \Form::hidden($name, Config::get('unchecked_value')) . $field;
+    if ($this->app['config']->get('push_checkboxes')) {
+      $field = $this->app['former.laravel.form']->hidden($name, $this->app['config']->get('unchecked_value')) . $field;
     }
 
     // If no label to wrap, return plain checkable
@@ -189,10 +189,10 @@ abstract class Checkable extends Field
   protected function unique($name)
   {
     // Register the field with Laravel
-    \Form::$labels[] = $name;
+    $this->app['former.laravel.form']->$labels[] = $name;
 
     // Count number of fields with the same ID
-    $where = array_filter(\Form::$labels, function($label) use ($name) {
+    $where = array_filter($this->app['former.laravel.form']->$labels, function($label) use ($name) {
       return $label == $name;
     });
     $unique = sizeof($where);
@@ -255,7 +255,7 @@ abstract class Checkable extends Field
     $post   = Former::getPost($name);
     $static = Former::getValue($name);
 
-    if(!is_null($post) and $post !== Config::get('unchecked_value')) $isChecked = ($post == $value);
+    if(!is_null($post) and $post !== $this->app['config']->get('unchecked_value')) $isChecked = ($post == $value);
     elseif(!is_null($static)) $isChecked = ($static == $value);
     else $isChecked = $checked;
     return $isChecked ? true : false;

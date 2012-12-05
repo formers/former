@@ -12,6 +12,12 @@ use \Underscore\String;
 class Form extends Traits\FormerObject
 {
   /**
+   * Illuminate application instance.
+   * @var Illuminate/Foundation/Application
+   */
+  protected $app;
+
+  /**
    * The Form type
    * @var string
    */
@@ -47,6 +53,11 @@ class Form extends Traits\FormerObject
    */
   private $opened = false;
 
+  public function __construct($app)
+  {
+    $this->app = $app;
+  }
+
   /**
    * Opens up magically a form
    *
@@ -62,7 +73,7 @@ class Form extends Traits\FormerObject
     $secure     = Arrays::get($parameters, 3, false);
 
     // If classic form
-    if($typeAsked == 'open') $type = Config::get('default_form_type');
+    if($typeAsked == 'open') $type = $this->app['config']->get('default_form_type');
     else {
       // Look for HTTPS form
       if (String::contains($typeAsked, 'secure')) {
@@ -78,7 +89,7 @@ class Form extends Traits\FormerObject
 
       // Calculate form type
       $type = trim(str_replace('open', null, $typeAsked), '_');
-      if(!in_array($type, $this->availableTypes)) $type = Config::get('default_form_type');
+      if(!in_array($type, $this->availableTypes)) $type = $this->app['config']->get('default_form_type');
     }
 
     // Add the final form type
@@ -88,8 +99,8 @@ class Form extends Traits\FormerObject
     $this->type = $type;
 
     // Fetch errors if asked for
-    if (Config::get('fetch_errors')) {
-      Former::withErrors();
+    if ($this->app['config']->get('former::fetch_errors')) {
+      $this->app['former']->withErrors();
     }
 
     // Open the form
@@ -174,6 +185,6 @@ class Form extends Traits\FormerObject
     // Mark the form as opened
     $this->opened = true;
 
-    return \Form::open($this->action, $this->method, $this->attributes, $this->secure);
+    return $this->app['former.laravel.form']->open($this->action, $this->method, $this->attributes, $this->secure);
   }
 }

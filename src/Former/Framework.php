@@ -6,8 +6,7 @@
  */
 namespace Former;
 
-use \Form;
-use \HTML;
+use \Underscore\Arrays;
 
 class Framework
 {
@@ -157,7 +156,7 @@ class Framework
 
     // Append required text
     if ($field->isRequired()) {
-      $label .= Config::get('required_text');
+      $label .= $this->app['config']->get('required_text');
     }
 
     // Get the field name to link the label to it
@@ -165,7 +164,7 @@ class Framework
       return '<label'.$this->app['former.helpers']->attributes($attributes).'>'.$label.'</label>';
     }
 
-    return HTML::decode(Form::label($field->name, $label, $attributes));
+    return HTML::decode($this->app['former.laravel.form']->label($field->name, $label, $attributes));
   }
 
   /**
@@ -283,7 +282,7 @@ class Framework
    */
   public function current()
   {
-    return Config::get('framework');
+    return $this->app['config']->get('former::framework');
   }
 
   /**
@@ -295,7 +294,7 @@ class Framework
   {
     if (in_array($framework, array('bootstrap', 'zurb')) or
         is_null($framework)) {
-      Config::set('framework', $framework);
+      $this->app['config']->set('framework', $framework);
     }
 
     return $this->current();
@@ -354,7 +353,7 @@ class Framework
   private function getAvailable($classes, $from)
   {
     // List all available classes
-    $available = Arrays::get($this->from, $this->current(), array());
+    $available = Arrays::get($from, $this->current(), array());
 
     // Filter classes
     return array_intersect($available, $classes);

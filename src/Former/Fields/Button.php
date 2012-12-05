@@ -10,6 +10,8 @@ use \Form;
 
 class Button extends \Former\Field
 {
+  protected $app;
+
   /**
    * Easier arguments order for button fields
    *
@@ -17,8 +19,9 @@ class Button extends \Former\Field
    * @param string $value      Its value
    * @param array  $attributes Attributes
    */
-  public function __construct($type, $value, $attributes)
+  public function __construct($app, $type, $value, $attributes)
   {
+    $this->app = $app;
     $this->attributes = (array) $attributes;
     $this->type = $type;
     $this->value($value);
@@ -47,6 +50,6 @@ class Button extends \Former\Field
   {
     $type = $this->type;
 
-    return \Laravel\Form::$type($this->value, $this->attributes);
+    return $this->app['former.laravel.form']->$type($this->value, $this->attributes);
   }
 }

@@ -8,6 +8,7 @@ namespace Former;
 
 use \HTML;
 use \Lang;
+use \Underscore\String;
 
 class Helpers
 {
@@ -81,12 +82,11 @@ class Helpers
     if($key instanceof Lang) return $key->get();
 
     // Search for the key itself
-    $translation = Lang::line($key)->get(null, '');
+    $translation = $this->app['translator']->get($key);
 
     // If not found, search in the field attributes
     if(!$translation) $translation =
-      Lang::line(Config::get('translate_from').'.'.$key)->get(null,
-      $fallback);
+      $this->app['translator']->get($this->app['config']->get('translate_from').'.'.$key);
 
     return ucfirst($translation);
   }
@@ -150,7 +150,7 @@ class Helpers
 
     // Append required text
     if ($field->isRequired()) {
-      $label .= Config::get('required_text');
+      $label .= $this->app['config']->get('required_text');
     }
 
     // Get the field name to link the label to it
@@ -158,6 +158,6 @@ class Helpers
       return '<label'.$this->app['former.helpers']->attributes($attributes).'>'.$label.'</label>';
     }
 
-    return \Form::label($field->name, $label, $attributes);
+    return $this->app['former.laravel.form']->label($field->name, $label, $attributes);
   }
 }

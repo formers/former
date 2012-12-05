@@ -7,6 +7,8 @@
  */
 namespace Former;
 
+use \Underscore\Arrays;
+
 class Former
 {
   /**
@@ -48,7 +50,7 @@ class Former
   /**
    * The namespace of fields
    */
-  const FIELDSPACE = 'Former\Fields\\';
+  private $FIELDSPACE = 'Former\Fields\\';
 
   public function __construct($app)
   {
@@ -70,10 +72,10 @@ class Former
   {
     // Form opener
     if (strpos($method, 'open') !== false) {
-      $this->form = new Form;
+      $this->form = new Form($this->app);
       $this->form()->open($method, $parameters);
 
-      return new static;
+      return $this;
     }
 
     // Avoid conflict with chained label method
@@ -121,7 +123,7 @@ class Former
     }
 
     // Listing parameters
-    $class = static::FIELDSPACE.$callClass;
+    $class = $this->FIELDSPACE.$callClass;
     $this->field = new $class(
       $this->app,
       $method,
@@ -309,7 +311,7 @@ class Former
   public function withErrors($validator = null)
   {
     // Try to get the errors form the session
-    if(\Session::has('errors')) $errors = \Session::get('errors');
+    if($this->app['session']->has('errors')) $errors = $this->app['session']->get('errors');
 
     // If we're given a raw Validator, go fetch the errors in it
     if($validator instanceof \Laravel\Validator) $errors = $validator->errors;
@@ -356,7 +358,7 @@ class Former
   {
     if($key == 'framework') return $this->app['former.framework']->useFramework($value);
 
-    return Config::set($key, $value);
+    return $this->app['config']->set('former::'.$key, $value);
   }
 
   /**
@@ -400,7 +402,9 @@ class Former
    */
   public function token()
   {
-    return $this->hidden(\Session::csrf_token, \Session::token())->__toString();
+    $csrf = $this->app['session']->getToken();
+
+    return $this->hidden($csrf, $csrf)->__toString();
   }
 
   /**
@@ -415,7 +419,7 @@ class Former
   {
     $label = $this->app['former.helpers']->translate($label);
 
-    return \Form::label($name, $label, $attributes);
+    return $this->app['former.laravel.form']->label($name, $label, $attributes);
   }
 
   /**

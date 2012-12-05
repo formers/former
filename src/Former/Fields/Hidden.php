@@ -30,6 +30,6 @@ class Hidden extends \Former\Field
    */
   public function __toString()
   {
-    return Form::hidden($this->name, $this->value, $this->attributes);
+    return $this->app['former.laravel.form']->hidden($this->name, $this->value, $this->attributes);
   }
 }

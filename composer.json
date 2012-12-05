@@ -14,8 +14,12 @@
     }
   ],
   "require": {
+    "illuminate/config": ">=1.0.0",
     "illuminate/container": ">=1.0.0",
     "anahkiasen/underscore-php": "dev-master"
+  },
+  "require-dev": {
+    "mockery/mockery": "0.7.*"
   },
   "autoload": {
     "psr-0": {
