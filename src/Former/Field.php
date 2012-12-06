@@ -151,6 +151,8 @@ abstract class Field extends Traits\FormerObject
   public function forceValue($value)
   {
     $this->value = $value;
+
+    return $this;
   }
 
   /**
@@ -164,6 +166,8 @@ abstract class Field extends Traits\FormerObject
     $already = $this->repopulate();
 
     if(!$already) $this->value = $value;
+
+    return $this;
   }
 
   /**
@@ -177,6 +181,8 @@ abstract class Field extends Traits\FormerObject
 
     // Also relink the label to the new name
     $this->label($name);
+
+    return $this;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -198,6 +204,7 @@ abstract class Field extends Traits\FormerObject
     if(!is_null($post)) $value = $post;
     elseif(!is_null($populate)) $value = $populate;
     else $value = $fallback;
+
     return $value;
   }
 
