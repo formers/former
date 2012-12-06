@@ -46,7 +46,7 @@ class Button extends \Former\Field
    *
    * @return string A form button
    */
-  public function __toString()
+  public function render()
   {
     $type = $this->type;
 

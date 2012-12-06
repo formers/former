@@ -205,7 +205,7 @@ abstract class Checkable extends Field
   /**
    * Prints out the currently stored checkables
    */
-  public function __toString()
+  public function render()
   {
     $html = null;
 

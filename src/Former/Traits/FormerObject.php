@@ -90,4 +90,14 @@ abstract class FormerObject
     return $this;
   }
 
+  /**
+   * Render the current field
+   *
+   * @return string The field wrapped
+   */
+  public function __toString()
+  {
+    return $this->app['former']->render($this);
+  }
+
 }

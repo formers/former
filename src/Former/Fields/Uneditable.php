@@ -13,7 +13,7 @@ class Uneditable extends \Former\Field
    *
    * @return string An uneditable input tag
    */
-  public function __toString()
+  public function render()
   {
     $this->attributes = $this->app['former.helpers']->addClass($this->attributes, 'uneditable-input');
 

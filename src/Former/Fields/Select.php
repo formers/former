@@ -121,7 +121,7 @@ class Select extends \Former\Field
    *
    * @return string A <select> tag
    */
-  public function __toString()
+  public function render()
   {
     // Multiselects
     if ($this->type == 'multiselect') {

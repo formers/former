@@ -28,7 +28,7 @@ class Hidden extends \Former\Field
    *
    * @return string An <input type="hidden" />
    */
-  public function __toString()
+  public function render()
   {
     return $this->app['former.laravel.form']->hidden($this->name, $this->value, $this->attributes);
   }

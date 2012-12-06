@@ -132,7 +132,7 @@ class ControlGroup
    */
   private function prependAppend($field)
   {
-    if(!$this->prepend and !$this->append) return $field;
+    if(!$this->prepend and !$this->append) return $field->render();
 
     // Prepare wrapping div
     $class = null;
@@ -142,7 +142,7 @@ class ControlGroup
     // Build div
     $return = '<div class="' .$class. '">';
       $return .= join(null, $this->prepend);
-      $return .= $field;
+      $return .= $field->render();
       $return .= join(null, $this->append);
     $return .= '</div>';
 

@@ -194,25 +194,26 @@ class Former
    *
    * @return string A form field
    */
-  public function __toString()
+  public function render($field)
   {
     if ($this->form and !$this->form->isOpened()) {
       return $this->form()->__toString();
     }
+
     // Dry syntax (hidden fields, plain fields)
-    if ($this->field->isUnwrappable()) {
-      $html = $this->field->__toString();
+    if ($field->isUnwrappable()) {
+      $html = $field->render();
     }
 
     // Bootstrap syntax
     elseif ($this->app['former.framework']->isnt(null) and $this->form) {
-      $html = $this->control()->wrapField($this->field);
+      $html = $this->control()->wrapField($field);
     }
 
     // Classic syntax
     else {
-      $html  = $this->app['former.framework']->label($this->field);
-      $html .= $this->field;
+      $html  = $this->app['former.framework']->label($field);
+      $html .= $field->render();
     }
 
     return $html;

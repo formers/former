@@ -87,7 +87,7 @@ class File extends \Former\Field
    *
    * @return string An input file tag
    */
-  public function __toString()
+  public function render()
   {
     // Maximum file size
     $hidden = $this->maxSize

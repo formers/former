@@ -49,7 +49,7 @@ class Input extends \Former\Field
    *
    * @return string An input tag
    */
-  public function __toString()
+  public function render()
   {
     // Particular case of the search element
     if($this->type == 'search') $this->asSearch();
