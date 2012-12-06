@@ -78,6 +78,8 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     $app['config']->shouldReceive('get')->with('former::push_checkboxes')->andReturn(false);
     $app['config']->shouldReceive('get')->with('former::framework')->andReturn('bootstrap');
     $app['config']->shouldReceive('get')->with('former::live_validation')->andReturn(true);
+    $app['config']->shouldReceive('get')->with('former::required_class')->andReturn('required');
+    $app['config']->shouldReceive('get')->with('former::required_text')->andReturn('<sup>*</sup>');
     $app['config']->shouldReceive('get')->with('former::unchecked_value')->andReturn('');
     $app['config']->shouldReceive('get')->with('former::automatic_label')->andReturn(true);
     $app['config']->shouldReceive('get')->with('former::default_form_type')->andReturn('horizontal');

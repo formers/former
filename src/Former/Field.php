@@ -7,7 +7,7 @@
  */
 namespace Former;
 
-use \File;
+use \Underscore\Arrays;
 
 abstract class Field extends Traits\FormerObject
 {

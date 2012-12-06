@@ -42,6 +42,8 @@ class Input extends \Former\Field
     // Create the link to the datalist
     $this->list($list);
     $this->datalist = $datalist;
+
+    return $this;
   }
 
   /**
@@ -76,6 +78,8 @@ class Input extends \Former\Field
   {
     $this->type = 'text';
     $this->attributes = $this->app['former.helpers']->addClass($this->attributes, 'search-query');
+
+    return $this;
   }
 
   /**

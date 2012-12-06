@@ -224,7 +224,7 @@ class ValidationTest extends FormerTests
 
   public function testDisablingValidation()
   {
-    $this->app['former']->config('live_validation', false);
+    $this->app['config']->shouldReceive('get')->with('former::live_validation')->andReturn(false);
     $this->app['former']->withRules(array('foo' => 'required'));
 
     $input = $this->app['former']->text('foo')->__toString();
