@@ -20,5 +20,7 @@ class Checkbox extends \Former\Checkable
   public function checkboxes()
   {
     $this->items(func_get_args());
+
+    return $this;
   }
 }

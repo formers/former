@@ -20,5 +20,7 @@ class Radio extends \Former\Checkable
   public function radios()
   {
     $this->items(func_get_args());
+
+    return $this;
   }
 }

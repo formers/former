@@ -71,16 +71,19 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     $app['session'] = Mockery::mock('session');
     $app['session']->shouldReceive('has')->with('errors')->andReturn(false);
     $app['session']->shouldReceive('set')->with('errors')->andReturn(false);
+    $app['session']->shouldReceive('getToken')->andReturn('csrf_token');
 
     $app['config'] = Mockery::mock('config');
-    $app['config']->shouldReceive('get')->with('former::framework')->andReturn('bootstrap');
     $app['config']->shouldReceive('get')->with('former::fetch_errors')->andReturn(false);
     $app['config']->shouldReceive('get')->with('former::push_checkboxes')->andReturn(false);
+    $app['config']->shouldReceive('get')->with('former::framework')->andReturn('bootstrap');
     $app['config']->shouldReceive('get')->with('former::live_validation')->andReturn(true);
+    $app['config']->shouldReceive('get')->with('former::unchecked_value')->andReturn('');
     $app['config']->shouldReceive('get')->with('former::automatic_label')->andReturn(true);
     $app['config']->shouldReceive('get')->with('former::default_form_type')->andReturn('horizontal');
     $app['config']->shouldReceive('get')->with('application.encoding')->andReturn('UTF-8');
-    $app['config']->shouldReceive('set')->andSet('framework', 'bootstrap');
+    $app['config']->shouldReceive('set')->with('former::framework', 'bootstrap')->andSet('framework', 'bootstrap');
+    $app['config']->shouldReceive('set')->with('former::framework', 'zurb')->andSet('framework', 'zurb');
 
     $app['translator'] = Mockery::mock('translator');
     $app['translator']->shouldReceive('get')->with('pagination.next')->andReturn('Next &raquo;');
@@ -92,6 +95,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     $app['request']->shouldReceive('url')->andReturn('#');
     $app['request']->shouldReceive('get')->andReturn(null);
     $app['request']->shouldReceive('old')->andReturn(null);
+    $app['request']->shouldReceive('merge')->andSet('foo', 0);
 
     $app['url'] = Mockery::mock('url');
     $app['url']->shouldReceive('to')->andReturnUsing(function($url) {

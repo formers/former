@@ -6,6 +6,8 @@
  */
 namespace Former;
 
+use \Underscore\Arrays;
+
 abstract class Checkable extends Field
 {
   /**
@@ -48,6 +50,8 @@ abstract class Checkable extends Field
   public function inline()
   {
     $this->inline = true;
+
+    return $this;
   }
 
   /**
@@ -56,6 +60,8 @@ abstract class Checkable extends Field
   public function stacked()
   {
     $this->inline = false;
+
+    return $this;
   }
 
   /**
@@ -69,6 +75,8 @@ abstract class Checkable extends Field
     if(is_object($text)) $text = $text->get();
 
     $this->text = $this->app['former.helpers']->translate($text);
+
+    return $this;
   }
 
   /**
@@ -80,18 +88,18 @@ abstract class Checkable extends Field
   {
     // If we're setting all the checked items at once
     if (is_array($checked)) {
-        return $this->checked = $checked;
-    }
+      $this->checked = $checked;
 
     // Checking an item in particular
-    if (is_string($checked) or is_int($checked)) {
-      return $this->checked[$checked] = true;
-    }
+    } elseif(is_string($checked) or is_int($checked)) {
+      $this->checked[$checked] = true;
 
     // Only setting a single item
-    $this->checked[$this->name] = (bool) $checked;
+    } else {
+      $this->checked[$this->name] = (bool) $checked;
+    }
 
-    return (bool) $checked;
+    return $this;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -167,7 +175,7 @@ abstract class Checkable extends Field
     if (!isset($attributes['id'])) $attributes['id'] = $name.$this->unique($name);
 
     // Create field
-    $field = call_user_func('$this->app['former.laravel.form']->'.$this->checkable, $name, $value, $this->isChecked($name, $value), $attributes);
+    $field = call_user_func(array($this->app['former.laravel.form'], $this->checkable), $name, $value, $this->isChecked($name, $value), $attributes);
 
     // Add hidden checkbox if requested
     if ($this->app['config']->get('former::push_checkboxes')) {
@@ -189,10 +197,10 @@ abstract class Checkable extends Field
   protected function unique($name)
   {
     // Register the field with Laravel
-    $this->app['former.laravel.form']->$labels[] = $name;
+    $this->app['former.laravel.form']->labels[] = $name;
 
     // Count number of fields with the same ID
-    $where = array_filter($this->app['former.laravel.form']->$labels, function($label) use ($name) {
+    $where = array_filter($this->app['former.laravel.form']->labels, function($label) use ($name) {
       return $label == $name;
     });
     $unique = sizeof($where);

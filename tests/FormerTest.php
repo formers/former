@@ -14,7 +14,7 @@ class FormerTest extends FormerTests
   public function testToken()
   {
     $token = $this->app['former']->token();
-    $matcher = '<input type="hidden" name="csrf_token">';
+    $matcher = '<input type="hidden" name="csrf_token" value="csrf_token">';
 
     $this->assertEquals($matcher, $token);
   }

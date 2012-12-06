@@ -6,8 +6,6 @@
  */
 namespace Former\Fields;
 
-use \Form;
-
 class File extends \Former\Field
 {
   /**

@@ -24,6 +24,13 @@ abstract class FormerObject
    */
   public function __call($method, $parameters)
   {
+    // Redirect calls to the Control Group
+    if (method_exists($this->app['former']->control(), $method)) {
+      call_user_func_array(array($this->app['former']->control(), $method), $parameters);
+
+      return $this;
+    }
+
     // Replace underscores
     $method = str_replace('_', '-', $method);
 

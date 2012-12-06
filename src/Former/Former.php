@@ -8,6 +8,7 @@
 namespace Former;
 
 use \Underscore\Arrays;
+use \Underscore\String;
 
 class Former
 {

@@ -282,7 +282,7 @@ class Framework
    */
   public function current()
   {
-    return $this->app['config']->get('former::framework');
+    return $this->framework ?: $this->app['config']->get('former::framework');
   }
 
   /**
@@ -294,7 +294,7 @@ class Framework
   {
     if (in_array($framework, array('bootstrap', 'zurb')) or
         is_null($framework)) {
-      $this->app['config']->set('framework', $framework);
+      $this->framework = $framework;
     }
 
     return $this->current();
