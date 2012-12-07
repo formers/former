@@ -225,4 +225,20 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkbox);
     Former::config('push_checkboxes', false);
   }
+
+  public function testCanGroupCheckboxes()
+  {
+    Former::framework(null);
+    $auto = Former::checkboxes('value[]', '')->checkboxes('Value 01', 'Value 02')->__toString();
+    $chain = Former::checkboxes('value', '')->grouped()->checkboxes('Value 01', 'Value 02')->__toString();
+
+    $this->assertEquals($chain, $auto);
+    $this->assertEquals(
+      '<label for="value_0" class="checkbox">'.
+        '<input id="value_0" type="checkbox" name="value[]" value="1">Value 01'.
+      '</label>'.
+      '<label for="value_1" class="checkbox">'.
+        '<input id="value_1" type="checkbox" name="value[]" value="1">Value 02'.
+      '</label>', $auto);
+  }
 }
