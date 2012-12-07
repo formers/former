@@ -184,9 +184,7 @@ class CheckboxTest extends FormerTests
 
   public function testPushedCheckboxes()
   {
-    $this->app['config'] = $this->getConfig();
-    $this->app['config']->shouldReceive('get')->with('former::unchecked_value')->andReturn('');
-    $this->app['config']->shouldReceive('get')->with('former::push_checkboxes')->andReturn(true);
+    $this->app['config'] = $this->getConfig(true, '', true);
 
     $checkbox = $this->app['former']->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->cg(
@@ -200,9 +198,7 @@ class CheckboxTest extends FormerTests
 
   public function testCheckboxesKeepOriginalValueOnSubmit()
   {
-    $this->app['config'] = $this->getConfig();
-    $this->app['config']->shouldReceive('get')->with('former::unchecked_value')->andReturn('');
-    $this->app['config']->shouldReceive('get')->with('former::push_checkboxes')->andReturn(true);
+    $this->app['config'] = $this->getConfig(true, '', true);
     $this->app['request']->shouldReceive('get')->with('foo', '')->andReturn('');
 
     $checkbox = $this->app['former']->checkbox('foo')->text('foo')->__toString();
@@ -217,9 +213,7 @@ class CheckboxTest extends FormerTests
 
   public function testCustomUncheckedValue()
   {
-    $this->app['config'] = $this->getConfig();
-    $this->app['config']->shouldReceive('get')->with('former::push_checkboxes')->andReturn(true);
-    $this->app['config']->shouldReceive('get')->with('former::unchecked_value')->andReturn('unchecked');
+    $this->app['config'] = $this->getConfig(true, 'unchecked', true);
 
     $checkbox = $this->app['former']->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->cg(

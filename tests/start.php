@@ -77,10 +77,6 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     $app['request'] = $this->getRequest();
     $app['translator'] = $this->getTranslator();
 
-    // Non-default expectations
-    $app['config']->shouldReceive('get')->with('former::push_checkboxes')->andReturn(false);
-    $app['config']->shouldReceive('get')->with('former::unchecked_value')->andReturn('');
-
     $app['session'] = Mockery::mock('session');
     $app['session']->shouldReceive('has')->with('errors')->andReturn(false);
     $app['session']->shouldReceive('set')->with('errors')->andReturn(false);
@@ -94,6 +90,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     // Setup bindings
     $app['former.laravel.form'] = $app->share(function($app) { return new Laravel\Form($app); });
     $app['former.laravel.html'] = $app->share(function($app) { return new Laravel\HTML($app); });
+    $app['former.laravel.file'] = $app->share(function($app) { return new Laravel\File($app); });
     $app['former'] = $app->share(function($app) { return new Former\Former($app); });
     $app['former.helpers'] = $app->share(function($app) { return new Former\Helpers($app); });
     $app['former.framework'] = $app->share(function($app) { return new Former\Framework($app); });
@@ -113,7 +110,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     return $translator;
   }
 
-  protected function getConfig()
+  protected function getConfig($live = true, $unchecked = '', $push = false)
   {
     $config = Mockery::mock('config');
     $config->shouldReceive('get')->with('application.encoding')->andReturn('UTF-8');
@@ -121,9 +118,11 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     $config->shouldReceive('get')->with('former::default_form_type')->andReturn('horizontal');
     $config->shouldReceive('get')->with('former::fetch_errors')->andReturn(false);
     $config->shouldReceive('get')->with('former::framework')->andReturn('bootstrap');
-    $config->shouldReceive('get')->with('former::live_validation')->andReturn(true);
     $config->shouldReceive('get')->with('former::required_class')->andReturn('required');
     $config->shouldReceive('get')->with('former::required_text')->andReturn('<sup>*</sup>');
+    $config->shouldReceive('get')->with('former::live_validation')->andReturn($live);
+    $config->shouldReceive('get')->with('former::unchecked_value')->andReturn($unchecked);
+    $config->shouldReceive('get')->with('former::push_checkboxes')->andReturn($push);
 
     return $config;
   }

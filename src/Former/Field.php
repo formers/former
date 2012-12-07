@@ -297,7 +297,7 @@ abstract class Field extends Traits\FormerObject
         case 'image':
           if ($this->type == 'file') {
             $ext = $rule == 'image' ? array('jpg', 'png', 'gif', 'bmp') : $parameters;
-            $mimes = array_map('File::mime', $ext);
+            $mimes = array_map(array($this->app['former.laravel.file'], 'mime'), $ext);
             $this->attributes['accept'] = implode(',', $mimes);
           }
           break;

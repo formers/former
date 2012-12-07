@@ -44,7 +44,7 @@ class File extends \Former\Field
 
       // Shortcuts and extensions
       if(in_array($mime, $shortcuts)) $mime .= '/*';
-      $mime = \File::mime($mime, $mime);
+      $mime = $this->app['former.laravel.file']->mime($mime, $mime);
 
       $mimes[] = $mime;
     }
