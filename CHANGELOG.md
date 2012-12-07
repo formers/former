@@ -1,5 +1,9 @@
 ## Changelog
 
+### 2.7.0 (unreleased)
+
+- **[add] Former now recognizes grouped fields (name="field[]") and bind them together. You can also use the new `->grouped()` method**
+
 ### 2.6.0
 
 - **[add] Former::open()->rules([]) as alias to Former::withRules**
