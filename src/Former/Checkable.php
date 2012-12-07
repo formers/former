@@ -91,7 +91,7 @@ abstract class Checkable extends Field
       $this->checked = $checked;
 
     // Checking an item in particular
-    } elseif(is_string($checked) or is_int($checked)) {
+    } elseif (is_string($checked) or is_int($checked)) {
       $this->checked[$checked] = true;
 
     // Only setting a single item

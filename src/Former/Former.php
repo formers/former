@@ -358,7 +358,7 @@ class Former
    */
   public function config($key, $value)
   {
-    if($key == 'framework') {
+    if ($key == 'framework') {
       return $this->app['former.framework']->useFramework($value);
     }
 

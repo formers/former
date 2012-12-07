@@ -204,7 +204,6 @@ abstract class Field extends Traits\FormerObject
     if(!is_null($post)) $value = $post;
     elseif(!is_null($populate)) $value = $populate;
     else $value = $fallback;
-
     return $value;
   }
 

@@ -58,7 +58,7 @@ class Helpers
     $translation = $this->app['translator']->get($key);
 
     // If not found, search in the field attributes
-    if(!$translation) {
+    if (!$translation) {
       $translations = $this->app['config']->get('former::translate_from');
       $translation = $this->app['translator']->get($translations.'.'.$key);
     }
