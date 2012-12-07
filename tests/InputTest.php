@@ -30,7 +30,7 @@ class InputTest extends FormerTests
 
   public function testTextWithoutLabel()
   {
-    $this->app['former']->config('automatic_label', false);
+    $this->app['config'] = $this->getConfig(true, '', false, false);
 
     $input = $this->app['former']->text('foo')->__toString();
     $matcher = $this->cg('<input type="text" name="foo">', null);

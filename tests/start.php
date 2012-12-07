@@ -87,6 +87,9 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
       return $url == '#' ? $url : 'https://test/en/'.$url;
     });
 
+    $app['validator'] = Mockery::mock('validator');
+    //$app['validator']->shouldReceive('make')->andReturn
+
     // Setup bindings
     $app['former.laravel.form'] = $app->share(function($app) { return new Laravel\Form($app); });
     $app['former.laravel.html'] = $app->share(function($app) { return new Laravel\HTML($app); });
@@ -110,19 +113,21 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     return $translator;
   }
 
-  protected function getConfig($live = true, $unchecked = '', $push = false)
+  protected function getConfig($live = true, $unchecked = '', $push = false, $automatic = true)
   {
     $config = Mockery::mock('config');
     $config->shouldReceive('get')->with('application.encoding')->andReturn('UTF-8');
-    $config->shouldReceive('get')->with('former::automatic_label')->andReturn(true);
     $config->shouldReceive('get')->with('former::default_form_type')->andReturn('horizontal');
     $config->shouldReceive('get')->with('former::fetch_errors')->andReturn(false);
     $config->shouldReceive('get')->with('former::framework')->andReturn('bootstrap');
     $config->shouldReceive('get')->with('former::required_class')->andReturn('required');
     $config->shouldReceive('get')->with('former::required_text')->andReturn('<sup>*</sup>');
+
+    // Variable configuration keys
     $config->shouldReceive('get')->with('former::live_validation')->andReturn($live);
     $config->shouldReceive('get')->with('former::unchecked_value')->andReturn($unchecked);
     $config->shouldReceive('get')->with('former::push_checkboxes')->andReturn($push);
+    $config->shouldReceive('get')->with('former::automatic_label')->andReturn($automatic);
 
     return $config;
   }
