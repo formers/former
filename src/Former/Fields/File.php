@@ -50,6 +50,8 @@ class File extends \Former\Field
     }
 
     $this->attributes['accept'] = implode('|', $mimes);
+
+    return $this;
   }
 
   /**
@@ -78,6 +80,8 @@ class File extends \Former\Field
     }
 
     $this->maxSize = (int) $size;
+
+    return $this;
   }
 
   /**
