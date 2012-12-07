@@ -19,9 +19,9 @@ class CheckboxTest extends FormerTests
     if ($inline) $labelAttr['class'] .= ' inline';
     if (!$checked) unset($checkAttr['checked']);
 
-    $radio = '<input'.$this->app['former.helpers']->attributes($checkAttr).'>';
+    $radio = '<input'.$this->app['former.laravel.html']->attributes($checkAttr).'>';
 
-    return $label ? '<label'.$this->app['former.helpers']->attributes($labelAttr). '>' .$radio.$label. '</label>' : $radio;
+    return $label ? '<label'.$this->app['former.laravel.html']->attributes($labelAttr). '>' .$radio.$label. '</label>' : $radio;
   }
 
   private function cbc($name = 'foo', $label = null, $value = 1, $inline = false)

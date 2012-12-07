@@ -6,6 +6,7 @@
  */
 namespace Former;
 
+use \BadMethodCallException;
 use \Underscore\Arrays;
 
 class ControlGroup
@@ -29,7 +30,7 @@ class ControlGroup
    * @var string
    */
   private $label = array(
-    'label'      => null,
+    'text'       => null,
     'attributes' => array()
   );
 
@@ -64,7 +65,7 @@ class ControlGroup
   {
     // Get special classes
     $this->app = $app;
-    $this->attributes = $this->app['former.framework']->getGroupClasses($this->attributes);
+    $this->attributes = $this->app['former.framework']->addGroupClasses($this->attributes);
 
     // Set control group label
     $this->setLabel($label);
@@ -104,9 +105,9 @@ class ControlGroup
    */
   private function getLabel($field)
   {
-    $this->label['attributes'] = $this->app['former.framework']->getLabelClasses($this->label['attributes']);
+    $this->label['attributes'] = $this->app['former.framework']->addLabelClasses($this->label['attributes']);
 
-    return $this->app['former.framework']->label($field, $this->label);
+    return $this->app['former.framework']->createLabelOf($field, $this->label);
   }
 
   /**
@@ -171,7 +172,7 @@ class ControlGroup
       $html  .= $this->getLabel($field);
       $field  = $this->prependAppend($field);
       $field .= $this->getHelp();
-      $html  .= $this->app['former.framework']->getFieldClasses($field);
+      $html  .= $this->app['former.framework']->wrapField($field);
     $html .= $this->close();
 
     return $html;
@@ -189,8 +190,7 @@ class ControlGroup
   public function state($state)
   {
     // Filter state
-    $state = $this->app['former.framework']->getState($state);
-    if(!$state) return false;
+    $state = $this->app['former.framework']->filterState($state);
 
     $this->state = $state;
   }
@@ -211,13 +211,13 @@ class ControlGroup
    */
   public function inlineHelp($help, $attributes = array())
   {
-    // If no help text, do nothing
-    if (empty($help)) return false;
-
     // Attempt to translate help text
     $help = $this->app['former.helpers']->translate($help);
 
-    $this->help['inline'] = $this->app['former.framework']->inlineHelp($help, $attributes);
+    // If no help text, do nothing
+    if (!$help) return false;
+
+    $this->help['inline'] = $this->app['former.framework']->createHelp($help, $attributes);
   }
 
   /**
@@ -228,13 +228,18 @@ class ControlGroup
    */
   public function blockHelp($help, $attributes = array())
   {
-    // If no help text, do nothing
-    if (empty($help)) return false;
+    // Reserved method
+    if ($this->app['former.framework']->isnt('TwitterBootstrap')) {
+      throw new BadMethodCallException('This method is only available on the Bootstrap framework');
+    }
 
     // Attempt to translate help text
     $help = $this->app['former.helpers']->translate($help);
 
-    $this->help['block'] = $this->app['former.framework']->blockHelp($help, $attributes);
+    // If no help text, do nothing
+    if (!$help) return false;
+
+    $this->help['block'] = $this->app['former.framework']->createBlockHelp($help, $attributes);
   }
 
   /**
@@ -263,7 +268,7 @@ class ControlGroup
    */
   public function prependIcon($icon, $attributes = array())
   {
-    $icon = $this->app['former.framework']->icon($icon, $attributes);
+    $icon = $this->app['former.framework']->createIcon($icon, $attributes);
 
     $this->placeAround($icon, 'prepend');
   }
@@ -276,7 +281,7 @@ class ControlGroup
    */
   public function appendIcon($icon, $attributes = array())
   {
-    $icon = $this->app['former.framework']->icon($icon, $attributes);
+    $icon = $this->app['former.framework']->createIcon($icon, $attributes);
 
     $this->placeAround($icon, 'append');
   }

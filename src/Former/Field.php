@@ -70,7 +70,7 @@ abstract class Field extends Traits\FormerObject
     if($this->app['config']->get('former::live_validation')) $this->addRules();
 
     // Link Control group
-    if ($this->app['former.framework']->isnt('none')) {
+    if ($this->app['former.framework']->isnt('Nude')) {
       $this->controlGroup = new ControlGroup($this->app, $this->label);
     }
   }
@@ -135,7 +135,7 @@ abstract class Field extends Traits\FormerObject
   public function label($text, $attributes = array())
   {
     $label = array(
-      'label' => $this->app['former.helpers']->translate($text),
+      'text'       => $this->app['former.helpers']->translate($text),
       'attributes' => $attributes);
 
     if($this->controlGroup) $this->controlGroup->setLabel($label);

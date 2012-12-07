@@ -143,40 +143,14 @@ class Former
 
     // Filter classes according to field type
     $classes = $callClass == 'Button'
-      ? $this->app['former.framework']->getButtonTypes($classes)
-      : $this->app['former.framework']->getFieldSizes($classes);
+      ? $this->app['former.framework']->filterButtonClasses($classes)
+      : $this->app['former.framework']->filterFieldClasses($classes);
 
     // Add any supplementary classes we found
     if($classes) $this->field->addClass($classes);
 
-    // As Buttons are more of a helper class, we return them directly
-    if($callClass == 'Button') return $this->field;
-
     return $this->field;
   }
-
-  /**
-   * Pass a chained method to the Field
-   *
-   * @param  string $method     The method to call
-   * @param  array  $parameters Its parameters
-   * @return Former
-  public function __call($method, $parameters)
-  {
-    if (!$this->form()->isOpened() and $this->form) {
-      $object = $this->form;
-    } else {
-      $object = method_exists($this->control(), $method)
-        ? $this->control()
-        : $this->field;
-    }
-
-    // Call the function on the corresponding class
-    call_user_func_array(array($object, $method), $parameters);
-
-    return $this;
-  }
-   */
 
   /**
    * Get an attribute/value from the Field instance
@@ -187,7 +161,8 @@ class Former
   public function __get($attribute)
   {
     if (!$this->field) return false;
-    return $this->field()->$attribute;
+
+    return $this->field->$attribute;
   }
 
   /**
@@ -207,13 +182,13 @@ class Former
     }
 
     // Bootstrap syntax
-    elseif ($this->app['former.framework']->isnt('none') and $this->form) {
+    elseif ($this->app['former.framework']->isnt('Nude') and $this->form) {
       $html = $this->control()->wrapField($field);
     }
 
     // Classic syntax
     else {
-      $html  = $this->app['former.framework']->label($field);
+      $html  = $this->app['former.framework']->createLabelOf($field);
       $html .= $field->render();
     }
 
@@ -358,21 +333,25 @@ class Former
    */
   public function config($key, $value)
   {
-    if ($key == 'framework') {
-      return $this->app['former.framework']->useFramework($value);
-    }
+    if ($key == 'framework') return $this->framework($value);
 
     return $this->app['config']->set('former::'.$key, $value);
   }
 
   /**
-   * Set the useBootstrap option
+   * Switch the framework used by Former
    *
-   * @param  boolean $boolean Whether we should use Bootstrap syntax or not
+   * @param string $framework The name of the framework to use
    */
-  public function framework($framework)
+  public function framework($framework = null)
   {
-    return $this->app['former.framework']->useFramework($framework) == $framework;
+    if (!$framework) return $this->app['former.framework']->current();
+
+    $this->app['former.framework'] = $this->app->share(function($app) use ($framework) {
+      $class = __NAMESPACE__.'\Framework\\'.$framework;
+
+      return new $class($app);
+    });
   }
 
   ////////////////////////////////////////////////////////////////////

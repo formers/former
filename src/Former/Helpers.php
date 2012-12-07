@@ -18,7 +18,7 @@ class Helpers
   }
 
   /**
-   * Adds a class to an attributes array
+   * Add a class to an attributes array
    *
    * @param  array  $attributes An array of attributes
    * @param  string $class      The class to add

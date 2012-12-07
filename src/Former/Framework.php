@@ -9,7 +9,7 @@ namespace Former;
 use \Underscore\Arrays;
 use \Underscore\String;
 
-class Framework
+class sdf
 {
   /**
    * Illuminate application instance.
@@ -231,7 +231,7 @@ class Framework
     $size = array_pop($sizes);
     if ($size) {
       if($this->is('bootstrap')) $size = starts_with($size, 'span') ? $size : 'input-'.$size;
-      elseif($this->is('zurb')) $size;
+      elseif($this->is('ZurbFoundation')) $size;
       else $size = null;
     }
 

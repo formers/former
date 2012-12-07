@@ -31,7 +31,7 @@ class ControlGroupTest extends FormerTests
   {
     $state = ($state and $state != 'foo') ? ' ' .$state : null;
     if($inlineHelp) $inlineHelp = '<span class="help-inline">' .ucfirst($inlineHelp). '</span>';
-    if($blockHelp)  $blockHelp  = '<p  class="help-block">' .ucfirst($blockHelp). '</p>';
+    if($blockHelp)  $blockHelp  = '<p class="help-block">' .ucfirst($blockHelp). '</p>';
 
     return
     '<div class="control-group' .$state. '">' .
@@ -237,7 +237,7 @@ class ControlGroupTest extends FormerTests
             '<button type="button" class="btn">foo</button>'.
           '</div>'.
         '<span class="help-inline">Foo</span>'.
-        '<p  class="help-block">Bar</p>'.
+        '<p class="help-block">Bar</p>'.
       '</div>'.
     '</div>';
 

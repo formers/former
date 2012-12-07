@@ -50,7 +50,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     $this->app['former']->horizontal_open()->__toString();
     $this->app['former']->populate(array());
     $this->app['former']->withErrors(null);
-    $this->app['former']->framework('bootstrap');
+    $this->app['former']->framework('TwitterBootstrap');
   }
 
   public function tearDown()
@@ -88,7 +88,6 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     });
 
     $app['validator'] = Mockery::mock('validator');
-    //$app['validator']->shouldReceive('make')->andReturn
 
     // Setup bindings
     $app['former.laravel.form'] = $app->share(function($app) { return new Laravel\Form($app); });
@@ -96,7 +95,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     $app['former.laravel.file'] = $app->share(function($app) { return new Laravel\File($app); });
     $app['former'] = $app->share(function($app) { return new Former\Former($app); });
     $app['former.helpers'] = $app->share(function($app) { return new Former\Helpers($app); });
-    $app['former.framework'] = $app->share(function($app) { return new Former\Framework($app); });
+    $app['former.framework'] = $app->share(function($app) { return new Former\Framework\TwitterBootstrap($app); });
 
     return $app;
   }
@@ -106,8 +105,8 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     $translator = Mockery::mock('translator');
     $translator->shouldReceive('get')->with('pagination.next')->andReturn('Next &raquo;');
     $translator->shouldReceive('get')->with('pagination')->andReturn(array('previous' => '&laquo; Previous', 'next' => 'Next &raquo;'));
-    $translator->shouldReceive('get')->with(Mockery::any())->andReturnUsing(function($test) {
-      return $test;
+    $translator->shouldReceive('get')->withAnyArgs()->andReturnUsing(function($key) {
+      return $key;
     });
 
     return $translator;
