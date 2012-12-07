@@ -52,7 +52,9 @@ class Nude extends Framework implements FrameworkInterface
 
   public function createIcon($icon, $attributes)
   {
-    return $icon;
+    $attributes = $this->addClass($attributes, $icon);
+
+    return '<i'.$this->attributes($attributes).'></i>';
   }
 
   ////////////////////////////////////////////////////////////////////

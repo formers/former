@@ -90,6 +90,14 @@ abstract class Framework
     return $this->app['former.laravel.html']->attributes($attributes);
   }
 
+  /**
+   * Create a label for a field
+   *
+   * @param Field  $field
+   * @param string $label The field label if non provided
+   *
+   * @return string A label
+   */
   public function createLabelOf(Field $field, $label = null)
   {
     // Get the label and its informations
