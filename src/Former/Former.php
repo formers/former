@@ -207,7 +207,7 @@ class Former
     }
 
     // Bootstrap syntax
-    elseif ($this->app['former.framework']->isnt(null) and $this->form) {
+    elseif ($this->app['former.framework']->isnt('none') and $this->form) {
       $html = $this->control()->wrapField($field);
     }
 

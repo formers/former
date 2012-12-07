@@ -70,7 +70,7 @@ abstract class Field extends Traits\FormerObject
     if($this->app['config']->get('former::live_validation')) $this->addRules();
 
     // Link Control group
-    if ($this->app['former.framework']->isnt(null)) {
+    if ($this->app['former.framework']->isnt('none')) {
       $this->controlGroup = new ControlGroup($this->app, $this->label);
     }
   }

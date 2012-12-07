@@ -222,7 +222,7 @@ class Framework
    */
   public function getFieldSizes($sizes)
   {
-    if($this->is(null)) return null;
+    if($this->is('none')) return null;
 
     // Filter sizes
     $sizes = $this->getAvailable($sizes, 'sizes');
@@ -246,7 +246,7 @@ class Framework
    */
   public function getButtonTypes($types)
   {
-    if($this->is(null)) return null;
+    if($this->is('none')) return null;
 
     // Filter types
     $types = $this->getAvailable($types, 'types');
@@ -291,9 +291,9 @@ class Framework
    *
    * @param  string $framework A framework, or null for none
    */
-  public function useFramework($framework = null)
+  public function useFramework($framework = 'none')
   {
-    if (in_array($framework, array('bootstrap', 'zurb')) or
+    if (in_array($framework, array('none', 'bootstrap', 'zurb')) or
         is_null($framework)) {
       $this->framework = $framework;
     }
