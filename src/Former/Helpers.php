@@ -18,31 +18,6 @@ class Helpers
   }
 
   /**
-   * Build a list of HTML attributes from an array.
-   *
-   * @param  array  $attributes
-   * @return string
-   */
-  public function attributes($attributes)
-  {
-    $html = array();
-
-    foreach ((array) $attributes as $key => $value) {
-      // For numeric keys, we will assume that the key and the value are the
-      // same, as this will convert HTML attributes such as "required" that
-      // may be specified as required="required", etc.
-      if (is_numeric($key)) $key = $value;
-
-      if ( ! is_null($value)) {
-        //$html[] = $key.'="'.$this->entities($value).'"';
-        $html[] = $key.'="'.$value.'"';
-      }
-    }
-
-    return (count($html) > 0) ? ' '.implode(' ', $html) : '';
-  }
-
-  /**
    * Adds a class to an attributes array
    *
    * @param  array  $attributes An array of attributes
@@ -83,8 +58,10 @@ class Helpers
     $translation = $this->app['translator']->get($key);
 
     // If not found, search in the field attributes
-    if(!$translation) $translation =
-      $this->app['translator']->get($this->app['config']->get('former::translate_from').'.'.$key);
+    if(!$translation) {
+      $translations = $this->app['config']->get('former::translate_from');
+      $translation = $this->app['translator']->get($translations.'.'.$key);
+    }
 
     return ucfirst($translation);
   }
@@ -153,7 +130,7 @@ class Helpers
 
     // Get the field name to link the label to it
     if ($field->isCheckable()) {
-      return '<label'.$this->app['former.helpers']->attributes($attributes).'>'.$label.'</label>';
+      return '<label'.$this->app['former.laravel.html']->attributes($attributes).'>'.$label.'</label>';
     }
 
     return $this->app['former.laravel.form']->label($field->name, $label, $attributes);

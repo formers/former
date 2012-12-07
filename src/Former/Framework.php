@@ -79,11 +79,11 @@ class Framework
     switch ($this->current()) {
       case 'bootstrap':
         $attributes = $this->app['former.helpers']->addClass($attributes, 'help-inline');
-        $help = '<span'.$this->app['former.helpers']->attributes($attributes).'>'.$value.'</span>';
+        $help = '<span'.$this->app['former.laravel.html']->attributes($attributes).'>'.$value.'</span>';
         break;
       case 'zurb':
       default:
-        $help = '<small' .$this->app['former.helpers']->attributes($attributes). '>' .$value. '</small>';
+        $help = '<small' .$this->app['former.laravel.html']->attributes($attributes). '>' .$value. '</small>';
         break;
     }
 
@@ -104,7 +104,7 @@ class Framework
 
     $attributes = $this->app['former.helpers']->addClass($attributes, 'help-block');
 
-    return '<p '.$this->app['former.helpers']->attributes($attributes).'>'.$value.'</p>';
+    return '<p '.$this->app['former.laravel.html']->attributes($attributes).'>'.$value.'</p>';
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -134,7 +134,7 @@ class Framework
       $attributes = $this->app['former.helpers']->addClass($attributes, 'icon-'.$icon);
 
       // Create icon
-      $icon = '<i'.$this->app['former.helpers']->attributes($attributes).'></i>';
+      $icon = '<i'.$this->app['former.laravel.html']->attributes($attributes).'></i>';
     }
 
     return $icon;
@@ -162,7 +162,7 @@ class Framework
 
     // Get the field name to link the label to it
     if ($field->isCheckable()) {
-      return '<label'.$this->app['former.helpers']->attributes($attributes).'>'.$label.'</label>';
+      return '<label'.$this->app['former.laravel.html']->attributes($attributes).'>'.$label.'</label>';
     }
 
     return $this->app['former.laravel.html']->decode($this->app['former.laravel.form']->label($field->name, $label, $attributes));

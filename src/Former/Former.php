@@ -437,7 +437,7 @@ class Former
   {
     $legend = $this->app['former.helpers']->translate($legend);
 
-    return '<legend'.$this->app['former.helpers']->attributes($attributes).'>' .$legend. '</legend>';
+    return '<legend'.$this->app['former.laravel.html']->attributes($attributes).'>' .$legend. '</legend>';
   }
 
   /**

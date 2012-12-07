@@ -46,4 +46,14 @@ class FormerServiceProvider extends ServiceProvider
       return new \Laravel\File($app);
     });
   }
+
+  /**
+   * Get the services provided by the provider.
+   *
+   * @return array
+   */
+  public function provides()
+  {
+    return array('former');
+  }
 }

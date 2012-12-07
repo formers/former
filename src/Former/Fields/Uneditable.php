@@ -18,7 +18,7 @@ class Uneditable extends \Former\Field
     $this->attributes = $this->app['former.helpers']->addClass($this->attributes, 'uneditable-input');
 
     return
-      '<span'.$this->app['former.helpers']->attributes($this->attributes).'>'.
+      '<span'.$this->app['former.laravel.html']->attributes($this->attributes).'>'.
         $this->app['former.laravel.html']->entities($this->value).
       '</span>';
   }
