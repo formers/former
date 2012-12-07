@@ -55,8 +55,9 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
 
   public function tearDown()
   {
-    Mockery::close();
     $this->app['former']->close();
+
+    Mockery::close();
   }
 
   public function resetLabels()
@@ -72,39 +73,25 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
   {
     $app = new Illuminate\Container;
 
+    $app['config'] = $this->getConfig();
+    $app['request'] = $this->getRequest();
+    $app['translator'] = $this->getTranslator();
+
+    // Non-default expectations
+    $app['config']->shouldReceive('get')->with('former::push_checkboxes')->andReturn(false);
+    $app['config']->shouldReceive('get')->with('former::unchecked_value')->andReturn('');
+
     $app['session'] = Mockery::mock('session');
     $app['session']->shouldReceive('has')->with('errors')->andReturn(false);
     $app['session']->shouldReceive('set')->with('errors')->andReturn(false);
     $app['session']->shouldReceive('getToken')->andReturn('csrf_token');
-
-    $app['config'] = Mockery::mock('config');
-    $app['config']->shouldReceive('get')->with('former::fetch_errors')->andReturn(false);
-    $app['config']->shouldReceive('get')->with('former::push_checkboxes')->andReturn(false);
-    $app['config']->shouldReceive('get')->with('former::framework')->andReturn('bootstrap');
-    $app['config']->shouldReceive('get')->with('former::live_validation')->andReturn(true);
-    $app['config']->shouldReceive('get')->with('former::required_class')->andReturn('required');
-    $app['config']->shouldReceive('get')->with('former::required_text')->andReturn('<sup>*</sup>');
-    $app['config']->shouldReceive('get')->with('former::unchecked_value')->andReturn('');
-    $app['config']->shouldReceive('get')->with('former::automatic_label')->andReturn(true);
-    $app['config']->shouldReceive('get')->with('former::default_form_type')->andReturn('horizontal');
-    $app['config']->shouldReceive('get')->with('application.encoding')->andReturn('UTF-8');
-    $app['config']->shouldReceive('set')->with('former::framework', 'bootstrap')->andSet('framework', 'bootstrap');
-    $app['config']->shouldReceive('set')->with('former::framework', 'zurb')->andSet('framework', 'zurb');
-
-    $app['translator'] = Mockery::mock('translator');
-    $app['translator']->shouldReceive('get')->with('pagination.next')->andReturn('Next &raquo;');
-    $app['translator']->shouldReceive('get')->with('pagination')->andReturn(array('previous' => '&laquo; Previous', 'next' => 'Next &raquo;'));
-    $app['translator']->shouldReceive('get')->with(Mockery::any())->andReturnUsing(function($test) {
-      return $test;
-    });
-
-    $app['request'] = $this->getRequest();
 
     $app['url'] = Mockery::mock('url');
     $app['url']->shouldReceive('to')->andReturnUsing(function($url) {
       return $url == '#' ? $url : 'https://test/en/'.$url;
     });
 
+    // Setup bindings
     $app['former.laravel.form'] = $app->share(function($app) { return new Laravel\Form($app); });
     $app['former.laravel.html'] = $app->share(function($app) { return new Laravel\HTML($app); });
     $app['former'] = $app->share(function($app) { return new Former\Former($app); });
@@ -114,7 +101,34 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     return $app;
   }
 
-  private function getRequest()
+  protected function getTranslator()
+  {
+    $translator = Mockery::mock('translator');
+    $translator->shouldReceive('get')->with('pagination.next')->andReturn('Next &raquo;');
+    $translator->shouldReceive('get')->with('pagination')->andReturn(array('previous' => '&laquo; Previous', 'next' => 'Next &raquo;'));
+    $translator->shouldReceive('get')->with(Mockery::any())->andReturnUsing(function($test) {
+      return $test;
+    });
+
+    return $translator;
+  }
+
+  protected function getConfig()
+  {
+    $config = Mockery::mock('config');
+    $config->shouldReceive('get')->with('application.encoding')->andReturn('UTF-8');
+    $config->shouldReceive('get')->with('former::automatic_label')->andReturn(true);
+    $config->shouldReceive('get')->with('former::default_form_type')->andReturn('horizontal');
+    $config->shouldReceive('get')->with('former::fetch_errors')->andReturn(false);
+    $config->shouldReceive('get')->with('former::framework')->andReturn('bootstrap');
+    $config->shouldReceive('get')->with('former::live_validation')->andReturn(true);
+    $config->shouldReceive('get')->with('former::required_class')->andReturn('required');
+    $config->shouldReceive('get')->with('former::required_text')->andReturn('<sup>*</sup>');
+
+    return $config;
+  }
+
+  protected function getRequest()
   {
     $request = Mockery::mock('request');
     $request->shouldReceive('url')->andReturn('#');

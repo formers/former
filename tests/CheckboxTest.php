@@ -153,7 +153,9 @@ class CheckboxTest extends FormerTests
 
   public function testRepopulateFromPost()
   {
-    Input::merge(array('foo_0' => true));
+    $this->app['request']->shouldReceive('get')->with('foo', '')->andReturn('');
+    $this->app['request']->shouldReceive('get')->with('foo_0', '')->andReturn(true);
+    $this->app['request']->shouldReceive('get')->with('foo_1', '')->andReturn(false);
 
     $checkboxes = $this->app['former']->checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
     $matcher = $this->cgm($this->cbc('foo_0', 'Foo').$this->cb('foo_1', 'Bar'));
@@ -173,17 +175,19 @@ class CheckboxTest extends FormerTests
 
   public function testRepeatedOutput()
   {
-    $checkbox = $this->app['former']->checkbox('foo');
+    $checkbox = $this->app['former']->checkbox('foo')->__toString();
 
-    $content = HTML::decode($checkbox);
-    $content = HTML::decode($checkbox);
+    $content = $this->app['former.laravel.html']->decode($checkbox);
 
     $this->assertEquals($content, $this->app['former']->checkbox('foo')->__toString());
   }
 
   public function testPushedCheckboxes()
   {
-    $this->app['former']->config('push_checkboxes', true);
+    $this->app['config'] = $this->getConfig();
+    $this->app['config']->shouldReceive('get')->with('former::unchecked_value')->andReturn('');
+    $this->app['config']->shouldReceive('get')->with('former::push_checkboxes')->andReturn(true);
+
     $checkbox = $this->app['former']->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->cg(
       '<label for="foo" class="checkbox">'.
@@ -192,14 +196,15 @@ class CheckboxTest extends FormerTests
       '</label>');
 
     $this->assertEquals($matcher, $checkbox);
-    $this->app['former']->config('push_checkboxes', false);
   }
 
   public function testCheckboxesKeepOriginalValueOnSubmit()
   {
-    Input::merge(array('foo' => ''));
+    $this->app['config'] = $this->getConfig();
+    $this->app['config']->shouldReceive('get')->with('former::unchecked_value')->andReturn('');
+    $this->app['config']->shouldReceive('get')->with('former::push_checkboxes')->andReturn(true);
+    $this->app['request']->shouldReceive('get')->with('foo', '')->andReturn('');
 
-    $this->app['former']->config('push_checkboxes', true);
     $checkbox = $this->app['former']->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->cg(
       '<label for="foo" class="checkbox">'.
@@ -208,13 +213,14 @@ class CheckboxTest extends FormerTests
       '</label>');
 
     $this->assertEquals($matcher, $checkbox);
-    $this->app['former']->config('push_checkboxes', false);
   }
 
   public function testCustomUncheckedValue()
   {
-    $this->app['former']->config('push_checkboxes', true);
-    $this->app['former']->config('unchecked_value', 'unchecked');
+    $this->app['config'] = $this->getConfig();
+    $this->app['config']->shouldReceive('get')->with('former::push_checkboxes')->andReturn(true);
+    $this->app['config']->shouldReceive('get')->with('former::unchecked_value')->andReturn('unchecked');
+
     $checkbox = $this->app['former']->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->cg(
       '<label for="foo" class="checkbox">'.
@@ -223,6 +229,5 @@ class CheckboxTest extends FormerTests
       '</label>');
 
     $this->assertEquals($matcher, $checkbox);
-    $this->app['former']->config('push_checkboxes', false);
   }
 }

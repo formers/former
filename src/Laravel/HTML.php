@@ -452,7 +452,7 @@ class HTML {
    */
   protected function encoding()
   {
-    return $this->encoding ?: $this->encoding = 'UTF-8';
+    return $this->encoding ?: $this->encoding = $this->app['config']->get('application.encoding');
   }
 
   /**
