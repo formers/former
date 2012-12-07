@@ -6,7 +6,7 @@
  */
 namespace Former\Fields;
 
-class Uneditable extends \Former\Field
+class Uneditable extends \Former\Traits\Field
 {
   /**
    * Prints out the current tag

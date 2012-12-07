@@ -5,11 +5,12 @@
  * Abstracts general fields parameters (type, value, name) and
  * reforms a correct form field depending on what was asked
  */
-namespace Former;
+namespace Former\Traits;
 
+use \Former\ControlGroup;
 use \Underscore\Arrays;
 
-abstract class Field extends Traits\FormerObject
+abstract class Field extends FormerObject
 {
   /**
    * The field type

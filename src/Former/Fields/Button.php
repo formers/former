@@ -8,7 +8,7 @@ namespace Former\Fields;
 
 use \Form;
 
-class Button extends \Former\Field
+class Button extends \Former\Traits\Field
 {
   protected $app;
 

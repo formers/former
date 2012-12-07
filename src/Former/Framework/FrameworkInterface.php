@@ -1,7 +1,7 @@
 <?php
 namespace Former\Framework;
 
-use \Former\Field;
+use \Former\Traits\Field;
 
 interface FrameworkInterface
 {

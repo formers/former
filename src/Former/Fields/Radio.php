@@ -6,7 +6,7 @@
  */
 namespace Former\Fields;
 
-class Radio extends \Former\Checkable
+class Radio extends \Former\Traits\Checkable
 {
   /**
    * The current checkable type

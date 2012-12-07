@@ -8,6 +8,7 @@ namespace Former;
 
 use \BadMethodCallException;
 use \Underscore\Arrays;
+use \Underscore\String;
 
 class ControlGroup
 {
@@ -270,7 +271,7 @@ class ControlGroup
   {
     $icon = $this->app['former.framework']->createIcon($icon, $attributes);
 
-    $this->placeAround($icon, 'prepend');
+    $this->prepend($icon);
   }
 
   /**
@@ -283,7 +284,7 @@ class ControlGroup
   {
     $icon = $this->app['former.framework']->createIcon($icon, $attributes);
 
-    $this->placeAround($icon, 'append');
+    $this->append($icon);
   }
 
   /**
@@ -312,11 +313,11 @@ class ControlGroup
     $items = (array) $items;
 
     // Iterate over the items and place them where they should
-    foreach ($items as $i) {
-      if (!($i instanceof \Bootstrapper\Buttons) and !starts_with($i, '<button')) {
-        $i = '<span class="add-on">'.$i.'</span>';
+    foreach ($items as $item) {
+      if (!($item instanceof \Bootstrapper\Buttons) and !String::startsWith($item, '<button')) {
+        $item = '<span class="add-on">'.$item.'</span>';
       }
-      $this->{$place}[] = $i;
+      $this->{$place}[] = $item;
     }
   }
 }

@@ -1,7 +1,6 @@
 <?php
 namespace Former\Framework;
 
-use \Former\Field;
 use \Underscore\Arrays;
 use \Underscore\String;
 

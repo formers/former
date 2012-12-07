@@ -6,7 +6,7 @@
  */
 namespace Former\Fields;
 
-class Hidden extends \Former\Field
+class Hidden extends \Former\Traits\Field
 {
   /**
    * Easier arguments order for hidden fields

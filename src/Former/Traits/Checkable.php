@@ -4,7 +4,7 @@
  *
  * Abstract methods inherited by Checkbox and Radio
  */
-namespace Former;
+namespace Former\Traits;
 
 use \Underscore\Arrays;
 

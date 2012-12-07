@@ -6,7 +6,7 @@
  */
 namespace Former\Fields;
 
-class File extends \Former\Field
+class File extends \Former\Traits\Field
 {
   /**
    * The maximum file size

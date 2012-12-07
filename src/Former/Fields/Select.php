@@ -9,7 +9,7 @@ namespace Former\Fields;
 use \Form;
 use \Former\Helpers;
 
-class Select extends \Former\Field
+class Select extends \Former\Traits\Field
 {
   /**
    * The select options

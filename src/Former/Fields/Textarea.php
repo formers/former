@@ -3,7 +3,7 @@ namespace Former\Fields;
 
 use \Form;
 
-class Textarea extends \Former\Field
+class Textarea extends \Former\Traits\Field
 {
   /**
    * Outputs a textarea

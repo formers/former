@@ -6,7 +6,7 @@
  */
 namespace Former\Fields;
 
-class Checkbox extends \Former\Checkable
+class Checkbox extends \Former\Traits\Checkable
 {
   /**
    * The current checkable type
