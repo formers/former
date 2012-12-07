@@ -198,7 +198,7 @@ abstract class Field extends Traits\FormerObject
 
     // Get values from POST, populated, and manually set value
     $post     = $this->app['former']->getPost($this->name);
-    $populate = $this->app['former']->getPost($this->name);
+    $populate = $this->app['former']->getValue($this->name);
 
     // Assign a priority to each
     if(!is_null($post)) $value = $post;

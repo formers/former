@@ -163,7 +163,7 @@ class RadioTest extends FormerTests
 
   public function testRepopulateFromPost()
   {
-    $this->app['request']->merge(array('foo' => 0));
+    $this->app['request']->shouldReceive('get')->with('foo', '')->andReturn(0);
 
     $radios = $this->app['former']->radios('foo')->radios('foo', 'bar')->__toString();
     $matcher = $this->cgm($this->rc('foo', 'Foo', 0).$this->r('foo2', 'Bar', 1));

@@ -36,9 +36,9 @@ class SelectTest extends FormerTests
 
   public function testGetSelectOptions()
   {
-    $select = $this->app['former']->select('foo')->options($this->options);
+    $this->app['former']->select('foo')->options($this->options);
 
-    $this->assertEquals($select::field()->getOptions(), $this->options);
+    $this->assertEquals($this->app['former']->field()->getOptions(), $this->options);
   }
 
   public function testSelectPlaceholder()
@@ -69,7 +69,7 @@ class SelectTest extends FormerTests
 
   public function testSelectLang()
   {
-    $select = $this->app['former']->select('foo')->options(Lang::line('pagination'), 'previous')->__toString();
+    $select = $this->app['former']->select('foo')->options($this->app['translator']->get('pagination'), 'previous')->__toString();
     $matcher = $this->cg(
     '<select id="foo" name="foo">'.
       '<option value="previous" selected="selected">&laquo; Previous</option>'.
@@ -137,9 +137,12 @@ class SelectTest extends FormerTests
     $foo = (object) array('bar' => $bar);
     $this->app['former']->populate($foo);
 
-    $select =$this->app['former']->select('bar.kal')->__toString();
+    $select = $this->app['former']->select('bar.kal')->__toString();
     $matcher = $this->cg(
-      '<select id="bar.kal" name="bar.kal"><option value="0">val0</option><option value="1">val1</option></select>',
+      '<select id="bar.kal" name="bar.kal">'.
+        '<option value="0">val0</option>'.
+        '<option value="1">val1</option>'.
+      '</select>',
       '<label for="bar.kal" class="control-label">Bar.kal</label>');
 
     $this->assertEquals($matcher, $select);

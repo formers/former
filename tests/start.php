@@ -43,7 +43,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
 
   public function setUp()
   {
-    $this->app = static::$illuminate;
+    $this->app = $this->getIlluminate();
 
     $this->resetLabels();
 
@@ -64,7 +64,11 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     $this->app['former.laravel.form']->labels = array();
   }
 
-  public static function setUpBeforeClass()
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////// DEPENDENCIES ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  private function getIlluminate()
   {
     $app = new Illuminate\Container;
 
@@ -89,15 +93,12 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
 
     $app['translator'] = Mockery::mock('translator');
     $app['translator']->shouldReceive('get')->with('pagination.next')->andReturn('Next &raquo;');
+    $app['translator']->shouldReceive('get')->with('pagination')->andReturn(array('previous' => '&laquo; Previous', 'next' => 'Next &raquo;'));
     $app['translator']->shouldReceive('get')->with(Mockery::any())->andReturnUsing(function($test) {
       return $test;
     });
 
-    $app['request'] = Mockery::mock('request');
-    $app['request']->shouldReceive('url')->andReturn('#');
-    $app['request']->shouldReceive('get')->andReturn(null);
-    $app['request']->shouldReceive('old')->andReturn(null);
-    $app['request']->shouldReceive('merge')->andSet('foo', 0);
+    $app['request'] = $this->getRequest();
 
     $app['url'] = Mockery::mock('url');
     $app['url']->shouldReceive('to')->andReturnUsing(function($url) {
@@ -110,6 +111,16 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     $app['former.helpers'] = $app->share(function($app) { return new Former\Helpers($app); });
     $app['former.framework'] = $app->share(function($app) { return new Former\Framework($app); });
 
-    static::$illuminate = $app;
+    return $app;
+  }
+
+  private function getRequest()
+  {
+    $request = Mockery::mock('request');
+    $request->shouldReceive('url')->andReturn('#');
+    $request->shouldReceive('get')->andReturn(null)->byDefault();
+    $request->shouldReceive('old')->andReturn(null);
+
+    return $request;
   }
 }

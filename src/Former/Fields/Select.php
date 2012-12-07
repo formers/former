@@ -33,12 +33,12 @@ class Select extends \Former\Field
    * @param mixed  $selected   Selected entry
    * @param array  $attributes Attributes
    */
-  public function __construct($type, $name, $label, $options, $selected, $attributes)
+  public function __construct($app, $type, $name, $label, $options, $selected, $attributes)
   {
-    if($options) $this->options = $options;
+    if($options)  $this->options = $options;
     if($selected) $this->value = $selected;
 
-    parent::__construct($type, $name, $label, $selected, $attributes);
+    parent::__construct($app, $type, $name, $label, $selected, $attributes);
 
     // Multiple models population
     if (is_array($this->value)) {
@@ -70,6 +70,8 @@ class Select extends \Former\Field
     $this->options = $options;
 
     if($selected) $this->value = $selected;
+
+    return $this;
   }
 
   /**
@@ -84,6 +86,8 @@ class Select extends \Former\Field
     $options = $this->app['former.helpers']->queryToArray($results, $value, $key);
 
     if(isset($options)) $this->options = $options;
+
+    return $this;
   }
 
   /**
@@ -94,6 +98,8 @@ class Select extends \Former\Field
   public function select($selected)
   {
     $this->value = $selected;
+
+    return $this;
   }
 
   /**
@@ -104,6 +110,8 @@ class Select extends \Former\Field
   public function placeholder($placeholder)
   {
     $this->placeholder = $this->app['former.helpers']->translate($placeholder);
+
+    return $this;
   }
 
   /**
