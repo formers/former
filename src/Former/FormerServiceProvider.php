@@ -37,5 +37,9 @@ class FormerServiceProvider extends ServiceProvider
     $this->app['former.laravel.form'] = $this->app->share(function($app) {
       return new \Laravel\Form($app);
     });
+
+    $this->app['former.laravel.html'] = $this->app->share(function($app) {
+      return new \Laravel\HTML($app);
+    });
   }
 }

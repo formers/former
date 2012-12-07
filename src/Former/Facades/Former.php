@@ -1,7 +1,7 @@
 <?php
 namespace Former\Facades;
 
-use Illuminate\Support\Facade;
+use Illuminate\Support\Facades\Facade;
 
 class Former extends Facade
 {
