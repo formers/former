@@ -8,7 +8,7 @@ class ValidationTest extends FormerTests
 
   private function field($attributes = array(), $type = 'text', $name = 'foo')
   {
-    return '<input' .$this->app['former.laravel.html']->attributes($attributes). ' type="' .$type. '" name="' .$name. '" id="' .$name. '">';
+    return '<input' .$this->app['former.laravel.html']->attributes($attributes). ' name="' .$name. '" type="' .$type. '" id="' .$name. '">';
   }
 
   // Data providers ------------------------------------------------ /
@@ -81,7 +81,7 @@ class ValidationTest extends FormerTests
     $this->app['former']->withRules(array('foo' => 'required'));
 
     $input = $this->app['former']->text('foo')->__toString();
-    $matcher = '<label for="foo">Foo<sup>*</sup></label><input required="true" type="text" name="foo" id="foo">';
+    $matcher = '<label for="foo">Foo<sup>*</sup></label><input required="true" name="foo" type="text" id="foo">';
 
     $this->assertEquals($matcher, $input);
   }
