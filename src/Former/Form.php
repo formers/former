@@ -77,18 +77,19 @@ class Form extends Traits\FormerObject
     else {
       // Look for HTTPS form
       if (String::contains($typeAsked, 'secure')) {
-        $typeAsked = str_replace('secure', null, $typeAsked);
+        $typeAsked = String::remove($typeAsked, 'secure');
         $secure = true;
       }
 
       // Look for file form
       if (String::contains($typeAsked, 'for_files')) {
-        $typeAsked = str_replace('for_files', null, $typeAsked);
+        $typeAsked = String::remove($typeAsked, 'for_files');
         $attributes['enctype'] = 'multipart/form-data';
       }
 
       // Calculate form type
-      $type = trim(str_replace('open', null, $typeAsked), '_');
+      $type = String::remove($typeAsked, 'open');
+      $type = trim($type, '_');
       if(!in_array($type, $this->availableTypes)) $type = $this->app['config']->get('former::default_form_type');
     }
 
