@@ -6,6 +6,8 @@
  */
 namespace Former\Fields;
 
+use \Laravel\File as LaravelFile;
+
 class File extends \Former\Traits\Field
 {
   /**
@@ -44,7 +46,7 @@ class File extends \Former\Traits\Field
 
       // Shortcuts and extensions
       if(in_array($mime, $shortcuts)) $mime .= '/*';
-      $mime = $this->app['former.laravel.file']->mime($mime, $mime);
+      $mime = LaravelFile::mime($mime, $mime);
 
       $mimes[] = $mime;
     }

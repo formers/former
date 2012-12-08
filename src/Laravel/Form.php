@@ -60,7 +60,7 @@ class Form {
   {
     $method = strtoupper($method);
 
-    $attributes['method'] =  $this->method($method);
+    $attributes['method'] = $this->method($method);
 
     $attributes['action'] = $this->action($action, $https);
 
