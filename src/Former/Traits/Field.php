@@ -8,6 +8,7 @@
 namespace Former\Traits;
 
 use \Former\ControlGroup;
+use \Former\LiveValidation;
 use \Underscore\Arrays;
 
 abstract class Field extends FormerObject
@@ -68,7 +69,10 @@ abstract class Field extends FormerObject
     // Set magic parameters (repopulated value, translated label, etc)
     if($this->app['config']->get('former::automatic_label')) $this->ponder($name, $label);
     if($type != 'password') $this->value = $this->repopulate();
-    if($this->app['config']->get('former::live_validation')) $this->addRules();
+    if($this->app['config']->get('former::live_validation')) {
+      new LiveValidation($this, $this->getRules());
+    }
+
 
     // Link Control group
     if ($this->app['former.framework']->isnt('Nude')) {
@@ -109,7 +113,37 @@ abstract class Field extends FormerObject
    */
   public function isCheckable()
   {
-    return  in_array($this->type, array('checkboxes', 'radios'));
+    return in_array($this->type, array('checkboxes', 'radios'));
+  }
+
+  /**
+   * Get the rules applied to the current field
+   *
+   * @return array An array of rules
+   */
+  public function getRules()
+  {
+    return $this->app['former']->getRules($this->name);
+  }
+
+  /**
+   * Get the field's type
+   *
+   * @return string
+   */
+  public function getType()
+  {
+    return $this->type;
+  }
+
+  /**
+   * Change a field's type
+   *
+   * @param string $type
+   */
+  public function setType($type)
+  {
+    $this->type = $type;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -209,28 +243,6 @@ abstract class Field extends FormerObject
   }
 
   /**
-   * Set a maximum value to a field
-   *
-   * @param integer $max
-   */
-  private function setMax($max)
-  {
-    $attribute = $this->type == 'number' ? 'max' : 'maxlength';
-    $this->attributes[$attribute] = $max;
-  }
-
-  /**
-   * Set a minimum value to a field
-   *
-   * @param integer $min
-   */
-  private function setMin($min)
-  {
-    $attribute = $this->type == 'number' ? 'min' : 'minlength';
-    $this->attributes[$attribute] = $min;
-  }
-
-  /**
    * Ponders a label and a field name, and tries to get the best out of it
    *
    * @param  string $label A label
@@ -249,93 +261,5 @@ abstract class Field extends FormerObject
     // Save values
     $this->name  = $name;
     $this->label($label);
-  }
-
-  /**
-   * Add the corresponding rules to the field's attributes
-   */
-  private function addRules()
-  {
-    // Get the different rules assigned to this field
-    $rules = $this->app['former']->getRules($this->name);
-    if(!$rules) return false;
-
-    // Iterate through them and add the attributes
-    foreach ($rules as $rule => $parameters) {
-      switch ($rule) {
-        case 'email':
-          $this->type = 'email';
-          break;
-        case 'url':
-          $this->type = 'url';
-          break;
-        case 'required';
-          $this->required();
-          break;
-        case 'after':
-        case 'before':
-          $format = 'Y-m-d';
-          if ($this->type == 'datetime' or
-              $this->type == 'datetime-local') {
-                $format .= '\TH:i:s';
-          }
-
-          $date = strtotime(Arrays::get($parameters, 0));
-          $attribute = ($rule == 'before') ? 'max' : 'min';
-          $this->attributes[$attribute] = date($format, $date);
-          break;
-        case 'max':
-          $this->setMax(Arrays::get($parameters, 0));
-          break;
-        case 'min':
-          $this->setMin(Arrays::get($parameters, 0));
-          break;
-        case 'integer':
-          $this->attributes['pattern'] = '\d+';
-          break;
-        case 'mimes':
-        case 'image':
-          if ($this->type == 'file') {
-            $ext = $rule == 'image' ? array('jpg', 'png', 'gif', 'bmp') : $parameters;
-            $mimes = array_map(array($this->app['former.laravel.file'], 'mime'), $ext);
-            $this->attributes['accept'] = implode(',', $mimes);
-          }
-          break;
-        case 'numeric':
-          if ($this->type == 'number') $this->attributes['step'] = 'any';
-          else $this->attributes['pattern'] = '[+-]?\d*\.?\d+';
-          break;
-        case 'not_numeric':
-          $this->attributes['pattern'] = '\D+';
-          break;
-        case 'alpha':
-          $this->attributes['pattern'] = '[a-zA-Z]+';
-          break;
-        case 'alpha_num':
-          $this->attributes['pattern'] = '[a-zA-Z0-9]+';
-          break;
-        case 'alpha_dash':
-          $this->attributes['pattern'] = '[a-zA-Z0-9_\-]+';
-          break;
-        case 'between':
-          list($min, $max) = $parameters;
-          $this->setMin($min);
-          $this->setMax($max);
-          break;
-        case 'in':
-          $possible = (sizeof($parameters) == 1) ? $parameters[0] : '('.join('|', $parameters).')';
-          $this->attributes['pattern'] = '^' .$possible. '$';
-          break;
-        case 'not_in':
-          $this->attributes['pattern'] = '(?:(?!^' .join('$|^', $parameters). '$).)*';
-          break;
-        case 'match':
-          $this->attributes['pattern'] = substr($parameters[0], 1, -1);
-          break;
-        default:
-          continue;
-          break;
-      }
-    }
   }
 }
