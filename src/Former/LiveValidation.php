@@ -90,32 +90,51 @@ class LiveValidation
     $this->field->pattern('\D+');
   }
 
+  /**
+   * Only alphanumerical
+
+   */
   public function alpha()
   {
     $this->field->pattern('[a-zA-Z]+');
   }
 
+  /**
+   * Only alphanumerical and numbers
+   */
   public function alpha_num()
   {
     $this->field->pattern('[a-zA-Z0-9]+');
   }
 
+  /**
+   * Alphanumerical, numbers and dashes
+   */
   public function alpha_dash()
   {
     $this->field->pattern('[a-zA-Z0-9_\-]+');
   }
 
+  /**
+   * In []
+   */
   public function in($possible)
   {
     $possible = (sizeof($possible) == 1) ? $possible[0] : '('.join('|', $possible).')';
     $this->field->pattern('^' .$possible. '$');
   }
 
+  /**
+   * Not in []
+   */
   public function not_in($impossible)
   {
     $this->field->pattern('(?:(?!^' .join('$|^', $impossible). '$).)*');
   }
 
+  /**
+   * Matches a pattern
+   */
   public function match($pattern)
   {
     $this->field->pattern(substr($pattern[0], 1, -1));
@@ -170,12 +189,18 @@ class LiveValidation
 
   // Dates --------------------------------------------------------- /
 
+  /**
+   * Before a date
+   */
   public function before($date)
   {
     list($format, $date) = $this->formatDate($date[0]);
     $this->field->max(date($format, $date));
   }
 
+  /**
+   * After a date
+   */
   public function after($date)
   {
     list($format, $date) = $this->formatDate($date[0]);
