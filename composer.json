@@ -19,7 +19,7 @@
     "anahkiasen/underscore-php" : "dev-master"
   },
   "require-dev": {
-    "mockery/mockery": "0.7.*"
+    "mockery/mockery": "dev-master"
   },
   "autoload": {
     "psr-0": {

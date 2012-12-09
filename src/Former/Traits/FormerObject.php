@@ -104,7 +104,7 @@ abstract class FormerObject
    */
   public function __toString()
   {
-    return $this->app['former']->render($this);
+    return $this->render();
   }
 
 }

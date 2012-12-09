@@ -19,11 +19,16 @@ abstract class Field extends FormerObject
   protected $type;
 
   /**
-   * Illuminate application instance.
-   *
+   * Illuminate application instance
    * @var Illuminate\Foundation\Application  $app
    */
   protected $app;
+
+  /**
+   * The Form instance
+   * @var Former\Form
+   */
+  protected $form;
 
   /**
    * The field value
@@ -79,6 +84,32 @@ abstract class Field extends FormerObject
     }
   }
 
+  /**
+   * Prints out the field
+   *
+   * @return string
+   */
+  public function __toString()
+  {
+    // Dry syntax (hidden fields, plain fields)
+    if ($this->isUnwrappable()) {
+      $html = $this->render();
+    }
+
+    // Bootstrap syntax
+    elseif ($this->app['former.framework']->isnt('Nude') and $this->app['former']->form()) {
+      $html = $this->getControl()->wrapField($this);
+    }
+
+    // Classic syntax
+    else {
+      $html  = $this->app['former.framework']->createLabelOf($this);
+      $html .= $this->render();
+    }
+
+    return $html;
+  }
+
   ////////////////////////////////////////////////////////////////////
   /////////////////////////// FUNCTIONS //////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -101,7 +132,7 @@ abstract class Field extends FormerObject
   public function isUnwrappable()
   {
     return
-      $this->app['former']->form()->type == 'inline' or
+      $this->app['former']->form() and $this->app['former']->form()->type == 'inline' or
       in_array($this->type, array('hidden', 'submit', 'button', 'reset'));
   }
 

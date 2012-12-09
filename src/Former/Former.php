@@ -152,7 +152,6 @@ class Former
     return $this->field;
   }
 
-
   ////////////////////////////////////////////////////////////////////
   //////////////////////////// TOOLKIT ///////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -310,6 +309,8 @@ class Former
    */
   public function close()
   {
+    if (!$this->form) return false;
+
     $closed = $this->form()->close();
 
     // Destroy Form instance
@@ -431,7 +432,6 @@ class Former
    */
   public function form()
   {
-    if (!$this->form) return new Form($this->app);
     return $this->form;
   }
 
