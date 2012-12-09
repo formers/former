@@ -9,7 +9,6 @@ namespace Former\Traits;
 
 use \Former\ControlGroup;
 use \Former\LiveValidation;
-use \Underscore\Arrays;
 
 abstract class Field extends FormerObject
 {
@@ -69,7 +68,7 @@ abstract class Field extends FormerObject
     // Set magic parameters (repopulated value, translated label, etc)
     if($this->app['config']->get('former::automatic_label')) $this->ponder($name, $label);
     if($type != 'password') $this->value = $this->repopulate();
-    if($this->app['config']->get('former::live_validation')) {
+    if ($this->app['config']->get('former::live_validation')) {
       new LiveValidation($this, $this->getRules());
     }
 

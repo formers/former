@@ -68,8 +68,6 @@ class Helpers
    */
   public function attributes($attributes)
   {
-    $html = array();
-
     foreach ((array) $attributes as $key => $value) {
 
       // Convert numerical keys to value (required="required")
@@ -81,7 +79,9 @@ class Helpers
       }
     }
 
-    return (count($html) > 0) ? ' '.implode(' ', $html) : '';
+    // If empty array, return nothing
+    if (count($html) == 0) return false;
+    return implode(' ' ,$html);
   }
 
   ////////////////////////////////////////////////////////////////////

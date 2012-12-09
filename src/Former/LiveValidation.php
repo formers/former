@@ -26,7 +26,7 @@ class LiveValidation
     $this->field = $field;
 
     // Apply the rules
-    foreach($rules as $rule => $parameters) {
+    foreach ($rules as $rule => $parameters) {
       if (!method_exists($this, $rule)) continue;
 
       $this->$rule($parameters);

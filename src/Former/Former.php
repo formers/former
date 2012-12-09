@@ -161,7 +161,6 @@ class Former
   public function __get($attribute)
   {
     if (!$this->field) return false;
-
     return $this->field->$attribute;
   }
 
@@ -334,7 +333,6 @@ class Former
   public function config($key, $value)
   {
     if ($key == 'framework') return $this->framework($value);
-
     return $this->app['config']->set('former::'.$key, $value);
   }
 
