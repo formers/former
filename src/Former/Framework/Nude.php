@@ -1,6 +1,9 @@
 <?php
 namespace Former\Framework;
 
+use \Former\Interfaces\FrameworkInterface;
+use \Former\Traits\Framework;
+
 class Nude extends Framework implements FrameworkInterface
 {
   /**

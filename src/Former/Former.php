@@ -414,18 +414,6 @@ class Former
   }
 
   /**
-   * Returns the current ControlGroup
-   *
-   * @return ControlGroup
-   */
-  public function control()
-  {
-    if(!$this->field) return false;
-
-    return $this->field->getControl();
-  }
-
-  /**
    * Returns the current Form
    *
    * @return Form

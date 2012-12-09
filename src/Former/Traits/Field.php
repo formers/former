@@ -7,11 +7,12 @@
  */
 namespace Former\Traits;
 
-use \Former\Form\Form;
 use \Former\Form\ControlGroup;
+use \Former\Form\Form;
+use \Former\Interfaces\FieldInterface;
 use \Former\LiveValidation;
 
-abstract class Field extends FormerObject
+abstract class Field extends FormerObject implements FieldInterface
 {
   /**
    * The field type
@@ -83,6 +84,21 @@ abstract class Field extends FormerObject
     if ($this->app['former.framework']->isnt('Nude')) {
       $this->controlGroup = new ControlGroup($this->app, $this->label);
     }
+  }
+
+  /**
+   * Redirect calls to the control group if necessary
+   */
+  public function __call($method, $parameters)
+  {
+    // Redirect calls to the Control Group
+    if (method_exists($this->controlGroup, $method)) {
+      call_user_func_array(array($this->controlGroup, $method), $parameters);
+
+      return $this;
+    }
+
+    return parent::__call($method, $parameters);
   }
 
   /**
@@ -178,16 +194,6 @@ abstract class Field extends FormerObject
   ////////////////////////////////////////////////////////////////////
   //////////////////////// SETTERS AND GETTERS ///////////////////////
   ////////////////////////////////////////////////////////////////////
-
-  /**
-   * Returns this Field's control group
-   *
-   * @return ControlGroup
-   */
-  public function getControl()
-  {
-    return $this->controlGroup;
-  }
 
   /**
    * Adds a label to the control group/field

@@ -1,5 +1,5 @@
 <?php
-namespace Former\Framework;
+namespace Former\Traits;
 
 use \Former\Traits\Field;
 use \Underscore\Arrays;
@@ -17,7 +17,7 @@ abstract class Framework
    */
   public function current()
   {
-    return String::remove(get_called_class(), __NAMESPACE__.'\\');
+    return String::remove(get_called_class(), 'Former\\Framework\\');
   }
 
   /**

@@ -1,11 +1,12 @@
 <?php
-namespace Former\Framework;
+namespace Former\Interfaces;
 
 use \Former\Traits\Field;
+use \Illuminate\Container;
 
 interface FrameworkInterface
 {
-  public function __construct(\Illuminate\Container $app);
+  public function __construct(Container $app);
 
   // Filter arrays
   public function filterButtonClasses($classes);

@@ -1,6 +1,8 @@
 <?php
 namespace Former\Framework;
 
+use \Former\Interfaces\FrameworkInterface;
+use \Former\Traits\Framework;
 use \Underscore\Arrays;
 use \Underscore\String;
 
