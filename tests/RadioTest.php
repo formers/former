@@ -19,9 +19,9 @@ class RadioTest extends FormerTests
     if ($inline) $labelAttr['class'] .= ' inline';
     if (!$checked) unset($radioAttr['checked']);
 
-    $radio = '<input'.$this->app['former.laravel.html']->attributes($radioAttr).'>';
+    $radio = '<input'.$this->app['former.helpers']->attributes($radioAttr).'>';
 
-    return $label ? '<label'.$this->app['former.laravel.html']->attributes($labelAttr). '>' .$radio.$label. '</label>' : $radio;
+    return $label ? '<label'.$this->app['former.helpers']->attributes($labelAttr). '>' .$radio.$label. '</label>' : $radio;
   }
 
   private function rc($name = 'foo', $label = null, $value = 1, $inline = false)

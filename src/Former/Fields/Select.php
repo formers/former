@@ -143,7 +143,7 @@ class Select extends \Former\Traits\Field
     if ($this->placeholder) {
       $placeholder = array('value' => '', 'disabled' => '');
       if(!$this->value) $placeholder['selected'] = '';
-      $placeholder = '<option'.$this->app['former.laravel.html']->attributes($placeholder).'>' .$this->placeholder. '</option>';
+      $placeholder = '<option'.$this->app['former.helpers']->attributes($placeholder).'>' .$this->placeholder. '</option>';
 
       $select = preg_replace('#<select([^>]+)>#', '$0'.$placeholder, $select);
     }

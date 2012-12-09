@@ -47,7 +47,7 @@ class Nude extends Framework implements FrameworkInterface
 
   public function createHelp($text, $attributes)
   {
-    return '<small'.$this->app['former.laravel.html']->attributes($attributes).'>'.$text.'</small>';
+    return '<small'.$this->app['former.helpers']->attributes($attributes).'>'.$text.'</small>';
   }
 
   public function createIcon($icon, $attributes)

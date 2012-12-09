@@ -83,11 +83,11 @@ abstract class Framework
   }
 
   /**
-   * Alias for former.laravel.html.attributes
+   * Alias for former.helpers.attributes
    */
   public function attributes($attributes)
   {
-    return $this->app['former.laravel.html']->attributes($attributes);
+    return $this->app['former.helpers']->attributes($attributes);
   }
 
   /**
@@ -117,11 +117,11 @@ abstract class Framework
 
     // Render plain label if checkable, else a classic one
     if ($field->isCheckable()) {
-      $label = '<label'.$this->app['former.laravel.html']->attributes($attributes).'>'.$text.'</label>';
+      $label = '<label'.$this->app['former.helpers']->attributes($attributes).'>'.$text.'</label>';
     } else {
       $label = $this->app['former.laravel.form']->label($field->name, $text, $attributes);
     }
 
-    return $this->app['former.laravel.html']->decode($label);
+    return $this->app['former.helpers']->decode($label);
   }
 }

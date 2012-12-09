@@ -91,7 +91,6 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
 
     // Setup bindings
     $app['former.laravel.form'] = $app->share(function($app) { return new Laravel\Form($app); });
-    $app['former.laravel.html'] = $app->share(function($app) { return new Laravel\HTML($app); });
     $app['former.laravel.file'] = $app->share(function($app) { return new Laravel\File($app); });
     $app['former'] = $app->share(function($app) { return new Former\Former($app); });
     $app['former.helpers'] = $app->share(function($app) { return new Former\Helpers($app); });

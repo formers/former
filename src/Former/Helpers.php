@@ -6,8 +6,6 @@
  */
 namespace Former;
 
-use \HTML;
-use \Lang;
 use \Underscore\String;
 
 class Helpers
@@ -16,6 +14,10 @@ class Helpers
   {
     $this->app = $app;
   }
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////// HTML HELPERS ////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Add a class to an attributes array
@@ -35,6 +37,56 @@ class Helpers
 
     return $attributes;
   }
+
+  /**
+   * Convert HTML characters to entities.
+   *
+   * @param  string  $value
+   * @return string
+   */
+  public function entities($value)
+  {
+    return htmlentities($value, ENT_QUOTES, 'UTF-8', false);
+  }
+
+  /**
+   * Convert entities to HTML characters.
+   *
+   * @param  string  $value
+   * @return string
+   */
+  public function decode($value)
+  {
+    return html_entity_decode($value, ENT_QUOTES, 'UTF-8');
+  }
+
+  /**
+   * Convert an array of attributes to a string
+   *
+   * @param array $attributes
+   * @return string
+   */
+  public function attributes($attributes)
+  {
+    $html = array();
+
+    foreach ((array) $attributes as $key => $value) {
+
+      // Convert numerical keys to value (required="required")
+      if (is_numeric($key)) $key = $value;
+
+      // Encode value
+      if (!is_null($value)) {
+        $html[] = $key.'="'.$this->entities($value).'"';
+      }
+    }
+
+    return (count($html) > 0) ? ' '.implode(' ', $html) : '';
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////// LOCALIZATION HELPERS ////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Translates a string by trying several fallbacks
@@ -65,6 +117,10 @@ class Helpers
 
     return ucfirst($translation);
   }
+
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////// DATABASE HELPERS ///////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Transforms a Fluent/Eloquent query to an array
@@ -130,7 +186,7 @@ class Helpers
 
     // Get the field name to link the label to it
     if ($field->isCheckable()) {
-      return '<label'.$this->app['former.laravel.html']->attributes($attributes).'>'.$label.'</label>';
+      return '<label'.$this->app['former.helpers']->attributes($attributes).'>'.$label.'</label>';
     }
 
     return $this->app['former.laravel.form']->label($field->name, $label, $attributes);

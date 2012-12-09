@@ -82,7 +82,7 @@ class Form {
       $append = $this->hidden(Request::spoofer, $method);
     }
 
-    return '<form'.$this->app['former.laravel.html']->attributes($attributes).'>'.$append;
+    return '<form'.$this->app['former.helpers']->attributes($attributes).'>'.$append;
   }
 
   /**
@@ -109,7 +109,7 @@ class Form {
   {
     $uri = (is_null($action)) ? $this->app['request']->url() : $action;
 
-    return $this->app['former.laravel.html']->entities($this->app['url']->to($uri, $https));
+    return $this->app['former.helpers']->entities($this->app['url']->to($uri, $https));
   }
 
   /**
@@ -191,9 +191,9 @@ class Form {
   {
     $this->labels[] = $name;
 
-    $attributes = $this->app['former.laravel.html']->attributes($attributes);
+    $attributes = $this->app['former.helpers']->attributes($attributes);
 
-    $value = $this->app['former.laravel.html']->entities($value);
+    $value = $this->app['former.helpers']->entities($value);
 
     return '<label for="'.$name.'"'.$attributes.'>'.$value.'</label>';
   }
@@ -223,7 +223,7 @@ class Form {
 
     $attributes = array_merge($attributes, compact('type', 'name', 'value', 'id'));
 
-    return '<input'.$this->app['former.laravel.html']->attributes($attributes).'>';
+    return '<input'.$this->app['former.helpers']->attributes($attributes).'>';
   }
 
   /**
@@ -372,7 +372,7 @@ class Form {
 
     if ( ! isset($attributes['cols'])) $attributes['cols'] = 50;
 
-    return '<textarea'.$this->app['former.laravel.html']->attributes($attributes).'>'.$this->app['former.laravel.html']->entities($value).'</textarea>';
+    return '<textarea'.$this->app['former.helpers']->attributes($attributes).'>'.$this->app['former.helpers']->entities($value).'</textarea>';
   }
 
   /**
@@ -412,7 +412,7 @@ class Form {
       }
     }
 
-    return '<select'.$this->app['former.laravel.html']->attributes($attributes).'>'.implode('', $html).'</select>';
+    return '<select'.$this->app['former.helpers']->attributes($attributes).'>'.implode('', $html).'</select>';
   }
 
   /**
@@ -432,7 +432,7 @@ class Form {
       $html[] = $this->option($value, $display, $selected);
     }
 
-    return '<optgroup label="'.$this->app['former.laravel.html']->entities($label).'">'.implode('', $html).'</optgroup>';
+    return '<optgroup label="'.$this->app['former.helpers']->entities($label).'">'.implode('', $html).'</optgroup>';
   }
 
   /**
@@ -454,9 +454,9 @@ class Form {
       $selected = ((string) $value == (string) $selected) ? 'selected' : null;
     }
 
-    $attributes = array('value' => $this->app['former.laravel.html']->entities($value), 'selected' => $selected);
+    $attributes = array('value' => $this->app['former.helpers']->entities($value), 'selected' => $selected);
 
-    return '<option'.$this->app['former.laravel.html']->attributes($attributes).'>'.$this->app['former.laravel.html']->entities($display).'</option>';
+    return '<option'.$this->app['former.helpers']->attributes($attributes).'>'.$this->app['former.helpers']->entities($display).'</option>';
   }
 
   /**
@@ -577,7 +577,7 @@ class Form {
    */
   public function button($value = null, $attributes = array())
   {
-    return '<button'.$this->app['former.laravel.html']->attributes($attributes).'>'.$this->app['former.laravel.html']->entities($value).'</button>';
+    return '<button'.$this->app['former.helpers']->attributes($attributes).'>'.$this->app['former.helpers']->entities($value).'</button>';
   }
 
   /**
