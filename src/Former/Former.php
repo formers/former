@@ -152,35 +152,6 @@ class Former
     return $this->field;
   }
 
-  /**
-   * Prints out Field wrapped in ControlGroup
-   *
-   * @return string A form field
-   */
-  public function render($field)
-  {
-    if ($this->form and !$this->form->isOpened()) {
-      return $this->form()->__toString();
-    }
-
-    // Dry syntax (hidden fields, plain fields)
-    if ($field->isUnwrappable()) {
-      $html = $field->render();
-    }
-
-    // Bootstrap syntax
-    elseif ($this->app['former.framework']->isnt('Nude') and $this->form) {
-      $html = $this->control()->wrapField($field);
-    }
-
-    // Classic syntax
-    else {
-      $html  = $this->app['former.framework']->createLabelOf($field);
-      $html .= $field->render();
-    }
-
-    return $html;
-  }
 
   ////////////////////////////////////////////////////////////////////
   //////////////////////////// TOOLKIT ///////////////////////////////
