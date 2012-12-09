@@ -17,7 +17,7 @@ abstract class Framework
    */
   public function current()
   {
-    return String::remove(get_called_class(), 'Former\\Framework\\');
+    return basename(str_replace('\\', '/', get_class($this)));
   }
 
   /**
