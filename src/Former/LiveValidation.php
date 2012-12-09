@@ -92,7 +92,6 @@ class LiveValidation
 
   /**
    * Only alphanumerical
-
    */
   public function alpha()
   {

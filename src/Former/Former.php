@@ -153,18 +153,6 @@ class Former
   }
 
   /**
-   * Get an attribute/value from the Field instance
-   *
-   * @param  string $attribute The requested attribute
-   * @return string            Its value
-   */
-  public function __get($attribute)
-  {
-    if (!$this->field) return false;
-    return $this->field->$attribute;
-  }
-
-  /**
    * Prints out Field wrapped in ControlGroup
    *
    * @return string A form field
@@ -325,18 +313,6 @@ class Former
   }
 
   /**
-   * Alter Former's settings
-   *
-   * @param  string $key   The option to change
-   * @param  string $value Its new value
-   */
-  public function config($key, $value)
-  {
-    if ($key == 'framework') return $this->framework($value);
-    return $this->app['config']->set('former::'.$key, $value);
-  }
-
-  /**
    * Switch the framework used by Former
    *
    * @param string $framework The name of the framework to use
@@ -363,7 +339,7 @@ class Former
    */
   public function close()
   {
-    $close = $this->form()->close();
+    $closed = $this->form()->close();
 
     // Destroy Form instance
     $this->form = null;
@@ -373,7 +349,7 @@ class Former
     $this->errors = null;
     $this->rules  = null;
 
-    return $close;
+    return $closed;
   }
 
   /**
@@ -408,7 +384,7 @@ class Former
    *
    * @param  string $legend     The text
    * @param  array  $attributes Its attributes
-   * @return string             A legend tag
+   * @return string             A <legend> tag
    */
   public function legend($legend, $attributes = array())
   {

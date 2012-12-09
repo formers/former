@@ -4,14 +4,7 @@ use \Former\Framework;
 
 class FrameworkTest extends FormerTests
 {
-  public function testChangeViaFormerOptions()
-  {
-    $this->app['former']->config('framework', 'ZurbFoundation');
-
-    $this->assertEquals('ZurbFoundation', $this->app['former']->framework());
-  }
-
-  public function testChangeViaFormer()
+  public function testCanChangeFramework()
   {
     $this->app['former']->framework('ZurbFoundation');
 

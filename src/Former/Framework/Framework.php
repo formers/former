@@ -42,7 +42,7 @@ abstract class Framework
     return $framework != $this->current();
   }
 
-  // Core methods -------------------------------------------------- /
+  // Common methods ------------------------------------------------ /
 
   /**
    * Filter a field state
@@ -85,7 +85,7 @@ abstract class Framework
   /**
    * Alias for former.helpers.attributes
    */
-  public function attributes($attributes)
+  protected function attributes($attributes)
   {
     return $this->app['former.helpers']->attributes($attributes);
   }
