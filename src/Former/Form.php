@@ -48,10 +48,10 @@ class Form extends Traits\FormerObject
   private $secure;
 
   /**
-   * Whether the current form is opened or not
+   * Whether a form is opened or not
    * @var boolean
    */
-  private $opened = false;
+  private static $opened = false;
 
   public function __construct($app)
   {
@@ -120,16 +120,18 @@ class Form extends Traits\FormerObject
    */
   public function close()
   {
+    static::$opened = false;
+
     return '</form>';
   }
 
   ////////////////////////////////////////////////////////////////////
-  /////////////////////////////// HELPERS ////////////////////////////
+  //////////////////////////////// STATE /////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
-  public function isOpened()
+  public static function isOpened()
   {
-    return $this->opened;
+    return static::$opened;
 
     return $this;
   }
@@ -194,7 +196,7 @@ class Form extends Traits\FormerObject
   public function __toString()
   {
     // Mark the form as opened
-    $this->opened = true;
+    static::$opened = true;
 
     return $this->app['former.laravel.form']->open($this->action, $this->method, $this->attributes, $this->secure);
   }
