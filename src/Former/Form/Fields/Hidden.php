@@ -4,7 +4,7 @@
  *
  * Class for hidden fields
  */
-namespace Former\Fields;
+namespace Former\Form\Fields;
 
 class Hidden extends \Former\Traits\Field
 {

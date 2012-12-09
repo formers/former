@@ -4,7 +4,7 @@
  *
  * My name is Bawksy you see
  */
-namespace Former\Fields;
+namespace Former\Form\Fields;
 
 class Checkbox extends \Former\Traits\Checkable
 {

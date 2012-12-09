@@ -4,7 +4,7 @@
  *
  * Helper class to build Bootstrap control-groups
  */
-namespace Former;
+namespace Former\Form;
 
 use \BadMethodCallException;
 use \Underscore\Arrays;

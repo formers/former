@@ -4,7 +4,7 @@
  *
  * Creating radios elements since 1873
  */
-namespace Former\Fields;
+namespace Former\Form\Fields;
 
 class Radio extends \Former\Traits\Checkable
 {

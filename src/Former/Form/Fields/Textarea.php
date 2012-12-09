@@ -1,5 +1,5 @@
 <?php
-namespace Former\Fields;
+namespace Former\Form\Fields;
 
 use \Form;
 

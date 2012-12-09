@@ -4,7 +4,7 @@
  *
  * Class for file fields
  */
-namespace Former\Fields;
+namespace Former\Form\Fields;
 
 use \Laravel\File as LaravelFile;
 

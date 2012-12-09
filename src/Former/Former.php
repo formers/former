@@ -51,7 +51,7 @@ class Former
   /**
    * The namespace of fields
    */
-  private $FIELDSPACE = 'Former\Fields\\';
+  private $FIELDSPACE = 'Former\Form\Fields\\';
 
   public function __construct($app)
   {
@@ -73,7 +73,7 @@ class Former
   {
     // Form opener
     if (strpos($method, 'open') !== false and strpos($method, 'open') >= 0) {
-      $this->form = new Form($this->app);
+      $this->form = new Form\Form($this->app);
 
       return $this->form->open($method, $parameters);
     }

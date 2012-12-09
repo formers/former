@@ -4,12 +4,13 @@
  *
  * Construct and manages the form wrapping all fields
  */
-namespace Former;
+namespace Former\Form;
 
+use \Former\Traits\FormerObject;
 use \Underscore\Arrays;
 use \Underscore\String;
 
-class Form extends Traits\FormerObject
+class Form extends FormerObject
 {
   /**
    * Illuminate application instance.

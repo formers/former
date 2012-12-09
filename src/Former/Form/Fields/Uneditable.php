@@ -4,7 +4,7 @@
  *
  * Uneditable inputs (which aren't actually fields but you know)
  */
-namespace Former\Fields;
+namespace Former\Form\Fields;
 
 class Uneditable extends \Former\Traits\Field
 {

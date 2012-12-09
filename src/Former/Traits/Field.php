@@ -7,8 +7,8 @@
  */
 namespace Former\Traits;
 
-use \Former\Form;
-use \Former\ControlGroup;
+use \Former\Form\Form;
+use \Former\Form\ControlGroup;
 use \Former\LiveValidation;
 
 abstract class Field extends FormerObject
@@ -93,11 +93,9 @@ abstract class Field extends FormerObject
   public function __toString()
   {
     // Dry syntax (hidden fields, plain fields)
-    if ($this->isUnwrappable()) {
-      $html = $this->render();
-    }
+    if ($this->isUnwrappable()) $html = $this->render();
 
-    // Bootstrap syntax
+    // Control group syntax
     elseif ($this->app['former.framework']->isnt('Nude') and Form::isOpened()) {
       $html = $this->controlGroup->wrapField($this);
     }

@@ -4,7 +4,7 @@
  *
  * Renders all basic input types
  */
-namespace Former\Fields;
+namespace Former\Form\Fields;
 
 use \Form;
 use \Former\Helpers;

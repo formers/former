@@ -4,7 +4,7 @@
  *
  * Everything list-related (select, multiselect, ...)
  */
-namespace Former\Fields;
+namespace Former\Form\Fields;
 
 use \Form;
 use \Former\Helpers;

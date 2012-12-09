@@ -4,7 +4,7 @@
  *
  * Button fields
  */
-namespace Former\Fields;
+namespace Former\Form\Fields;
 
 use \Form;
 
