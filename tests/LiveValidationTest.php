@@ -235,4 +235,12 @@ class ValidationTest extends FormerTests
 
     $this->assertEquals($matcher, $input);
   }
+
+  public function testCanApplyRulesByChaining()
+  {
+    $text = $this->app['former']->number('foo')->rule('max', 10)->__toString();
+    $matcher = $this->cg($this->field(array('max' => 10), 'number'));
+
+    $this->assertEquals($matcher, $text);
+  }
 }

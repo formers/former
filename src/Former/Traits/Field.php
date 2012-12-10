@@ -11,6 +11,7 @@ use \Former\Form\ControlGroup;
 use \Former\Form\Form;
 use \Former\Interfaces\FieldInterface;
 use \Former\LiveValidation;
+use \Underscore\Arrays;
 
 abstract class Field extends FormerObject implements FieldInterface
 {
@@ -174,6 +175,24 @@ abstract class Field extends FormerObject implements FieldInterface
   ////////////////////////////////////////////////////////////////////
   //////////////////////// SETTERS AND GETTERS ///////////////////////
   ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Apply a Live Validation rule by chaining
+   *
+   * @param string $rule The rule
+   * @param mixed $parameters* The rule parameters
+   */
+  public function rule($rule)
+  {
+    $parameters = Arrays::removeFirst(func_get_args());
+
+    $live = new LiveValidation($this);
+    $live->apply(array(
+      $rule => $parameters,
+    ));
+
+    return $this;
+  }
 
   /**
    * Adds a label to the control group/field
