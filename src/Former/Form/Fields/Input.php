@@ -54,7 +54,7 @@ class Input extends \Former\Traits\Field
   public function render()
   {
     // Particular case of the search element
-    if($this->type == 'search') $this->asSearch();
+    if($this->isOfType('search')) $this->asSearch();
 
     // Render main input
     $input = $this->app['former.laravel.form']->input($this->type, $this->name, $this->value, $this->attributes);

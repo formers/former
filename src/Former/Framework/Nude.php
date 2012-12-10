@@ -1,4 +1,9 @@
 <?php
+/**
+ * Nude
+ *
+ * Base HTML5 forms
+ */
 namespace Former\Framework;
 
 use \Former\Interfaces\FrameworkInterface;

@@ -2,7 +2,7 @@
 /**
  * ControlGroup
  *
- * Helper class to build Bootstrap control-groups
+ * Helper class to build control groups
  */
 namespace Former\Form;
 

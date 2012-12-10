@@ -147,8 +147,8 @@ abstract class Field extends FormerObject implements FieldInterface
   public function isUnwrappable()
   {
     return
-      $this->app['former']->form() and $this->app['former']->form()->type == 'inline' or
-      in_array($this->type, array('hidden', 'submit', 'button', 'reset'));
+      $this->app['former']->form() and $this->app['former']->form()->isOfType('inline') or
+      $this->isOfType('hidden', 'submit', 'button', 'reset');
   }
 
   /**
@@ -158,7 +158,7 @@ abstract class Field extends FormerObject implements FieldInterface
    */
   public function isCheckable()
   {
-    return in_array($this->type, array('checkboxes', 'radios'));
+    return $this->isOfType('checkboxes', 'radios');
   }
 
   /**
@@ -169,26 +169,6 @@ abstract class Field extends FormerObject implements FieldInterface
   public function getRules()
   {
     return $this->app['former']->getRules($this->name);
-  }
-
-  /**
-   * Get the field's type
-   *
-   * @return string
-   */
-  public function getType()
-  {
-    return $this->type;
-  }
-
-  /**
-   * Change a field's type
-   *
-   * @param string $type
-   */
-  public function setType($type)
-  {
-    $this->type = $type;
   }
 
   ////////////////////////////////////////////////////////////////////

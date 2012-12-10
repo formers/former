@@ -29,7 +29,7 @@ class File extends \Former\Traits\Field
     parent::__construct($app, $type, $name, $label, $value, $attributes);
 
     // Multiple files field
-    if ($this->type == 'files') {
+    if ($this->isOfType('files')) {
       $this->multiple();
       $this->type = 'file';
       $this->name = $this->name.'[]';

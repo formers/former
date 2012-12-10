@@ -1,4 +1,9 @@
 <?php
+/**
+ * FrameworkInterface
+ *
+ * Obligatory methods on all frameworks
+ */
 namespace Former\Interfaces;
 
 use \Former\Traits\Field;

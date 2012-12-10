@@ -1,4 +1,9 @@
 <?php
+/**
+ * FormerServiceProvider
+ *
+ * Register the Former package with the Laravel framework
+ */
 namespace Former;
 
 use Illuminate\Support\ServiceProvider;
@@ -34,13 +39,14 @@ class FormerServiceProvider extends ServiceProvider
       return new Helpers($app);
     });
 
+    $this->app['former.helpers'] = $this->app->share(function($app) {
+      return new \Laravel\HTML($app);
+    });
+
     $this->app['former.laravel.form'] = $this->app->share(function($app) {
       return new \Laravel\Form($app);
     });
 
-    $this->app['former.helpers'] = $this->app->share(function($app) {
-      return new \Laravel\HTML($app);
-    });
 
     $this->app['former.laravel.file'] = $this->app->share(function($app) {
       return new \Laravel\File($app);

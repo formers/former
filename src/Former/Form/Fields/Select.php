@@ -132,7 +132,7 @@ class Select extends \Former\Traits\Field
   public function render()
   {
     // Multiselects
-    if ($this->type == 'multiselect') {
+    if ($this->isOfType('multiselect')) {
       $this->multiple();
     }
 

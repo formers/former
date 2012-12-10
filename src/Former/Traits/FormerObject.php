@@ -2,7 +2,8 @@
 /**
  * FormerObject
  *
- * Base Former object that allows chained attributes setting
+ * Base Former object that allows chained attributes setting, adding
+ * classes to the existing ones, and provide types helpers
  */
 namespace Former\Traits;
 
@@ -45,6 +46,10 @@ abstract class FormerObject
     if(isset($this->$attribute)) return $this->$attribute;
     else return Arrays::get($this->attributes, $attribute);
   }
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////// ATTRIBUTES //////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Set an attribute
@@ -90,14 +95,40 @@ abstract class FormerObject
     return $this;
   }
 
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////// OBJECT TYPE /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
   /**
-   * Render the current field
+   * Get the object's type
    *
-   * @return string The field wrapped
+   * @return string
    */
-  public function __toString()
+  public function getType()
   {
-    return $this->render();
+    return $this->type;
   }
 
+  /**
+   * Change a object's type
+   *
+   * @param string $type
+   */
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+
+  /**
+   * Check if a object is of a certain type
+   *
+   * @param  string $types* The type(s) to check for
+   * @return boolean
+   */
+  public function isOfType()
+  {
+    $types = func_get_args();
+
+    return in_array($this->type, $types);
+  }
 }

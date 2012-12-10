@@ -1,4 +1,9 @@
 <?php
+/**
+ * TwitterBootstrap
+ *
+ * The Twitter Bootstrap form framework
+ */
 namespace Former\Framework;
 
 use \Former\Interfaces\FrameworkInterface;

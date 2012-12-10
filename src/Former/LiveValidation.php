@@ -1,6 +1,13 @@
 <?php
+/**
+ * LiveValidation
+ *
+ * Handles the transformation of validation rules into actual
+ * attributes and patterns for HTML5 live validation
+ */
 namespace Former;
 
+use \Former\Traits\Field;
 use \Laravel\File;
 
 class LiveValidation
@@ -12,12 +19,12 @@ class LiveValidation
   private $field;
 
   /**
-   * Apply live validation to a field
+   * Load a Field instance to apply rules to it
    *
    * @param Field $field The field
    * @param array $rules The rules to apply
    */
-  public function __construct(&$field, $rules)
+  public function __construct(Field &$field, $rules)
   {
     // If no rules to apply, cancel
     if (!$rules) return false;
@@ -26,7 +33,19 @@ class LiveValidation
     $this->field = $field;
 
     // Apply the rules
+    $this->apply($rules);
+  }
+
+  /**
+   * Apply live validation rules to a field
+   *
+   * @param array $rules The rules to apply
+   */
+  public function apply($rules)
+  {
     foreach ($rules as $rule => $parameters) {
+
+      // If the rule is unsupported yet, skip it
       if (!method_exists($this, $rule)) continue;
 
       $this->$rule($parameters);
@@ -78,7 +97,7 @@ class LiveValidation
    */
   public function numeric()
   {
-    if ($this->field->getType() == 'number') $this->field->step('any');
+    if ($this->field->isOfType('number')) $this->field->step('any');
     else $this->field->pattern('[+-]?\d*\.?\d+');
   }
 
@@ -119,7 +138,9 @@ class LiveValidation
    */
   public function in($possible)
   {
+    // Create the corresponding regex
     $possible = (sizeof($possible) == 1) ? $possible[0] : '('.join('|', $possible).')';
+
     $this->field->pattern('^' .$possible. '$');
   }
 
@@ -136,7 +157,10 @@ class LiveValidation
    */
   public function match($pattern)
   {
-    $this->field->pattern(substr($pattern[0], 1, -1));
+    // Remove delimiters from existing regex
+    $pattern = substr($pattern[0], 1, -1);
+
+    $this->field->pattern($pattern);
   }
 
   // Boundaries ---------------------------------------------------- /
@@ -173,7 +197,8 @@ class LiveValidation
    */
   public function mimes($mimes)
   {
-    if ($this->field->type != 'file') return false;
+    // Only useful on file fields
+    if (!$this->field->isOfType('file')) return false;
 
     $this->field->accept($this->setAccepted($mimes));
   }
@@ -194,6 +219,7 @@ class LiveValidation
   public function before($date)
   {
     list($format, $date) = $this->formatDate($date[0]);
+
     $this->field->max(date($format, $date));
   }
 
@@ -203,6 +229,7 @@ class LiveValidation
   public function after($date)
   {
     list($format, $date) = $this->formatDate($date[0]);
+
     $this->field->min(date($format, $date));
   }
 
@@ -211,12 +238,14 @@ class LiveValidation
   ////////////////////////////////////////////////////////////////////
 
   /**
-   * Set the accepted MIMEs
+   * Transform extensions and mime groups into a list of mime types
    *
-   * @param array $mimes An array of mimes
+   * @param  array $mimes An array of mimes
+   * @return string A concatenated list of mimes
    */
   private function setAccepted($mimes)
   {
+    // Transform extensions or mime groups into mime types
     $mimes = array_map(array('\Laravel\File', 'mime'), $mimes);
 
     return implode(',', $mimes);
@@ -232,10 +261,9 @@ class LiveValidation
   {
     $format = 'Y-m-d';
 
-    // Datetime fields
-    if ($this->field->getType() == 'datetime' or
-      $this->field->getType() == 'datetime-local') {
-        $format .= '\TH:i:s';
+    // Add hour for datetime fields
+    if ($this->field->isOfType('datetime', 'datetime-local')) {
+      $format .= '\TH:i:s';
     }
 
     return array($format, strtotime($date));
@@ -248,7 +276,8 @@ class LiveValidation
    */
   private function setMax($max)
   {
-    $attribute = $this->field->getType() == 'number' ? 'max' : 'maxlength';
+    $attribute = $this->field->isOfType('number') ? 'max' : 'maxlength';
+
     $this->field->$attribute($max);
   }
 
@@ -259,7 +288,8 @@ class LiveValidation
    */
   private function setMin($min)
   {
-    $attribute = $this->field->getType() == 'number' ? 'min' : 'minlength';
+    $attribute = $this->field->isOfType('number') ? 'min' : 'minlength';
+
     $this->field->$attribute($min);
   }
 }

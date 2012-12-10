@@ -1,4 +1,9 @@
 <?php
+/**
+ * ZurbFoundation
+ *
+ * The Zurb Foundation form framework
+ */
 namespace Former\Framework;
 
 use \Former\Interfaces\FrameworkInterface;

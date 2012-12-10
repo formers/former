@@ -1,4 +1,9 @@
 <?php
+/**
+ * Framework
+ *
+ * Base helpers and common methods to all frameworks
+ */
 namespace Former\Traits;
 
 use \Former\Traits\Field;
