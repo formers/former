@@ -172,25 +172,4 @@ class Helpers
 
     return isset($array) ? $array : $query;
   }
-
-  public function renderLabel($label, $field)
-  {
-    // Get the label and its informations
-    extract($label);
-
-    // Add classes to the attributes
-    $attributes = $this->app['former.framework']->getLabelClasses($attributes);
-
-    // Append required text
-    if ($field->isRequired()) {
-      $label .= $this->app['config']->get('former::required_text');
-    }
-
-    // Get the field name to link the label to it
-    if ($field->isCheckable()) {
-      return '<label'.$this->app['former.helpers']->attributes($attributes).'>'.$label.'</label>';
-    }
-
-    return $this->app['former.laravel.form']->label($field->name, $label, $attributes);
-  }
 }

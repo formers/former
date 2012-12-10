@@ -2,4 +2,5 @@
 composer.lock
 composer.phar
 php-cs-fixer.phar
+tests/logs
 vendor
