@@ -51,7 +51,7 @@ class Former
   /**
    * The namespace of fields
    */
-  private $FIELDSPACE = 'Former\Form\Fields\\';
+  const FIELDSPACE = 'Former\Form\Fields\\';
 
   public function __construct($app)
   {
@@ -91,7 +91,7 @@ class Former
     $this->field = null;
 
     // Picking the right class
-    if (class_exists($this->FIELDSPACE.ucfirst($method))) {
+    if (class_exists(self::FIELDSPACE.ucfirst($method))) {
       $callClass = ucfirst($method);
     } else {
       switch ($method) {
@@ -118,12 +118,12 @@ class Former
     }
 
     // Check for potential errors
-    if (!class_exists($this->FIELDSPACE.$callClass)) {
-      throw new \Exception('The class "' .$this->FIELDSPACE.$callClass. '" called by field "' .$method. '" doesn\'t exist');
+    if (!class_exists(self::FIELDSPACE.$callClass)) {
+      throw new \Exception('The class "' .self::FIELDSPACE.$callClass. '" called by field "' .$method. '" doesn\'t exist');
     }
 
     // Listing parameters
-    $class = $this->FIELDSPACE.$callClass;
+    $class = self::FIELDSPACE.$callClass;
     $this->field = new $class(
       $this->app,
       $method,
