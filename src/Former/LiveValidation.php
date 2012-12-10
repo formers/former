@@ -41,7 +41,7 @@ class LiveValidation
    *
    * @param array $rules The rules to apply
    */
-  public function apply($rules)
+  private function apply($rules)
   {
     foreach ($rules as $rule => $parameters) {
 
@@ -61,7 +61,7 @@ class LiveValidation
   /**
    * Email field
    */
-  public function email()
+  private function email()
   {
     $this->field->setType('email');
   }
@@ -69,7 +69,7 @@ class LiveValidation
   /**
    * URL field
    */
-  public function url()
+  private function url()
   {
     $this->field->setType('url');
   }
@@ -77,7 +77,7 @@ class LiveValidation
   /**
    * Required field
    */
-  public function required()
+  private function required()
   {
     $this->field->required();
   }
@@ -87,7 +87,7 @@ class LiveValidation
   /**
    * Integer field
    */
-  public function integer()
+  private function integer()
   {
     $this->field->pattern('\d+');
   }
@@ -95,7 +95,7 @@ class LiveValidation
   /**
    * Numeric field
    */
-  public function numeric()
+  private function numeric()
   {
     if ($this->field->isOfType('number')) $this->field->step('any');
     else $this->field->pattern('[+-]?\d*\.?\d+');
@@ -104,7 +104,7 @@ class LiveValidation
   /**
    * Not numeric field
    */
-  public function not_numeric()
+  private function not_numeric()
   {
     $this->field->pattern('\D+');
   }
@@ -112,7 +112,7 @@ class LiveValidation
   /**
    * Only alphanumerical
    */
-  public function alpha()
+  private function alpha()
   {
     $this->field->pattern('[a-zA-Z]+');
   }
@@ -120,7 +120,7 @@ class LiveValidation
   /**
    * Only alphanumerical and numbers
    */
-  public function alpha_num()
+  private function alpha_num()
   {
     $this->field->pattern('[a-zA-Z0-9]+');
   }
@@ -128,7 +128,7 @@ class LiveValidation
   /**
    * Alphanumerical, numbers and dashes
    */
-  public function alpha_dash()
+  private function alpha_dash()
   {
     $this->field->pattern('[a-zA-Z0-9_\-]+');
   }
@@ -136,7 +136,7 @@ class LiveValidation
   /**
    * In []
    */
-  public function in($possible)
+  private function in($possible)
   {
     // Create the corresponding regex
     $possible = (sizeof($possible) == 1) ? $possible[0] : '('.join('|', $possible).')';
@@ -147,7 +147,7 @@ class LiveValidation
   /**
    * Not in []
    */
-  public function not_in($impossible)
+  private function not_in($impossible)
   {
     $this->field->pattern('(?:(?!^' .join('$|^', $impossible). '$).)*');
   }
@@ -155,7 +155,7 @@ class LiveValidation
   /**
    * Matches a pattern
    */
-  public function match($pattern)
+  private function match($pattern)
   {
     // Remove delimiters from existing regex
     $pattern = substr($pattern[0], 1, -1);
@@ -168,7 +168,7 @@ class LiveValidation
   /**
    * Max value
    */
-  public function max($max)
+  private function max($max)
   {
     $this->setMax($max[0]);
   }
@@ -176,7 +176,7 @@ class LiveValidation
   /**
    * Min value
    */
-  public function min($min)
+  private function min($min)
   {
     $this->setMin($min[0]);
   }
@@ -184,7 +184,7 @@ class LiveValidation
   /**
    * Set boundaries
    */
-  public function between($between)
+  private function between($between)
   {
     list($min, $max) = $between;
 
@@ -195,7 +195,7 @@ class LiveValidation
   /**
    * Set accepted mime types
    */
-  public function mimes($mimes)
+  private function mimes($mimes)
   {
     // Only useful on file fields
     if (!$this->field->isOfType('file')) return false;
@@ -206,7 +206,7 @@ class LiveValidation
   /**
    * Set accept only images
    */
-  public function image()
+  private function image()
   {
     $this->mimes(array('jpg', 'png', 'gif', 'bmp'));
   }
@@ -216,7 +216,7 @@ class LiveValidation
   /**
    * Before a date
    */
-  public function before($date)
+  private function before($date)
   {
     list($format, $date) = $this->formatDate($date[0]);
 
@@ -226,7 +226,7 @@ class LiveValidation
   /**
    * After a date
    */
-  public function after($date)
+  private function after($date)
   {
     list($format, $date) = $this->formatDate($date[0]);
 
