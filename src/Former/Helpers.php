@@ -114,7 +114,7 @@ class Helpers
     // If not found, search in the field attributes
     if (!$translation) {
       $translations = $this->app['config']->get('former::translate_from');
-      $translation = $this->app['translator']->get($translations.'.'.$key);
+      $translation  = $this->app['translator']->get($translations.'.'.$key);
     }
 
     return ucfirst($translation);

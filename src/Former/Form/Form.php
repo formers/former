@@ -62,43 +62,16 @@ class Form extends FormerObject
   /**
    * Opens up magically a form
    *
-   * @param  string $typeAsked  The form type asked
+   * @param  string $type       The form type asked
    * @param  array  $parameters Parameters passed
    * @return string             A form opening tag
    */
-  public function open($typeAsked, $parameters)
+  public function open($type, $parameters)
   {
     $action     = Arrays::get($parameters, 0);
     $method     = Arrays::get($parameters, 1, 'POST');
     $attributes = Arrays::get($parameters, 2, array());
     $secure     = Arrays::get($parameters, 3, false);
-
-    // If classic form
-    if($typeAsked == 'open') $type = $this->app['config']->get('former::default_form_type');
-    else {
-      // Look for HTTPS form
-      if (String::contains($typeAsked, 'secure')) {
-        $typeAsked = String::remove($typeAsked, 'secure');
-        $secure = true;
-      }
-
-      // Look for file form
-      if (String::contains($typeAsked, 'for_files')) {
-        $typeAsked = String::remove($typeAsked, 'for_files');
-        $attributes['enctype'] = 'multipart/form-data';
-      }
-
-      // Calculate form type
-      $type = String::remove($typeAsked, 'open');
-      $type = trim($type, '_');
-      if(!in_array($type, $this->availableTypes)) $type = $this->app['config']->get('former::default_form_type');
-    }
-
-    // Add the final form type
-    $attributes = $this->app['former.helpers']->addClass($attributes, 'form-'.$type);
-
-    // Store it
-    $this->type = $type;
 
     // Fetch errors if asked for
     if ($this->app['config']->get('former::fetch_errors')) {
@@ -107,9 +80,15 @@ class Form extends FormerObject
 
     // Open the form
     $this->action     = $action;
-    $this->method     = $method;
     $this->attributes = $attributes;
+    $this->method     = $method;
     $this->secure     = $secure;
+
+    // Add any effect of the form type
+    $this->type = $this->applyType($type);
+
+    // Add supplementary classes
+    $this->attributes = $this->app['former.framework']->addFormClasses($this->attributes, $this->type);
 
     return $this;
   }
@@ -127,14 +106,17 @@ class Form extends FormerObject
   }
 
   ////////////////////////////////////////////////////////////////////
-  //////////////////////////////// STATE /////////////////////////////
+  //////////////////////////// STATIC HELPERS ////////////////////////
   ////////////////////////////////////////////////////////////////////
 
+  /**
+   * Whether a form is currently opened or not
+   *
+   * @return boolean
+   */
   public static function isOpened()
   {
     return static::$opened;
-
-    return $this;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -200,5 +182,46 @@ class Form extends FormerObject
     static::$opened = true;
 
     return $this->app['former.laravel.form']->open($this->action, $this->method, $this->attributes, $this->secure);
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// HELPERS /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Apply various parameters according to form type
+   *
+   * @param string $type The original form type provided
+   * @return string The final form type
+   */
+  private function applyType($type)
+  {
+    // If classic form
+    if($type == 'open') {
+      return $this->app['config']->get('former::default_form_type');
+    }
+
+    // Look for HTTPS form
+    if (String::contains($type, 'secure')) {
+      $type = String::remove($type, 'secure');
+      $this->secure = true;
+    }
+
+    // Look for file form
+    if (String::contains($type, 'for_files')) {
+      $type = String::remove($type, 'for_files');
+      $this->attributes['enctype'] = 'multipart/form-data';
+    }
+
+    // Calculate form type
+    $type = String::remove($type, 'open');
+    $type = trim($type, '_');
+
+    // Use default form type if the one provided is invalid
+    if(!in_array($type, $this->availableTypes)) {
+      $type = $this->app['config']->get('former::default_form_type');
+    }
+
+    return $type;
   }
 }

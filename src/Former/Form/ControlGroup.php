@@ -74,6 +74,126 @@ class ControlGroup
     return $this;
   }
 
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////// FIELD METHODS /////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Set the state of the control group
+   *
+   * @param  string $state A Bootstrap state class
+   */
+  public function state($state)
+  {
+    // Filter state
+    $state = $this->app['former.framework']->filterState($state);
+
+    $this->state = $state;
+  }
+
+  /**
+   * Alias for inlineHelp
+   */
+  public function help($help, $attributes = array())
+  {
+    return $this->inlineHelp($help, $attributes);
+  }
+
+  /**
+   * Add an inline help
+   *
+   * @param  string $help       The help text
+   * @param  array  $attributes Facultative attributes
+   */
+  public function inlineHelp($help, $attributes = array())
+  {
+    // Attempt to translate help text
+    $help = $this->app['former.helpers']->translate($help);
+
+    // If no help text, do nothing
+    if (!$help) return false;
+
+    $this->help['inline'] = $this->app['former.framework']->createHelp($help, $attributes);
+  }
+
+  /**
+   * Add an block help
+   *
+   * @param  string $help       The help text
+   * @param  array  $attributes Facultative attributes
+   */
+  public function blockHelp($help, $attributes = array())
+  {
+    // Reserved method
+    if ($this->app['former.framework']->isnt('TwitterBootstrap')) {
+      throw new BadMethodCallException('This method is only available on the Bootstrap framework');
+    }
+
+    // Attempt to translate help text
+    $help = $this->app['former.helpers']->translate($help);
+
+    // If no help text, do nothing
+    if (!$help) return false;
+
+    $this->help['block'] = $this->app['former.framework']->createBlockHelp($help, $attributes);
+  }
+
+  /**
+   * Prepend elements to the field
+   */
+  public function prepend()
+  {
+    $this->placeAround(func_get_args(), 'prepend');
+  }
+
+  /**
+   * Append elements to the field
+   */
+  public function append()
+  {
+    $this->placeAround(func_get_args(), 'append');
+  }
+
+  /**
+   * Prepends an icon to a field
+   *
+   * @param string $icon       The icon to prepend
+   * @param array  $attributes Its attributes
+   */
+  public function prependIcon($icon, $attributes = array())
+  {
+    $icon = $this->app['former.framework']->createIcon($icon, $attributes);
+
+    $this->prepend($icon);
+  }
+
+  /**
+   * Append an icon to a field
+   *
+   * @param string $icon       The icon to prepend
+   * @param array  $attributes Its attributes
+   */
+  public function appendIcon($icon, $attributes = array())
+  {
+    $icon = $this->app['former.framework']->createIcon($icon, $attributes);
+
+    $this->append($icon);
+  }
+
+  /**
+   * Adds a label
+   *
+   * @param  string $label A label
+   */
+  public function setLabel($label)
+  {
+    $this->label = $label;
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////////// HELPERS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
   /**
    * Opens a control group
    *
@@ -177,125 +297,6 @@ class ControlGroup
     $html .= $this->close();
 
     return $html;
-  }
-
-  ////////////////////////////////////////////////////////////////////
-  //////////////////////// PUBLIC INTERFACE //////////////////////////
-  ////////////////////////////////////////////////////////////////////
-
-  /**
-   * Set the state of the control group
-   *
-   * @param  string $state A Bootstrap state class
-   */
-  public function state($state)
-  {
-    // Filter state
-    $state = $this->app['former.framework']->filterState($state);
-
-    $this->state = $state;
-  }
-
-  /**
-   * Alias for inlineHelp
-   */
-  public function help($help, $attributes = array())
-  {
-    return $this->inlineHelp($help, $attributes);
-  }
-
-  /**
-   * Add an inline help
-   *
-   * @param  string $help       The help text
-   * @param  array  $attributes Facultative attributes
-   */
-  public function inlineHelp($help, $attributes = array())
-  {
-    // Attempt to translate help text
-    $help = $this->app['former.helpers']->translate($help);
-
-    // If no help text, do nothing
-    if (!$help) return false;
-
-    $this->help['inline'] = $this->app['former.framework']->createHelp($help, $attributes);
-  }
-
-  /**
-   * Add an block help
-   *
-   * @param  string $help       The help text
-   * @param  array  $attributes Facultative attributes
-   */
-  public function blockHelp($help, $attributes = array())
-  {
-    // Reserved method
-    if ($this->app['former.framework']->isnt('TwitterBootstrap')) {
-      throw new BadMethodCallException('This method is only available on the Bootstrap framework');
-    }
-
-    // Attempt to translate help text
-    $help = $this->app['former.helpers']->translate($help);
-
-    // If no help text, do nothing
-    if (!$help) return false;
-
-    $this->help['block'] = $this->app['former.framework']->createBlockHelp($help, $attributes);
-  }
-
-  /**
-   * Prepend elements to the field
-   */
-  public function prepend()
-  {
-    $append = func_get_args();
-    $this->placeAround($append, 'prepend');
-  }
-
-  /**
-   * Append elements to the field
-   */
-  public function append()
-  {
-    $append = func_get_args();
-    $this->placeAround($append, 'append');
-  }
-
-  /**
-   * Prepends an icon to a field
-   *
-   * @param string $icon       The icon to prepend
-   * @param array  $attributes Its attributes
-   */
-  public function prependIcon($icon, $attributes = array())
-  {
-    $icon = $this->app['former.framework']->createIcon($icon, $attributes);
-
-    $this->prepend($icon);
-  }
-
-  /**
-   * Append an icon to a field
-   *
-   * @param string $icon       The icon to prepend
-   * @param array  $attributes Its attributes
-   */
-  public function appendIcon($icon, $attributes = array())
-  {
-    $icon = $this->app['former.framework']->createIcon($icon, $attributes);
-
-    $this->append($icon);
-  }
-
-  /**
-   * Adds a label
-   *
-   * @param  string $label A label
-   * @return ControlGroup
-   */
-  public function setLabel($label)
-  {
-    $this->label = $label;
   }
 
   ////////////////////////////////////////////////////////////////////
