@@ -16,7 +16,7 @@ class LiveValidation
    * The field being worked on
    * @var Field
    */
-  private $field;
+  public $field;
 
   /**
    * Load a Field instance to apply rules to it
@@ -24,16 +24,9 @@ class LiveValidation
    * @param Field $field The field
    * @param array $rules The rules to apply
    */
-  public function __construct(Field &$field, $rules)
+  public function __construct(Field &$field)
   {
-    // If no rules to apply, cancel
-    if (!$rules) return false;
-
-    // Store field
     $this->field = $field;
-
-    // Apply the rules
-    $this->apply($rules);
   }
 
   /**
@@ -41,8 +34,11 @@ class LiveValidation
    *
    * @param array $rules The rules to apply
    */
-  private function apply($rules)
+  public function apply($rules)
   {
+    // If no rules to apply, cancel
+    if (!$rules) return false;
+
     foreach ($rules as $rule => $parameters) {
 
       // If the rule is unsupported yet, skip it
@@ -61,7 +57,7 @@ class LiveValidation
   /**
    * Email field
    */
-  private function email()
+  public function email()
   {
     $this->field->setType('email');
   }
@@ -69,7 +65,7 @@ class LiveValidation
   /**
    * URL field
    */
-  private function url()
+  public function url()
   {
     $this->field->setType('url');
   }
@@ -77,7 +73,7 @@ class LiveValidation
   /**
    * Required field
    */
-  private function required()
+  public function required()
   {
     $this->field->required();
   }
@@ -87,7 +83,7 @@ class LiveValidation
   /**
    * Integer field
    */
-  private function integer()
+  public function integer()
   {
     $this->field->pattern('\d+');
   }
@@ -95,7 +91,7 @@ class LiveValidation
   /**
    * Numeric field
    */
-  private function numeric()
+  public function numeric()
   {
     if ($this->field->isOfType('number')) $this->field->step('any');
     else $this->field->pattern('[+-]?\d*\.?\d+');
@@ -104,7 +100,7 @@ class LiveValidation
   /**
    * Not numeric field
    */
-  private function not_numeric()
+  public function not_numeric()
   {
     $this->field->pattern('\D+');
   }
@@ -112,7 +108,7 @@ class LiveValidation
   /**
    * Only alphanumerical
    */
-  private function alpha()
+  public function alpha()
   {
     $this->field->pattern('[a-zA-Z]+');
   }
@@ -120,7 +116,7 @@ class LiveValidation
   /**
    * Only alphanumerical and numbers
    */
-  private function alpha_num()
+  public function alpha_num()
   {
     $this->field->pattern('[a-zA-Z0-9]+');
   }
@@ -128,7 +124,7 @@ class LiveValidation
   /**
    * Alphanumerical, numbers and dashes
    */
-  private function alpha_dash()
+  public function alpha_dash()
   {
     $this->field->pattern('[a-zA-Z0-9_\-]+');
   }
@@ -136,7 +132,7 @@ class LiveValidation
   /**
    * In []
    */
-  private function in($possible)
+  public function in($possible)
   {
     // Create the corresponding regex
     $possible = (sizeof($possible) == 1) ? $possible[0] : '('.join('|', $possible).')';
@@ -147,7 +143,7 @@ class LiveValidation
   /**
    * Not in []
    */
-  private function not_in($impossible)
+  public function not_in($impossible)
   {
     $this->field->pattern('(?:(?!^' .join('$|^', $impossible). '$).)*');
   }
@@ -155,7 +151,7 @@ class LiveValidation
   /**
    * Matches a pattern
    */
-  private function match($pattern)
+  public function match($pattern)
   {
     // Remove delimiters from existing regex
     $pattern = substr($pattern[0], 1, -1);
@@ -168,7 +164,7 @@ class LiveValidation
   /**
    * Max value
    */
-  private function max($max)
+  public function max($max)
   {
     $this->setMax($max[0]);
   }
@@ -176,7 +172,7 @@ class LiveValidation
   /**
    * Min value
    */
-  private function min($min)
+  public function min($min)
   {
     $this->setMin($min[0]);
   }
@@ -184,7 +180,7 @@ class LiveValidation
   /**
    * Set boundaries
    */
-  private function between($between)
+  public function between($between)
   {
     list($min, $max) = $between;
 
@@ -195,7 +191,7 @@ class LiveValidation
   /**
    * Set accepted mime types
    */
-  private function mimes($mimes)
+  public function mimes($mimes)
   {
     // Only useful on file fields
     if (!$this->field->isOfType('file')) return false;
@@ -206,7 +202,7 @@ class LiveValidation
   /**
    * Set accept only images
    */
-  private function image()
+  public function image()
   {
     $this->mimes(array('jpg', 'png', 'gif', 'bmp'));
   }
@@ -216,7 +212,7 @@ class LiveValidation
   /**
    * Before a date
    */
-  private function before($date)
+  public function before($date)
   {
     list($format, $date) = $this->formatDate($date[0]);
 
@@ -226,7 +222,7 @@ class LiveValidation
   /**
    * After a date
    */
-  private function after($date)
+  public function after($date)
   {
     list($format, $date) = $this->formatDate($date[0]);
 

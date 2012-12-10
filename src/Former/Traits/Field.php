@@ -76,9 +76,9 @@ abstract class Field extends FormerObject implements FieldInterface
     if($this->app['config']->get('former::automatic_label')) $this->ponder($name, $label);
     if($type != 'password') $this->value = $this->repopulate();
     if ($this->app['config']->get('former::live_validation')) {
-      new LiveValidation($this, $this->getRules());
+      $rules = new LiveValidation($this);
+      $rules->apply($this->getRules());
     }
-
 
     // Link Control group
     if ($this->app['former.framework']->isnt('Nude')) {

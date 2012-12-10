@@ -29,7 +29,9 @@ class CheckboxTest extends FormerTests
     return $this->cb($name, $label, $value, $inline, true);
   }
 
-  public function testSingle()
+  // Tests --------------------------------------------------------- /
+
+  public function testCanCreateASingleCheckbox()
   {
     $checkbox = $this->app['former']->checkbox('foo')->__toString();
     $matcher = $this->cg($this->cb('foo'));
@@ -37,7 +39,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkbox);
   }
 
-  public function testSingleWithLabel()
+  public function testCanCreateACheckboxWithALabel()
   {
     $checkbox = $this->app['former']->checkbox('foo')->text('bar')->__toString();
     $matcher = $this->cg($this->cb('foo', 'Bar'));
@@ -45,7 +47,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkbox);
   }
 
-  public function testSingleWithValue()
+  public function testCanSetValueOfASingleCheckbox()
   {
     $checkbox = $this->app['former']->checkbox('foo')->text('bar')->value('foo')->__toString();
     $matcher = $this->cg($this->cb('foo', 'Bar', 'foo'));
@@ -53,7 +55,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkbox);
   }
 
-  public function testMultiple()
+  public function testCanCreateMultipleCheckboxes()
   {
     $checkboxes = $this->app['former']->checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
     $matcher = $this->cgm($this->cb('foo_0', 'Foo').$this->cb('foo_1', 'Bar'));
@@ -61,7 +63,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkboxes);
   }
 
-  public function testInline()
+  public function testCanCreateInlineCheckboxes()
   {
     $checkboxes1 = $this->app['former']->inline_checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
     $this->resetLabels();
@@ -72,7 +74,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkboxes2);
   }
 
-  public function testStacked()
+  public function testCanCreateStackedCheckboxes()
   {
     $checkboxes1 = $this->app['former']->stacked_checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
     $this->resetLabels();
@@ -83,7 +85,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkboxes2);
   }
 
-  public function testMultipleArray()
+  public function testCanCreateMultipleCheckboxesViaAnArray()
   {
     $checkboxes = $this->app['former']->checkboxes('foo')->checkboxes(array('Foo' => 'foo', 'Bar' => 'bar'))->__toString();
     $matcher = $this->cgm($this->cb('foo', 'Foo').$this->cb('bar', 'Bar'));
@@ -91,7 +93,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkboxes);
   }
 
-  public function testMultipleCustom()
+  public function testCanCustomizeCheckboxesViaAnArray()
   {
     $checkboxes = $this->app['former']->checkboxes('foo')->checkboxes($this->checkables)->__toString();
     $matcher = $this->cgm(
@@ -107,7 +109,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkboxes);
   }
 
-  public function testMultipleCustomNoName()
+  public function testCanCreateMultipleAnonymousCheckboxes()
   {
     $checkables = $this->checkables;
     unset($checkables['Foo']['name']);
@@ -127,7 +129,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkboxes);
   }
 
-  public function testCheck()
+  public function testCanCheckASingleCheckbox()
   {
     $checkbox = $this->app['former']->checkbox('foo')->check()->__toString();
     $matcher = $this->cg($this->cbc());
@@ -135,7 +137,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkbox);
   }
 
-  public function testCheckOneInSeveral()
+  public function testCanCheckOneInSeveralCheckboxes()
   {
     $checkboxes = $this->app['former']->checkboxes('foo')->checkboxes('foo', 'bar')->check('foo_1')->__toString();
     $matcher = $this->cgm($this->cb('foo_0', 'Foo').$this->cbc('foo_1', 'Bar'));
@@ -143,7 +145,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkboxes);
   }
 
-  public function testCheckMultiple()
+  public function testCanCheckMultipleCheckboxesAtOnce()
   {
     $checkboxes = $this->app['former']->checkboxes('foo')->checkboxes('foo', 'bar')->check(array('foo_0' => false, 'foo_1' => true))->__toString();
     $matcher = $this->cgm($this->cb('foo_0', 'Foo').$this->cbc('foo_1', 'Bar', 1));
@@ -151,7 +153,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkboxes);
   }
 
-  public function testRepopulateFromPost()
+  public function testCanRepopulateCheckboxesFromPost()
   {
     $this->app['request']->shouldReceive('get')->with('foo', '')->andReturn('');
     $this->app['request']->shouldReceive('get')->with('foo_0', '')->andReturn(true);
@@ -163,7 +165,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkboxes);
   }
 
-  public function testRepopulateFromModel()
+  public function testCanPopulateCheckboxesFromAnObject()
   {
     $this->app['former']->populate((object) array('foo_0' => true));
 
@@ -173,7 +175,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkboxes);
   }
 
-  public function testRepeatedOutput()
+  public function testCanDecodeCorrectlyCheckboxes()
   {
     $checkbox = $this->app['former']->checkbox('foo')->__toString();
 
@@ -182,7 +184,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($content, $this->app['former']->checkbox('foo')->__toString());
   }
 
-  public function testPushedCheckboxes()
+  public function testCanPushUncheckedCheckboxes()
   {
     $this->app['config'] = $this->getConfig(true, '', true);
 
@@ -196,7 +198,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkbox);
   }
 
-  public function testCheckboxesKeepOriginalValueOnSubmit()
+  public function testCanRepopulateCheckboxesOnSubmit()
   {
     $this->app['config'] = $this->getConfig(true, '', true);
     $this->app['request']->shouldReceive('get')->with('foo', '')->andReturn('');
@@ -211,7 +213,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkbox);
   }
 
-  public function testCustomUncheckedValue()
+  public function testCanCustomizeTheUncheckedValue()
   {
     $this->app['config'] = $this->getConfig(true, 'unchecked', true);
 
