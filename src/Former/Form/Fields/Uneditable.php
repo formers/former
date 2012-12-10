@@ -6,8 +6,15 @@
  */
 namespace Former\Form\Fields;
 
-class Uneditable extends \Former\Traits\Field
+use \Former\Traits\Field;
+
+class Uneditable extends Field
 {
+
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////// CORE METHODS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
   /**
    * Prints out the current tag
    *
@@ -15,7 +22,7 @@ class Uneditable extends \Former\Traits\Field
    */
   public function render()
   {
-    $this->attributes = $this->app['former.helpers']->addClass($this->attributes, 'uneditable-input');
+    $this->attributes = $this->app['former.framework']->addUneditableClasses($this->attributes);
 
     return
       '<span'.$this->app['former.helpers']->attributes($this->attributes).'>'.

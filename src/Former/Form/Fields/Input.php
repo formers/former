@@ -6,10 +6,9 @@
  */
 namespace Former\Form\Fields;
 
-use \Form;
-use \Former\Helpers;
+use \Former\Traits\Field;
 
-class Input extends \Former\Traits\Field
+class Input extends Field
 {
   /**
    * Current datalist stored
@@ -17,33 +16,22 @@ class Input extends \Former\Traits\Field
    */
   private $datalist = array();
 
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////// CORE METHODS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Build an input field
+   */
   public function __construct($app, $type, $name, $label, $value, $attributes)
   {
     parent::__construct($app, $type, $name, $label, $value, $attributes);
 
     // Multiple models population
     if (is_array($this->value)) {
-      foreach($this->value as $v) $_value[] = is_object($v) ? $v->__toString() : $v;
-      $this->value = implode(', ', $_value);
+      foreach($this->value as $value) $values[] = is_object($value) ? $value->__toString() : $value;
+      $this->value = implode(', ', $values);
     }
-  }
-
-  /**
-   * Adds a datalist to the current field
-   *
-   * @param  array $datalist An array to use a source
-   */
-  public function useDatalist($datalist, $value = null, $key = null)
-  {
-    $datalist = $this->app['former.helpers']->queryToArray($datalist, $value, $key);
-
-    $list = $this->list ?: 'datalist_'.$this->name;
-
-    // Create the link to the datalist
-    $this->list($list);
-    $this->datalist = $datalist;
-
-    return $this;
   }
 
   /**
@@ -61,10 +49,32 @@ class Input extends \Former\Traits\Field
 
     // If we have a datalist to append, print it out
     if ($this->datalist) {
-      $input .= self::renderDatalist();
+      $input .= $this->createDatalist($this->list, $this->datalist);
     }
 
     return $input;
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////// FIELD METHODS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Adds a datalist to the current field
+   *
+   * @param  array $datalist An array to use a source
+   */
+  public function useDatalist($datalist, $value = null, $key = null)
+  {
+    $datalist = $this->app['former.helpers']->queryToArray($datalist, $value, $key);
+
+    $list = $this->list ?: 'datalist_'.$this->name;
+
+    // Create the link to the datalist
+    $this->list($list);
+    $this->datalist = $datalist;
+
+    return $this;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -85,12 +95,12 @@ class Input extends \Former\Traits\Field
   /**
    * Renders a datalist
    *
-   * @return string       A <datalist> tag
+   * @return string A <datalist> tag
    */
-  private function renderDatalist()
+  private function createDatalist($id, $values)
   {
-    $datalist = '<datalist id="' .$this->list. '">';
-      foreach ($this->datalist as $key => $value) {
+    $datalist = '<datalist id="' .$id. '">';
+      foreach ($values as $key => $value) {
         $datalist .= '<option value="' .$value. '">' .$key. '</option>';
       }
     $datalist .= '</datalist>';

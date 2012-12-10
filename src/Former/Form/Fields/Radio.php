@@ -6,13 +6,19 @@
  */
 namespace Former\Form\Fields;
 
-class Radio extends \Former\Traits\Checkable
+use \Former\Traits\Checkable;
+
+class Radio extends Checkable
 {
   /**
    * The current checkable type
    * @var string
    */
   protected $checkable = 'radio';
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////// FIELD METHODS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Create a serie of radios

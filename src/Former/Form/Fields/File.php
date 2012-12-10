@@ -6,15 +6,26 @@
  */
 namespace Former\Form\Fields;
 
+use \Former\Traits\Field;
 use \Laravel\File as LaravelFile;
 
-class File extends \Former\Traits\Field
+class File extends Field
 {
   /**
    * The maximum file size
    * @var integer
    */
   private $maxSize;
+
+  /**
+   * An array of mime groups to use as shortcuts
+   * @var array
+   */
+  private $mimeGroups = array('audio', 'video', 'image');
+
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////// CORE METHODS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Easier arguments order for hidden fields
@@ -37,20 +48,42 @@ class File extends \Former\Traits\Field
   }
 
   /**
+   * Prints out the current tag
+   *
+   * @return string An input file tag
+   */
+  public function render()
+  {
+    // Maximum file size
+    $hidden = $this->maxSize
+      ? $this->app['former.laravel.form']->hidden('MAX_FILE_SIZE', $this->maxSize)
+      : null;
+
+    return $this->app['former.laravel.form']->input($this->type, $this->name, $this->value, $this->attributes).$hidden;
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////// FIELD METHODS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
    * Set which types of files are accepted by the file input
+   *
+   * @param string $mimes* A list of extensions/mimes/groups to accept
    */
   public function accept()
   {
-    $shortcuts = array('audio', 'video', 'image');
+    // Transform all extensions/groups to mime types
     foreach (func_get_args() as $mime) {
 
       // Shortcuts and extensions
-      if(in_array($mime, $shortcuts)) $mime .= '/*';
+      if(in_array($mime, $this->mimeGroups)) $mime .= '/*';
       $mime = LaravelFile::mime($mime, $mime);
 
       $mimes[] = $mime;
     }
 
+    // Add accept attribute by concatenating the mimes
     $this->attributes['accept'] = implode('|', $mimes);
 
     return $this;
@@ -84,20 +117,5 @@ class File extends \Former\Traits\Field
     $this->maxSize = (int) $size;
 
     return $this;
-  }
-
-  /**
-   * Prints out the current tag
-   *
-   * @return string An input file tag
-   */
-  public function render()
-  {
-    // Maximum file size
-    $hidden = $this->maxSize
-      ? $this->app['former.laravel.form']->hidden('MAX_FILE_SIZE', $this->maxSize)
-      : null;
-
-    return $this->app['former.laravel.form']->input($this->type, $this->name, $this->value, $this->attributes).$hidden;
   }
 }

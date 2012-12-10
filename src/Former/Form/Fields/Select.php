@@ -6,10 +6,9 @@
  */
 namespace Former\Form\Fields;
 
-use \Form;
-use \Former\Helpers;
+use \Former\Traits\Field;
 
-class Select extends \Former\Traits\Field
+class Select extends Field
 {
   /**
    * The select options
@@ -22,6 +21,10 @@ class Select extends \Former\Traits\Field
    * @var string
    */
   private $placeholder = null;
+
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////// CORE METHODS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Easier arguments order for selects
@@ -46,6 +49,37 @@ class Select extends \Former\Traits\Field
       $this->value = $selected ?: null;
     }
   }
+
+  /**
+   * Renders the select
+   *
+   * @return string A <select> tag
+   */
+  public function render()
+  {
+    // Multiselects
+    if ($this->isOfType('multiselect')) {
+      $this->multiple();
+    }
+
+    // Render select
+    $select = $this->app['former.laravel.form']->select($this->name, $this->options, $this->value, $this->attributes);
+
+    // Add placeholder text if any
+    if ($this->placeholder) {
+      $placeholder = array('value' => '', 'disabled' => '');
+      if(!$this->value) $placeholder['selected'] = '';
+      $placeholder = '<option'.$this->app['former.helpers']->attributes($placeholder).'>' .$this->placeholder. '</option>';
+
+      $select = preg_replace('#<select([^>]+)>#', '$0'.$placeholder, $select);
+    }
+
+    return $select;
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////// FIELD METHODS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Set the select options
@@ -114,6 +148,10 @@ class Select extends \Former\Traits\Field
     return $this;
   }
 
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// HELPERS /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
   /**
    * Returns the current options in memory for manipulations
    *
@@ -122,32 +160,5 @@ class Select extends \Former\Traits\Field
   public function getOptions()
   {
     return $this->options;
-  }
-
-  /**
-   * Renders the select
-   *
-   * @return string A <select> tag
-   */
-  public function render()
-  {
-    // Multiselects
-    if ($this->isOfType('multiselect')) {
-      $this->multiple();
-    }
-
-    // Render select
-    $select = $this->app['former.laravel.form']->select($this->name, $this->options, $this->value, $this->attributes);
-
-    // Add placeholder text if any
-    if ($this->placeholder) {
-      $placeholder = array('value' => '', 'disabled' => '');
-      if(!$this->value) $placeholder['selected'] = '';
-      $placeholder = '<option'.$this->app['former.helpers']->attributes($placeholder).'>' .$this->placeholder. '</option>';
-
-      $select = preg_replace('#<select([^>]+)>#', '$0'.$placeholder, $select);
-    }
-
-    return $select;
   }
 }

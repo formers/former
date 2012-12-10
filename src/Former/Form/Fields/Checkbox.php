@@ -6,13 +6,19 @@
  */
 namespace Former\Form\Fields;
 
-class Checkbox extends \Former\Traits\Checkable
+use \Former\Traits\Checkable;
+
+class Checkbox extends Checkable
 {
   /**
    * The current checkable type
    * @var string
    */
   protected $checkable = 'checkbox';
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////// FIELD METHODS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Create a serie of checkboxes

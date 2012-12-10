@@ -103,7 +103,6 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    */
   public function addGroupClasses($attributes)
   {
-    // Add class
     $attributes = $this->addClass($attributes, 'control-group');
 
     return $attributes;
@@ -117,8 +116,20 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    */
   public function addLabelClasses($attributes)
   {
-    // Add class
     $attributes = $this->addClass($attributes, 'control-label');
+
+    return $attributes;
+  }
+
+  /**
+   * Add uneditable field classes
+   *
+   * @param  array $attributes The attributes
+   * @return array An array of attributes with the uneditable class
+   */
+  public function addUneditableClasses($attributes)
+  {
+    $attributes = $this->addClass($attributes, 'uneditable-input');
 
     return $attributes;
   }
