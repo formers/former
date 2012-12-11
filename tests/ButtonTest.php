@@ -1,56 +1,88 @@
 <?php
-use \Former\Former;
-
 include '_start.php';
 
 class ButtonTest extends FormerTests
 {
+  // Matchers ------------------------------------------------------ /
+
+  public function matchButton($class, $text, $attributes = array())
+  {
+    $matcher = array(
+      'tag'        => 'button',
+      'content'    => $text,
+      'attributes' => array(
+        'class' => $class,
+      ),
+    );
+
+    // Supplementary attributes
+    if ($attributes) {
+      $matcher['attributes'] = array_merge($matcher['attributes'], $attributes);
+    }
+
+    return $matcher;
+  }
+
+  public function matchInputButton($class, $text, $type = 'submit')
+  {
+    return array(
+      'tag'        => 'input',
+      'attributes' => array(
+        'type'  => $type,
+        'value' => $text,
+        'class' => $class,
+      ),
+    );
+  }
+
+  // Tests --------------------------------------------------------- /
+
   public function testCanCreateAButton()
   {
-    $button = $this->former->button('Save')->__toString();
-    $matcher = '<button class="btn">Save</button>';
+    $button  = $this->former->button('Save')->__toString();
+    $matcher = $this->matchButton('btn', 'Save');
 
-    $this->assertEquals($matcher, $button);
+    $this->assertHTML($matcher, $button);
   }
 
   public function testCanChainMethodsToAButton()
   {
-    $button = $this->former->button('Save')->class('btn btn-primary')->value('Cancel')->__toString();
-    $matcher = '<button class="btn btn-primary">Cancel</button>';
+    $button  = $this->former->button('Save')->class('btn btn-primary')->value('Cancel')->__toString();
+    $matcher = $this->matchButton('btn btn-primary', 'Cancel');
 
-    $this->assertEquals($matcher, $button);
+    $this->assertHTML($matcher, $button);
   }
 
   public function testCanCreateASubmitButton()
   {
-    $button = $this->former->submit('Save')->class('btn btn-primary')->__toString();
-    $matcher = '<input class="btn btn-primary" type="submit" value="Save">';
+    $button  = $this->former->submit('Save')->class('btn btn-primary')->__toString();
+    $matcher = $this->matchInputButton('btn btn-primary', 'Save');
 
-    $this->assertEquals($matcher, $button);
+    $this->assertHTML($matcher, $button);
   }
 
   public function testCanUseFormerObjectMethods()
   {
-    $button = $this->former->button('pagination.next')->setAttributes($this->testAttributes)->__toString();
-    $matcher = '<button class="foo" data-foo="bar">Next &raquo;</button>';
+    $button  = $this->former->button('pagination.next')->setAttributes($this->testAttributes)->__toString();
+    $matcher = $this->matchButton('foo', 'Next', array('data-foo' => 'bar'));
 
-    $this->assertEquals($matcher, $button);
+    $this->assertHtml($matcher, $button);
   }
 
   public function testCanDynamicallyCreateButtons()
   {
-    $button = $this->former->large_block_primary_submit('Save')->__toString();
-    $matcher = '<input class="btn-large btn-block btn-primary btn" type="submit" value="Save">';
+    $button  = $this->former->large_block_primary_submit('Save')->__toString();
+    $matcher = $this->matchInputButton('btn-large btn-block btn-primary btn', 'Save');
 
-    $this->assertEquals($matcher, $button);
+    $this->assertHTML($matcher, $button);
   }
 
   public function testCanCreateAResetButton()
   {
-    $button = $this->former->large_block_inverse_reset('Reset')->__toString();
-    $matcher = '<input class="btn-large btn-block btn-inverse btn" type="reset" value="Reset">';
+    $button  = $this->former->large_block_inverse_reset('Reset')->__toString();
+    $matcher = $this->matchInputButton('btn-large btn-block btn-inverse btn', 'Reset', 'reset');
 
-    $this->assertEquals($matcher, $button);
+    $this->assertHTML($matcher, $button);
   }
 
   public function testCanHaveMultipleInstancesOfAButton()

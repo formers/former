@@ -115,8 +115,8 @@ class IlluminateMock
   private function getTranslator()
   {
     $translator = Mockery::mock('Illuminate\Translation\Translator');
-    $translator->shouldReceive('get')->with('pagination.next')->andReturn('Next &raquo;');
-    $translator->shouldReceive('get')->with('pagination')->andReturn(array('previous' => '&laquo; Previous', 'next' => 'Next &raquo;'));
+    $translator->shouldReceive('get')->with('pagination.next')->andReturn('Next');
+    $translator->shouldReceive('get')->with('pagination')->andReturn(array('previous' => 'Previous', 'next' => 'Next'));
     $translator->shouldReceive('get')->withAnyArgs()->andReturnUsing(function($key) {
       return $key;
     });

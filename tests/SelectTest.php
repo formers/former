@@ -72,8 +72,8 @@ class SelectTest extends FormerTests
     $select = $this->former->select('foo')->options($this->app->app['translator']->get('pagination'), 'previous')->__toString();
     $matcher = $this->controlGroup(
     '<select id="foo" name="foo">'.
-      '<option value="previous" selected="selected">&laquo; Previous</option>'.
-      '<option value="next">Next &raquo;</option>'.
+      '<option value="previous" selected="selected">Previous</option>'.
+      '<option value="next">Next</option>'.
     '</select>');
 
     $this->assertEquals($matcher, $select);
