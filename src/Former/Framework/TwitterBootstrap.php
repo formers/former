@@ -160,7 +160,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    *
    * @return string
    */
-  public function createHelp($text, $attributes)
+  public function createHelp($text, $attributes = array())
   {
     // Add class
     $attributes = $this->addClass($attributes, 'help-inline');
@@ -176,7 +176,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    *
    * @return string
    */
-  public function createBlockHelp($text, $attributes)
+  public function createBlockHelp($text, $attributes, $attributes = array())
   {
     // Add class
     $attributes = $this->addClass($attributes, 'help-block');
@@ -192,7 +192,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    *
    * @return string
    */
-  public function createIcon($icon, $attributes)
+  public function createIcon($icon, $attributes, $attributes = array())
   {
     // White icon
     if (String::contains($icon, 'white')) {

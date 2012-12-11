@@ -242,7 +242,7 @@ class ControlGroup
     $block  = Arrays::get($this->help, 'block');
 
     $errors = $this->app['former']->getErrors();
-    if ($errors) $inline = $this->app['former.framework']->inlineHelp($errors);
+    if ($errors) $inline = $this->app['former.framework']->createHelp($errors);
     return join(null, array($inline, $block));
   }
 

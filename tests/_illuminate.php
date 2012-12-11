@@ -86,7 +86,14 @@ class IlluminateMock
    */
   private function getValidator()
   {
-    return Mockery::mock('validator');
+    $validator = Mockery::mock('Illuminate\Validation\Validator');
+    $validator->shouldReceive('getMessages')->andReturnUsing(function() {
+      $messages = Mockery::mock('MessageBag');
+      $messages->shouldReceive('first')->with('required')->andReturn('The required field is required.');
+      return $messages;
+    });
+
+    return $validator;
   }
 
   /**
@@ -107,7 +114,7 @@ class IlluminateMock
    */
   private function getTranslator()
   {
-    $translator = Mockery::mock('translator');
+    $translator = Mockery::mock('Illuminate\Translation\Translator');
     $translator->shouldReceive('get')->with('pagination.next')->andReturn('Next &raquo;');
     $translator->shouldReceive('get')->with('pagination')->andReturn(array('previous' => '&laquo; Previous', 'next' => 'Next &raquo;'));
     $translator->shouldReceive('get')->withAnyArgs()->andReturnUsing(function($key) {

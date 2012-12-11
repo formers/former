@@ -222,11 +222,7 @@ class InputTest extends FormerTests
 
   public function testErrors()
   {
-    $this->markTestSkipped('Validator class unfinished');
-
-    $validator = $this->app->app['validator']->make(array('required' => null), array('required' => 'required'));
-    $validator->speaks('en');
-    $validator->valid();
+    $validator = $this->app->app['validator']->getMessages();
 
     $this->former->withErrors($validator);
     $required = $this->former->text('required')->__toString();
