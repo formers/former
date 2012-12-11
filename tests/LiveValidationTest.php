@@ -1,6 +1,4 @@
 <?php
-use \Former\Former;
-
 class ValidationTest extends FormerTests
 {
 

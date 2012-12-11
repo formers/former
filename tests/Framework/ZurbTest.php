@@ -1,6 +1,4 @@
 <?php
-use \Former\Former;
-
 class ZurbTest extends FormerTests
 {
   public function setUp()

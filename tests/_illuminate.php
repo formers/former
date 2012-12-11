@@ -90,6 +90,7 @@ class IlluminateMock
     $validator->shouldReceive('getMessages')->andReturnUsing(function() {
       $messages = Mockery::mock('MessageBag');
       $messages->shouldReceive('first')->with('required')->andReturn('The required field is required.');
+
       return $messages;
     });
 

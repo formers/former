@@ -43,7 +43,6 @@ class FormerServiceProvider extends ServiceProvider
       return new \Laravel\Form($app);
     });
 
-
     $this->app['former.laravel.file'] = $this->app->share(function($app) {
       return new \Laravel\File($app);
     });

@@ -1,6 +1,4 @@
 <?php
-use \Former\Former;
-
 class FormTest extends FormerTests
 {
   // Helpers ------------------------------------------------------- /

@@ -1,6 +1,4 @@
 <?php
-use \Former\Former;
-
 class RadioTest extends FormerTests
 {
   private function r($name = 'foo', $label = null, $value = 1, $inline = false, $checked = false)

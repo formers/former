@@ -1,6 +1,4 @@
 <?php
-use \Former\Former;
-
 class FileTest extends FormerTests
 {
   public function testFile()

@@ -1,6 +1,4 @@
 <?php
-use \Former\Former;
-
 class FormerTest extends FormerTests
 {
   public function testLegend()

@@ -75,7 +75,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     $this->assertTag(
       $matcher,
       $input,
-      "Failed asserting that the following HTML matches the provided format :\n\t"
+      "Failed asserting that the HTML matches the provided format :\n\t"
         .$input."\n\t"
         .json_encode($matcher));
   }

@@ -197,7 +197,7 @@ class Form extends FormerObject
   private function applyType($type)
   {
     // If classic form
-    if($type == 'open') {
+    if ($type == 'open') {
       return $this->app['config']->get('former::default_form_type');
     }
 
@@ -218,7 +218,7 @@ class Form extends FormerObject
     $type = trim($type, '_');
 
     // Use default form type if the one provided is invalid
-    if(!in_array($type, $this->availableTypes)) {
+    if (!in_array($type, $this->availableTypes)) {
       $type = $this->app['config']->get('former::default_form_type');
     }
 

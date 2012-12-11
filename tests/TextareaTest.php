@@ -1,6 +1,4 @@
 <?php
-use \Former\Former;
-
 class TextareaTest extends FormerTests
 {
   public function testUneditable()

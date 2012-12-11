@@ -1,6 +1,4 @@
 <?php
-use \Former\Former;
-
 class UneditableTest extends FormerTests
 {
   public function testUneditable()
