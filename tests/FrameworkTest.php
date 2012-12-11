@@ -6,8 +6,8 @@ class FrameworkTest extends FormerTests
 {
   public function testCanChangeFramework()
   {
-    $this->app['former']->framework('ZurbFoundation');
+    $this->former->framework('ZurbFoundation');
 
-    $this->assertEquals('ZurbFoundation', $this->app['former']->framework());
+    $this->assertEquals('ZurbFoundation', $this->former->framework());
   }
 }

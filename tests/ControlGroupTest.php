@@ -70,7 +70,7 @@ class ControlGroupTest extends FormerTests
 
   public function testOpen()
   {
-    $control = $this->app['former']->text('foo')->__toString();
+    $control = $this->former->text('foo')->__toString();
     $matcher = $this->createMatcher();
 
     $this->assertEquals($matcher, $control);
@@ -81,7 +81,7 @@ class ControlGroupTest extends FormerTests
    */
   public function testChangeState($state)
   {
-    $control = $this->app['former']->text('foo')->state($state)->__toString();
+    $control = $this->former->text('foo')->state($state)->__toString();
     $matcher = $this->createMatcher($state);
 
     $this->assertEquals($matcher, $control);
@@ -89,7 +89,7 @@ class ControlGroupTest extends FormerTests
 
   public function testHelp()
   {
-    $control = $this->app['former']->text('foo')->help('foo')->__toString();
+    $control = $this->former->text('foo')->help('foo')->__toString();
     $matcher = $this->createMatcher(null, 'foo');
 
     $this->assertEquals($matcher, $control);
@@ -97,7 +97,7 @@ class ControlGroupTest extends FormerTests
 
   public function testInlineHelp()
   {
-    $control = $this->app['former']->text('foo')->inlineHelp('foo')->__toString();
+    $control = $this->former->text('foo')->inlineHelp('foo')->__toString();
     $matcher = $this->createMatcher(null, 'foo');
 
     $this->assertEquals($matcher, $control);
@@ -105,7 +105,7 @@ class ControlGroupTest extends FormerTests
 
   public function testEmptyInlineHelp()
   {
-    $control = $this->app['former']->text('foo')->inlineHelp(null)->__toString();
+    $control = $this->former->text('foo')->inlineHelp(null)->__toString();
     $matcher = $this->createMatcher();
 
     $this->assertEquals($matcher, $control);
@@ -113,7 +113,7 @@ class ControlGroupTest extends FormerTests
 
   public function testBlockHelp()
   {
-    $control = $this->app['former']->text('foo')->blockHelp('foo')->__toString();
+    $control = $this->former->text('foo')->blockHelp('foo')->__toString();
     $matcher = $this->createMatcher(null, null, 'foo');
 
     $this->assertEquals($matcher, $control);
@@ -121,7 +121,7 @@ class ControlGroupTest extends FormerTests
 
   public function testEmptyBlockHelp()
   {
-    $control = $this->app['former']->text('foo')->blockHelp(null)->__toString();
+    $control = $this->former->text('foo')->blockHelp(null)->__toString();
     $matcher = $this->createMatcher();
 
     $this->assertEquals($matcher, $control);
@@ -129,7 +129,7 @@ class ControlGroupTest extends FormerTests
 
   public function testBothHelps()
   {
-    $control = $this->app['former']->text('foo')->inlineHelp('foo')->blockHelp('foo')->__toString();
+    $control = $this->former->text('foo')->inlineHelp('foo')->blockHelp('foo')->__toString();
     $matcher = $this->createMatcher(null, 'foo', 'foo');
 
     $this->assertEquals($matcher, $control);
@@ -137,7 +137,7 @@ class ControlGroupTest extends FormerTests
 
   public function testPrepend()
   {
-    $control = $this->app['former']->text('foo')->prepend('@')->__toString();
+    $control = $this->former->text('foo')->prepend('@')->__toString();
     $matcher = $this->createPrependAppendMatcher(array('@'));
 
     $this->assertEquals($matcher, $control);
@@ -145,7 +145,7 @@ class ControlGroupTest extends FormerTests
 
   public function testPrependMultiple()
   {
-    $control = $this->app['former']->text('foo')->prepend('@', '$')->__toString();
+    $control = $this->former->text('foo')->prepend('@', '$')->__toString();
     $matcher = $this->createPrependAppendMatcher(array('@', '$'));
 
     $this->assertEquals($matcher, $control);
@@ -153,7 +153,7 @@ class ControlGroupTest extends FormerTests
 
   public function testAppend()
   {
-    $control = $this->app['former']->text('foo')->append('@')->__toString();
+    $control = $this->former->text('foo')->append('@')->__toString();
     $matcher = $this->createPrependAppendMatcher(array(), array('@'));
 
     $this->assertEquals($matcher, $control);
@@ -161,7 +161,7 @@ class ControlGroupTest extends FormerTests
 
   public function testPrependAppend()
   {
-    $control = $this->app['former']->text('foo')->prepend('@')->append('@')->__toString();
+    $control = $this->former->text('foo')->prepend('@')->append('@')->__toString();
     $matcher = $this->createPrependAppendMatcher(array('@'), array('@'));
 
     $this->assertEquals($matcher, $control);
@@ -169,7 +169,7 @@ class ControlGroupTest extends FormerTests
 
   public function testPrependAppendMix()
   {
-    $control = $this->app['former']->text('foo')
+    $control = $this->former->text('foo')
       ->prepend('@', Button::normal('foo'))
       ->append('@', Button::normal('foo'))
       ->__toString();
@@ -182,8 +182,8 @@ class ControlGroupTest extends FormerTests
 
   public function testPrependButton()
   {
-    $control1 = $this->app['former']->text('foo')->prepend(Button::normal('Submit'))->__toString();
-    $control2 = $this->app['former']->text('foo')->prepend('<button type="button" class="btn">Submit</button>')->__toString();
+    $control1 = $this->former->text('foo')->prepend(Button::normal('Submit'))->__toString();
+    $control2 = $this->former->text('foo')->prepend('<button type="button" class="btn">Submit</button>')->__toString();
     $matcher = $this->createPrependAppendMatcher(array('<button type="button" class="btn">Submit</button>'));
 
     $this->assertEquals($matcher, $control1);
@@ -192,7 +192,7 @@ class ControlGroupTest extends FormerTests
 
   public function testPrependRawIcon()
   {
-    $control = $this->app['former']->text('foo')->prepend('<i class="icon-enveloppe"></i>')->__toString();
+    $control = $this->former->text('foo')->prepend('<i class="icon-enveloppe"></i>')->__toString();
     $matcher = $this->createPrependAppendMatcher(array('<i class="icon-enveloppe"></i>'));
 
     $this->assertEquals($matcher, $control);
@@ -200,7 +200,7 @@ class ControlGroupTest extends FormerTests
 
   public function testPrependIcon()
   {
-    $control = $this->app['former']->text('foo')->prependIcon('enveloppe')->__toString();
+    $control = $this->former->text('foo')->prependIcon('enveloppe')->__toString();
     $matcher = $this->createPrependAppendMatcher(array('<i class="icon-enveloppe"></i>'));
 
     $this->assertEquals($matcher, $control);
@@ -208,7 +208,7 @@ class ControlGroupTest extends FormerTests
 
   public function testAppendWhiteIcon()
   {
-    $control = $this->app['former']->text('foo')->appendIcon('white-something')->__toString();
+    $control = $this->former->text('foo')->appendIcon('white-something')->__toString();
     $matcher = $this->createPrependAppendMatcher(array(), array('<i class="icon-white icon-something"></i>'));
 
     $this->assertEquals($matcher, $control);
@@ -216,7 +216,7 @@ class ControlGroupTest extends FormerTests
 
   public function testAllTheThings()
   {
-    $control = $this->app['former']->text('foo')
+    $control = $this->former->text('foo')
       ->state('error')
       ->inlineHelp('foo')
       ->blockHelp('bar')

@@ -1,13 +1,13 @@
 <?php
 use \Former\Former;
 
-include 'start.php';
+include '_start.php';
 
 class ButtonTest extends FormerTests
 {
   public function testCanCreateAButton()
   {
-    $button = $this->app['former']->button('Save')->__toString();
+    $button = $this->former->button('Save')->__toString();
     $matcher = '<button class="btn">Save</button>';
 
     $this->assertEquals($matcher, $button);
@@ -15,7 +15,7 @@ class ButtonTest extends FormerTests
 
   public function testCanChainMethodsToAButton()
   {
-    $button = $this->app['former']->button('Save')->class('btn btn-primary')->value('Cancel')->__toString();
+    $button = $this->former->button('Save')->class('btn btn-primary')->value('Cancel')->__toString();
     $matcher = '<button class="btn btn-primary">Cancel</button>';
 
     $this->assertEquals($matcher, $button);
@@ -23,7 +23,7 @@ class ButtonTest extends FormerTests
 
   public function testCanCreateASubmitButton()
   {
-    $button = $this->app['former']->submit('Save')->class('btn btn-primary')->__toString();
+    $button = $this->former->submit('Save')->class('btn btn-primary')->__toString();
     $matcher = '<input class="btn btn-primary" type="submit" value="Save">';
 
     $this->assertEquals($matcher, $button);
@@ -31,7 +31,7 @@ class ButtonTest extends FormerTests
 
   public function testCanUseFormerObjectMethods()
   {
-    $button = $this->app['former']->button('pagination.next')->setAttributes($this->testAttributes)->__toString();
+    $button = $this->former->button('pagination.next')->setAttributes($this->testAttributes)->__toString();
     $matcher = '<button class="foo" data-foo="bar">Next &raquo;</button>';
 
     $this->assertEquals($matcher, $button);
@@ -39,7 +39,7 @@ class ButtonTest extends FormerTests
 
   public function testCanDynamicallyCreateButtons()
   {
-    $button = $this->app['former']->large_block_primary_submit('Save')->__toString();
+    $button = $this->former->large_block_primary_submit('Save')->__toString();
     $matcher = '<input class="btn-large btn-block btn-primary btn" type="submit" value="Save">';
 
     $this->assertEquals($matcher, $button);
@@ -47,7 +47,7 @@ class ButtonTest extends FormerTests
 
   public function testCanCreateAResetButton()
   {
-    $button = $this->app['former']->large_block_inverse_reset('Reset')->__toString();
+    $button = $this->former->large_block_inverse_reset('Reset')->__toString();
     $matcher = '<input class="btn-large btn-block btn-inverse btn" type="reset" value="Reset">';
 
     $this->assertEquals($matcher, $button);
@@ -55,7 +55,7 @@ class ButtonTest extends FormerTests
 
   public function testCanHaveMultipleInstancesOfAButton()
   {
-    $multiple = array($this->app['former']->submit('submit'), $this->app['former']->reset('reset'));
+    $multiple = array($this->former->submit('submit'), $this->former->reset('reset'));
     $multiple = implode(' ', $multiple);
     $matcher = '<input class="btn" type="submit" value="Submit"> <input class="btn" type="reset" value="Reset">';
 

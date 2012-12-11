@@ -7,6 +7,7 @@
 namespace Former;
 
 use \Underscore\String;
+use \Illuminate\Translation\Translator;
 
 class Helpers
 {
@@ -106,15 +107,16 @@ class Helpers
     if(!$fallback) $fallback = $key;
 
     // Assure we don't already have a Lang object
-    if($key instanceof Lang) return $key->get();
+    if($key instanceof Translator) return $key->get();
 
     // Search for the key itself
-    $translation = $this->app['translator']->get($key);
-
-    // If not found, search in the field attributes
-    if (!$translation) {
-      $translations = $this->app['config']->get('former::translate_from');
+    $translations = $this->app['config']->get('former::translate_from');
+    if ($this->app['translator']->has($key)) {
+      $translation = $this->app['translator']->get($key);
+    } elseif ($this->app['translator']->has($translations.'.'.$key)) {
       $translation  = $this->app['translator']->get($translations.'.'.$key);
+    } else {
+      $translation = $fallback;
     }
 
     return ucfirst($translation);

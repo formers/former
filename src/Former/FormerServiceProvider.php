@@ -32,15 +32,11 @@ class FormerServiceProvider extends ServiceProvider
     });
 
     $this->app['former.framework'] = $this->app->share(function($app) {
-      return new Framework($app);
+      return new \Former\Framework\TwitterBootstrap($app);
     });
 
     $this->app['former.helpers'] = $this->app->share(function($app) {
       return new Helpers($app);
-    });
-
-    $this->app['former.helpers'] = $this->app->share(function($app) {
-      return new \Laravel\HTML($app);
     });
 
     $this->app['former.laravel.form'] = $this->app->share(function($app) {

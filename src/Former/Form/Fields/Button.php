@@ -12,6 +12,10 @@ class Button extends \Former\Traits\Field
 {
   protected $app;
 
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////// CORE METHODS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
   /**
    * Easier arguments order for button fields
    *
@@ -28,6 +32,22 @@ class Button extends \Former\Traits\Field
   }
 
   /**
+   * Renders the button
+   *
+   * @return string A form button
+   */
+  public function render()
+  {
+    $type = $this->type;
+
+    return $this->app['former.laravel.form']->$type($this->value, $this->attributes);
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////// FIELD METHODS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
    * Hijack Former's Object model value method
    *
    * @param  string $value The new button text
@@ -39,17 +59,5 @@ class Button extends \Former\Traits\Field
     $this->value = $value;
 
     return $this;
-  }
-
-  /**
-   * Renders the button
-   *
-   * @return string A form button
-   */
-  public function render()
-  {
-    $type = $this->type;
-
-    return $this->app['former.laravel.form']->$type($this->value, $this->attributes);
   }
 }
