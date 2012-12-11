@@ -54,10 +54,6 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     $this->former = $this->app->app['former'];
 
     // Reset some parameters
-    $this->former->horizontal_open()->__toString();
-    $this->former->populate(array());
-    $this->former->withErrors(null);
-    $this->former->framework('TwitterBootstrap');
   }
 
   public function tearDown()
