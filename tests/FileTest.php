@@ -35,6 +35,14 @@ class FileTest extends FormerTests
     $this->assertEquals($matcher, $file);
   }
 
+  public function testMaxSizeGiga()
+  {
+    $file = $this->former->file('foo')->max(1, 'GB')->__toString();
+    $matcher = $this->controlGroup('<input type="file" name="foo" id="foo"><input type="hidden" name="MAX_FILE_SIZE" value="1073741824">');
+
+    $this->assertEquals($matcher, $file);
+  }
+
   public function testMaxSizeMegatoSingle()
   {
     $file = $this->former->file('foo')->max(2, 'MB')->__toString();
