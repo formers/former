@@ -7,6 +7,7 @@
  */
 namespace Former;
 
+use \Illuminate\Validation\Validator;
 use \Underscore\Arrays;
 use \Underscore\String;
 
@@ -248,7 +249,7 @@ class Former
     if($this->app['session']->has('errors')) $errors = $this->app['session']->get('errors');
 
     // If we're given a raw Validator, go fetch the errors in it
-    if($validator instanceof \Laravel\Validator) $errors = $validator->errors;
+    if($validator instanceof Validator) $errors = $validator->getMessages();
 
     // If we found errors, bind them to the form
     if(isset($errors)) $this->errors = $errors;
