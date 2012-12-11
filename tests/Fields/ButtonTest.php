@@ -1,6 +1,4 @@
 <?php
-include '_start.php';
-
 class ButtonTest extends FormerTests
 {
   // Matchers ------------------------------------------------------ /

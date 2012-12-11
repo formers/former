@@ -1,5 +1,5 @@
 <?php
-use \Former\Former;
+include '_start.php';
 
 // Stub class for Buttons
 class Button
