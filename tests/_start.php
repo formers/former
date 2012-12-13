@@ -65,6 +65,11 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     Mockery::close();
   }
 
+  public static function startsWith($string, $with)
+  {
+    return strpos($string, $with) === 0;
+  }
+
   public function resetLabels()
   {
     $this->app->app['former.laravel.form']->labels = array();

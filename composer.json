@@ -14,7 +14,6 @@
     }
   ],
   "require": {
-    "illuminate/config"         : ">=1.0.0",
     "illuminate/container"      : ">=1.0.0",
     "anahkiasen/underscore-php" : "dev-master"
   },

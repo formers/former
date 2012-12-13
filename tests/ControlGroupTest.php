@@ -46,8 +46,8 @@ class ControlGroupTest extends FormerTests
 
   public function createPrependAppendMatcher($prepend = array(), $append = array())
   {
-    foreach($prepend as $k => $p) if(!starts_with($p, '<button')) $prepend[$k] = '<span class="add-on">' .$p. '</span>';
-    foreach($append as $k => $a)  if(!starts_with($a, '<button'))  $append[$k] = '<span class="add-on">' .$a. '</span>';
+    foreach($prepend as $k => $p) if(!$this->startsWith($p, '<button')) $prepend[$k] = '<span class="add-on">' .$p. '</span>';
+    foreach($append as $k => $a)  if(!$this->startsWith($a, '<button'))  $append[$k] = '<span class="add-on">' .$a. '</span>';
 
     $class = null;
     if($prepend) $class = "input-prepend";
