@@ -91,36 +91,7 @@ class Former
     $this->field = null;
 
     // Picking the right class
-    if (class_exists(self::FIELDSPACE.ucfirst($method))) {
-      $callClass = ucfirst($method);
-    } else {
-      switch ($method) {
-        case 'submit':
-        case 'reset':
-          $callClass = 'Button';
-          break;
-        case 'multiselect':
-          $callClass = 'Select';
-          break;
-        case 'checkboxes':
-          $callClass = 'Checkbox';
-          break;
-        case 'radios':
-          $callClass = 'Radio';
-          break;
-        case 'files':
-          $callClass = 'File';
-          break;
-        default:
-          $callClass = 'Input';
-          break;
-      }
-    }
-
-    // Check for potential errors
-    if (!class_exists(self::FIELDSPACE.$callClass)) {
-      throw new \Exception('The class "' .self::FIELDSPACE.$callClass. '" called by field "' .$method. '" doesn\'t exist');
-    }
+    $callClass = $this->app['former.helpers']->getClassFromMethod($method);
 
     // Listing parameters
     $class = self::FIELDSPACE.$callClass;

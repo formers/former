@@ -123,7 +123,7 @@ class Helpers
   }
 
   ////////////////////////////////////////////////////////////////////
-  /////////////////////////// DATABASE HELPERS ///////////////////////
+  ///////////////////////// DATABASE HELPERS /////////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**
@@ -173,5 +173,48 @@ class Helpers
     }
 
     return isset($array) ? $array : $query;
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////// FORMER HELPERS /////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Get the correct class to call according to the created field
+   *
+   * @param string $method The field created
+   * @return string The correct class
+   */
+  public function getClassFromMethod($method)
+  {
+    // If the field's name directly match a class, call it
+    if (class_exists(Former::FIELDSPACE.ucfirst($method))) {
+      return ucfirst($method);
+    }
+
+    // Else convert known fields to their classes
+    switch ($method) {
+      case 'submit':
+      case 'reset':
+        $class = 'Button';
+        break;
+      case 'multiselect':
+        $class = 'Select';
+        break;
+      case 'checkboxes':
+        $class = 'Checkbox';
+        break;
+      case 'radios':
+        $class = 'Radio';
+        break;
+      case 'files':
+        $class = 'File';
+        break;
+      default:
+        $class = 'Input';
+        break;
+    }
+
+    return $class;
   }
 }
