@@ -163,6 +163,16 @@ abstract class Field extends FormerObject implements FieldInterface
   }
 
   /**
+   * Check if the field is a button
+   *
+   * @return boolean
+   */
+  public function isButton()
+  {
+    return $this->isOfType('button', 'submit', 'reset');
+  }
+
+  /**
    * Get the rules applied to the current field
    *
    * @return array An array of rules

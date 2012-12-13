@@ -8,6 +8,7 @@ namespace Former\Framework;
 
 use \Former\Interfaces\FrameworkInterface;
 use \Former\Traits\Framework;
+use \Former\Traits\Field;
 use \Underscore\Arrays;
 use \Underscore\String;
 
@@ -94,6 +95,33 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   ////////////////////////////////////////////////////////////////////
   ///////////////////////////// ADD CLASSES //////////////////////////
   ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Add classes to a field
+   *
+   * @param Field $field
+   * @param array $classes The possible classes to add
+   *
+   * @return Field
+   */
+  public function addFieldClasses(Field $field, $classes)
+  {
+    // Add inline class for checkables
+    if ($field->isCheckable() and in_array('inline', $classes)) {
+      $field->inline();
+    }
+
+    // Filter classes according to field type
+    if ($field->isButton()) $classes = $this->filterButtonClasses($classes);
+    else $classes = $this->filterFieldClasses($classes);
+
+    // If we found any class, add them
+    if ($classes) {
+      $field->setAttribute('class', implode(' ', $classes));
+    }
+
+    return $field;
+  }
 
   /**
    * Add control-group classes

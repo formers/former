@@ -19,6 +19,7 @@ interface FrameworkInterface
   public function filterState($state);
 
   // Add classes to attributes
+  public function addFieldClasses(Field $field, $classes);
   public function addGroupClasses($attributes);
   public function addLabelClasses($attributes);
 

@@ -90,7 +90,7 @@ class Former
     // Destroy previous field instance
     $this->field = null;
 
-    // Picking the right class
+    // Picking the right Class
     $callClass = $this->app['former.helpers']->getClassFromMethod($method);
 
     // Listing parameters
@@ -106,19 +106,8 @@ class Former
       Arrays::get($parameters, 5)
     );
 
-    // Inline checkboxes
-    if(in_array($callClass, array('Checkbox', 'Radio')) and
-      in_array('inline', $classes)) {
-      $this->field->inline();
-    }
-
-    // Filter classes according to field type
-    $classes = $callClass == 'Button'
-      ? $this->app['former.framework']->filterButtonClasses($classes)
-      : $this->app['former.framework']->filterFieldClasses($classes);
-
-    // Add any supplementary classes we found
-    if($classes) $this->field->addClass($classes);
+    // Add framework/provided classes
+    $this->field = $this->app['former.framework']->addFieldClasses($this->field, $classes);
 
     return $this->field;
   }
