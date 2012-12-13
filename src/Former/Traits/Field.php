@@ -7,7 +7,7 @@
  */
 namespace Former\Traits;
 
-use \Former\Form\ControlGroup;
+use \Former\Form\Group;
 use \Former\Form\Form;
 use \Former\Interfaces\FieldInterface;
 use \Former\LiveValidation;
@@ -49,10 +49,10 @@ abstract class Field extends FormerObject implements FieldInterface
   );
 
   /**
-   * The field's control group
-   * @var ControlGroup
+   * The field's group
+   * @var Group
    */
-  protected $controlGroup;
+  protected $group;
 
   ////////////////////////////////////////////////////////////////////
   //////////////////////////// INTERFACE /////////////////////////////
@@ -83,18 +83,18 @@ abstract class Field extends FormerObject implements FieldInterface
 
     // Link Control group
     if ($this->app['former.framework']->isnt('Nude')) {
-      $this->controlGroup = new ControlGroup($this->app, $this->label);
+      $this->group = new Group($this->app, $this->label);
     }
   }
 
   /**
-   * Redirect calls to the control group if necessary
+   * Redirect calls to the group if necessary
    */
   public function __call($method, $parameters)
   {
     // Redirect calls to the Control Group
-    if (method_exists($this->controlGroup, $method)) {
-      call_user_func_array(array($this->controlGroup, $method), $parameters);
+    if (method_exists($this->group, $method)) {
+      call_user_func_array(array($this->group, $method), $parameters);
 
       return $this;
     }
@@ -114,7 +114,7 @@ abstract class Field extends FormerObject implements FieldInterface
 
     // Control group syntax
     elseif ($this->app['former.framework']->isnt('Nude') and Form::isOpened()) {
-      $html = $this->controlGroup->wrapField($this);
+      $html = $this->group->wrapField($this);
     }
 
     // Classic syntax
@@ -205,7 +205,7 @@ abstract class Field extends FormerObject implements FieldInterface
   }
 
   /**
-   * Adds a label to the control group/field
+   * Adds a label to the group/field
    *
    * @param  string $text       A label
    * @param  array  $attributes The label's attributes
@@ -217,7 +217,7 @@ abstract class Field extends FormerObject implements FieldInterface
       'text'       => $this->app['former.helpers']->translate($text),
       'attributes' => $attributes);
 
-    if($this->controlGroup) $this->controlGroup->setLabel($label);
+    if($this->group) $this->group->setLabel($label);
     else $this->label = $label;
     return $this;
   }

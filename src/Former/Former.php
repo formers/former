@@ -112,6 +112,29 @@ class Former
     return $this->field;
   }
 
+  /**
+   * Open a new group
+   *
+   * @param string $label      The label
+   * @param array  $attributes The attributes
+   *
+   * @return Group
+   */
+  public function group($label, $attributes = array())
+  {
+    return new Form\Group($this->app, $label, $attributes);
+  }
+
+  /**
+   * Close a field group
+   *
+   * @return string
+   */
+  public function closeGroup()
+  {
+    return '</div>';
+  }
+
   ////////////////////////////////////////////////////////////////////
   //////////////////////////// TOOLKIT ///////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -354,6 +377,8 @@ class Former
    */
   public function getErrors($name = null)
   {
+    if (!$this->field) return false;
+
     // Get name and translate array notation
     if(!$name) $name = $this->field->name;
     $name = preg_replace('/\[([a-z]+)\]/', '.$1', $name);

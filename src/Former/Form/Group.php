@@ -1,8 +1,8 @@
 <?php
 /**
- * ControlGroup
+ * Group
  *
- * Helper class to build control groups
+ * Helper class to build groups
  */
 namespace Former\Form;
 
@@ -10,24 +10,24 @@ use \BadMethodCallException;
 use \Underscore\Arrays;
 use \Underscore\String;
 
-class ControlGroup
+class Group
 {
   protected $app;
 
   /**
-   * The control group attributes
+   * The group attributes
    * @var array
    */
   private $attributes = array();
 
   /**
-   * The current state of the control group
+   * The current state of the group
    * @var string
    */
   private $state = null;
 
   /**
-   * The control group label
+   * The group label
    * @var string
    */
   private $label = array(
@@ -36,7 +36,7 @@ class ControlGroup
   );
 
   /**
-   * The control group help
+   * The group help
    * @var string
    */
   private $help = null;
@@ -58,20 +58,33 @@ class ControlGroup
   ////////////////////////////////////////////////////////////////////
 
   /**
-   * Creates a control group
+   * Creates a group
    *
    * @param string $label Its label
    */
-  public function __construct($app, $label)
+  public function __construct($app, $label, $attributes = array())
   {
     // Get special classes
     $this->app = $app;
-    $this->attributes = $this->app['former.framework']->addGroupClasses($this->attributes);
+    $this->attributes = $this->app['former.framework']->addGroupClasses($attributes);
 
-    // Set control group label
+    // Set group label
     $this->setLabel($label);
 
     return $this;
+  }
+
+  /**
+   * Prints out the opening of the Control Group
+   *
+   * @return string [description]
+   */
+  public function __toString()
+  {
+    // Create a basic label
+    $label = $this->app['former.laravel.form']->label($this->label, $this->label);
+
+    return $this->open().$label;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -79,7 +92,7 @@ class ControlGroup
   ////////////////////////////////////////////////////////////////////
 
   /**
-   * Set the state of the control group
+   * Set the state of the group
    *
    * @param  string $state A Bootstrap state class
    */
@@ -195,7 +208,7 @@ class ControlGroup
   ////////////////////////////////////////////////////////////////////
 
   /**
-   * Opens a control group
+   * Opens a group
    *
    * @return string Opening tag
    */
@@ -211,7 +224,7 @@ class ControlGroup
     }
 
     // Required state
-    if ($this->app['former']->field()->isRequired()) {
+    if ($this->app['former']->field() and $this->app['former']->field()->isRequired()) {
       $this->attributes = $this->app['former.helpers']->addClass($this->attributes, $this->app['config']->get('former::required_class'));
     }
 
@@ -272,7 +285,7 @@ class ControlGroup
   }
 
   /**
-   * Closes a control group
+   * Closes a group
    *
    * @return string Closing tag
    */
@@ -282,10 +295,10 @@ class ControlGroup
   }
 
   /**
-   * Wrap a Field with the current control group
+   * Wrap a Field with the current group
    *
    * @param  Field  $field A Field instance
-   * @return string        A .control-group
+   * @return string        A group
    */
   public function wrapField($field)
   {

@@ -124,10 +124,10 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   }
 
   /**
-   * Add control-group classes
+   * Add group classes
    *
    * @param  array $attributes An array of attributes
-   * @return array An array of attributes with the control class
+   * @return array An array of attributes with the group class
    */
   public function addGroupClasses($attributes)
   {
