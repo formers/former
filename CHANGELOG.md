@@ -4,22 +4,22 @@
 -----
 
 - Refactor of Former for Laravel 4
-- [mod] Frameworks names renamed from `bootstrap` to `TwitterBootstrap`, `zurb` to `ZurbFoundation` and `null` to `Nude`
 - [add] You can now chain live validation rules to fields (example: `Former::text('foo')->alpha_dash()`)
+- [mod] Frameworks names renamed from `bootstrap` to `TwitterBootstrap`, `zurb` to `ZurbFoundation` and `null` to `Nude`
 
 2.6.0
 -----
 
-- **[add] Former::open()->rules([]) as alias to Former::withRules**
 - **[add] 'required_text' to append a text to required fields's labels**
+- **[add] Former::open()->rules([]) as alias to Former::withRules**
 - [fix] Fix a bug where labels for radios would fail because of identical ids
 - [fix] Fixed a bug where ->populateField would fail if the form was populated with an object
 
 2.5.0
 -----
 
-- **[add] ControlGroup->prependIcon and appendIcon methods**
 - **[add] Add basic button class that allow Bootstrappy submit/buttons**
+- **[add] ControlGroup->prependIcon and appendIcon methods**
 - [add] Ability to pass an array of classes to add to Field->addClass
 - [fix] Fix instantiated classes bug in PHP 5.3.2
 - [fix] Fix multiple buttons instances overwriting themselves
@@ -42,14 +42,14 @@
 -----
 
 - **[add] Add `Former::file()` and `Former::files()` with methods `->max` and `->accept`**
-- [add] Add ability to set attributes for a label
 - [add] Add ability to set a placeholder option for select fields
+- [add] Add ability to set attributes for a label
 
 2.1.0
 -----
 
-- [add] Added `->check()` method on radios and checkboxes
 - **[add] Add ability to populate field with a model's relationships**
+- [add] Added `->check()` method on radios and checkboxes
 
 2.0.0
 -----
@@ -71,10 +71,10 @@
 - **[add] Add suport for Zurb's Foundation framework**
 - **[add] Allow the passing of Query/Eloquent objects to text fields through `->useDatalist`**
 - [add] Add option to desactivate live validation
-- [mod] Let user specify a custom id for generated datalists
 - [mod] Allow public use of `Former::getErrors()`
-- [fix] Fix custom arguments of `open()` not working as desired
+- [mod] Let user specify a custom id for generated datalists
 - [fix] Don't create a label tag around checkboxes if the label is empty
+- [fix] Fix custom arguments of `open()` not working as desired
 
 1.1.0
 -----
