@@ -82,7 +82,8 @@ class Group
   public function __toString()
   {
     // Create a basic label
-    $label = $this->app['former.laravel.form']->label($this->label, $this->label);
+    $attributes = $this->app['former.framework']->addLabelClasses(array());
+    $label = $this->app['former.laravel.form']->label($this->label, $this->label, $attributes);
 
     return $this->open().$label;
   }
