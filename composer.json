@@ -3,28 +3,29 @@
   "description": "A powerful form builder for the Laravel framework",
   "license": "CC-BY-NC-SA-3.0",
   "keywords": [
-    "form"      ,
-    "bootstrap" ,
-    "foundation"
+    "bootstrap",
+    "form",
+    "foundation",
+    "laravel"
   ],
   "authors": [
     {
-      "name"  : "Maxime Fabre",
-      "email" : "ehtnam6@gmail.com"
+      "name": "Maxime Fabre",
+      "email": "ehtnam6@gmail.com"
     }
   ],
   "require": {
-    "illuminate/container"      : ">=1.0.0",
-    "anahkiasen/underscore-php" : "dev-master"
+    "illuminate/container": ">=1.0.0",
+    "anahkiasen/underscore-php": "dev-master"
   },
   "require-dev": {
     "mockery/mockery": "dev-master"
   },
   "autoload": {
     "psr-0": {
-      "Former"  : "src/",
-      "Laravel" : "src/"
+      "Former": "src/",
+      "Laravel": "src/"
     }
   },
-  "minimum-stability" : "dev"
+  "minimum-stability": "dev"
 }
