@@ -47,12 +47,14 @@ class FormTest extends FormerTests
     $this->assertEquals('</form>', $close);
   }
 
-  public function testOpenCustom()
+  public function testCanCreateCustomFormOpener()
   {
     $open = $this->former->open('#', 'GET', $this->testAttributes)->__toString();
-    $matcher = '<form class="foo form-horizontal" data-foo="bar" method="GET" action="#" accept-charset="UTF-8">';
+    $matcher = $this->matchForm('foo form-horizontal');
+    $matcher['attributes']['method'] = 'GET';
+    $matcher['attributes']['data-foo'] = 'bar';
 
-    $this->assertEquals($matcher, $open);
+    $this->assertHTML($matcher, $open);
   }
 
   public function testCanCreateHorizontalForm()
