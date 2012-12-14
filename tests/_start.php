@@ -27,9 +27,11 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
 
   // Matchers ------------------------------------------------------ /
 
-  protected function matchLabel($name = 'foo')
+  protected function matchLabel($name = 'foo', $required = false)
   {
     $text = str_replace('[]', null, ucfirst($name));
+    if ($required) $text .= '*';
+
     return array(
       'tag' => 'label',
       'content' => $text,

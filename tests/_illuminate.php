@@ -57,7 +57,7 @@ class IlluminateMock
     $config->shouldReceive('get')->with('former::framework')->andReturn('bootstrap');
     $config->shouldReceive('get')->with('former::translate_from')->andReturn('validation.attributes');
     $config->shouldReceive('get')->with('former::required_class')->andReturn('required');
-    $config->shouldReceive('get')->with('former::required_text')->andReturn('<sup>*</sup>');
+    $config->shouldReceive('get')->with('former::required_text')->andReturn('*');
 
     // Variable configuration keys
     $config->shouldReceive('get')->with('former::live_validation')->andReturn($live);

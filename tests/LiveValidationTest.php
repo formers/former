@@ -1,17 +1,23 @@
 <?php
-class ValidationTest extends FormerTests
+class LiveValidationTest extends FormerTests
 {
 
   // Matchers ------------------------------------------------------ /
 
-  private function field($attributes = array(), $type = 'text', $name = 'foo')
+  private function matchField($attributes = array(), $type = 'text', $name = 'foo')
   {
-    return '<input' .$this->app->app['former.helpers']->attributes($attributes). ' type="' .$type. '" name="' .$name. '" id="' .$name. '">';
+    $attributes = array_merge($attributes, array('type' => $type, 'name' => $name));
+
+    return array(
+      'tag'        => 'input',
+      'id'         => $name,
+      'attributes' => $attributes,
+    );
   }
 
   // Data providers ------------------------------------------------ /
 
-  public function patterns()
+  public function providePatterns()
   {
     foreach(array(
       'alpha'          => '[a-zA-Z]+',
@@ -29,7 +35,7 @@ class ValidationTest extends FormerTests
     return $patterns;
   }
 
-  public function types()
+  public function provideTypes()
   {
     return array(
       array('email'),
@@ -39,38 +45,33 @@ class ValidationTest extends FormerTests
 
   // Tests --------------------------------------------------------- /
 
-  public function testMultipleRulesArray()
+  public function testCanUseMultipleRulesArray()
   {
     $this->former->withRules(array('foo' => 'required'), array('bar' => 'email'));
 
     // First field
     $input = $this->former->text('foo')->__toString();
-    $matcher = $this->controlGroupRequired(
-      $this->field(array('required' => 'true')),
-      '<label for="foo" class="control-label">Foo<sup>*</sup></label>'
-    );
+
+    $this->assertHTML($this->matchLabel('foo', true), $input);
+    $this->assertHTML($this->matchControlGroup(), $input);
+    $this->assertHTML($this->matchField(array('required' => 'true')), $input);
 
     // Second field
     $email = $this->former->text('bar')->__toString();
-    $emailMatcher = $this->controlGroup(
-      $this->field(null, 'email', 'bar'),
-      '<label for="bar" class="control-label">Bar</label>');
 
-    $this->assertEquals($matcher, $input);
-    $this->assertEquals($emailMatcher, $email);
+    $this->assertHTML($this->matchLabel('bar'), $email);
+    $this->assertHTML($this->matchControlGroup(), $email);
+    $this->assertHTML($this->matchField(array(), 'email', 'bar'), $email);
   }
 
-  public function testRequired()
+  public function testCanSetFieldAsRequired()
   {
     $this->former->withRules(array('foo' => 'required'));
-
     $input = $this->former->text('foo')->__toString();
-    $matcher = $this->controlGroupRequired(
-      $this->field(array('required' => 'true')),
-      '<label for="foo" class="control-label">Foo<sup>*</sup></label>'
-    );
 
-    $this->assertEquals($matcher, $input);
+    $this->assertHTML($this->matchField(array('required' => 'true')), $input);
+    $this->assertHTML($this->matchLabel('foo', true), $input);
+    $this->assertHTML($this->matchControlGroup(), $input);
   }
 
   public function testCanAddRequiredTextToPlainFields()
@@ -79,166 +80,181 @@ class ValidationTest extends FormerTests
     $this->former->withRules(array('foo' => 'required'));
 
     $input = $this->former->text('foo')->__toString();
-    $matcher = '<label for="foo">Foo<sup>*</sup></label>'.$this->field(array('required' => 'true'));
+    $label = $this->matchLabel('foo', true);
+    unset($label['attributes']['class']);
 
-    $this->assertEquals($matcher, $input);
+    $this->assertHTML($this->matchField(array('required' => 'true')), $input);
+    $this->assertHTML($label, $input);
   }
 
-  public function testMax()
+  public function testCanSetMaxToText()
   {
     $this->former->withRules(array('foo' => 'max:42'));
 
     $input = $this->former->text('foo')->__toString();
-    $matcher = $this->controlGroup($this->field(array('maxlength' => '42')));
+    $matcher = $this->matchField(array('maxlength' => '42'));
 
-    $this->assertEquals($matcher, $input);
+    $this->assertHTML($matcher, $input);
+    $this->assertControlGroup($input);
   }
 
-  public function testMaxNumber()
+  public function testCanSetMaxToNumber()
   {
     $this->former->withRules(array('foo' => 'max:42'));
 
     $input = $this->former->number('foo')->__toString();
-    $matcher = $this->controlGroup($this->field(array('max' => '42'), 'number'));
+    $matcher = $this->matchField(array('max' => '42'), 'number');
 
-    $this->assertEquals($matcher, $input);
+    $this->assertHTML($matcher, $input);
+    $this->assertControlGroup($input);
   }
 
-  public function testMin()
+  public function testCanSetMinToText()
   {
     $this->former->withRules(array('foo' => 'min:42'));
 
     $input = $this->former->text('foo')->__toString();
-    $matcher = $this->controlGroup($this->field(array('minlength' => '42')));
+    $matcher = $this->matchField(array('minlength' => '42'));
 
-    $this->assertEquals($matcher, $input);
+    $this->assertHTML($matcher, $input);
+    $this->assertControlGroup($input);
   }
 
-  public function testMinNumber()
+  public function testCanSetMinToNumber()
   {
     $this->former->withRules(array('foo' => 'min:42'));
 
     $input = $this->former->number('foo')->__toString();
-    $matcher = $this->controlGroup($this->field(array('min' => '42'), 'number'));
+    $matcher = $this->matchField(array('min' => '42'), 'number');
 
-    $this->assertEquals($matcher, $input);
+    $this->assertHTML($matcher, $input);
+    $this->assertControlGroup($input);
   }
 
   /**
-   * @dataProvider patterns
+   * @dataProvider providePatterns
    */
-  public function testPatterns($type, $pattern)
+  public function testCanApplyPatternsToFields($type, $pattern)
   {
     $this->former->withRules(array('foo' => $type));
 
     $input = $this->former->text('foo')->__toString();
-    $matcher = $this->controlGroup($this->field(array('pattern' => $pattern)));
+    $matcher = $this->matchField(array('pattern' => $pattern));
 
-    $this->assertEquals($matcher, $input);
+    $this->assertControlGroup($input);
+    $this->assertHTML($matcher, $input);
   }
 
-  public function testNumericWithNumberField()
+  public function testCanSetNumberFieldAsNumeric()
   {
     $this->former->withRules(array('foo' => 'numeric'));
 
     $input = $this->former->number('foo')->__toString();
-    $matcher = $this->controlGroup($this->field(array('step' => 'any'), 'number'));
+    $matcher = $this->matchField(array('step' => 'any'), 'number');
 
-    $this->assertEquals($matcher, $input);
+    $this->assertControlGroup($input);
+    $this->assertHTML($matcher, $input);
   }
 
-  public function testBefore()
+  public function testCanSetDateAsBeforeSomething()
   {
     $this->former->withRules(array('foo' => 'before:2012-03-03'));
 
     $input = $this->former->date('foo')->__toString();
-    $matcher = $this->controlGroup($this->field(array('max' => '2012-03-03'), 'date'));
+    $matcher = $this->matchField(array('max' => '2012-03-03'), 'date');
 
-    $this->assertEquals($matcher, $input);
+    $this->assertControlGroup($input);
+    $this->assertHTML($matcher, $input);
   }
 
-  public function testAfter()
+  public function testCanSetDateAsAfterSomething()
   {
     $this->former->withRules(array('foo' => 'after:2012-03-03'));
 
     $input = $this->former->date('foo')->__toString();
-    $matcher = $this->controlGroup($this->field(array('min' => '2012-03-03'), 'date'));
+    $matcher = $this->matchField(array('min' => '2012-03-03'), 'date');
 
-    $this->assertEquals($matcher, $input);
+    $this->assertControlGroup($input);
+    $this->assertHTML($matcher, $input);
   }
 
-  public function testMimes()
+  public function testCanRestrictMimeTypes()
   {
     $this->former->withRules(array('foo' => 'mimes:jpg,gif'));
 
     $input = $this->former->file('foo')->__toString();
-    $matcher = $this->controlGroup($this->field(array('accept' => 'image/jpeg,image/gif'), 'file'));
+    $matcher = $this->matchField(array('accept' => 'image/jpeg,image/gif'), 'file');
 
-    $this->assertEquals($matcher, $input);
+    $this->assertControlGroup($input);
+    $this->assertHTML($matcher, $input);
   }
 
-  public function testImage()
+  public function testCanForceFieldToImage()
   {
     $this->former->withRules(array('foo' => 'image'));
 
     $input = $this->former->file('foo')->__toString();
-    $matcher = $this->controlGroup($this->field(array('accept' => 'image/jpeg,image/png,image/gif,image/bmp'), 'file'));
+    $matcher = $this->matchField(array('accept' => 'image/jpeg,image/png,image/gif,image/bmp'), 'file');
 
-    $this->assertEquals($matcher, $input);
+    $this->assertControlGroup($input);
+    $this->assertHTML($matcher, $input);
   }
 
   /**
-   * @dataProvider types
+   * @dataProvider provideTypes
    */
-  public function testTypeChangers($type)
+  public function testCanSwitchTypesAccordingToRules($type)
   {
     $this->former->withRules(array('foo' => $type));
 
     $input = $this->former->text('foo')->__toString();
-    $matcher = $this->controlGroup($this->field(null, $type));
+    $matcher = $this->matchField(array(), $type);
 
-    $this->assertEquals($matcher, $input);
+    $this->assertControlGroup($input);
+    $this->assertHTML($matcher, $input);
   }
 
-  public function testBetween()
+  public function testCanSetBoundariesToText()
   {
     $this->former->withRules(array('foo' => 'between:1,10'));
 
     $input = $this->former->text('foo')->__toString();
-    $matcher = $this->controlGroup($this->field(array('minlength' => '1', 'maxlength' => '10')));
+    $matcher = $this->matchField(array('minlength' => '1', 'maxlength' => '10'));
 
-    $this->assertEquals($matcher, $input);
+    $this->assertControlGroup($input);
+    $this->assertHTML($matcher, $input);
   }
 
-  public function testBetweenNumber()
+  public function testCanSetBoundariestoNumber()
   {
     $this->former->withRules(array('foo' => 'between:1,10'));
 
     $input = $this->former->number('foo')->__toString();
-    $matcher = $this->controlGroup($this->field(array('min' => '1', 'max' => '10'), 'number'));
+    $matcher = $this->matchField(array('min' => '1', 'max' => '10'), 'number');
 
-    $this->assertEquals($matcher, $input);
+    $this->assertControlGroup($input);
+    $this->assertHTML($matcher, $input);
   }
 
-  public function testDisablingValidation()
+  public function testCanDisableLiveValidation()
   {
+    // Change config
     $this->app->app['config'] = $this->app->getConfig(false);
     $this->former->withRules(array('foo' => 'required'));
 
     $input = $this->former->text('foo')->__toString();
-    $matcher = $this->controlGroup(
-      $this->field(),
-      '<label for="foo" class="control-label">Foo</label>'
-    );
+    $matcher = $this->matchField();
 
-    $this->assertEquals($matcher, $input);
+    $this->assertHTML($matcher, $input);
+    $this->assertControlGroup($input);
   }
 
   public function testCanApplyRulesByChaining()
   {
-    $text = $this->former->number('foo')->rule('max', 10)->__toString();
-    $matcher = $this->controlGroup($this->field(array('max' => 10), 'number'));
+    $input = $this->former->number('foo')->rule('max', 10)->__toString();
+    $matcher = $this->matchField(array('max' => 10), 'number');
 
-    $this->assertEquals($matcher, $text);
+    $this->assertControlGroup($input);
+    $this->assertHTML($matcher, $input);
   }
 }

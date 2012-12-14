@@ -3,11 +3,6 @@ class SelectTest extends FormerTests
 {
   private $options = array('foo' => 'bar', 'kal' => 'ter');
 
-  public static function setUpBeforeClass()
-  {
-    //$this->app->app['config']->set('application.language', 'en');
-  }
-
   public function testSelect()
   {
     $select = $this->former->select('foo')->__toString();
