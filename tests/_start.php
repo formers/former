@@ -27,6 +27,17 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
 
   // Matchers ------------------------------------------------------ /
 
+  protected function matchField($attributes = array(), $type = 'text', $name = 'foo')
+  {
+    $attributes = array_merge($attributes, array('type' => $type, 'name' => $name));
+
+    return array(
+      'tag'        => 'input',
+      'id'         => $name,
+      'attributes' => $attributes,
+    );
+  }
+
   protected function matchLabel($name = 'foo', $required = false)
   {
     $text = str_replace('[]', null, ucfirst($name));

@@ -2,19 +2,6 @@
 class LiveValidationTest extends FormerTests
 {
 
-  // Matchers ------------------------------------------------------ /
-
-  private function matchField($attributes = array(), $type = 'text', $name = 'foo')
-  {
-    $attributes = array_merge($attributes, array('type' => $type, 'name' => $name));
-
-    return array(
-      'tag'        => 'input',
-      'id'         => $name,
-      'attributes' => $attributes,
-    );
-  }
-
   // Data providers ------------------------------------------------ /
 
   public function providePatterns()
