@@ -1,31 +1,63 @@
 <?php
 class UneditableTest extends FormerTests
 {
+  // Matchers ------------------------------------------------------ /
+
+  public function matchLabel()
+  {
+    return array(
+      'tag' => 'label',
+      'attributes' => array('for' => 'foo'),
+    );
+  }
+
+  public function matchInput()
+  {
+    return array(
+      'tag' => 'input',
+      'attributes' => array(
+        'disabled' => 'true',
+        'type'     => 'text',
+        'name'     => 'foo',
+        'value'    => 'bar',
+        'id'       => 'foo',
+      ),
+    );
+  }
+
+  public function matchSpan()
+  {
+    return array(
+      'tag' => 'span',
+      'content' => 'bar',
+      'attributes' => array(
+        'class' => 'uneditable-input',
+      ),
+    );
+  }
+
+  // Tests --------------------------------------------------------- /
+
   public function testCanCreateClassicDisabledFields()
   {
     $this->former->framework('Nude');
+    $nude = $this->former->uneditable('foo')->value('bar')->__toString();
 
-    $input = $this->former->uneditable('foo')->value('bar')->__toString();
-    $matcher = '<label for="foo">Foo</label><input disabled="true" type="text" name="foo" value="bar" id="foo">';
+    $this->assertHTML($this->matchLabel(), $nude);
+    $this->assertHTML($this->matchInput(), $nude);
 
-    $this->assertEquals($matcher, $input);
-  }
-
-  public function testCanCreateClassicDisabledFieldsWithZurb()
-  {
     $this->former->framework('ZurbFoundation');
+    $zurb = $this->former->uneditable('foo')->value('bar')->__toString();
 
-    $input = $this->former->uneditable('foo')->value('bar')->__toString();
-    $matcher = '<div><label for="foo">Foo</label><input disabled="true" type="text" name="foo" value="bar" id="foo"></div>';
-
-    $this->assertEquals($matcher, $input);
+    $this->assertHTML($this->matchLabel(), $zurb);
+    $this->assertHTML($this->matchInput(), $zurb);
   }
 
   public function testCanCreateUneditableFieldsWithBootstrap()
   {
     $input = $this->former->uneditable('foo')->value('bar')->__toString();
-    $matcher = $this->controlGroup('<span class="uneditable-input">bar</span>');
 
-    $this->assertEquals($matcher, $input);
+    $this->assertControlGroup($input);
+    $this->assertHTML($this->matchSpan(), $input);
   }
 }

@@ -27,6 +27,38 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
 
   // Matchers ------------------------------------------------------ /
 
+  protected function matchLabel()
+  {
+    return array(
+      'tag' => 'label',
+      'content' => 'Foo',
+      'attributes' => array(
+        'for'   => 'foo',
+        'class' => 'control-label',
+      ),
+    );
+  }
+
+  protected function matchControlGroup()
+  {
+    return array(
+      'tag' => 'div',
+      'attributes' => array(
+        'class' => 'control-group',
+      ),
+      'child' => array(
+        'tag' => 'div',
+        'attributes' => array('class' => 'controls'),
+      ),
+    );
+  }
+
+  protected function assertControlGroup($input)
+  {
+    $this->assertHTML($this->matchLabel(), $input);
+    $this->assertHTML($this->matchControlGroup(), $input);
+  }
+
   protected function controlGroup($input = '<input type="text" name="foo" id="foo">', $label = '<label for="foo" class="control-label">Foo</label>')
   {
     return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';

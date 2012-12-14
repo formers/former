@@ -1,11 +1,32 @@
 <?php
 class TextareaTest extends FormerTests
 {
-  public function testUneditable()
+  // Matchers ------------------------------------------------------ /
+
+  public function matchTextarea()
+  {
+    return array(
+      'tag' => 'textarea',
+      'content' => 'bar',
+      'attributes' => array(
+        'class'    => 'foo',
+        'cols'     => '50',
+        'data-foo' => 'bar',
+        'id'       => 'foo',
+        'name'     => 'foo',
+        'rows'     => '10',
+      ),
+    );
+  }
+
+  // Tests --------------------------------------------------------- /
+
+  public function testCanCreateTextareas()
   {
     $textarea = $this->former->textarea('foo')->setAttributes($this->testAttributes)->value('bar')->__toString();
-    $matcher = $this->controlGroup('<textarea class="foo" data-foo="bar" name="foo" id="foo" rows="10" cols="50">bar</textarea>');
+    $matcher  = $this->matchTextarea();
 
-    $this->assertEquals($matcher, $textarea);
+    $this->assertControlGroup($textarea);
+    $this->assertHTML($matcher, $textarea);
   }
 }

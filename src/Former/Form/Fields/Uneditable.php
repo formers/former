@@ -2,7 +2,7 @@
 /**
  * Uneditable
  *
- * Uneditable inputs (which aren't actually fields but you know)
+ * Uneditable and disabled fields
  */
 namespace Former\Form\Fields;
 
