@@ -1,7 +1,7 @@
 <?php
 include '_start.php';
 
-class ControlGroupTest extends FormerTests
+class GroupTest extends FormerTests
 {
   public function createButton($text)
   {
