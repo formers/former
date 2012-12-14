@@ -1,5 +1,5 @@
 <?php
-class ZurbTest extends FormerTests
+class ZurbFrameworkTest extends FormerTests
 {
 
   public function setUp()
