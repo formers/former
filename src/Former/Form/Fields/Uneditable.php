@@ -24,9 +24,6 @@ class Uneditable extends Field
   {
     $this->attributes = $this->app['former.framework']->addUneditableClasses($this->attributes);
 
-    return
-      '<span'.$this->app['former.helpers']->attributes($this->attributes).'>'.
-        $this->app['former.helpers']->entities($this->value).
-      '</span>';
+    return $this->app['former.framework']->createDisabledField($this);
   }
 }

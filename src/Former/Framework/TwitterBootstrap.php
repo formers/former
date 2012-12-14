@@ -213,6 +213,18 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   }
 
   /**
+   * Render a disabled field
+   *
+   * @param Field $field
+   *
+   * @return string
+   */
+  public function createDisabledField(Field $field)
+  {
+    return '<span'.$this->attributes($field->attributes).'>'.$field->value.'</span>';
+  }
+
+  /**
    * Render an icon
    *
    * @param string $icon       The icon name

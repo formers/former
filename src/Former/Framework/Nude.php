@@ -88,6 +88,20 @@ class Nude extends Framework implements FrameworkInterface
     return '<i'.$this->attributes($attributes).'></i>';
   }
 
+  /**
+   * Render a disabled field
+   *
+   * @param Field $field
+   *
+   * @return string
+   */
+  public function createDisabledField(Field $field)
+  {
+    $field->disabled();
+
+    return $this->app['former.laravel.form']->input('text', $field->name, $field->value, $field->attributes);
+  }
+
   ////////////////////////////////////////////////////////////////////
   //////////////////////////// WRAP BLOCKS ///////////////////////////
   ////////////////////////////////////////////////////////////////////

@@ -27,6 +27,7 @@ interface FrameworkInterface
   public function createLabelOf(Field $field, $label);
   public function createHelp($text, $attributes);
   public function createIcon($icon, $attributes);
+  public function createDisabledField(Field $field);
 
   // Wrap blocks (hooks)
   public function wrapField($field);
