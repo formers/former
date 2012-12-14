@@ -16,6 +16,19 @@ class FileTest extends FormerTests
     );
   }
 
+  public function matchFiles()
+  {
+    return array(
+      'tag' => 'input',
+      'id' => 'foo[]',
+      'attributes' => array(
+        'type' => 'file',
+        'multiple' => true,
+        'name' => 'foo[]',
+      ),
+    );
+  }
+
   public function matchHidden($size)
   {
     return array(
@@ -41,11 +54,10 @@ class FileTest extends FormerTests
   public function testCanCreateAMultipleFilesField()
   {
     $file = $this->former->files('foo')->__toString();
-    $matcher = $this->controlGroup(
-      '<input multiple="true" type="file" name="foo[]" id="foo[]">',
-      '<label for="foo[]" class="control-label">Foo</label>');
 
-    $this->assertEquals($matcher, $file);
+    $this->assertHTML($this->matchLabel('foo[]'), $file);
+    $this->assertHTML($this->matchControlGroup(), $file);
+    $this->assertHTML($this->matchFiles(), $file);
   }
 
   public function testCanCustomizeAcceptedFormats()

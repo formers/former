@@ -3,7 +3,7 @@ class UneditableTest extends FormerTests
 {
   // Matchers ------------------------------------------------------ /
 
-  public function matchLabel()
+  public function matchPlainLabel()
   {
     return array(
       'tag' => 'label',
@@ -43,13 +43,13 @@ class UneditableTest extends FormerTests
     $this->former->framework('Nude');
     $nude = $this->former->uneditable('foo')->value('bar')->__toString();
 
-    $this->assertHTML($this->matchLabel(), $nude);
+    $this->assertHTML($this->matchPlainLabel(), $nude);
     $this->assertHTML($this->matchInput(), $nude);
 
     $this->former->framework('ZurbFoundation');
     $zurb = $this->former->uneditable('foo')->value('bar')->__toString();
 
-    $this->assertHTML($this->matchLabel(), $zurb);
+    $this->assertHTML($this->matchPlainLabel(), $zurb);
     $this->assertHTML($this->matchInput(), $zurb);
   }
 
