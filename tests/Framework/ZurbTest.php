@@ -23,7 +23,7 @@ class ZurbTest extends FormerTests
 
   // Tests --------------------------------------------------------- /
 
-  public function testMagicMethods()
+  public function testCanUseMagicMethods()
   {
     $input = $this->former->three_text('foo')->__toString();
 
@@ -31,7 +31,7 @@ class ZurbTest extends FormerTests
     $this->assertHTML($this->matchField(), $input);
   }
 
-  public function testErrorState()
+  public function testCanSetAnErrorStateOnAField()
   {
     $input = $this->former->text('foo')->state('error')->__toString();
     $matcher = array('tag' => 'div', 'attributes' => array('class' => 'error'));
@@ -41,7 +41,7 @@ class ZurbTest extends FormerTests
     $this->assertHTML($matcher, $input);
   }
 
-  public function testHelp()
+  public function testCanAppendHelpTexts()
   {
     $input = $this->former->text('foo')->inlineHelp('bar')->__toString();
     $matcher = array('tag' => 'small', 'content' => 'Bar');
@@ -51,7 +51,7 @@ class ZurbTest extends FormerTests
     $this->assertHTML($matcher, $input);
   }
 
-  public function testCantUseBlockHelp()
+  public function testCantUseBootstrapReservedMethods()
   {
     $this->setExpectedException('BadMethodCallException');
 
