@@ -55,7 +55,7 @@ class FileTest extends FormerTests
   {
     $file = $this->former->files('foo')->__toString();
 
-    $this->assertHTML($this->matchLabel('foo[]'), $file);
+    $this->assertLabel($file, 'foo[]');
     $this->assertHTML($this->matchControlGroup(), $file);
     $this->assertHTML($this->matchFiles(), $file);
   }

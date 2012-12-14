@@ -67,27 +67,6 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     );
   }
 
-  protected function assertControlGroup($input)
-  {
-    $this->assertHTML($this->matchLabel(), $input);
-    $this->assertHTML($this->matchControlGroup(), $input);
-  }
-
-  protected function controlGroup($input = '<input type="text" name="foo" id="foo">', $label = '<label for="foo" class="control-label">Foo</label>')
-  {
-    return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';
-  }
-
-  protected function controlGroupRequired($input, $label = '<label for="foo" class="control-label">Foo</label>')
-  {
-    return '<div class="control-group required">'.$label.'<div class="controls">'.$input.'</div></div>';
-  }
-
-  protected function controlGroupMultiple($input, $label = '<label class="control-label">Foo</label>')
-  {
-    return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';
-  }
-
   // Setup --------------------------------------------------------- /
 
   /**
@@ -119,6 +98,34 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
   public function resetLabels()
   {
     $this->app->app['former.laravel.form']->labels = array();
+  }
+
+  // Custom assertions --------------------------------------------- /
+
+  protected function assertControlGroup($input)
+  {
+    $this->assertLabel($input);
+    $this->assertHTML($this->matchControlGroup(), $input);
+  }
+
+  protected function assertLabel($input, $name = 'foo', $required = false)
+  {
+    $this->assertHTML($this->matchLabel($name, $required), $input);
+  }
+
+  protected function controlGroup($input = '<input type="text" name="foo" id="foo">', $label = '<label for="foo" class="control-label">Foo</label>')
+  {
+    return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';
+  }
+
+  protected function controlGroupRequired($input, $label = '<label for="foo" class="control-label">Foo</label>')
+  {
+    return '<div class="control-group required">'.$label.'<div class="controls">'.$input.'</div></div>';
+  }
+
+  protected function controlGroupMultiple($input, $label = '<label class="control-label">Foo</label>')
+  {
+    return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';
   }
 
   public function assertHTML($matcher, $input)

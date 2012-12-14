@@ -39,14 +39,14 @@ class LiveValidationTest extends FormerTests
     // First field
     $input = $this->former->text('foo')->__toString();
 
-    $this->assertHTML($this->matchLabel('foo', true), $input);
+    $this->assertLabel($input, 'foo', true);
     $this->assertHTML($this->matchControlGroup(), $input);
     $this->assertHTML($this->matchField(array('required' => 'true')), $input);
 
     // Second field
     $email = $this->former->text('bar')->__toString();
 
-    $this->assertHTML($this->matchLabel('bar'), $email);
+    $this->assertLabel($email, 'bar');
     $this->assertHTML($this->matchControlGroup(), $email);
     $this->assertHTML($this->matchField(array(), 'email', 'bar'), $email);
   }
@@ -57,7 +57,7 @@ class LiveValidationTest extends FormerTests
     $input = $this->former->text('foo')->__toString();
 
     $this->assertHTML($this->matchField(array('required' => 'true')), $input);
-    $this->assertHTML($this->matchLabel('foo', true), $input);
+    $this->assertLabel($input, 'foo', true);
     $this->assertHTML($this->matchControlGroup(), $input);
   }
 

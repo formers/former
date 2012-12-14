@@ -55,7 +55,7 @@ class FormerTest extends FormerTests
   {
     $label = $this->former->label('foo');
 
-    $this->assertHTML($this->matchLabel(), $label);
+    $this->assertLabel($label);
   }
 
   public function testCanCreateCsrfTokens()
