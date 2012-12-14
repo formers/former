@@ -1,34 +1,54 @@
 <?php
 class ZurbTest extends FormerTests
 {
+
   public function setUp()
   {
     parent::setUp();
     $this->former->framework('ZurbFoundation');
   }
 
+  // Matchers ------------------------------------------------------ /
+
+  public function matchLabel($name = 'foo', $required = false)
+  {
+    return array(
+      'tag' => 'label',
+      'content' => ucfirst($name),
+      'attributes' => array(
+        'for'   => $name,
+      ),
+    );
+  }
+
+  // Tests --------------------------------------------------------- /
+
   public function testMagicMethods()
   {
-    $text = $this->former->three_text('foo')->__toString();
-    $matcher = '<div><label for="foo">Foo</label><input class="three" type="text" name="foo" id="foo"></div>';
+    $input = $this->former->three_text('foo')->__toString();
 
-    $this->assertEquals($matcher, $text);
+    $this->assertHTML($this->matchLabel(), $input);
+    $this->assertHTML($this->matchField(), $input);
   }
 
   public function testErrorState()
   {
-    $text = $this->former->text('foo')->state('error')->__toString();
-    $matcher = '<div class="error"><label for="foo">Foo</label><input type="text" name="foo" id="foo"></div>';
+    $input = $this->former->text('foo')->state('error')->__toString();
+    $matcher = array('tag' => 'div', 'attributes' => array('class' => 'error'));
 
-    $this->assertEquals($matcher, $text);
+    $this->assertHTML($this->matchLabel(), $input);
+    $this->assertHTML($this->matchField(), $input);
+    $this->assertHTML($matcher, $input);
   }
 
   public function testHelp()
   {
-    $text = $this->former->text('foo')->inlineHelp('bar')->__toString();
-    $matcher = '<div><label for="foo">Foo</label><input type="text" name="foo" id="foo"><small>Bar</small></div>';
+    $input = $this->former->text('foo')->inlineHelp('bar')->__toString();
+    $matcher = array('tag' => 'small', 'content' => 'Bar');
 
-    $this->assertEquals($matcher, $text);
+    $this->assertHTML($this->matchLabel(), $input);
+    $this->assertHTML($this->matchField(), $input);
+    $this->assertHTML($matcher, $input);
   }
 
   public function testCantUseBlockHelp()
