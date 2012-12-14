@@ -27,14 +27,15 @@
     </whitelist>
   </filter>
 
-<!--   <logging>
-    <log
+  <logging>
+    <log type="testdox-html" target="tests/logs/testdox.html"/>
+    <!-- <log
       type           = "coverage-html"
       target         = "tests/logs/"
       charset        = "UTF-8"
       yui            = "true"
       highlight      = "true"
       lowUpperBound  = "35"
-      highLowerBound = "70"/>
-  </logging> -->
+      highLowerBound = "70"/> -->
+  </logging>
 </phpunit>

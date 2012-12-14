@@ -1,17 +1,16 @@
 <?php
 include '_start.php';
 
-// Stub class for Buttons
-class Button
-{
-  public static function normal($text)
-  {
-    return '<button type="button" class="btn">' .$text. '</button>';
-  }
-}
-
 class ControlGroupTest extends FormerTests
 {
+  public function createButton($text)
+  {
+    $button = Mockery::mock('Button');
+    $button->shouldReceive('__toString')->andReturn('<button type="button" class="btn">' .$text. '</button>');
+
+    return $button;
+  }
+
   // Data providers ------------------------------------------------ /
 
   public function provideStates()
@@ -178,8 +177,8 @@ class ControlGroupTest extends FormerTests
   public function testPrependAppendMix()
   {
     $control = $this->former->text('foo')
-      ->prepend('@', Button::normal('foo'))
-      ->append('@', Button::normal('foo'))
+      ->prepend('@', $this->createButton('foo'))
+      ->append('@', $this->createButton('foo'))
       ->__toString();
     $matcher = $this->createPrependAppendMatcher(
       array('@', '<button type="button" class="btn">foo</button>'),
@@ -190,7 +189,7 @@ class ControlGroupTest extends FormerTests
 
   public function testPrependButton()
   {
-    $control1 = $this->former->text('foo')->prepend(Button::normal('Submit'))->__toString();
+    $control1 = $this->former->text('foo')->prepend($this->createButton('Submit'))->__toString();
     $control2 = $this->former->text('foo')->prepend('<button type="button" class="btn">Submit</button>')->__toString();
     $matcher = $this->createPrependAppendMatcher(array('<button type="button" class="btn">Submit</button>'));
 
@@ -228,8 +227,8 @@ class ControlGroupTest extends FormerTests
       ->state('error')
       ->inlineHelp('foo')
       ->blockHelp('bar')
-      ->prepend('@', '$', Button::normal('foo'))
-      ->append('@', '$', Button::normal('foo'))
+      ->prepend('@', '$', $this->createButton('foo'))
+      ->append('@', '$', $this->createButton('foo'))
       ->__toString();
     $matcher =
     '<div class="control-group error">'.

@@ -1,35 +1,65 @@
 <?php
 class FormerTest extends FormerTests
 {
-  public function testLegend()
-  {
-    $legend = $this->former->legend('test', array('class' => 'foo', 'data-foo' => 'bar'));
-    $matcher = '<legend class="foo" data-foo="bar">Test</legend>';
+  // Matchers ------------------------------------------------------ /
 
-    $this->assertEquals($matcher, $legend);
+  public function matchLegend()
+  {
+    return array(
+      'tag' => 'legend',
+      'content' => 'Test',
+      'attributes' => $this->testAttributes,
+    );
   }
 
-  public function testToken()
+  public function matchToken()
+  {
+    return array(
+      'tag' => 'input',
+      'attributes' => array(
+        'type'  => 'hidden',
+        'name'  => 'csrf_token',
+        'value' => 'csrf_token',
+      ),
+    );
+  }
+
+  public function matchActions($content = 'foo')
+  {
+    return array(
+      'tag' => 'div',
+      'content' => $content,
+      'attributes' => array('class' => 'form-actions'),
+    );
+  }
+
+  // Tests --------------------------------------------------------- /
+
+  public function testCanCreateFormLegends()
+  {
+    $legend = $this->former->legend('test', $this->testAttributes);
+
+    $this->assertHTML($this->matchLegend(), $legend);
+  }
+
+  public function testCanCreateCsrfTokens()
   {
     $token = $this->former->token();
-    $matcher = '<input type="hidden" name="csrf_token" value="csrf_token">';
 
-    $this->assertEquals($matcher, $token);
+    $this->assertHTML($this->matchToken(), $token);
   }
 
-  public function testAction()
+  public function testCanCreateAnActionBlock()
   {
     $action = $this->former->actions('foo');
-    $matcher = '<div class="form-actions">foo</div>';
 
-    $this->assertEquals($matcher, $action);
+    $this->assertHTML($this->matchActions(), $action);
   }
 
-  public function testActions()
+  public function testCanCreateAnActionsBlock()
   {
     $actions = $this->former->actions('foo', 'bar');
-    $matcher = '<div class="form-actions">foo bar</div>';
 
-    $this->assertEquals($matcher, $actions);
+    $this->assertHTML($this->matchActions('foo bar'), $actions);
   }
 }
