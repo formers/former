@@ -1,15 +1,44 @@
 <?php
 class FileTest extends FormerTests
 {
-  public function testFile()
-  {
-    $file = $this->former->file('foo')->__toString();
-    $matcher = $this->controlGroup('<input type="file" name="foo" id="foo">');
+  // Matchers ------------------------------------------------------ /
 
-    $this->assertEquals($matcher, $file);
+  public function matchFile($accept = null)
+  {
+    return array(
+      'tag' => 'input',
+      'id' => 'foo',
+      'attributes' => array(
+        'type' => 'file',
+        'name' => 'foo',
+        'accept' => $accept,
+      ),
+    );
   }
 
-  public function testFiles()
+  public function matchHidden($size)
+  {
+    return array(
+      'tag' => 'input',
+      'attributes' => array(
+        'type' => 'hidden',
+        'name' => 'MAX_FILE_SIZE',
+        'value' => $size,
+      ),
+    );
+  }
+
+  // Tests --------------------------------------------------------- /
+
+  public function testCanCreateAFileField()
+  {
+    $file = $this->former->file('foo')->__toString();
+
+    $this->assertControlGroup($file);
+    $this->assertHTML($this->matchFile(), $file);
+  }
+
+  public function testCanCreateAMultipleFilesField()
   {
     $file = $this->former->files('foo')->__toString();
     $matcher = $this->controlGroup(
@@ -19,51 +48,56 @@ class FileTest extends FormerTests
     $this->assertEquals($matcher, $file);
   }
 
-  public function testAccept()
+  public function testCanCustomizeAcceptedFormats()
   {
     $file = $this->former->file('foo')->accept('video', 'image', 'audio', 'jpeg', 'image/gif')->__toString();
-    $matcher = $this->controlGroup('<input accept="video/*|image/*|audio/*|image/jpeg|image/gif" type="file" name="foo" id="foo">');
 
-    $this->assertEquals($matcher, $file);
+    $this->assertControlGroup($file);
+    $this->assertHTML($this->matchFile('video/*|image/*|audio/*|image/jpeg|image/gif'), $file);
   }
 
-  public function testMaxSizeBytes()
+  public function testCanSetMaxSizeInKilobytes()
   {
     $file = $this->former->file('foo')->max(1, 'KB')->__toString();
-    $matcher = $this->controlGroup('<input type="file" name="foo" id="foo"><input type="hidden" name="MAX_FILE_SIZE" value="1024">');
 
-    $this->assertEquals($matcher, $file);
+    $this->assertControlGroup($file);
+    $this->assertHTML($this->matchFile(), $file);
+    $this->assertHTML($this->matchHidden('1024'), $file);
   }
 
-  public function testMaxSizeGiga()
-  {
-    $file = $this->former->file('foo')->max(1, 'GB')->__toString();
-    $matcher = $this->controlGroup('<input type="file" name="foo" id="foo"><input type="hidden" name="MAX_FILE_SIZE" value="1073741824">');
-
-    $this->assertEquals($matcher, $file);
-  }
-
-  public function testMaxSizeMegatoSingle()
+  public function testCanSetMaxSizeInMegabytes()
   {
     $file = $this->former->file('foo')->max(2, 'MB')->__toString();
-    $matcher = $this->controlGroup('<input type="file" name="foo" id="foo"><input type="hidden" name="MAX_FILE_SIZE" value="2097152">');
 
-    $this->assertEquals($matcher, $file);
+    $this->assertControlGroup($file);
+    $this->assertHTML($this->matchFile(), $file);
+    $this->assertHTML($this->matchHidden('2097152'), $file);
   }
 
-  public function testMaxSizeBits()
+  public function testCanSetMaxSizeInGigabytes()
+  {
+    $file = $this->former->file('foo')->max(1, 'GB')->__toString();
+
+    $this->assertControlGroup($file);
+    $this->assertHTML($this->matchFile(), $file);
+    $this->assertHTML($this->matchHidden('1073741824'), $file);
+  }
+
+  public function testCanSetMaxSizeInBits()
   {
     $file = $this->former->file('foo')->max(1, 'Mb')->__toString();
-    $matcher = $this->controlGroup('<input type="file" name="foo" id="foo"><input type="hidden" name="MAX_FILE_SIZE" value="131072">');
 
-    $this->assertEquals($matcher, $file);
+    $this->assertControlGroup($file);
+    $this->assertHTML($this->matchFile(), $file);
+    $this->assertHTML($this->matchHidden('131072'), $file);
   }
 
-  public function testMaxSizeOctets()
+  public function testCanSetMaxSizeInOctets()
   {
     $file = $this->former->file('foo')->max(2, 'Mo')->__toString();
-    $matcher = $this->controlGroup('<input type="file" name="foo" id="foo"><input type="hidden" name="MAX_FILE_SIZE" value="2097152">');
 
-    $this->assertEquals($matcher, $file);
+    $this->assertControlGroup($file);
+    $this->assertHTML($this->matchFile(), $file);
+    $this->assertHTML($this->matchHidden('2097152'), $file);
   }
 }
