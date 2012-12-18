@@ -19,8 +19,8 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    * @var array
    */
   private $buttons = array(
-    'large', 'small', 'mini',
-    'block', 'info', 'inverse', 'link', 'primary', 'success', 'warning'
+    'large', 'small', 'mini', 'block',
+    'danger', 'info', 'inverse', 'link', 'primary', 'success', 'warning'
   );
 
   /**
