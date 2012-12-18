@@ -33,7 +33,7 @@ class Framework
   private static $types = array(
     'bootstrap' => array(
       'large', 'small', 'mini',
-      'block', 'info', 'inverse', 'link', 'primary', 'success', 'warning'),
+      'block', 'danger', 'info', 'inverse', 'link', 'primary', 'success', 'warning'),
   );
 
   /**
