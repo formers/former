@@ -1,8 +1,8 @@
 <?php namespace Laravel; use FilesystemIterator as fIterator;
 
-class File {
-
-	private static $mimes = array(
+class File
+{
+    private static $mimes = array(
     'hqx'   => 'application/mac-binhex40',
     'cpt'   => 'application/mac-compactpro',
     'csv'   => array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream'),
@@ -94,29 +94,28 @@ class File {
     'xl'    => 'application/excel',
     'eml'   => 'message/rfc822',
     'json'  => array('application/json', 'text/json'),
-	);
+    );
 
-	/**
-	 * Get a file MIME type by extension.
-	 *
-	 * <code>
-	 *		// Determine the MIME type for the .tar extension
-	 *		$mime = File::mime('tar');
-	 *
-	 *		// Return a default value if the MIME can't be determined
-	 *		$mime = File::mime('ext', 'application/octet-stream');
-	 * </code>
-	 *
-	 * @param  string  $extension
-	 * @param  string  $default
-	 * @return string
-	 */
-	public static function mime($extension, $default = 'application/octet-stream')
-	{
-		$mimes = static::$mimes;
+    /**
+     * Get a file MIME type by extension.
+     *
+     * <code>
+     *		// Determine the MIME type for the .tar extension
+     *		$mime = File::mime('tar');
+     *
+     *		// Return a default value if the MIME can't be determined
+     *		$mime = File::mime('ext', 'application/octet-stream');
+     * </code>
+     *
+     * @param  string $extension
+     * @param  string $default
+     * @return string
+     */
+    public static function mime($extension, $default = 'application/octet-stream')
+    {
+        $mimes = static::$mimes;
 
-		if ( ! array_key_exists($extension, $mimes)) return $default;
-
-		return (is_array($mimes[$extension])) ? $mimes[$extension][0] : $mimes[$extension];
-	}
+        if ( ! array_key_exists($extension, $mimes)) return $default;
+        return (is_array($mimes[$extension])) ? $mimes[$extension][0] : $mimes[$extension];
+    }
 }

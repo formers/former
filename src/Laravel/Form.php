@@ -1,7 +1,7 @@
 <?php namespace Laravel;
 
-class Form {
-
+class Form
+{
   /**
    * All of the label names that have been created.
    *
@@ -67,8 +67,7 @@ class Form {
     // If a character encoding has not been specified in the attributes, we will
     // use the default encoding as specified in the application configuration
     // file for the "accept-charset" attribute.
-    if ( ! array_key_exists('accept-charset', $attributes))
-    {
+    if ( ! array_key_exists('accept-charset', $attributes)) {
       $attributes['accept-charset'] = $this->app['config']->get('application.encoding');
     }
 
@@ -77,8 +76,7 @@ class Form {
     // Since PUT and DELETE methods are not actually supported by HTML forms,
     // we'll create a hidden input element that contains the request method
     // and set the actual request method variable to POST.
-    if ($method == 'PUT' or $method == 'DELETE')
-    {
+    if ($method == 'PUT' or $method == 'DELETE') {
       $append = $this->hidden(Request::spoofer, $method);
     }
 
@@ -371,7 +369,6 @@ class Form {
     if ( ! isset($attributes['rows'])) $attributes['rows'] = 10;
 
     if ( ! isset($attributes['cols'])) $attributes['cols'] = 50;
-
     return '<textarea'.$this->app['former.helpers']->attributes($attributes).'>'.$this->app['former.helpers']->entities($value).'</textarea>';
   }
 
@@ -400,14 +397,10 @@ class Form {
 
     $html = array();
 
-    foreach ($options as $value => $display)
-    {
-      if (is_array($display))
-      {
+    foreach ($options as $value => $display) {
+      if (is_array($display)) {
         $html[] = $this->optgroup($display, $value, $selected);
-      }
-      else
-      {
+      } else {
         $html[] = $this->option($value, $display, $selected);
       }
     }
@@ -427,8 +420,7 @@ class Form {
   {
     $html = array();
 
-    foreach ($options as $value => $display)
-    {
+    foreach ($options as $value => $display) {
       $html[] = $this->option($value, $display, $selected);
     }
 
@@ -445,12 +437,9 @@ class Form {
    */
   protected function option($value, $display, $selected)
   {
-    if (is_array($selected))
-    {
+    if (is_array($selected)) {
       $selected = (in_array($value, $selected)) ? 'selected' : null;
-    }
-    else
-    {
+    } else {
       $selected = ((string) $value == (string) $selected) ? 'selected' : null;
     }
 
@@ -501,7 +490,6 @@ class Form {
   public function radio($name, $value = null, $checked = false, $attributes = array())
   {
     if (is_null($value)) $value = $name;
-
     return $this->checkable('radio', $name, $value, $checked, $attributes);
   }
 
@@ -592,13 +580,11 @@ class Form {
     // If an ID has been explicitly specified in the attributes, we will
     // use that ID. Otherwise, we will look for an ID in the array of
     // label names so labels and their elements have the same ID.
-    if (array_key_exists('id', $attributes))
-    {
+    if (array_key_exists('id', $attributes)) {
       return $attributes['id'];
     }
 
-    if (in_array($name, $this->labels))
-    {
+    if (in_array($name, $this->labels)) {
       return $name;
     }
   }
@@ -612,8 +598,7 @@ class Form {
    */
   public function __call($method, $parameters)
   {
-    if (isset($this->macros[$method]))
-    {
+    if (isset($this->macros[$method])) {
       return call_user_func_array($this->macros[$method], $parameters);
     }
 

@@ -42,7 +42,6 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
   {
     $text = str_replace('[]', null, ucfirst($name));
     if ($required) $text .= '*';
-
     return array(
       'tag' => 'label',
       'content' => $text,

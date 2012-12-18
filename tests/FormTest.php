@@ -18,7 +18,6 @@ class FormTest extends FormerTests
     );
 
     if ($files) $matcher['attributes']['enctype'] = 'multipart/form-data';
-
     return $matcher;
   }
 
