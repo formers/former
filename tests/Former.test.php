@@ -34,4 +34,12 @@ class FormerTest extends FormerTests
 
     $this->assertEquals($matcher, $actions);
   }
+
+  public function testDoesntUseTranslationsArraysAsLabels()
+  {
+    $input = Former::text('pagination')->__toString();
+    $matcher = $this->cg('<input type="text" name="pagination" id="pagination">', '<label for="pagination" class="control-label">Pagination</label>');
+
+    $this->assertEquals($matcher, $input);
+  }
 }

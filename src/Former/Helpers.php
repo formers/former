@@ -56,6 +56,9 @@ class Helpers
       Lang::line(Config::get('translate_from').'.'.$key)->get(null,
       $fallback);
 
+    // If we were returned a translations array
+    if (is_array($translation)) $translation = $fallback;
+
     return ucfirst($translation);
   }
 
