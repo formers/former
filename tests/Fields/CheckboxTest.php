@@ -61,6 +61,17 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkboxes);
   }
 
+  public function testCanFocusOnACheckbox()
+  {
+    $checkboxes = $this->former->checkboxes('foo')
+      ->checkboxes('foo', 'bar')
+      ->on(0)->text('first')->on(1)->text('second')->__toString();
+
+    $matcher = $this->controlGroupMultiple($this->cb('foo_0', 'First').$this->cb('foo_1', 'Second'));
+
+    $this->assertEquals($matcher, $checkboxes);
+  }
+
   public function testCanCreateInlineCheckboxes()
   {
     $checkboxes1 = $this->former->inline_checkboxes('foo')->checkboxes('foo', 'bar')->__toString();

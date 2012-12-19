@@ -40,9 +40,68 @@ abstract class Checkable extends Field
    */
   protected $checked = array();
 
+  /**
+   * The checkable currently being focused on
+   * @var integer
+   */
+  protected $focus = null;
+
   ////////////////////////////////////////////////////////////////////
-  ///////////////////////// PUBLIC INTERFACE /////////////////////////
+  //////////////////////////// CORE METHODS //////////////////////////
   ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Apply methods to focused checkable
+   */
+  public function __call($method, $parameters)
+  {
+    $focused = $this->setOnFocused('attributes.'.$method, Arrays::get($parameters, 0));
+    if ($focused) return $this;
+
+    return parent::__call($method, $parameters);
+  }
+
+  /**
+   * Prints out the currently stored checkables
+   */
+  public function render()
+  {
+    $html = null;
+
+    // Multiple items
+    if ($this->items) {
+      foreach ($this->items as $key => $item) {
+        $value = $this->isCheckbox() ? 1 : $key;
+        $html .= $this->createCheckable($item, $value);
+      }
+
+      return $html;
+    }
+
+    // Single item
+    return $this->createCheckable(array(
+      'name'  => $this->name,
+      'label' => $this->text,
+      'value' => $this->value
+    ));
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////// FIELD METHODS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Focus on a particular checkable
+   *
+   * @param integer $on The checkable to focus on
+   */
+  public function on($on)
+  {
+    if (!isset($this->items[$on])) return $this;
+    else $this->focus = $on;
+
+    return $this;
+  }
 
   /**
    * Set the checkables as inline
@@ -71,10 +130,14 @@ abstract class Checkable extends Field
    */
   public function text($text)
   {
-    // In case people try to pass Lang objects
-    if(is_object($text)) $text = $text->get();
+    // Translate and format
+    $text = $this->app['former.helpers']->translate($text);
 
-    $this->text = $this->app['former.helpers']->translate($text);
+    // Apply on focused if any
+    $focused = $this->setOnFocused('label', $text);
+    if ($focused) return $this;
+
+    $this->text = $text;
 
     return $this;
   }
@@ -103,7 +166,7 @@ abstract class Checkable extends Field
   }
 
   ////////////////////////////////////////////////////////////////////
-  ////////////////////////// CORE FUNCTIONS //////////////////////////
+  ////////////////////////// INTERNAL METHODS ////////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**
@@ -188,6 +251,10 @@ abstract class Checkable extends Field
     return '<label for="' .$attributes['id']. '" class="' .$this->checkable.$isInline. '">' .$field.$label. '</label>';
   }
 
+  ////////////////////////////////////////////////////////////////////
+  ///////////////////////////// HELPERS //////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
   /**
    * Generate an unique ID for a field
    *
@@ -211,33 +278,19 @@ abstract class Checkable extends Field
   }
 
   /**
-   * Prints out the currently stored checkables
+   * Set something on the currently focused checkable
+   *
+   * @param string $attribute The key to set
+   * @param string $value     Its value
    */
-  public function render()
+  protected function setOnFocused($attribute, $value)
   {
-    $html = null;
+    if (is_null($this->focus)) return false;
 
-    // Multiple items
-    if ($this->items) {
-      foreach ($this->items as $key => $item) {
-        $value = $this->isCheckbox() ? 1 : $key;
-        $html .= $this->createCheckable($item, $value);
-      }
+    $this->items[$this->focus] = Arrays::set($this->items[$this->focus], $attribute, $value);
 
-      return $html;
-    }
-
-    // Single item
-    return $this->createCheckable(array(
-      'name'  => $this->name,
-      'label' => $this->text,
-      'value' => $this->value
-    ));
+    return $this;
   }
-
-  ////////////////////////////////////////////////////////////////////
-  ///////////////////////////// HELPERS //////////////////////////////
-  ////////////////////////////////////////////////////////////////////
 
   /**
    * Check if a checkable is checked
