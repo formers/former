@@ -82,3 +82,4 @@ class Actions extends FormerObject
     return false;
   }
 }
+
