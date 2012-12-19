@@ -119,6 +119,9 @@ class Helpers
       $translation = $fallback;
     }
 
+    // If we were return a translations array
+    if (is_array($translation)) $translation = $fallback;
+
     return ucfirst($translation);
   }
 
