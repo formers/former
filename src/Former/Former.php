@@ -352,17 +352,11 @@ class Former
   /**
    * Writes the form actions
    *
-   * @return string A .form-actions block
+   * @return Former\Form\Actions
    */
   public function actions()
   {
-    $buttons = func_get_args();
-
-    $actions  = '<div class="form-actions">';
-      $actions .= implode(' ', (array) $buttons);
-    $actions .= '</div>';
-
-    return $actions;
+    return new Form\Actions($this->app, func_get_args());
   }
 
   ////////////////////////////////////////////////////////////////////
