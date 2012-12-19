@@ -1,6 +1,4 @@
 <?php
-include '_start.php';
-
 class GroupTest extends FormerTests
 {
   public function createButton($text)
