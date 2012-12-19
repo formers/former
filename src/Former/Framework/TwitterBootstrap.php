@@ -176,6 +176,19 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
     return $attributes;
   }
 
+  /**
+   * Add actions block class
+   *
+   * @param  array  $attributes The attributes
+   * @return array
+   */
+  public function addActionClasses($attributes)
+  {
+    $attributes = $this->addClass($attributes, 'form-actions');
+
+    return $attributes;
+  }
+
   ////////////////////////////////////////////////////////////////////
   //////////////////////////// RENDER BLOCKS /////////////////////////
   ////////////////////////////////////////////////////////////////////

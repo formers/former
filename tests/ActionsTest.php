@@ -14,6 +14,18 @@ class ActionsTest extends FormerTests
     );
   }
 
+  public function matchButton($classes, $type, $value)
+  {
+    return array(
+      'tag'  => 'input',
+      'attributes' => array(
+        'type' => $type,
+        'value' => $value,
+        'class' => $classes. ' btn',
+      ),
+    );
+  }
+
   // Tests --------------------------------------------------------- /
 
   public function testCanCreateAnActionBlock()
@@ -51,5 +63,39 @@ class ActionsTest extends FormerTests
     $matcher = '<div class="form-actions"><input class="btn" type="submit" value="Submit"> <input class="btn" type="reset" value="Reset"></div>';
 
     $this->assertEquals($matcher, $actions);
+  }
+
+  public function testCanChainMethodsToActionsBlock()
+  {
+    $actions = $this->former->actions('content')->id('foo')->addClass('bar')->data_foo('bar')->__toString();
+    $matcher = $this->matchActions('content');
+    $matcher['attributes'] = array(
+      'id'       => 'foo',
+      'class'    => 'bar form-actions',
+      'data-foo' => 'bar',
+    );
+
+    $this->assertHTML($matcher, $actions);
+  }
+
+  public function testCanChainActionsToActionsBlock()
+  {
+    $actions = $this->former->actions()
+      ->data_submit('foo')
+      ->large_primary_submit('submit')
+      ->small_block_inverse_reset('reset')
+      ->__toString();
+
+    // Match block
+    $matcher = $this->matchActions();
+    unset($matcher['content']);
+    $this->assertHTML($matcher, $actions);
+
+    // Match buttons
+    $matcher = $this->matchButton('btn-large btn-primary', 'submit', 'Submit');
+    $this->assertHTML($matcher, $actions);
+
+    $matcher = $this->matchButton('btn-small btn-block btn-inverse', 'reset', 'Reset');
+    $this->assertHTML($matcher, $actions);
   }
 }

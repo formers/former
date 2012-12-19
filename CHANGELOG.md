@@ -4,6 +4,7 @@
 -----
 
 - Refactor of Former for Laravel 4
+- [add] You can now chain buttons to actions blocks `Former::actions()->large_primary_submit('Submit')`
 - [add] You can now chain live validation rules to fields (example: `Former::text('foo')->alpha_dash()`)
 - [mod] Frameworks names renamed from `bootstrap` to `TwitterBootstrap`, `zurb` to `ZurbFoundation` and `null` to `Nude`
 

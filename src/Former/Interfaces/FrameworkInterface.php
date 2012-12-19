@@ -22,6 +22,7 @@ interface FrameworkInterface
   public function addFieldClasses(Field $field, $classes);
   public function addGroupClasses($attributes);
   public function addLabelClasses($attributes);
+  public function addActionClasses($attributes);
 
   // Render blocks
   public function createLabelOf(Field $field, $label);

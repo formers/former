@@ -25,9 +25,9 @@ class Button extends \Former\Traits\Field
    */
   public function __construct($app, $type, $value, $attributes)
   {
-    $this->app = $app;
+    $this->app        = $app;
     $this->attributes = (array) $attributes;
-    $this->type = $type;
+    $this->type       = $type;
     $this->value($value);
   }
 
