@@ -7,7 +7,7 @@
  */
 namespace Former\Traits;
 
-use \Underscore\Arrays;
+use \Underscore\Types\Arrays;
 
 abstract class FormerObject
 {

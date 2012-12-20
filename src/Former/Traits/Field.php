@@ -11,7 +11,7 @@ use \Former\Form\Group;
 use \Former\Form\Form;
 use \Former\Interfaces\FieldInterface;
 use \Former\LiveValidation;
-use \Underscore\Arrays;
+use \Underscore\Types\Arrays;
 
 abstract class Field extends FormerObject implements FieldInterface
 {

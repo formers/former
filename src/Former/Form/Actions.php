@@ -8,7 +8,7 @@
 namespace Former\Form;
 
 use \Former\Traits\FormerObject;
-use \Underscore\String;
+use \Underscore\Types\String;
 
 class Actions extends FormerObject
 {

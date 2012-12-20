@@ -23,8 +23,8 @@
   },
   "autoload": {
     "psr-0": {
-      "Former": "src/",
-      "Laravel": "src/"
+      "Former": "src",
+      "Laravel": "src"
     }
   },
   "minimum-stability": "dev"

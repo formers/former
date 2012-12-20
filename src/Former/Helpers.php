@@ -6,7 +6,7 @@
  */
 namespace Former;
 
-use \Underscore\String;
+use \Underscore\Types\String;
 use \Illuminate\Translation\Translator;
 
 class Helpers

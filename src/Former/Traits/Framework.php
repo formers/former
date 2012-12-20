@@ -7,8 +7,8 @@
 namespace Former\Traits;
 
 use \Former\Traits\Field;
-use \Underscore\Arrays;
-use \Underscore\String;
+use \Underscore\Types\Arrays;
+use \Underscore\Types\String;
 
 abstract class Framework
 {

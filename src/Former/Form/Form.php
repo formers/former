@@ -7,8 +7,8 @@
 namespace Former\Form;
 
 use \Former\Traits\FormerObject;
-use \Underscore\Arrays;
-use \Underscore\String;
+use \Underscore\Types\Arrays;
+use \Underscore\Types\String;
 
 class Form extends FormerObject
 {

@@ -9,7 +9,7 @@ namespace Former\Framework;
 use \Former\Interfaces\FrameworkInterface;
 use \Former\Traits\Field;
 use \Former\Traits\Framework;
-use \Underscore\Arrays;
+use \Underscore\Types\Arrays;
 
 class ZurbFoundation extends Framework implements FrameworkInterface
 {

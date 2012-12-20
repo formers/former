@@ -9,8 +9,8 @@ namespace Former\Framework;
 use \Former\Interfaces\FrameworkInterface;
 use \Former\Traits\Framework;
 use \Former\Traits\Field;
-use \Underscore\Arrays;
-use \Underscore\String;
+use \Underscore\Types\Arrays;
+use \Underscore\Types\String;
 
 class TwitterBootstrap extends Framework implements FrameworkInterface
 {
