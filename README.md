@@ -48,10 +48,9 @@ Former::horizontal_open()
     ->rows(10)->columns(20)
     ->autofocus();
 
-  Former::actions (
-    Former::large_primary_submit('Submit'),
-    Former::large_inverse_reset('Reset')
-  )
+  Former::actions()
+    ->large_primary_submit('Submit'),
+    ->large_inverse_reset('Reset')
 
 Former::close()
 ```
@@ -72,23 +71,17 @@ Now of course in case you want to set an attribute that actually contains an und
 <a name='installation'></a>
 ## Installation
 
-Installing Former is easy as hell. You just type the following in your Terminal :
+Installing Former is easy as hell. Add the following to your `composer.json` :
 
-```bash
-php artisan bundle:install former
-```
+    "anahkiasen/former": "dev-composer"
 
-Add the following to your `bundles.php` file :
+Add Former's service provider to your Laravel application in `app/config/app.php`. In the `providers` array add :
 
-```php
-'former' => array('auto' => true),
-```
+    'Former\FormerServiceProvider',
 
-And finally for easier use I recommand adding this alias to your alias array in `application.php` :
+Add then alias Former's main class by adding its facade to the `facades` array in the same file :
 
-```php
-'Former' => 'Former\Former',
-```
+    'Former' => 'Former\Facades\Former',
 
 ----
 
