@@ -129,6 +129,11 @@ class Select extends \Former\Field
     // Multiselects
     if ($this->type == 'multiselect') {
       $this->multiple();
+
+      if(!isset($this->attributes['id'])) {
+        $this->attributes['id'] = $name;
+      }
+      
       $name .= '[]';
     }
 
