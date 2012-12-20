@@ -21,7 +21,7 @@ class SelectTest extends FormerTests
   public function testMultiselect()
   {
     $select = Former::multiselect('foo')->__toString();
-    $matcher = $this->cg('<select multiple="true" id="foo" name="foo"></select>');
+    $matcher = $this->cg('<select multiple="true" id="foo" name="foo[]"></select>');
 
     $this->assertEquals($matcher, $select);
   }

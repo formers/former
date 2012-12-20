@@ -124,13 +124,21 @@ class Select extends \Former\Field
    */
   public function __toString()
   {
+    $name = $this->name;
+    
     // Multiselects
     if ($this->type == 'multiselect') {
       $this->multiple();
+
+      if(!isset($this->attributes['id'])) {
+        $this->attributes['id'] = $name;
+      }
+      
+      $name .= '[]';
     }
 
     // Render select
-    $select = Form::select($this->name, $this->options, $this->value, $this->attributes);
+    $select = Form::select($name, $this->options, $this->value, $this->attributes);
 
     // Add placeholder text if any
     if ($this->placeholder) {
