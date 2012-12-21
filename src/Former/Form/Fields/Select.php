@@ -57,13 +57,20 @@ class Select extends Field
    */
   public function render()
   {
+    $name = $this->name;
+
     // Multiselects
     if ($this->isOfType('multiselect')) {
+      if (!isset($this->attributes['id'])) {
+        $this->setAttribute('id', $name);
+      }
+
       $this->multiple();
+      $name .= '[]';
     }
 
     // Render select
-    $select = $this->app['former.laravel.form']->select($this->name, $this->options, $this->value, $this->attributes);
+    $select = $this->app['former.laravel.form']->select($name, $this->options, $this->value, $this->attributes);
 
     // Add placeholder text if any
     if ($this->placeholder) {
