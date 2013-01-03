@@ -262,6 +262,11 @@ abstract class Checkable extends Field
   protected function isChecked($name = null, $value = null)
   {
     if(!$name) $name = $this->name;
+    
+    // If grouped, remove the brackets from name so we
+    // can properly check against values and POST
+    if($this->grouped and ends_with($name,'[]')) 
+      	$name = substr($name, 0, (strlen($name) - 2));
 
     // If it's a checkbox, see if we marqued that one as checked in the array
     // Or if it's a single radio, simply see if we called check
@@ -277,8 +282,8 @@ abstract class Checkable extends Field
     $post   = Former::getPost($name);
     $static = Former::getValue($name);
 
-    if(!is_null($post) and $post !== Config::get('unchecked_value')) $isChecked = ($post == $value);
-    elseif(!is_null($static)) $isChecked = ($static == $value);
+    if(!is_null($post) and $post !== Config::get('unchecked_value')) $isChecked = (is_array($post)) ? in_array($value, $post) : ($post == $value);
+    elseif(!is_null($static)) $isChecked = (is_array($static)) ? in_array($value, $static) : ($static == $value);
     else $isChecked = $checked;
     return $isChecked ? true : false;
   }
