@@ -90,7 +90,8 @@ abstract class Field extends Traits\FormerObject
   {
     return
       Former::form()->type == 'inline' or
-      in_array($this->type, array('hidden', 'submit', 'button', 'reset'));
+      in_array($this->type, array('hidden', 'submit', 'button', 'reset')) or
+      isset($this->attributes['unwrapped']);
   }
 
   /**
