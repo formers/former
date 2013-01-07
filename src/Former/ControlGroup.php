@@ -23,6 +23,12 @@ class ControlGroup
   private $state = null;
 
   /**
+   * Whether the field should be displayed raw or not
+   * @var boolean
+   */
+  private $raw = false;
+
+  /**
    * The control group label
    * @var string
    */
@@ -190,6 +196,24 @@ class ControlGroup
     if(!$state) return false;
 
     $this->state = $state;
+  }
+
+  /**
+   * Disables the control group for the current field
+   */
+  public function raw()
+  {
+    $this->raw = true;
+  }
+
+  /**
+   * Check if the current group is to be displayed or not
+   *
+   * @return boolean
+   */
+  public function isRaw()
+  {
+    return $this->raw == true;
   }
 
   /**
