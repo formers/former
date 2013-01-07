@@ -246,11 +246,10 @@ class ControlGroupTest extends FormerTests
 
   public function testCanInlineASingleField()
   {
-    $input = $this->former->text('foo')->raw()->__toString();
-    $matcher = $this->matchField();
-    unset($matcher['id']);
+    $input = Former::text('foo')->raw()->__toString();
+    $matcher = '<input type="text" name="foo">';
 
-    $this->assertHTML($matcher, $input);
+    $this->assertEquals($matcher, $input);
   }
 
 }
