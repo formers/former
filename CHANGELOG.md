@@ -7,6 +7,7 @@
 - [add] You can now chain methods to actiosn blocks `Former::actions('Hello', 'Mr Bond')->id('foo')->addClass('bar')`
 - [add] You can now chain buttons to actions blocks `Former::actions()->large_primary_submit('Submit')`
 - [add] You can now chain live validation rules to fields (example: `Former::text('foo')->alpha_dash()`)
+- [add] You can now display a single field without control group in any kind of form (`Former::text('foo')->raw()`)
 - [mod] Frameworks names renamed from `bootstrap` to `TwitterBootstrap`, `zurb` to `ZurbFoundation` and `null` to `Nude`
 
 2.6.0
