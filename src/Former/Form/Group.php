@@ -27,6 +27,12 @@ class Group
   private $state = null;
 
   /**
+   * Whether the field should be displayed raw or not
+   * @var boolean
+   */
+  private $raw = false;
+
+  /**
    * The group label
    * @var string
    */
@@ -103,6 +109,24 @@ class Group
     $state = $this->app['former.framework']->filterState($state);
 
     $this->state = $state;
+  }
+
+  /**
+   * Disables the control group for the current field
+   */
+  public function raw()
+  {
+    $this->raw = true;
+  }
+
+  /**
+   * Check if the current group is to be displayed or not
+   *
+   * @return boolean
+   */
+  public function isRaw()
+  {
+    return $this->raw == true;
   }
 
   /**

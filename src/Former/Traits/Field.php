@@ -127,7 +127,7 @@ abstract class Field extends FormerObject implements FieldInterface
   }
 
   ////////////////////////////////////////////////////////////////////
-  /////////////////////////// FUNCTIONS //////////////////////////////
+  ///////////////////////////// FUNCTIONS ////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**
@@ -149,7 +149,8 @@ abstract class Field extends FormerObject implements FieldInterface
   {
     return
       $this->app['former']->form() and $this->app['former']->form()->isOfType('inline') or
-      $this->isOfType('hidden', 'submit', 'button', 'reset');
+      $this->isOfType('hidden', 'submit', 'button', 'reset') or
+      $this->group and $this->group->isRaw();
   }
 
   /**
