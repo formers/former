@@ -12,7 +12,7 @@ class FormTest extends FormerTests
       'attributes' => array(
         'class' => $class,
         'method' => 'POST',
-        'accept-charset' => 'UTF-8',
+        'accept-charset' => 'utf-8',
         'action' => $action,
       ),
     );

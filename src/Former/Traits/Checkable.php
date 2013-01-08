@@ -264,7 +264,7 @@ abstract class Checkable extends Field
   protected function unique($name)
   {
     // Register the field with Laravel
-    $this->app['former.laravel.form']->labels[] = $name;
+    $this->app['former.laravel.form']->text($name);
 
     // Count number of fields with the same ID
     $where = array_filter($this->app['former.laravel.form']->labels, function($label) use ($name) {
