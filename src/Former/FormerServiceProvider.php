@@ -32,7 +32,8 @@ class FormerServiceProvider extends ServiceProvider
     });
 
     $this->app['former.framework'] = $this->app->share(function($app) {
-      return new \Former\Framework\TwitterBootstrap($app);
+      $framework = '\Former\Framework\\'.$this->app['config']->get('former::framework');
+      return new $framework($app);
     });
 
     $this->app['former.helpers'] = $this->app->share(function($app) {
