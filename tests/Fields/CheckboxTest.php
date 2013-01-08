@@ -222,6 +222,37 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkbox);
   }
 
+  public function testCanGroupCheckboxes()
+  {
+    $this->former->framework('Nude');
+    $auto =  $this->former->checkboxes('value[]', '')->checkboxes('Value 01', 'Value 02')->__toString();
+    $chain = $this->former->checkboxes('value', '')->grouped()->checkboxes('Value 01', 'Value 02')->__toString();
+
+    $this->assertEquals($chain, $auto);
+    $this->assertEquals(
+      '<label for="value_0" class="checkbox">'.
+        '<input id="value_0" type="checkbox" name="value[]" value="1">Value 01'.
+      '</label>'.
+      '<label for="value_1" class="checkbox">'.
+        '<input id="value_1" type="checkbox" name="value[]" value="1">Value 02'.
+      '</label>', $auto);
+  }
+
+/*  public function testCanRepopulateGroupedCheckboxes()
+  {
+    $this->former->framework('Nude');
+    $this->former->populate(array('foo' => array('foo_0')));
+    $checkboxes = $this->former->checkboxes('foo', '')->grouped()->checkboxes('Value 01', 'Value 02')->__toString();
+
+    $this->assertEquals(
+      '<label for="foo_0" class="checkbox">'.
+        '<input id="foo_0" checked="checked" type="checkbox" name="foo[]" value="1">Value 01'.
+      '</label>'.
+      '<label for="foo_1" class="checkbox">'.
+        '<input id="foo_1" type="checkbox" name="foo[]" value="1">Value 02'.
+      '</label>', $checkboxes);
+  }*/
+
   public function testCanCustomizeTheUncheckedValue()
   {
     $this->app->app['config'] = $this->app->getConfig(true, 'unchecked', true);
