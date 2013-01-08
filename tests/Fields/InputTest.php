@@ -1,13 +1,12 @@
 <?php
-use \Former\Former;
-use \Former\Config;
+use Underscore\Types\String;
 
 class InputTest extends FormerTests
 {
   public function tearDown()
   {
     parent::tearDown();
-    $this->former->framework('bootstrap');
+    $this->former->framework('TwitterBootstrap');
   }
 
   public function sizes()

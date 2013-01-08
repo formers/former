@@ -54,7 +54,7 @@ class IlluminateMock
     $config->shouldReceive('get')->with('application.encoding')->andReturn('UTF-8');
     $config->shouldReceive('get')->with('former::default_form_type')->andReturn('horizontal');
     $config->shouldReceive('get')->with('former::fetch_errors')->andReturn(false);
-    $config->shouldReceive('get')->with('former::framework')->andReturn('bootstrap');
+    $config->shouldReceive('get')->with('former::framework')->andReturn('TwitterBootstrap');
     $config->shouldReceive('get')->with('former::translate_from')->andReturn('validation.attributes');
     $config->shouldReceive('get')->with('former::required_class')->andReturn('required');
     $config->shouldReceive('get')->with('former::required_text')->andReturn('*');
@@ -130,7 +130,7 @@ class IlluminateMock
   /**
    * Get request manager
    */
-  private function getRequest()
+  public function getRequest()
   {
     $request = Mockery::mock('request');
     $request->shouldReceive('url')->andReturn('#');

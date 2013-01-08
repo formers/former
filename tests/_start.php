@@ -4,6 +4,8 @@ include '_illuminate.php';
 // Base Test class for matchers
 abstract class FormerTests extends PHPUnit_Framework_TestCase
 {
+  protected static $illuminate;
+
   // Dummy data ---------------------------------------------------- /
 
   protected $checkables = array(
@@ -74,12 +76,18 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
   public function setUp()
   {
     // Create the dummy Illuminate app
-    $this->app = new IlluminateMock();
+    if (!static::$illuminate) static::$illuminate = new IlluminateMock();
+    $this->app = static::$illuminate;
     $this->former = $this->app->app['former'];
 
     // Reset some parameters
+    $this->resetLabels();
     $this->former->horizontal_open()->__toString();
     $this->former->framework('TwitterBootstrap');
+
+    // Reset config and POST data
+    $this->app->app['config'] = static::$illuminate->getConfig();
+    $this->app->app['request'] = static::$illuminate->getRequest();
   }
 
   public function tearDown()
