@@ -22,6 +22,12 @@ abstract class Checkable extends Field
    */
   protected $text = null;
 
+   /**
+   * Renders the checkables as grouped
+   * @var boolean
+   */
+  protected $grouped = false;
+
   /**
    * The checkable items currently stored
    * @var array
@@ -124,6 +130,16 @@ abstract class Checkable extends Field
   }
 
   /**
+   * Set the checkables as grouped
+   */
+  public function grouped()
+  {
+    $this->grouped = true;
+
+    return $this;
+  }
+
+  /**
    * Add text to a single checkable
    *
    * @param  string $text The checkable label
@@ -186,7 +202,15 @@ abstract class Checkable extends Field
     foreach ($_items as $label => $name) {
 
       // Define a fallback name in case none is found
-      $fallback = $this->isCheckbox() ? $this->name.'_'.$count : $this->name;
+      $fallback = $this->isCheckbox()
+        ? $this->name.'_'.$count
+        : $this->name;
+
+      // Grouped fields
+      if ($this->isGrouped()) {
+        $attributes['id'] = str_replace('[]', null, $fallback);
+        $fallback = str_replace('[]', null, $this->name).'[]';
+      }
 
       // If we haven't any name defined for the checkable, try to compute some
       if (!is_string($label) and !is_array($name)) {
@@ -331,4 +355,15 @@ abstract class Checkable extends Field
     return $this->checkable == 'checkbox';
   }
 
+  /**
+   * Check if the checkables are grouped or not
+   *
+   * @return boolean
+   */
+  protected function isGrouped()
+  {
+    return
+      $this->grouped == true or
+      strpos($this->name, '[]') !== FALSE;
+  }
 }
