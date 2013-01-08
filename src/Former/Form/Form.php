@@ -13,8 +13,8 @@ use \Underscore\Types\String;
 class Form extends FormerObject
 {
   /**
-   * Illuminate application instance.
-   * @var Illuminate/Foundation/Application
+   * The current environment
+   * @var Illuminate\Container
    */
   protected $app;
 
@@ -22,7 +22,7 @@ class Form extends FormerObject
    * The Form type
    * @var string
    */
-  public $type = null;
+  private $type = null;
 
   /**
    * The available form types
@@ -53,6 +53,10 @@ class Form extends FormerObject
    * @var boolean
    */
   private static $opened = false;
+
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////// CORE METHODS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   public function __construct($app)
   {

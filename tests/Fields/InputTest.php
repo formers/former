@@ -177,11 +177,11 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $static);
   }
 
-  public function testSetAttributesOverwrite()
+  public function testReplaceAttributes()
   {
     $attributes = array('class' => 'foo', 'data-foo' => 'bar');
 
-    $static = $this->former->text('foo')->require()->setAttributes($attributes, false)->__toString();
+    $static = $this->former->text('foo')->require()->replaceAttributes($attributes)->__toString();
     $matcher = $this->controlGroup('<input class="foo" data-foo="bar" type="text" name="foo" id="foo">');
 
     $this->assertEquals($matcher, $static);
