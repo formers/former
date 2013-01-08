@@ -67,16 +67,27 @@ abstract class FormerObject
   /**
    * Set a bunch of parameters at once
    *
-   * @param array   $attributes An associative array of attributes
-   * @param boolean $merge      Whether they should be merged to the old ones
+   * @param array $attributes The attributes to add to the existing ones
+   *
+   * @return FormerObject
    */
   public function setAttributes($attributes, $merge = true)
   {
-    $attributes = (array) $attributes;
+    $this->attributes = array_merge($this->attributes, (array) $attributes);
 
-    $this->attributes = $merge
-      ? array_merge($this->attributes, $attributes)
-      : $attributes;
+    return $this;
+  }
+
+  /**
+   * Replace all attributes with the provided array
+   *
+   * @param array $attributes The attributes to replace with
+   *
+   * @return FormerObject
+   */
+  public function replaceAttributes($attributes)
+  {
+    $this->attributes = (array) $attributes;
 
     return $this;
   }
@@ -86,7 +97,7 @@ abstract class FormerObject
   ////////////////////////////////////////////////////////////////////
 
   /**
-   * Add a class to the current field
+   * Add one or more classes to the current field
    *
    * @param string $class The class to add
    */
@@ -124,7 +135,7 @@ abstract class FormerObject
   }
 
   /**
-   * Check if a object is of a certain type
+   * Check if an object is of a certain type
    *
    * @param  string $types* The type(s) to check for
    * @return boolean
