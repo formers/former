@@ -16,7 +16,8 @@
   ],
   "require": {
     "illuminate/container": "dev-master",
-    "anahkiasen/underscore-php": "dev-master"
+    "anahkiasen/underscore-php": "dev-master",
+    "meido/form": "dev-master"
   },
   "require-dev": {
     "mockery/mockery": "dev-master"
@@ -24,7 +25,8 @@
   "autoload": {
     "psr-0": {
       "Former": "src",
-      "Laravel": "src"
+      "Laravel": "src",
+      "Meido": "src"
     }
   },
   "minimum-stability": "dev"

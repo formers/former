@@ -21,7 +21,7 @@ class IlluminateMock
     $app['validator']  = $this->getValidator();
 
     // Setup bindings
-    $app['former.laravel.form'] = $app->share(function($app) { return new Laravel\Form($app); });
+    $app['former.laravel.form'] = $app->share(function($app) { return new Meido\Form\Form($app['url']); });
     $app['former.laravel.file'] = $app->share(function($app) { return new Laravel\File($app); });
     $app['former'] = $app->share(function($app) { return new Former\Former($app); });
     $app['former.helpers'] = $app->share(function($app) { return new Former\Helpers($app); });
@@ -73,7 +73,8 @@ class IlluminateMock
    */
   private function getUrl()
   {
-    $url = Mockery::mock('url');
+    $url = Mockery::mock('Illuminate\Routing\UrlGenerator');
+    $url->shouldReceive('getRequest')->andReturn($this->getRequest());
     $url->shouldReceive('to')->andReturnUsing(function($url) {
       return $url == '#' ? $url : 'https://test/en/'.$url;
     });
@@ -135,6 +136,9 @@ class IlluminateMock
     $request->shouldReceive('url')->andReturn('#');
     $request->shouldReceive('get')->andReturn(null)->byDefault();
     $request->shouldReceive('old')->andReturn(null);
+    $request->shouldReceive('path')->andReturnUsing(function() {
+      return 'https://test/en/';
+    });
 
     return $request;
   }
