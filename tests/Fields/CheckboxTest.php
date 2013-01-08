@@ -225,6 +225,7 @@ class CheckboxTest extends FormerTests
   public function testCanGroupCheckboxes()
   {
     $this->former->framework('Nude');
+
     $auto =  $this->former->checkboxes('value[]', '')->checkboxes('Value 01', 'Value 02')->__toString();
     $chain = $this->former->checkboxes('value', '')->grouped()->checkboxes('Value 01', 'Value 02')->__toString();
 

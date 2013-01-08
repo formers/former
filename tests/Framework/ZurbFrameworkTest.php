@@ -1,7 +1,6 @@
 <?php
 class ZurbFrameworkTest extends FormerTests
 {
-
   public function setUp()
   {
     parent::setUp();

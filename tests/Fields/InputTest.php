@@ -211,7 +211,7 @@ class InputTest extends FormerTests
   public function testMagicMethods($size)
   {
     $method = $size.'_text';
-    $class = $this->startsWith($size, 'span') ? $size. ' ' : 'input-'.$size. ' ';
+    $class = String::startsWith($size, 'span') ? $size. ' ' : 'input-'.$size. ' ';
     $static = $this->former->$method('foo')->addClass('bar')->__toString();
     if($class == 'input-foo ') $class = null;
 
