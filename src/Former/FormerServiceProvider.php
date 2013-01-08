@@ -40,7 +40,7 @@ class FormerServiceProvider extends ServiceProvider
     });
 
     $this->app['former.laravel.form'] = $this->app->share(function($app) {
-      return new \Meido\Form\Form($app);
+      return new \Meido\Form\Form($app['url']);
     });
 
     $this->app['former.laravel.file'] = $this->app->share(function($app) {
