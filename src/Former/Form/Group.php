@@ -60,7 +60,7 @@ class Group
   private $append = array();
 
   ////////////////////////////////////////////////////////////////////
-  /////////////////////////////// BUILDERS ///////////////////////////
+  /////////////////////////// CORE METHODS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**
@@ -83,7 +83,7 @@ class Group
   /**
    * Prints out the opening of the Control Group
    *
-   * @return string [description]
+   * @return string A control group opening tag
    */
   public function __toString()
   {
@@ -92,6 +92,40 @@ class Group
     $label = $this->app['former.laravel.form']->label($this->label, $this->label, $attributes);
 
     return $this->open().$label;
+  }
+
+  /**
+   * Opens a group
+   *
+   * @return string Opening tag
+   */
+  private function open()
+  {
+    // If any errors, set state to errors
+    $errors = $this->app['former']->getErrors();
+    if($errors) $this->state('error');
+
+    // Retrieve state and append it to classes
+    if ($this->state) {
+      $this->attributes = $this->app['former.helpers']->addClass($this->attributes, $this->state);
+    }
+
+    // Required state
+    if ($this->app['former']->field() and $this->app['former']->field()->isRequired()) {
+      $this->attributes = $this->app['former.helpers']->addClass($this->attributes, $this->app['config']->get('former::required_class'));
+    }
+
+    return '<div'.$this->app['former.helpers']->attributes($this->attributes). '>';
+  }
+
+  /**
+   * Closes a group
+   *
+   * @return string Closing tag
+   */
+  private function close()
+  {
+    return '</div>';
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -112,6 +146,16 @@ class Group
   }
 
   /**
+   * Adds a label to the group
+   *
+   * @param  string $label A label
+   */
+  public function setLabel($label)
+  {
+    $this->label = $label;
+  }
+
+  /**
    * Disables the control group for the current field
    */
   public function raw()
@@ -128,6 +172,10 @@ class Group
   {
     return $this->raw == true;
   }
+
+  ////////////////////////////////////////////////////////////////////
+  ///////////////////////////// HELP BLOCKS //////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Alias for inlineHelp
@@ -176,6 +224,10 @@ class Group
     $this->help['block'] = $this->app['former.framework']->createBlockHelp($help, $attributes);
   }
 
+  ////////////////////////////////////////////////////////////////////
+  ///////////////////////// PREPEND/APPEND METHODS ///////////////////
+  ////////////////////////////////////////////////////////////////////
+
   /**
    * Prepend elements to the field
    */
@@ -218,42 +270,26 @@ class Group
     $this->append($icon);
   }
 
-  /**
-   * Adds a label
-   *
-   * @param  string $label A label
-   */
-  public function setLabel($label)
-  {
-    $this->label = $label;
-  }
-
   ////////////////////////////////////////////////////////////////////
   //////////////////////////////// HELPERS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**
-   * Opens a group
+   * Wrap a Field with the current group
    *
-   * @return string Opening tag
+   * @param  Field  $field A Field instance
+   * @return string        A group
    */
-  private function open()
+  public function wrapField($field)
   {
-    // If any errors, set state to errors
-    $errors = $this->app['former']->getErrors();
-    if($errors) $this->state('error');
+    $html = $this->open();
+      $html  .= $this->getLabel($field);
+      $field  = $this->prependAppend($field);
+      $field .= $this->getHelp();
+      $html  .= $this->app['former.framework']->wrapField($field);
+    $html .= $this->close();
 
-    // Retrieve state and append it to classes
-    if ($this->state) {
-      $this->attributes = $this->app['former.helpers']->addClass($this->attributes, $this->state);
-    }
-
-    // Required state
-    if ($this->app['former']->field() and $this->app['former']->field()->isRequired()) {
-      $this->attributes = $this->app['former.helpers']->addClass($this->attributes, $this->app['config']->get('former::required_class'));
-    }
-
-    return '<div'.$this->app['former.helpers']->attributes($this->attributes). '>';
+    return $html;
   }
 
   /**
@@ -296,8 +332,8 @@ class Group
 
     // Prepare wrapping div
     $class = null;
-    if($this->prepend) $class = 'input-prepend';
-    if($this->append) $class .= ' input-append';
+    if($this->prepend) $class  = 'input-prepend';
+    if($this->append)  $class .= ' input-append';
 
     // Build div
     $return = '<div class="' .$class. '">';
@@ -310,38 +346,6 @@ class Group
   }
 
   /**
-   * Closes a group
-   *
-   * @return string Closing tag
-   */
-  private function close()
-  {
-    return '</div>';
-  }
-
-  /**
-   * Wrap a Field with the current group
-   *
-   * @param  Field  $field A Field instance
-   * @return string        A group
-   */
-  public function wrapField($field)
-  {
-    $html = $this->open();
-      $html  .= $this->getLabel($field);
-      $field  = $this->prependAppend($field);
-      $field .= $this->getHelp();
-      $html  .= $this->app['former.framework']->wrapField($field);
-    $html .= $this->close();
-
-    return $html;
-  }
-
-  ////////////////////////////////////////////////////////////////////
-  /////////////////////////////// HELPERS ////////////////////////////
-  ////////////////////////////////////////////////////////////////////
-
-  /**
    * Place elements around the field
    *
    * @param  array  $items An array of items to place
@@ -349,13 +353,19 @@ class Group
    */
   private function placeAround($items, $place)
   {
-    $items = (array) $items;
-
     // Iterate over the items and place them where they should
-    foreach ($items as $item) {
-      if (!($item instanceof \Bootstrapper\Buttons) and !String::startsWith($item, '<button')) {
+    foreach ((array) $items as $item) {
+
+      // Render the item if it's an object
+      if (is_object($item) and method_exists($item, '__toString')) {
+        $item  = $item->__toString();
+      }
+
+      // If the item is not a button, wrap it
+      if (!String::startsWith($item, '<button')) {
         $item = '<span class="add-on">'.$item.'</span>';
       }
+
       $this->{$place}[] = $item;
     }
   }
