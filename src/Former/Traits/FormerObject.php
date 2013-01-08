@@ -12,10 +12,14 @@ use \Underscore\Types\Arrays;
 abstract class FormerObject
 {
   /**
-   * The Form open tag's attribute
+   * The FormerObject's attribute
    * @var array
    */
   protected $attributes = array();
+
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////// CORE METHODS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Dynamically set attributes
@@ -36,19 +40,24 @@ abstract class FormerObject
   }
 
   /**
-   * Get a Field variable or an attribute
+   * Get a private attribute or a field attribute
    *
    * @param  string $attribute The desired attribute
+   *
    * @return string            Its value
    */
   public function __get($attribute)
   {
-    if(isset($this->$attribute)) return $this->$attribute;
-    else return Arrays::get($this->attributes, $attribute);
+    // If the variable is binded to the class itself
+    if(isset($this->$attribute)) {
+      return $this->$attribute;
+    }
+
+    return Arrays::get($this->attributes, $attribute);
   }
 
   ////////////////////////////////////////////////////////////////////
-  ////////////////////////// ATTRIBUTES //////////////////////////////
+  //////////////////////////// ATTRIBUTES ////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**

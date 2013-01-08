@@ -13,8 +13,8 @@ use \Underscore\Types\String;
 class Former
 {
   /**
-   * Illuminate application instance.
-   * @var Illuminate/Foundation/Application
+   * The current environment
+   * @var Illuminate\Container
    */
   protected $app;
 
@@ -53,6 +53,11 @@ class Former
    */
   const FIELDSPACE = 'Former\Form\Fields\\';
 
+  /**
+   * Build a new Former instance
+   *
+   * @param Illuminate\Container $app
+   */
   public function __construct($app)
   {
     $this->app = $app;
