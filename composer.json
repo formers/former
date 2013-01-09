@@ -1,7 +1,7 @@
 {
   "name": "anahkiasen/former",
   "description": "A powerful form builder for the Laravel framework",
-  "license": "CC-BY-NC-SA-3.0",
+  "license": "MIT",
   "keywords": [
     "bootstrap",
     "form",
