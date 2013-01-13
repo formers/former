@@ -7,7 +7,7 @@
 namespace Former\Interfaces;
 
 use \Former\Traits\Field;
-use \Illuminate\Container;
+use \Illuminate\Container\Container;
 
 interface FrameworkInterface
 {
