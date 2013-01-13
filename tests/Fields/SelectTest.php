@@ -144,14 +144,14 @@ class SelectTest extends FormerTests
   public function testSelectEloquentMagicMethods()
   {
     for ($i = 0; $i < 2; $i++) {
-      $eloquentObject = $this->getMock('Foo', array('__toString', 'get_key'));
+      $eloquentObject = $this->getMock('Foo', array('__toString', 'getKey'));
       $eloquentObject
         ->expects($this->any())
         ->method('__toString')
         ->will($this->returnValue('bar'));
       $eloquentObject
         ->expects($this->any())
-        ->method('get_key')
+        ->method('getKey')
         ->will($this->returnValue($i));
       $eloquent[] = $eloquentObject;
     }
