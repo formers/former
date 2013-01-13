@@ -337,7 +337,7 @@ class Former
   {
     $label = $this->app['former.helpers']->translate($label);
 
-    return $this->app['former.laravel.form']->label($name, $label, $attributes);
+    return $this->app['form']->label($name, $label, $attributes);
   }
 
   /**

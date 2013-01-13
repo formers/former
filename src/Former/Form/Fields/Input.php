@@ -45,7 +45,7 @@ class Input extends Field
     if($this->isOfType('search')) $this->asSearch();
 
     // Render main input
-    $input = $this->app['former.laravel.form']->input($this->type, $this->name, $this->value, $this->attributes);
+    $input = $this->app['form']->input($this->type, $this->name, $this->value, $this->attributes);
 
     // If we have a datalist to append, print it out
     if ($this->datalist) {

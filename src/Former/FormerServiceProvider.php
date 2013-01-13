@@ -8,8 +8,6 @@ namespace Former;
 
 use Illuminate\Support\ServiceProvider;
 
-define('FORMER_VERSION', '3.0.0');
-
 class FormerServiceProvider extends ServiceProvider
 {
   public function register()
@@ -36,12 +34,12 @@ class FormerServiceProvider extends ServiceProvider
       return new $framework($app);
     });
 
-    $this->app['former.helpers'] = $this->app->share(function($app) {
-      return new Helpers($app);
+    $this->app['form'] = $this->app->share(function($app) {
+      return new \Meido\Form\Form($app['url']);
     });
 
-    $this->app['former.laravel.form'] = $this->app->share(function($app) {
-      return new \Meido\Form\Form($app['url']);
+    $this->app['former.helpers'] = $this->app->share(function($app) {
+      return new Helpers($app);
     });
 
     $this->app['former.laravel.file'] = $this->app->share(function($app) {

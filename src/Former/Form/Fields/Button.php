@@ -40,7 +40,7 @@ class Button extends \Former\Traits\Field
   {
     $type = $this->type;
 
-    return $this->app['former.laravel.form']->$type($this->value, $this->attributes);
+    return $this->app['form']->$type($this->value, $this->attributes);
   }
 
   ////////////////////////////////////////////////////////////////////

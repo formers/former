@@ -104,7 +104,7 @@ class Nude extends Framework implements FrameworkInterface
   {
     $field->disabled();
 
-    return $this->app['former.laravel.form']->input('text', $field->name, $field->value, $field->attributes);
+    return $this->app['form']->input('text', $field->name, $field->value, $field->attributes);
   }
 
   ////////////////////////////////////////////////////////////////////

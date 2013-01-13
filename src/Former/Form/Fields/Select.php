@@ -70,7 +70,7 @@ class Select extends Field
     }
 
     // Render select
-    $select = $this->app['former.laravel.form']->select($name, $this->options, $this->value, $this->attributes);
+    $select = $this->app['form']->select($name, $this->options, $this->value, $this->attributes);
 
     // Add placeholder text if any
     if ($this->placeholder) {

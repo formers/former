@@ -185,7 +185,7 @@ class Form extends FormerObject
     // Mark the form as opened
     static::$opened = true;
 
-    return $this->app['former.laravel.form']->open($this->action, $this->method, $this->attributes, $this->secure);
+    return $this->app['form']->open($this->action, $this->method, $this->attributes, $this->secure);
   }
 
   ////////////////////////////////////////////////////////////////////

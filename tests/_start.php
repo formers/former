@@ -99,7 +99,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
 
   public function resetLabels()
   {
-    $this->app->app['former.laravel.form']->labels = array();
+    $this->app->app['form']->labels = array();
   }
 
   // Custom assertions --------------------------------------------- /

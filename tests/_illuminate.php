@@ -21,7 +21,7 @@ class IlluminateMock
     $app['validator']  = $this->getValidator();
 
     // Setup bindings
-    $app['former.laravel.form'] = $app->share(function($app) { return new Meido\Form\Form($app['url']); });
+    $app['form'] = $app->share(function($app) { return new Meido\Form\Form($app['url']); });
     $app['former.laravel.file'] = $app->share(function($app) { return new Laravel\File($app); });
     $app['former'] = $app->share(function($app) { return new Former\Former($app); });
     $app['former.helpers'] = $app->share(function($app) { return new Former\Helpers($app); });

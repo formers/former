@@ -89,7 +89,7 @@ class Group
   {
     // Create a basic label
     $attributes = $this->app['former.framework']->addLabelClasses(array());
-    $label = $this->app['former.laravel.form']->label($this->label, $this->label, $attributes);
+    $label = $this->app['form']->label($this->label, $this->label, $attributes);
 
     return $this->open().$label;
   }

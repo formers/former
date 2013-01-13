@@ -262,11 +262,11 @@ abstract class Checkable extends Field
     if (!isset($attributes['id'])) $attributes['id'] = $name.$this->unique($name);
 
     // Create field
-    $field = call_user_func(array($this->app['former.laravel.form'], $this->checkable), $name, $value, $this->isChecked($name, $value), $attributes);
+    $field = call_user_func(array($this->app['form'], $this->checkable), $name, $value, $this->isChecked($name, $value), $attributes);
 
     // Add hidden checkbox if requested
     if ($this->app['config']->get('former::push_checkboxes')) {
-      $field = $this->app['former.laravel.form']->hidden($name, $this->app['config']->get('former::unchecked_value')) . $field;
+      $field = $this->app['form']->hidden($name, $this->app['config']->get('former::unchecked_value')) . $field;
     }
 
     // If no label to wrap, return plain checkable
@@ -288,10 +288,10 @@ abstract class Checkable extends Field
   protected function unique($name)
   {
     // Register the field with Laravel
-    $this->app['former.laravel.form']->labels[] = $name;
+    $this->app['form']->labels[] = $name;
 
     // Count number of fields with the same ID
-    $where = array_filter($this->app['former.laravel.form']->labels, function($label) use ($name) {
+    $where = array_filter($this->app['form']->labels, function($label) use ($name) {
       return $label == $name;
     });
     $unique = sizeof($where);

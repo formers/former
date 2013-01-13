@@ -124,7 +124,7 @@ abstract class Framework
     if ($field->isCheckable()) {
       $label = '<label'.$this->app['former.helpers']->attributes($attributes).'>'.$text.'</label>';
     } else {
-      $label = $this->app['former.laravel.form']->label($field->name, $text, $attributes);
+      $label = $this->app['form']->label($field->name, $text, $attributes);
     }
 
     return $this->app['former.helpers']->decode($label);
