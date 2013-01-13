@@ -41,19 +41,12 @@ class FormerServiceProvider extends ServiceProvider
       return new Helpers($app);
     });
 
-    $this->app['former.laravel.file'] = $this->app->share(function($app) {
-      return new \Laravel\File($app);
-    });
+    $this->app['former.laravel.file'] = new \Laravel\File($app);
 
     // Meido
 
-    $this->app['form'] = $this->app->share(function($app) {
-      return new \Meido\Form\Form($app['url']);
-    });
-
-    $this->app['html'] = $this->app->share(function($app) {
-      return new \Meido\HTML\HTML($app['url']);
-    });
+    $this->app['form'] = new \Meido\Form\Form($app['url']);
+    $this->app['html'] = new \Meido\HTML\HTML($app['url']);
   }
 
   /**
