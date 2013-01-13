@@ -63,7 +63,7 @@ class Actions extends FormerObject
     $this->attributes = $this->app['former.framework']->addActionClasses($this->attributes);
 
     // Render block
-    $actions  = '<div' .$this->app['former.helpers']->attributes($this->attributes). '>';
+    $actions  = '<div' .$this->app['html']->attributes($this->attributes). '>';
       $actions .= implode(' ', (array) $this->content);
     $actions .= '</div>';
 

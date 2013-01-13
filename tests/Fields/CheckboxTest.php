@@ -17,9 +17,9 @@ class CheckboxTest extends FormerTests
     if ($inline) $labelAttr['class'] .= ' inline';
     if (!$checked) unset($checkAttr['checked']);
 
-    $radio = '<input'.$this->app->app['former.helpers']->attributes($checkAttr).' />';
+    $radio = '<input'.$this->app->app['html']->attributes($checkAttr).' />';
 
-    return $label ? '<label'.$this->app->app['former.helpers']->attributes($labelAttr). '>' .$radio.$label. '</label>' : $radio;
+    return $label ? '<label'.$this->app->app['html']->attributes($labelAttr). '>' .$radio.$label. '</label>' : $radio;
   }
 
   private function cbc($name = 'foo', $label = null, $value = 1, $inline = false)
@@ -188,7 +188,7 @@ class CheckboxTest extends FormerTests
   {
     $checkbox = $this->former->checkbox('foo')->__toString();
 
-    $content = $this->app->app['former.helpers']->decode($checkbox);
+    $content = $this->app->app['html']->decode($checkbox);
 
     $this->assertEquals($content, $this->former->checkbox('foo')->__toString());
   }

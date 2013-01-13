@@ -115,7 +115,7 @@ class Group
       $this->attributes = $this->app['former.helpers']->addClass($this->attributes, $this->app['config']->get('former::required_class'));
     }
 
-    return '<div'.$this->app['former.helpers']->attributes($this->attributes). '>';
+    return '<div'.$this->app['html']->attributes($this->attributes). '>';
   }
 
   /**

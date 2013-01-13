@@ -39,54 +39,6 @@ class Helpers
     return $attributes;
   }
 
-  /**
-   * Convert HTML characters to entities.
-   *
-   * @param  string  $value
-   * @return string
-   */
-  public function entities($value)
-  {
-    return htmlentities($value, ENT_QUOTES, 'UTF-8', false);
-  }
-
-  /**
-   * Convert entities to HTML characters.
-   *
-   * @param  string  $value
-   * @return string
-   */
-  public function decode($value)
-  {
-    return html_entity_decode($value, ENT_QUOTES, 'UTF-8');
-  }
-
-  /**
-   * Convert an array of attributes to a string
-   *
-   * @param array $attributes
-   * @return string
-   */
-  public function attributes($attributes)
-  {
-    $html = array();
-
-    foreach ((array) $attributes as $key => $value) {
-
-      // Convert numerical keys to value (required="required")
-      if (is_numeric($key)) $key = $value;
-
-      // Encode value
-      if (!is_null($value)) {
-        $html[] = $key.'="'.$this->entities($value).'"';
-      }
-    }
-
-    // If empty array, return nothing
-    if (count($html) == 0) return false;
-    return ' ' .implode(' ' ,$html);
-  }
-
   ////////////////////////////////////////////////////////////////////
   ////////////////////// LOCALIZATION HELPERS ////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -184,8 +136,9 @@ class Helpers
   public function getClassFromMethod($method)
   {
     // If the field's name directly match a class, call it
-    if (class_exists(Former::FIELDSPACE.ucfirst($method))) {
-      return ucfirst($method);
+    $class = ucfirst($method);
+    if (class_exists(Former::FIELDSPACE.$class)) {
+      return $class;
     }
 
     // Else convert known fields to their classes
