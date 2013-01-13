@@ -115,7 +115,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     $this->assertHTML($this->matchLabel($name, $required), $input);
   }
 
-  protected function controlGroup($input = '<input type="text" name="foo" id="foo">', $label = '<label for="foo" class="control-label">Foo</label>')
+  protected function controlGroup($input = '<input type="text" name="foo" id="foo" />', $label = '<label for="foo" class="control-label">Foo</label>')
   {
     return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';
   }

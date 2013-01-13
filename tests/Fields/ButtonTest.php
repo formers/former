@@ -87,7 +87,7 @@ class ButtonTest extends FormerTests
   {
     $multiple = array($this->former->submit('submit'), $this->former->reset('reset'));
     $multiple = implode(' ', $multiple);
-    $matcher = '<input class="btn" type="submit" value="Submit"> <input class="btn" type="reset" value="Reset">';
+    $matcher = '<input class="btn" type="submit" value="Submit" /> <input class="btn" type="reset" value="Reset" />';
 
     $this->assertEquals($matcher, $multiple);
   }

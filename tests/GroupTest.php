@@ -36,7 +36,7 @@ class GroupTest extends FormerTests
     '<div class="control-group' .$state. '">' .
       '<label for="foo" class="control-label">Foo</label>' .
       '<div class="controls">' .
-        '<input type="text" name="foo" id="foo">' .
+        '<input type="text" name="foo" id="foo" />' .
         $inlineHelp .
         $blockHelp .
       '</div>' .
@@ -58,7 +58,7 @@ class GroupTest extends FormerTests
       '<div class="controls">' .
         '<div class="' .$class. '">'.
           join(null, $prepend).
-          '<input type="text" name="foo" id="foo">' .
+          '<input type="text" name="foo" id="foo" />' .
           join(null, $append).
           '</div>'.
       '</div>' .
@@ -238,7 +238,7 @@ class GroupTest extends FormerTests
             '<span class="add-on">@</span>'.
             '<span class="add-on">$</span>'.
             '<button type="button" class="btn">foo</button>'.
-            '<input type="text" name="foo" id="foo">'.
+            '<input type="text" name="foo" id="foo" />'.
             '<span class="add-on">@</span>'.
             '<span class="add-on">$</span>'.
             '<button type="button" class="btn">foo</button>'.

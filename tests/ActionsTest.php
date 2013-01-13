@@ -60,7 +60,7 @@ class ActionsTest extends FormerTests
   public function testCanUseObjectsAsActions()
   {
     $actions = $this->former->actions($this->former->submit('submit'), $this->former->reset('reset'))->__toString();
-    $matcher = '<div class="form-actions"><input class="btn" type="submit" value="Submit"> <input class="btn" type="reset" value="Reset"></div>';
+    $matcher = '<div class="form-actions"><input class="btn" type="submit" value="Submit" /> <input class="btn" type="reset" value="Reset" /></div>';
 
     $this->assertEquals($matcher, $actions);
   }
