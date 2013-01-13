@@ -165,7 +165,7 @@ class Helpers
 
       // Calculate the key
       if($key and isset($model->$key)) $modelKey = $model->$key;
-      elseif(method_exists($model, 'get_key')) $modelKey = $model->get_key();
+      elseif(method_exists($model, 'getKey')) $modelKey = $model->get_key();
       elseif(isset($model->id)) $modelKey = $model->id;
       else $modelKey = $modelValue;
 
