@@ -44,7 +44,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   /**
    * Create a new TwitterBootstrap instance
    *
-   * @param \Illuminate\Container $app
+   * @param \Illuminate\Container\Container $app
    */
   public function __construct(\Illuminate\Container\Container $app)
   {

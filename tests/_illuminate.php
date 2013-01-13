@@ -25,7 +25,7 @@ class IlluminateMock
     $app['form'] = new Meido\Form\Form($app['url']);
 
     // Setup bindings
-    $app['former.laravel.file'] = return new Laravel\File($app);
+    $app['former.laravel.file'] = new Laravel\File($app);
     $app['former'] = $app->share(function($app) { return new Former\Former($app); });
     $app['former.helpers'] = $app->share(function($app) { return new Former\Helpers($app); });
     $app['former.framework'] = $app->share(function($app) { return new Former\Framework\TwitterBootstrap($app); });

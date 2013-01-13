@@ -15,7 +15,7 @@ class Nude extends Framework implements FrameworkInterface
   /**
    * Create a new Nude instance
    *
-   * @param \Illuminate\Container $app
+   * @param \Illuminate\Container\Container $app
    */
   public function __construct(\Illuminate\Container\Container $app)
   {

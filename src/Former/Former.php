@@ -56,9 +56,9 @@ class Former
   /**
    * Build a new Former instance
    *
-   * @param Illuminate\Container $app
+   * @param Illuminate\Container\Container $app
    */
-  public function __construct($app)
+  public function __construct(\Illuminate\Container\Container $app)
   {
     $this->app = $app;
   }
