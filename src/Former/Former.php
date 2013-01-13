@@ -77,15 +77,10 @@ class Former
   public function __call($method, $parameters)
   {
     // Form opener
-    if (strpos($method, 'open') !== false and strpos($method, 'open') >= 0) {
+    if (String::contains($method, 'open')) {
       $this->form = new Form\Form($this->app);
 
       return $this->form->open($method, $parameters);
-    }
-
-    // Avoid conflict with chained label method
-    if ($method == 'label') {
-      return $this->_label($parameters[0], Arrays::get($parameters, 1));
     }
 
     // Checking for any supplementary classes
@@ -333,7 +328,7 @@ class Former
    * @param  array  $attributes The label's attributes
    * @return string             A <label> tag
    */
-  public function _label($label, $name = null, $attributes = array())
+  public function label($label, $name = null, $attributes = array())
   {
     $label = $this->app['former.helpers']->translate($label);
 
