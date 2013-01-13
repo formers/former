@@ -32,7 +32,7 @@ class FormerServiceProvider extends ServiceProvider
     });
 
     $this->app['former.framework'] = $this->app->share(function($app) {
-      $framework = '\Former\Framework\\'.$this->app['config']->get('former::framework');
+      $framework = '\Former\Framework\\'.$app['config']->get('former::framework');
       return new $framework($app);
     });
 
