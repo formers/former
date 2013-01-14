@@ -94,6 +94,7 @@ class Helpers
     // Automatically fetch Lang objects for people who store translated options lists
     // Same of unfetched queries
     if (method_exists($query, 'get')) $query = $query->get();
+    if ($query instanceof Collection) $query = $query->toArray();
 
     if(!is_array($query)) $query = (array) $query;
 
