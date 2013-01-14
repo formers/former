@@ -8,6 +8,7 @@ namespace Former;
 
 use \Underscore\Types\String;
 use \Illuminate\Translation\Translator;
+use \Illuminate\Database\Eloquent\Collection;
 
 class Helpers
 {
