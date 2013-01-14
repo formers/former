@@ -45,8 +45,13 @@ class FormerServiceProvider extends ServiceProvider
 
     // Meido
 
-    $this->app['form'] = new \Meido\Form\Form($app['url']);
-    $this->app['html'] = new \Meido\HTML\HTML($app['url']);
+    $this->app['form'] = $this->app->share(function($app) {
+      return new \Meido\Form\Form($app['url']);
+    });
+
+    $this->app['html'] = $this->app->share(function($app) {
+      return new \Meido\HTML\HTML($app['url']);
+    });
   }
 
   /**
