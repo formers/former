@@ -1,5 +1,6 @@
 <?php
 use Underscore\Types\String;
+use Underscore\Types\Arrays;
 
 class InputTest extends FormerTests
 {
@@ -22,9 +23,9 @@ class InputTest extends FormerTests
   public function testText()
   {
     $input = $this->former->text('foo')->__toString();
-    $matcher = $this->controlGroup('<input type="text" name="foo" id="foo" />');
 
-    $this->assertEquals($matcher, $input);
+    $this->assertControlGroup($input);
+    $this->assertHTML($this->matchField(), $input);
   }
 
   public function testTextWithoutLabel()
@@ -32,33 +33,37 @@ class InputTest extends FormerTests
     $this->app->app['config'] = $this->app->getConfig(true, '', false, false);
 
     $input = $this->former->text('foo')->__toString();
-    $matcher = $this->controlGroup('<input type="text" name="foo" />', null);
+    $matchField = Arrays::remove($this->matchField(), 'id');
 
-    $this->assertEquals($matcher, $input);
+    $this->assertHTML($this->matchControlGroup(), $input);
+    $this->assertHTML($matchField, $input);
   }
 
   public function testSingleTextWithoutLabelOnStart()
   {
     $input = $this->former->text('foo', '')->__toString();
-    $matcher = $this->controlGroup('<input type="text" name="foo" />', null);
+    $matchField = Arrays::remove($this->matchField(), 'id');
 
-    $this->assertEquals($matcher, $input);
+    $this->assertHTML($this->matchControlGroup(), $input);
+    $this->assertHTML($matchField, $input);
   }
 
   public function testSingleTextWithoutLabel()
   {
     $input = $this->former->text('foo')->label(null)->__toString();
-    $matcher = $this->controlGroup('<input type="text" name="foo" />', null);
+    $matchField = Arrays::remove($this->matchField(), 'id');
 
-    $this->assertEquals($matcher, $input);
+    $this->assertHTML($this->matchControlGroup(), $input);
+    $this->assertHTML($matchField, $input);
   }
 
   public function testSearch()
   {
     $input = $this->former->search('foo')->__toString();
-    $matcher = $this->controlGroup('<input class="search-query" type="text" name="foo" id="foo" />');
+    $matchField = Arrays::set($this->matchField(), 'attributes.class', 'search-query');
 
-    $this->assertEquals($matcher, $input);
+    $this->assertControlGroup($input);
+    $this->assertHTML($matchField, $input);
   }
 
   public function testTextWithoutBootstrap()
@@ -66,9 +71,10 @@ class InputTest extends FormerTests
     $this->former->framework('Nude');
 
     $input = $this->former->text('foo')->data('foo')->class('bar')->__toString();
-    $matcher = '<label for="foo">Foo</label><input data="foo" class="bar" type="text" name="foo" id="foo" />';
+    $label = Arrays::remove($this->matchLabel(), 'attributes.class');
 
-    $this->assertEquals($matcher, $input);
+    $this->assertHTML($label, $input);
+    $this->assertHTML($this->matchField(), $input);
   }
 
   public function testTextWithoutFormInstance()
@@ -87,8 +93,9 @@ class InputTest extends FormerTests
   {
     $input = $this->former->hidden('foo')->value('bar')->__toString();
     $matcher = '<input type="hidden" name="foo" value="bar" />';
+    $field = Arrays::remove($this->matchField(array(), 'hidden'), 'id');
 
-    $this->assertEquals($matcher, $input);
+    $this->assertHTML($field, $input);
   }
 
   public function testTextLabel()
