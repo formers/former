@@ -68,6 +68,24 @@ class Dispatch
     return new Form\Actions($app, $parameters);
   }
 
+  public static function toFields($app, $method, $parameters)
+  {
+    // Listing parameters
+    $class = Former::FIELDSPACE.static::getClassFromMethod($method);
+    $field = new $class(
+      $app,
+      $method,
+      Arrays::get($parameters, 0),
+      Arrays::get($parameters, 1),
+      Arrays::get($parameters, 2),
+      Arrays::get($parameters, 3),
+      Arrays::get($parameters, 4),
+      Arrays::get($parameters, 5)
+    );
+
+    return $field;
+  }
+
   ////////////////////////////////////////////////////////////////////
   ///////////////////////////// HELPERS //////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -100,5 +118,45 @@ class Dispatch
     }
 
     return (object) $arguments;
+  }
+
+  /**
+   * Get the correct class to call according to the created field
+   *
+   * @param string $method The field created
+   * @return string The correct class
+   */
+  private static function getClassFromMethod($method)
+  {
+    // If the field's name directly match a class, call it
+    $class = ucfirst($method);
+    if (class_exists(Former::FIELDSPACE.$class)) {
+      return $class;
+    }
+
+    // Else convert known fields to their classes
+    switch ($method) {
+      case 'submit':
+      case 'reset':
+        $class = 'Button';
+        break;
+      case 'multiselect':
+        $class = 'Select';
+        break;
+      case 'checkboxes':
+        $class = 'Checkbox';
+        break;
+      case 'radios':
+        $class = 'Radio';
+        break;
+      case 'files':
+        $class = 'File';
+        break;
+      default:
+        $class = 'Input';
+        break;
+    }
+
+    return $class;
   }
 }

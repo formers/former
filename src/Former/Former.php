@@ -102,29 +102,11 @@ class Former
     $classes = explode('_', $method);
     $method  = array_pop($classes);
 
-    // Destroy previous field instance
-    $this->field = null;
+    // Dispatch to the different Form\Fields
+    $field = Dispatch::toFields($this->app, $method, $parameters);
+    $field = $this->app['former.framework']->addFieldClasses($field, $classes);
 
-    // Picking the right Class
-    $callClass = $this->app['former.helpers']->getClassFromMethod($method);
-
-    // Listing parameters
-    $class = self::FIELDSPACE.$callClass;
-    $this->field = new $class(
-      $this->app,
-      $method,
-      Arrays::get($parameters, 0),
-      Arrays::get($parameters, 1),
-      Arrays::get($parameters, 2),
-      Arrays::get($parameters, 3),
-      Arrays::get($parameters, 4),
-      Arrays::get($parameters, 5)
-    );
-
-    // Add framework/provided classes
-    $this->field = $this->app['former.framework']->addFieldClasses($this->field, $classes);
-
-    return $this->field;
+    return $this->field = $field;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -270,7 +252,7 @@ class Former
   }
 
   ////////////////////////////////////////////////////////////////////
-  //////////////////////////// HELPERS ///////////////////////////////
+  ////////////////////////////// HELPERS /////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**
