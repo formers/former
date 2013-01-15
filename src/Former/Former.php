@@ -31,10 +31,10 @@ class Former
   protected $form;
 
   /**
-   * Values populating the form
-   * @var array
+   * The Populator instance
+   * @var Populator
    */
-  protected $values;
+  protected $populator;
 
   /**
    * The form's errors
@@ -58,9 +58,10 @@ class Former
    *
    * @param Illuminate\Container\Container $app
    */
-  public function __construct(\Illuminate\Container\Container $app)
+  public function __construct(\Illuminate\Container\Container $app, $populator)
   {
     $this->app = $app;
+    $this->populator = $populator;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -68,19 +69,33 @@ class Former
   ////////////////////////////////////////////////////////////////////
 
   /**
-   * Creates a field instance
+   * Acts as a router that redirects methods to all of Former classes
    *
-   * @param  string $method     The field type
+   * @param  string $method     The method called
    * @param  array  $parameters An array of parameters
-   * @return Former
+   *
+   * @return mixed
    */
   public function __call($method, $parameters)
   {
-    // Form opener
-    if (String::contains($method, 'open')) {
-      $this->form = new Form\Form($this->app);
+    // Dispatch to Form\Elements
+    if ($element = Dispatch::toElements($this->app, $method, $parameters)) {
+      return $element;
+    }
 
-      return $this->form->open($method, $parameters);
+    // Dispatch to Form\Form
+    if ($form = Dispatch::toForm($this->app, $method, $parameters)) {
+      return $this->form = $form;
+    }
+
+    // Dispatch to Form\Group
+    if ($group = Dispatch::toGroup($this->app, $method, $parameters)) {
+      return $group;
+    }
+
+    // Dispatch to Form\Actions
+    if ($actions = Dispatch::toActions($this->app, $method, $parameters)) {
+      return $actions;
     }
 
     // Checking for any supplementary classes
@@ -112,31 +127,8 @@ class Former
     return $this->field;
   }
 
-  /**
-   * Open a new group
-   *
-   * @param string $label      The label
-   * @param array  $attributes The attributes
-   *
-   * @return Group
-   */
-  public function group($label, $attributes = array())
-  {
-    return new Form\Group($this->app, $label, $attributes);
-  }
-
-  /**
-   * Close a field group
-   *
-   * @return string
-   */
-  public function closeGroup()
-  {
-    return '</div>';
-  }
-
   ////////////////////////////////////////////////////////////////////
-  //////////////////////////// TOOLKIT ///////////////////////////////
+  ///////////////////////////// POPULATOR ////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**
@@ -146,64 +138,29 @@ class Former
    */
   public function populate($values)
   {
-    $this->values = $values;
+    $this->populator = new Populator($values);
   }
 
   /**
-   * Set a specific value in the population array
+   * Set the value of a particular field
    *
-   * @param string $key   The key to change
-   * @param string $value The new value
+   * @param string $field The field's name
+   * @param mixed  $value Its new value
    */
-  public function populateField($key, $value)
+  public function populateField($field, $value)
   {
-    if (is_object($this->values)) {
-      $this->values->$key = $value;
-    } else {
-      $this->values[$key] = $value;
-    }
+    $this->populator->setValue($field, $value);
   }
 
   /**
-   * Get a value from the object/array
+   * Get the value of a field
    *
-   * @param  string $name     The key to retrieve
-   * @param  string $fallback Fallback value if nothing found
-   * @return mixed            Its value
+   * @param string $field The field's name
+   * @return mixed
    */
-  public function getValue($name, $fallback = null)
+  public function getValue($field, $fallback = null)
   {
-    // Object values
-    if (is_object($this->values)) {
-
-      // Transform the name into an array
-      $value = $this->values;
-      $name  = String::contains($name, '.') ? explode('.', $name) : (array) $name;
-
-      // Dive into the model
-      foreach ($name as $r) {
-
-        // Multiple results relation
-        if (is_array($value)) {
-          foreach ($value as $subkey => $submodel) {
-            $value[$subkey] = isset($submodel->$r) ? $submodel->$r : $fallback;
-          }
-          continue;
-        }
-
-        // Single model relation
-        if(isset($value->$r) or method_exists($value, 'get_'.$r)) $value = $value->$r;
-        else {
-          $value = $fallback;
-          break;
-        }
-      }
-
-      return $value;
-    }
-
-    // Plain array
-    return Arrays::get($this->values, $name, $fallback);
+    return $this->populator->getValue($field, $fallback);
   }
 
   /**
@@ -215,10 +172,14 @@ class Former
    */
   public function getPost($name, $fallback = null)
   {
-    $old = $this->app['request']->old($name, $fallback);
+    $oldValue = $this->app['request']->old($name, $fallback);
 
-    return $this->app['request']->get($name, $old);
+    return $this->app['request']->get($name, $oldValue);
   }
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// TOOLKIT /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Set the errors to use for validations
@@ -297,66 +258,15 @@ class Former
 
     $closed = $this->form()->close();
 
-    // Destroy Form instance
+    // Destroy instances
     $this->form = null;
+    $this->populator = new Populator;
 
     // Reset all values
-    $this->values = null;
     $this->errors = null;
     $this->rules  = null;
 
     return $closed;
-  }
-
-  /**
-   * Generate a hidden field containing the current CSRF token.
-   *
-   * @return string
-   */
-  public function token()
-  {
-    $csrf = $this->app['session']->getToken();
-
-    return $this->hidden($csrf, $csrf)->__toString();
-  }
-
-  /**
-   * Creates a label tag
-   *
-   * @param  string $label      The label content
-   * @param  string $name       The field the label's for
-   * @param  array  $attributes The label's attributes
-   * @return string             A <label> tag
-   */
-  public function label($label, $name = null, $attributes = array())
-  {
-    $label = $this->app['former.helpers']->translate($label);
-
-    return $this->app['form']->label($name, $label, $attributes);
-  }
-
-  /**
-   * Creates a form legend
-   *
-   * @param  string $legend     The text
-   * @param  array  $attributes Its attributes
-   * @return string             A <legend> tag
-   */
-  public function legend($legend, $attributes = array())
-  {
-    $legend = $this->app['former.helpers']->translate($legend);
-
-    return '<legend'.$this->app['html']->attributes($attributes).'>' .$legend. '</legend>';
-  }
-
-  /**
-   * Writes the form actions
-   *
-   * @return Former\Form\Actions
-   */
-  public function actions()
-  {
-    return new Form\Actions($this->app, func_get_args());
   }
 
   ////////////////////////////////////////////////////////////////////

@@ -29,7 +29,7 @@ class FormerServiceProvider extends ServiceProvider
     // Former
 
     $this->app['former'] = $this->app->share(function($app) {
-      return new Former($app);
+      return new Former($app, new Populator);
     });
 
     $this->app['former.framework'] = $this->app->share(function($app) {
