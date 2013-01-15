@@ -17,6 +17,12 @@ abstract class FormerObject
    */
   protected $attributes = array();
 
+  /**
+   * The field value
+   * @var string
+   */
+  protected $value;
+
   ////////////////////////////////////////////////////////////////////
   /////////////////////////// CORE METHODS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -48,12 +54,41 @@ abstract class FormerObject
    */
   public function __get($attribute)
   {
-    // If the variable is binded to the class itself
-    if(isset($this->$attribute)) {
-      return $this->$attribute;
-    }
-
     return Arrays::get($this->attributes, $attribute);
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// GETTERS /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Get the object's name
+   *
+   * @return string
+   */
+  public function getName()
+  {
+    return $this->name;
+  }
+
+  /**
+   * Get the object's value
+   *
+   * @return mixed
+   */
+  public function getValue()
+  {
+    return $this->value;
+  }
+
+  /**
+   * Get all of the Object's attributes
+   *
+   * @return array
+   */
+  public function getAttributes()
+  {
+    return $this->attributes;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -80,7 +115,7 @@ abstract class FormerObject
    *
    * @return FormerObject
    */
-  public function setAttributes($attributes, $merge = true)
+  public function setAttributes($attributes)
   {
     $this->attributes = array_merge($this->attributes, (array) $attributes);
 

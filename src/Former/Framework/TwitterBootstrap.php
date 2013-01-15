@@ -7,8 +7,8 @@
 namespace Former\Framework;
 
 use \Former\Interfaces\FrameworkInterface;
-use \Former\Traits\Framework;
 use \Former\Traits\Field;
+use \Former\Traits\Framework;
 use \Underscore\Types\Arrays;
 use \Underscore\Types\String;
 
@@ -234,7 +234,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    */
   public function createDisabledField(Field $field)
   {
-    return '<span'.$this->attributes($field->attributes).'>'.$field->value.'</span>';
+    return '<span'.$this->attributes($field->getAttributes()).'>'.$field->getValue().'</span>';
   }
 
   /**

@@ -34,12 +34,6 @@ abstract class Field extends FormerObject implements FieldInterface
   protected $form;
 
   /**
-   * The field value
-   * @var string
-   */
-  protected $value;
-
-  /**
    * A label for the field (if not using Bootstrap)
    * @var string
    */
@@ -263,6 +257,16 @@ abstract class Field extends FormerObject implements FieldInterface
     $this->label($name);
 
     return $this;
+  }
+
+  /**
+   * Get the field's labels
+   *
+   * @return array
+   */
+  public function getLabel()
+  {
+    return $this->label;
   }
 
   ////////////////////////////////////////////////////////////////////

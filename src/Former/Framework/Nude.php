@@ -81,11 +81,17 @@ class Nude extends Framework implements FrameworkInterface
   //////////////////////////// RENDER BLOCKS /////////////////////////
   ////////////////////////////////////////////////////////////////////
 
+  /**
+   * Create an help text
+   */
   public function createHelp($text, $attributes)
   {
     return '<small'.$this->app['html']->attributes($attributes).'>'.$text.'</small>';
   }
 
+  /**
+   * Creates a basic icon
+   */
   public function createIcon($icon, $attributes)
   {
     $attributes = $this->addClass($attributes, $icon);
@@ -104,7 +110,7 @@ class Nude extends Framework implements FrameworkInterface
   {
     $field->disabled();
 
-    return $this->app['form']->input('text', $field->name, $field->value, $field->attributes);
+    return $this->app['form']->input('text', $field->getName(), $field->getValue(), $field->getAttributes());
   }
 
   ////////////////////////////////////////////////////////////////////

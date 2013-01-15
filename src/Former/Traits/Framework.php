@@ -13,7 +13,9 @@ use \Underscore\Types\String;
 abstract class Framework
 {
 
-  // Public methods ------------------------------------------------ /
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////// CURRENT FRAMEWORK /////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Get the name of the current framework
@@ -47,7 +49,9 @@ abstract class Framework
     return $framework != $this->current();
   }
 
-  // Common methods ------------------------------------------------ /
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////// COMMON METHODS /////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Filter a field state
@@ -62,7 +66,9 @@ abstract class Framework
     return $state;
   }
 
-  // Helpers ------------------------------------------------------- /
+  ////////////////////////////////////////////////////////////////////
+  ///////////////////////////// HELPERS //////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Prepend an array of classes with a string
@@ -80,7 +86,7 @@ abstract class Framework
   }
 
   /**
-   * Alias for former.helpers.attributes
+   * Alias for former.helpers.addClass
    */
   protected function addClass($attributes, $class)
   {
@@ -106,7 +112,7 @@ abstract class Framework
   public function createLabelOf(Field $field, $label = null)
   {
     // Get the label and its informations
-    if (!$label) $label = $field->label;
+    if (!$label) $label = $field->getLabel();
 
     // Get label text
     $text = Arrays::get($label, 'text');
@@ -124,7 +130,7 @@ abstract class Framework
     if ($field->isCheckable()) {
       $label = '<label'.$this->app['html']->attributes($attributes).'>'.$text.'</label>';
     } else {
-      $label = $this->app['form']->label($field->name, $text, $attributes);
+      $label = $this->app['form']->label($field->getName(), $text, $attributes);
     }
 
     return $this->app['html']->decode($label);
