@@ -16,6 +16,7 @@
   ],
   "require": {
     "illuminate/container": "dev-master",
+    "illuminate/config": "dev-master",
     "anahkiasen/underscore-php": "dev-master",
     "meido/form": "dev-master",
     "meido/html": "1.1.*"
