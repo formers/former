@@ -6,37 +6,13 @@
   convertErrorsToExceptions="true"
   convertNoticesToExceptions="true"
   convertWarningsToExceptions="true"
-  processIsolation="false"
+  processIsolation="true"
   stopOnFailure="true"
   syntaxCheck="false">
 
   <testsuites>
     <testsuite name="Former Test Suite">
       <directory>tests</directory>
-      <directory>tests/Framework</directory>
-      <directory>tests/Fields</directory>
     </testsuite>
   </testsuites>
-
-  <filter>
-    <whitelist>
-      <directory>src/Former</directory>
-      <exclude>
-        <directory>vendor</directory>
-        <directory>src/Laravel</directory>
-      </exclude>
-    </whitelist>
-  </filter>
-
-  <logging>
-    <log type="testdox-html" target="tests/logs/testdox.html"/>
-    <!-- <log
-      type           = "coverage-html"
-      target         = "tests/logs/"
-      charset        = "UTF-8"
-      yui            = "true"
-      highlight      = "true"
-      lowUpperBound  = "35"
-      highLowerBound = "70"/> -->
-  </logging>
 </phpunit>

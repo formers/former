@@ -23,7 +23,7 @@ class IlluminateMock
 
     // Setup Meido
     $app->bind('html', '\Meido\HTML\HTML');
-    $app->bind('form', '\Meido\Form\Form');
+    $app->singleton('form', '\Meido\Form\Form');
 
     // Setup bindings
     $app->instance('Illuminate\Container\Container', $app);

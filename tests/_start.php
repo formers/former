@@ -85,17 +85,16 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     $this->resetLabels();
     $this->former->horizontal_open()->__toString();
     $this->former->framework('TwitterBootstrap');
-
-    // Reset config and POST data
-    $this->app->app['config']  = static::$illuminate->getConfig();
-    $this->app->app['request'] = static::$illuminate->getRequest();
   }
 
   public function tearDown()
   {
+    Mockery::close();
     $this->former->close();
 
-    Mockery::close();
+    // Reset config and POST data
+    $this->app->app['config']  = static::$illuminate->getConfig();
+    $this->app->app['request'] = static::$illuminate->getRequest();
   }
 
   public function resetLabels()

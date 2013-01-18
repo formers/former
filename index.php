@@ -14,7 +14,7 @@ use Former\Facades\FormerAgnostic as Former;
 <?= Former::horizontal_open() ?>
   <?= Former::legend('legend') ?>
     <? Former::populate((object) array('foo_0' => true)); ?>
-    <?= Former::checkboxes('foo')->checkboxes('foo', 'bar')->__toString(); ?>>
+    <?= Former::checkboxes('foo')->checkboxes('foo', 'bar')->__toString(); ?>
     <?= Former::text('foo')->required() ?>
   <?= Former::actions()->large_primary_submit() ?>
 <?= Former::close() ?>
