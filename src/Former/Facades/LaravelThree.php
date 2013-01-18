@@ -21,24 +21,31 @@ class LaravelThree extends FormerBuilder
 
     // Laravel ----------------------------------------------------- /
 
-    $app['url'] = $app->share(function($app) {
+    $app->bind('url', function($app) {
       return new Legacy\Redirector('Url');
     });
 
-    $app['session'] = $app->share(function($app) {
+    $app->bind('session', function($app) {
       return new Legacy\Session;
     });
 
-    $app['config'] = $app->share(function($app) {
+    $app->bind('config', function($app) {
       return new Legacy\Config;
     });
 
-    $app['request'] = $app->share(function($app) {
+    $app->bind('request', function($app) {
       return new Legacy\Redirector('Input');
     });
 
-    $app['translator'] = $app->share(function($app) {
+    $app->bind('translator', function($app) {
       return new Legacy\Translator;
+    });
+
+    $app->bind('html', function() {
+      return new Legacy\Redirector('HTML');
+    });
+    $app->bind('form', function() {
+      return new Legacy\Redirector('Form');
     });
 
     // Former ------------------------------------------------------ /
@@ -46,7 +53,6 @@ class LaravelThree extends FormerBuilder
     // Load configuration from the new to the old place
     Config::set('former::config', include __DIR__.'/../../config/config.php');
 
-    $app = static::buildMeido($app);
     $app = static::buildFramework($app, 'former::');
     $app = static::buildFormer($app);
 
