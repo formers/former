@@ -42,17 +42,20 @@ class FormerAgnostic
       $request   = new \Illuminate\Http\Request;
       $encrypter = new \Illuminate\Encryption\Encrypter('foobar');
       $cookie    = new \Illuminate\Cookie\CookieJar($request, $encrypter, array());
+
       return new \Illuminate\Session\CookieStore($cookie);
     });
 
     $app->bind('Symfony\Component\HttpFoundation\Request', function($app) {
       $request = new \Illuminate\Http\Request;
       $request->setSessionStore($app['session']);
+
       return $request;
     });
 
     $app->bind('config', function($app) {
       $fileloader = new \Illuminate\Config\FileLoader($app['files'], 'src/');
+
       return new \Illuminate\Config\Repository($fileloader, 'config');
     });
 

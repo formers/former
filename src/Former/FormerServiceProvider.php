@@ -34,6 +34,7 @@ class FormerServiceProvider extends ServiceProvider
 
     $this->formFramework = $this->app->share(function($app) {
       $framework = '\Former\Framework\\'.$app['former']->getOption('framework');
+
       return new $framework($app);
     });
 

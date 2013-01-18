@@ -48,6 +48,7 @@ class Actions extends FormerObject
     // Dynamically add buttons to an actions block
     if ($this->isButton($method)) {
       $text = Arrays::get($parameters, 0);
+
       return $this->createButtonOfType($method, $text);
     }
 
@@ -106,4 +107,3 @@ class Actions extends FormerObject
     return false;
   }
 }
-
