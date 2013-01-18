@@ -236,7 +236,7 @@ class LiveValidation
   /**
    * Transform extensions and mime groups into a list of mime types
    *
-   * @param  array $mimes An array of mimes
+   * @param  array  $mimes An array of mimes
    * @return string A concatenated list of mimes
    */
   private function setAccepted($mimes)

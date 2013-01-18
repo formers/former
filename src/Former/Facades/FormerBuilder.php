@@ -1,4 +1,9 @@
 <?php
+/**
+ * FormerBuilder
+ *
+ * Common building blocks to all environments
+ */
 namespace Former\Facades;
 
 use \Illuminate\Container\Container;

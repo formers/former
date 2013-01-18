@@ -49,11 +49,12 @@ class Dispatch
   {
     // Disregards if the method isn't "group"
     if ($method != 'group') return false;
-    $parameters = static::splitArguments($parameters,
-      array('label', 'attributes' => array())
-    );
 
-    return new Form\Group($app, $parameters->label, $parameters->attributes);
+    return new Form\Group(
+      $app,
+      Arrays::get($parameters, 0),
+      Arrays::get($parameters, 1, array())
+    );
   }
 
   /**
@@ -68,6 +69,11 @@ class Dispatch
     return new Form\Actions($app, $parameters);
   }
 
+  /**
+   * Dispatch a call over to the Fields
+   *
+   * @return Field
+   */
   public static function toFields($app, $method, $parameters)
   {
     // Listing parameters
@@ -91,45 +97,15 @@ class Dispatch
   ////////////////////////////////////////////////////////////////////
 
   /**
-   * Split an array of arguments into actual arguments
-   *
-   * @param array $parameters The arguments
-   * @param array $rules      The defaults and number of arguments to return
-   *
-   * @return array
-   */
-  private static function splitArguments($parameters, $rules)
-  {
-    $arguments = array();
-    $count = 0;
-
-    // Extract the arguments one by one
-    foreach ($rules as $field => $default) {
-
-      // Handles short-syntax for null arguments
-      if (is_int($field)) {
-        $field   = $default;
-        $default = null;
-      }
-
-      // Fetch argument from the parameters
-      $arguments[$field] = Arrays::get($parameters, $count, $default);
-      $count++;
-    }
-
-    return (object) $arguments;
-  }
-
-  /**
    * Get the correct class to call according to the created field
    *
-   * @param string $method The field created
+   * @param  string $method The field created
    * @return string The correct class
    */
   private static function getClassFromMethod($method)
   {
     // If the field's name directly match a class, call it
-    $class = ucfirst($method);
+    $class = String::from($method)->singular()->upper()->obtain();
     if (class_exists(Former::FIELDSPACE.$class)) {
       return $class;
     }
@@ -142,15 +118,6 @@ class Dispatch
         break;
       case 'multiselect':
         $class = 'Select';
-        break;
-      case 'checkboxes':
-        $class = 'Checkbox';
-        break;
-      case 'radios':
-        $class = 'Radio';
-        break;
-      case 'files':
-        $class = 'File';
         break;
       default:
         $class = 'Input';

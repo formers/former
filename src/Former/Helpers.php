@@ -13,15 +13,24 @@ use \Underscore\Types\String;
 
 class Helpers
 {
+  /**
+   * Instance of the container
+   * @var Container
+   */
   private static $app;
 
+  /**
+   * Bind a Container to the Helpers class
+   *
+   * @param Container $app
+   */
   public static function setApp(Container $app)
   {
     static::$app = $app;
   }
 
   ////////////////////////////////////////////////////////////////////
-  ////////////////////////// HTML HELPERS ////////////////////////////
+  /////////////////////////// HTML HELPERS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**
@@ -44,7 +53,7 @@ class Helpers
   }
 
   ////////////////////////////////////////////////////////////////////
-  ////////////////////// LOCALIZATION HELPERS ////////////////////////
+  ///////////////////////// LOCALIZATION HELPERS /////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**
@@ -65,30 +74,33 @@ class Helpers
     // Assure we don't already have a Lang object
     if($key instanceof Translator) return $key->get();
 
+    $translator    = static::$app['translator'];
+    $translation   = null;
+    $translateFrom = static::$app['former']->getOption('translate_from').'.'.$key;
+
     // Search for the key itself
-    $translations = static::$app['former']->getOption('translate_from');
-    if (static::$app['translator']->has($key)) {
-      $translation = static::$app['translator']->get($key);
-    } elseif (static::$app['translator']->has($translations.'.'.$key)) {
-      $translation  = static::$app['translator']->get($translations.'.'.$key);
-    } else {
-      $translation = $fallback;
+    if ($translator->has($key)) {
+      $translation = $translator->get($key);
+    } elseif ($translator->has($translateFrom)) {
+      $translation  = $translator->get($translateFrom);
     }
 
-    // If we were return a translations array
-    if (is_array($translation)) $translation = $fallback;
+    // Replace by fallback if invalid
+    if (!$translation or is_array($translation)) {
+      $translation = $fallback;
+    }
 
     return ucfirst($translation);
   }
 
   ////////////////////////////////////////////////////////////////////
-  ///////////////////////// DATABASE HELPERS /////////////////////////
+  ////////////////////////// DATABASE HELPERS ////////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**
-   * Transforms a Fluent/Eloquent query to an array
+   * Transforms an array of models into an associative array
    *
-   * @param  object $query The query
+   * @param  object $query The array of results
    * @param  string $value The attribute to use as value
    * @param  string $key   The attribute to use as key
    * @return array         A data array

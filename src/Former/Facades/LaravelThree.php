@@ -43,7 +43,7 @@ class LaravelThree extends FormerBuilder
 
     // Former ------------------------------------------------------ /
 
-    // Load configuration
+    // Load configuration from the new to the old place
     Config::set('former::config', include __DIR__.'/../../config/config.php');
 
     $app = static::buildMeido($app);

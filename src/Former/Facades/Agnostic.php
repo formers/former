@@ -1,4 +1,9 @@
 <?php
+/**
+ * Agnostic
+ *
+ * Agnostic facade to use Former anywhere
+ */
 namespace Former\Facades;
 
 class Agnostic extends FormerBuilder
@@ -12,7 +17,7 @@ class Agnostic extends FormerBuilder
   {
     $app = static::buildContainer();
 
-    // Illuminate ------------------------------------------------------ /
+    // Illuminate -------------------------------------------------- /
 
     $app->alias('Symfony\Component\HttpFoundation\Request', 'request');
     $app->bind('files', 'Illuminate\Filesystem\Filesystem');
