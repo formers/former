@@ -65,6 +65,12 @@ class Actions extends FormerObject
     // Add specific actions classes to the actions block
     $this->attributes = $this->app['former']->getFramework()->addActionClasses($this->attributes);
 
+    // Render passed objects
+    $this->content = Arrays::each($this->content, function($content) {
+      if (method_exists($content, '__toString')) return $content->__toString();
+      else return $content;
+    });
+
     // Render block
     $actions  = '<div' .$this->app['html']->attributes($this->attributes). '>';
       $actions .= implode(' ', (array) $this->content);

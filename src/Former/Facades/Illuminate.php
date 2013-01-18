@@ -8,7 +8,7 @@ namespace Former\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class Former extends Facade
+class Illuminate extends Facade
 {
   /**
    * Get the registered component.

@@ -1,35 +1,16 @@
 <?php
 namespace Former\Facades;
 
-use \Illuminate\Container\Container;
-
-class FormerAgnostic
+class Agnostic extends FormerBuilder
 {
-  /**
-   * The Container instance
-   * @var Container
-   */
-  private static $app;
-
-  /**
-   * Static facade
-   */
-  public static function __callStatic($method, $parameters)
-  {
-    if (!static::$app) static::$app = static::getApp();
-    $callable = array(static::$app['former'], $method);
-
-    return call_user_func_array($callable, $parameters);
-  }
-
   /**
    * Build the Former application
    *
    * @return Container
    */
-  private static function getApp()
+  protected static function getApp()
   {
-    $app = new Container;
+    $app = static::buildContainer();
 
     // Illuminate ------------------------------------------------------ /
 
@@ -73,9 +54,8 @@ class FormerAgnostic
 
     // Former ------------------------------------------------------ /
 
-    $framework = $app['config']->get('config.framework');
-    $app->bind('Former\Interfaces\FrameworkInterface', '\Former\Framework\\'.$framework);
-    $app->singleton('former', '\Former\Former');
+    $app = static::buildFramework($app);
+    $app = static::buildFormer($app);
 
     return $app;
   }

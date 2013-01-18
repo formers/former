@@ -26,19 +26,9 @@ class FormerServiceProvider extends ServiceProvider
    */
   public function registerFormer()
   {
-    $framework = $this->app['config']->get('former::framework');
+    $this->app = Facades\Agnostic::buildFramework($this->app, 'former::');
 
-    $this->app->bind('\Former\Interfaces\FrameworkInterface', function($app) use ($framework) {
-      $framework = '\Former\Framework\\'.$framework;
-      return new $framework($app);
-    });
-
-    $this->app->singleton('former', function($app) {
-      return new \Former\Former(
-        $app,
-        $app->make('\Former\Populator'),
-        $app->make('\Former\Interfaces\FrameworkInterface'));
-    });
+    $this->app = Facades\Agnostic::buildFormer($this->app);
   }
 
   /**
