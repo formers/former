@@ -35,6 +35,25 @@ abstract class FormerBuilder
   }
 
   /**
+   * Add Meido classes to the app
+   *
+   * @param Container $app
+   * @return Container
+   */
+  public static function buildMeido($app)
+  {
+    $app->bind('html', function($app) {
+      return new \Meido\HTML\HTML($app['url']);
+    });
+
+    $app->singleton('form', function($app) {
+      return new \Meido\Form\Form($app['url']);
+    });
+
+    return $app;
+  }
+
+  /**
    * Add Framework to the app
    *
    * @param Container $app

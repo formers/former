@@ -47,13 +47,9 @@ class Agnostic extends FormerBuilder
       return new \Illuminate\Translation\Translator($app['loader'], 'fr', 'en');
     });
 
-    // Meido ------------------------------------------------------- /
-
-    $app->bind('html', '\Meido\HTML\HTML');
-    $app->singleton('form', '\Meido\Form\Form');
-
     // Former ------------------------------------------------------ /
 
+    $app = static::buildMeido($app);
     $app = static::buildFramework($app);
     $app = static::buildFormer($app);
 
