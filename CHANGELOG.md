@@ -3,7 +3,7 @@
 3.0.0
 -----
 
-- Refactor of Former for Laravel 4
+- Refactor of Former – the projet is now framework agnostic, see installation details
 - [add] You can now chain methods to actions blocks `Former::actions('Hello', 'Mr Bond')->id('foo')->addClass('bar')`
 - [add] You can now chain buttons to actions blocks `Former::actions()->large_primary_submit('Submit')`
 - [add] You can now chain live validation rules to fields (example: `Former::text('foo')->alpha_dash()`)

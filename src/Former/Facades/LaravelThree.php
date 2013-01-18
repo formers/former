@@ -6,6 +6,8 @@
  */
 namespace Former\Facades;
 
+use \Laravel\Config;
+
 class LaravelThree extends FormerBuilder
 {
   /**
@@ -17,7 +19,7 @@ class LaravelThree extends FormerBuilder
   {
     $app = static::buildContainer();
 
-    // Laravel
+    // Laravel ----------------------------------------------------- /
 
     $app['url'] = $app->share(function($app) {
       return new Legacy\Redirector('Url');
@@ -39,8 +41,10 @@ class LaravelThree extends FormerBuilder
       return new Legacy\Translator;
     });
 
+    // Former ------------------------------------------------------ /
+
     // Load configuration
-    \Config::set('former::config', include __DIR__.'/../../config/config.php');
+    Config::set('former::config', include __DIR__.'/../../config/config.php');
 
     $app = static::buildMeido($app);
     $app = static::buildFramework($app, 'former::');

@@ -76,6 +76,8 @@ Now of course in case you want to set an attribute that actually contains an und
 Clone the repo in your `bundles` folder and add `'former' => array('auto' => true)` to your bundles file.
 Then add as an alias `'Former' => 'Former\Facades\LaravelThree'` in your application file and you're good to go !
 
+Now as Laravel 3 doesn't automatically checkout Composer dependencies, you'll have to go into the `bundles/former` folder and do a `composer install` (after that I'll leave you guys alone, promise).
+
 ### Under Laravel 4
 
 Installing Former is easy as hell. Add the following to your `composer.json` :
