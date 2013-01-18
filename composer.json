@@ -32,5 +32,8 @@
       "Meido": "src"
     }
   },
-  "minimum-stability": "dev"
+  "minimum-stability": "dev",
+  "branch-alias": {
+    "dev-composer": "dev-agnostic"
+  }
 }

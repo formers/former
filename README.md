@@ -71,9 +71,16 @@ Now of course in case you want to set an attribute that actually contains an und
 <a name='installation'></a>
 ## Installation
 
+### Under Laravel 3
+
+Clone the repo in your `bundles` folder and add `'former' => array('auto' => true)` to your bundles file.
+Then add as an alias `'Former' => 'Former\Facades\LaravelThree'` in your application file and you're good to go !
+
+### Under Laravel 4
+
 Installing Former is easy as hell. Add the following to your `composer.json` :
 
-    "anahkiasen/former": "dev-composer"
+    "anahkiasen/former": "dev-agnostic"
 
 Add Former's service provider to your Laravel application in `app/config/app.php`. In the `providers` array add :
 
@@ -82,6 +89,16 @@ Add Former's service provider to your Laravel application in `app/config/app.php
 Add then alias Former's main class by adding its facade to the `facades` array in the same file :
 
     'Former' => 'Former\Facades\Former',
+
+### Outside of a framework
+
+Same as for Laravel 4, add Former to your Composer file. Then do this :
+
+```php
+use Former\Facades\Agnostic as Former;
+```
+
+And you're done.
 
 ----
 
