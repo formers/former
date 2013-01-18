@@ -15,7 +15,8 @@ class FormerServiceProvider extends ServiceProvider
     // Register config file
     $this->app['config']->package('anahkiasen/former', __DIR__.'/../config');
 
-    $this->registerBindings();
+    $this->registerFormer();
+    $this->registerMeido();
   }
 
   /**
@@ -23,18 +24,15 @@ class FormerServiceProvider extends ServiceProvider
    *
    * @return void
    */
-  public function registerBindings()
+  public function registerFormer()
   {
-    // Former
-
     $framework = $this->app['config']->get('former::framework');
     $this->app->bind('Former\Interfaces\FrameworkInterface', '\Former\Framework\\'.$framework);
     $this->app->singleton('former', '\Former\Former');
+  }
 
-    $this->app['former.laravel.file'] = new \Laravel\File($app);
-
-    // Meido
-
+  public function registerMeido()
+  {
     $this->app->bind('html', '\Meido\HTML\HTML');
     $this->app->singleton('form', '\Meido\Form\Form');
   }
