@@ -15,8 +15,8 @@ class FormerServiceProvider extends ServiceProvider
     // Register config file
     $this->app['config']->package('anahkiasen/former', __DIR__.'/../config');
 
-    $this->registerFormer();
     $this->registerMeido();
+    $this->registerFormer();
   }
 
   /**
@@ -27,14 +27,30 @@ class FormerServiceProvider extends ServiceProvider
   public function registerFormer()
   {
     $framework = $this->app['config']->get('former::framework');
-    $this->app->bind('Former\Interfaces\FrameworkInterface', '\Former\Framework\\'.$framework);
-    $this->app->singleton('former', '\Former\Former');
+    $this->app->bind('Former\Interfaces\FrameworkInterface', function($app) use ($framework) {
+      $framework = '\Former\Framework\\'.$framework;
+      return new $framework($app);
+    });
+
+    $this->app->singleton('former', function($app) {
+      return new \Former\Former($app, $app->make('\Former\Populator'), $app->make('Former\Interfaces\FrameworkInterface'));
+    });
   }
 
+  /**
+   * Register Meido's bindings
+   *
+   * @return void
+   */
   public function registerMeido()
   {
-    $this->app->bind('html', '\Meido\HTML\HTML');
-    $this->app->singleton('form', '\Meido\Form\Form');
+    $this->app->bind('html', function($app) {
+      return new \Meido\HTML\HTML($app['url']);
+    });
+
+    $this->app->singleton('form', function($app) {
+      return new \Meido\Form\Form($app['url']);
+    });
   }
 
   /**
