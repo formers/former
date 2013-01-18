@@ -125,9 +125,7 @@ class Select extends Field
    */
   public function fromQuery($results, $value = null, $key = null)
   {
-    $options = Helpers::queryToArray($results, $value, $key);
-
-    if(isset($options)) $this->options = $options;
+    $this->options = Helpers::queryToArray($results, $value, $key);
 
     return $this;
   }

@@ -31,7 +31,7 @@ class Input extends Field
     // Multiple models population
     if (is_array($this->value)) {
       foreach($this->value as $value) $values[] = is_object($value) ? $value->__toString() : $value;
-      $this->value = implode(', ', $values);
+      if (isset($values)) $this->value = implode(', ', $values);
     }
   }
 

@@ -29,7 +29,7 @@ abstract class FormerBuilder
    *
    * @return Container
    */
-  protected static function buildContainer()
+  public static function buildContainer()
   {
     return new Container;
   }

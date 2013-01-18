@@ -43,6 +43,7 @@ class Agnostic extends FormerBuilder
     $app->bind('loader', function($app) {
       return new \Illuminate\Translation\FileLoader($app['files'], 'src/config');
     });
+
     $app->bind('translator', function($app) {
       return new \Illuminate\Translation\Translator($app['loader'], 'fr', 'en');
     });
