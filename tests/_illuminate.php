@@ -22,14 +22,12 @@ class IlluminateMock
     $app['validator']  = $this->getValidator();
 
     // Setup Meido
-    $app->bind('html', '\Meido\HTML\HTML');
-    $app->singleton('form', '\Meido\Form\Form');
+    $app = Former\Facades\Agnostic::buildMeido($app);
 
     // Setup bindings
     $app->instance('Illuminate\Container\Container', $app);
-    $app->bind('Former\Interfaces\FrameworkInterface', 'Former\Framework\TwitterBootstrap');
-    $app->singleton('former', 'Former\Former');
-    $app->bind('former.laravel.file', 'Laravel\File');
+    $app = Former\Facades\Agnostic::buildFramework($app, 'former::');
+    $app = Former\Facades\Agnostic::buildFormer($app);
 
     $this->app = $app;
 
