@@ -73,7 +73,8 @@ class FormerAgnostic
 
     // Former ------------------------------------------------------ /
 
-    $app->bind('Former\Interfaces\FrameworkInterface', '\Former\Framework\TwitterBootstrap');
+    $framework = $app['config']->get('config.framework');
+    $app->bind('Former\Interfaces\FrameworkInterface', '\Former\Framework\\'.$framework);
     $app->singleton('former', '\Former\Former');
 
     return $app;

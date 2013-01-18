@@ -25,7 +25,6 @@ class FormerServiceProvider extends ServiceProvider
    */
   public function registerBindings()
   {
-
     // Former
 
     $this->app['former'] = $this->app->share(function($app) {
@@ -46,13 +45,8 @@ class FormerServiceProvider extends ServiceProvider
 
     // Meido
 
-    $this->app['form'] = $this->app->share(function($app) {
-      return new \Meido\Form\Form($app['url']);
-    });
-
-    $this->app['html'] = $this->app->share(function($app) {
-      return new \Meido\HTML\HTML($app['url']);
-    });
+    $app->bind('html', '\Meido\HTML\HTML');
+    $app->bind('form', '\Meido\Form\Form');
   }
 
   /**
