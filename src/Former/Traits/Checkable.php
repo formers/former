@@ -7,6 +7,7 @@
 namespace Former\Traits;
 
 use \Underscore\Types\Arrays;
+use \Former\Helpers;
 
 abstract class Checkable extends Field
 {
@@ -147,7 +148,7 @@ abstract class Checkable extends Field
   public function text($text)
   {
     // Translate and format
-    $text = $this->app['former.helpers']->translate($text);
+    $text = Helpers::translate($text);
 
     // Apply on focused if any
     $focused = $this->setOnFocused('label', $text);
@@ -228,7 +229,7 @@ abstract class Checkable extends Field
       // Store all informations we have in an array
       $item = array(
         'name' => $name,
-        'label' => $this->app['former.helpers']->translate($label),
+        'label' => Helpers::translate($label),
       );
       if(isset($attributes)) $item['attributes'] = $attributes;
 
@@ -252,7 +253,7 @@ abstract class Checkable extends Field
     // Set default values
     if(!isset($attributes)) $attributes = array();
     if(isset($attributes['value'])) $value = $attributes['value'];
-    if(!isset($value) or $value === $this->app['config']->get('former::unchecked_value')) $value = $fallbackValue;
+    if(!isset($value) or $value === $this->app['former']->getOption('unchecked_value')) $value = $fallbackValue;
 
     // If inline items, add class
     $isInline = $this->inline ? ' inline' : null;
@@ -265,8 +266,8 @@ abstract class Checkable extends Field
     $field = call_user_func(array($this->app['form'], $this->checkable), $name, $value, $this->isChecked($name, $value), $attributes);
 
     // Add hidden checkbox if requested
-    if ($this->app['config']->get('former::push_checkboxes')) {
-      $field = $this->app['form']->hidden($name, $this->app['config']->get('former::unchecked_value')) . $field;
+    if ($this->app['former']->getOption('push_checkboxes')) {
+      $field = $this->app['form']->hidden($name, $this->app['former']->getOption('unchecked_value')) . $field;
     }
 
     // If no label to wrap, return plain checkable
@@ -339,7 +340,7 @@ abstract class Checkable extends Field
     $post   = $this->app['former']->getPost($name);
     $static = $this->app['former']->getValue($name);
 
-    if(!is_null($post) and $post !== $this->app['config']->get('former::unchecked_value')) $isChecked = ($post == $value);
+    if(!is_null($post) and $post !== $this->app['former']->getOption('unchecked_value')) $isChecked = ($post == $value);
     elseif(!is_null($static)) $isChecked = ($static == $value);
     else $isChecked = $checked;
     return $isChecked ? true : false;

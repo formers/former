@@ -6,15 +6,18 @@
  */
 namespace Former;
 
-use \Underscore\Types\String;
-use \Illuminate\Translation\Translator;
+use \Illuminate\Container\Container;
 use \Illuminate\Database\Eloquent\Collection;
+use \Illuminate\Translation\Translator;
+use \Underscore\Types\String;
 
 class Helpers
 {
-  public function __construct($app)
+  private static $app;
+
+  public static function setApp(Container $app)
   {
-    $this->app = $app;
+    static::$app = $app;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -28,7 +31,7 @@ class Helpers
    * @param  string $class      The class to add
    * @return array              The modified attributes array
    */
-  public function addClass($attributes, $class)
+  public static function addClass($attributes, $class)
   {
     if (!isset($attributes['class'])) $attributes['class'] = null;
 
@@ -51,7 +54,7 @@ class Helpers
    * @param  string $fallback The ultimate fallback
    * @return string           A translated string
    */
-  public function translate($key, $fallback = null)
+  public static function translate($key, $fallback = null)
   {
     // If nothing was given, return nothing, bitch
     if(!$key) return null;
@@ -63,11 +66,11 @@ class Helpers
     if($key instanceof Translator) return $key->get();
 
     // Search for the key itself
-    $translations = $this->app['config']->get('former::translate_from');
-    if ($this->app['translator']->has($key)) {
-      $translation = $this->app['translator']->get($key);
-    } elseif ($this->app['translator']->has($translations.'.'.$key)) {
-      $translation  = $this->app['translator']->get($translations.'.'.$key);
+    $translations = static::$app['former']->getOption('translate_from');
+    if (static::$app['translator']->has($key)) {
+      $translation = static::$app['translator']->get($key);
+    } elseif (static::$app['translator']->has($translations.'.'.$key)) {
+      $translation  = static::$app['translator']->get($translations.'.'.$key);
     } else {
       $translation = $fallback;
     }
@@ -90,7 +93,7 @@ class Helpers
    * @param  string $key   The attribute to use as key
    * @return array         A data array
    */
-  public function queryToArray($query, $value, $key)
+  public static function queryToArray($query, $value, $key)
   {
     // Automatically fetch Lang objects for people who store translated options lists
     // Same of unfetched queries

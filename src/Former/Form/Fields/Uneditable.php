@@ -22,8 +22,8 @@ class Uneditable extends Field
    */
   public function render()
   {
-    $this->attributes = $this->app['former.framework']->addUneditableClasses($this->attributes);
+    $this->attributes = $this->app['former']->getFramework()->addUneditableClasses($this->attributes);
 
-    return $this->app['former.framework']->createDisabledField($this);
+    return $this->app['former']->getFramework()->createDisabledField($this);
   }
 }

@@ -7,8 +7,9 @@
  */
 namespace Former\Traits;
 
-use \Former\Form\Group;
 use \Former\Form\Form;
+use \Former\Form\Group;
+use \Former\Helpers;
 use \Former\Interfaces\FieldInterface;
 use \Former\LiveValidation;
 use \Underscore\Types\Arrays;
@@ -68,15 +69,15 @@ abstract class Field extends FormerObject implements FieldInterface
     $this->value      = $value;
 
     // Set magic parameters (repopulated value, translated label, etc)
-    if($this->app['config']->get('former::automatic_label')) $this->ponder($name, $label);
+    if($this->app['former']->getOption('automatic_label')) $this->ponder($name, $label);
     if($type != 'password') $this->value = $this->repopulate();
-    if ($this->app['config']->get('former::live_validation')) {
+    if ($this->app['former']->getOption('live_validation')) {
       $rules = new LiveValidation($this);
       $rules->apply($this->getRules());
     }
 
     // Link Control group
-    if ($this->app['former.framework']->isnt('Nude')) {
+    if ($this->app['former']->getFramework()->isnt('Nude')) {
       $this->group = new Group($this->app, $this->label);
     }
   }
@@ -107,13 +108,13 @@ abstract class Field extends FormerObject implements FieldInterface
     if ($this->isUnwrappable()) $html = $this->render();
 
     // Control group syntax
-    elseif ($this->app['former.framework']->isnt('Nude') and Form::isOpened()) {
+    elseif ($this->app['former']->getFramework()->isnt('Nude') and Form::isOpened()) {
       $html = $this->group->wrapField($this);
     }
 
     // Classic syntax
     else {
-      $html  = $this->app['former.framework']->createLabelOf($this);
+      $html  = $this->app['former']->getFramework()->createLabelOf($this);
       $html .= $this->render();
     }
 
@@ -209,7 +210,7 @@ abstract class Field extends FormerObject implements FieldInterface
   public function label($text, $attributes = array())
   {
     $label = array(
-      'text'       => $this->app['former.helpers']->translate($text),
+      'text'       => Helpers::translate($text),
       'attributes' => $attributes);
 
     if($this->group) $this->group->setLabel($label);
@@ -305,7 +306,7 @@ abstract class Field extends FormerObject implements FieldInterface
     elseif(is_null($label) and $name) $label = $name;
 
     // Attempt to translate the label
-    $label = $this->app['former.helpers']->translate($label);
+    $label = Helpers::translate($label);
 
     // Save values
     $this->name  = $name;

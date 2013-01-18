@@ -9,6 +9,7 @@ namespace Former\Form;
 
 use \Former\Traits\FormerObject;
 use \Underscore\Types\String;
+use \Underscore\Types\Arrays;
 
 class Actions extends FormerObject
 {
@@ -46,7 +47,8 @@ class Actions extends FormerObject
   {
     // Dynamically add buttons to an actions block
     if ($this->isButton($method)) {
-      return $this->createButtonOfType($method, $parameters[0]);
+      $text = Arrays::get($parameters, 0);
+      return $this->createButtonOfType($method, $text);
     }
 
     return parent::__call($method, $parameters);
@@ -60,7 +62,7 @@ class Actions extends FormerObject
   public function __toString()
   {
     // Add specific actions classes to the actions block
-    $this->attributes = $this->app['former.framework']->addActionClasses($this->attributes);
+    $this->attributes = $this->app['former']->getFramework()->addActionClasses($this->attributes);
 
     // Render block
     $actions  = '<div' .$this->app['html']->attributes($this->attributes). '>';

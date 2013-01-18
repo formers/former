@@ -7,6 +7,8 @@
  */
 namespace Former;
 
+use \Former\Interfaces\FrameworkInterface;
+use \Illuminate\Container\Container;
 use \Underscore\Types\Arrays;
 use \Underscore\Types\String;
 
@@ -25,6 +27,12 @@ class Former
   protected $field;
 
   /**
+   * The current form framework
+   * @var FrameworkInterface
+   */
+  protected $formFramework;
+
+  /**
    * The current form being worked on
    * @var Form
    */
@@ -34,7 +42,7 @@ class Former
    * The Populator instance
    * @var Populator
    */
-  protected $populator;
+  public $populator;
 
   /**
    * The form's errors
@@ -58,10 +66,12 @@ class Former
    *
    * @param Illuminate\Container\Container $app
    */
-  public function __construct(\Illuminate\Container\Container $app, $populator)
+  public function __construct(Container $app, Populator $populator, FrameworkInterface $framework)
   {
-    $this->app = $app;
-    $this->populator = $populator;
+    $this->app           = $app;
+    $this->populator     = $populator;
+    $this->formFramework = $framework;
+    Helpers::setApp($app);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -104,7 +114,7 @@ class Former
 
     // Dispatch to the different Form\Fields
     $field = Dispatch::toFields($this->app, $method, $parameters);
-    $field = $this->app['former.framework']->addFieldClasses($field, $classes);
+    $field = $this->app['former']->getFramework()->addFieldClasses($field, $classes);
 
     return $this->field = $field;
   }
@@ -120,7 +130,7 @@ class Former
    */
   public function populate($values)
   {
-    $this->populator = new Populator($values);
+    $this->populator->populateWith($values);
   }
 
   /**
@@ -216,13 +226,36 @@ class Former
    */
   public function framework($framework = null)
   {
-    if (!$framework) return $this->app['former.framework']->current();
+    if (!$framework) return $this->app['former']->getFramework()->current();
 
-    $this->app['former.framework'] = $this->app->share(function($app) use ($framework) {
-      $class = __NAMESPACE__.'\Framework\\'.$framework;
+    $class = __NAMESPACE__.'\Framework\\'.$framework;
+    $this->formFramework = $this->app->make($class);
+  }
 
-      return new $class($app);
-    });
+  /**
+   * Get the current framework
+   *
+   * @return FrameworkInterface
+   */
+  public function getFramework()
+  {
+    return $this->formFramework;
+  }
+
+  /**
+   * Get an option from the config
+   *
+   * @param string $option  The option
+   * @param mixed $default Optional fallback
+   *
+   * @return mixed
+   */
+  public function getOption($option, $default = null)
+  {
+    $prefix = $this->app['config']->get('former::framework');
+    $prefix = !empty($prefix) ? 'former::' : 'config.';
+
+    return $this->app['config']->get($prefix.$option);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -242,7 +275,7 @@ class Former
 
     // Destroy instances
     $this->form = null;
-    $this->populator = new Populator;
+    $this->populator->reset();
 
     // Reset all values
     $this->errors = null;

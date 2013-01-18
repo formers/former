@@ -17,18 +17,19 @@ class IlluminateMock
     $app['request']    = $this->getRequest();
     $app['session']    = $this->getSession();
     $app['translator'] = $this->getTranslator();
-    $app['url']        = $this->getUrl();
+    $app['Illuminate\Routing\UrlGenerator'] = $this->getUrl();
+    $app->alias('Illuminate\Routing\UrlGenerator', 'url');
     $app['validator']  = $this->getValidator();
 
     // Setup Meido
-    $app['html'] = new Meido\HTML\HTML($app['url']);
-    $app['form'] = new Meido\Form\Form($app['url']);
+    $app->bind('html', '\Meido\HTML\HTML');
+    $app->bind('form', '\Meido\Form\Form');
 
     // Setup bindings
-    $app['former.laravel.file'] = new Laravel\File($app);
-    $app['former'] = $app->share(function($app) { return new Former\Former($app, new Former\Populator); });
-    $app['former.helpers'] = $app->share(function($app) { return new Former\Helpers($app); });
-    $app['former.framework'] = $app->share(function($app) { return new Former\Framework\TwitterBootstrap($app); });
+    $app->instance('Illuminate\Container\Container', $app);
+    $app->bind('Former\Interfaces\FrameworkInterface', 'Former\Framework\TwitterBootstrap');
+    $app->singleton('former', 'Former\Former');
+    $app->bind('former.laravel.file', 'Laravel\File');
 
     $this->app = $app;
 

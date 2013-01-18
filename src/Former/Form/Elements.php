@@ -7,6 +7,8 @@
  */
 namespace Former\Form;
 
+use \Former\Helpers;
+
 class Elements
 {
   public function __construct($app)
@@ -36,7 +38,7 @@ class Elements
    */
   public function label($label, $name = null, $attributes = array())
   {
-    $label = $this->app['former.helpers']->translate($label);
+    $label = Helpers::translate($label);
 
     return $this->app['form']->label($name, $label, $attributes);
   }
@@ -50,7 +52,7 @@ class Elements
    */
   public function legend($legend, $attributes = array())
   {
-    $legend = $this->app['former.helpers']->translate($legend);
+    $legend = Helpers::translate($legend);
 
     return '<legend'.$this->app['html']->attributes($attributes).'>' .$legend. '</legend>';
   }

@@ -10,8 +10,8 @@ class FrameworkTest extends FormerTests
 
   public function testCanCheckWhatTheFrameworkIs()
   {
-    $current   = $this->app->app['former.framework']->current();
-    $isCurrent = $this->app->app['former.framework']->is($current);
+    $current   = $this->app->app['former']->getFramework()->current();
+    $isCurrent = $this->app->app['former']->getFramework()->is($current);
 
     $this->assertTrue($isCurrent);
   }

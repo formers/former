@@ -18,15 +18,9 @@ class Populator
    */
   private $values = array();
 
-  /**
-   * Populates the class with values
-   *
-   * @param array $values The values
-   */
-  public function __construct($values = array())
-  {
-    $this->values = $values;
-  }
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////// INDIVIDUAL VALUES /////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Set the value of a particular field
@@ -79,5 +73,30 @@ class Populator
     }
 
     return $value;
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////// SWAPPERS //////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Replace the values array
+   *
+   * @param  mixed $values The new values
+   * @return void
+   */
+  public function populateWith($values)
+  {
+    $this->values = $values;
+  }
+
+  /**
+   * Reset the current values array
+   *
+   * @return void
+   */
+  public function reset()
+  {
+    $this->values = array();
   }
 }

@@ -7,6 +7,7 @@
 namespace Former\Form\Fields;
 
 use \Former\Traits\Field;
+use \Former\Helpers;
 
 class Select extends Field
 {
@@ -124,7 +125,7 @@ class Select extends Field
    */
   public function fromQuery($results, $value = null, $key = null)
   {
-    $options = $this->app['former.helpers']->queryToArray($results, $value, $key);
+    $options = Helpers::queryToArray($results, $value, $key);
 
     if(isset($options)) $this->options = $options;
 
@@ -150,7 +151,7 @@ class Select extends Field
    */
   public function placeholder($placeholder)
   {
-    $this->placeholder = $this->app['former.helpers']->translate($placeholder);
+    $this->placeholder = Helpers::translate($placeholder);
 
     return $this;
   }

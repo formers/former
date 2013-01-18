@@ -87,7 +87,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     $this->former->framework('TwitterBootstrap');
 
     // Reset config and POST data
-    $this->app->app['config'] = static::$illuminate->getConfig();
+    $this->app->app['config']  = static::$illuminate->getConfig();
     $this->app->app['request'] = static::$illuminate->getRequest();
   }
 

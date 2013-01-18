@@ -6,6 +6,7 @@
  */
 namespace Former\Traits;
 
+use \Former\Helpers;
 use \Former\Traits\Field;
 use \Underscore\Types\Arrays;
 use \Underscore\Types\String;
@@ -90,7 +91,7 @@ abstract class Framework
    */
   protected function addClass($attributes, $class)
   {
-    return $this->app['former.helpers']->addClass($attributes, $class);
+    return Helpers::addClass($attributes, $class);
   }
 
   /**
@@ -123,7 +124,7 @@ abstract class Framework
 
     // Append required text
     if ($field->isRequired()) {
-      $text .= $this->app['config']->get('former::required_text');
+      $text .= $this->app['former']->getOption('required_text');
     }
 
     // Render plain label if checkable, else a classic one

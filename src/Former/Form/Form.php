@@ -78,7 +78,7 @@ class Form extends FormerObject
     $secure     = Arrays::get($parameters, 3, false);
 
     // Fetch errors if asked for
-    if ($this->app['config']->get('former::fetch_errors')) {
+    if ($this->app['former']->getOption('fetch_errors')) {
       $this->app['former']->withErrors();
     }
 
@@ -92,7 +92,7 @@ class Form extends FormerObject
     $this->type = $this->applyType($type);
 
     // Add supplementary classes
-    $this->attributes = $this->app['former.framework']->addFormClasses($this->attributes, $this->type);
+    $this->attributes = $this->app['former']->getFramework()->addFormClasses($this->attributes, $this->type);
 
     return $this;
   }
@@ -202,7 +202,7 @@ class Form extends FormerObject
   {
     // If classic form
     if ($type == 'open') {
-      return $this->app['config']->get('former::default_form_type');
+      return $this->app['former']->getOption('default_form_type');
     }
 
     // Look for HTTPS form
@@ -223,7 +223,7 @@ class Form extends FormerObject
 
     // Use default form type if the one provided is invalid
     if (!in_array($type, $this->availableTypes)) {
-      $type = $this->app['config']->get('former::default_form_type');
+      $type = $this->app['former']->getOption('default_form_type');
     }
 
     return $type;

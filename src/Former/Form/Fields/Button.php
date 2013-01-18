@@ -7,6 +7,7 @@
 namespace Former\Form\Fields;
 
 use \Form;
+use \Former\Helpers;
 
 class Button extends \Former\Traits\Field
 {
@@ -54,7 +55,7 @@ class Button extends \Former\Traits\Field
    */
   public function value($value)
   {
-    $value = $this->app['former.helpers']->translate($value);
+    $value = Helpers::translate($value);
 
     $this->value = $value;
 

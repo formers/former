@@ -6,6 +6,7 @@
  */
 namespace Former\Form;
 
+use \Former\Helpers;
 use \BadMethodCallException;
 use \Underscore\Types\Arrays;
 use \Underscore\Types\String;
@@ -72,7 +73,7 @@ class Group
   {
     // Get special classes
     $this->app = $app;
-    $this->attributes = $this->app['former.framework']->addGroupClasses($attributes);
+    $this->attributes = $this->app['former']->getFramework()->addGroupClasses($attributes);
 
     // Set group label
     $this->setLabel($label);
@@ -88,7 +89,7 @@ class Group
   public function __toString()
   {
     // Create a basic label
-    $attributes = $this->app['former.framework']->addLabelClasses(array());
+    $attributes = $this->app['former']->getFramework()->addLabelClasses(array());
     $label = $this->app['form']->label($this->label, $this->label, $attributes);
 
     return $this->open().$label;
@@ -107,12 +108,12 @@ class Group
 
     // Retrieve state and append it to classes
     if ($this->state) {
-      $this->attributes = $this->app['former.helpers']->addClass($this->attributes, $this->state);
+      $this->attributes = Helpers::addClass($this->attributes, $this->state);
     }
 
     // Required state
     if ($this->app['former']->field() and $this->app['former']->field()->isRequired()) {
-      $this->attributes = $this->app['former.helpers']->addClass($this->attributes, $this->app['config']->get('former::required_class'));
+      $this->attributes = Helpers::addClass($this->attributes, $this->app['former']->getOption('required_class'));
     }
 
     return '<div'.$this->app['html']->attributes($this->attributes). '>';
@@ -140,7 +141,7 @@ class Group
   public function state($state)
   {
     // Filter state
-    $state = $this->app['former.framework']->filterState($state);
+    $state = $this->app['former']->getFramework()->filterState($state);
 
     $this->state = $state;
   }
@@ -194,12 +195,12 @@ class Group
   public function inlineHelp($help, $attributes = array())
   {
     // Attempt to translate help text
-    $help = $this->app['former.helpers']->translate($help);
+    $help = Helpers::translate($help);
 
     // If no help text, do nothing
     if (!$help) return false;
 
-    $this->help['inline'] = $this->app['former.framework']->createHelp($help, $attributes);
+    $this->help['inline'] = $this->app['former']->getFramework()->createHelp($help, $attributes);
   }
 
   /**
@@ -211,17 +212,17 @@ class Group
   public function blockHelp($help, $attributes = array())
   {
     // Reserved method
-    if ($this->app['former.framework']->isnt('TwitterBootstrap')) {
+    if ($this->app['former']->getFramework()->isnt('TwitterBootstrap')) {
       throw new BadMethodCallException('This method is only available on the Bootstrap framework');
     }
 
     // Attempt to translate help text
-    $help = $this->app['former.helpers']->translate($help);
+    $help = Helpers::translate($help);
 
     // If no help text, do nothing
     if (!$help) return false;
 
-    $this->help['block'] = $this->app['former.framework']->createBlockHelp($help, $attributes);
+    $this->help['block'] = $this->app['former']->getFramework()->createBlockHelp($help, $attributes);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -252,7 +253,7 @@ class Group
    */
   public function prependIcon($icon, $attributes = array())
   {
-    $icon = $this->app['former.framework']->createIcon($icon, $attributes);
+    $icon = $this->app['former']->getFramework()->createIcon($icon, $attributes);
 
     $this->prepend($icon);
   }
@@ -265,7 +266,7 @@ class Group
    */
   public function appendIcon($icon, $attributes = array())
   {
-    $icon = $this->app['former.framework']->createIcon($icon, $attributes);
+    $icon = $this->app['former']->getFramework()->createIcon($icon, $attributes);
 
     $this->append($icon);
   }
@@ -286,7 +287,7 @@ class Group
       $html  .= $this->getLabel($field);
       $field  = $this->prependAppend($field);
       $field .= $this->getHelp();
-      $html  .= $this->app['former.framework']->wrapField($field);
+      $html  .= $this->app['former']->getFramework()->wrapField($field);
     $html .= $this->close();
 
     return $html;
@@ -300,9 +301,9 @@ class Group
    */
   private function getLabel($field)
   {
-    $this->label['attributes'] = $this->app['former.framework']->addLabelClasses($this->label['attributes']);
+    $this->label['attributes'] = $this->app['former']->getFramework()->addLabelClasses($this->label['attributes']);
 
-    return $this->app['former.framework']->createLabelOf($field, $this->label);
+    return $this->app['former']->getFramework()->createLabelOf($field, $this->label);
   }
 
   /**
@@ -316,7 +317,7 @@ class Group
     $block  = Arrays::get($this->help, 'block');
 
     $errors = $this->app['former']->getErrors();
-    if ($errors) $inline = $this->app['former.framework']->createHelp($errors);
+    if ($errors) $inline = $this->app['former']->getFramework()->createHelp($errors);
     return join(null, array($inline, $block));
   }
 

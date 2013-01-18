@@ -6,6 +6,7 @@
  */
 namespace Former\Form\Fields;
 
+use \Former\Helpers;
 use \Former\Traits\Field;
 
 class Input extends Field
@@ -66,7 +67,7 @@ class Input extends Field
    */
   public function useDatalist($datalist, $value = null, $key = null)
   {
-    $datalist = $this->app['former.helpers']->queryToArray($datalist, $value, $key);
+    $datalist = Helpers::queryToArray($datalist, $value, $key);
 
     $list = $this->list ?: 'datalist_'.$this->name;
 
@@ -87,7 +88,7 @@ class Input extends Field
   private function asSearch()
   {
     $this->type = 'text';
-    $this->attributes = $this->app['former.helpers']->addClass($this->attributes, 'search-query');
+    $this->attributes = Helpers::addClass($this->attributes, 'search-query');
 
     return $this;
   }

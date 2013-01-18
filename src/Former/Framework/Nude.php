@@ -6,6 +6,7 @@
  */
 namespace Former\Framework;
 
+use \Illuminate\Container\Container;
 use \Former\Interfaces\FrameworkInterface;
 use \Former\Traits\Field;
 use \Former\Traits\Framework;
@@ -17,7 +18,7 @@ class Nude extends Framework implements FrameworkInterface
    *
    * @param \Illuminate\Container\Container $app
    */
-  public function __construct(\Illuminate\Container\Container $app)
+  public function __construct(Container $app)
   {
     $this->app = $app;
   }

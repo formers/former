@@ -32,8 +32,8 @@ class FormerServiceProvider extends ServiceProvider
       return new Former($app, new Populator);
     });
 
-    $this->app['former.framework'] = $this->app->share(function($app) {
-      $framework = '\Former\Framework\\'.$app['config']->get('former::framework');
+    $this->formFramework = $this->app->share(function($app) {
+      $framework = '\Former\Framework\\'.$app['former']->getOption('framework');
       return new $framework($app);
     });
 
