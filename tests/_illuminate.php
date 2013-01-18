@@ -10,7 +10,7 @@ class IlluminateMock
 
   public function __construct()
   {
-    $app = new Illuminate\Container\Container;
+    $app = Former\Facades\Agnostic::buildContainer();
 
     // Setup Illuminate
     $app['config']     = $this->getConfig();
