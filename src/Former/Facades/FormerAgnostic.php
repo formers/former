@@ -69,7 +69,7 @@ class FormerAgnostic
     // Meido ------------------------------------------------------- /
 
     $app->bind('html', '\Meido\HTML\HTML');
-    $app->bind('form', '\Meido\Form\Form');
+    $app->singleton('form', '\Meido\Form\Form');
 
     // Former ------------------------------------------------------ /
 

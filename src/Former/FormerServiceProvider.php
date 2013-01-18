@@ -27,26 +27,16 @@ class FormerServiceProvider extends ServiceProvider
   {
     // Former
 
-    $this->app['former'] = $this->app->share(function($app) {
-      return new Former($app, new Populator);
-    });
-
-    $this->formFramework = $this->app->share(function($app) {
-      $framework = '\Former\Framework\\'.$app['former']->getOption('framework');
-
-      return new $framework($app);
-    });
-
-    $this->app['former.helpers'] = $this->app->share(function($app) {
-      return new Helpers($app);
-    });
+    $framework = $this->app['config']->get('former::framework');
+    $this->app->bind('Former\Interfaces\FrameworkInterface', '\Former\Framework\\'.$framework);
+    $this->app->singleton('former', '\Former\Former');
 
     $this->app['former.laravel.file'] = new \Laravel\File($app);
 
     // Meido
 
-    $app->bind('html', '\Meido\HTML\HTML');
-    $app->bind('form', '\Meido\Form\Form');
+    $this->app->bind('html', '\Meido\HTML\HTML');
+    $this->app->singleton('form', '\Meido\Form\Form');
   }
 
   /**
