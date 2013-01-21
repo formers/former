@@ -105,7 +105,7 @@ class Dispatch
   private static function getClassFromMethod($method)
   {
     // If the field's name directly match a class, call it
-    $class = String::from($method)->singular()->upper()->obtain();
+    $class = String::from($method)->singular()->title()->obtain();
     if (class_exists(Former::FIELDSPACE.$class)) {
       return $class;
     }
