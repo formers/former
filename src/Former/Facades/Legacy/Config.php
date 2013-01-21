@@ -27,6 +27,12 @@ class Config extends Redirector
    */
   public function get($key, $fallback = null)
   {
+    // Try to get option from a custom config file in app/
+    $customKey = str_replace('former::', 'former.', $key);
+    $custom    = LaravelConfig::get($customKey);
+    if ($custom) return $custom;
+
+    // Else fetch it from normal config file
     $key = str_replace('former::', 'former::config.', $key);
 
     return LaravelConfig::get($key, $fallback);
