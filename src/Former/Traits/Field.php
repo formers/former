@@ -13,6 +13,7 @@ use \Former\Helpers;
 use \Former\Interfaces\FieldInterface;
 use \Former\LiveValidation;
 use \Underscore\Types\Arrays;
+use \Underscore\Types\String;
 
 abstract class Field extends FormerObject implements FieldInterface
 {
@@ -63,13 +64,12 @@ abstract class Field extends FormerObject implements FieldInterface
     // Set base parameters
     $this->app        = $app;
     $this->attributes = (array) $attributes;
-    $this->label($label);
-    $this->name       = $name;
     $this->type       = $type;
     $this->value      = $value;
 
     // Set magic parameters (repopulated value, translated label, etc)
-    if($this->app['former']->getOption('automatic_label')) $this->ponder($name, $label);
+    $this->automaticLabels($name, $label);
+
     if($type != 'password') $this->value = $this->repopulate();
     if ($this->app['former']->getOption('live_validation')) {
       $rules = new LiveValidation($this);
@@ -299,10 +299,18 @@ abstract class Field extends FormerObject implements FieldInterface
    * @param  string $name  A field name
    * @return array         A label and a field name
    */
-  private function ponder($name, $label)
+  private function automaticLabels($name, $label)
   {
+    // Disabled automatic labels
+    if (!$this->app['former']->getOption('automatic_label')) {
+      $this->name = $name;
+      $this->label($label);
+
+      return false;
+    }
+
     // Check for the two possibilities
-    if($label and is_null($name)) $name = \Str::slug($label);
+    if($label and is_null($name)) $name = String::slug($label);
     elseif(is_null($label) and $name) $label = $name;
 
     // Attempt to translate the label
