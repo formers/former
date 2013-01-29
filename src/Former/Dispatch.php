@@ -113,6 +113,7 @@ class Dispatch
     // Else convert known fields to their classes
     switch ($method) {
       case 'submit':
+      case 'link':
       case 'reset':
         $class = 'Button';
         break;

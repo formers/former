@@ -41,12 +41,27 @@ class Button extends \Former\Traits\Field
   {
     $type = $this->type;
 
+    // Link buttons
+    if ($type == 'link') {
+      return $this->app['html']->to('#', $this->value, $this->attributes);
+    }
+
     return $this->app['form']->$type($this->value, $this->attributes);
   }
 
   ////////////////////////////////////////////////////////////////////
   ////////////////////////// FIELD METHODS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Check if the field is a button
+   *
+   * @return boolean
+   */
+  public function isButton()
+  {
+    return true;
+  }
 
   /**
    * Hijack Former's Object model value method
