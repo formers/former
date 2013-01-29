@@ -88,11 +88,7 @@ class Group
    */
   public function __toString()
   {
-    // Create a basic label
-    $attributes = $this->app['former']->getFramework()->addLabelClasses(array());
-    $label = $this->app['form']->label($this->label, $this->label, $attributes);
-
-    return $this->open().$label;
+    return $this->open().$this->getFormattedLabel();
   }
 
   /**
@@ -117,6 +113,18 @@ class Group
     }
 
     return '<div'.$this->app['html']->attributes($this->attributes). '>';
+  }
+
+  /**
+   * Set the contents of the current group
+   *
+   * @param string $contents The group contents
+   *
+   * @return string A group
+   */
+  public function contents($contents)
+  {
+    return $this->wrap($contents, $this->getFormattedLabel());
   }
 
   /**
@@ -154,6 +162,21 @@ class Group
   public function setLabel($label)
   {
     $this->label = $label;
+  }
+
+  /**
+   * Get the formatted group label
+   *
+   * @return string
+   */
+  public function getFormattedLabel()
+  {
+    if (!$this->label) return false;
+
+    $attributes = $this->app['former']->getFramework()->addLabelClasses(array());
+    $label = $this->app['form']->label($this->label, $this->label, $attributes);
+
+    return $label;
   }
 
   /**
@@ -276,6 +299,23 @@ class Group
   ////////////////////////////////////////////////////////////////////
 
   /**
+   * Wraps content in a group
+   *
+   * @param mixed $contents The content
+   *
+   * @return string A group
+   */
+  public function wrap($contents, $label = null)
+  {
+    $group = $this->open();
+      $group .= $label;
+      $group .= $this->app['former']->getFramework()->wrapField($contents);
+    $group .= $this->close();
+
+    return $group;
+  }
+
+  /**
    * Wrap a Field with the current group
    *
    * @param  Field  $field A Field instance
@@ -283,14 +323,11 @@ class Group
    */
   public function wrapField($field)
   {
-    $html = $this->open();
-      $html  .= $this->getLabel($field);
-      $field  = $this->prependAppend($field);
-      $field .= $this->getHelp();
-      $html  .= $this->app['former']->getFramework()->wrapField($field);
-    $html .= $this->close();
+    $label  = $this->getLabel($field);
+    $field  = $this->prependAppend($field);
+    $field .= $this->getHelp();
 
-    return $html;
+    return $this->wrap($field, $label);
   }
 
   /**
@@ -299,11 +336,16 @@ class Group
    * @param  string $field The field to create a label for
    * @return string        A <label> tag
    */
-  private function getLabel($field)
+  private function getLabel($field = null)
   {
-    $this->label['attributes'] = $this->app['former']->getFramework()->addLabelClasses($this->label['attributes']);
+    // Don't create a label if none exist
+    if (!$field or !$this->label) return null;
 
-    return $this->app['former']->getFramework()->createLabelOf($field, $this->label);
+    // Wrap label in framework classes
+    $this->label['attributes'] = $this->app['former']->getFramework()->addLabelClasses($this->label['attributes']);
+    $this->label = $this->app['former']->getFramework()->createLabelOf($field, $this->label);
+
+    return $this->label;
   }
 
   /**

@@ -9,6 +9,8 @@
 - [add] You can now chain live validation rules to fields (example: `Former::text('foo')->alpha_dash()`)
 - [add] You can now display a single field without control group in any kind of form (`Former::text('foo')->raw()`)
 - [mod] Frameworks names renamed from `bootstrap` to `TwitterBootstrap`, `zurb` to `ZurbFoundation` and `null` to `Nude`
+- [add] You can now manually open groups via `Former::group('label')`
+- [add] You can also create a group that contains raw content (not a field) with `Former::group('label')->contents('YourContent')`. This will wrap the content in a control class so that your content is aligned with the fields.
 
 2.6.0
 -----

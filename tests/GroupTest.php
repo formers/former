@@ -260,4 +260,23 @@ class GroupTest extends FormerTests
     $this->assertHTML($matcher, $input);
   }
 
+  public function testCanCreateRawGroups()
+  {
+    $group = $this->former->group()->contents('This be <b>HTML</b> content');
+    $matcher = '<div class="control-group"><div class="controls">This be <b>HTML</b> content</div></div>';
+
+    $this->assertEquals($matcher, $group);
+  }
+
+  public function testCanCreateRawLabelessGroups()
+  {
+    $group = $this->former->group('MyField')->contents('This be <b>HTML</b> content');
+    $matcher = '<div class="control-group">'.
+      '<label for="MyField" class="control-label">MyField</label>'.
+      '<div class="controls">This be <b>HTML</b> content</div>'.
+    '</div>';
+
+    $this->assertEquals($matcher, $group);
+  }
+
 }
