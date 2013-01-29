@@ -24,12 +24,17 @@ class Button extends \Former\Traits\Field
    * @param string $value      Its value
    * @param array  $attributes Attributes
    */
-  public function __construct($app, $type, $value, $attributes)
+  public function __construct($app, $type, $value, $link, $attributes)
   {
     $this->app        = $app;
     $this->attributes = (array) $attributes;
     $this->type       = $type;
     $this->value($value);
+
+    // Add href to attributes if link
+    if ($this->type == 'link') {
+      $this->link = $link;
+    }
   }
 
   /**
@@ -43,7 +48,7 @@ class Button extends \Former\Traits\Field
 
     // Link buttons
     if ($type == 'link') {
-      return $this->app['html']->to('#', $this->value, $this->attributes);
+      return $this->app['html']->to($this->link, $this->value, $this->attributes);
     }
 
     return $this->app['form']->$type($this->value, $this->attributes);

@@ -47,9 +47,12 @@ class Actions extends FormerObject
   {
     // Dynamically add buttons to an actions block
     if ($this->isButton($method)) {
-      $text = Arrays::get($parameters, 0);
+      $text       = Arrays::get($parameters, 0);
+      $link       = Arrays::get($parameters, 1);
+      $attributes = Arrays::get($parameters, 2);
+      if (!$attributes and is_array($link)) $attributes = $link;
 
-      return $this->createButtonOfType($method, $text);
+      return $this->createButtonOfType($method, $text, $link, $attributes);
     }
 
     return parent::__call($method, $parameters);
@@ -91,9 +94,9 @@ class Actions extends FormerObject
    *
    * @return Actions
    */
-  private function createButtonOfType($type, $name)
+  private function createButtonOfType($type, $name, $link, $attributes)
   {
-    $this->content[] = $this->app['former']->$type($name)->__toString();
+    $this->content[] = $this->app['former']->$type($name, $link, $attributes)->__toString();
 
     return $this;
   }
