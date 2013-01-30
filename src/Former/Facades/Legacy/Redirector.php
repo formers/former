@@ -25,6 +25,32 @@ class Redirector
   }
 
   /**
+   * Set a property on a static class
+   *
+   * @param  string $key The property
+   * @return string Its value
+   */
+  public function __set($key, $value)
+  {
+    $class = '\\'.$this->class;
+
+    $class::$$key = $value;
+  }
+
+  /**
+   * Get a property from a static class
+   *
+   * @param  string $key The property
+   * @return string Its value
+   */
+  public function __get($key)
+  {
+    $class = '\\'.$this->class;
+
+    return $class::$$key;
+  }
+
+  /**
    * Redirect a call to a static class
    */
   public function __call($method, $parameters)
