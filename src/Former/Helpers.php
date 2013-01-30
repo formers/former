@@ -72,7 +72,7 @@ class Helpers
     if(!$fallback) $fallback = $key;
 
     // Assure we don't already have a Lang object
-    if($key instanceof Translator) return $key->get();
+    if(is_object($key) and method_exists($key, 'get')) return $key->get();
 
     $translator    = static::$app['translator'];
     $translation   = null;
