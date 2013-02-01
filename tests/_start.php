@@ -1,5 +1,6 @@
 <?php
 include '_illuminate.php';
+include 'Dummy/DummyEloquent.php';
 
 // Base Test class for matchers
 abstract class FormerTests extends PHPUnit_Framework_TestCase

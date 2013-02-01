@@ -184,6 +184,19 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkboxes);
   }
 
+  public function testCanPopulateCheckboxesWithRelations()
+  {
+    $eloquent = new DummyEloquent(array('id' => 1, 'name' => 3));
+
+    $this->former->populate($eloquent);
+    $checkboxes = $this->former->checkboxes('roles')->__toString();
+    $matcher = $this->controlGroupMultiple(
+      $this->cb('1', 'Foo').$this->cb('3', 'Bar'),
+      '<label class="control-label">Roles</label>');
+
+    $this->assertEquals($matcher, $checkboxes);
+  }
+
   public function testCanDecodeCorrectlyCheckboxes()
   {
     $checkbox = $this->former->checkbox('foo')->__toString();
