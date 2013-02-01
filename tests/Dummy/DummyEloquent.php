@@ -22,10 +22,10 @@ class DummyEloquent
 
   public function roles()
   {
-    return [
+    return array(
       new DummyEloquent(array('id' => 1, 'name' => 'foo')),
       new DummyEloquent(array('id' => 3, 'name' => 'bar')),
-    ];
+    );
   }
 
   public function getKey()
