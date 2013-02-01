@@ -67,10 +67,15 @@ abstract class Field extends FormerObject implements FieldInterface
     $this->type       = $type;
     $this->value      = $value;
 
-    // Set magic parameters (repopulated value, translated label, etc)
+    // Compute and translate label
     $this->automaticLabels($name, $label);
 
-    if($type != 'password') $this->value = $this->repopulate();
+    // Repopulate field
+    if($type != 'password') {
+      $this->value = $this->repopulate();
+    }
+
+    // Apply Live validation rules
     if ($this->app['former']->getOption('live_validation')) {
       $rules = new LiveValidation($this);
       $rules->apply($this->getRules());
@@ -122,7 +127,7 @@ abstract class Field extends FormerObject implements FieldInterface
   }
 
   ////////////////////////////////////////////////////////////////////
-  ///////////////////////////// FUNCTIONS ////////////////////////////
+  ////////////////////////// PUBLIC INTERFACE ////////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**
@@ -286,10 +291,10 @@ abstract class Field extends FormerObject implements FieldInterface
     $populate = $this->app['former']->getValue($this->name);
 
     // Assign a priority to each
-    if(!is_null($post)) $value = $post;
-    elseif(!is_null($populate)) $value = $populate;
-    else $value = $fallback;
-    return $value;
+    if(!is_null($post)) return $post;
+    if(!is_null($populate)) return $populate;
+
+    return $fallback;
   }
 
   /**
