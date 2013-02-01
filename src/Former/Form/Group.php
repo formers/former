@@ -19,25 +19,25 @@ class Group
    * The group attributes
    * @var array
    */
-  private $attributes = array();
+  protected $attributes = array();
 
   /**
    * The current state of the group
    * @var string
    */
-  private $state = null;
+  protected $state = null;
 
   /**
    * Whether the field should be displayed raw or not
    * @var boolean
    */
-  private $raw = false;
+  protected $raw = false;
 
   /**
    * The group label
    * @var string
    */
-  private $label = array(
+  protected $label = array(
     'text'       => null,
     'attributes' => array()
   );
@@ -46,19 +46,19 @@ class Group
    * The group help
    * @var string
    */
-  private $help = null;
+  protected $help = null;
 
   /**
    * An array of elements to preprend the field
    * @var array
    */
-  private $prepend = array();
+  protected $prepend = array();
 
   /**
    * An array of elements to append the field
    * @var array
    */
-  private $append = array();
+  protected $append = array();
 
   ////////////////////////////////////////////////////////////////////
   /////////////////////////// CORE METHODS ///////////////////////////
@@ -96,7 +96,7 @@ class Group
    *
    * @return string Opening tag
    */
-  private function open()
+  protected function open()
   {
     // If any errors, set state to errors
     $errors = $this->app['former']->getErrors();
@@ -132,7 +132,7 @@ class Group
    *
    * @return string Closing tag
    */
-  private function close()
+  protected function close()
   {
     return '</div>';
   }
@@ -336,7 +336,7 @@ class Group
    * @param  string $field The field to create a label for
    * @return string        A <label> tag
    */
-  private function getLabel($field = null)
+  protected function getLabel($field = null)
   {
     // Don't create a label if none exist
     if (!$field or !$this->label) return null;
@@ -353,7 +353,7 @@ class Group
    *
    * @return string A .help-block or .help-inline
    */
-  private function getHelp()
+  protected function getHelp()
   {
     $inline = Arrays::get($this->help, 'inline');
     $block  = Arrays::get($this->help, 'block');
@@ -369,7 +369,7 @@ class Group
    * @param  string $field The field to format
    * @return string        Field plus supplementary elements
    */
-  private function prependAppend($field)
+  protected function prependAppend($field)
   {
     if(!$this->prepend and !$this->append) return $field->render();
 
@@ -394,7 +394,7 @@ class Group
    * @param  array  $items An array of items to place
    * @param  string $place Where they should end up (prepend|append)
    */
-  private function placeAround($items, $place)
+  protected function placeAround($items, $place)
   {
     // Iterate over the items and place them where they should
     foreach ((array) $items as $item) {

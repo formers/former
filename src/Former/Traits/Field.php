@@ -7,6 +7,7 @@
  */
 namespace Former\Traits;
 
+use \Former\Former;
 use \Former\Form\Form;
 use \Former\Form\Group;
 use \Former\Helpers;
@@ -83,7 +84,10 @@ abstract class Field extends FormerObject implements FieldInterface
 
     // Link Control group
     if ($this->app['former']->getFramework()->isnt('Nude')) {
-      $this->group = new Group($this->app, $this->label);
+      $groupClass = $this->isCheckable() ? 'CheckableGroup' : 'Group';
+      $groupClass = Former::FORMSPACE.$groupClass;
+
+      $this->group = new $groupClass($this->app, $this->label);
     }
   }
 

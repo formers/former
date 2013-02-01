@@ -57,6 +57,11 @@ class Former
   protected $rules = array();
 
   /**
+   * The namespace of Form elements
+   */
+  const FORMSPACE = 'Former\Form\\';
+
+  /**
    * The namespace of fields
    */
   const FIELDSPACE = 'Former\Form\Fields\\';
