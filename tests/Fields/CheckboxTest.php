@@ -291,8 +291,8 @@ class CheckboxTest extends FormerTests
 
     $this->former->populate(array('foo' => false));
     $checkboxFalse = $this->former->checkbox('foo')->__toString();
-    $matcherTrue = $this->controlGroup($this->cb());
+    $matcherFalse = $this->controlGroup($this->cb());
 
-    $this->assertEquals($matcherTrue, $checkboxFalse);
+    $this->assertEquals($matcherFalse, $checkboxFalse);
   }
 }
