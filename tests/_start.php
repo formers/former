@@ -1,4 +1,5 @@
 <?php
+ini_set('memory_limit', '64M');
 include '_illuminate.php';
 include 'Dummy/DummyEloquent.php';
 
