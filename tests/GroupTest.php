@@ -279,4 +279,13 @@ class GroupTest extends FormerTests
     $this->assertEquals($matcher, $group);
   }
 
+  public function testCanAddClassToGroup()
+  {
+    $control = $this->former->text('foo')->addGroupClass('foo')->__toString();
+    $matcher = $this->createMatcher();
+    $matcher = str_replace('group"', 'group foo"', $matcher);
+
+    $this->assertEquals($matcher, $control);
+  }
+
 }

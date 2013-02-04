@@ -128,6 +128,21 @@ class Group
   }
 
   /**
+   * Wrap a Field with the current group
+   *
+   * @param  Field  $field A Field instance
+   * @return string        A group
+   */
+  public function wrapField($field)
+  {
+    $label  = $this->getLabel($field);
+    $field  = $this->prependAppend($field);
+    $field .= $this->getHelp();
+
+    return $this->wrap($field, $label);
+  }
+
+  /**
    * Closes a group
    *
    * @return string Closing tag
@@ -152,6 +167,16 @@ class Group
     $state = $this->app['former']->getFramework()->filterState($state);
 
     $this->state = $state;
+  }
+
+  /**
+   * Set a class on the Group
+   *
+   * @param string $class The class to add
+   */
+  public function addGroupClass($class)
+  {
+    $this->attributes = Helpers::addClass($this->attributes, $class);
   }
 
   /**
@@ -313,21 +338,6 @@ class Group
     $group .= $this->close();
 
     return $group;
-  }
-
-  /**
-   * Wrap a Field with the current group
-   *
-   * @param  Field  $field A Field instance
-   * @return string        A group
-   */
-  public function wrapField($field)
-  {
-    $label  = $this->getLabel($field);
-    $field  = $this->prependAppend($field);
-    $field .= $this->getHelp();
-
-    return $this->wrap($field, $label);
   }
 
   /**
