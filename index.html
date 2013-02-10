@@ -82,10 +82,9 @@ Laravel's original Form class is great — simplistic and full of little helpers
     <span class="o">-&gt;</span><span class="na">rows</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">columns</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">autofocus</span><span class="p">();</span>
 
-  <span class="nx">Former</span><span class="o">::</span><span class="na">actions</span> <span class="p">(</span>
-    <span class="nx">Former</span><span class="o">::</span><span class="na">large_primary_submit</span><span class="p">(</span><span class="s1">'Submit'</span><span class="p">),</span>
-    <span class="nx">Former</span><span class="o">::</span><span class="na">large_inverse_reset</span><span class="p">(</span><span class="s1">'Reset'</span><span class="p">)</span>
-  <span class="p">)</span>
+  <span class="nx">Former</span><span class="o">::</span><span class="na">actions</span><span class="p">()</span>
+    <span class="o">-&gt;</span><span class="na">large_primary_submit</span><span class="p">(</span><span class="s1">'Submit'</span><span class="p">),</span>
+    <span class="o">-&gt;</span><span class="na">large_inverse_reset</span><span class="p">(</span><span class="s1">'Reset'</span><span class="p">)</span>
 
 <span class="nx">Former</span><span class="o">::</span><span class="na">close</span><span class="p">()</span>
 </pre></div>
@@ -106,20 +105,38 @@ Now of course in case you want to set an attribute that actually contains an und
 
 <h2>Installation</h2>
 
-<p>Installing Former is easy as hell. You just type the following in your Terminal :</p>
+<h3>Under Laravel 3</h3>
 
-<div class="highlight"><pre>php artisan bundle:install former
+<p>Clone the repo in your <code>bundles</code> folder and add <code>'former' =&gt; array('auto' =&gt; true)</code> to your bundles file.
+Then add as an alias <code>'Former' =&gt; 'Former\Facades\LaravelThree'</code> in your application file and you're good to go !</p>
+
+<p>Now as Laravel 3 doesn't automatically checkout Composer dependencies, you'll have to go into the <code>bundles/former</code> folder and do a <code>composer install</code> (after that I'll leave you guys alone, promise).</p>
+
+<h3>Under Laravel 4</h3>
+
+<p>Installing Former is easy as hell. Add the following to your <code>composer.json</code> :</p>
+
+<pre><code>"anahkiasen/former": "dev-agnostic"
+</code></pre>
+
+<p>Add Former's service provider to your Laravel application in <code>app/config/app.php</code>. In the <code>providers</code> array add :</p>
+
+<pre><code>'Former\FormerServiceProvider',
+</code></pre>
+
+<p>Add then alias Former's main class by adding its facade to the <code>facades</code> array in the same file :</p>
+
+<pre><code>'Former' =&gt; 'Former\Facades\Illuminate',
+</code></pre>
+
+<h3>Outside of a framework</h3>
+
+<p>Same as for Laravel 4, add Former to your Composer file. Then do this :</p>
+
+<div class="highlight"><pre><span class="k">use</span> <span class="nx">Former\Facades\Agnostic</span> <span class="k">as</span> <span class="nx">Former</span><span class="p">;</span>
 </pre></div>
 
-<p>Add the following to your <code>bundles.php</code> file :</p>
-
-<div class="highlight"><pre><span class="s1">'former'</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">'auto'</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">),</span>
-</pre></div>
-
-<p>And finally for easier use I recommand adding this alias to your alias array in <code>application.php</code> :</p>
-
-<div class="highlight"><pre><span class="s1">'Former'</span> <span class="o">=&gt;</span> <span class="s1">'Former\Former'</span><span class="p">,</span>
-</pre></div>
+<p>And you're done.</p>
 
 <hr><p><a name="features"></a></p>
 
