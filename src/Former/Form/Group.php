@@ -415,7 +415,7 @@ class Group
       }
 
       // If the item is not a button, wrap it
-      if (!String::startsWith($item, '<button')) {
+      if (is_string($item) and !String::startsWith($item, '<button')) {
         $item = '<span class="add-on">'.$item.'</span>';
       }
 
