@@ -23,7 +23,7 @@
     "meido/form": "dev-master"
   },
   "require-dev": {
-    "mockery/mockery": "0.7.2"
+    "mockery/mockery": "dev-master"
   },
   "autoload": {
     "psr-0": {
