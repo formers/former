@@ -13,6 +13,7 @@
 - [add] You can also create a group that contains raw content (not a field) with `Former::group('label')->contents('YourContent')`. This will wrap the content in a control class so that your content is aligned with the fields.
 - [add] Checkables now handle being populated from relations
 - [add] You can now add classes to the group via the `->addGroupClass` method
+- [add] Former::withRules() no also take a Laravel-formatted string of rules (ie. "rule|rule:parameter|rule")
 
 2.6.0
 -----

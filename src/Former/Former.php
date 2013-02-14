@@ -203,7 +203,9 @@ class Former
    */
   public function withRules()
   {
-    $rules = call_user_func_array('array_merge', func_get_args());
+    $rules = func_get_args();
+    if (sizeof($rules) == 1 and is_string($rules[0])) $rules = explode('|', $rules[0]);
+    else $rules = call_user_func_array('array_merge', func_get_args());
 
     // Parse the rules according to Laravel conventions
     foreach ($rules as $name => $fieldRules) {
