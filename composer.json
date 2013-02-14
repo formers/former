@@ -16,10 +16,10 @@
     }
   ],
   "require": {
-    "anahkiasen/underscore-php": "1.1.*",
-    "illuminate/config": "v4.0.0-BETA3",
-    "illuminate/container": "v4.0.0-BETA3",
-    "illuminate/translation" :"v4.0.0-BETA3",
+    "anahkiasen/underscore-php": "dev-master",
+    "illuminate/config": "4.0.x",
+    "illuminate/container": "4.0.x",
+    "illuminate/translation" :"4.0.x",
     "meido/form": "dev-master"
   },
   "require-dev": {
