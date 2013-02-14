@@ -260,7 +260,7 @@ class Former
     $prefix = $this->app['config']->get('former::framework');
     $prefix = !empty($prefix) ? 'former::' : 'config.';
 
-    return $this->app['config']->get($prefix.$option);
+    return $this->app['config']->get($prefix.$option, $default);
   }
 
   ////////////////////////////////////////////////////////////////////
