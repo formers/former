@@ -53,19 +53,19 @@ class IlluminateMock
   public function getConfig($live = true, $unchecked = '', $push = false, $automatic = true)
   {
     $config = Mockery::mock('config');
-    $config->shouldReceive('get')->with('application.encoding')->andReturn('UTF-8');
-    $config->shouldReceive('get')->with('former::default_form_type')->andReturn('horizontal');
-    $config->shouldReceive('get')->with('former::fetch_errors')->andReturn(false);
+    $config->shouldReceive('get')->with('application.encoding', Mockery::any())->andReturn('UTF-8');
+    $config->shouldReceive('get')->with('former::default_form_type', Mockery::any())->andReturn('horizontal');
+    $config->shouldReceive('get')->with('former::fetch_errors', Mockery::any())->andReturn(false);
     $config->shouldReceive('get')->with('former::framework')->andReturn('TwitterBootstrap');
-    $config->shouldReceive('get')->with('former::translate_from')->andReturn('validation.attributes');
-    $config->shouldReceive('get')->with('former::required_class')->andReturn('required');
-    $config->shouldReceive('get')->with('former::required_text')->andReturn('*');
+    $config->shouldReceive('get')->with('former::translate_from', Mockery::any())->andReturn('validation.attributes');
+    $config->shouldReceive('get')->with('former::required_class', Mockery::any())->andReturn('required');
+    $config->shouldReceive('get')->with('former::required_text', Mockery::any())->andReturn('*');
 
     // Variable configuration keys
-    $config->shouldReceive('get')->with('former::live_validation')->andReturn($live);
-    $config->shouldReceive('get')->with('former::unchecked_value')->andReturn($unchecked);
-    $config->shouldReceive('get')->with('former::push_checkboxes')->andReturn($push);
-    $config->shouldReceive('get')->with('former::automatic_label')->andReturn($automatic);
+    $config->shouldReceive('get')->with('former::live_validation', Mockery::any())->andReturn($live);
+    $config->shouldReceive('get')->with('former::unchecked_value', Mockery::any())->andReturn($unchecked);
+    $config->shouldReceive('get')->with('former::push_checkboxes', Mockery::any())->andReturn($push);
+    $config->shouldReceive('get')->with('former::automatic_label', Mockery::any())->andReturn($automatic);
 
     return $config;
   }
