@@ -1,6 +1,7 @@
 {
   "name": "anahkiasen/former",
   "description": "A powerful form builder for the Laravel framework",
+  "homepage": "http://anahkiasen.github.com/former/",
   "license": "MIT",
   "keywords": [
     "bootstrap",
