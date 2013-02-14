@@ -5,10 +5,7 @@ class GroupTest extends FormerTests
 {
   public function createButton($text)
   {
-    $button = Mockery::mock('Button');
-    $button->shouldReceive('__toString')->andReturn('<button type="button" class="btn">' .$text. '</button>');
-
-    return $button;
+    return new DummyButton($text);
   }
 
   // Data providers ------------------------------------------------ /
