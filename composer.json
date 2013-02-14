@@ -15,25 +15,19 @@
     }
   ],
   "require": {
-    "anahkiasen/underscore-php": "dev-master",
-    "illuminate/config": "dev-master",
-    "illuminate/container": "dev-master",
-    "illuminate/translation" :"dev-master",
-    "meido/form": "dev-master",
-    "meido/html": "1.1.*"
+    "anahkiasen/underscore-php": "1.1.*",
+    "illuminate/config": "v4.0.0-BETA3",
+    "illuminate/container": "v4.0.0-BETA3",
+    "illuminate/translation" :"v4.0.0-BETA3",
+    "meido/form": "dev-master"
   },
   "require-dev": {
-    "mockery/mockery": "dev-master"
+    "mockery/mockery": "0.7.2"
   },
   "autoload": {
     "psr-0": {
       "Former": "src",
-      "Laravel": "src",
-      "Meido": "src"
+      "Laravel": "src"
     }
-  },
-  "minimum-stability": "dev",
-  "branch-alias": {
-    "dev-composer": "dev-agnostic"
   }
 }
