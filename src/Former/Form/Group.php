@@ -6,8 +6,8 @@
  */
 namespace Former\Form;
 
-use Former\Helpers;
 use BadMethodCallException;
+use Former\Helpers;
 use Underscore\Types\Arrays;
 use Underscore\Types\String;
 
