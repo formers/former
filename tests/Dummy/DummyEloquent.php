@@ -6,18 +6,22 @@ class DummyEloquent
 
   public function __construct($array)
   {
-    $this->id = $array['id'];
+    $this->id   = $array['id'];
     $this->name = $array['name'];
   }
 
   public function __get($key)
   {
     if ($key == 'roles') return $this->roles();
+    if ($key == 'attribute_old') return $this->get_attribute_old();
+    if ($key == 'custom') return $this->getCustomAttribute();
+
+    return $this->$key;
   }
 
   public function __isset($key)
   {
-    if ($key == 'roles') return true;
+    return in_array($key, array('id', 'name', 'roles'));
   }
 
   public function roles()
@@ -31,6 +35,18 @@ class DummyEloquent
   public function getKey()
   {
     return $this->id;
+  }
+
+  // Mutators ------------------------------------------------------ /
+
+  public function get_attribute_old()
+  {
+    return 'custom';
+  }
+
+  public function getCustomAttribute()
+  {
+    return 'custom';
   }
 
   public function __toString()

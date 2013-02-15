@@ -135,7 +135,7 @@ class Former
    */
   public function populate($values)
   {
-    $this->populator->populateWith($values);
+    $this->populator->setValues($values);
   }
 
   /**

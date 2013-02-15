@@ -12,14 +12,26 @@ use Underscore\Types\String;
 
 class Populator
 {
+
   /**
    * The populated values
    * @var array
    */
   private $values = array();
 
+  /**
+   * Build a new Populator instance with a
+   * set of values to use
+   *
+   * @param array $values
+   */
+  public function __construct($values = array())
+  {
+    $this->values = $values;
+  }
+
   ////////////////////////////////////////////////////////////////////
-  //////////////////////// INDIVIDUAL VALUES /////////////////////////
+  ///////////////////////// INDIVIDUAL VALUES ////////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**
@@ -27,6 +39,8 @@ class Populator
    *
    * @param string $field The field's name
    * @param mixed  $value Its new value
+   *
+   * @return void
    */
   public function setValue($field, $value)
   {
@@ -47,45 +61,56 @@ class Populator
   public function getValue($field, $fallback = null)
   {
     // Plain array
-    if (is_array($this->values)) return Arrays::get($this->values, $field, $fallback);
+    if (is_array($this->values)) {
+      return Arrays::get($this->values, $field, $fallback);
+    }
 
     // Transform the name into an array
     $value = $this->values;
     $field = String::contains($field, '.') ? explode('.', $field) : (array) $field;
 
     // Dive into the model
-    foreach ($field as $r) {
+    foreach ($field as $relationship) {
 
       // Multiple results relation
       if (is_array($value)) {
-        foreach ($value as $subkey => $submodel) {
-          $value[$subkey] = isset($submodel->$r) ? $submodel->$r : $fallback;
-        }
-        continue;
+        $value = Arrays::each($value, function($submodel) use ($relationship, $fallback) {
+          return $this->getAttributeFromModel($submodel, $relationship, $fallback);
+        });
+
+      // Get attribute from model
+      } else {
+        $value = $this->getAttributeFromModel($value, $relationship, $fallback);
+        if ($value === $fallback) break;
       }
 
-      // Single model relation
-      if(isset($value->$r) or method_exists($value, 'get'.ucfirst($r))) $value = $value->$r;
-      else {
-        $value = $fallback;
-        break;
-      }
     }
 
     return $value;
   }
 
   ////////////////////////////////////////////////////////////////////
-  //////////////////////////// SWAPPERS //////////////////////////////
+  ///////////////////////////// SWAPPERS /////////////////////////////
   ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Get all values
+   *
+   * @return mixed
+   */
+  public function getValues()
+  {
+    return $this->values;
+  }
 
   /**
    * Replace the values array
    *
    * @param  mixed $values The new values
+   *
    * @return void
    */
-  public function populateWith($values)
+  public function setValues($values)
   {
     $this->values = $values;
   }
@@ -99,4 +124,30 @@ class Populator
   {
     $this->values = array();
   }
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// HELPERS /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Get an attribute from a model
+   *
+   * @param object $model     The model
+   * @param string $attribute The attribute's name
+   * @param string $fallback  Fallback value
+   *
+   * @return mixed
+   */
+  protected function getAttributeFromModel($model, $attribute, $fallback)
+  {
+    if(
+      isset($model->$attribute) or
+      method_exists($model, 'get_'.$attribute) or
+      method_exists($model, 'get'.ucfirst($attribute).'Attribute')) {
+        return $model->$attribute;
+    }
+
+    return $fallback;
+  }
+
 }
