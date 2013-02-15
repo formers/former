@@ -7,14 +7,14 @@
  */
 namespace Former\Traits;
 
-use \Former\Former;
-use \Former\Form\Form;
-use \Former\Form\Group;
-use \Former\Helpers;
-use \Former\Interfaces\FieldInterface;
-use \Former\LiveValidation;
-use \Underscore\Types\Arrays;
-use \Underscore\Types\String;
+use Former\Former;
+use Former\Form\Form;
+use Former\Form\Group;
+use Former\Helpers;
+use Former\Interfaces\FieldInterface;
+use Former\LiveValidation;
+use Underscore\Types\Arrays;
+use Underscore\Types\String;
 
 abstract class Field extends FormerObject implements FieldInterface
 {

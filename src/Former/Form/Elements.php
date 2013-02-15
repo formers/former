@@ -7,7 +7,7 @@
  */
 namespace Former\Form;
 
-use \Former\Helpers;
+use Former\Helpers;
 
 class Elements
 {

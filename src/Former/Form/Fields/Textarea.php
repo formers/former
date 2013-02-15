@@ -1,7 +1,7 @@
 <?php
 namespace Former\Form\Fields;
 
-use \Former\Traits\Field;
+use Former\Traits\Field;
 
 class Textarea extends Field
 {

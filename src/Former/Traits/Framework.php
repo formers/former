@@ -6,10 +6,10 @@
  */
 namespace Former\Traits;
 
-use \Former\Helpers;
-use \Former\Traits\Field;
-use \Underscore\Types\Arrays;
-use \Underscore\Types\String;
+use Former\Helpers;
+use Former\Traits\Field;
+use Underscore\Types\Arrays;
+use Underscore\Types\String;
 
 abstract class Framework
 {

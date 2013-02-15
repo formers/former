@@ -6,10 +6,10 @@
  */
 namespace Former\Form;
 
-use \Former\Helpers;
-use \BadMethodCallException;
-use \Underscore\Types\Arrays;
-use \Underscore\Types\String;
+use Former\Helpers;
+use BadMethodCallException;
+use Underscore\Types\Arrays;
+use Underscore\Types\String;
 
 class Group
 {

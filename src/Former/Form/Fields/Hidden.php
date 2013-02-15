@@ -6,7 +6,7 @@
  */
 namespace Former\Form\Fields;
 
-use \Former\Traits\Field;
+use Former\Traits\Field;
 
 class Hidden extends Field
 {

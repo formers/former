@@ -6,8 +6,8 @@
  */
 namespace Former\Form\Fields;
 
-use \Former\Traits\Field;
-use \Former\Helpers;
+use Former\Traits\Field;
+use Former\Helpers;
 
 class Select extends Field
 {

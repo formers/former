@@ -7,8 +7,8 @@
  */
 namespace Former\Traits;
 
-use \Former\Helpers;
-use \Underscore\Types\Arrays;
+use Former\Helpers;
+use Underscore\Types\Arrays;
 
 abstract class FormerObject
 {

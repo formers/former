@@ -7,7 +7,7 @@
  */
 namespace Former\Facades\Legacy;
 
-use \Laravel\Config as LaravelConfig;
+use Laravel\Config as LaravelConfig;
 
 class Config extends Redirector
 {

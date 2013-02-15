@@ -6,11 +6,11 @@
  */
 namespace Former\Framework;
 
-use \Illuminate\Container\Container;
-use \Former\Interfaces\FrameworkInterface;
-use \Former\Traits\Field;
-use \Former\Traits\Framework;
-use \Underscore\Types\Arrays;
+use Illuminate\Container\Container;
+use Former\Interfaces\FrameworkInterface;
+use Former\Traits\Field;
+use Former\Traits\Framework;
+use Underscore\Types\Arrays;
 
 class ZurbFoundation extends Framework implements FrameworkInterface
 {

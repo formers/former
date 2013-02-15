@@ -6,8 +6,8 @@
  */
 namespace Former\Interfaces;
 
-use \Former\Traits\Field;
-use \Illuminate\Container\Container;
+use Former\Traits\Field;
+use Illuminate\Container\Container;
 
 interface FrameworkInterface
 {

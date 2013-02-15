@@ -6,7 +6,7 @@
  */
 namespace Former\Form\Fields;
 
-use \Former\Traits\Checkable;
+use Former\Traits\Checkable;
 
 class Radio extends Checkable
 {

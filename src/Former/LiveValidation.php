@@ -7,8 +7,8 @@
  */
 namespace Former;
 
-use \Former\Traits\Field;
-use \Laravel\File;
+use Former\Traits\Field;
+use Laravel\File;
 
 class LiveValidation
 {

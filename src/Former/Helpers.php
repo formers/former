@@ -6,10 +6,10 @@
  */
 namespace Former;
 
-use \Illuminate\Container\Container;
-use \Illuminate\Database\Eloquent\Collection;
-use \Illuminate\Translation\Translator;
-use \Underscore\Types\String;
+use Illuminate\Container\Container;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Translation\Translator;
+use Underscore\Types\String;
 
 class Helpers
 {

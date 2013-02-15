@@ -7,8 +7,8 @@
  */
 namespace Former;
 
-use \Underscore\Types\Arrays;
-use \Underscore\Types\String;
+use Underscore\Types\Arrays;
+use Underscore\Types\String;
 
 class Dispatch
 {

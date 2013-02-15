@@ -7,9 +7,9 @@
  */
 namespace Former\Form;
 
-use \Former\Traits\FormerObject;
-use \Underscore\Types\String;
-use \Underscore\Types\Arrays;
+use Former\Traits\FormerObject;
+use Underscore\Types\String;
+use Underscore\Types\Arrays;
 
 class Actions extends FormerObject
 {

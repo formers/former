@@ -6,8 +6,8 @@
  */
 namespace Former\Form\Fields;
 
-use \Form;
-use \Former\Helpers;
+use Form;
+use Former\Helpers;
 
 class Button extends \Former\Traits\Field
 {

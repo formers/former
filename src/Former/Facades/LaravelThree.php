@@ -6,7 +6,7 @@
  */
 namespace Former\Facades;
 
-use \Laravel\Config;
+use Laravel\Config;
 
 class LaravelThree extends FormerBuilder
 {

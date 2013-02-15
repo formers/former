@@ -6,8 +6,8 @@
  */
 namespace Former\Traits;
 
-use \Underscore\Types\Arrays;
-use \Former\Helpers;
+use Underscore\Types\Arrays;
+use Former\Helpers;
 
 abstract class Checkable extends Field
 {

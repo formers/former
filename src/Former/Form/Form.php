@@ -6,9 +6,9 @@
  */
 namespace Former\Form;
 
-use \Former\Traits\FormerObject;
-use \Underscore\Types\Arrays;
-use \Underscore\Types\String;
+use Former\Traits\FormerObject;
+use Underscore\Types\Arrays;
+use Underscore\Types\String;
 
 class Form extends FormerObject
 {

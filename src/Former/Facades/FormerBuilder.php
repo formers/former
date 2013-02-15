@@ -6,7 +6,7 @@
  */
 namespace Former\Facades;
 
-use \Illuminate\Container\Container;
+use Illuminate\Container\Container;
 
 abstract class FormerBuilder
 {

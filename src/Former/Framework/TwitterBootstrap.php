@@ -6,12 +6,12 @@
  */
 namespace Former\Framework;
 
-use \Former\Interfaces\FrameworkInterface;
-use \Former\Traits\Field;
-use \Former\Traits\Framework;
-use \Illuminate\Container\Container;
-use \Underscore\Types\Arrays;
-use \Underscore\Types\String;
+use Former\Interfaces\FrameworkInterface;
+use Former\Traits\Field;
+use Former\Traits\Framework;
+use Illuminate\Container\Container;
+use Underscore\Types\Arrays;
+use Underscore\Types\String;
 
 class TwitterBootstrap extends Framework implements FrameworkInterface
 {

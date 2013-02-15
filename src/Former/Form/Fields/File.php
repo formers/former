@@ -6,8 +6,8 @@
  */
 namespace Former\Form\Fields;
 
-use \Former\Traits\Field;
-use \Laravel\File as LaravelFile;
+use Former\Traits\Field;
+use Laravel\File as LaravelFile;
 
 class File extends Field
 {

@@ -7,10 +7,10 @@
  */
 namespace Former;
 
-use \Former\Interfaces\FrameworkInterface;
-use \Illuminate\Container\Container;
-use \Underscore\Types\Arrays;
-use \Underscore\Types\String;
+use Former\Interfaces\FrameworkInterface;
+use Illuminate\Container\Container;
+use Underscore\Types\Arrays;
+use Underscore\Types\String;
 
 class Former
 {
