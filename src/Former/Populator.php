@@ -20,6 +20,12 @@ class Populator
   private $values = array();
 
   /**
+   * Should the values be escaped?
+   * @var boolean
+   */
+  private $escape_values = true;
+
+  /**
    * Build a new Populator instance with a
    * set of values to use
    *
@@ -62,7 +68,8 @@ class Populator
   {
     // Plain array
     if (is_array($this->values)) {
-      return Arrays::get($this->values, $field, $fallback);
+      $value = Arrays::get($this->values, $field, $fallback);
+      return ($this->escape_values) ? e($value) : $value;
     }
 
     // Transform the name into an array
@@ -86,7 +93,7 @@ class Populator
 
     }
 
-    return $value;
+    return ($this->escape_value) ? e($value) : $value;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -110,9 +117,10 @@ class Populator
    *
    * @return void
    */
-  public function setValues($values)
+  public function setValues($values, $escape_values = true)
   {
     $this->values = $values;
+    $this->escape_values = $escape_values;
   }
 
   /**
