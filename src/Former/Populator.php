@@ -93,7 +93,7 @@ class Populator
 
     }
 
-    return ($this->escape_value) ? e($value) : $value;
+    return ($this->escape_values) ? e($value) : $value;
   }
 
   ////////////////////////////////////////////////////////////////////
