@@ -48,12 +48,12 @@ class Populator
    *
    * @return void
    */
-  public function setValue($field, $value)
+  public function setValue($field, $value, $escape_value = true)
   {
     if (is_object($this->values)) {
-      $this->values->$field = $value;
+      $this->values->$field = ($escape_value) ? e($value) : $value;
     } else {
-      $this->values[$field] = $value;
+      $this->values[$field] = ($escape_value) ? e($value) : $value;
     }
   }
 

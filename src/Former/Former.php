@@ -144,9 +144,9 @@ class Former
    * @param string $field The field's name
    * @param mixed  $value Its new value
    */
-  public function populateField($field, $value)
+  public function populateField($field, $value, $escape_value = true)
   {
-    $this->populator->setValue($field, $value);
+    $this->populator->setValue($field, $value, $escape_value);
   }
 
   /**
