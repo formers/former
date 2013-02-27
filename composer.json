@@ -16,6 +16,7 @@
     }
   ],
   "require": {
+    "anahkiasen/html-object": "dev-master",
     "anahkiasen/underscore-php": "dev-master",
     "illuminate/config": "4.0.*@dev",
     "illuminate/container": "4.0.*@dev",
