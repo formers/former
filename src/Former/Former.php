@@ -133,9 +133,9 @@ class Former
    *
    * @param mixed $values Can be an Eloquent object or an array
    */
-  public function populate($values)
+  public function populate($values, $escape_values = true)
   {
-    $this->populator->setValues($values);
+    $this->populator->setValues($values, $escape_values);
   }
 
   /**
@@ -144,9 +144,9 @@ class Former
    * @param string $field The field's name
    * @param mixed  $value Its new value
    */
-  public function populateField($field, $value)
+  public function populateField($field, $value, $escape_value = true)
   {
-    $this->populator->setValue($field, $value);
+    $this->populator->setValue($field, $value, $escape_value);
   }
 
   /**
