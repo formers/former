@@ -74,8 +74,9 @@ class Populator
 
       // Multiple results relation
       if (is_array($value)) {
-        $value = Arrays::each($value, function($submodel) use ($relationship, $fallback) {
-          return $this->getAttributeFromModel($submodel, $relationship, $fallback);
+        $me = $this;
+        $value = Arrays::each($value, function($submodel) use ($me, $relationship, $fallback) {
+          return $me->getAttributeFromModel($submodel, $relationship, $fallback);
         });
 
       // Get attribute from model
