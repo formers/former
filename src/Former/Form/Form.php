@@ -70,7 +70,7 @@ class Form extends FormerObject
    * @param  array  $parameters Parameters passed
    * @return string             A form opening tag
    */
-  public function open($type, $parameters)
+  public function openForm($type, $parameters)
   {
     $action     = Arrays::get($parameters, 0);
     $method     = Arrays::get($parameters, 1, 'POST');

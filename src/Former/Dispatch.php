@@ -37,7 +37,7 @@ class Dispatch
 
     $form = new Form\Form($app);
 
-    return $form->open($method, $parameters);
+    return $form->openForm($method, $parameters);
   }
 
   /**
