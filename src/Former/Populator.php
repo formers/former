@@ -139,7 +139,7 @@ class Populator
    *
    * @return mixed
    */
-  protected function getAttributeFromModel($model, $attribute, $fallback)
+  public function getAttributeFromModel($model, $attribute, $fallback)
   {
     if(
       isset($model->$attribute) or
