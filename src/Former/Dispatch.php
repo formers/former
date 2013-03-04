@@ -21,7 +21,6 @@ class Dispatch
   {
     // Disregards if the method isn't an element
     if (!method_exists($elements = new Form\Elements($app), $method)) return false;
-
     return call_user_func_array(array($elements, $method), $parameters);
   }
 
@@ -49,7 +48,6 @@ class Dispatch
   {
     // Disregards if the method isn't "group"
     if ($method != 'group') return false;
-
     return new Form\Group(
       $app,
       Arrays::get($parameters, 0),
@@ -65,7 +63,6 @@ class Dispatch
   public static function toActions($app, $method, $parameters)
   {
     if ($method != 'actions') return false;
-
     return new Form\Actions($app, $parameters);
   }
 

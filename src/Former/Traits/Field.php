@@ -72,7 +72,7 @@ abstract class Field extends FormerObject implements FieldInterface
     $this->automaticLabels($name, $label);
 
     // Repopulate field
-    if($type != 'password') {
+    if ($type != 'password') {
       $this->value = $this->repopulate();
     }
 

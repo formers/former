@@ -76,7 +76,6 @@ abstract class Checkable extends Field
   {
     $focused = $this->setOnFocused('attributes.'.$method, Arrays::get($parameters, 0));
     if ($focused) return $this;
-
     return parent::__call($method, $parameters);
   }
 
@@ -118,7 +117,6 @@ abstract class Checkable extends Field
   {
     if (!isset($this->items[$on])) return $this;
     else $this->focus = $on;
-
     return $this;
   }
 

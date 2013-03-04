@@ -58,7 +58,6 @@ class Actions extends FormerObject
       $link       = Arrays::get($parameters, 1);
       $attributes = Arrays::get($parameters, 2);
       if (!$attributes and is_array($link)) $attributes = $link;
-
       return $this->createButtonOfType($method, $text, $link, $attributes);
     }
 

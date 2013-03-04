@@ -69,6 +69,7 @@ abstract class FormerBuilder
     $framework = $app['config']->get($prefix.'framework');
     $app->bind('\Former\Interfaces\FrameworkInterface', function($app) use ($framework) {
       $framework = '\Former\Framework\\'.$framework;
+
       return new $framework($app);
     });
 

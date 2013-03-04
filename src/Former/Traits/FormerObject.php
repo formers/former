@@ -9,7 +9,6 @@ namespace Former\Traits;
 
 use Former\Helpers;
 use HtmlObject\Element;
-use Underscore\Types\Arrays;
 
 abstract class FormerObject extends Element
 {
