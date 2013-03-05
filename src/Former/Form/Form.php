@@ -22,37 +22,37 @@ class Form extends FormerObject
    * The Form type
    * @var string
    */
-  private $type = null;
+  protected $type = null;
 
   /**
    * The available form types
    * @var array
    */
-  private $availableTypes = array('horizontal', 'vertical', 'inline', 'search');
+  protected $availableTypes = array('horizontal', 'vertical', 'inline', 'search');
 
   /**
    * The destination of the current form
    * @var string
    */
-  private $action;
+  protected $action;
 
   /**
    * The form method
    * @var string
    */
-  private $method;
+  protected $method;
 
   /**
    * Whether the form should be secured or not
    * @var boolean
    */
-  private $secure;
+  protected $secure;
 
   /**
    * Whether a form is opened or not
    * @var boolean
    */
-  private static $opened = false;
+  protected static $opened = false;
 
   ////////////////////////////////////////////////////////////////////
   /////////////////////////// CORE METHODS ///////////////////////////
