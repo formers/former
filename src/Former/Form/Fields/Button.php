@@ -8,8 +8,9 @@ namespace Former\Form\Fields;
 
 use Form;
 use Former\Helpers;
+use Former\Traits\Field;
 
-class Button extends \Former\Traits\Field
+class Button extends Field
 {
   protected $app;
 
@@ -45,6 +46,7 @@ class Button extends \Former\Traits\Field
   public function render()
   {
     $type = $this->type;
+    $this->attributes['name'] = $this->name;
 
     // Link buttons
     if ($type == 'link') {

@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Anahkiasen/html-object.git",
-                "reference": "8b8446960ecc71d4d40af007e1c4824abb59e66a"
+                "reference": "5f8bf34dce6c6cf79a2cf4cd2bc6d2557274a965"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/8b8446960ecc71d4d40af007e1c4824abb59e66a",
-                "reference": "8b8446960ecc71d4d40af007e1c4824abb59e66a",
+                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/5f8bf34dce6c6cf79a2cf4cd2bc6d2557274a965",
+                "reference": "5f8bf34dce6c6cf79a2cf4cd2bc6d2557274a965",
                 "shasum": ""
             },
             "require": {
@@ -30,12 +30,12 @@
             ],
             "authors": [
                 {
-                    "name": "Maxime Fabre",
+                    "name": "Anahkiasen",
                     "email": "ehtnam6@gmail.com"
                 }
             ],
             "description": "A set of classes to create and manipulate HTML objects abstractions",
-            "time": "2013-03-02 15:08:08"
+            "time": "2013-03-05 00:39:17"
         },
         {
             "name": "anahkiasen/underscore-php",
@@ -43,12 +43,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Anahkiasen/underscore-php.git",
-                "reference": "6009cfdb797925919d3b4ba18882c15ddea04e9f"
+                "reference": "15229b22dc2302ea1d56a7a74f254925dfd0ac32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/underscore-php/zipball/6009cfdb797925919d3b4ba18882c15ddea04e9f",
-                "reference": "6009cfdb797925919d3b4ba18882c15ddea04e9f",
+                "url": "https://api.github.com/repos/Anahkiasen/underscore-php/zipball/15229b22dc2302ea1d56a7a74f254925dfd0ac32",
+                "reference": "15229b22dc2302ea1d56a7a74f254925dfd0ac32",
                 "shasum": ""
             },
             "require": {
@@ -73,7 +73,7 @@
                 }
             ],
             "description": "A redacted port of Underscore.js for PHP",
-            "time": "2013-03-04 21:42:42"
+            "time": "2013-03-04 21:51:10"
         },
         {
             "name": "illuminate/cache",
@@ -248,12 +248,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "89107ec898d364a51be662bc3aa9fd9e7f27c03a"
+                "reference": "2c0abedc87a9f46d96e0217c13e07782eb8eb528"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/89107ec898d364a51be662bc3aa9fd9e7f27c03a",
-                "reference": "89107ec898d364a51be662bc3aa9fd9e7f27c03a",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/2c0abedc87a9f46d96e0217c13e07782eb8eb528",
+                "reference": "2c0abedc87a9f46d96e0217c13e07782eb8eb528",
                 "shasum": ""
             },
             "require": {
@@ -294,7 +294,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2013-03-03 21:57:58"
+            "time": "2013-03-05 01:35:50"
         },
         {
             "name": "illuminate/encryption",
@@ -386,7 +386,7 @@
             "target-dir": "Illuminate/Filesystem",
             "source": {
                 "type": "git",
-                "url": "http://github.com/illuminate/filesystem",
+                "url": "https://github.com/illuminate/filesystem.git",
                 "reference": "v4.0.0-BETA3"
             },
             "dist": {
@@ -518,12 +518,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/routing.git",
-                "reference": "78e4485f39306b6b6c9c2a6bb90327737c65aa45"
+                "reference": "f986a8ac6d42f8c0d0b76433d99571a866110ea9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/routing/zipball/78e4485f39306b6b6c9c2a6bb90327737c65aa45",
-                "reference": "78e4485f39306b6b6c9c2a6bb90327737c65aa45",
+                "url": "https://api.github.com/repos/illuminate/routing/zipball/f986a8ac6d42f8c0d0b76433d99571a866110ea9",
+                "reference": "f986a8ac6d42f8c0d0b76433d99571a866110ea9",
                 "shasum": ""
             },
             "require": {
@@ -562,7 +562,7 @@
             "keywords": [
                 "laravel"
             ],
-            "time": "2013-03-03 01:00:36"
+            "time": "2013-03-05 05:22:59"
         },
         {
             "name": "illuminate/session",
@@ -621,12 +621,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "7c35ef7d7fd90355f0e4e406a70258ad75e9ff0d"
+                "reference": "d77757feb3fd0846bf3e44c79be8abb0d6cb0cce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/7c35ef7d7fd90355f0e4e406a70258ad75e9ff0d",
-                "reference": "7c35ef7d7fd90355f0e4e406a70258ad75e9ff0d",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/d77757feb3fd0846bf3e44c79be8abb0d6cb0cce",
+                "reference": "d77757feb3fd0846bf3e44c79be8abb0d6cb0cce",
                 "shasum": ""
             },
             "require": {
@@ -658,7 +658,7 @@
                 }
             ],
             "description": "Various utilities and support functions.",
-            "time": "2013-03-01 02:03:02"
+            "time": "2013-03-04 21:32:55"
         },
         {
             "name": "illuminate/translation",
@@ -666,7 +666,7 @@
             "target-dir": "Illuminate/Translation",
             "source": {
                 "type": "git",
-                "url": "http://github.com/illuminate/translation",
+                "url": "https://github.com/illuminate/translation.git",
                 "reference": "v4.0.0-BETA3"
             },
             "dist": {
@@ -845,7 +845,7 @@
                     "Psr\\Log\\": ""
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -869,7 +869,7 @@
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/EventDispatcher",
+                "url": "https://github.com/symfony/EventDispatcher.git",
                 "reference": "2e1fce7bb3ea06d9e42756f1dd3edf966420c755"
             },
             "dist": {

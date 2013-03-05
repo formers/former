@@ -91,4 +91,14 @@ class ButtonTest extends FormerTests
 
     $this->assertEquals($matcher, $multiple);
   }
+
+  public function testButtonsAreHtmlObjects()
+  {
+    $button = $this->former->submit('submit');
+    $button->name('foo');
+    $matcher = $this->matchInputButton('btn', 'Submit', 'submit');
+    $matcher['attributes']['name'] = 'foo';
+
+    $this->assertHTML($matcher, $button->render());
+  }
 }
