@@ -151,4 +151,12 @@ class FormTest extends FormerTests
 
     $this->assertHTML($matcher, $open);
   }
+
+  public function testInlineFormsAreRecognized()
+  {
+    $open = $this->former->inline_open()->render();
+    $field = $this->former->text('foo');
+
+    $this->assertEquals('<input type="text" name="foo" />', $field->__toString());
+  }
 }
