@@ -172,7 +172,9 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    */
   public function addFormClasses($attributes, $type)
   {
-    $attributes = $this->addClass($attributes, 'form-'.$type);
+    if ($type) {
+      $attributes = $this->addClass($attributes, 'form-'.$type);
+    }
 
     return $attributes;
   }
