@@ -17,6 +17,6 @@ class Textarea extends Field
    */
   public function render()
   {
-    return $this->app['form']->textarea($this->name, $this->value, $this->attributes);
+    return $this->app['meido.form']->textarea($this->name, $this->value, $this->attributes);
   }
 }

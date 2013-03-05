@@ -47,11 +47,11 @@ abstract class FormerBuilder
    */
   public static function buildMeido($app)
   {
-    $app->bind('html', function($app) {
+    $app->bind('meido.html', function($app) {
       return new \Meido\HTML\HTML($app['url']);
     });
 
-    $app->singleton('form', function($app) {
+    $app->singleton('meido.form', function($app) {
       return new \Meido\Form\Form($app['url']);
     });
 

@@ -71,13 +71,13 @@ class Select extends Field
     }
 
     // Render select
-    $select = $this->app['form']->select($name, $this->options, $this->value, $this->attributes);
+    $select = $this->app['meido.form']->select($name, $this->options, $this->value, $this->attributes);
 
     // Add placeholder text if any
     if ($this->placeholder) {
       $placeholder = array('value' => '', 'disabled' => '');
       if(!$this->value) $placeholder['selected'] = '';
-      $placeholder = '<option'.$this->app['html']->attributes($placeholder).'>' .$this->placeholder. '</option>';
+      $placeholder = '<option'.$this->app['meido.html']->attributes($placeholder).'>' .$this->placeholder. '</option>';
 
       $select = preg_replace('#<select([^>]+)>#', '$0'.$placeholder, $select);
     }

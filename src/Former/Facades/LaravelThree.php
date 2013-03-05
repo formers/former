@@ -41,10 +41,10 @@ class LaravelThree extends FormerBuilder
       return new Legacy\Translator;
     });
 
-    $app->bind('html', function() {
+    $app->bind('meido.html', function() {
       return new Legacy\Redirector('HTML');
     });
-    $app->bind('form', function() {
+    $app->bind('meido.form', function() {
       return new Legacy\Redirector('Form');
     });
 

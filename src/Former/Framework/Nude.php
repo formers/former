@@ -87,7 +87,7 @@ class Nude extends Framework implements FrameworkInterface
    */
   public function createHelp($text, $attributes)
   {
-    return '<small'.$this->app['html']->attributes($attributes).'>'.$text.'</small>';
+    return '<small'.$this->app['meido.html']->attributes($attributes).'>'.$text.'</small>';
   }
 
   /**
@@ -111,7 +111,7 @@ class Nude extends Framework implements FrameworkInterface
   {
     $field->disabled();
 
-    return $this->app['form']->input('text', $field->getName(), $field->getValue(), $field->getAttributes());
+    return $this->app['meido.form']->input('text', $field->getName(), $field->getValue(), $field->getAttributes());
   }
 
   ////////////////////////////////////////////////////////////////////

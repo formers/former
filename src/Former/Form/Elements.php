@@ -40,7 +40,7 @@ class Elements
   {
     $label = Helpers::translate($label);
 
-    return $this->app['form']->label($name, $label, $attributes);
+    return $this->app['meido.form']->label($name, $label, $attributes);
   }
 
   /**
@@ -54,7 +54,7 @@ class Elements
   {
     $legend = Helpers::translate($legend);
 
-    return '<legend'.$this->app['html']->attributes($attributes).'>' .$legend. '</legend>';
+    return '<legend'.$this->app['meido.html']->attributes($attributes).'>' .$legend. '</legend>';
   }
 
   /**

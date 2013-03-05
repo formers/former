@@ -112,7 +112,7 @@ class Group
       $this->attributes = Helpers::addClass($this->attributes, $this->app['former']->getOption('required_class'));
     }
 
-    return '<div'.$this->app['html']->attributes($this->attributes). '>';
+    return '<div'.$this->app['meido.html']->attributes($this->attributes). '>';
   }
 
   /**
@@ -199,7 +199,7 @@ class Group
     if (!$this->label) return false;
 
     $attributes = $this->app['former']->getFramework()->addLabelClasses(array());
-    $label = $this->app['form']->label($this->label, $this->label, $attributes);
+    $label = $this->app['meido.form']->label($this->label, $this->label, $attributes);
 
     return $label;
   }

@@ -99,7 +99,7 @@ abstract class Framework
    */
   protected function attributes($attributes)
   {
-    return $this->app['html']->attributes($attributes);
+    return $this->app['meido.html']->attributes($attributes);
   }
 
   /**
@@ -129,11 +129,11 @@ abstract class Framework
 
     // Render plain label if checkable, else a classic one
     if ($field->isCheckable()) {
-      $label = '<label'.$this->app['html']->attributes($attributes).'>'.$text.'</label>';
+      $label = '<label'.$this->app['meido.html']->attributes($attributes).'>'.$text.'</label>';
     } else {
-      $label = $this->app['form']->label($field->getName(), $text, $attributes);
+      $label = $this->app['meido.form']->label($field->getName(), $text, $attributes);
     }
 
-    return $this->app['html']->decode($label);
+    return $this->app['meido.html']->decode($label);
   }
 }

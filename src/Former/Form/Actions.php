@@ -81,7 +81,7 @@ class Actions extends FormerObject
     });
 
     // Render block
-    $actions  = '<div' .$this->app['html']->attributes($this->attributes). '>';
+    $actions  = '<div' .$this->app['meido.html']->attributes($this->attributes). '>';
       $actions .= implode(' ', (array) $this->content);
     $actions .= '</div>';
 

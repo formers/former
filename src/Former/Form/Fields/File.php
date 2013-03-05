@@ -56,10 +56,10 @@ class File extends Field
   {
     // Maximum file size
     $hidden = $this->maxSize
-      ? $this->app['form']->hidden('MAX_FILE_SIZE', $this->maxSize)
+      ? $this->app['meido.form']->hidden('MAX_FILE_SIZE', $this->maxSize)
       : null;
 
-    return $this->app['form']->input($this->type, $this->name, $this->value, $this->attributes).$hidden;
+    return $this->app['meido.form']->input($this->type, $this->name, $this->value, $this->attributes).$hidden;
   }
 
   ////////////////////////////////////////////////////////////////////

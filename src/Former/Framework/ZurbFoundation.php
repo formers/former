@@ -125,7 +125,7 @@ class ZurbFoundation extends Framework implements FrameworkInterface
   {
     $field->disabled();
 
-    return $this->app['form']->input('text', $field->getName(), $field->getValue(), $field->getAttributes());
+    return $this->app['meido.form']->input('text', $field->getName(), $field->getValue(), $field->getAttributes());
   }
 
   ////////////////////////////////////////////////////////////////////

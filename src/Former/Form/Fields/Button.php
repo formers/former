@@ -50,10 +50,10 @@ class Button extends Field
 
     // Link buttons
     if ($type == 'link') {
-      return $this->app['html']->to($this->link, $this->value, $this->attributes);
+      return $this->app['meido.html']->to($this->link, $this->value, $this->attributes);
     }
 
-    return $this->app['form']->$type($this->value, $this->attributes);
+    return $this->app['meido.form']->$type($this->value, $this->attributes);
   }
 
   ////////////////////////////////////////////////////////////////////

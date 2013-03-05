@@ -35,6 +35,6 @@ class Hidden extends Field
    */
   public function render()
   {
-    return $this->app['form']->hidden($this->name, $this->value, $this->attributes);
+    return $this->app['meido.form']->hidden($this->name, $this->value, $this->attributes);
   }
 }
