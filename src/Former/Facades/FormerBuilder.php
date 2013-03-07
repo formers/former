@@ -53,11 +53,11 @@ abstract class FormerBuilder
   public static function buildMeido($app)
   {
     $app->bind('meido.html', function($app) {
-      return new \Meido\HTML\HTML($app['url']);
+      return new \LaravelBook\Laravel4Powerpack\HTML($app['url']);
     });
 
     $app->singleton('meido.form', function($app) {
-      return new \Meido\Form\Form($app['url']);
+      return new \LaravelBook\Laravel4Powerpack\Form($app['meido.html']);
     });
 
     return $app;
