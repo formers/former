@@ -1,14 +1,12 @@
 <?php
-/**
- * Select
- *
- * Everything list-related (select, multiselect, ...)
- */
 namespace Former\Form\Fields;
 
 use Former\Traits\Field;
 use Former\Helpers;
 
+/**
+ * Everything list-related (select, multiselect, ...)
+ */
 class Select extends Field
 {
   /**
@@ -30,12 +28,13 @@ class Select extends Field
   /**
    * Easier arguments order for selects
    *
-   * @param string $type       select or multiselect
-   * @param string $name       Field name
-   * @param string $label      Field label
-   * @param array  $options    Its options
-   * @param mixed  $selected   Selected entry
-   * @param array  $attributes Attributes
+   * @param Container $app        The Illuminate Container
+   * @param string    $type       file
+   * @param string    $name       Field name
+   * @param string    $label      Its label
+   * @param array     $options    The select's options
+   * @param string    $selected   The selected option
+   * @param array     $attributes Attributes
    */
   public function __construct($app, $type, $name, $label, $options, $selected, $attributes)
   {
@@ -92,7 +91,7 @@ class Select extends Field
   /**
    * Set the select options
    *
-   * @param  array   $options      The options as an array
+   * @param  array   $_options     The options as an array
    * @param  mixed   $selected     Facultative selected entry
    * @param  boolean $valuesAsKeys Whether the array's values should be used as
    *                               the option's values instead of the array's keys

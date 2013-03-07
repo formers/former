@@ -1,13 +1,11 @@
 <?php
-/**
- * FormerServiceProvider
- *
- * Register the Former package with the Laravel framework
- */
 namespace Former;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Register the Former package with the Laravel framework
+ */
 class FormerServiceProvider extends ServiceProvider
 {
   public function register()

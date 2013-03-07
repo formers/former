@@ -1,23 +1,27 @@
 <?php
-/**
- * FormerBuilder
- *
- * Common building blocks to all environments
- */
 namespace Former\Facades;
 
 use Illuminate\Container\Container;
 
+/**
+ * Common building blocks to all environments
+ */
 abstract class FormerBuilder
 {
   /**
    * The Container instance
+   *
    * @var Container
    */
   protected static $app;
 
   /**
    * Static facade
+   *
+   * @param string $method
+   * @param array  $parameters
+   *
+   * @return Former
    */
   public static function __callStatic($method, $parameters)
   {
@@ -42,7 +46,8 @@ abstract class FormerBuilder
   /**
    * Add Meido classes to the app
    *
-   * @param Container $app
+   * @param  Container $app
+   *
    * @return Container
    */
   public static function buildMeido($app)
@@ -61,7 +66,9 @@ abstract class FormerBuilder
   /**
    * Add Framework to the app
    *
-   * @param Container $app
+   * @param  Container $app
+   * @param  string    $prefix Where to get config options from
+   *
    * @return Container
    */
   public static function buildFramework($app, $prefix = 'config.')
@@ -79,7 +86,8 @@ abstract class FormerBuilder
   /**
    * Add Former to the app
    *
-   * @param Container $app
+   * @param  Container $app
+   *
    * @return Container
    */
   public static function buildFormer($app)

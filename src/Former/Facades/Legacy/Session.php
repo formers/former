@@ -1,12 +1,10 @@
 <?php
+namespace Former\Facades\Legacy;
+
 /**
- * Session
- *
  * Redirect calls to Session instance to Laravel's
  * original static class
  */
-namespace Former\Facades\Legacy;
-
 class Session extends Redirector
 {
   /**

@@ -1,14 +1,12 @@
 <?php
-/**
- * File
- *
- * Class for file fields
- */
 namespace Former\Form\Fields;
 
 use Former\Traits\Field;
 use Laravel\File as LaravelFile;
 
+/**
+ * Class for file fields
+ */
 class File extends Field
 {
   /**
@@ -30,10 +28,12 @@ class File extends Field
   /**
    * Easier arguments order for hidden fields
    *
-   * @param string $type       hidden
-   * @param string $name       Field name
-   * @param string $value      Its value
-   * @param array  $attributes Attributes
+   * @param Container $app        The Illuminate Container
+   * @param string    $type       file
+   * @param string    $name       Field name
+   * @param string    $label      Its label
+   * @param string    $value      Its value
+   * @param array     $attributes Attributes
    */
   public function __construct($app, $type, $name, $label, $value, $attributes)
   {
@@ -69,7 +69,7 @@ class File extends Field
   /**
    * Set which types of files are accepted by the file input
    *
-   * @param string $mimes* A list of extensions/mimes/groups to accept
+   * @param string $mimes A list of extensions/mimes/groups to accept
    */
   public function accept()
   {
@@ -92,7 +92,8 @@ class File extends Field
   /**
    * Set a maximum size for files
    *
-   * @param  integer $size A maximum size in Kb
+   * @param integer $size  A maximum size
+   * @param string  $units The size's unit
    */
   public function max($size, $units = 'KB')
   {

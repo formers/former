@@ -1,14 +1,11 @@
 <?php
-/**
- * Config
- *
- * Redirect calls to Config instance to Laravel's
- * original static class
- */
 namespace Former\Facades\Legacy;
 
 use Laravel\Config as LaravelConfig;
 
+/**
+ * Redirect calls to Config instance to Laravel's original static class
+ */
 class Config extends Redirector
 {
   /**

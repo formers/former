@@ -1,17 +1,16 @@
 <?php
-/**
- * Checkbox
- *
- * My name is Bawksy you see
- */
 namespace Former\Form\Fields;
 
 use Former\Traits\Checkable;
 
+/**
+ * My name is Bawksy you see
+ */
 class Checkbox extends Checkable
 {
   /**
    * The current checkable type
+   *
    * @var string
    */
   protected $checkable = 'checkbox';

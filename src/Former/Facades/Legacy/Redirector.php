@@ -1,15 +1,14 @@
 <?php
-/**
- * Redirector
- *
- * Redirects chained calls to static classes
- */
 namespace Former\Facades\Legacy;
 
+/**
+ * Redirects chained calls to static classes
+ */
 class Redirector
 {
   /**
    * The name of the class to redirect to
+   *
    * @var string
    */
   protected $class;
@@ -28,6 +27,7 @@ class Redirector
    * Set a property on a static class
    *
    * @param  string $key The property
+   *
    * @return string Its value
    */
   public function __set($key, $value)
@@ -41,6 +41,7 @@ class Redirector
    * Get a property from a static class
    *
    * @param  string $key The property
+   *
    * @return string Its value
    */
   public function __get($key)
@@ -52,6 +53,9 @@ class Redirector
 
   /**
    * Redirect a call to a static class
+   *
+   * @param string $method
+   * @param array  $parameters
    */
   public function __call($method, $parameters)
   {

@@ -95,8 +95,10 @@ class Actions extends FormerObject
   /**
    * Create a new Button and add it to the actions
    *
-   * @param string $type The button type
-   * @param string $name Its name and label
+   * @param string $type       The button type
+   * @param string $name       Its name
+   * @param string $link       A link to point to
+   * @param array  $attributes Its attributes
    *
    * @return Actions
    */

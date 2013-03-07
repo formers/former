@@ -1,15 +1,13 @@
 <?php
-/**
- * FormerObject
- *
- * Base Former object that allows chained attributes setting, adding
- * classes to the existing ones, and provide types helpers
- */
 namespace Former\Traits;
 
 use Former\Helpers;
 use HtmlObject\Element;
 
+/**
+ * Base Former object that allows chained attributes setting, adding
+ * classes to the existing ones, and provide types helpers
+ */
 abstract class FormerObject extends Element
 {
   /**

@@ -1,11 +1,9 @@
 <?php
-/**
- * Agnostic
- *
- * Agnostic facade to use Former anywhere
- */
 namespace Former\Facades;
 
+/**
+ * Agnostic facade to use Former anywhere
+ */
 class Agnostic extends FormerBuilder
 {
   /**

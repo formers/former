@@ -1,13 +1,11 @@
 <?php
-/**
- * Uneditable
- *
- * Uneditable and disabled fields
- */
 namespace Former\Form\Fields;
 
 use Former\Traits\Field;
 
+/**
+ * Uneditable and disabled fields
+ */
 class Uneditable extends Field
 {
 

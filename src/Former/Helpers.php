@@ -1,9 +1,4 @@
 <?php
-/**
- * Helpers
- *
- * Various helpers used by all Former classes
- */
 namespace Former;
 
 use Illuminate\Container\Container;
@@ -11,6 +6,9 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Translation\Translator;
 use Underscore\Types\String;
 
+/**
+ * Various helpers used by all Former classes
+ */
 class Helpers
 {
   /**

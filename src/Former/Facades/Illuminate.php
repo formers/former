@@ -1,13 +1,11 @@
 <?php
-/**
- * Former
- *
- * Former facade for the Laravel framework
- */
 namespace Former\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * Former facade for the Laravel framework
+ */
 class Illuminate extends Facade
 {
   /**

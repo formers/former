@@ -1,15 +1,13 @@
 <?php
-/**
- * LiveValidation
- *
- * Handles the transformation of validation rules into actual
- * attributes and patterns for HTML5 live validation
- */
 namespace Former;
 
 use Former\Traits\Field;
 use Laravel\File;
 
+/**
+ * Handles the transformation of validation rules into actual
+ * attributes and patterns for HTML5 live validation
+ */
 class LiveValidation
 {
   /**

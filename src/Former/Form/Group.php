@@ -13,28 +13,37 @@ use Underscore\Types\String;
 
 class Group
 {
+  /**
+   * The Illuminate Container
+   *
+   * @var Container
+   */
   protected $app;
 
   /**
    * The group attributes
+   *
    * @var array
    */
   protected $attributes = array();
 
   /**
    * The current state of the group
+   *
    * @var string
    */
   protected $state = null;
 
   /**
    * Whether the field should be displayed raw or not
+   *
    * @var boolean
    */
   protected $raw = false;
 
   /**
    * The group label
+   *
    * @var string
    */
   protected $label = array(
@@ -44,18 +53,21 @@ class Group
 
   /**
    * The group help
+   *
    * @var string
    */
   protected $help = null;
 
   /**
    * An array of elements to preprend the field
+   *
    * @var array
    */
   protected $prepend = array();
 
   /**
    * An array of elements to append the field
+   *
    * @var array
    */
   protected $append = array();
@@ -67,7 +79,9 @@ class Group
   /**
    * Creates a group
    *
-   * @param string $label Its label
+   * @param Container $app        The Illuminate Container
+   * @param string    $label      Its label
+   * @param array     $attributes Attributes
    */
   public function __construct($app, $label, $attributes = array())
   {
@@ -228,6 +242,9 @@ class Group
 
   /**
    * Alias for inlineHelp
+   *
+   * @param  string $help       The help text
+   * @param  array  $attributes Facultative attributes
    */
   public function help($help, $attributes = array())
   {
@@ -326,7 +343,8 @@ class Group
   /**
    * Wraps content in a group
    *
-   * @param mixed $contents The content
+   * @param mixed  $contents The content
+   * @param string $label    The label to add
    *
    * @return string A group
    */

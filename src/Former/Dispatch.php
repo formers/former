@@ -13,6 +13,10 @@ class Dispatch
   /**
    * Dispatch a call over to Elements
    *
+   * @param Container $app        The application container
+   * @param string    $method     The method called
+   * @param array     $parameters Its parameters
+   *
    * @return string
    */
   public static function toElements($app, $method, $parameters)
@@ -24,6 +28,10 @@ class Dispatch
 
   /**
    * Dispatch a call over to Form
+   *
+   * @param Container $app        The application container
+   * @param string    $method     The method called
+   * @param array     $parameters Its parameters
    *
    * @return Form
    */
@@ -39,6 +47,10 @@ class Dispatch
 
   /**
    * Dispatch a call over to Group
+   *
+   * @param Container $app        The application container
+   * @param string    $method     The method called
+   * @param array     $parameters Its parameters
    *
    * @return Group
    */
@@ -56,6 +68,10 @@ class Dispatch
   /**
    * Dispatch a call over to Actions
    *
+   * @param Container $app        The application container
+   * @param string    $method     The method called
+   * @param array     $parameters Its parameters
+   *
    * @return Actions
    */
   public static function toActions($app, $method, $parameters)
@@ -66,6 +82,10 @@ class Dispatch
 
   /**
    * Dispatch a call over to the Fields
+   *
+   * @param Container $app        The application container
+   * @param string    $method     The method called
+   * @param array     $parameters Its parameters
    *
    * @return Field
    */
@@ -95,6 +115,7 @@ class Dispatch
    * Get the correct class to call according to the created field
    *
    * @param  string $method The field created
+   *
    * @return string The correct class
    */
   private static function getClassFromMethod($method)

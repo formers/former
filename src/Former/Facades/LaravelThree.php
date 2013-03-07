@@ -1,13 +1,11 @@
 <?php
-/**
- * Legacy
- *
- * Makes Former Laravel 3 compatible
- */
 namespace Former\Facades;
 
 use Laravel\Config;
 
+/**
+ * Makes Former Laravel 3 compatible
+ */
 class LaravelThree extends FormerBuilder
 {
   /**

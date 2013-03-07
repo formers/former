@@ -1,13 +1,11 @@
 <?php
-/**
- * Radio
- *
- * Creating radios elements since 1873
- */
 namespace Former\Form\Fields;
 
 use Former\Traits\Checkable;
 
+/**
+ * Creating radios elements since 1873
+ */
 class Radio extends Checkable
 {
   /**

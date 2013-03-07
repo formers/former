@@ -1,54 +1,59 @@
 <?php
-/**
- * Checkable
- *
- * Abstract methods inherited by Checkbox and Radio
- */
 namespace Former\Traits;
 
 use Underscore\Types\Arrays;
 use Former\Helpers;
 
+/**
+ * Abstract methods inherited by Checkbox and Radio
+ */
 abstract class Checkable extends Field
 {
   /**
    * Renders the checkables as inline
+   *
    * @var boolean
    */
   protected $inline = false;
 
   /**
    * Add a text to a single element
+   *
    * @var string
    */
   protected $text = null;
 
    /**
    * Renders the checkables as grouped
+   *
    * @var boolean
    */
   protected $grouped = false;
 
   /**
    * The checkable items currently stored
+   *
    * @var array
    */
   protected $items = array();
 
   /**
    * The type of checkable item
+   *
    * @var string
    */
   protected $checkable = null;
 
   /**
    * An array of checked items
+   *
    * @var array
    */
   protected $checked = array();
 
   /**
    * The checkable currently being focused on
+   *
    * @var integer
    */
   protected $focus = null;

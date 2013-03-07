@@ -1,11 +1,9 @@
 <?php
-/**
- * FieldInterface
- *
- * Obligatory methods on all fields
- */
 namespace Former\Interfaces;
 
+/**
+ * Mandatory methods on all fields
+ */
 interface FieldInterface
 {
   // Renders the field

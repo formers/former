@@ -1,9 +1,4 @@
 <?php
-/**
- * Framework
- *
- * Base helpers and common methods to all frameworks
- */
 namespace Former\Traits;
 
 use Former\Helpers;
@@ -11,6 +6,9 @@ use Former\Traits\Field;
 use Underscore\Types\Arrays;
 use Underscore\Types\String;
 
+/**
+ * Base helpers and common methods to all frameworks
+ */
 abstract class Framework
 {
 

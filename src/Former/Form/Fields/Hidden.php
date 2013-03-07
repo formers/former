@@ -1,13 +1,11 @@
 <?php
-/**
- * Hidden
- *
- * Class for hidden fields
- */
 namespace Former\Form\Fields;
 
 use Former\Traits\Field;
 
+/**
+ * Class for hidden fields
+ */
 class Hidden extends Field
 {
 
@@ -18,10 +16,11 @@ class Hidden extends Field
   /**
    * Easier arguments order for hidden fields
    *
-   * @param string $type       hidden
-   * @param string $name       Field names
-   * @param string $value      Its value
-   * @param array  $attributes Attributes
+   * @param Container $app        The Illuminate Container
+   * @param string    $type       hidden
+   * @param string    $name       Field names
+   * @param string    $value      Its value
+   * @param array     $attributes Attributes
    */
   public function __construct($app, $type, $name, $value, $attributes)
   {

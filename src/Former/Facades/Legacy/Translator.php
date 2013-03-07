@@ -1,12 +1,10 @@
 <?php
+namespace Former\Facades\Legacy;
+
 /**
- * Translator
- *
  * Redirect calls to the Translator instance to Laravel's
  * original Lang class
  */
-namespace Former\Facades\Legacy;
-
 class Translator extends Redirector
 {
   /**

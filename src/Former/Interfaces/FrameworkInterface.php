@@ -1,14 +1,12 @@
 <?php
-/**
- * FrameworkInterface
- *
- * Obligatory methods on all frameworks
- */
 namespace Former\Interfaces;
 
 use Former\Traits\Field;
 use Illuminate\Container\Container;
 
+/**
+ * Mandatory methods on all frameworks
+ */
 interface FrameworkInterface
 {
   public function __construct(Container $app);

@@ -1,17 +1,20 @@
 <?php
-/**
- * Button
- *
- * Button fields
- */
 namespace Former\Form\Fields;
 
 use Form;
 use Former\Helpers;
 use Former\Traits\Field;
 
+/**
+ * Button fields
+ */
 class Button extends Field
 {
+  /**
+   * The Illuminate Container
+   *
+   * @var Container
+   */
   protected $app;
 
   ////////////////////////////////////////////////////////////////////
@@ -21,9 +24,11 @@ class Button extends Field
   /**
    * Easier arguments order for button fields
    *
-   * @param string $type       button/submit
-   * @param string $value      Its value
-   * @param array  $attributes Attributes
+   * @param Container $app        The Illuminate Container
+   * @param string    $type       button/submit/reset/etc
+   * @param string    $value      The text of the button
+   * @param string    $link       Its link
+   * @param array     $attributes Its attributes
    */
   public function __construct($app, $type, $value, $link, $attributes)
   {

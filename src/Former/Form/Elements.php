@@ -11,6 +11,11 @@ use Former\Helpers;
 
 class Elements
 {
+  /**
+   * Build a new Element
+   *
+   * @param Container $app
+   */
   public function __construct($app)
   {
     $this->app = $app;

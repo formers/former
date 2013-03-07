@@ -165,8 +165,6 @@ class Form extends FormerObject
 
   /**
    * Alias for $this->app['former']->withRules
-   *
-   * @param array $rules Rules
    */
   public function rules()
   {

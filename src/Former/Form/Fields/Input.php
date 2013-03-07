@@ -1,18 +1,17 @@
 <?php
-/**
- * Input
- *
- * Renders all basic input types
- */
 namespace Former\Form\Fields;
 
 use Former\Helpers;
 use Former\Traits\Field;
 
+/**
+ * Renders all basic input types
+ */
 class Input extends Field
 {
   /**
    * Current datalist stored
+   *
    * @var array
    */
   private $datalist = array();
@@ -23,6 +22,13 @@ class Input extends Field
 
   /**
    * Build an input field
+   *
+   * @param Container $app        The Illuminate Container
+   * @param string    $type       The input type
+   * @param string    $name       Field name
+   * @param string    $label      Its label
+   * @param string    $value      Its value
+   * @param array     $attributes Attributes
    */
   public function __construct($app, $type, $name, $label, $value, $attributes)
   {
@@ -63,7 +69,9 @@ class Input extends Field
   /**
    * Adds a datalist to the current field
    *
-   * @param  array $datalist An array to use a source
+   * @param  array  $datalist An array to use a source
+   * @param  string $value    The field to use as value
+   * @param  string $key      The field to use as key
    */
   public function useDatalist($datalist, $value = null, $key = null)
   {
@@ -95,6 +103,9 @@ class Input extends Field
 
   /**
    * Renders a datalist
+   *
+   * @param string $id     The datalist's id attribute
+   * @param array  $values Its values
    *
    * @return string A <datalist> tag
    */

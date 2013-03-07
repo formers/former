@@ -1,10 +1,4 @@
 <?php
-/**
- * Field
- *
- * Abstracts general fields parameters (type, value, name) and
- * reforms a correct form field depending on what was asked
- */
 namespace Former\Traits;
 
 use Former\Former;
@@ -16,28 +10,36 @@ use Former\LiveValidation;
 use Underscore\Types\Arrays;
 use Underscore\Types\String;
 
+/**
+ * Abstracts general fields parameters (type, value, name) and
+ * reforms a correct form field depending on what was asked
+ */
 abstract class Field extends FormerObject implements FieldInterface
 {
   /**
    * The field type
+   *
    * @var string
    */
   protected $type;
 
   /**
    * Illuminate application instance
+   *
    * @var Illuminate\Foundation\Application  $app
    */
   protected $app;
 
   /**
    * The Form instance
+   *
    * @var Former\Form
    */
   protected $form;
 
   /**
    * A label for the field (if not using Bootstrap)
+   *
    * @var string
    */
   protected $label = array(
@@ -47,6 +49,7 @@ abstract class Field extends FormerObject implements FieldInterface
 
   /**
    * The field's group
+   *
    * @var Group
    */
   protected $group;

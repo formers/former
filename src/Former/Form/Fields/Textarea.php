@@ -3,6 +3,9 @@ namespace Former\Form\Fields;
 
 use Former\Traits\Field;
 
+/**
+ * Textarea fields
+ */
 class Textarea extends Field
 {
 
