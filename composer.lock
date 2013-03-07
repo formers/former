@@ -621,12 +621,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "a444ddc095c3e02e26674f10c1cd23e30a91f1a5"
+                "reference": "c979c0ee2c1e27e96b489498647eca0c75f8002d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/a444ddc095c3e02e26674f10c1cd23e30a91f1a5",
-                "reference": "a444ddc095c3e02e26674f10c1cd23e30a91f1a5",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/c979c0ee2c1e27e96b489498647eca0c75f8002d",
+                "reference": "c979c0ee2c1e27e96b489498647eca0c75f8002d",
                 "shasum": ""
             },
             "require": {
@@ -658,7 +658,7 @@
                 }
             ],
             "description": "Various utilities and support functions.",
-            "time": "2013-03-06 01:14:33"
+            "time": "2013-03-07 02:05:08"
         },
         {
             "name": "illuminate/translation",

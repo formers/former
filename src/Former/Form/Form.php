@@ -185,6 +185,9 @@ class Form extends FormerObject
     // Mark the form as opened
     static::$opened = true;
 
+    // Add name to attributes
+    $this->attributes['name'] = $this->name;
+
     return $this->app['meido.form']->open($this->action, $this->method, $this->attributes, $this->secure);
   }
 
