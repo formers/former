@@ -244,6 +244,24 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $required);
   }
 
+  public function testCanDisableErrors()
+  {
+    $validator = $this->app->app['validator']->getMessages();
+    $this->app->app['config'] = $this->app->getConfig(true, '', false, true, false);
+
+    $this->former->withErrors($validator);
+    $required = $this->former->text('required')->__toString();
+    $matcher =
+    '<div class="control-group error">'.
+      '<label for="required" class="control-label">Required</label>'.
+      '<div class="controls">'.
+        '<input type="text" name="required" id="required" />'.
+      '</div>'.
+    '</div>';
+
+    $this->assertEquals($matcher, $required);
+  }
+
   public function testPopulate()
   {
     $this->former->populate(array('foo' => 'bar'));

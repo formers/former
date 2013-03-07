@@ -50,7 +50,7 @@ class IlluminateMock
    * @param boolean $push      Whether unchecked checkboxes should be pushed
    * @param boolean $automatic Automatic live validation or not
    */
-  public function getConfig($live = true, $unchecked = '', $push = false, $automatic = true)
+  public function getConfig($live = true, $unchecked = '', $push = false, $automatic = true, $errors = true)
   {
     $config = Mockery::mock('config');
     $config->shouldReceive('get')->with('application.encoding', Mockery::any())->andReturn('UTF-8');
@@ -66,6 +66,7 @@ class IlluminateMock
     $config->shouldReceive('get')->with('former::unchecked_value', Mockery::any())->andReturn($unchecked);
     $config->shouldReceive('get')->with('former::push_checkboxes', Mockery::any())->andReturn($push);
     $config->shouldReceive('get')->with('former::automatic_label', Mockery::any())->andReturn($automatic);
+    $config->shouldReceive('get')->with('former::error_messages',  Mockery::any())->andReturn($errors);
 
     return $config;
   }

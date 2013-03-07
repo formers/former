@@ -368,8 +368,12 @@ class Group
     $inline = Arrays::get($this->help, 'inline');
     $block  = Arrays::get($this->help, 'block');
 
+    // Replace help text with error if any found
     $errors = $this->app['former']->getErrors();
-    if ($errors) $inline = $this->app['former']->getFramework()->createHelp($errors);
+    if ($errors and $this->app['former']->getOption('error_messages')) {
+      $inline = $this->app['former']->getFramework()->createHelp($errors);
+    }
+
     return join(null, array($inline, $block));
   }
 

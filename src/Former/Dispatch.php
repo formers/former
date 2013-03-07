@@ -1,15 +1,13 @@
 <?php
-/**
- * Dispatch
- *
- * Dispatch calls to Former to the different
- * form creators like Form, Actions, Elements and others
- */
 namespace Former;
 
 use Underscore\Types\Arrays;
 use Underscore\Types\String;
 
+/**
+ * Dispatch calls from Former to the different
+ * form creators like Form, Actions, Elements and others
+ */
 class Dispatch
 {
   /**
