@@ -20,7 +20,7 @@ class Uneditable extends Field
    */
   public function render()
   {
-    $this->attributes = $this->app['former']->getFramework()->addUneditableClasses($this->attributes);
+    $this->addClass($this->app['former']->getFramework()->getUneditableClasses());
 
     $this->setId();
 

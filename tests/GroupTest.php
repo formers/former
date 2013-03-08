@@ -235,7 +235,7 @@ class GroupTest extends FormerTests
             '<span class="add-on">@</span>'.
             '<span class="add-on">$</span>'.
             '<button type="button" class="btn">foo</button>'.
-            '<input type="text" name="foo" id="foo" />'.
+            '<input id="foo" type="text" name="foo">'.
             '<span class="add-on">@</span>'.
             '<span class="add-on">$</span>'.
             '<button type="button" class="btn">foo</button>'.

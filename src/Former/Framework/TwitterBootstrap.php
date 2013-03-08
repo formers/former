@@ -6,6 +6,8 @@
  */
 namespace Former\Framework;
 
+use Former\Form\Actions;
+use Former\Form\Group;
 use Former\Interfaces\FrameworkInterface;
 use Former\Traits\Field;
 use Former\Traits\Framework;
@@ -106,7 +108,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    *
    * @return Field
    */
-  public function addFieldClasses(Field $field, $classes)
+  public function getFieldClasses(Field $field, $classes)
   {
     // Add inline class for checkables
     if ($field->isCheckable() and in_array('inline', $classes)) {
@@ -119,7 +121,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
 
     // If we found any class, add them
     if ($classes) {
-      $field->setAttribute('class', implode(' ', $classes));
+      $field->class(implode(' ', $classes));
     }
 
     return $field;
@@ -128,14 +130,11 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   /**
    * Add group classes
    *
-   * @param  array $attributes An array of attributes
-   * @return array An array of attributes with the group class
+   * @return string A list of group classes
    */
-  public function addGroupClasses($attributes)
+  public function getGroupClasses()
   {
-    $attributes = $this->addClass($attributes, 'control-group');
-
-    return $attributes;
+    return 'control-group';
   }
 
   /**
@@ -144,11 +143,9 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    * @param  array $attributes An array of attributes
    * @return array An array of attributes with the label class
    */
-  public function addLabelClasses(Element $label)
+  public function getLabelClasses()
   {
-    $label->addClass('control-label');
-
-    return $label;
+    return 'control-label';
   }
 
   /**
@@ -157,11 +154,9 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    * @param  array $attributes The attributes
    * @return array An array of attributes with the uneditable class
    */
-  public function addUneditableClasses($attributes)
+  public function getUneditableClasses()
   {
-    $attributes = $this->addClass($attributes, 'uneditable-input');
-
-    return $attributes;
+    return 'uneditable-input';
   }
 
   /**
@@ -171,13 +166,9 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    * @param  string $type       The type of form to add
    * @return array
    */
-  public function addFormClasses($attributes, $type)
+  public function getFormClasses($type)
   {
-    if ($type) {
-      $attributes = $this->addClass($attributes, 'form-'.$type);
-    }
-
-    return $attributes;
+    return $type ? 'form-'.$type : null;
   }
 
   /**
@@ -186,11 +177,9 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    * @param  array  $attributes The attributes
    * @return array
    */
-  public function addActionClasses($attributes)
+  public function getActionClasses()
   {
-    $attributes = $this->addClass($attributes, 'form-actions');
-
-    return $attributes;
+    return 'form-actions';
   }
 
   ////////////////////////////////////////////////////////////////////

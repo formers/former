@@ -60,7 +60,7 @@ class Dispatch
     if ($method != 'group') return false;
     return new Form\Group(
       $app,
-      Arrays::get($parameters, 0),
+      Arrays::get($parameters, 0, null),
       Arrays::get($parameters, 1, array())
     );
   }

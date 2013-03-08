@@ -92,7 +92,7 @@ class Form extends FormerObject
     $this->type = $this->applyType($type);
 
     // Add supplementary classes
-    $this->attributes = $this->app['former']->getFramework()->addFormClasses($this->attributes, $this->type);
+    $this->addClass($this->app['former']->getFramework()->getFormClasses($this->type));
 
     return $this;
   }

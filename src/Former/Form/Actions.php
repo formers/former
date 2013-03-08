@@ -43,7 +43,7 @@ class Actions extends FormerObject
     $this->value = $value;
 
     // Add specific actions classes to the actions block
-    $this->attributes = $this->app['former']->getFramework()->addActionClasses($this->attributes);
+    $this->addClass($this->app['former']->getFramework()->getActionClasses());
   }
 
   /**

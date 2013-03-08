@@ -1,8 +1,10 @@
 <?php
 namespace Former\Interfaces;
 
-use HtmlObject\Element;
+use Former\Form\Actions;
+use Former\Form\Group;
 use Former\Traits\Field;
+use HtmlObject\Element;
 use Illuminate\Container\Container;
 
 /**
@@ -18,10 +20,12 @@ interface FrameworkInterface
   public function filterState($state);
 
   // Add classes to attributes
-  public function addFieldClasses(Field $field, $classes);
-  public function addGroupClasses($attributes);
-  public function addLabelClasses(Element $label);
-  public function addActionClasses($attributes);
+  public function getFieldClasses(Field $field, $classes);
+  public function getGroupClasses();
+  public function getLabelClasses();
+  public function getFormClasses($type);
+  public function getUneditableClasses();
+  public function getActionClasses();
 
   // Render blocks
   public function createLabelOf(Field $field, Element $label);

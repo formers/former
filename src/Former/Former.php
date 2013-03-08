@@ -124,7 +124,7 @@ class Former
 
     // Dispatch to the different Form\Fields
     $field = Dispatch::toFields($this->app, $method, $parameters);
-    $field = $this->app['former']->getFramework()->addFieldClasses($field, $classes);
+    $field = $this->app['former']->getFramework()->getFieldClasses($field, $classes);
 
     return $this->field = $field;
   }

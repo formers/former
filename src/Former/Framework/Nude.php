@@ -42,41 +42,41 @@ class Nude extends Framework implements FrameworkInterface
   ///////////////////////////// ADD CLASSES //////////////////////////
   ////////////////////////////////////////////////////////////////////
 
-  public function addFieldClasses(Field $field, $classes = array())
+  public function getFieldClasses(Field $field, $classes = array())
   {
     $classes = $this->filterFieldClasses($classes);
 
     // If we found any class, add them
     if ($classes) {
-      $field->setAttribute('class', implode(' ', $classes));
+      $field->class(implode(' ', $classes));
     }
 
     return $field;
   }
 
-  public function addGroupClasses($attributes)
+  public function getGroupClasses()
   {
-    return $attributes;
+    return null;
   }
 
-  public function addLabelClasses(Element $label)
+  public function getLabelClasses()
   {
-    return $label;
+    return null;
   }
 
-  public function addUneditableClasses($attributes)
+  public function getUneditableClasses()
   {
-    return $attributes;
+    return null;
   }
 
-  public function addFormClasses($attributes)
+  public function getFormClasses($type)
   {
-    return $attributes;
+    return null;
   }
 
-  public function addActionClasses($attributes)
+  public function getActionClasses()
   {
-    return $attributes;
+    return null;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -96,9 +96,7 @@ class Nude extends Framework implements FrameworkInterface
    */
   public function createIcon($icon, $attributes)
   {
-    $attributes = $this->addClass($attributes, $icon);
-
-    return Element::create('i', null, $attributes);;
+    return Element::create('i', null, $attributes)->addClass($icon);
   }
 
   /**

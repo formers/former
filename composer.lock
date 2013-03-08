@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Anahkiasen/html-object.git",
-                "reference": "98f1cd0326969e235a52e486f91d29c9fcc1695f"
+                "reference": "6af0365b42634d239d056372c60c725e93aacc5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/98f1cd0326969e235a52e486f91d29c9fcc1695f",
-                "reference": "98f1cd0326969e235a52e486f91d29c9fcc1695f",
+                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/6af0365b42634d239d056372c60c725e93aacc5b",
+                "reference": "6af0365b42634d239d056372c60c725e93aacc5b",
                 "shasum": ""
             },
             "require": {
@@ -35,7 +35,7 @@
                 }
             ],
             "description": "A set of classes to create and manipulate HTML objects abstractions",
-            "time": "2013-03-06 13:01:25"
+            "time": "2013-03-08 11:25:24"
         },
         {
             "name": "anahkiasen/underscore-php",
@@ -68,7 +68,7 @@
             ],
             "authors": [
                 {
-                    "name": "Maxime Fabre",
+                    "name": "Anahkiasen",
                     "email": "ehtnam6@gmail.com"
                 }
             ],
@@ -710,12 +710,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravelbook/laravel4-powerpack.git",
-                "reference": "2a28be7379d937a4549aeac9f860c651d1cf09e7"
+                "reference": "6c773c6a3626dfd129654f1d692e3b99497a66a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravelbook/laravel4-powerpack/zipball/2a28be7379d937a4549aeac9f860c651d1cf09e7",
-                "reference": "2a28be7379d937a4549aeac9f860c651d1cf09e7",
+                "url": "https://api.github.com/repos/laravelbook/laravel4-powerpack/zipball/6c773c6a3626dfd129654f1d692e3b99497a66a5",
+                "reference": "6c773c6a3626dfd129654f1d692e3b99497a66a5",
                 "shasum": ""
             },
             "require": {
@@ -752,7 +752,7 @@
                 "string",
                 "support"
             ],
-            "time": "2013-02-27 10:15:26"
+            "time": "2013-03-08 14:42:38"
         },
         {
             "name": "patchwork/utf8",

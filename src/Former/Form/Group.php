@@ -39,12 +39,9 @@ class Group extends Tag
   /**
    * The group label
    *
-   * @var string
+   * @var Element
    */
-  protected $label = array(
-    'text'       => null,
-    'attributes' => array()
-  );
+  protected $label;
 
   /**
    * The group help
@@ -89,10 +86,10 @@ class Group extends Tag
   {
     // Get special classes
     $this->app = $app;
-    $this->attributes = $this->app['former']->getFramework()->addGroupClasses($attributes);
+    $this->addClass($this->app['former']->getFramework()->getGroupClasses());
 
     // Set group label
-    $this->setLabel($label);
+    if ($label) $this->setLabel($label);
   }
 
   /**
@@ -180,7 +177,7 @@ class Group extends Tag
    */
   public function addGroupClass($class)
   {
-    $this->attributes = Helpers::addClass($this->attributes, $class);
+    $this->addClass($class);
   }
 
   /**
@@ -190,7 +187,9 @@ class Group extends Tag
    */
   public function setLabel($label)
   {
-    if (!($label instanceof Element)) $label = Element::create('label', $label, $label);
+    if (!($label instanceof Element)) {
+      $label = Element::create('label', $label)->for($label);
+    }
 
     $this->label = $label;
   }
@@ -204,7 +203,7 @@ class Group extends Tag
   {
     if (!$this->label) return false;
 
-    return $this->app['former']->getFramework()->addLabelClasses($this->label);
+    return $this->label->addClass($this->app['former']->getFramework()->getLabelClasses());
   }
 
   /**
@@ -359,7 +358,7 @@ class Group extends Tag
     if (!$field or !$this->label) return null;
 
     // Wrap label in framework classes
-    $this->label = $this->app['former']->getFramework()->addLabelClasses($this->label);
+    $this->label->addClass($this->app['former']->getFramework()->getLabelClasses());
     $this->label = $this->app['former']->getFramework()->createLabelOf($field, $this->label);
 
     return $this->label;
