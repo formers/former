@@ -136,7 +136,7 @@ class SelectTest extends FormerTests
         '<option value="0">val0</option>'.
         '<option value="1">val1</option>'.
       '</select>',
-      '<label for="bar.kal" class="control-label">Bar.kal</label>');
+      '<label class="bar.kal" for="control-label"Bar.kal</label>');
 
     $this->assertEquals($matcher, $select);
   }

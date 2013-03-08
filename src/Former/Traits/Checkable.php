@@ -1,6 +1,7 @@
 <?php
 namespace Former\Traits;
 
+use HtmlObject\Element;
 use Underscore\Types\Arrays;
 use Former\Helpers;
 
@@ -294,7 +295,8 @@ abstract class Checkable extends Field
     // If no label to wrap, return plain checkable
     if(!$label) return $field;
 
-    return '<label for="' .$attributes['id']. '" class="' .$this->checkable.$isInline. '">' .$field.$label. '</label>';
+    $element = \HtmlObject\Element::test();
+    var_dump($element); exit();
   }
 
   ////////////////////////////////////////////////////////////////////

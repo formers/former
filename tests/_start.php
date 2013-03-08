@@ -43,7 +43,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     );
   }
 
-  protected function matchLabel($name = 'foo', $required = false)
+  protected function matchLabel($name = 'foo', $field = 'foo', $required = false)
   {
     $text = str_replace('[]', null, ucfirst($name));
     if ($required) $text .= '*';
@@ -52,7 +52,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
       'tag' => 'label',
       'content' => $text,
       'attributes' => array(
-        'for'   => $name,
+        'for'   => $field,
         'class' => 'control-label',
       ),
     );
@@ -145,15 +145,15 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
 
   protected function assertLabel($input, $name = 'foo', $required = false)
   {
-    $this->assertHTML($this->matchLabel($name, $required), $input);
+    $this->assertHTML($this->matchLabel($name, $name, $required), $input);
   }
 
-  protected function controlGroup($input = '<input type="text" name="foo" id="foo" />', $label = '<label for="foo" class="control-label">Foo</label>')
+  protected function controlGroup($input = '<input type="text" name="foo" id="foo" />', $label = '<label class="control-label" for="foo">Foo</label>')
   {
     return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';
   }
 
-  protected function controlGroupRequired($input, $label = '<label for="foo" class="control-label">Foo</label>')
+  protected function controlGroupRequired($input, $label = '<label class="foo" for="control-label"Foo</label>')
   {
     return '<div class="control-group required">'.$label.'<div class="controls">'.$input.'</div></div>';
   }

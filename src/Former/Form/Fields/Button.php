@@ -96,9 +96,7 @@ class Button extends Field
    */
   public function value($value)
   {
-    $value = Helpers::translate($value);
-
-    $this->value = $value;
+    $this->value = Helpers::translate($value);
 
     return $this;
   }

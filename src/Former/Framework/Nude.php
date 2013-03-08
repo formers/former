@@ -6,10 +6,12 @@
  */
 namespace Former\Framework;
 
-use Illuminate\Container\Container;
 use Former\Interfaces\FrameworkInterface;
 use Former\Traits\Field;
 use Former\Traits\Framework;
+use HtmlObject\Element;
+use HtmlObject\Element;
+use Illuminate\Container\Container;
 
 class Nude extends Framework implements FrameworkInterface
 {
@@ -58,9 +60,9 @@ class Nude extends Framework implements FrameworkInterface
     return $attributes;
   }
 
-  public function addLabelClasses($attributes)
+  public function addLabelClasses(Element $label)
   {
-    return $attributes;
+    return $label;
   }
 
   public function addUneditableClasses($attributes)
@@ -87,7 +89,7 @@ class Nude extends Framework implements FrameworkInterface
    */
   public function createHelp($text, $attributes)
   {
-    return '<small'.$this->app['meido.html']->attributes($attributes).'>'.$text.'</small>';
+    return Element::small($text, $attributes);
   }
 
   /**

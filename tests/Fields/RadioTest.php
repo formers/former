@@ -95,11 +95,11 @@ class RadioTest extends FormerTests
   {
     $radios = $this->former->radios('foo')->radios($this->checkables)->__toString();
     $matcher = $this->controlGroupMultiple(
-    '<label for="foo" class="radio">'.
+    '<label class="foo" for="radio"'.
       '<input data-foo="bar" value="bar" id="foo" type="radio" name="foo" />'.
       'Foo'.
     '</label>'.
-    '<label for="bar" class="radio">'.
+    '<label class="bar" for="radio"'.
       '<input data-foo="bar" value="bar" id="bar" type="radio" name="foo" />'.
       'Bar'.
     '</label>');
@@ -115,11 +115,11 @@ class RadioTest extends FormerTests
 
     $radios = $this->former->radios('foo')->radios($checkables)->__toString();
     $matcher = $this->controlGroupMultiple(
-    '<label for="foo" class="radio">'.
+    '<label class="foo" for="radio"'.
       '<input data-foo="bar" value="bar" id="foo" type="radio" name="foo" />'.
       'Foo'.
     '</label>'.
-    '<label for="bar" class="radio">'.
+    '<label class="bar" for="radio"'.
       '<input data-foo="bar" value="bar" id="bar" type="radio" name="foo" />'.
       'Bar'.
     '</label>');

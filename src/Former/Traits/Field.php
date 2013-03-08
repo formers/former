@@ -1,6 +1,7 @@
 <?php
 namespace Former\Traits;
 
+use HtmlObject\Element;
 use Former\Former;
 use Former\Form\Form;
 use Former\Form\Group;
@@ -42,10 +43,7 @@ abstract class Field extends FormerObject implements FieldInterface
    *
    * @var string
    */
-  protected $label = array(
-    'label'      => null,
-    'attributes' => array()
-  );
+  protected $label;
 
   /**
    * The field's group
@@ -53,6 +51,10 @@ abstract class Field extends FormerObject implements FieldInterface
    * @var Group
    */
   protected $group;
+
+  protected $element = 'input';
+
+  protected $isSelfClosing = true;
 
   ////////////////////////////////////////////////////////////////////
   ///////////////////////////// INTERFACE ////////////////////////////
@@ -221,12 +223,12 @@ abstract class Field extends FormerObject implements FieldInterface
    */
   public function label($text, $attributes = array())
   {
-    $label = array(
-      'text'       => Helpers::translate($text),
-      'attributes' => $attributes);
+    $text  = Helpers::translate($text);
+    $label = new Element('label', $text, $attributes);
 
     if($this->group) $this->group->setLabel($label);
     else $this->label = $label;
+
     return $this;
   }
 

@@ -8,10 +8,11 @@ namespace Former\Form;
 
 use BadMethodCallException;
 use Former\Helpers;
+use HtmlObject\Traits\Tag;
 use Underscore\Types\Arrays;
 use Underscore\Types\String;
 
-class Group
+class Group extends Tag
 {
   /**
    * The Illuminate Container
@@ -19,13 +20,6 @@ class Group
    * @var Container
    */
   protected $app;
-
-  /**
-   * The group attributes
-   *
-   * @var array
-   */
-  protected $attributes = array();
 
   /**
    * The current state of the group
@@ -72,6 +66,13 @@ class Group
    */
   protected $append = array();
 
+  /**
+   * The group's element
+   *
+   * @var string
+   */
+  protected $element = 'div';
+
   ////////////////////////////////////////////////////////////////////
   /////////////////////////// CORE METHODS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -91,8 +92,6 @@ class Group
 
     // Set group label
     $this->setLabel($label);
-
-    return $this;
   }
 
   /**
@@ -110,7 +109,7 @@ class Group
    *
    * @return string Opening tag
    */
-  protected function open()
+  public function open()
   {
     // If any errors, set state to errors
     $errors = $this->app['former']->getErrors();
@@ -118,15 +117,15 @@ class Group
 
     // Retrieve state and append it to classes
     if ($this->state) {
-      $this->attributes = Helpers::addClass($this->attributes, $this->state);
+      $this->addClass($this->state);
     }
 
     // Required state
     if ($this->app['former']->field() and $this->app['former']->field()->isRequired()) {
-      $this->attributes = Helpers::addClass($this->attributes, $this->app['former']->getOption('required_class'));
+      $this->addClass($this->app['former']->getOption('required_class'));
     }
 
-    return '<div'.$this->app['meido.html']->attributes($this->attributes). '>';
+    return parent::open();
   }
 
   /**
@@ -154,16 +153,6 @@ class Group
     $field .= $this->getHelp();
 
     return $this->wrap($field, $label);
-  }
-
-  /**
-   * Closes a group
-   *
-   * @return string Closing tag
-   */
-  protected function close()
-  {
-    return '</div>';
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -212,10 +201,7 @@ class Group
   {
     if (!$this->label) return false;
 
-    $attributes = $this->app['former']->getFramework()->addLabelClasses(array());
-    $label = $this->app['meido.form']->label($this->label, $this->label, $attributes);
-
-    return $label;
+    return $this->app['former']->getFramework()->addLabelClasses($this->label);
   }
 
   /**
@@ -370,7 +356,7 @@ class Group
     if (!$field or !$this->label) return null;
 
     // Wrap label in framework classes
-    $this->label['attributes'] = $this->app['former']->getFramework()->addLabelClasses($this->label['attributes']);
+    $this->label = $this->app['former']->getFramework()->addLabelClasses($this->label);
     $this->label = $this->app['former']->getFramework()->createLabelOf($field, $this->label);
 
     return $this->label;

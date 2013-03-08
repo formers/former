@@ -16,6 +16,8 @@ class Input extends Field
    */
   private $datalist = array();
 
+  protected $injectedProperties = array('type', 'name', 'value');
+
   ////////////////////////////////////////////////////////////////////
   /////////////////////////// CORE METHODS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -51,8 +53,10 @@ class Input extends Field
     // Particular case of the search element
     if($this->isOfType('search')) $this->asSearch();
 
+    $this->setId();
+
     // Render main input
-    $input = $this->app['meido.form']->input($this->type, $this->name, $this->value, $this->attributes);
+    $input = parent::render();
 
     // If we have a datalist to append, print it out
     if ($this->datalist) {
@@ -96,7 +100,7 @@ class Input extends Field
   private function asSearch()
   {
     $this->type = 'text';
-    $this->attributes = Helpers::addClass($this->attributes, 'search-query');
+    $this->addClass('search-query');
 
     return $this;
   }

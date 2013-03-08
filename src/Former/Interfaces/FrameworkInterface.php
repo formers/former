@@ -1,6 +1,7 @@
 <?php
 namespace Former\Interfaces;
 
+use HtmlObject\Element;
 use Former\Traits\Field;
 use Illuminate\Container\Container;
 
@@ -19,11 +20,11 @@ interface FrameworkInterface
   // Add classes to attributes
   public function addFieldClasses(Field $field, $classes);
   public function addGroupClasses($attributes);
-  public function addLabelClasses($attributes);
+  public function addLabelClasses(Element $label);
   public function addActionClasses($attributes);
 
   // Render blocks
-  public function createLabelOf(Field $field, $label);
+  public function createLabelOf(Field $field, Element $label);
   public function createHelp($text, $attributes);
   public function createIcon($icon, $attributes);
   public function createDisabledField(Field $field);

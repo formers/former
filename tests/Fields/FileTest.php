@@ -5,15 +5,18 @@ class FileTest extends FormerTests
 
   public function matchFile($accept = null)
   {
-    return array(
+    $file = array(
       'tag' => 'input',
       'id' => 'foo',
       'attributes' => array(
         'type' => 'file',
         'name' => 'foo',
-        'accept' => $accept,
       ),
     );
+
+    if ($accept) $file['attributes']['accept'] = $accept;
+
+    return $file;
   }
 
   public function matchFiles()

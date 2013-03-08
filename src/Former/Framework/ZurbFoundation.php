@@ -9,6 +9,7 @@ namespace Former\Framework;
 use Illuminate\Container\Container;
 use Former\Interfaces\FrameworkInterface;
 use Former\Traits\Field;
+use HtmlObject\Element;
 use Former\Traits\Framework;
 use Underscore\Types\Arrays;
 
@@ -80,9 +81,9 @@ class ZurbFoundation extends Framework implements FrameworkInterface
     return $attributes;
   }
 
-  public function addLabelClasses($attributes)
+  public function addLabelClasses(Element $label)
   {
-    return $attributes;
+    return $label;
   }
 
   public function addUneditableClasses($attributes)

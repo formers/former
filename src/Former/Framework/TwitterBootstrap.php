@@ -9,6 +9,7 @@ namespace Former\Framework;
 use Former\Interfaces\FrameworkInterface;
 use Former\Traits\Field;
 use Former\Traits\Framework;
+use HtmlObject\Element;
 use Illuminate\Container\Container;
 use Underscore\Types\Arrays;
 use Underscore\Types\String;
@@ -143,11 +144,11 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    * @param  array $attributes An array of attributes
    * @return array An array of attributes with the label class
    */
-  public function addLabelClasses($attributes)
+  public function addLabelClasses(Element $label)
   {
-    $attributes = $this->addClass($attributes, 'control-label');
+    $label->addClass('control-label');
 
-    return $attributes;
+    return $label;
   }
 
   /**

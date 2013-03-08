@@ -1,6 +1,7 @@
 <?php
 namespace Former\Traits;
 
+use Former\Former;
 use Former\Helpers;
 use HtmlObject\Element;
 
@@ -23,6 +24,28 @@ abstract class FormerObject extends Element
    * @var array
    */
   protected $injectedProperties = array('name');
+
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////// ID AND LABELS //////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Set the matching ID on a field if possible
+   */
+  protected function setId()
+  {
+    if (!array_key_exists('id', $this->attributes) and
+      in_array($this->name, Former::$labels)) {
+        $this->attributes['id'] = $this->name;
+    }
+  }
+
+  public function render()
+  {
+    $this->setId();
+
+    return parent::render();
+  }
 
   ////////////////////////////////////////////////////////////////////
   ////////////////////////////// GETTERS /////////////////////////////

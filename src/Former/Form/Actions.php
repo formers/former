@@ -112,6 +112,6 @@ class Actions extends FormerObject
   {
     $buttons = array('button', 'submit', 'link', 'reset');
 
-    return String::find($method, $buttons) ? true : false;
+    return (bool) String::find($method, $buttons);
   }
 }

@@ -7,7 +7,9 @@
  */
 namespace Former\Form;
 
+use Former\Former;
 use Former\Helpers;
+use HtmlObject\Element;
 
 class Elements
 {
@@ -30,7 +32,7 @@ class Elements
   {
     $csrf = $this->app['session']->getToken();
 
-    return $this->app['former']->hidden($csrf, $csrf)->__toString();
+    return (string) $this->app['former']->hidden($csrf, $csrf);
   }
 
   /**
@@ -43,9 +45,12 @@ class Elements
    */
   public function label($label, $name = null, $attributes = array())
   {
-    $label = Helpers::translate($label);
+    $name = Helpers::translate($name);
 
-    return $this->app['meido.form']->label($name, $label, $attributes);
+    $attributes['for'] = $label;
+    Former::$labels[] = $label;
+
+    return Element::label($name, $attributes);
   }
 
   /**
@@ -59,7 +64,7 @@ class Elements
   {
     $legend = Helpers::translate($legend);
 
-    return '<legend'.$this->app['meido.html']->attributes($attributes).'>' .$legend. '</legend>';
+    return Element::legend($legend, $attributes);
   }
 
   /**

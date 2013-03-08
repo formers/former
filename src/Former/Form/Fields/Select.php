@@ -1,8 +1,9 @@
 <?php
 namespace Former\Form\Fields;
 
-use Former\Traits\Field;
 use Former\Helpers;
+use Former\Traits\Field;
+use HtmlObject\Element;
 
 /**
  * Everything list-related (select, multiselect, ...)
@@ -10,16 +11,17 @@ use Former\Helpers;
 class Select extends Field
 {
   /**
-   * The select options
-   * @var array
-   */
-  private $options = array();
-
-  /**
    * The select's placeholder
    * @var string
    */
   private $placeholder = null;
+
+  /**
+   * The select's element
+   *
+   * @var string
+   */
+  protected $element = 'select';
 
   ////////////////////////////////////////////////////////////////////
   /////////////////////////// CORE METHODS ///////////////////////////
@@ -38,8 +40,8 @@ class Select extends Field
    */
   public function __construct($app, $type, $name, $label, $options, $selected, $attributes)
   {
-    if($options)  $this->options = $options;
     if($selected) $this->value = $selected;
+    if($options)  $this->options($options);
 
     parent::__construct($app, $type, $name, $label, $selected, $attributes);
 
@@ -57,31 +59,39 @@ class Select extends Field
    */
   public function render()
   {
-    $name = $this->name;
-
     // Multiselects
     if ($this->isOfType('multiselect')) {
       if (!isset($this->attributes['id'])) {
-        $this->setAttribute('id', $name);
+        $this->setAttribute('id', $this->name);
       }
 
       $this->multiple();
-      $name .= '[]';
+      $this->name .= '[]';
     }
-
-    // Render select
-    $select = $this->app['meido.form']->select($name, $this->options, $this->value, $this->attributes);
 
     // Add placeholder text if any
-    if ($this->placeholder) {
-      $placeholder = array('value' => '', 'disabled' => '');
-      if(!$this->value) $placeholder['selected'] = '';
-      $placeholder = '<option'.$this->app['meido.html']->attributes($placeholder).'>' .$this->placeholder. '</option>';
-
-      $select = preg_replace('#<select([^>]+)>#', '$0'.$placeholder, $select);
+    if ($placeholder = $this->getPlaceholder()) {
+      array_unshift($this->children, $placeholder);
     }
 
-    return $select;
+    $this->setId();
+
+    return parent::render();
+  }
+
+  /**
+   * Get the Select's placeholder
+   *
+   * @return Element
+   */
+  protected function getPlaceholder()
+  {
+    if (!$this->placeholder) return false;
+
+    $attributes = array('value' => '', 'disabled' => '');
+    if(!$this->value) $attributes['selected'] = '';
+
+    return Element::option($this->placeholder, $attributes);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -108,7 +118,11 @@ class Select extends Field
       foreach($_options as $v) $options[$v] = $v;
     } else $options = $_options;
 
-    $this->options = $options;
+    foreach ($options as $key => $option) {
+      $options[$key] = Element::option($option, $key);
+    }
+
+    $this->children = $options;
 
     if($selected) $this->value = $selected;
 
@@ -124,7 +138,7 @@ class Select extends Field
    */
   public function fromQuery($results, $value = null, $key = null)
   {
-    $this->options = Helpers::queryToArray($results, $value, $key);
+    $this->options(Helpers::queryToArray($results, $value, $key));
 
     return $this;
   }
@@ -164,6 +178,6 @@ class Select extends Field
    */
   public function getOptions()
   {
-    return $this->options;
+    return $this->children;
   }
 }

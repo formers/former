@@ -24,7 +24,7 @@ class FormerTest extends FormerTests
     );
   }
 
-  public function matchLabel($name = null, $required = null)
+  public function matchLabel($name = null, $field = null, $required = null)
   {
     return array(
       'tag' => 'label',

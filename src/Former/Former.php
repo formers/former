@@ -55,6 +55,13 @@ class Former
   protected $rules = array();
 
   /**
+   * The labels created so far
+   *
+   * @var array
+   */
+  public static $labels = array();
+
+  /**
    * The namespace of Form elements
    */
   const FORMSPACE = 'Former\Form\\';

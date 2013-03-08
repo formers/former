@@ -1,6 +1,7 @@
 <?php
 namespace Former\Form\Fields;
 
+use HtmlObject\Input;
 use Former\Traits\Field;
 use Laravel\File as LaravelFile;
 
@@ -20,6 +21,8 @@ class File extends Field
    * @var array
    */
   private $mimeGroups = array('audio', 'video', 'image');
+
+  protected $injectedProperties = array('type', 'name');
 
   ////////////////////////////////////////////////////////////////////
   /////////////////////////// CORE METHODS ///////////////////////////
@@ -56,10 +59,10 @@ class File extends Field
   {
     // Maximum file size
     $hidden = $this->maxSize
-      ? $this->app['meido.form']->hidden('MAX_FILE_SIZE', $this->maxSize)
+      ? Input::hidden('MAX_FILE_SIZE', $this->maxSize)
       : null;
 
-    return $this->app['meido.form']->input($this->type, $this->name, $this->value, $this->attributes).$hidden;
+    return parent::render().$hidden;
   }
 
   ////////////////////////////////////////////////////////////////////

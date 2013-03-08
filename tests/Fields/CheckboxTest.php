@@ -106,11 +106,11 @@ class CheckboxTest extends FormerTests
   {
     $checkboxes = $this->former->checkboxes('foo')->checkboxes($this->checkables)->__toString();
     $matcher = $this->controlGroupMultiple(
-    '<label for="foo" class="checkbox">'.
+    '<label class="foo" for="checkbox"'.
       '<input data-foo="bar" value="bar" id="foo" type="checkbox" name="foo" />'.
       'Foo'.
     '</label>'.
-    '<label for="bar" class="checkbox">'.
+    '<label class="bar" for="checkbox"'.
       '<input data-foo="bar" value="bar" id="bar" type="checkbox" name="foo" />'.
       'Bar'.
     '</label>');
@@ -126,11 +126,11 @@ class CheckboxTest extends FormerTests
 
     $checkboxes = $this->former->checkboxes('foo')->checkboxes($checkables)->__toString();
     $matcher = $this->controlGroupMultiple(
-    '<label for="foo_0" class="checkbox">'.
+    '<label class="foo_0" for="checkbox"'.
       '<input data-foo="bar" value="bar" id="foo_0" type="checkbox" name="foo_0" />'.
       'Foo'.
     '</label>'.
-    '<label for="bar" class="checkbox">'.
+    '<label class="bar" for="checkbox"'.
       '<input data-foo="bar" value="bar" id="bar" type="checkbox" name="foo_1" />'.
       'Bar'.
     '</label>');
@@ -212,7 +212,7 @@ class CheckboxTest extends FormerTests
 
     $checkbox = $this->former->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->controlGroup(
-      '<label for="foo" class="checkbox">'.
+      '<label class="foo" for="checkbox"'.
         '<input type="hidden" name="foo" value="" id="foo" />'.
         $this->cb('foo').'Foo'.
       '</label>');
@@ -227,7 +227,7 @@ class CheckboxTest extends FormerTests
 
     $checkbox = $this->former->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->controlGroup(
-      '<label for="foo" class="checkbox">'.
+      '<label class="foo" for="checkbox"'.
         '<input type="hidden" name="foo" value="" id="foo" />'.
         $this->cb('foo').'Foo'.
       '</label>');
@@ -244,10 +244,10 @@ class CheckboxTest extends FormerTests
 
     $this->assertEquals($chain, $auto);
     $this->assertEquals(
-      '<label for="value_0" class="checkbox">'.
+      '<label class="value_0" for="checkbox"'.
         '<input id="value_0" type="checkbox" name="value[]" value="1" />Value 01'.
       '</label>'.
-      '<label for="value_1" class="checkbox">'.
+      '<label class="value_1" for="checkbox"'.
         '<input id="value_1" type="checkbox" name="value[]" value="1" />Value 02'.
       '</label>', $auto);
   }
@@ -259,10 +259,10 @@ class CheckboxTest extends FormerTests
     $checkboxes = $this->former->checkboxes('foo', '')->grouped()->checkboxes('Value 01', 'Value 02')->__toString();
 
     $this->assertEquals(
-      '<label for="foo_0" class="checkbox">'.
+      '<label class="foo_0" for="checkbox"'.
         '<input id="foo_0" checked="checked" type="checkbox" name="foo[]" value="1">Value 01'.
       '</label>'.
-      '<label for="foo_1" class="checkbox">'.
+      '<label class="foo_1" for="checkbox"'.
         '<input id="foo_1" type="checkbox" name="foo[]" value="1">Value 02'.
       '</label>', $checkboxes);
   }*/
@@ -273,7 +273,7 @@ class CheckboxTest extends FormerTests
 
     $checkbox = $this->former->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->controlGroup(
-      '<label for="foo" class="checkbox">'.
+      '<label class="foo" for="checkbox"'.
         '<input type="hidden" name="foo" value="unchecked" id="foo" />'.
         $this->cb('foo').'Foo'.
       '</label>');

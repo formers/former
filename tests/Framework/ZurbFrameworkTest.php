@@ -9,13 +9,13 @@ class ZurbFrameworkTest extends FormerTests
 
   // Matchers ------------------------------------------------------ /
 
-  public function matchLabel($name = 'foo', $required = false)
+  public function matchLabel($name = 'foo', $field = 'foo', $required = false)
   {
     return array(
       'tag' => 'label',
       'content' => ucfirst($name),
       'attributes' => array(
-        'for'   => $name,
+        'for'   => $field,
       ),
     );
   }
