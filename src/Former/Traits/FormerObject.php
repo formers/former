@@ -40,6 +40,11 @@ abstract class FormerObject extends Element
     }
   }
 
+  /**
+   * Render the FormerObject and set its id
+   *
+   * @return string
+   */
   public function render()
   {
     $this->setId();

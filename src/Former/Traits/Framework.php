@@ -1,9 +1,9 @@
 <?php
 namespace Former\Traits;
 
-use HtmlObject\Element;
 use Former\Helpers;
 use Former\Traits\Field;
+use HtmlObject\Element;
 use Underscore\Types\Arrays;
 use Underscore\Types\String;
 
@@ -63,6 +63,7 @@ abstract class Framework
   {
     // Filter out wrong states
     if (!in_array($state, $this->states)) return null;
+
     return $state;
   }
 
@@ -83,14 +84,6 @@ abstract class Framework
     return Arrays::each($classes, function($class) use ($with) {
       return $with.$class;
     });
-  }
-
-  /**
-   * Alias for former.helpers.addClass
-   */
-  protected function addClass($attributes, $class)
-  {
-    return Helpers::addClass($attributes, $class);
   }
 
   /**

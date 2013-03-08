@@ -196,10 +196,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    */
   public function createHelp($text, $attributes = array())
   {
-    // Add class
-    $attributes = $this->addClass($attributes, 'help-inline');
-
-    return Element::create('span', $text, $attributes);
+    return Element::create('span', $text, $attributes)->addClass('help-inline');
   }
 
   /**
@@ -210,12 +207,9 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    *
    * @return string
    */
-  public function createBlockHelp($text, $attributes, $attributes = array())
+  public function createBlockHelp($text, $attributes = array())
   {
-    // Add class
-    $attributes = $this->addClass($attributes, 'help-block');
-
-    return Element::create('p', $text, $attributes);
+    return Element::create('p', $text, $attributes)->addClass('help-block');
   }
 
   /**
@@ -238,22 +232,24 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    *
    * @return string
    */
-  public function createIcon($icon, $attributes, $attributes = array())
+  public function createIcon($iconType, $attributes = array())
   {
+    $icon = Element::create('i', null, $attributes);
+
     // White icon
-    if (String::contains($icon, 'white')) {
-      $icon = String::remove($icon, 'white');
-      $icon = trim($icon, '-');
-      $attributes = $this->addClass($attributes, 'icon-white');
+    if (String::contains($iconType, 'white')) {
+      $iconType = String::remove($iconType, 'white');
+      $iconType = trim($iconType, '-');
+      $icon->addClass('icon-white');
     }
 
     // Check for empty icons
-    if (!$icon) return false;
+    if (!$iconType) return false;
 
     // Create icon
-    $attributes = $this->addClass($attributes, 'icon-'.$icon);
+    $icon->addClass('icon-'.$iconType);
 
-    return Element::create('i', null, $attributes);
+    return $icon;
   }
 
   ////////////////////////////////////////////////////////////////////
