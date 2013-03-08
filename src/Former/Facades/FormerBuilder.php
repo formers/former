@@ -1,6 +1,10 @@
 <?php
 namespace Former\Facades;
 
+use Former\Former;
+use LaravelBook\Laravel4Powerpack\Form;
+use LaravelBook\Laravel4Powerpack\HTML;
+
 /**
  * Common building blocks to all environments
  */
@@ -41,11 +45,11 @@ abstract class FormerBuilder
   public static function buildMeido($app)
   {
     $app->bind('meido.html', function($app) {
-      return new \LaravelBook\Laravel4Powerpack\HTML($app['url']);
+      return new HTML($app['url']);
     });
 
     $app->singleton('meido.form', function($app) {
-      return new \LaravelBook\Laravel4Powerpack\Form($app['meido.html']);
+      return new Form($app['meido.html']);
     });
 
     return $app;
@@ -81,7 +85,7 @@ abstract class FormerBuilder
   public static function buildFormer($app)
   {
     $app->singleton('former', function($app) {
-      return new \Former\Former(
+      return new Former(
         $app,
         $app->make('\Former\Populator'),
         $app->make('\Former\Interfaces\FrameworkInterface'));

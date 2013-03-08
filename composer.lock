@@ -68,7 +68,7 @@
             ],
             "authors": [
                 {
-                    "name": "Anahkiasen",
+                    "name": "Maxime Fabre",
                     "email": "ehtnam6@gmail.com"
                 }
             ],
@@ -82,12 +82,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/cache.git",
-                "reference": "a0107e602613a10d9afbb75da5582af78e111a4b"
+                "reference": "155f679005b1f88ea3fb10d4eb0c404adfcef43e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/cache/zipball/a0107e602613a10d9afbb75da5582af78e111a4b",
-                "reference": "a0107e602613a10d9afbb75da5582af78e111a4b",
+                "url": "https://api.github.com/repos/illuminate/cache/zipball/155f679005b1f88ea3fb10d4eb0c404adfcef43e",
+                "reference": "155f679005b1f88ea3fb10d4eb0c404adfcef43e",
                 "shasum": ""
             },
             "require": {
@@ -116,7 +116,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
-            "time": "2013-03-03 01:00:36"
+            "time": "2013-03-08 01:36:54"
         },
         {
             "name": "illuminate/config",
@@ -248,12 +248,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "1ce10a386312af3a62d8c9130ae5702b1256d7be"
+                "reference": "2bcbf30c82c03b12ddaa8044489e70aaec956e4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/1ce10a386312af3a62d8c9130ae5702b1256d7be",
-                "reference": "1ce10a386312af3a62d8c9130ae5702b1256d7be",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/2bcbf30c82c03b12ddaa8044489e70aaec956e4c",
+                "reference": "2bcbf30c82c03b12ddaa8044489e70aaec956e4c",
                 "shasum": ""
             },
             "require": {
@@ -294,7 +294,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2013-03-06 01:34:47"
+            "time": "2013-03-08 05:16:40"
         },
         {
             "name": "illuminate/encryption",
@@ -518,12 +518,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/routing.git",
-                "reference": "f986a8ac6d42f8c0d0b76433d99571a866110ea9"
+                "reference": "58a967662691ebaec32d3a2fe3935a893b5daa28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/routing/zipball/f986a8ac6d42f8c0d0b76433d99571a866110ea9",
-                "reference": "f986a8ac6d42f8c0d0b76433d99571a866110ea9",
+                "url": "https://api.github.com/repos/illuminate/routing/zipball/58a967662691ebaec32d3a2fe3935a893b5daa28",
+                "reference": "58a967662691ebaec32d3a2fe3935a893b5daa28",
                 "shasum": ""
             },
             "require": {
@@ -562,7 +562,7 @@
             "keywords": [
                 "laravel"
             ],
-            "time": "2013-03-05 05:22:59"
+            "time": "2013-03-08 04:46:38"
         },
         {
             "name": "illuminate/session",
@@ -621,12 +621,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "c979c0ee2c1e27e96b489498647eca0c75f8002d"
+                "reference": "da608d80f5863e1b88624be5db3b21d9758a96dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/c979c0ee2c1e27e96b489498647eca0c75f8002d",
-                "reference": "c979c0ee2c1e27e96b489498647eca0c75f8002d",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/da608d80f5863e1b88624be5db3b21d9758a96dd",
+                "reference": "da608d80f5863e1b88624be5db3b21d9758a96dd",
                 "shasum": ""
             },
             "require": {
@@ -658,7 +658,7 @@
                 }
             ],
             "description": "Various utilities and support functions.",
-            "time": "2013-03-07 02:05:08"
+            "time": "2013-03-08 05:11:31"
         },
         {
             "name": "illuminate/translation",

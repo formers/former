@@ -1,7 +1,7 @@
 <?php
+use Illuminate\Container\Container;
+
 /**
- * IlluminateMock
- *
  * Dummy Illuminate app for testing purposes
  */
 class IlluminateMock
@@ -10,7 +10,7 @@ class IlluminateMock
 
   public function __construct()
   {
-    $app = Former\Facades\Agnostic::buildContainer();
+    $app = new Container;
 
     // Setup Illuminate
     $app['config']     = $this->getConfig();
