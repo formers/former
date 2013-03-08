@@ -29,7 +29,7 @@ class CheckboxTest extends FormerTests
 
   // Tests --------------------------------------------------------- /
 
-  public function testCanCreateASingleCheckbox()
+  public function testCanCreateASingleCheckedCheckbox()
   {
     $checkbox = $this->former->checkbox('foo')->__toString();
     $matcher = $this->controlGroup($this->cb('foo'));
@@ -192,7 +192,7 @@ class CheckboxTest extends FormerTests
     $checkboxes = $this->former->checkboxes('roles')->__toString();
     $matcher = $this->controlGroupMultiple(
       $this->cb('1', 'Foo').$this->cb('3', 'Bar'),
-      '<label class="control-label">Roles</label>');
+      '<label for="roles" class="control-label">Roles</label>');
 
     $this->assertEquals($matcher, $checkboxes);
   }

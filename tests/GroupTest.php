@@ -31,7 +31,7 @@ class GroupTest extends FormerTests
 
     return
     '<div class="control-group' .$state. '">' .
-      '<label class="foo" for="control-label"Foo</label>' .
+      '<label for="foo" class="control-label">Foo</label>' .
       '<div class="controls">' .
         '<input type="text" name="foo" id="foo" />' .
         $inlineHelp .
@@ -51,7 +51,7 @@ class GroupTest extends FormerTests
 
     return
     '<div class="control-group">' .
-      '<label class="foo" for="control-label"Foo</label>' .
+      '<label for="foo" class="control-label">Foo</label>' .
       '<div class="controls">' .
         '<div class="' .$class. '">'.
           join(null, $prepend).
@@ -75,7 +75,7 @@ class GroupTest extends FormerTests
   public function testCanOpenGroupManually()
   {
     $group = $this->former->group('foo')->__toString();
-    $matcher = '<div class="control-group"><label class="foo" for="control-label"foo</label>';
+    $matcher = '<div class="control-group"><label for="foo" class="control-label">foo</label>';
 
     $this->assertEquals($matcher, $group);
   }
@@ -229,7 +229,7 @@ class GroupTest extends FormerTests
       ->__toString();
     $matcher =
     '<div class="control-group error">'.
-      '<label class="foo" for="control-label"Foo</label>'.
+      '<label for="foo" class="control-label">Foo</label>'.
       '<div class="controls">'.
         '<div class="input-prepend input-append">'.
             '<span class="add-on">@</span>'.
@@ -269,7 +269,7 @@ class GroupTest extends FormerTests
   {
     $group = $this->former->group('MyField')->contents('This be <b>HTML</b> content');
     $matcher = '<div class="control-group">'.
-      '<label class="MyField" for="control-label"MyField</label>'.
+      '<label for="MyField" class="control-label">MyField</label>'.
       '<div class="controls">This be <b>HTML</b> content</div>'.
     '</div>';
 

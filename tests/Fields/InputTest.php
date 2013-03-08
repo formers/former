@@ -138,7 +138,7 @@ class InputTest extends FormerTests
     $input = $this->former->text('foo')->name('bar')->__toString();
     $matcher = $this->controlGroup(
       '<input id="bar" type="text" name="bar">',
-      '<label class="control-label" for="bar">Bar</label>');
+      '<label for="bar" class="control-label">Bar</label>');
 
     $this->assertEquals($matcher, $input);
   }
@@ -256,7 +256,7 @@ class InputTest extends FormerTests
     $required = $this->former->text('required')->__toString();
     $matcher =
     '<div class="control-group error">'.
-      '<label class="control-label" for="required">Required</label>'.
+      '<label for="required" class="control-label">Required</label>'.
       '<div class="controls">'.
         '<input id="required" type="text" name="required">'.
         '<span class="help-inline">The required field is required.</span>'.
@@ -275,7 +275,7 @@ class InputTest extends FormerTests
     $required = $this->former->text('required')->__toString();
     $matcher =
     '<div class="control-group error">'.
-      '<label class="required" for="control-label"Required</label>'.
+      '<label for="required" class="control-label">Required</label>'.
       '<div class="controls">'.
         '<input id="required" type="text" name="required">'.
       '</div>'.
@@ -289,7 +289,7 @@ class InputTest extends FormerTests
     $this->former->populate(array('foo' => 'bar'));
 
     $populate = $this->former->text('foo')->__toString();
-    $matcher = $this->controlGroup('<input type="text" name="foo" value="bar" id="foo">');
+    $matcher = $this->controlGroup('<input id="foo" type="text" name="foo" value="bar">');
 
     $this->assertEquals($matcher, $populate);
   }
@@ -300,7 +300,7 @@ class InputTest extends FormerTests
     $this->former->populateField('foo', 'foo');
 
     $populate = $this->former->text('foo')->__toString();
-    $matcher = $this->controlGroup('<input type="text" name="foo" value="foo" id="foo">');
+    $matcher = $this->controlGroup('<input id="foo" type="text" name="foo" value="foo">');
 
     $this->assertEquals($matcher, $populate);
   }
@@ -312,8 +312,8 @@ class InputTest extends FormerTests
 
     $text = $this->former->text('bar.kal.ter')->__toString();
     $matcher = $this->controlGroup(
-      '<input type="text" name="bar.kal.ter" value="men" id="bar.kal.ter">',
-      '<label class="bar.kal.ter" for="control-label"Bar.kal.ter</label>');
+      '<input id="bar.kal.ter" type="text" name="bar.kal.ter" value="men">',
+      '<label for="bar.kal.ter" class="control-label">Bar.kal.ter</label>');
 
     $this->assertEquals($matcher, $text);
   }
@@ -325,8 +325,8 @@ class InputTest extends FormerTests
 
     $text = $this->former->text('bar.kal.ter')->name('ter')->__toString();
     $matcher = $this->controlGroup(
-      '<input type="text" name="ter" value="men" id="ter">',
-      '<label class="ter" for="control-label"Ter</label>');
+      '<input id="ter" type="text" name="ter" value="men">',
+      '<label for="ter" class="control-label">Ter</label>');
 
     $this->assertEquals($matcher, $text);
   }
@@ -339,8 +339,8 @@ class InputTest extends FormerTests
 
     $text = $this->former->text('bar.kal')->__toString();
     $matcher = $this->controlGroup(
-      '<input type="text" name="bar.kal" value="val0, val1" id="bar.kal">',
-      '<label class="bar.kal" for="control-label"Bar.kal</label>');
+      '<input id="bar.kal" type="text" name="bar.kal" value="val0, val1">',
+      '<label for="bar.kal" class="control-label">Bar.kal</label>');
 
     $this->assertEquals($matcher, $text);
   }
@@ -349,7 +349,7 @@ class InputTest extends FormerTests
   {
     $this->former->populate(array('foo' => 'bar'));
     $populate = $this->former->password('foo')->__toString();
-    $matcher = $this->controlGroup('<input type="password" name="foo" id="foo">');
+    $matcher = $this->controlGroup('<input id="foo" type="password" name="foo">');
 
     $this->assertEquals($matcher, $populate);
   }
@@ -359,9 +359,9 @@ class InputTest extends FormerTests
     $datalist = $this->former->text('foo')->useDatalist(array('foo' => 'bar', 'kel' => 'tar'))->__toString();
     $matcher =
     '<div class="control-group">'.
-      '<label class="foo" for="control-label"Foo</label>'.
+      '<label for="foo" class="control-label">Foo</label>'.
       '<div class="controls">'.
-        '<input list="datalist_foo" type="text" name="foo" id="foo">'.
+        '<input list="datalist_foo" id="foo" type="text" name="foo">'.
         '<datalist id="datalist_foo">'.
           '<option value="bar">foo</option>'.
           '<option value="tar">kel</option>'.
@@ -377,9 +377,9 @@ class InputTest extends FormerTests
     $datalist = $this->former->text('foo')->list('bar')->useDatalist(array('foo' => 'bar', 'kel' => 'tar'))->__toString();
     $matcher =
     '<div class="control-group">'.
-      '<label class="foo" for="control-label"Foo</label>'.
+      '<label for="foo" class="control-label">Foo</label>'.
       '<div class="controls">'.
-        '<input list="bar" type="text" name="foo" id="foo">'.
+        '<input list="bar" id="foo" type="text" name="foo">'.
         '<datalist id="bar">'.
           '<option value="bar">foo</option>'.
           '<option value="tar">kel</option>'.

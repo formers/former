@@ -31,7 +31,11 @@ class SelectTest extends FormerTests
   {
     $select = $this->former->select('foo')->options($this->options);
 
-    $this->assertEquals($select->getOptions(), $this->options);
+    foreach ($this->options as $key => $option) {
+      $options[$key] = HtmlObject\Element::create('option', $option, array('value' => $key));
+    }
+
+    $this->assertEquals($select->getOptions(), $options);
   }
 
   public function testSelectPlaceholder()
@@ -136,7 +140,7 @@ class SelectTest extends FormerTests
         '<option value="0">val0</option>'.
         '<option value="1">val1</option>'.
       '</select>',
-      '<label class="bar.kal" for="control-label"Bar.kal</label>');
+      '<label for="bar.kal" class="control-label">Bar.kal</label>');
 
     $this->assertEquals($matcher, $select);
   }

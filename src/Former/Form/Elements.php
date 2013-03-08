@@ -38,19 +38,19 @@ class Elements
   /**
    * Creates a label tag
    *
-   * @param  string $label      The label content
    * @param  string $name       The field the label's for
+   * @param  string $label      The label content
    * @param  array  $attributes The label's attributes
    * @return string             A <label> tag
    */
   public function label($label, $name = null, $attributes = array())
   {
-    $name = Helpers::translate($name);
+    $label = Helpers::translate($label);
 
-    $attributes['for'] = $label;
-    Former::$labels[] = $label;
+    $attributes['for'] = $name;
+    Former::$labels[] = $name;
 
-    return Element::create('label', $name, $attributes);
+    return Element::create('label', $label, $attributes);
   }
 
   /**

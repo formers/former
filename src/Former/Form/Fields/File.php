@@ -40,14 +40,14 @@ class File extends Field
    */
   public function __construct($app, $type, $name, $label, $value, $attributes)
   {
-    parent::__construct($app, $type, $name, $label, $value, $attributes);
-
     // Multiple files field
-    if ($this->isOfType('files')) {
-      $this->multiple();
-      $this->type = 'file';
-      $this->name = $this->name.'[]';
+    if ($type == 'files') {
+      $attributes['multiple'] = 'true';
+      $type = 'file';
+      $name = $name.'[]';
     }
+
+    parent::__construct($app, $type, $name, $label, $value, $attributes);
   }
 
   /**

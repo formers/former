@@ -23,6 +23,13 @@ class Select extends Field
    */
   protected $element = 'select';
 
+  /**
+   * The select's self-closing state
+   *
+   * @var boolean
+   */
+  protected $isSelfClosing = false;
+
   ////////////////////////////////////////////////////////////////////
   /////////////////////////// CORE METHODS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -74,8 +81,6 @@ class Select extends Field
       array_unshift($this->children, $placeholder);
     }
 
-    $this->setId();
-
     return parent::render();
   }
 
@@ -91,7 +96,7 @@ class Select extends Field
     $attributes = array('value' => '', 'disabled' => '');
     if(!$this->value) $attributes['selected'] = '';
 
-    return Element::option($this->placeholder, $attributes);
+    return Element::create('option', $this->placeholder, $attributes);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -119,7 +124,7 @@ class Select extends Field
     } else $options = $_options;
 
     foreach ($options as $key => $option) {
-      $options[$key] = Element::option($option, $key);
+      $options[$key] = Element::create('option', $option)->setAttribute('value', $key);
     }
 
     $this->children = $options;

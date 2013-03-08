@@ -224,7 +224,7 @@ abstract class Field extends FormerObject implements FieldInterface
   public function label($text, $attributes = array())
   {
     $text  = Helpers::translate($text);
-    $label = new Element('label', $text, $attributes);
+    $label = $this->app['former']->label($text, $this->name, $attributes);
 
     if($this->group) $this->group->setLabel($label);
     else $this->label = $label;

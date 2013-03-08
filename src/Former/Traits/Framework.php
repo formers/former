@@ -113,9 +113,6 @@ abstract class Framework
   {
     // Get the label and its informations
     if (!$label) $label = $field->getLabel();
-    if (!is_object($label)) {
-      \Kint::trace();
-    }
 
     // Get label text
     $text = $label->getValue();
