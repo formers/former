@@ -1,9 +1,11 @@
 <?php
 namespace Former\Traits;
 
+use Former\Former;
+use Former\Helpers;
+use HtmlObject\Input;
 use HtmlObject\Element;
 use Underscore\Types\Arrays;
-use Former\Helpers;
 
 /**
  * Abstract methods inherited by Checkbox and Radio
@@ -66,9 +68,9 @@ abstract class Checkable extends Field
   /**
    * Build a new checkable
    */
-  public function __construct($app, $type, $name, $label, $value, $attributes)
+  public function __construct(Former $former, $type, $name, $label, $value, $attributes)
   {
-    parent::__construct($app, $type, $name, $label, $value, $attributes);
+    parent::__construct($former, $type, $name, $label, $value, $attributes);
 
     if (is_array($this->value)) {
       $this->items($this->value);
@@ -94,6 +96,7 @@ abstract class Checkable extends Field
 
     // Multiple items
     if ($this->items) {
+      unset($this->former->labels[array_search($this->name, $this->former->labels)]);
       foreach ($this->items as $key => $item) {
         $value = $this->isCheckbox() ? 1 : $key;
         $html .= $this->createCheckable($item, $value);
@@ -211,8 +214,9 @@ abstract class Checkable extends Field
   {
     // If passing an array
     if(sizeof($_items) == 1 and
-       is_array($_items[0]))
+       is_array($_items[0])) {
          $_items = $_items[0];
+    }
 
     // Fetch models if that's what we were passed
     if (isset($_items[0]) and is_object($_items[0])) {
@@ -275,7 +279,7 @@ abstract class Checkable extends Field
     // Set default values
     if(!isset($attributes)) $attributes = array();
     if(isset($attributes['value'])) $value = $attributes['value'];
-    if(!isset($value) or $value === $this->app['former']->getOption('unchecked_value')) $value = $fallbackValue;
+    if(!isset($value) or $value === $this->former->getOption('unchecked_value')) $value = $fallbackValue;
 
     // If inline items, add class
     $isInline = $this->inline ? ' inline' : null;
@@ -285,12 +289,14 @@ abstract class Checkable extends Field
     if (!isset($attributes['id'])) $attributes['id'] = $name.$this->unique($name);
 
     // Create field
-    $field = call_user_func(array($this->app['meido.form'], $this->checkable), $name, $value, $this->isChecked($name, $value), $attributes);
+    $field = Input::create($this->checkable, $name, $value, $attributes);
+    if ($this->isChecked($name, $value)) $field->checked('checked');
 
     // Add hidden checkbox if requested
-    if ($this->app['former']->getOption('push_checkboxes')) {
-      $field = $this->app['meido.form']->hidden($name, $this->app['former']->getOption('unchecked_value')) . $field;
+    if ($this->former->getOption('push_checkboxes')) {
+      $field = $this->former->hidden($name, $this->former->getOption('unchecked_value')) . $field;
     }
+
 
     // If no label to wrap, return plain checkable
     if(!$label) return $field;
@@ -310,19 +316,17 @@ abstract class Checkable extends Field
    */
   protected function unique($name)
   {
-    // Register the field with Laravel
-    $labels = $this->app['meido.form']->labels;
-    $labels[] = $name;
-    $this->app['meido.form']->labels = $labels;
+    $this->former->labels[] = $name;
 
     // Count number of fields with the same ID
-    $where = array_filter($this->app['meido.form']->labels, function($label) use ($name) {
+    $where = array_filter($this->former->labels, function($label) use ($name) {
       return $label == $name;
     });
     $unique = sizeof($where);
 
     // In case the field doesn't need to be numbered
     if ($unique < 2 or empty($this->items)) return false;
+
     return $unique;
   }
 
@@ -361,10 +365,10 @@ abstract class Checkable extends Field
     else $checked = Arrays::get($this->checked, $value, false);
 
     // Check the values and POST array
-    $post   = $this->app['former']->getPost($name);
-    $static = $this->app['former']->getValue($name);
+    $post   = $this->former->getPost($name);
+    $static = $this->former->getValue($name);
 
-    if(!is_null($post) and $post !== $this->app['former']->getOption('unchecked_value')) $isChecked = ($post == $value);
+    if(!is_null($post) and $post !== $this->former->getOption('unchecked_value')) $isChecked = ($post == $value);
     elseif(!is_null($static)) $isChecked = ($static == $value);
     else $isChecked = $checked;
     return $isChecked ? true : false;

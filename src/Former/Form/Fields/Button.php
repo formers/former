@@ -15,7 +15,7 @@ class Button extends Field
    *
    * @var Container
    */
-  protected $app;
+  protected $former;
 
   /**
    * The Button default element
@@ -53,9 +53,9 @@ class Button extends Field
    * @param string    $link       Its link
    * @param array     $attributes Its attributes
    */
-  public function __construct($app, $type, $value, $link, $attributes)
+  public function __construct(\Former\Former $former, $type, $value, $link, $attributes)
   {
-    $this->app        = $app;
+    $this->former        = $former;
 
     $this->attributes = (array) $attributes;
     $this->type       = $type;

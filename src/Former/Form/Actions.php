@@ -18,7 +18,7 @@ class Actions extends FormerObject
    *
    * @var Illuminate\Container
    */
-  protected $app;
+  protected $former;
 
   /**
    * The Actions element
@@ -37,13 +37,13 @@ class Actions extends FormerObject
    * @param Container $app
    * @param array     $value The block content
    */
-  public function __construct($app, $value)
+  public function __construct(\Former\Former $former, $value)
   {
-    $this->app   = $app;
+    $this->former   = $former;
     $this->value = $value;
 
     // Add specific actions classes to the actions block
-    $this->addClass($this->app['former']->getFramework()->getActionClasses());
+    $this->addClass($this->former->getFramework()->getActionClasses());
   }
 
   /**
@@ -96,7 +96,7 @@ class Actions extends FormerObject
    */
   private function createButtonOfType($type, $name, $link, $attributes)
   {
-    $this->value[] = $this->app['former']->$type($name, $link, $attributes)->__toString();
+    $this->value[] = $this->former->$type($name, $link, $attributes)->__toString();
 
     return $this;
   }

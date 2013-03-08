@@ -2,6 +2,7 @@
 namespace Former\Form\Fields;
 
 use Former\Traits\Field;
+use HtmlObject\Input as HtmlInput;
 
 /**
  * Class for hidden fields
@@ -22,9 +23,9 @@ class Hidden extends Field
    * @param string    $value      Its value
    * @param array     $attributes Attributes
    */
-  public function __construct($app, $type, $name, $value, $attributes)
+  public function __construct(\Former\Former $former, $type, $name, $value, $attributes)
   {
-    parent::__construct($app, $type, $name, '', $value, $attributes);
+    parent::__construct($former, $type, $name, '', $value, $attributes);
   }
 
   /**
@@ -34,6 +35,6 @@ class Hidden extends Field
    */
   public function render()
   {
-    return $this->app['meido.form']->hidden($this->name, $this->value, $this->attributes);
+    return HtmlInput::create('hidden', $this->name, $this->value, $this->attributes)->render();
   }
 }

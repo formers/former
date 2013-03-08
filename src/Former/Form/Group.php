@@ -20,7 +20,7 @@ class Group extends Tag
    *
    * @var Container
    */
-  protected $app;
+  protected $former;
 
   /**
    * The current state of the group
@@ -82,11 +82,11 @@ class Group extends Tag
    * @param string    $label      Its label
    * @param array     $attributes Attributes
    */
-  public function __construct($app, $label, $attributes = array())
+  public function __construct(\Former\Former $former, $label, $attributes = array())
   {
     // Get special classes
-    $this->app = $app;
-    $this->addClass($this->app['former']->getFramework()->getGroupClasses());
+    $this->former = $former;
+    $this->addClass($this->former->getFramework()->getGroupClasses());
 
     // Set group label
     if ($label) $this->setLabel($label);
@@ -110,7 +110,7 @@ class Group extends Tag
   public function open()
   {
     // If any errors, set state to errors
-    $errors = $this->app['former']->getErrors();
+    $errors = $this->former->getErrors();
     if($errors) $this->state('error');
 
     // Retrieve state and append it to classes
@@ -119,8 +119,8 @@ class Group extends Tag
     }
 
     // Required state
-    if ($this->app['former']->field() and $this->app['former']->field()->isRequired()) {
-      $this->addClass($this->app['former']->getOption('required_class'));
+    if ($this->former->field() and $this->former->field()->isRequired()) {
+      $this->addClass($this->former->getOption('required_class'));
     }
 
     return parent::open();
@@ -165,7 +165,7 @@ class Group extends Tag
   public function state($state)
   {
     // Filter state
-    $state = $this->app['former']->getFramework()->filterState($state);
+    $state = $this->former->getFramework()->filterState($state);
 
     $this->state = $state;
   }
@@ -203,7 +203,7 @@ class Group extends Tag
   {
     if (!$this->label) return false;
 
-    return $this->label->addClass($this->app['former']->getFramework()->getLabelClasses());
+    return $this->label->addClass($this->former->getFramework()->getLabelClasses());
   }
 
   /**
@@ -253,7 +253,7 @@ class Group extends Tag
     // If no help text, do nothing
     if (!$help) return false;
 
-    $this->help['inline'] = $this->app['former']->getFramework()->createHelp($help, $attributes);
+    $this->help['inline'] = $this->former->getFramework()->createHelp($help, $attributes);
   }
 
   /**
@@ -265,7 +265,7 @@ class Group extends Tag
   public function blockHelp($help, $attributes = array())
   {
     // Reserved method
-    if ($this->app['former']->getFramework()->isnt('TwitterBootstrap')) {
+    if ($this->former->getFramework()->isnt('TwitterBootstrap')) {
       throw new BadMethodCallException('This method is only available on the Bootstrap framework');
     }
 
@@ -275,7 +275,7 @@ class Group extends Tag
     // If no help text, do nothing
     if (!$help) return false;
 
-    $this->help['block'] = $this->app['former']->getFramework()->createBlockHelp($help, $attributes);
+    $this->help['block'] = $this->former->getFramework()->createBlockHelp($help, $attributes);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -306,7 +306,7 @@ class Group extends Tag
    */
   public function prependIcon($icon, $attributes = array())
   {
-    $icon = $this->app['former']->getFramework()->createIcon($icon, $attributes);
+    $icon = $this->former->getFramework()->createIcon($icon, $attributes);
 
     $this->prepend($icon);
   }
@@ -319,7 +319,7 @@ class Group extends Tag
    */
   public function appendIcon($icon, $attributes = array())
   {
-    $icon = $this->app['former']->getFramework()->createIcon($icon, $attributes);
+    $icon = $this->former->getFramework()->createIcon($icon, $attributes);
 
     $this->append($icon);
   }
@@ -340,7 +340,7 @@ class Group extends Tag
   {
     $group = $this->open();
       $group .= $label;
-      $group .= $this->app['former']->getFramework()->wrapField($contents);
+      $group .= $this->former->getFramework()->wrapField($contents);
     $group .= $this->close();
 
     return $group;
@@ -358,8 +358,8 @@ class Group extends Tag
     if (!$field or !$this->label) return null;
 
     // Wrap label in framework classes
-    $this->label->addClass($this->app['former']->getFramework()->getLabelClasses());
-    $this->label = $this->app['former']->getFramework()->createLabelOf($field, $this->label);
+    $this->label->addClass($this->former->getFramework()->getLabelClasses());
+    $this->label = $this->former->getFramework()->createLabelOf($field, $this->label);
 
     return $this->label;
   }
@@ -375,9 +375,9 @@ class Group extends Tag
     $block  = Arrays::get($this->help, 'block');
 
     // Replace help text with error if any found
-    $errors = $this->app['former']->getErrors();
-    if ($errors and $this->app['former']->getOption('error_messages')) {
-      $inline = $this->app['former']->getFramework()->createHelp($errors);
+    $errors = $this->former->getErrors();
+    if ($errors and $this->former->getOption('error_messages')) {
+      $inline = $this->former->getFramework()->createHelp($errors);
     }
 
     return join(null, array($inline, $block));

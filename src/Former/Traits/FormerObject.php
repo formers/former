@@ -35,7 +35,7 @@ abstract class FormerObject extends Element
   protected function setId()
   {
     if (!array_key_exists('id', $this->attributes) and
-      in_array($this->name, Former::$labels)) {
+      in_array($this->name, $this->former->labels)) {
         $this->attributes['id'] = $this->name;
     }
   }

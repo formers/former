@@ -59,7 +59,7 @@ class Former
    *
    * @var array
    */
-  public static $labels = array();
+  public $labels = array();
 
   /**
    * The namespace of Form elements
@@ -104,17 +104,17 @@ class Former
     }
 
     // Dispatch to Form\Form
-    if ($form = Dispatch::toForm($this->app, $method, $parameters)) {
+    if ($form = Dispatch::toForm($this, $method, $parameters)) {
       return $this->form = $form;
     }
 
     // Dispatch to Form\Group
-    if ($group = Dispatch::toGroup($this->app, $method, $parameters)) {
+    if ($group = Dispatch::toGroup($this, $method, $parameters)) {
       return $group;
     }
 
     // Dispatch to Form\Actions
-    if ($actions = Dispatch::toActions($this->app, $method, $parameters)) {
+    if ($actions = Dispatch::toActions($this, $method, $parameters)) {
       return $actions;
     }
 
@@ -123,8 +123,8 @@ class Former
     $method  = array_pop($classes);
 
     // Dispatch to the different Form\Fields
-    $field = Dispatch::toFields($this->app, $method, $parameters);
-    $field = $this->app['former']->getFramework()->getFieldClasses($field, $classes);
+    $field = Dispatch::toFields($this, $method, $parameters);
+    $field = $this->getFramework()->getFieldClasses($field, $classes);
 
     return $this->field = $field;
   }
@@ -252,6 +252,11 @@ class Former
   public function getFramework()
   {
     return $this->formFramework;
+  }
+
+  public function getMeido()
+  {
+    return $this->app['meido.form'];
   }
 
   /**

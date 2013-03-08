@@ -10,6 +10,7 @@ use Former\Interfaces\FrameworkInterface;
 use Former\Traits\Field;
 use Former\Traits\Framework;
 use HtmlObject\Element;
+use HtmlObject\Input;
 use Illuminate\Container\Container;
 
 class Nude extends Framework implements FrameworkInterface
@@ -110,7 +111,7 @@ class Nude extends Framework implements FrameworkInterface
   {
     $field->disabled();
 
-    return $this->app['meido.form']->input('text', $field->getName(), $field->getValue(), $field->getAttributes());
+    return Input::create('text', $field->getName(), $field->getValue(), $field->getAttributes());
   }
 
   ////////////////////////////////////////////////////////////////////

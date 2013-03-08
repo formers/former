@@ -5,9 +5,9 @@ class CheckboxTest extends FormerTests
   {
     $checkAttr = array(
       'id'      => $name,
-      'checked' => 'checked',
       'type'    => 'checkbox',
       'name'    => $name,
+      'checked' => 'checked',
       'value'   => $value,
     );
     $labelAttr = array(
@@ -17,7 +17,7 @@ class CheckboxTest extends FormerTests
     if ($inline) $labelAttr['class'] .= ' inline';
     if (!$checked) unset($checkAttr['checked']);
 
-    $radio = '<input'.$this->app->app['meido.html']->attributes($checkAttr).' />';
+    $radio = '<input'.$this->app->app['meido.html']->attributes($checkAttr).'>';
 
     return $label ? '<label'.$this->app->app['meido.html']->attributes($labelAttr). '>' .$radio.$label. '</label>' : $radio;
   }
@@ -96,6 +96,7 @@ class CheckboxTest extends FormerTests
 
   public function testCanCreateMultipleCheckboxesViaAnArray()
   {
+    $this->resetLabels();
     $checkboxes = $this->former->checkboxes('foo')->checkboxes(array('Foo' => 'foo', 'Bar' => 'bar'))->__toString();
     $matcher = $this->controlGroupMultiple($this->cb('foo', 'Foo').$this->cb('bar', 'Bar'));
 
@@ -107,11 +108,11 @@ class CheckboxTest extends FormerTests
     $checkboxes = $this->former->checkboxes('foo')->checkboxes($this->checkables)->__toString();
     $matcher = $this->controlGroupMultiple(
     '<label for="foo" class="checkbox">'.
-      '<input data-foo="bar" value="bar" id="foo" type="checkbox" name="foo" />'.
+      '<input data-foo="bar" value="bar" id="foo" type="checkbox" name="foo">'.
       'Foo'.
     '</label>'.
     '<label for="bar" class="checkbox">'.
-      '<input data-foo="bar" value="bar" id="bar" type="checkbox" name="foo" />'.
+      '<input data-foo="bar" value="bar" id="bar" type="checkbox" name="foo">'.
       'Bar'.
     '</label>');
 
@@ -127,11 +128,11 @@ class CheckboxTest extends FormerTests
     $checkboxes = $this->former->checkboxes('foo')->checkboxes($checkables)->__toString();
     $matcher = $this->controlGroupMultiple(
     '<label for="foo_0" class="checkbox">'.
-      '<input data-foo="bar" value="bar" id="foo_0" type="checkbox" name="foo_0" />'.
+      '<input data-foo="bar" value="bar" id="foo_0" type="checkbox" name="foo_0">'.
       'Foo'.
     '</label>'.
     '<label for="bar" class="checkbox">'.
-      '<input data-foo="bar" value="bar" id="bar" type="checkbox" name="foo_1" />'.
+      '<input data-foo="bar" value="bar" id="bar" type="checkbox" name="foo_1">'.
       'Bar'.
     '</label>');
 
@@ -213,7 +214,7 @@ class CheckboxTest extends FormerTests
     $checkbox = $this->former->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->controlGroup(
       '<label for="foo" class="checkbox">'.
-        '<input type="hidden" name="foo" value="" id="foo" />'.
+        '<input type="hidden" name="foo" value="">'.
         $this->cb('foo').'Foo'.
       '</label>');
 
@@ -228,7 +229,7 @@ class CheckboxTest extends FormerTests
     $checkbox = $this->former->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->controlGroup(
       '<label for="foo" class="checkbox">'.
-        '<input type="hidden" name="foo" value="" id="foo" />'.
+        '<input type="hidden" name="foo" value="">'.
         $this->cb('foo').'Foo'.
       '</label>');
 
@@ -245,10 +246,10 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($chain, $auto);
     $this->assertEquals(
       '<label for="value_0" class="checkbox">'.
-        '<input id="value_0" type="checkbox" name="value[]" value="1" />Value 01'.
+        '<input id="value_0" type="checkbox" name="value[]" value="1">Value 01'.
       '</label>'.
       '<label for="value_1" class="checkbox">'.
-        '<input id="value_1" type="checkbox" name="value[]" value="1" />Value 02'.
+        '<input id="value_1" type="checkbox" name="value[]" value="1">Value 02'.
       '</label>', $auto);
   }
 
@@ -274,7 +275,7 @@ class CheckboxTest extends FormerTests
     $checkbox = $this->former->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->controlGroup(
       '<label for="foo" class="checkbox">'.
-        '<input type="hidden" name="foo" value="unchecked" id="foo" />'.
+        '<input type="hidden" name="foo" value="unchecked">'.
         $this->cb('foo').'Foo'.
       '</label>');
 

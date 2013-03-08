@@ -5,9 +5,9 @@ class RadioTest extends FormerTests
   {
     $radioAttr = array(
       'id'      => $name,
-      'checked' => 'checked',
       'type'    => 'radio',
       'name'    => preg_replace('/[0-9]/', null, $name),
+      'checked' => 'checked',
       'value'   => $value,
     );
     $labelAttr = array(
@@ -17,7 +17,7 @@ class RadioTest extends FormerTests
     if ($inline) $labelAttr['class'] .= ' inline';
     if (!$checked) unset($radioAttr['checked']);
 
-    $radio = '<input'.$this->app->app['meido.html']->attributes($radioAttr).' />';
+    $radio = '<input'.$this->app->app['meido.html']->attributes($radioAttr).'>';
 
     return $label ? '<label'.$this->app->app['meido.html']->attributes($labelAttr). '>' .$radio.$label. '</label>' : $radio;
   }
@@ -96,11 +96,11 @@ class RadioTest extends FormerTests
     $radios = $this->former->radios('foo')->radios($this->checkables)->__toString();
     $matcher = $this->controlGroupMultiple(
     '<label for="foo" class="radio">'.
-      '<input data-foo="bar" value="bar" id="foo" type="radio" name="foo" />'.
+      '<input data-foo="bar" value="bar" id="foo" type="radio" name="foo">'.
       'Foo'.
     '</label>'.
     '<label for="bar" class="radio">'.
-      '<input data-foo="bar" value="bar" id="bar" type="radio" name="foo" />'.
+      '<input data-foo="bar" value="bar" id="bar" type="radio" name="foo">'.
       'Bar'.
     '</label>');
 
@@ -116,11 +116,11 @@ class RadioTest extends FormerTests
     $radios = $this->former->radios('foo')->radios($checkables)->__toString();
     $matcher = $this->controlGroupMultiple(
     '<label for="foo" class="radio">'.
-      '<input data-foo="bar" value="bar" id="foo" type="radio" name="foo" />'.
+      '<input data-foo="bar" value="bar" id="foo" type="radio" name="foo">'.
       'Foo'.
     '</label>'.
     '<label for="bar" class="radio">'.
-      '<input data-foo="bar" value="bar" id="bar" type="radio" name="foo" />'.
+      '<input data-foo="bar" value="bar" id="bar" type="radio" name="foo">'.
       'Bar'.
     '</label>');
 

@@ -34,5 +34,5 @@ interface FrameworkInterface
   public function createDisabledField(Field $field);
 
   // Wrap blocks (hooks)
-  public function wrapField(Field $field);
+  public function wrapField($field);
 }

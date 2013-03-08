@@ -38,7 +38,7 @@ class File extends Field
    * @param string    $value      Its value
    * @param array     $attributes Attributes
    */
-  public function __construct($app, $type, $name, $label, $value, $attributes)
+  public function __construct(\Former\Former $former, $type, $name, $label, $value, $attributes)
   {
     // Multiple files field
     if ($type == 'files') {
@@ -47,7 +47,7 @@ class File extends Field
       $name = $name.'[]';
     }
 
-    parent::__construct($app, $type, $name, $label, $value, $attributes);
+    parent::__construct($former, $type, $name, $label, $value, $attributes);
   }
 
   /**

@@ -6,11 +6,12 @@
  */
 namespace Former\Framework;
 
-use Illuminate\Container\Container;
 use Former\Interfaces\FrameworkInterface;
 use Former\Traits\Field;
-use HtmlObject\Element;
 use Former\Traits\Framework;
+use HtmlObject\Element;
+use HtmlObject\Input;
+use Illuminate\Container\Container;
 use Underscore\Types\Arrays;
 
 class ZurbFoundation extends Framework implements FrameworkInterface
@@ -126,7 +127,7 @@ class ZurbFoundation extends Framework implements FrameworkInterface
   {
     $field->disabled();
 
-    return $this->app['meido.form']->input('text', $field->getName(), $field->getValue(), $field->getAttributes());
+    return Input::create('text', $field->getName(), $field->getValue(), $field->getAttributes());
   }
 
   ////////////////////////////////////////////////////////////////////

@@ -22,7 +22,7 @@ class Dispatch
   public static function toElements($app, $method, $parameters)
   {
     // Disregards if the method isn't an element
-    if (!method_exists($elements = new Form\Elements($app), $method)) return false;
+    if (!method_exists($elements = new Form\Elements($app['former'], $app['session']), $method)) return false;
     return call_user_func_array(array($elements, $method), $parameters);
   }
 
@@ -35,12 +35,12 @@ class Dispatch
    *
    * @return Form
    */
-  public static function toForm($app, $method, $parameters)
+  public static function toForm($former, $method, $parameters)
   {
     // Disregards if the method doesn't contain 'open'
     if (!String::contains($method, 'open')) return false;
 
-    $form = new Form\Form($app);
+    $form = new Form\Form($former);
 
     return $form->openForm($method, $parameters);
   }
@@ -54,12 +54,12 @@ class Dispatch
    *
    * @return Group
    */
-  public static function toGroup($app, $method, $parameters)
+  public static function toGroup($former, $method, $parameters)
   {
     // Disregards if the method isn't "group"
     if ($method != 'group') return false;
     return new Form\Group(
-      $app,
+      $former,
       Arrays::get($parameters, 0, null),
       Arrays::get($parameters, 1, array())
     );
@@ -74,10 +74,10 @@ class Dispatch
    *
    * @return Actions
    */
-  public static function toActions($app, $method, $parameters)
+  public static function toActions($former, $method, $parameters)
   {
     if ($method != 'actions') return false;
-    return new Form\Actions($app, $parameters);
+    return new Form\Actions($former, $parameters);
   }
 
   /**
@@ -89,12 +89,12 @@ class Dispatch
    *
    * @return Field
    */
-  public static function toFields($app, $method, $parameters)
+  public static function toFields($former, $method, $parameters)
   {
     // Listing parameters
     $class = Former::FIELDSPACE.static::getClassFromMethod($method);
     $field = new $class(
-      $app,
+      $former,
       $method,
       Arrays::get($parameters, 0),
       Arrays::get($parameters, 1),

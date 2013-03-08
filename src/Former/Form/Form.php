@@ -1,22 +1,21 @@
 <?php
-/**
- * Form
- *
- * Construct and manages the form wrapping all fields
- */
 namespace Former\Form;
 
+use Former\Former;
 use Former\Traits\FormerObject;
 use Underscore\Types\Arrays;
 use Underscore\Types\String;
 
+/**
+ * Construct and manages the form wrapping all fields
+ */
 class Form extends FormerObject
 {
   /**
    * The current environment
    * @var Illuminate\Container
    */
-  protected $app;
+  protected $former;
 
   /**
    * The Form type
@@ -49,6 +48,13 @@ class Form extends FormerObject
   protected $secure;
 
   /**
+   * The form element
+   *
+   * @var string
+   */
+  protected $element = 'form';
+
+  /**
    * Whether a form is opened or not
    * @var boolean
    */
@@ -58,9 +64,9 @@ class Form extends FormerObject
   /////////////////////////// CORE METHODS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
 
-  public function __construct($app)
+  public function __construct(Former $former)
   {
-    $this->app = $app;
+    $this->former = $former;
   }
 
   /**
@@ -78,21 +84,26 @@ class Form extends FormerObject
     $secure     = Arrays::get($parameters, 3, false);
 
     // Fetch errors if asked for
-    if ($this->app['former']->getOption('fetch_errors')) {
-      $this->app['former']->withErrors();
+    if ($this->former->getOption('fetch_errors')) {
+      $this->former->withErrors();
     }
 
     // Open the form
     $this->action     = $action;
     $this->attributes = $attributes;
-    $this->method     = $method;
+    $this->method     = strtoupper($method);
     $this->secure     = $secure;
 
     // Add any effect of the form type
     $this->type = $this->applyType($type);
 
+    // Add enctype
+    if (!array_key_exists('accept-charset', $attributes )) {
+      $this->attributes['accept-charset'] = 'utf-8';
+    }
+
     // Add supplementary classes
-    $this->addClass($this->app['former']->getFramework()->getFormClasses($this->type));
+    $this->addClass($this->former->getFramework()->getFormClasses($this->type));
 
     return $this;
   }
@@ -164,11 +175,11 @@ class Form extends FormerObject
   }
 
   /**
-   * Alias for $this->app['former']->withRules
+   * Alias for $this->former->withRules
    */
   public function rules()
   {
-    call_user_func_array(array($this->app['former'], 'withRules'), func_get_args());
+    call_user_func_array(array($this->former, 'withRules'), func_get_args());
 
     return $this;
   }
@@ -186,7 +197,13 @@ class Form extends FormerObject
     // Add name to attributes
     $this->attributes['name'] = $this->name;
 
-    return $this->app['meido.form']->open($this->action, $this->method, $this->attributes, $this->secure);
+    // Add spoof method
+    if ($this->method == 'PUT' or $this->method == 'DELETE') {
+      $spoof = $this->former->hidden('_method', $this->method);
+    } else $spoof = null;
+
+    //return $this->open().$spoof;
+    return $this->former->getMeido()->open($this->action, $this->method, $this->attributes, $this->secure);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -203,7 +220,7 @@ class Form extends FormerObject
   {
     // If classic form
     if ($type == 'open') {
-      return $this->app['former']->getOption('default_form_type');
+      return $this->former->getOption('default_form_type');
     }
 
     // Look for HTTPS form
@@ -224,7 +241,7 @@ class Form extends FormerObject
 
     // Use default form type if the one provided is invalid
     if (!in_array($type, $this->availableTypes)) {
-      $type = $this->app['former']->getOption('default_form_type');
+      $type = $this->former->getOption('default_form_type');
     }
 
     return $type;

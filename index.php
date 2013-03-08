@@ -2,5 +2,5 @@
 require 'vendor/autoload.php';
 use Former\Facades\Agnostic as Former;
 
-$test = Former::select('foo')->options(array('foo' => 'bar', 'kal' => 'ter'));
+$test = Former::checkbox('foo')->check()->__toString();
 dd($test);

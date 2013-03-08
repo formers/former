@@ -45,12 +45,12 @@ class Select extends Field
    * @param string    $selected   The selected option
    * @param array     $attributes Attributes
    */
-  public function __construct($app, $type, $name, $label, $options, $selected, $attributes)
+  public function __construct(\Former\Former $former, $type, $name, $label, $options, $selected, $attributes)
   {
     if($selected) $this->value = $selected;
     if($options)  $this->options($options);
 
-    parent::__construct($app, $type, $name, $label, $selected, $attributes);
+    parent::__construct($former, $type, $name, $label, $selected, $attributes);
 
     // Multiple models population
     if (is_array($this->value)) {

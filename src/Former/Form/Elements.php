@@ -10,6 +10,7 @@ namespace Former\Form;
 use Former\Former;
 use Former\Helpers;
 use HtmlObject\Element;
+use Illuminate\Session\Store as Session;
 
 class Elements
 {
@@ -18,9 +19,10 @@ class Elements
    *
    * @param Container $app
    */
-  public function __construct($app)
+  public function __construct(Former $former, Session $session)
   {
-    $this->app = $app;
+    $this->former     = $former;
+    $this->session = $session;
   }
 
   /**
@@ -30,9 +32,9 @@ class Elements
    */
   public function token()
   {
-    $csrf = $this->app['session']->getToken();
+    $csrf = $this->session->getToken();
 
-    return (string) $this->app['former']->hidden($csrf, $csrf);
+    return (string) $this->former->hidden($csrf, $csrf);
   }
 
   /**
@@ -48,7 +50,7 @@ class Elements
     $label = Helpers::translate($label);
 
     $attributes['for'] = $name;
-    Former::$labels[] = $name;
+    $this->former->labels[] = $name;
 
     return Element::create('label', $label, $attributes);
   }

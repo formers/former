@@ -106,7 +106,7 @@ class IlluminateMock
    */
   private function getSession()
   {
-    $session = Mockery::mock('session');
+    $session = Mockery::mock('Illuminate\Session\Store');
     $session->shouldReceive('has')->with('errors')->andReturn(false);
     $session->shouldReceive('set')->with('errors')->andReturn(false);
     $session->shouldReceive('getToken')->andReturn('csrf_token');
