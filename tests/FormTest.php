@@ -157,7 +157,7 @@ class FormTest extends FormerTests
     $open = $this->former->inline_open()->render();
     $field = $this->former->text('foo');
 
-    $this->assertEquals('<input type="text" name="foo" />', $field->__toString());
+    $this->assertHTML($this->matchField(), $field->__toString());
   }
 
   public function testCanSetNameOnFormOpeners()

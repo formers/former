@@ -23,7 +23,8 @@ class TextareaTest extends FormerTests
 
   public function testCanCreateTextareas()
   {
-    $textarea = $this->former->textarea('foo')->setAttributes($this->testAttributes)->value('bar')->__toString();
+    $attributes = $this->matchTextarea();
+    $textarea = $this->former->textarea('foo')->setAttributes($attributes['attributes'])->value('bar')->__toString();
     $matcher  = $this->matchTextarea();
 
     $this->assertControlGroup($textarea);

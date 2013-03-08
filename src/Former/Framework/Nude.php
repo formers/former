@@ -98,7 +98,7 @@ class Nude extends Framework implements FrameworkInterface
   {
     $attributes = $this->addClass($attributes, $icon);
 
-    return '<i'.$this->attributes($attributes).'></i>';
+    return Element::create('i', null, $attributes);;
   }
 
   /**

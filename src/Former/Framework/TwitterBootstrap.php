@@ -210,7 +210,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
     // Add class
     $attributes = $this->addClass($attributes, 'help-inline');
 
-    return '<span'.$this->attributes($attributes).'>'.$text.'</span>';
+    return Element::create('span', $text, $attributes);
   }
 
   /**
@@ -226,7 +226,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
     // Add class
     $attributes = $this->addClass($attributes, 'help-block');
 
-    return '<p'.$this->attributes($attributes).'>'.$text.'</p>';
+    return Element::create('p', $text, $attributes);
   }
 
   /**
@@ -238,7 +238,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    */
   public function createDisabledField(Field $field)
   {
-    return '<span'.$this->attributes($field->getAttributes()).'>'.$field->getValue().'</span>';
+    return Element::create('span', $field->getValue(), $field->getAttributes());
   }
 
   /**
@@ -263,9 +263,8 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
 
     // Create icon
     $attributes = $this->addClass($attributes, 'icon-'.$icon);
-    $icon = '<i'.$this->attributes($attributes).'></i>';
 
-    return $icon;
+    return Element::create('i', null, $attributes);
   }
 
   ////////////////////////////////////////////////////////////////////

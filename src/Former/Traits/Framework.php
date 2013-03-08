@@ -94,14 +94,6 @@ abstract class Framework
   }
 
   /**
-   * Alias for former.helpers.attributes
-   */
-  protected function attributes($attributes)
-  {
-    return $this->app['meido.html']->attributes($attributes);
-  }
-
-  /**
    * Create a label for a field
    *
    * @param Field  $field

@@ -107,7 +107,7 @@ class ZurbFoundation extends Framework implements FrameworkInterface
 
   public function createHelp($text, $attributes)
   {
-    return '<small'.$this->attributes($attributes).'>'.$text.'</small>';
+    return Element::create('small', $text, $attributes);
   }
 
   public function createIcon($icon, $attributes)

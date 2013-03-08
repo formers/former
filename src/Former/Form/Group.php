@@ -8,6 +8,7 @@ namespace Former\Form;
 
 use BadMethodCallException;
 use Former\Helpers;
+use HtmlObject\Element;
 use HtmlObject\Traits\Tag;
 use Underscore\Types\Arrays;
 use Underscore\Types\String;
@@ -189,6 +190,8 @@ class Group extends Tag
    */
   public function setLabel($label)
   {
+    if (!($label instanceof Element)) $label = Element::create('label', $label, $label);
+
     $this->label = $label;
   }
 

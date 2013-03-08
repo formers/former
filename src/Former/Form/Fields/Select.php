@@ -76,10 +76,16 @@ class Select extends Field
       $this->name .= '[]';
     }
 
+    if($this->hasChildren() and $this->value) {
+      $this->getChild($this->value)->selected('selected');
+    }
+
     // Add placeholder text if any
     if ($placeholder = $this->getPlaceholder()) {
       array_unshift($this->children, $placeholder);
     }
+
+    $this->value = null;
 
     return parent::render();
   }
