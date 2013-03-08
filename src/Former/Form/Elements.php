@@ -50,7 +50,7 @@ class Elements
     $attributes['for'] = $label;
     Former::$labels[] = $label;
 
-    return Element::label($name, $attributes);
+    return Element::create('label', $name, $attributes);
   }
 
   /**

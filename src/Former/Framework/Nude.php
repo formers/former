@@ -10,7 +10,6 @@ use Former\Interfaces\FrameworkInterface;
 use Former\Traits\Field;
 use Former\Traits\Framework;
 use HtmlObject\Element;
-use HtmlObject\Element;
 use Illuminate\Container\Container;
 
 class Nude extends Framework implements FrameworkInterface

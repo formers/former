@@ -295,8 +295,7 @@ abstract class Checkable extends Field
     // If no label to wrap, return plain checkable
     if(!$label) return $field;
 
-    $element = \HtmlObject\Element::test();
-    var_dump($element); exit();
+    return Element::create('label', $field.$label)->for($attributes['id'])->class($this->checkable.$isInline);
   }
 
   ////////////////////////////////////////////////////////////////////
