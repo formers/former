@@ -1,7 +1,7 @@
 <?php
 namespace Former\Form\Fields;
 
-use HtmlObject\Input;
+use HtmlObject\Input as HtmlInput;
 use Former\Traits\Field;
 use Laravel\File as LaravelFile;
 
@@ -59,7 +59,7 @@ class File extends Field
   {
     // Maximum file size
     $hidden = $this->maxSize
-      ? Input::hidden('MAX_FILE_SIZE', $this->maxSize)
+      ? HtmlInput::hidden('MAX_FILE_SIZE', $this->maxSize)
       : null;
 
     return parent::render().$hidden;
