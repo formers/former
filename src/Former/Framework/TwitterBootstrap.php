@@ -262,7 +262,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    * @param  Field $field
    * @return string A wrapped field
    */
-  public function wrapField($field)
+  public function wrapField(Field $field)
   {
     return '<div class="controls">' .$field. '</div>';
   }

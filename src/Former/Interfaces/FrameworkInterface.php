@@ -19,7 +19,7 @@ interface FrameworkInterface
   public function filterFieldClasses($classes);
   public function filterState($state);
 
-  // Add classes to attributes
+  // Get classes to add to attributes
   public function getFieldClasses(Field $field, $classes);
   public function getGroupClasses();
   public function getLabelClasses();
@@ -34,5 +34,5 @@ interface FrameworkInterface
   public function createDisabledField(Field $field);
 
   // Wrap blocks (hooks)
-  public function wrapField($field);
+  public function wrapField(Field $field);
 }
