@@ -1,8 +1,6 @@
 <?php
 namespace Former\Facades;
 
-use Illuminate\Container\Container;
-
 /**
  * Common building blocks to all environments
  */
@@ -32,16 +30,6 @@ abstract class FormerBuilder
   }
 
   // Dependency binders -------------------------------------------- /
-
-  /**
-   * Build Container
-   *
-   * @return Container
-   */
-  public static function buildContainer()
-  {
-    return new Container;
-  }
 
   /**
    * Add Meido classes to the app

@@ -1,6 +1,8 @@
 <?php
 namespace Former\Facades;
 
+use Illuminate\Container\Container;
+
 /**
  * Agnostic facade to use Former anywhere
  */
@@ -13,7 +15,7 @@ class Agnostic extends FormerBuilder
    */
   protected static function getApp()
   {
-    $app = static::buildContainer();
+    $app = new Container;
 
     // Illuminate -------------------------------------------------- /
 

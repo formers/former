@@ -1,6 +1,7 @@
 <?php
 namespace Former\Facades;
 
+use Illuminate\Container\Container;
 use Laravel\Config;
 
 /**
@@ -15,7 +16,7 @@ class LaravelThree extends FormerBuilder
    */
   protected static function getApp()
   {
-    $app = static::buildContainer();
+    $app = new Container;
 
     // Laravel ----------------------------------------------------- /
 
