@@ -8,23 +8,24 @@
 namespace Former\Form;
 
 use Former\Traits\FormerObject;
-use Underscore\Types\String;
 use Underscore\Types\Arrays;
+use Underscore\Types\String;
 
 class Actions extends FormerObject
 {
   /**
    * The current environment
+   *
    * @var Illuminate\Container
    */
   protected $app;
 
   /**
-   * The Actions block content
+   * The Actions element
    *
    * @var string
    */
-  protected $content;
+  protected $element = 'div';
 
   ////////////////////////////////////////////////////////////////////
   /////////////////////////// CORE METHODS ///////////////////////////
@@ -34,12 +35,27 @@ class Actions extends FormerObject
    * Constructs a new Actions block
    *
    * @param Container $app
-   * @param array     $content The block content
+   * @param array     $value The block content
    */
-  public function __construct($app, $content)
+  public function __construct($app, $value)
   {
-    $this->app     = $app;
-    $this->content = $content;
+    $this->app   = $app;
+    $this->value = $value;
+
+    // Add specific actions classes to the actions block
+    $this->attributes = $this->app['former']->getFramework()->addActionClasses($this->attributes);
+  }
+
+  /**
+   * Get the content of the Actions block
+   *
+   * @return string
+   */
+  public function getContent()
+  {
+    return Arrays::from($this->value)->each(function($content) {
+      return method_exists($content, '__toString') ? (string) $content : $content;
+    })->implode(' ');
   }
 
   /**
@@ -64,30 +80,6 @@ class Actions extends FormerObject
     return parent::__call($method, $parameters);
   }
 
-  /**
-   * Render the actions block
-   *
-   * @return string
-   */
-  public function __toString()
-  {
-    // Add specific actions classes to the actions block
-    $this->attributes = $this->app['former']->getFramework()->addActionClasses($this->attributes);
-
-    // Render passed objects
-    $this->content = Arrays::each($this->content, function($content) {
-      if (method_exists($content, '__toString')) return $content->__toString();
-      else return $content;
-    });
-
-    // Render block
-    $actions  = '<div' .$this->app['meido.html']->attributes($this->attributes). '>';
-      $actions .= implode(' ', (array) $this->content);
-    $actions .= '</div>';
-
-    return $actions;
-  }
-
   ////////////////////////////////////////////////////////////////////
   ////////////////////////////// HELPERS /////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -104,7 +96,7 @@ class Actions extends FormerObject
    */
   private function createButtonOfType($type, $name, $link, $attributes)
   {
-    $this->content[] = $this->app['former']->$type($name, $link, $attributes)->__toString();
+    $this->value[] = $this->app['former']->$type($name, $link, $attributes)->__toString();
 
     return $this;
   }
