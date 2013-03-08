@@ -72,6 +72,36 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     );
   }
 
+  protected function matchButton($class, $text, $attributes = array())
+  {
+    $matcher = array(
+      'tag'        => 'button',
+      'content'    => $text,
+      'attributes' => array(
+        'class' => $class,
+      ),
+    );
+
+    // Supplementary attributes
+    if ($attributes) {
+      $matcher['attributes'] = array_merge($matcher['attributes'], $attributes);
+    }
+
+    return $matcher;
+  }
+
+  protected function matchInputButton($class, $text, $type = 'submit')
+  {
+    return array(
+      'tag'        => 'input',
+      'attributes' => array(
+        'type'  => $type,
+        'value' => $text,
+        'class' => $class,
+      ),
+    );
+  }
+
   // Setup --------------------------------------------------------- /
 
   /**

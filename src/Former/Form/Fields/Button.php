@@ -17,6 +17,29 @@ class Button extends Field
    */
   protected $app;
 
+  /**
+   * The Button default element
+   *
+   * @var string
+   */
+  protected $element = 'input';
+
+  /**
+   * Default value for self-closing
+   *
+   * @var boolean
+   */
+  protected $isSelfClosing = true;
+
+  /**
+   * A list of class properties to be added to attributes
+   *
+   * @var array
+   */
+  protected $injectedProperties = array(
+    'name', 'type', 'value',
+  );
+
   ////////////////////////////////////////////////////////////////////
   /////////////////////////// CORE METHODS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -33,32 +56,23 @@ class Button extends Field
   public function __construct($app, $type, $value, $link, $attributes)
   {
     $this->app        = $app;
+
     $this->attributes = (array) $attributes;
     $this->type       = $type;
     $this->value($value);
 
-    // Add href to attributes if link
-    if ($this->type == 'link') {
-      $this->link = $link;
+    // Set correct element for the various button patterns
+    switch ($type) {
+      case 'button':
+        $this->element = 'button';
+        $this->isSelfClosing = false;
+        break;
+      case 'link':
+        $this->element = 'a';
+        $this->href = $link;
+        $this->isSelfClosing = false;
+        break;
     }
-  }
-
-  /**
-   * Renders the button
-   *
-   * @return string A form button
-   */
-  public function render()
-  {
-    $type = $this->type;
-    $this->attributes['name'] = $this->name;
-
-    // Link buttons
-    if ($type == 'link') {
-      return $this->app['meido.html']->to($this->link, $this->value, $this->attributes);
-    }
-
-    return $this->app['meido.form']->$type($this->value, $this->attributes);
   }
 
   ////////////////////////////////////////////////////////////////////

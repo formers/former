@@ -1,38 +1,6 @@
 <?php
 class ButtonTest extends FormerTests
 {
-  // Matchers ------------------------------------------------------ /
-
-  public function matchButton($class, $text, $attributes = array())
-  {
-    $matcher = array(
-      'tag'        => 'button',
-      'content'    => $text,
-      'attributes' => array(
-        'class' => $class,
-      ),
-    );
-
-    // Supplementary attributes
-    if ($attributes) {
-      $matcher['attributes'] = array_merge($matcher['attributes'], $attributes);
-    }
-
-    return $matcher;
-  }
-
-  public function matchInputButton($class, $text, $type = 'submit')
-  {
-    return array(
-      'tag'        => 'input',
-      'attributes' => array(
-        'type'  => $type,
-        'value' => $text,
-        'class' => $class,
-      ),
-    );
-  }
-
   // Tests --------------------------------------------------------- /
 
   public function testCanCreateAButton()
@@ -87,9 +55,12 @@ class ButtonTest extends FormerTests
   {
     $multiple = array($this->former->submit('submit'), $this->former->reset('reset'));
     $multiple = implode(' ', $multiple);
-    $matcher = '<input class="btn" type="submit" value="Submit" /> <input class="btn" type="reset" value="Reset" />';
 
-    $this->assertEquals($matcher, $multiple);
+    $matcher1 = $this->matchInputButton('btn', 'Submit', 'submit');
+    $matcher2 = $this->matchInputButton('btn', 'Reset', 'reset');
+
+    $this->assertHTML($matcher1, $multiple);
+    $this->assertHTML($matcher2, $multiple);
   }
 
   public function testButtonsAreHtmlObjects()
