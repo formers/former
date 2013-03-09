@@ -178,4 +178,14 @@ class RadioTest extends FormerTests
 
     $this->assertEquals($matcher, $radios);
   }
+
+  public function testInlineRadiosAreRendered()
+  {
+    $this->former->form()->close();
+    $this->former->inline_open();
+
+    $radio = $this->former->radio('foo', 'bar')->__toString();
+
+    $this->assertInternalType('string', $radio);
+  }
 }
