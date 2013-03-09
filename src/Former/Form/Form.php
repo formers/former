@@ -129,7 +129,7 @@ class Form extends FormerObject
    *
    * @return boolean
    */
-  public static function isOpened()
+  public static function hasInstanceOpened()
   {
     return static::$opened;
   }

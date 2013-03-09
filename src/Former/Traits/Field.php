@@ -122,7 +122,7 @@ abstract class Field extends FormerObject implements FieldInterface
     if ($this->isUnwrappable()) $html = $this->render();
 
     // Control group syntax
-    elseif ($this->former->getFramework()->isnt('Nude') and Form::isOpened()) {
+    elseif ($this->former->getFramework()->isnt('Nude') and Form::hasInstanceOpened()) {
       $html = $this->group->wrapField($this);
     }
 
