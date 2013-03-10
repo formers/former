@@ -59,11 +59,6 @@ class Select extends Field
     }
   }
 
-  /**
-   * Renders the select
-   *
-   * @return string A <select> tag
-   */
   public function render()
   {
     // Multiselects
@@ -74,11 +69,19 @@ class Select extends Field
 
       $this->multiple();
       $this->name .= '[]';
+
+      if ($this->hasChildren() and is_array($this->value)) {
+        foreach($this->value as $value) {
+          $this->getChild($value)->selected('selected');
+        }
+      }
+    }
+    else {
+       if($this->hasChildren() and $this->value) {
+          $this->getChild($this->value)->selected('selected');
+       }
     }
 
-    if($this->hasChildren() and $this->value) {
-      $this->getChild($this->value)->selected('selected');
-    }
 
     // Add placeholder text if any
     if ($placeholder = $this->getPlaceholder()) {
