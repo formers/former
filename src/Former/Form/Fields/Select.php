@@ -82,7 +82,6 @@ class Select extends Field
        }
     }
 
-
     // Add placeholder text if any
     if ($placeholder = $this->getPlaceholder()) {
       array_unshift($this->children, $placeholder);
