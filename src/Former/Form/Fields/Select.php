@@ -59,6 +59,11 @@ class Select extends Field
     }
   }
 
+  /**
+   * Renders the select
+   *
+   * @return string A <select> tag
+   */
   public function render()
   {
     // Multiselects
