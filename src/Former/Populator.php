@@ -1,8 +1,8 @@
 <?php
 namespace Former;
 
-use Underscore\Types\Arrays;
-use Underscore\Types\String;
+use Underscore\Methods\ArraysMethods as Arrays;
+use Underscore\Methods\StringMethods as String;
 
 /**
  * Populates the class with values, and fetches them

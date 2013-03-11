@@ -3,13 +3,19 @@ namespace Former\Traits;
 
 use Former\Traits\Field;
 use HtmlObject\Element;
-use Underscore\Types\Arrays;
+use Underscore\Methods\ArraysMethods as Arrays;
 
 /**
  * Base helpers and common methods to all frameworks
  */
 abstract class Framework
 {
+  /**
+   * The Container
+   *
+   * @var Container
+   */
+  protected $app;
 
   ////////////////////////////////////////////////////////////////////
   //////////////////////// CURRENT FRAMEWORK /////////////////////////

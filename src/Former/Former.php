@@ -3,7 +3,7 @@ namespace Former;
 
 use Former\Interfaces\FrameworkInterface;
 use Illuminate\Container\Container;
-use Underscore\Types\Arrays;
+use Underscore\Methods\ArraysMethods as Arrays;
 
 /**
  * Helps the user interact with it and its classes

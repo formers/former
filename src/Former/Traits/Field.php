@@ -7,8 +7,8 @@ use Former\Form\Group;
 use Former\Helpers;
 use Former\Interfaces\FieldInterface;
 use Former\LiveValidation;
-use Underscore\Types\Arrays;
-use Underscore\Types\String;
+use Underscore\Methods\ArraysMethods as Arrays;
+use Underscore\Methods\StringMethods as String;
 
 /**
  * Abstracts general fields parameters (type, value, name) and

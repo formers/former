@@ -12,7 +12,7 @@ use Former\Traits\Framework;
 use HtmlObject\Element;
 use HtmlObject\Input;
 use Illuminate\Container\Container;
-use Underscore\Types\Arrays;
+use Underscore\Methods\ArraysMethods as Arrays;
 
 class ZurbFoundation extends Framework implements FrameworkInterface
 {
@@ -56,7 +56,7 @@ class ZurbFoundation extends Framework implements FrameworkInterface
   public function filterFieldClasses($classes)
   {
     // Filter classes
-    $classes = Arrays::intersect($classes, $this->fields);
+    $classes = array_intersect($classes, $this->fields);
 
     return $classes;
   }

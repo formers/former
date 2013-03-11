@@ -5,7 +5,7 @@ use Former\Former;
 use Former\Helpers;
 use HtmlObject\Input;
 use HtmlObject\Element;
-use Underscore\Types\Arrays;
+use Underscore\Methods\ArraysMethods as Arrays;
 
 /**
  * Abstract methods inherited by Checkbox and Radio

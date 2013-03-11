@@ -11,11 +11,12 @@ use Former\Traits\Field;
 use Former\Traits\Framework;
 use HtmlObject\Element;
 use Illuminate\Container\Container;
-use Underscore\Types\Arrays;
-use Underscore\Types\String;
+use Underscore\Methods\ArraysMethods as Arrays;
+use Underscore\Methods\StringMethods as String;
 
 class TwitterBootstrap extends Framework implements FrameworkInterface
 {
+
   /**
    * The button types available
    * @var array
@@ -66,7 +67,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   public function filterButtonClasses($classes)
   {
     // Filter classes
-    // $classes = Arrays::intersect($classes, $this->buttons);
+    // $classes = array_intersect($classes, $this->buttons);
 
     // Prepend button type
     $classes = $this->prependWith($classes, 'btn-');
@@ -84,7 +85,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   public function filterFieldClasses($classes)
   {
     // Filter classes
-    $classes = Arrays::intersect($classes, $this->fields);
+    $classes = array_intersect($classes, $this->fields);
 
     // Prepend field type
     $classes = Arrays::each($classes, function($class) {

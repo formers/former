@@ -10,8 +10,8 @@ use BadMethodCallException;
 use Former\Helpers;
 use HtmlObject\Element;
 use HtmlObject\Traits\Tag;
-use Underscore\Types\Arrays;
-use Underscore\Types\String;
+use Underscore\Methods\ArraysMethods as Arrays;
+use Underscore\Methods\StringMethods as String;
 
 class Group extends Tag
 {

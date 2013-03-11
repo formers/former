@@ -993,12 +993,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "d003a3155c0987e34d9c21efccee4028c9bb5acc"
+                "reference": "2a354f11ea59f58024b087c371dd1d4f9246dc86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/d003a3155c0987e34d9c21efccee4028c9bb5acc",
-                "reference": "d003a3155c0987e34d9c21efccee4028c9bb5acc",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/2a354f11ea59f58024b087c371dd1d4f9246dc86",
+                "reference": "2a354f11ea59f58024b087c371dd1d4f9246dc86",
                 "shasum": ""
             },
             "require": {
@@ -1053,7 +1053,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2013-03-06 17:38:49"
+            "time": "2013-03-11 17:23:12"
         },
         {
             "name": "symfony/routing",

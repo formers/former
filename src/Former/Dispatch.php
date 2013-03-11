@@ -1,7 +1,8 @@
 <?php
 namespace Former;
 
-use Underscore\Types\Arrays;
+use Illuminate\Container\Container;
+use Underscore\Methods\ArraysMethods as Arrays;
 use Underscore\Types\String;
 
 /**
@@ -19,7 +20,7 @@ class Dispatch
    *
    * @return string
    */
-  public static function toElements($app, $method, $parameters)
+  public static function toElements(Container $app, $method, $parameters)
   {
     // Disregards if the method isn't an element
     if (!method_exists($elements = new Form\Elements($app['former'], $app['session']), $method)) return false;
@@ -29,13 +30,13 @@ class Dispatch
   /**
    * Dispatch a call over to Form
    *
-   * @param Container $app        The application container
-   * @param string    $method     The method called
-   * @param array     $parameters Its parameters
+   * @param Former  $app        The application container
+   * @param string  $method     The method called
+   * @param array   $parameters Its parameters
    *
    * @return Form
    */
-  public static function toForm($former, $method, $parameters)
+  public static function toForm(Former $former, $method, $parameters)
   {
     // Disregards if the method doesn't contain 'open'
     if (!String::contains($method, 'open')) return false;
@@ -48,13 +49,13 @@ class Dispatch
   /**
    * Dispatch a call over to Group
    *
-   * @param Container $app        The application container
+   * @param Former    $app        The application container
    * @param string    $method     The method called
    * @param array     $parameters Its parameters
    *
    * @return Group
    */
-  public static function toGroup($former, $method, $parameters)
+  public static function toGroup(Former $former, $method, $parameters)
   {
     // Disregards if the method isn't "group"
     if ($method != 'group') return false;
@@ -68,13 +69,13 @@ class Dispatch
   /**
    * Dispatch a call over to Actions
    *
-   * @param Container $app        The application container
+   * @param Former    $app        The application container
    * @param string    $method     The method called
    * @param array     $parameters Its parameters
    *
    * @return Actions
    */
-  public static function toActions($former, $method, $parameters)
+  public static function toActions(Former $former, $method, $parameters)
   {
     if ($method != 'actions') return false;
     return new Form\Actions($former, $parameters);
@@ -83,13 +84,13 @@ class Dispatch
   /**
    * Dispatch a call over to the Fields
    *
-   * @param Container $app        The application container
+   * @param Former    $app        The application container
    * @param string    $method     The method called
    * @param array     $parameters Its parameters
    *
    * @return Field
    */
-  public static function toFields($former, $method, $parameters)
+  public static function toFields(Former $former, $method, $parameters)
   {
     // Listing parameters
     $class = Former::FIELDSPACE.static::getClassFromMethod($method);

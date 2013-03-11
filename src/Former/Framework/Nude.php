@@ -15,10 +15,11 @@ use Illuminate\Container\Container;
 
 class Nude extends Framework implements FrameworkInterface
 {
+
   /**
    * Create a new Nude instance
    *
-   * @param \Illuminate\Container\Container $app
+   * @param Container $app
    */
   public function __construct(Container $app)
   {
@@ -89,7 +90,7 @@ class Nude extends Framework implements FrameworkInterface
    */
   public function createHelp($text, $attributes)
   {
-    return Element::small($text, $attributes);
+    return Element::create('small', $text, $attributes);
   }
 
   /**
