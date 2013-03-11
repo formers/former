@@ -26,7 +26,7 @@ class Elements
    *
    * @var Session
    */
-  protected $sessin;
+  protected $session;
 
   /**
    * Build a new Element
