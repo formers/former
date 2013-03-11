@@ -22,8 +22,7 @@ class SelectTest extends FormerTests
   public function testMultiselectOptions()
   {
     $select = $this->former->multiselect('foo')->options($this->options)->value(array('foo', 'kal'))->__toString();
-    $matcher = $this->controlGroup('<select id="foo" name="foo"><option value="foo" selected="selected">bar</option><option value="kal" selected="selected">ter</option></select>');
-
+    $matcher = $this->controlGroup('<select id="foo" multiple="true" name="foo[]"><option value="foo" selected="selected">bar</option><option value="kal" selected="selected">ter</option></select>');
     $this->assertEquals($matcher, $select);
   }
 
