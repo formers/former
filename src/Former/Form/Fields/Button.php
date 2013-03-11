@@ -69,7 +69,7 @@ class Button extends Field
         break;
       case 'link':
         $this->element = 'a';
-        $this->href = $link;
+        $this->attributes['href'] = $link;
         $this->isSelfClosing = false;
         break;
     }

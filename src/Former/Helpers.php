@@ -3,7 +3,6 @@ namespace Former;
 
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Translation\Translator;
 use Underscore\Types\String;
 
 /**
@@ -98,10 +97,10 @@ class Helpers
   /**
    * Transforms an array of models into an associative array
    *
-   * @param  object $query The array of results
-   * @param  string $value The attribute to use as value
-   * @param  string $key   The attribute to use as key
-   * @return array         A data array
+   * @param  array|object $query The array of results
+   * @param  string       $value The attribute to use as value
+   * @param  string       $key   The attribute to use as key
+   * @return array               A data array
    */
   public static function queryToArray($query, $value = null, $key = null)
   {

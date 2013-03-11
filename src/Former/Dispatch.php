@@ -118,7 +118,7 @@ class Dispatch
    *
    * @return string The correct class
    */
-  private static function getClassFromMethod($method)
+  protected static function getClassFromMethod($method)
   {
     // If the field's name directly match a class, call it
     $class = String::from($method)->singular()->title()->obtain();

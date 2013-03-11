@@ -15,13 +15,27 @@ use Illuminate\Session\Store as Session;
 class Elements
 {
   /**
+   * The Former instance
+   *
+   * @var Former
+   */
+  protected $former;
+
+  /**
+   * The Session instance
+   *
+   * @var Session
+   */
+  protected $sessin;
+
+  /**
    * Build a new Element
    *
    * @param Container $app
    */
   public function __construct(Former $former, Session $session)
   {
-    $this->former     = $former;
+    $this->former  = $former;
     $this->session = $session;
   }
 
@@ -66,7 +80,7 @@ class Elements
   {
     $legend = Helpers::translate($legend);
 
-    return Element::legend($legend, $attributes);
+    return Element::create('legend', $legend, $attributes);
   }
 
   /**

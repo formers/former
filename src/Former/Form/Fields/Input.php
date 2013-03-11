@@ -14,8 +14,13 @@ class Input extends Field
    *
    * @var array
    */
-  private $datalist = array();
+  protected $datalist = array();
 
+  /**
+   * Properties to be injected as attributes
+   *
+   * @var array
+   */
   protected $injectedProperties = array('type', 'name', 'value');
 
   ////////////////////////////////////////////////////////////////////
@@ -38,6 +43,7 @@ class Input extends Field
 
     // Multiple models population
     if (is_array($this->value)) {
+      $values = array();
       foreach($this->value as $value) $values[] = is_object($value) ? $value->__toString() : $value;
       if (isset($values)) $this->value = implode(', ', $values);
     }
@@ -84,7 +90,7 @@ class Input extends Field
     $list = $this->list ?: 'datalist_'.$this->name;
 
     // Create the link to the datalist
-    $this->list($list);
+    $this->list = $list;
     $this->datalist = $datalist;
 
     return $this;

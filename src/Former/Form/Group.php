@@ -202,7 +202,6 @@ class Group extends Tag
   public function getFormattedLabel()
   {
     if (!$this->label) return false;
-
     return $this->label->addClass($this->former->getFramework()->getLabelClasses());
   }
 

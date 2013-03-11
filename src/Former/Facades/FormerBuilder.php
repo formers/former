@@ -2,6 +2,7 @@
 namespace Former\Facades;
 
 use Former\Former;
+use Illuminate\Container\Container;
 use LaravelBook\Laravel4Powerpack\Form;
 use LaravelBook\Laravel4Powerpack\HTML;
 
@@ -42,7 +43,7 @@ abstract class FormerBuilder
    *
    * @return Container
    */
-  public static function buildMeido($app)
+  public static function buildMeido(Container $app)
   {
     $app->bind('meido.html', function($app) {
       return new HTML($app['url']);
@@ -63,13 +64,13 @@ abstract class FormerBuilder
    *
    * @return Container
    */
-  public static function buildFramework($app, $prefix = 'config.')
+  public static function buildFramework(Container $app, $prefix = 'config.')
   {
     $framework = $app['config']->get($prefix.'framework');
     $app->bind('\Former\Interfaces\FrameworkInterface', function($app) use ($framework) {
-      $framework = '\Former\Framework\\'.$framework;
+      $frameworkClass = '\Former\Framework\\'.$framework;
 
-      return new $framework($app);
+      return new $frameworkClass($app);
     });
 
     return $app;
@@ -82,7 +83,7 @@ abstract class FormerBuilder
    *
    * @return Container
    */
-  public static function buildFormer($app)
+  public static function buildFormer(Container $app)
   {
     $app->singleton('former', function($app) {
       return new Former(

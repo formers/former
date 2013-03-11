@@ -3,8 +3,8 @@ namespace Former\Form;
 
 use Former\Former;
 use Former\Traits\FormerObject;
-use Underscore\Types\Arrays;
-use Underscore\Types\String;
+use Underscore\Methods\ArraysMethods as Arrays;
+use Underscore\Methods\StringMethods as String;
 
 /**
  * Construct and manages the form wrapping all fields

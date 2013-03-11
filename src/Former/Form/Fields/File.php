@@ -76,6 +76,8 @@ class File extends Field
    */
   public function accept()
   {
+    $mimes = array();
+
     // Transform all extensions/groups to mime types
     foreach (func_get_args() as $mime) {
 

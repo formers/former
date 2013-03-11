@@ -1,11 +1,9 @@
 <?php
 namespace Former\Traits;
 
-use Former\Helpers;
 use Former\Traits\Field;
 use HtmlObject\Element;
 use Underscore\Types\Arrays;
-use Underscore\Types\String;
 
 /**
  * Base helpers and common methods to all frameworks
@@ -63,7 +61,6 @@ abstract class Framework
   {
     // Filter out wrong states
     if (!in_array($state, $this->states)) return null;
-
     return $state;
   }
 
@@ -111,7 +108,6 @@ abstract class Framework
     // Render plain label if checkable, else a classic one
     $label->setValue($text);
     if (!$field->isCheckable()) $label->for($field->getName());
-
     return $label;
   }
 }

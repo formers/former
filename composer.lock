@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Anahkiasen/html-object.git",
-                "reference": "024ccf2b8c59a2bf3aacc2c550c664c4ed44ccca"
+                "reference": "9be71236e2a3333ce4c11aab9f757459893836b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/024ccf2b8c59a2bf3aacc2c550c664c4ed44ccca",
-                "reference": "024ccf2b8c59a2bf3aacc2c550c664c4ed44ccca",
+                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/9be71236e2a3333ce4c11aab9f757459893836b3",
+                "reference": "9be71236e2a3333ce4c11aab9f757459893836b3",
                 "shasum": ""
             },
             "require": {
@@ -35,7 +35,7 @@
                 }
             ],
             "description": "A set of classes to create and manipulate HTML objects abstractions",
-            "time": "2013-03-09 00:08:54"
+            "time": "2013-03-11 13:54:58"
         },
         {
             "name": "anahkiasen/underscore-php",
@@ -43,12 +43,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Anahkiasen/underscore-php.git",
-                "reference": "15229b22dc2302ea1d56a7a74f254925dfd0ac32"
+                "reference": "54eb49d7d5ae4c1e3b18ccce4aa7851d3bc1ee2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/underscore-php/zipball/15229b22dc2302ea1d56a7a74f254925dfd0ac32",
-                "reference": "15229b22dc2302ea1d56a7a74f254925dfd0ac32",
+                "url": "https://api.github.com/repos/Anahkiasen/underscore-php/zipball/54eb49d7d5ae4c1e3b18ccce4aa7851d3bc1ee2a",
+                "reference": "54eb49d7d5ae4c1e3b18ccce4aa7851d3bc1ee2a",
                 "shasum": ""
             },
             "require": {
@@ -73,7 +73,7 @@
                 }
             ],
             "description": "A redacted port of Underscore.js for PHP",
-            "time": "2013-03-04 21:51:10"
+            "time": "2013-03-11 15:30:09"
         },
         {
             "name": "illuminate/cache",
@@ -248,12 +248,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "2bcbf30c82c03b12ddaa8044489e70aaec956e4c"
+                "reference": "71396d4ad96401dd8866ae53f926c2190dfe21a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/2bcbf30c82c03b12ddaa8044489e70aaec956e4c",
-                "reference": "2bcbf30c82c03b12ddaa8044489e70aaec956e4c",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/71396d4ad96401dd8866ae53f926c2190dfe21a4",
+                "reference": "71396d4ad96401dd8866ae53f926c2190dfe21a4",
                 "shasum": ""
             },
             "require": {
@@ -294,7 +294,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2013-03-08 05:16:40"
+            "time": "2013-03-10 19:51:44"
         },
         {
             "name": "illuminate/encryption",
@@ -387,12 +387,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
-                "reference": "v4.0.0-BETA3"
+                "reference": "a3f1aef27e6857690d575bd6f10a670a26e76bc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/v4.0.0-BETA3",
-                "reference": "v4.0.0-BETA3",
+                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/a3f1aef27e6857690d575bd6f10a670a26e76bc3",
+                "reference": "a3f1aef27e6857690d575bd6f10a670a26e76bc3",
                 "shasum": ""
             },
             "require": {
@@ -418,7 +418,7 @@
                 }
             ],
             "description": "A filesystem abstraction library.",
-            "time": "2013-01-13 05:33:18"
+            "time": "2013-03-07 15:18:39"
         },
         {
             "name": "illuminate/http",
@@ -621,12 +621,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "da608d80f5863e1b88624be5db3b21d9758a96dd"
+                "reference": "dfa68cb87ae5ebf7ebc006ca2d0ff549a5b15f59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/da608d80f5863e1b88624be5db3b21d9758a96dd",
-                "reference": "da608d80f5863e1b88624be5db3b21d9758a96dd",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/dfa68cb87ae5ebf7ebc006ca2d0ff549a5b15f59",
+                "reference": "dfa68cb87ae5ebf7ebc006ca2d0ff549a5b15f59",
                 "shasum": ""
             },
             "require": {
@@ -658,7 +658,7 @@
                 }
             ],
             "description": "Various utilities and support functions.",
-            "time": "2013-03-08 05:11:31"
+            "time": "2013-03-09 04:26:45"
         },
         {
             "name": "illuminate/translation",
@@ -1176,12 +1176,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "0f008989771458dc15204a57f67d21b6b01f73ed"
+                "reference": "1174be6aed7b3c1e048834f14902ce796b6483c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/0f008989771458dc15204a57f67d21b6b01f73ed",
-                "reference": "0f008989771458dc15204a57f67d21b6b01f73ed",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/1174be6aed7b3c1e048834f14902ce796b6483c2",
+                "reference": "1174be6aed7b3c1e048834f14902ce796b6483c2",
                 "shasum": ""
             },
             "require": {
@@ -1221,7 +1221,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2013-03-06 08:36:42"
+            "time": "2013-03-11 13:49:28"
         }
     ],
     "aliases": [

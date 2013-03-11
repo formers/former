@@ -326,7 +326,6 @@ abstract class Checkable extends Field
 
     // In case the field doesn't need to be numbered
     if ($unique < 2 or empty($this->items)) return false;
-
     return $unique;
   }
 

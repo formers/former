@@ -7,9 +7,10 @@
  */
 namespace Former\Form;
 
+use Former\Former;
 use Former\Traits\FormerObject;
-use Underscore\Types\Arrays;
-use Underscore\Types\String;
+use Underscore\Methods\ArraysMethods as Arrays;
+use Underscore\Methods\StringMethods as String;
 
 class Actions extends FormerObject
 {
@@ -37,10 +38,10 @@ class Actions extends FormerObject
    * @param Container $app
    * @param array     $value The block content
    */
-  public function __construct(\Former\Former $former, $value)
+  public function __construct(Former $former, $value)
   {
-    $this->former   = $former;
-    $this->value = $value;
+    $this->former = $former;
+    $this->value  = $value;
 
     // Add specific actions classes to the actions block
     $this->addClass($this->former->getFramework()->getActionClasses());
@@ -53,9 +54,11 @@ class Actions extends FormerObject
    */
   public function getContent()
   {
-    return Arrays::from($this->value)->each(function($content) {
+    $content = Arrays::each($this->value, function($content) {
       return method_exists($content, '__toString') ? (string) $content : $content;
-    })->implode(' ');
+    });
+
+    return implode(' ', $content);
   }
 
   /**

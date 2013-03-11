@@ -2,7 +2,6 @@
 namespace Former\Traits;
 
 use Former\Former;
-use Former\Helpers;
 use HtmlObject\Element;
 
 /**

@@ -1,8 +1,6 @@
 <?php
 namespace Former\Interfaces;
 
-use Former\Form\Actions;
-use Former\Form\Group;
 use Former\Traits\Field;
 use HtmlObject\Element;
 use Illuminate\Container\Container;

@@ -1,7 +1,6 @@
 <?php
 namespace Former\Traits;
 
-use HtmlObject\Element;
 use Former\Former;
 use Former\Form\Form;
 use Former\Form\Group;
@@ -228,7 +227,6 @@ abstract class Field extends FormerObject implements FieldInterface
 
     if($this->group) $this->group->setLabel($label);
     else $this->label = $label;
-
     return $this;
   }
 

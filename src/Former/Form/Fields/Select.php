@@ -76,13 +76,12 @@ class Select extends Field
       $this->name .= '[]';
 
       if ($this->hasChildren() and is_array($this->value)) {
-        foreach($this->value as $value) {
+        foreach ($this->value as $value) {
           $this->getChild($value)->selected('selected');
         }
       }
-    }
-    else {
-       if($this->hasChildren() and $this->value) {
+    } else {
+       if ($this->hasChildren() and $this->value) {
           $this->getChild($this->value)->selected('selected');
        }
     }
@@ -126,6 +125,8 @@ class Select extends Field
    */
   public function options($_options, $selected = null, $valuesAsKeys = false)
   {
+    $options = array();
+
     // Automatically fetch Lang objects for people who store translated options lists
     if ($_options instanceof \Laravel\Lang) {
       $_options = $_options->get();
