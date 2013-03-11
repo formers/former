@@ -21,8 +21,8 @@ class SelectTest extends FormerTests
 
   public function testMultiselectOptions()
   {
-    $select = $this->former->select('foo')->options($this->options)->value(array('foo', 'kal'))->__toString();
-    $matcher = $this->controlGroup('<select id="foo" name="foo"><option value="foo">bar</option><option value="kal">ter</option></select>');
+    $select = $this->former->multiselect('foo')->options($this->options)->value(array('foo', 'kal'))->__toString();
+    $matcher = $this->controlGroup('<select id="foo" name="foo"><option value="foo" selected="selected">bar</option><option value="kal" selected="selected">ter</option></select>');
 
     $this->assertEquals($matcher, $select);
   }
@@ -31,7 +31,7 @@ class SelectTest extends FormerTests
   public function testSelectOptions()
   {
     $select = $this->former->select('foo')->options($this->options)->__toString();
-    $matcher = $this->controlGroup('<select id="foo" name="foo"><option value="foo" selected="selected">bar</option><option value="kal" selected="selected">ter</option></select>');
+    $matcher = $this->controlGroup('<select id="foo" name="foo"><option value="foo">bar</option><option value="kal">ter</option></select>');
 
     $this->assertEquals($matcher, $select);
   }
