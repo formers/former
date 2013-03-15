@@ -25,8 +25,9 @@ class FormTest extends FormerTests
   {
     if(in_array($class, array('horizontal', 'inline', 'vertical', 'search'))) $class = 'form-'.$class;
     $forFiles = $forFiles ? 'enctype="multipart/form-data" ' : null;
+    $action = $action ? 'action="' .$action. '" ' : null;
 
-    return '<form ' .$forFiles. 'class="' .$class. '" method="POST" action="' .$action. '" accept-charset="UTF-8">';
+    return '<form ' .$forFiles. 'class="' .$class. '" method="POST" ' .$action. 'accept-charset="UTF-8">';
   }
 
   // Tests --------------------------------------------------------- /
@@ -35,6 +36,14 @@ class FormTest extends FormerTests
   {
     $open = $this->former->open('#')->__toString();
     $matcher = $this->matchForm();
+
+    $this->assertHTML($matcher, $open);
+  }
+  
+  public function testCanOpenAFormWithoutAction()
+  {
+    $open = $this->former->open()->__toString();
+    $matcher = $this->matchForm('horizontal', false, false);
 
     $this->assertHTML($matcher, $open);
   }

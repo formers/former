@@ -176,7 +176,7 @@ class Form extends FormerObject
    */
   public function action($action)
   {
-    $this->action = $this->url->to($action);
+    $this->action = $action ? $this->url->to($action) : null;
 
     return $this;
   }
