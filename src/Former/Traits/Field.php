@@ -17,13 +17,6 @@ use Underscore\Methods\StringMethods as String;
 abstract class Field extends FormerObject implements FieldInterface
 {
   /**
-   * The field type
-   *
-   * @var string
-   */
-  protected $type;
-
-  /**
    * The Former instance
    *
    * @var Former

@@ -32,7 +32,7 @@ class LiveValidation
    *
    * @param array $rules The rules to apply
    */
-  public function apply(array $rules)
+  public function apply($rules)
   {
     // If no rules to apply, cancel
     if (!$rules) return false;

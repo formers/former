@@ -18,6 +18,13 @@ abstract class FormerObject extends Element
   protected $name;
 
   /**
+   * The field type
+   *
+   * @var string
+   */
+  protected $type;
+
+  /**
    * A list of class properties to be added to attributes
    *
    * @var array

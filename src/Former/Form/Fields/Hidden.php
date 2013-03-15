@@ -1,6 +1,7 @@
 <?php
 namespace Former\Form\Fields;
 
+use Former\Former;
 use Former\Traits\Field;
 use HtmlObject\Input as HtmlInput;
 
@@ -17,13 +18,13 @@ class Hidden extends Field
   /**
    * Easier arguments order for hidden fields
    *
-   * @param Container $app        The Illuminate Container
-   * @param string    $type       hidden
-   * @param string    $name       Field names
-   * @param string    $value      Its value
-   * @param array     $attributes Attributes
+   * @param Former $former     The Former instance
+   * @param string $type       hidden
+   * @param string $name       Field names
+   * @param string $value      Its value
+   * @param array  $attributes Attributes
    */
-  public function __construct(\Former\Former $former, $type, $name, $value, $attributes)
+  public function __construct(Former $former, $type, $name, $value, $attributes)
   {
     parent::__construct($former, $type, $name, '', $value, $attributes);
   }
