@@ -1,24 +1,23 @@
 <?php
-/**
- * Group
- *
- * Helper class to build groups
- */
 namespace Former\Form;
 
 use BadMethodCallException;
+use Former\Former;
 use Former\Helpers;
 use HtmlObject\Element;
 use HtmlObject\Traits\Tag;
 use Underscore\Methods\ArraysMethods as Arrays;
 use Underscore\Methods\StringMethods as String;
 
+/**
+ * Helper class to build groups
+ */
 class Group extends Tag
 {
   /**
-   * The Illuminate Container
+   * The Former instance
    *
-   * @var Container
+   * @var Former
    */
   protected $former;
 
@@ -78,11 +77,11 @@ class Group extends Tag
   /**
    * Creates a group
    *
-   * @param Container $app        The Illuminate Container
+   * @param Former    $former     The Former instance
    * @param string    $label      Its label
    * @param array     $attributes Attributes
    */
-  public function __construct(\Former\Former $former, $label, $attributes = array())
+  public function __construct(Former $former, $label, $attributes = array())
   {
     // Get special classes
     $this->former = $former;

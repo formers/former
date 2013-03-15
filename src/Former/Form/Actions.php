@@ -1,10 +1,4 @@
 <?php
-/**
- * Actions
- *
- * Handles the actions part of a form
- * Submit buttons, and such
- */
 namespace Former\Form;
 
 use Former\Former;
@@ -12,6 +6,10 @@ use Former\Traits\FormerObject;
 use Underscore\Methods\ArraysMethods as Arrays;
 use Underscore\Methods\StringMethods as String;
 
+/**
+ * Handles the actions part of a form
+ * Submit buttons, and such
+ */
 class Actions extends FormerObject
 {
   /**

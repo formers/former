@@ -1,9 +1,4 @@
 <?php
-/**
- * TwitterBootstrap
- *
- * The Twitter Bootstrap form framework
- */
 namespace Former\Framework;
 
 use Former\Interfaces\FrameworkInterface;
@@ -14,6 +9,9 @@ use Illuminate\Container\Container;
 use Underscore\Methods\ArraysMethods as Arrays;
 use Underscore\Methods\StringMethods as String;
 
+/**
+ * The Twitter Bootstrap form framework
+ */
 class TwitterBootstrap extends Framework implements FrameworkInterface
 {
 

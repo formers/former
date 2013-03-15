@@ -31,14 +31,8 @@ class Agnostic extends FormerBuilder
     $app->bind('files', 'Illuminate\Filesystem\Filesystem');
     $app->bind('url', 'Illuminate\Routing\UrlGenerator');
     $app->instance('Illuminate\Container\Container', $app);
-
-    $app->bind('session', function($app) {
-      $request   = new Request;
-      $encrypter = new Encrypter('foobar');
-      $cookie    = new CookieJar($request, $encrypter, array());
-
-      return new CookieStore($cookie);
-    });
+    $app->instance('Illuminate\Encryption\Encrypter', new Encrypter('foobar'));
+    $app->instance('session', 'Illuminate\Session\CookieStore');
 
     $app->bind('Symfony\Component\HttpFoundation\Request', function($app) {
       $request = new Request;

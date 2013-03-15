@@ -1,9 +1,4 @@
 <?php
-/**
- * Nude
- *
- * Base HTML5 forms
- */
 namespace Former\Framework;
 
 use Former\Interfaces\FrameworkInterface;
@@ -13,6 +8,9 @@ use HtmlObject\Element;
 use HtmlObject\Input;
 use Illuminate\Container\Container;
 
+/**
+ * Base HTML5 forms
+ */
 class Nude extends Framework implements FrameworkInterface
 {
 

@@ -1,9 +1,4 @@
 <?php
-/**
- * ZurbFoundation
- *
- * The Zurb Foundation form framework
- */
 namespace Former\Framework;
 
 use Former\Interfaces\FrameworkInterface;
@@ -14,6 +9,9 @@ use HtmlObject\Input;
 use Illuminate\Container\Container;
 use Underscore\Methods\ArraysMethods as Arrays;
 
+/**
+ * The Zurb Foundation form framework
+ */
 class ZurbFoundation extends Framework implements FrameworkInterface
 {
 

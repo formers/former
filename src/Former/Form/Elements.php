@@ -1,10 +1,4 @@
 <?php
-/**
- * Elements
- *
- * The different parts of a form that are neither fields nor groups
- * not buttons and stuff
- */
 namespace Former\Form;
 
 use Former\Former;
@@ -12,6 +6,10 @@ use Former\Helpers;
 use HtmlObject\Element;
 use Illuminate\Session\Store as Session;
 
+/**
+ * The different parts of a form that are neither fields nor groups
+ * not buttons and stuff
+ */
 class Elements
 {
   /**

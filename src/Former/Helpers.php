@@ -3,7 +3,7 @@ namespace Former;
 
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Collection;
-use Underscore\Types\String;
+use Underscore\Methods\StringMethods as String;
 
 /**
  * Various helpers used by all Former classes
@@ -24,29 +24,6 @@ class Helpers
   public static function setApp(Container $app)
   {
     static::$app = $app;
-  }
-
-  ////////////////////////////////////////////////////////////////////
-  /////////////////////////// HTML HELPERS ///////////////////////////
-  ////////////////////////////////////////////////////////////////////
-
-  /**
-   * Add a class to an attributes array
-   *
-   * @param  array  $attributes An array of attributes
-   * @param  string $class      The class to add
-   * @return array              The modified attributes array
-   */
-  public static function addClass($attributes, $class)
-  {
-    if (!isset($attributes['class'])) $attributes['class'] = null;
-
-    // Prevent adding a class twice
-    if (!String::contains($attributes['class'], $class)) {
-      $attributes['class'] = trim($attributes['class']. ' ' .$class);
-    }
-
-    return $attributes;
   }
 
   ////////////////////////////////////////////////////////////////////
