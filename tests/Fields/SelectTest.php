@@ -51,7 +51,7 @@ class SelectTest extends FormerTests
     $select = $this->former->select('foo')->options($this->options)->placeholder('Pick something')->__toString();
     $matcher = $this->controlGroup(
       '<select id="foo" name="foo">'.
-        '<option value="" disabled="" selected="">Pick something</option>'.
+        '<option value="" disabled="disabled" selected="selected">Pick something</option>'.
         '<option value="foo">bar</option>'.
         '<option value="kal">ter</option>'.
       '</select>');
@@ -64,7 +64,7 @@ class SelectTest extends FormerTests
     $select = $this->former->select('foo')->value('foo')->options($this->options)->placeholder('Pick something')->__toString();
     $matcher = $this->controlGroup(
       '<select id="foo" name="foo">'.
-        '<option value="" disabled="">Pick something</option>'.
+        '<option value="" disabled="disabled">Pick something</option>'.
         '<option value="foo" selected="selected">bar</option>'.
         '<option value="kal">ter</option>'.
       '</select>');
