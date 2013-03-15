@@ -261,6 +261,6 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    */
   public function wrapField($field)
   {
-    return '<div class="controls">' .$field. '</div>';
+    return Element::create('div', $field)->addClass('controls');
   }
 }

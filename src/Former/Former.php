@@ -253,9 +253,18 @@ class Former
     return $this->formFramework;
   }
 
-  public function getMeido()
+  /**
+   * Get a class out of the Contaienr
+   *
+   * @param string $dependency The class
+   *
+   * @return object
+   */
+  public function getContainer($dependency = null)
   {
-    return $this->app['meido.form'];
+    if ($dependency) return $this->app[$dependency];
+
+    return $this->app;
   }
 
   /**

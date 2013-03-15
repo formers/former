@@ -57,7 +57,6 @@ class Agnostic extends FormerBuilder
 
     // Former ------------------------------------------------------ /
 
-    $app = static::buildMeido($app);
     $app = static::buildFramework($app);
     $app = static::buildFormer($app);
 

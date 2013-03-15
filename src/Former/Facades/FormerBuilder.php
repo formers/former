@@ -37,26 +37,6 @@ abstract class FormerBuilder
   // Dependency binders -------------------------------------------- /
 
   /**
-   * Add Meido classes to the app
-   *
-   * @param  Container $app
-   *
-   * @return Container
-   */
-  public static function buildMeido(Container $app)
-  {
-    $app->bind('meido.html', function($app) {
-      return new HTML($app['url']);
-    });
-
-    $app->singleton('meido.form', function($app) {
-      return new Form($app['meido.html']);
-    });
-
-    return $app;
-  }
-
-  /**
    * Add Framework to the app
    *
    * @param  Container $app

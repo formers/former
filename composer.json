@@ -20,8 +20,7 @@
     "anahkiasen/underscore-php": "dev-master",
     "illuminate/config": "4.0.*@dev",
     "illuminate/container": "4.0.*@dev",
-    "illuminate/translation" :"4.0.*@dev",
-    "laravelbook/laravel4-powerpack": "dev-master"
+    "illuminate/translation" :"4.0.*@dev"
   },
   "require-dev": {
     "mockery/mockery": "dev-master"

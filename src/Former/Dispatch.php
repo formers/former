@@ -41,7 +41,7 @@ class Dispatch
     // Disregards if the method doesn't contain 'open'
     if (!String::contains($method, 'open')) return false;
 
-    $form = new Form\Form($former);
+    $form = new Form\Form($former, $former->getContainer('url'));
 
     return $form->openForm($method, $parameters);
   }

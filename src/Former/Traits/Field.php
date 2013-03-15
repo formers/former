@@ -44,8 +44,18 @@ abstract class Field extends FormerObject implements FieldInterface
    */
   protected $group;
 
+  /**
+   * The field's default element
+   *
+   * @var string
+   */
   protected $element = 'input';
 
+  /**
+   * Whether the Field is self-closing or not
+   *
+   * @var boolean
+   */
   protected $isSelfClosing = true;
 
   ////////////////////////////////////////////////////////////////////

@@ -21,9 +21,6 @@ class IlluminateMock
     $app->alias('Illuminate\Routing\UrlGenerator', 'url');
     $app['validator']  = $this->getValidator();
 
-    // Setup Meido
-    $app = Former\Facades\Agnostic::buildMeido($app);
-
     // Setup bindings
     $app->instance('Illuminate\Container\Container', $app);
     $app = Former\Facades\Agnostic::buildFramework($app, 'former::');

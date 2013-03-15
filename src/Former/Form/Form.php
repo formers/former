@@ -3,6 +3,7 @@ namespace Former\Form;
 
 use Former\Former;
 use Former\Traits\FormerObject;
+use Illuminate\Routing\UrlGenerator;
 use Underscore\Methods\ArraysMethods as Arrays;
 use Underscore\Methods\StringMethods as String;
 
@@ -12,37 +13,57 @@ use Underscore\Methods\StringMethods as String;
 class Form extends FormerObject
 {
   /**
-   * The current environment
-   * @var Illuminate\Container
+   * The Former instance
+   *
+   * @var Former
    */
   protected $former;
 
   /**
+   * The Framework Interface
+   *
+   * @var FrameworkInterface
+   */
+  protected $framework;
+
+  /**
+   * The URL generator
+   *
+   * @var UrlGenerator
+   */
+  protected $url;
+
+  /**
    * The Form type
+   *
    * @var string
    */
   protected $type = null;
 
   /**
    * The available form types
+   *
    * @var array
    */
   protected $availableTypes = array('horizontal', 'vertical', 'inline', 'search');
 
   /**
    * The destination of the current form
+   *
    * @var string
    */
   protected $action;
 
   /**
    * The form method
+   *
    * @var string
    */
   protected $method;
 
   /**
    * Whether the form should be secured or not
+   *
    * @var boolean
    */
   protected $secure;
@@ -55,7 +76,15 @@ class Form extends FormerObject
   protected $element = 'form';
 
   /**
+   * A list of injected properties
+   *
+   * @var array
+   */
+  protected $injectedProperties = array('method', 'action');
+
+  /**
    * Whether a form is opened or not
+   *
    * @var boolean
    */
   protected static $opened = false;
@@ -64,9 +93,11 @@ class Form extends FormerObject
   /////////////////////////// CORE METHODS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
 
-  public function __construct(Former $former)
+  public function __construct(Former $former, UrlGenerator $url)
   {
-    $this->former = $former;
+    $this->former    = $former;
+    $this->framework = $former->getFramework();
+    $this->url       = $url;
   }
 
   /**
@@ -89,7 +120,7 @@ class Form extends FormerObject
     }
 
     // Open the form
-    $this->action     = $action;
+    $this->action($action);
     $this->attributes = $attributes;
     $this->method     = strtoupper($method);
     $this->secure     = $secure;
@@ -145,7 +176,7 @@ class Form extends FormerObject
    */
   public function action($action)
   {
-    $this->action = $action;
+    $this->action = $this->url->to($action);
 
     return $this;
   }
@@ -202,8 +233,7 @@ class Form extends FormerObject
       $spoof = $this->former->hidden('_method', $this->method);
     } else $spoof = null;
 
-    //return $this->open().$spoof;
-    return $this->former->getMeido()->open($this->action, $this->method, $this->attributes, $this->secure);
+    return $this->open().$spoof;
   }
 
   ////////////////////////////////////////////////////////////////////

@@ -9,7 +9,9 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
 {
   protected static $illuminate;
 
-  // Dummy data ---------------------------------------------------- /
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// DUMMIES /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   protected $checkables = array(
     'Foo' => array(
@@ -30,7 +32,9 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     'data-foo' => 'bar',
   );
 
-  // Matchers ------------------------------------------------------ /
+  ////////////////////////////////////////////////////////////////////
+  ///////////////////////////// MATCHERS /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   protected function matchField($attributes = array(), $type = 'text', $name = 'foo')
   {
@@ -135,7 +139,39 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     $this->former->labels = array();
   }
 
-  // Custom assertions --------------------------------------------- /
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// HELPERS /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Build a list of HTML attributes from an array
+   *
+   * @param  array  $attributes
+   * @return string
+   */
+  public function attributes($attributes)
+  {
+    $html = array();
+
+    foreach ((array) $attributes as $key => $value)
+    {
+      // For numeric keys, we will assume that the key and the value are the
+      // same, as this will convert HTML attributes such as "required" that
+      // may be specified as required="required", etc.
+      if (is_numeric($key)) $key = $value;
+
+      if ( ! is_null($value))
+      {
+        $html[] = $key.'="'.$value.'"';
+      }
+    }
+
+    return (count($html) > 0) ? ' '.implode(' ', $html) : '';
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// ASSERTIONS //////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   protected function assertControlGroup($input)
   {
