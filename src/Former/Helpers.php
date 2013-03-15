@@ -3,6 +3,7 @@ namespace Former;
 
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Translation\Translator;
 use Underscore\Methods\StringMethods as String;
 
 /**
@@ -11,19 +12,28 @@ use Underscore\Methods\StringMethods as String;
 class Helpers
 {
   /**
-   * Instance of the container
-   * @var Container
+   * Instance of Former
+   *
+   * @var Former
    */
-  private static $app;
+  private static $former;
+
+  /**
+   * The Translator instance
+   *
+   * @var Translator
+   */
+  private static $translator;
 
   /**
    * Bind a Container to the Helpers class
    *
    * @param Container $app
    */
-  public static function setApp(Container $app)
+  public static function setApp(Former $former, Translator $translator)
   {
-    static::$app = $app;
+    static::$former     = $former;
+    static::$translator = $translator;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -48,15 +58,14 @@ class Helpers
     // Assure we don't already have a Lang object
     if(is_object($key) and method_exists($key, 'get')) return $key->get();
 
-    $translator    = static::$app['translator'];
     $translation   = null;
-    $translateFrom = static::$app['former']->getOption('translate_from').'.'.$key;
+    $translateFrom = static::$former->getOption('translate_from').'.'.$key;
 
     // Search for the key itself
-    if ($translator->has($key)) {
-      $translation = $translator->get($key);
-    } elseif ($translator->has($translateFrom)) {
-      $translation  = $translator->get($translateFrom);
+    if (static::$translator->has($key)) {
+      $translation = static::$translator->get($key);
+    } elseif (static::$translator->has($translateFrom)) {
+      $translation  = static::$translator->get($translateFrom);
     }
 
     // Replace by fallback if invalid

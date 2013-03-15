@@ -80,7 +80,7 @@ class Former
     $this->app           = $app;
     $this->populator     = $populator;
     $this->formFramework = $framework;
-    Helpers::setApp($app);
+    Helpers::setApp($this, $this->app['translator']);
   }
 
   ////////////////////////////////////////////////////////////////////
