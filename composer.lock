@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Anahkiasen/html-object.git",
-                "reference": "e60e2d376117400f5facdc2c6a14af608a02d28f"
+                "reference": "c5a4e9e3f1a6660ca797452d35d1b02ff9cce3f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/e60e2d376117400f5facdc2c6a14af608a02d28f",
-                "reference": "e60e2d376117400f5facdc2c6a14af608a02d28f",
+                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/c5a4e9e3f1a6660ca797452d35d1b02ff9cce3f3",
+                "reference": "c5a4e9e3f1a6660ca797452d35d1b02ff9cce3f3",
                 "shasum": ""
             },
             "require": {
@@ -35,7 +35,7 @@
                 }
             ],
             "description": "A set of classes to create and manipulate HTML objects abstractions",
-            "time": "2013-03-13 01:10:20"
+            "time": "2013-03-17 16:45:53"
         },
         {
             "name": "anahkiasen/underscore-php",
@@ -246,12 +246,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/translation.git",
-                "reference": "v4.0.0-BETA3"
+                "reference": "51a12f83e26ed4bf0d96b0ce3a1d1aa487583454"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/translation/zipball/v4.0.0-BETA3",
-                "reference": "v4.0.0-BETA3",
+                "url": "https://api.github.com/repos/illuminate/translation/zipball/51a12f83e26ed4bf0d96b0ce3a1d1aa487583454",
+                "reference": "51a12f83e26ed4bf0d96b0ce3a1d1aa487583454",
                 "shasum": ""
             },
             "require": {
@@ -281,7 +281,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
-            "time": "2013-01-24 04:23:32"
+            "time": "2013-03-17 03:28:39"
         },
         {
             "name": "patchwork/utf8",

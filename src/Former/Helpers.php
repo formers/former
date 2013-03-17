@@ -3,7 +3,6 @@ namespace Former;
 
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Translation\Translator;
 use Underscore\Methods\StringMethods as String;
 
 /**
@@ -30,7 +29,7 @@ class Helpers
    *
    * @param Container $app
    */
-  public static function setApp(Former $former, Translator $translator)
+  public static function setApp(Former $former, $translator)
   {
     static::$former     = $former;
     static::$translator = $translator;
