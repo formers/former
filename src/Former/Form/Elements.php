@@ -46,7 +46,7 @@ class Elements
   {
     $csrf = $this->session->getToken();
 
-    return (string) $this->former->hidden($csrf, $csrf);
+    return (string) $this->former->hidden('_csrf', $csrf);
   }
 
   /**
