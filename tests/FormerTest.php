@@ -18,7 +18,7 @@ class FormerTest extends FormerTests
       'tag' => 'input',
       'attributes' => array(
         'type'  => 'hidden',
-        'name'  => 'csrf_token',
+        'name'  => '_csrf',
         'value' => 'csrf_token',
       ),
     );
