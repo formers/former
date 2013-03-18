@@ -3,7 +3,6 @@ namespace Former\Form;
 
 use Former\Former;
 use Former\Traits\FormerObject;
-use Illuminate\Routing\UrlGenerator;
 use Underscore\Methods\ArraysMethods as Arrays;
 use Underscore\Methods\StringMethods as String;
 
@@ -93,7 +92,7 @@ class Form extends FormerObject
   /////////////////////////// CORE METHODS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
 
-  public function __construct(Former $former, UrlGenerator $url)
+  public function __construct(Former $former, $url)
   {
     $this->former    = $former;
     $this->framework = $former->getFramework();

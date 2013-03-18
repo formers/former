@@ -4,7 +4,6 @@ namespace Former\Form;
 use Former\Former;
 use Former\Helpers;
 use HtmlObject\Element;
-use Illuminate\Session\Store as Session;
 
 /**
  * The different parts of a form that are neither fields nor groups
@@ -31,7 +30,7 @@ class Elements
    *
    * @param Container $app
    */
-  public function __construct(Former $former, Session $session)
+  public function __construct(Former $former, $session)
   {
     $this->former  = $former;
     $this->session = $session;
