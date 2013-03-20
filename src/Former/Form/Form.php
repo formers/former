@@ -2,6 +2,7 @@
 namespace Former\Form;
 
 use Former\Former;
+use Former\Populator;
 use Former\Traits\FormerObject;
 use Underscore\Methods\ArraysMethods as Arrays;
 use Underscore\Methods\StringMethods as String;
@@ -31,6 +32,13 @@ class Form extends FormerObject
    * @var UrlGenerator
    */
   protected $url;
+
+  /**
+   * The Populator
+   *
+   * @var Populator
+   */
+  protected $populator;
 
   /**
    * The Form type
@@ -92,11 +100,18 @@ class Form extends FormerObject
   /////////////////////////// CORE METHODS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
 
-  public function __construct(Former $former, $url)
+  /**
+   * Build a new Form instance
+   *
+   * @param Former       $former
+   * @param UrlGenerator $url
+   */
+  public function __construct(Former $former, $url, Populator $populator)
   {
     $this->former    = $former;
     $this->framework = $former->getFramework();
     $this->url       = $url;
+    $this->populator = $populator;
   }
 
   /**
@@ -165,7 +180,7 @@ class Form extends FormerObject
   }
 
   ////////////////////////////////////////////////////////////////////
-  ////////////////////////// CHAINED METHODS /////////////////////////
+  /////////////////////////////// SETTER /////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**
@@ -205,16 +220,6 @@ class Form extends FormerObject
   }
 
   /**
-   * Alias for $this->former->withRules
-   */
-  public function rules()
-  {
-    call_user_func_array(array($this->former, 'withRules'), func_get_args());
-
-    return $this;
-  }
-
-  /**
    * Outputs the current form opened
    *
    * @return string A <form> opening tag
@@ -237,13 +242,47 @@ class Form extends FormerObject
   }
 
   ////////////////////////////////////////////////////////////////////
+  ////////////////////////// PUBLIC HELPERS //////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Alias for $this->former->withRules
+   */
+  public function rules()
+  {
+    call_user_func_array(array($this->former, 'withRules'), func_get_args());
+
+    return $this;
+  }
+
+  /**
+   * Populate a form with specific values
+   *
+   * @param array|object $values
+   */
+  public function populate($values)
+  {
+    $this->populator->setValues($values);
+  }
+
+  /**
+   * Get the Populator binded to the Form
+   *
+   * @return Populator
+   */
+  public function getPopulator()
+  {
+    return $this->populator;
+  }
+
+  ////////////////////////////////////////////////////////////////////
   ////////////////////////////// HELPERS /////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
   /**
    * Apply various parameters according to form type
    *
-   * @param string $type The original form type provided
+   * @param  string $type The original form type provided
    * @return string The final form type
    */
   private function applyType($type)

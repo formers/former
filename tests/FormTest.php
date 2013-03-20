@@ -39,7 +39,7 @@ class FormTest extends FormerTests
 
     $this->assertHTML($matcher, $open);
   }
-  
+
   public function testCanOpenAFormWithoutAction()
   {
     $open = $this->former->open()->__toString();
@@ -177,5 +177,21 @@ class FormTest extends FormerTests
 
 
     $this->assertHTML($matcher, $form);
+  }
+
+  public function testDifferentFormsCanPopulateDifferentValues()
+  {
+    $this->former->populate(array('foo' => 'eatshitanddie'));
+
+    $this->former->open('#')->populate(array('foo' => 'bar'));
+      $field = $this->former->text('foo');
+    $this->former->close();
+
+    $this->former->open('#')->populate(array('foo' => 'foo'));
+      $fieldTwo = $this->former->text('foo');
+    $this->former->close();
+
+    $this->assertEquals('bar', $field->getValue());
+    $this->assertEquals('foo', $fieldTwo->getValue());
   }
 }

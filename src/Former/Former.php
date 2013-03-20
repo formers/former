@@ -13,42 +13,49 @@ class Former
 {
   /**
    * The current environment
+   *
    * @var Illuminate\Container
    */
   protected $app;
 
   /**
    * The current field being worked on
+   *
    * @var Field
    */
   protected $field;
 
   /**
    * The current form framework
+   *
    * @var FrameworkInterface
    */
   protected $formFramework;
 
   /**
    * The current form being worked on
+   *
    * @var Form
    */
   protected $form;
 
   /**
    * The Populator instance
+   *
    * @var Populator
    */
   public $populator;
 
   /**
    * The form's errors
+   *
    * @var Message
    */
   protected $errors;
 
   /**
    * An array of rules to use
+   *
    * @var array
    */
   protected $rules = array();
@@ -176,6 +183,16 @@ class Former
     $oldValue = $this->app['request']->old($name, $fallback);
 
     return $this->app['request']->get($name, $oldValue);
+  }
+
+  /**
+   * Get the Populator binded to Former
+   *
+   * @return Populator
+   */
+  public function getPopulator()
+  {
+    return $this->populator;
   }
 
   ////////////////////////////////////////////////////////////////////

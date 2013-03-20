@@ -294,17 +294,16 @@ abstract class Field extends FormerObject implements FieldInterface
    */
   private function repopulate($fallback = null)
   {
-    if(is_null($fallback)) $fallback = $this->value;
-
     // Get values from POST, populated, and manually set value
-    $post     = $this->former->getPost($this->name);
-    $populate = $this->former->getValue($this->name);
+    $post      = $this->former->getPost($this->name);
+    $populator = $this->form ? $this->form->getPopulator() : $this->former->getPopulator();
+    $populate  = $populator->getValue($this->name);
 
     // Assign a priority to each
-    if(!is_null($post)) return $post;
+    if(!is_null($post))     return $post;
     if(!is_null($populate)) return $populate;
 
-    return $fallback;
+    return $fallback ?: $this->value;
   }
 
   /**
