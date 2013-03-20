@@ -65,7 +65,7 @@ class Populator
 
     // Transform the name into an array
     $value = $this->values;
-    $field = String::contains($field, '.') ? explode('.', $field) : (array) $field;
+    $field = $this->parseFieldAsArray($field);
 
     // Dive into the model
     foreach ($field as $relationship) {
@@ -73,9 +73,14 @@ class Populator
       // Multiple results relation
       if (is_array($value)) {
         $me = $this;
-        $value = Arrays::each($value, function($submodel) use ($me, $relationship, $fallback) {
-          return $me->getAttributeFromModel($submodel, $relationship, $fallback);
-        });
+
+        if (array_key_exists($relationship, $value)) {
+          $value = $value[$relationship];
+        } else {
+          $value = Arrays::each($value, function($submodel) use ($me, $relationship, $fallback) {
+            return $me->getAttributeFromModel($submodel, $relationship, $fallback);
+          });
+        }
 
       // Get attribute from model
       } else {
@@ -129,6 +134,36 @@ class Populator
   ////////////////////////////////////////////////////////////////////
 
   /**
+   * Parses the name of a field to a tree of fields
+   *
+   * @param string $field The field's name
+   *
+   * @return array A tree of field
+   */
+  protected function parseFieldAsArray($field)
+  {
+    if (String::contains($field, '[]')) {
+      return (array) $field;
+    }
+
+    // Transform array notation to dot notation
+    if (String::contains($field, '[')) {
+      $field = preg_replace("/[\[\]]/", '.', $field);
+      $field = String::replace($field, '..', '.');
+      $field = trim($field, '.');
+    }
+
+    // Parse dot notation
+    if (String::contains($field, '.')) {
+      $field = explode('.', $field);
+    } else {
+      $field = (array) $field;
+    }
+
+    return $field;
+  }
+
+  /**
    * Get an attribute from a model
    *
    * @param object $model     The model
@@ -144,6 +179,10 @@ class Populator
       method_exists($model, 'get_'.$attribute) or
       method_exists($model, 'get'.ucfirst($attribute).'Attribute')) {
         return $model->$attribute;
+    }
+
+    if (array_key_exists($attribute, $model)) {
+      return $model[$attribute];
     }
 
     return $fallback;

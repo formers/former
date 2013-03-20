@@ -24,7 +24,7 @@
   'push_checkboxes'   => false,
 
   // The value a checkbox will have in the POST array if unchecked
-  'unchecked_value'   => '',
+  'unchecked_value'   => 0,
 
   // The class to be added to required fields
   'required_class'    => 'required',

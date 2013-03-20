@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Anahkiasen/html-object.git",
-                "reference": "962217e03cbe1b44b7a571e47cc8ba5c6f435e30"
+                "reference": "b3629dafe07df940620f0c6f4846fc046e98c79f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/962217e03cbe1b44b7a571e47cc8ba5c6f435e30",
-                "reference": "962217e03cbe1b44b7a571e47cc8ba5c6f435e30",
+                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/b3629dafe07df940620f0c6f4846fc046e98c79f",
+                "reference": "b3629dafe07df940620f0c6f4846fc046e98c79f",
                 "shasum": ""
             },
             "require": {
@@ -35,7 +35,7 @@
                 }
             ],
             "description": "A set of classes to create and manipulate HTML objects abstractions",
-            "time": "2013-03-17 23:54:21"
+            "time": "2013-03-20 16:36:55"
         },
         {
             "name": "anahkiasen/underscore-php",
@@ -43,12 +43,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Anahkiasen/underscore-php.git",
-                "reference": "cb1398977ecbfc57e26f4becadc07735f4594c0c"
+                "reference": "98a5b49e064aad1a52733116ae697cb54b2f4f5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/underscore-php/zipball/cb1398977ecbfc57e26f4becadc07735f4594c0c",
-                "reference": "cb1398977ecbfc57e26f4becadc07735f4594c0c",
+                "url": "https://api.github.com/repos/Anahkiasen/underscore-php/zipball/98a5b49e064aad1a52733116ae697cb54b2f4f5b",
+                "reference": "98a5b49e064aad1a52733116ae697cb54b2f4f5b",
                 "shasum": ""
             },
             "require": {
@@ -73,7 +73,7 @@
                 }
             ],
             "description": "A redacted port of Underscore.js for PHP",
-            "time": "2013-03-15 12:44:17"
+            "time": "2013-03-19 02:15:59"
         },
         {
             "name": "illuminate/config",
@@ -200,12 +200,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "b46d591dd8fe100603777ea84ace34a5314c48a3"
+                "reference": "75a8e4b985ede4db00377005a6b69746c8d87dc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/b46d591dd8fe100603777ea84ace34a5314c48a3",
-                "reference": "b46d591dd8fe100603777ea84ace34a5314c48a3",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/75a8e4b985ede4db00377005a6b69746c8d87dc8",
+                "reference": "75a8e4b985ede4db00377005a6b69746c8d87dc8",
                 "shasum": ""
             },
             "require": {
@@ -237,7 +237,7 @@
                 }
             ],
             "description": "Various utilities and support functions.",
-            "time": "2013-03-15 03:55:30"
+            "time": "2013-03-20 01:32:32"
         },
         {
             "name": "illuminate/translation",
@@ -334,12 +334,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "69548bd41929e873f3a9bdd88c73865b9aba6932"
+                "reference": "cdbeaa8d76d176df3762510c857d246f94387ef3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/69548bd41929e873f3a9bdd88c73865b9aba6932",
-                "reference": "69548bd41929e873f3a9bdd88c73865b9aba6932",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/cdbeaa8d76d176df3762510c857d246f94387ef3",
+                "reference": "cdbeaa8d76d176df3762510c857d246f94387ef3",
                 "shasum": ""
             },
             "require": {
@@ -380,7 +380,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-03-15 10:14:31"
+            "time": "2013-03-18 14:27:58"
         }
     ],
     "packages-dev": [
@@ -390,12 +390,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "1174be6aed7b3c1e048834f14902ce796b6483c2"
+                "reference": "e01c03dfa2f12086c3bbd69e9ca19e4953c6c7d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/1174be6aed7b3c1e048834f14902ce796b6483c2",
-                "reference": "1174be6aed7b3c1e048834f14902ce796b6483c2",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/e01c03dfa2f12086c3bbd69e9ca19e4953c6c7d9",
+                "reference": "e01c03dfa2f12086c3bbd69e9ca19e4953c6c7d9",
                 "shasum": ""
             },
             "require": {
@@ -435,7 +435,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2013-03-11 13:49:28"
+            "time": "2013-03-19 17:42:50"
         }
     ],
     "aliases": [

@@ -44,6 +44,20 @@ class PopulatorTest extends FormerTests
     $this->assertEquals('foo', $populator->getValue('name'));
   }
 
+  public function testCanGetValueThroughArrayNotation()
+  {
+    $values = (object) array(
+      'foo' => array(
+        'bar' => array(
+          'bis' => 'ter',
+        ),
+      ),
+    );
+    $populator = new Populator($values);
+
+    $this->assertEquals('ter', $populator->getValue('foo[bar][bis]'));
+  }
+
   public function testCanGetRelationships()
   {
     $model = new DummyEloquent(array('id' => 1, 'name' => 'foo'));

@@ -61,6 +61,13 @@ abstract class Checkable extends Field
    */
   protected $focus = null;
 
+  /**
+   * Whether this particular checkable is to be pushed
+   *
+   * @var boolean
+   */
+  protected $isPushed = false;
+
   ////////////////////////////////////////////////////////////////////
   //////////////////////////// CORE METHODS //////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -174,6 +181,18 @@ abstract class Checkable extends Field
     if ($focused) return $this;
 
     $this->text = $text;
+
+    return $this;
+  }
+
+  /**
+   * Push this particular checkbox
+   *
+   * @param boolean $pushed
+   */
+  public function push($pushed = true)
+  {
+    $this->isPushed = $pushed;
 
     return $this;
   }
@@ -293,10 +312,9 @@ abstract class Checkable extends Field
     if ($this->isChecked($name, $value)) $field->checked('checked');
 
     // Add hidden checkbox if requested
-    if ($this->former->getOption('push_checkboxes')) {
+    if ($this->former->getOption('push_checkboxes') or $this->isPushed) {
       $field = $this->former->hidden($name, $this->former->getOption('unchecked_value')) . $field;
     }
-
 
     // If no label to wrap, return plain checkable
     if(!$label) return $field->render();
