@@ -211,10 +211,11 @@ class Former
 
     // If we're given a raw Validator, go fetch the errors in it
     if(method_exists($validator, 'getMessages')) $errors = $validator->getMessages();
+    if($validator instanceof \Laravel\Validator) $errors = $validator->errors;
 
     // If we found errors, bind them to the form
     if(isset($errors)) $this->errors = $errors;
-    else $this->errors = $validator;
+    elseif($validator) $this->errors = $validator;
   }
 
   /**
