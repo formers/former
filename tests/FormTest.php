@@ -194,4 +194,11 @@ class FormTest extends FormerTests
     $this->assertEquals('bar', $field->getValue());
     $this->assertEquals('foo', $fieldTwo->getValue());
   }
+
+  public function testPopulateReturnsFormOpener()
+  {
+    $form = $this->former->open('#')->populate(array());
+
+    $this->assertHTML($this->matchForm(), $form);
+  }
 }

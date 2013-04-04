@@ -82,18 +82,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/config.git",
-                "reference": "02bf5cffe092b03ce013d381817ada395568ba1e"
+                "reference": "0cb58ac43fe87a1deac67a32926e0d24bebe7238"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/config/zipball/02bf5cffe092b03ce013d381817ada395568ba1e",
-                "reference": "02bf5cffe092b03ce013d381817ada395568ba1e",
+                "url": "https://api.github.com/repos/illuminate/config/zipball/0cb58ac43fe87a1deac67a32926e0d24bebe7238",
+                "reference": "0cb58ac43fe87a1deac67a32926e0d24bebe7238",
                 "shasum": ""
             },
             "require": {
                 "illuminate/filesystem": "4.0.x",
                 "illuminate/support": "4.0.x",
                 "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "extra": {
@@ -113,7 +116,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
-            "time": "2013-03-03 01:00:36"
+            "time": "2013-03-29 21:32:25"
         },
         {
             "name": "illuminate/container",
@@ -122,16 +125,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "73697d956ee9bac52de89fa2235969da45da9a1e"
+                "reference": "6ef2e3dc5db5e624485afe7adbe3e734a7f93228"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/73697d956ee9bac52de89fa2235969da45da9a1e",
-                "reference": "73697d956ee9bac52de89fa2235969da45da9a1e",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/6ef2e3dc5db5e624485afe7adbe3e734a7f93228",
+                "reference": "6ef2e3dc5db5e624485afe7adbe3e734a7f93228",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "extra": {
@@ -151,7 +157,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
-            "time": "2013-03-03 01:00:36"
+            "time": "2013-03-29 21:32:25"
         },
         {
             "name": "illuminate/filesystem",
@@ -160,17 +166,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
-                "reference": "a3f1aef27e6857690d575bd6f10a670a26e76bc3"
+                "reference": "7ca9a70e0455878b6d39b9b4a33f1a2a934af469"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/a3f1aef27e6857690d575bd6f10a670a26e76bc3",
-                "reference": "a3f1aef27e6857690d575bd6f10a670a26e76bc3",
+                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/7ca9a70e0455878b6d39b9b4a33f1a2a934af469",
+                "reference": "7ca9a70e0455878b6d39b9b4a33f1a2a934af469",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "4.0.x",
                 "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "extra": {
@@ -191,7 +200,7 @@
                 }
             ],
             "description": "A filesystem abstraction library.",
-            "time": "2013-03-07 15:18:39"
+            "time": "2013-03-29 21:32:25"
         },
         {
             "name": "illuminate/support",
@@ -200,12 +209,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "75a8e4b985ede4db00377005a6b69746c8d87dc8"
+                "reference": "d5458447580c6b49bcfe8fc0e5805c6f5ac7bafa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/75a8e4b985ede4db00377005a6b69746c8d87dc8",
-                "reference": "75a8e4b985ede4db00377005a6b69746c8d87dc8",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/d5458447580c6b49bcfe8fc0e5805c6f5ac7bafa",
+                "reference": "d5458447580c6b49bcfe8fc0e5805c6f5ac7bafa",
                 "shasum": ""
             },
             "require": {
@@ -213,7 +222,8 @@
             },
             "require-dev": {
                 "mockery/mockery": "0.7.2",
-                "patchwork/utf8": "1.0.*"
+                "patchwork/utf8": "1.0.*",
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "extra": {
@@ -237,7 +247,7 @@
                 }
             ],
             "description": "Various utilities and support functions.",
-            "time": "2013-03-20 01:32:32"
+            "time": "2013-04-03 16:43:50"
         },
         {
             "name": "illuminate/translation",
@@ -246,12 +256,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/translation.git",
-                "reference": "339db6f59babe69367d3cad0a77242668544d5c9"
+                "reference": "0dee0886bdb1448069c28b2dbe84e44e21ea8b22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/translation/zipball/339db6f59babe69367d3cad0a77242668544d5c9",
-                "reference": "339db6f59babe69367d3cad0a77242668544d5c9",
+                "url": "https://api.github.com/repos/illuminate/translation/zipball/0dee0886bdb1448069c28b2dbe84e44e21ea8b22",
+                "reference": "0dee0886bdb1448069c28b2dbe84e44e21ea8b22",
                 "shasum": ""
             },
             "require": {
@@ -261,7 +271,8 @@
                 "symfony/translation": "2.2.*"
             },
             "require-dev": {
-                "mockery/mockery": "0.7.2"
+                "mockery/mockery": "0.7.2",
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "extra": {
@@ -281,7 +292,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
-            "time": "2013-03-17 19:46:31"
+            "time": "2013-03-29 21:36:37"
         },
         {
             "name": "patchwork/utf8",
@@ -334,12 +345,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "cdbeaa8d76d176df3762510c857d246f94387ef3"
+                "reference": "8e51b398df129b05cf1cab72aff94ace7442deda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/cdbeaa8d76d176df3762510c857d246f94387ef3",
-                "reference": "cdbeaa8d76d176df3762510c857d246f94387ef3",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/8e51b398df129b05cf1cab72aff94ace7442deda",
+                "reference": "8e51b398df129b05cf1cab72aff94ace7442deda",
                 "shasum": ""
             },
             "require": {
@@ -380,7 +391,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-03-18 14:27:58"
+            "time": "2013-04-01 08:06:05"
         }
     ],
     "packages-dev": [
@@ -390,12 +401,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "e01c03dfa2f12086c3bbd69e9ca19e4953c6c7d9"
+                "reference": "cc72f44a00c9abc963e91a796db6166f0c7a7a7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/e01c03dfa2f12086c3bbd69e9ca19e4953c6c7d9",
-                "reference": "e01c03dfa2f12086c3bbd69e9ca19e4953c6c7d9",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/cc72f44a00c9abc963e91a796db6166f0c7a7a7e",
+                "reference": "cc72f44a00c9abc963e91a796db6166f0c7a7a7e",
                 "shasum": ""
             },
             "require": {
@@ -435,7 +446,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2013-03-19 17:42:50"
+            "time": "2013-04-04 17:33:04"
         }
     ],
     "aliases": [

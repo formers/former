@@ -263,6 +263,8 @@ class Form extends FormerObject
   public function populate($values)
   {
     $this->populator->setValues($values);
+
+    return $this;
   }
 
   /**
