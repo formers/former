@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Updates the master branch
+
+required=("src" "vendor")
+dependencies=("autoload.php" "composer" "illuminate/config" "illuminate/filesystem" "illuminate/translation" "mockery" "symfony")
+
+# Create a temporary directory
+rm -rf tmp
+mkdir tmp
+
+# Copy the important files in it
+for file in "${required[@]}"
+do
+  echo "Copying $file"
+  cp -R $file tmp/$file
+done
+cp ./* tmp/
+
+# Remove unecessary dependencies
+for dependency in "${dependencies[@]}"
+do
+  echo "Deleting vendor/$dependency"
+  rm -rf tmp/vendor/$dependency
+done
+
+# Remove .git folders
+for folder in tmp/vendor/*
+do
+  rm -rf $folder/*/.git
+  rm -rf $folder/*/*/.git
+  rm -rf $folder/*/*/*/.git
+done
+
+# Switch branch
+git checkout master
