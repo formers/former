@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Updates the master branch
+composer install
 
 required=("src" "vendor")
 dependencies=("autoload.php" "composer" "illuminate/config" "illuminate/filesystem" "illuminate/translation" "mockery" "symfony")
