@@ -40,5 +40,5 @@ rm -rf .gitignore
 
 # Copy new one
 
-cp tmp/* ./
+cp -R tmp/* ./
 rm -rf tmp/
