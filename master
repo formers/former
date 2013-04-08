@@ -34,8 +34,8 @@ done
 git checkout master
 
 # Delete current tree
-rm -rf {tests,vendor,src}
-rm -rf *.{xml,md,php,lock,json,yml}
+rm -rf ./{tests,vendor,src}
+rm -rf ./*.{xml,md,php,lock,json,yml}
 rm -rf .gitignore
 
 # Copy new one
