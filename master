@@ -43,3 +43,7 @@ rm -rf .gitignore
 
 cp -R tmp/* ./
 rm -rf tmp/
+
+git add .
+git commit -m "Update master branch"
+git push origin master
