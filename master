@@ -27,10 +27,18 @@ done
 # Remove .git folders
 for folder in tmp/vendor/*
 do
-  rm -rf $folder/*/.git
-  rm -rf $folder/*/*/.git
-  rm -rf $folder/*/*/*/.git
+  rm -rf $folder/{*,*/*,*/*/*}/.git
 done
 
 # Switch branch
 git checkout master
+
+# Delete current tree
+rm -rf {tests,vendor,src}
+rm -rf *.{xml,md,php,lock,json,yml}
+rm -rf .gitignore
+
+# Copy new one
+
+cp tmp/* ./
+rm -rf tmp/
