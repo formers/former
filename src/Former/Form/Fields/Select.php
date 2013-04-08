@@ -17,6 +17,13 @@ class Select extends Field
   private $placeholder = null;
 
   /**
+   * The Select's options
+   *
+   * @var array
+   */
+  protected $options;
+
+  /**
    * The select's element
    *
    * @var string
@@ -138,12 +145,24 @@ class Select extends Field
     } else $options = $_options;
 
     foreach ($options as $key => $option) {
-      $options[$key] = Element::create('option', $option)->setAttribute('value', $key);
+      $this->addOption($option, $key);
     }
 
-    $this->children = $options;
-
     if($selected) $this->value = $selected;
+
+    return $this;
+  }
+
+  /**
+   * Add an option to the Select's options
+   *
+   * @param string $text  It's value
+   * @param string $value It's text
+   */
+  public function addOption($text = null, $value = null)
+  {
+    $key = $value ?: sizeof($this->children);
+    $this->children[$key] = Element::create('option', $text)->setAttribute('value', $value);
 
     return $this;
   }

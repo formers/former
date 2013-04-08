@@ -20,7 +20,7 @@ class InputTest extends FormerTests
 
   // Tests --------------------------------------------------------- /
 
-  public function testText()
+  public function testCanCreateText()
   {
     $input = $this->former->text('foo')->__toString();
 
@@ -28,7 +28,7 @@ class InputTest extends FormerTests
     $this->assertHTML($this->matchField(), $input);
   }
 
-  public function testTextWithoutLabel()
+  public function testCanCreateTextWithoutLabel()
   {
     $this->app->app['config'] = $this->app->getConfig(true, '', false, false);
 
@@ -39,7 +39,7 @@ class InputTest extends FormerTests
     $this->assertHTML($matchField, $input);
   }
 
-  public function testSingleTextWithoutLabelOnStart()
+  public function testCanCreateSingleTextWithoutLabelOnStart()
   {
     $input = $this->former->text('foo', '')->__toString();
     $matchField = Arrays::remove($this->matchField(), 'id');
@@ -48,7 +48,7 @@ class InputTest extends FormerTests
     $this->assertHTML($matchField, $input);
   }
 
-  public function testSingleTextWithoutLabel()
+  public function testCanCreateSingleTextWithoutLabel()
   {
     $input = $this->former->text('foo')->label(null)->__toString();
     $matchField = Arrays::remove($this->matchField(), 'id');
@@ -57,7 +57,7 @@ class InputTest extends FormerTests
     $this->assertHTML($matchField, $input);
   }
 
-  public function testSearch()
+  public function testCanCreateSearchField()
   {
     $input = $this->former->search('foo')->__toString();
     $matchField = Arrays::set($this->matchField(), 'attributes.class', 'search-query');
@@ -66,7 +66,7 @@ class InputTest extends FormerTests
     $this->assertHTML($matchField, $input);
   }
 
-  public function testTextWithoutBootstrap()
+  public function testCanCreateTextFieldWithoutBootstrap()
   {
     $this->former->framework('Nude');
 
@@ -77,7 +77,7 @@ class InputTest extends FormerTests
     $this->assertHTML($this->matchField(), $input);
   }
 
-  public function testTextWithoutFormInstance()
+  public function testCanCreateTextFieldWithoutFormInstance()
   {
     $this->former->close();
 
@@ -90,7 +90,7 @@ class InputTest extends FormerTests
     $this->former->horizontal_open();
   }
 
-  public function testTextLabel()
+  public function testCanCreateTextLabel()
   {
     $static  = $this->former->text('foo')->label('bar', $this->testAttributes)->__toString();
     $label = $this->matchLabel('Bar', 'foo');
@@ -106,7 +106,7 @@ class InputTest extends FormerTests
     $this->assertHTML($this->matchControlGroup(), $input);
   }
 
-  public function testTextLabelWithoutBootstrap()
+  public function testCanCreateTextLabelWithoutBootstrap()
   {
     $this->former->framework('Nude');
 
@@ -124,7 +124,7 @@ class InputTest extends FormerTests
     $this->assertHTML($this->matchField(), $static);
   }
 
-  public function testRenameField()
+  public function testCanRenameField()
   {
     $input = $this->former->text('foo')->name('bar')->__toString();
     $matcher = $this->controlGroup(
@@ -134,7 +134,7 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $input);
   }
 
-  public function testValue()
+  public function testCanSetValueOnFields()
   {
     $static = $this->former->text('foo')->value('bar')->__toString();
     $input  = $this->former->text('foo', null, 'bar')->__toString();
@@ -146,7 +146,7 @@ class InputTest extends FormerTests
     $this->assertHTML($this->matchControlGroup(), $input);
   }
 
-  public function testForceValue()
+  public function testCanForceValueOnFields()
   {
     $this->former->populate(array('foo' => 'unbar'));
     $static = $this->former->text('foo')->forceValue('bar')->__toString();
@@ -155,7 +155,7 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $static);
   }
 
-  public function testMagicAttribute()
+  public function testCanCreateViaMagicAttribute()
   {
     $static = $this->former->text('foo')->class('foo')->data_bar('bar')->__toString();
     $input  = $this->former->text('foo', null, null, array('class' => 'foo', 'data-bar' => 'bar'))->__toString();
@@ -166,7 +166,7 @@ class InputTest extends FormerTests
     $this->assertHTML($this->matchControlGroup(), $input);
   }
 
-  public function testMagicAttributeUnvalue()
+  public function testCanCreateViaMagicAttributeUnvalue()
   {
     $static = $this->former->text('foo')->require()->__toString();
     $matcher = $this->controlGroup('<input require="true" type="text" name="foo" id="foo">');
@@ -175,7 +175,7 @@ class InputTest extends FormerTests
     $this->assertHTML($this->matchControlGroup(), $static);
   }
 
-  public function testSetAttributes()
+  public function testCanSetAttributes()
   {
     $attributes = array('class' => 'foo', 'data-foo' => 'bar');
 
@@ -189,7 +189,7 @@ class InputTest extends FormerTests
     $this->assertHTML($this->matchControlGroup(), $static);
   }
 
-  public function testReplaceAttributes()
+  public function testCanReplaceAttributes()
   {
     $attributes = array('class' => 'foo', 'data-foo' => 'bar');
 
@@ -203,7 +203,7 @@ class InputTest extends FormerTests
     $this->assertHTML($this->matchControlGroup(), $static);
   }
 
-  public function testGetAttribute()
+  public function testCanGetAttribute()
   {
     $former = $this->former->span1_text('name')->foo('bar');
 
@@ -211,7 +211,7 @@ class InputTest extends FormerTests
     $this->assertEquals('bar', $former->foo);
   }
 
-  public function testAddClass()
+  public function testCanAddClass()
   {
     $static = $this->former->text('foo')->class('foo')->addClass('bar')->__toString();
     $input  = $this->former->text('foo', null, null, array('class' => 'foo'))->addClass('bar')->__toString();
@@ -226,7 +226,7 @@ class InputTest extends FormerTests
   /**
    * @dataProvider sizes
    */
-  public function testMagicMethods($size)
+  public function testCanUseMagicMethods($size)
   {
     $method = $size.'_text';
     $class = String::startsWith($size, 'span') ? $size. ' ' : 'input-'.$size. ' ';
@@ -239,7 +239,7 @@ class InputTest extends FormerTests
     $this->assertHTML($field, $static);
   }
 
-  public function testErrors()
+  public function testCanCreateWithErrors()
   {
     $validator = $this->app->app['validator']->getMessages();
 
@@ -275,7 +275,7 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $required);
   }
 
-  public function testPopulate()
+  public function testCanCreatePopulate()
   {
     $this->former->populate(array('foo' => 'bar'));
 
@@ -285,7 +285,7 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $populate);
   }
 
-  public function testPopulateWithSpecificValue()
+  public function testCanCreatePopulateWithSpecificValue()
   {
     $this->former->populate(array('foo' => 'bar'));
     $this->former->populateField('foo', 'foo');
@@ -296,7 +296,7 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $populate);
   }
 
-  public function testNestedRelationships()
+  public function testCanCreateNestedRelationships()
   {
     $foo = (object) array('bar' => (object) array('kal' => (object) array('ter' => 'men')));
     $this->former->populate($foo);
@@ -309,7 +309,7 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $text);
   }
 
-  public function testNestedRelationshipsRenamedField()
+  public function testCanCreateNestedRelationshipsRenamedField()
   {
     $foo = (object) array('bar' => (object) array('kal' => (object) array('ter' => 'men')));
     $this->former->populate($foo);
@@ -322,7 +322,7 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $text);
   }
 
-  public function testMultipleNestedRelationships()
+  public function testCanCreateMultipleNestedRelationships()
   {
     for($i = 0; $i < 2; $i++) $bar[] = (object) array('kal' => 'val'.$i);
     $foo = (object) array('bar' => $bar);
@@ -336,7 +336,7 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $text);
   }
 
-  public function testNoPopulatingPasswords()
+  public function testCanCreateNoPopulatingPasswords()
   {
     $this->former->populate(array('foo' => 'bar'));
     $populate = $this->former->password('foo')->__toString();
@@ -345,7 +345,7 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $populate);
   }
 
-  public function testDatalist()
+  public function testCanCreateDatalist()
   {
     $datalist = $this->former->text('foo')->useDatalist(array('foo' => 'bar', 'kel' => 'tar'))->__toString();
     $matcher =
@@ -363,7 +363,7 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $datalist);
   }
 
-  public function testDatalistCustomList()
+  public function testCanCreateDatalistCustomList()
   {
     $datalist = $this->former->text('foo')->list('bar')->useDatalist(array('foo' => 'bar', 'kel' => 'tar'))->__toString();
     $matcher =

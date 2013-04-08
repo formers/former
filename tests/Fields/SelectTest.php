@@ -197,4 +197,19 @@ class SelectTest extends FormerTests
 
     $this->assertEquals($matcher, $select);
   }
+
+  public function testCanAddAdditionalOptionsToCreatedSelect()
+  {
+    $select = $this->former->select('foo')->addOption(null)->options($this->options);
+    $select->addOption('bis', 'ter');
+    $matcher = $this->controlGroup(
+    '<select id="foo" name="foo">'.
+      '<option value=""></option>'.
+      '<option value="foo">bar</option>'.
+      '<option value="kal">ter</option>'.
+      '<option value="ter">bis</option>'.
+    '</select>');
+
+    $this->assertEquals($matcher, $select->__toString());
+  }
 }
