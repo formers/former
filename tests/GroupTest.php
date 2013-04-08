@@ -1,5 +1,5 @@
 <?php
-use Underscore\Types\String;
+use Underscore\Methods\StringMethods as String;
 
 class GroupTest extends FormerTests
 {
