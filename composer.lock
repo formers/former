@@ -30,7 +30,7 @@
             ],
             "authors": [
                 {
-                    "name": "Anahkiasen",
+                    "name": "Maxime Fabre",
                     "email": "ehtnam6@gmail.com"
                 }
             ],
@@ -209,12 +209,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "d5458447580c6b49bcfe8fc0e5805c6f5ac7bafa"
+                "reference": "cc16ed1445c39846c1c9aaccfc9f1648b28bf3c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/d5458447580c6b49bcfe8fc0e5805c6f5ac7bafa",
-                "reference": "d5458447580c6b49bcfe8fc0e5805c6f5ac7bafa",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/cc16ed1445c39846c1c9aaccfc9f1648b28bf3c3",
+                "reference": "cc16ed1445c39846c1c9aaccfc9f1648b28bf3c3",
                 "shasum": ""
             },
             "require": {
@@ -247,7 +247,7 @@
                 }
             ],
             "description": "Various utilities and support functions.",
-            "time": "2013-04-03 16:43:50"
+            "time": "2013-04-07 00:35:30"
         },
         {
             "name": "illuminate/translation",
@@ -256,19 +256,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/translation.git",
-                "reference": "0dee0886bdb1448069c28b2dbe84e44e21ea8b22"
+                "reference": "b1677bbb4196a469699e4b3b29dd315ae0985be1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/translation/zipball/0dee0886bdb1448069c28b2dbe84e44e21ea8b22",
-                "reference": "0dee0886bdb1448069c28b2dbe84e44e21ea8b22",
+                "url": "https://api.github.com/repos/illuminate/translation/zipball/b1677bbb4196a469699e4b3b29dd315ae0985be1",
+                "reference": "b1677bbb4196a469699e4b3b29dd315ae0985be1",
                 "shasum": ""
             },
             "require": {
                 "illuminate/filesystem": "4.0.x",
                 "illuminate/support": "4.0.x",
                 "php": ">=5.3.0",
-                "symfony/translation": "2.2.*"
+                "symfony/translation": "2.3.*"
             },
             "require-dev": {
                 "mockery/mockery": "0.7.2",
@@ -292,7 +292,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
-            "time": "2013-03-29 21:36:37"
+            "time": "2013-04-08 01:00:29"
         },
         {
             "name": "patchwork/utf8",
@@ -340,24 +340,24 @@
         },
         {
             "name": "symfony/translation",
-            "version": "2.2.x-dev",
+            "version": "dev-master",
             "target-dir": "Symfony/Component/Translation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "8e51b398df129b05cf1cab72aff94ace7442deda"
+                "reference": "b518a3100b09b5de4b4750e9415c00ad1bd77b1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/8e51b398df129b05cf1cab72aff94ace7442deda",
-                "reference": "8e51b398df129b05cf1cab72aff94ace7442deda",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/b518a3100b09b5de4b4750e9415c00ad1bd77b1e",
+                "reference": "b518a3100b09b5de4b4750e9415c00ad1bd77b1e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "symfony/config": ">=2.0,<2.3-dev",
+                "symfony/config": ">=2.0,<2.4-dev",
                 "symfony/yaml": ">=2.2,<3.0"
             },
             "suggest": {
@@ -367,7 +367,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev"
+                    "dev-master": "2.3-dev"
                 }
             },
             "autoload": {
@@ -391,7 +391,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-04-01 08:06:05"
+            "time": "2013-04-02 09:39:57"
         }
     ],
     "packages-dev": [

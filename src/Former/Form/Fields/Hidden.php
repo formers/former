@@ -27,8 +27,6 @@ class Hidden extends Field
   public function __construct(Former $former, $type, $name, $value, $attributes)
   {
     parent::__construct($former, $type, $name, '', $value, $attributes);
-
-    $this->value = $value;
   }
 
   /**

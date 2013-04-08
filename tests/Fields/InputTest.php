@@ -1,6 +1,6 @@
 <?php
-use Underscore\Types\String;
-use Underscore\Types\Arrays;
+use Underscore\Methods\StringMethods as String;
+use Underscore\Methods\ArraysMethods as Arrays;
 
 class InputTest extends FormerTests
 {
@@ -88,15 +88,6 @@ class InputTest extends FormerTests
     $this->assertHTML($this->matchField(), $input);
 
     $this->former->horizontal_open();
-  }
-
-  public function testHiddenField()
-  {
-    $input = $this->former->hidden('foo')->value('bar')->__toString();
-    $matcher = '<input type="hidden" name="foo" value="bar">';
-    $field = Arrays::remove($this->matchField(array(), 'hidden'), 'id');
-
-    $this->assertHTML($field, $input);
   }
 
   public function testTextLabel()
