@@ -81,16 +81,17 @@ class Select extends Field
 
       $this->multiple();
       $this->name .= '[]';
+    }
 
-      if ($this->hasChildren() and is_array($this->value)) {
-        foreach ($this->value as $value) {
-          $this->getChild($value)->selected('selected');
+    $this->value = (array) $this->value;
+
+    // Mark selected values as selected
+    if ($this->hasChildren() and !empty($this->value)) {
+      foreach ($this->value as $value) {
+        if ($child = $this->getChild($value)) {
+          $child->selected('selected');
         }
       }
-    } else {
-       if ($this->hasChildren() and $this->value) {
-          $this->getChild($this->value)->selected('selected');
-       }
     }
 
     // Add placeholder text if any

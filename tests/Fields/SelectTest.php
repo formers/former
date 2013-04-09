@@ -212,4 +212,16 @@ class SelectTest extends FormerTests
 
     $this->assertEquals($matcher, $select->__toString());
   }
+
+  public function testPopulateUnexistingOptionsDoesntThrowError()
+  {
+    $this->former->populate(array('foo' => 'foo'));
+    $select = $this->former->select('foo')->options(array('bar' => 'Bar'));
+    $matcher = $this->controlGroup(
+    '<select id="foo" name="foo">'.
+      '<option value="bar">Bar</option>'.
+    '</select>');
+
+    $this->assertEquals($matcher, $select->__toString());
+  }
 }
