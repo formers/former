@@ -3,8 +3,6 @@ namespace Former\Facades;
 
 use Former\Former;
 use Illuminate\Container\Container;
-use LaravelBook\Laravel4Powerpack\Form;
-use LaravelBook\Laravel4Powerpack\HTML;
 
 /**
  * Common building blocks to all environments

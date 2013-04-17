@@ -4,7 +4,6 @@ namespace Former\Facades;
 use Illuminate\Config\FileLoader as ConfigLoader;
 use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
-use Illuminate\Cookie\CookieJar;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Http\Request;
 use Illuminate\Session\CookieStore;

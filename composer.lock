@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Anahkiasen/html-object.git",
-                "reference": "b3629dafe07df940620f0c6f4846fc046e98c79f"
+                "reference": "d40a3f2eff1e1d73f6f069e5b166fe4447c44989"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/b3629dafe07df940620f0c6f4846fc046e98c79f",
-                "reference": "b3629dafe07df940620f0c6f4846fc046e98c79f",
+                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/d40a3f2eff1e1d73f6f069e5b166fe4447c44989",
+                "reference": "d40a3f2eff1e1d73f6f069e5b166fe4447c44989",
                 "shasum": ""
             },
             "require": {
@@ -39,7 +39,7 @@
                 }
             ],
             "description": "A set of classes to create and manipulate HTML objects abstractions",
-            "time": "2013-03-20 16:36:55"
+            "time": "2013-04-14 19:56:47"
         },
         {
             "name": "anahkiasen/underscore-php",
@@ -213,12 +213,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "cc16ed1445c39846c1c9aaccfc9f1648b28bf3c3"
+                "reference": "a69734943edb6094d946fea3c1d1b97d57a477e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/cc16ed1445c39846c1c9aaccfc9f1648b28bf3c3",
-                "reference": "cc16ed1445c39846c1c9aaccfc9f1648b28bf3c3",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/a69734943edb6094d946fea3c1d1b97d57a477e9",
+                "reference": "a69734943edb6094d946fea3c1d1b97d57a477e9",
                 "shasum": ""
             },
             "require": {
@@ -251,7 +251,7 @@
                 }
             ],
             "description": "Various utilities and support functions.",
-            "time": "2013-04-07 00:35:30"
+            "time": "2013-04-13 12:33:33"
         },
         {
             "name": "illuminate/translation",
@@ -349,12 +349,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "b518a3100b09b5de4b4750e9415c00ad1bd77b1e"
+                "reference": "79a63e2829ea4e8295b4d44a55b08f20f0875a11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/b518a3100b09b5de4b4750e9415c00ad1bd77b1e",
-                "reference": "b518a3100b09b5de4b4750e9415c00ad1bd77b1e",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/79a63e2829ea4e8295b4d44a55b08f20f0875a11",
+                "reference": "79a63e2829ea4e8295b4d44a55b08f20f0875a11",
                 "shasum": ""
             },
             "require": {
@@ -395,7 +395,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-04-02 09:39:57"
+            "time": "2013-04-11 06:50:46"
         }
     ],
     "packages-dev": [

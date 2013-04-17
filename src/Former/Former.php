@@ -281,7 +281,6 @@ class Former
   public function getContainer($dependency = null)
   {
     if ($dependency) return $this->app[$dependency];
-
     return $this->app;
   }
 
