@@ -135,20 +135,20 @@ What you actually get is the following output (with Bootstrap) :
 </div>
 ```
 
-By default Former will use Twitter Bootstrap for its syntax but you can select which framework to use with the method `Former::framework()`. For the moment Former supports `'bootstrap'` for Twitter Bootstrap, `'zurb'` for Zurb Foundation, and `null` for no framework.
+By default Former will use Twitter Bootstrap for its syntax but you can select which framework to use with the method `Former::framework()`. For the moment Former supports `'TwitterBootstrap'`, `'ZurbFoundation'` and `'Nude'` (for no framework).
 
 ```php
 // Turn off Bootstrap syntax
-Former::framework(null);
+Former::framework('Nude');
 
 // Turn it on again (MAKE UP YOUR MIND JEEZ)
-Former::framework('bootstrap');
+Former::framework('TwitterBootstrap');
 ```
 
 Here is an example of code for Foundation :
 
 ```php
-Former::framework('zurb');
+Former::framework('ZurbFoundation');
 
 Former::four_text('foo')->state('error')->help('bar')
 ```
