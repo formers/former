@@ -216,4 +216,21 @@ class SelectTest extends FormerTests
 
     $this->assertEquals($matcher, $select->__toString());
   }
+
+  public function testCanPopulateWithCollections()
+  {
+    $collection = new Illuminate\Support\Collection(array(
+      new DummyEloquent(array('id' => 1, 'name' => 'foo')),
+      new DummyEloquent(array('id' => 2, 'name' => 'bar'))
+    ));
+
+    $select = $this->former->select('foo')->fromQuery($collection);
+    $matcher = $this->controlGroup(
+    '<select id="foo" name="foo">'.
+      '<option value="1">foo</option>'.
+      '<option value="2">bar</option>'.
+    '</select>');
+
+    $this->assertEquals($matcher, $select->__toString());
+  }
 }
