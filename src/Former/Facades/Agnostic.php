@@ -7,6 +7,7 @@ use Illuminate\Container\Container;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Http\Request;
 use Illuminate\Session\CookieStore;
+use Illuminate\Session\SessionManager;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
 
@@ -31,20 +32,33 @@ class Agnostic extends FormerBuilder
     $app->bind('url', 'Illuminate\Routing\UrlGenerator');
     $app->instance('Illuminate\Container\Container', $app);
     $app->instance('Illuminate\Encryption\Encrypter', new Encrypter('foobar'));
-    $app->instance('session', 'Illuminate\Session\CookieStore');
 
-    $app->bind('Symfony\Component\HttpFoundation\Request', function($app) {
+    // Session ----------------------------------------------------- /
+
+    $app->bind('session.manager', function($app) {
+      return new SessionManager($app);
+    });
+
+    $app->singleton('session', function($app) {
+      return $app['session.manager']->driver('array');
+    });
+
+    $app->singleton('Symfony\Component\HttpFoundation\Request', function($app) {
       $request = new Request;
       $request->setSessionStore($app['session']);
 
       return $request;
     });
 
+    // Config ------------------------------------------------------ /
+
     $app->bind('config', function($app) {
       $fileloader = new ConfigLoader($app['files'], 'src/');
 
       return new Repository($fileloader, 'config');
     });
+
+    // Localization ------------------------------------------------ /
 
     $app->bind('loader', function($app) {
       return new FileLoader($app['files'], 'src/config');
