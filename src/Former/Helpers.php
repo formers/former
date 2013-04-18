@@ -35,6 +35,18 @@ class Helpers
     static::$translator = $translator;
   }
 
+  /**
+   * Encodes HTML
+   *
+   * @param string $value The string to encode
+   *
+   * @return string
+   */
+  public static function encode($value)
+  {
+    return htmlentities($value, ENT_QUOTES, 'UTF-8', false);
+  }
+
   ////////////////////////////////////////////////////////////////////
   ///////////////////////// LOCALIZATION HELPERS /////////////////////
   ////////////////////////////////////////////////////////////////////

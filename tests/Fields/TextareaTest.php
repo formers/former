@@ -24,8 +24,24 @@ class TextareaTest extends FormerTests
   public function testCanCreateTextareas()
   {
     $attributes = $this->matchTextarea();
-    $textarea = $this->former->textarea('foo')->setAttributes($attributes['attributes'])->value('bar')->__toString();
-    $matcher  = $this->matchTextarea();
+    $textarea   = $this->former->textarea('foo')->setAttributes($attributes['attributes'])->value('bar')->__toString();
+    $matcher    = $this->matchTextarea();
+
+    $this->assertControlGroup($textarea);
+    $this->assertHTML($matcher, $textarea);
+  }
+
+  public function testTextareaContentIsProperlyEncoded()
+  {
+    $value = '</textarea><strong>foo</strong>';
+    $attributes = $this->matchTextarea();
+    $textarea   = $this->former
+      ->textarea('foo')
+      ->setAttributes($attributes['attributes'])
+      ->value($value)
+      ->__toString();
+    $matcher    = $this->matchTextarea();
+    $matcher['content'] = $value;
 
     $this->assertControlGroup($textarea);
     $this->assertHTML($matcher, $textarea);

@@ -2,6 +2,7 @@
 namespace Former\Traits;
 
 use Former\Former;
+use Former\Helpers;
 use HtmlObject\Element;
 
 /**
@@ -53,7 +54,13 @@ abstract class FormerObject extends Element
    */
   public function render()
   {
+    // Set the proper ID according to the label
     $this->setId();
+
+    // Encode HTML value
+    if (is_string($this->value)) {
+      $this->value = Helpers::encode($this->value);
+    }
 
     return parent::render();
   }
