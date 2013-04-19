@@ -4,7 +4,7 @@
 composer install
 
 required=("src" "vendor")
-dependencies=("autoload.php" "composer" "illuminate/config" "illuminate/filesystem" "illuminate/translation" "mockery" "symfony")
+dependencies=("autoload.php" "composer" "illuminate/config" "illuminate/filesystem" "illuminate/translation" "mockery" "symfony", "predis")
 
 # Create a temporary directory
 rm -rf tmp
