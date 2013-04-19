@@ -679,16 +679,16 @@
         },
         {
             "name": "patchwork/utf8",
-            "version": "v1.1.2",
+            "version": "v1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nicolas-grekas/Patchwork-UTF8.git",
-                "reference": "v1.1.2"
+                "reference": "v1.1.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/v1.1.2",
-                "reference": "v1.1.2",
+                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/v1.1.3",
+                "reference": "v1.1.3",
                 "shasum": ""
             },
             "require": {
@@ -720,7 +720,7 @@
                 "utf-8",
                 "utf8"
             ],
-            "time": "2013-04-18 15:30:17"
+            "time": "2013-04-18 18:46:28"
         },
         {
             "name": "predis/predis",

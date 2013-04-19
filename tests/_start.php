@@ -1,12 +1,24 @@
 <?php
 ini_set('memory_limit', '120M');
+date_default_timezone_set('UTC');
+
 include '_illuminate.php';
+
+// Dummies
 include 'Dummy/DummyButton.php';
 include 'Dummy/DummyEloquent.php';
 
-// Base Test class for matchers
+/**
+ * Base testing class
+ */
 abstract class FormerTests extends PHPUnit_Framework_TestCase
 {
+
+  /**
+   * The current IoC Container
+   *
+   * @var Container
+   */
   protected static $illuminate;
 
   ////////////////////////////////////////////////////////////////////
