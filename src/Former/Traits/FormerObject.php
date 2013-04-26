@@ -58,7 +58,7 @@ abstract class FormerObject extends Element
     $this->setId();
 
     // Encode HTML value
-    if (!in_array($this->getType(), array('submit', 'link', 'reset', 'button')) && is_string($this->value)) {
+    if (!$this->isButton() && is_string($this->value)) {
       $this->value = Helpers::encode($this->value);
     }
 
