@@ -91,8 +91,11 @@ class LiveValidation
    */
   public function numeric()
   {
-    if ($this->field->isOfType('number')) $this->field->step('any');
-    else $this->field->pattern('[+-]?\d*\.?\d+');
+    if (!$this->field->isOfType('number')) 
+    {
+      $this->field->pattern('[+-]?\d*\.?\d+');
+    }
+    $this->field->step('any');
   }
 
   /**
