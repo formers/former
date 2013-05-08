@@ -115,7 +115,7 @@ class Helpers
       if(is_array($model)) $model = (object) $model;
 
       // Calculate the value
-      if($value and isset($model->$value)) $modelValue = $model->$value;
+      if($value) $modelValue = $model->$value;
       elseif(method_exists($model, '__toString')) $modelValue = $model->__toString();
       else $modelValue = null;
 
