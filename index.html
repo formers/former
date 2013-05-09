@@ -169,18 +169,18 @@ That means that when you type this :</p>
 <span class="nt">&lt;/div&gt;</span>
 </pre></div>
 
-<p>By default Former will use Twitter Bootstrap for its syntax but you can select which framework to use with the method <code>Former::framework()</code>. For the moment Former supports <code>'bootstrap'</code> for Twitter Bootstrap, <code>'zurb'</code> for Zurb Foundation, and <code>null</code> for no framework.</p>
+<p>By default Former will use Twitter Bootstrap for its syntax but you can select which framework to use with the method <code>Former::framework()</code>. For the moment Former supports <code>'TwitterBootstrap'</code>, <code>'ZurbFoundation'</code> and <code>'Nude'</code> (for no framework).</p>
 
 <div class="highlight"><pre><span class="c1">// Turn off Bootstrap syntax</span>
-<span class="nx">Former</span><span class="o">::</span><span class="na">framework</span><span class="p">(</span><span class="k">null</span><span class="p">);</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">framework</span><span class="p">(</span><span class="s1">'Nude'</span><span class="p">);</span>
 
 <span class="c1">// Turn it on again (MAKE UP YOUR MIND JEEZ)</span>
-<span class="nx">Former</span><span class="o">::</span><span class="na">framework</span><span class="p">(</span><span class="s1">'bootstrap'</span><span class="p">);</span>
+<span class="nx">Former</span><span class="o">::</span><span class="na">framework</span><span class="p">(</span><span class="s1">'TwitterBootstrap'</span><span class="p">);</span>
 </pre></div>
 
 <p>Here is an example of code for Foundation :</p>
 
-<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">framework</span><span class="p">(</span><span class="s1">'zurb'</span><span class="p">);</span>
+<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">framework</span><span class="p">(</span><span class="s1">'ZurbFoundation'</span><span class="p">);</span>
 
 <span class="nx">Former</span><span class="o">::</span><span class="na">four_text</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">state</span><span class="p">(</span><span class="s1">'error'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">help</span><span class="p">(</span><span class="s1">'bar'</span><span class="p">)</span>
 </pre></div>
