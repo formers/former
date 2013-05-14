@@ -202,7 +202,7 @@ class Form extends FormerObject
    */
   public function method($method)
   {
-    $this->method = $method;
+    $this->method = strtoupper($method);
 
     return $this;
   }
