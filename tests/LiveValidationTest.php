@@ -368,7 +368,7 @@ class LiveValidationTest extends FormerTests
     $this->former->withRules(array('foo' => $type));
 
     $input = $this->former->text('foo')->__toString();
-    $matcher = $this->matchField(array(), $type);
+    $matcher = $this->matchField(array(), $type[0]);
 
     $this->assertControlGroup($input);
     $this->assertHTML($matcher, $input);
