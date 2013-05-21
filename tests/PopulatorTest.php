@@ -3,6 +3,7 @@ use Former\Populator;
 
 class PopulatorTest extends FormerTests
 {
+
   public function testCanPopulateClassOnConstruct()
   {
     $populator = new Populator(array('foo', 'bar'));
@@ -69,4 +70,5 @@ class PopulatorTest extends FormerTests
 
     $this->assertEquals($values, $populator->getValue('roles'));
   }
+
 }

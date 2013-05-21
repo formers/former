@@ -1,7 +1,6 @@
 <?php
 class ButtonTest extends FormerTests
 {
-  // Tests --------------------------------------------------------- /
 
   public function testCanCreateAButton()
   {
@@ -72,4 +71,5 @@ class ButtonTest extends FormerTests
 
     $this->assertHTML($matcher, $button->render());
   }
+
 }

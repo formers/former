@@ -1,8 +1,16 @@
 <?php
 class TextareaTest extends FormerTests
 {
-  // Matchers ------------------------------------------------------ /
 
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// MATCHERS ////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Matches a textarea
+   *
+   * @return array
+   */
   public function matchTextarea()
   {
     return array(
@@ -19,7 +27,9 @@ class TextareaTest extends FormerTests
     );
   }
 
-  // Tests --------------------------------------------------------- /
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////////// TESTS /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   public function testCanCreateTextareas()
   {
@@ -46,4 +56,5 @@ class TextareaTest extends FormerTests
     $this->assertControlGroup($textarea);
     $this->assertHTML($matcher, $textarea);
   }
+
 }

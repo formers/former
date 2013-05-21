@@ -1,7 +1,10 @@
 <?php
 class FormTest extends FormerTests
 {
-  // Helpers ------------------------------------------------------- /
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// MATCHERS ////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   public function matchForm($class = 'horizontal', $files = false, $action = '#')
   {
@@ -30,7 +33,9 @@ class FormTest extends FormerTests
     return '<form ' .$forFiles. 'class="' .$class. '" method="POST" ' .$action. 'accept-charset="UTF-8">';
   }
 
-  // Tests --------------------------------------------------------- /
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////////// TESTS /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   public function testCanOpenAClassicForm()
   {
@@ -201,4 +206,5 @@ class FormTest extends FormerTests
 
     $this->assertHTML($this->matchForm(), $form);
   }
+
 }

@@ -1,13 +1,17 @@
 <?php
 class ZurbFrameworkTest extends FormerTests
 {
+
   public function setUp()
   {
     parent::setUp();
+
     $this->former->framework('ZurbFoundation');
   }
 
-  // Matchers ------------------------------------------------------ /
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// MATCHERS ////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   public function matchLabel($name = 'foo', $field = 'foo', $required = false)
   {
@@ -20,7 +24,9 @@ class ZurbFrameworkTest extends FormerTests
     );
   }
 
-  // Tests --------------------------------------------------------- /
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////////// TESTS /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   public function testCanUseMagicMethods()
   {
@@ -56,4 +62,5 @@ class ZurbFrameworkTest extends FormerTests
 
     $this->former->text('foo')->blockHelp('bar')->__toString();
   }
+
 }

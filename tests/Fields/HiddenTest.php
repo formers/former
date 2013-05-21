@@ -4,8 +4,6 @@ use Underscore\Methods\ArraysMethods as Arrays;
 class HiddenTest extends FormerTests
 {
 
-  // Tests --------------------------------------------------------- /
-
   public function testCanCreateHiddenField()
   {
     $input = $this->former->hidden('foo')->value('bar')->__toString();

@@ -2,7 +2,9 @@
 class LiveValidationTest extends FormerTests
 {
 
-  // Data providers ------------------------------------------------ /
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////// DATA PROVIDERS /////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   public function providePatterns()
   {
@@ -30,7 +32,9 @@ class LiveValidationTest extends FormerTests
     );
   }
 
-  // Tests --------------------------------------------------------- /
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////////// TESTS /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   public function testCanUseMultipleRulesArray()
   {
@@ -452,4 +456,5 @@ class LiveValidationTest extends FormerTests
     $this->assertControlGroup($input);
     $this->assertHTML($matcher, $input);
   }
+
 }

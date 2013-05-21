@@ -1,8 +1,16 @@
 <?php
 class UneditableTest extends FormerTests
 {
-  // Matchers ------------------------------------------------------ /
 
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// MATCHERS ////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Matches a plain label
+   *
+   * @return array
+   */
   public function matchPlainLabel()
   {
     return array(
@@ -11,7 +19,12 @@ class UneditableTest extends FormerTests
     );
   }
 
-  public function matchInput()
+  /**
+   * Matches an uneditable input
+   *
+   * @return array
+   */
+  public function matchUneditableInput()
   {
     return array(
       'tag' => 'input',
@@ -25,7 +38,12 @@ class UneditableTest extends FormerTests
     );
   }
 
-  public function matchSpan()
+  /**
+   * Matches an uneditable input as a span
+   *
+   * @return [type] [description]
+   */
+  public function matchUneditableSpan()
   {
     return array(
       'tag' => 'span',
@@ -36,7 +54,9 @@ class UneditableTest extends FormerTests
     );
   }
 
-  // Tests --------------------------------------------------------- /
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////////// TESTS /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   public function testCanCreateClassicDisabledFields()
   {
@@ -44,13 +64,13 @@ class UneditableTest extends FormerTests
     $nude = $this->former->uneditable('foo')->value('bar')->__toString();
 
     $this->assertHTML($this->matchPlainLabel(), $nude);
-    $this->assertHTML($this->matchInput(), $nude);
+    $this->assertHTML($this->matchUneditableInput(), $nude);
 
     $this->former->framework('ZurbFoundation');
     $zurb = $this->former->uneditable('foo')->value('bar')->__toString();
 
     $this->assertHTML($this->matchPlainLabel(), $zurb);
-    $this->assertHTML($this->matchInput(), $zurb);
+    $this->assertHTML($this->matchUneditableInput(), $zurb);
   }
 
   public function testCanCreateUneditableFieldsWithBootstrap()
@@ -58,6 +78,7 @@ class UneditableTest extends FormerTests
     $input = $this->former->uneditable('foo')->value('bar')->__toString();
 
     $this->assertControlGroup($input);
-    $this->assertHTML($this->matchSpan(), $input);
+    $this->assertHTML($this->matchUneditableSpan(), $input);
   }
+
 }

@@ -1,16 +1,15 @@
 <?php
-use Underscore\Methods\StringMethods as String;
 use Underscore\Methods\ArraysMethods as Arrays;
+use Underscore\Methods\StringMethods as String;
 
 class InputTest extends FormerTests
 {
-  public function tearDown()
-  {
-    parent::tearDown();
-    $this->former->framework('TwitterBootstrap');
-  }
 
-  public function sizes()
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////// DATA PROVIDERS /////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  public function provideSizes()
   {
     $_sizes = array('mini', 'small', 'medium', 'large', 'xlarge', 'xxlarge', 'span1', 'span6', 'span12', 'foo');
     foreach($_sizes as $s) $sizes[] = array($s);
@@ -18,7 +17,9 @@ class InputTest extends FormerTests
     return $sizes;
   }
 
-  // Tests --------------------------------------------------------- /
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////////// TESTS /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   public function testCanCreateText()
   {
@@ -224,7 +225,7 @@ class InputTest extends FormerTests
   }
 
   /**
-   * @dataProvider sizes
+   * @dataProvider provideSizes
    */
   public function testCanUseMagicMethods($size)
   {

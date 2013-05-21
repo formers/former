@@ -3,7 +3,10 @@ include '_start.php';
 
 class ActionsTest extends FormerTests
 {
-  // Matchers ------------------------------------------------------ /
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// MATCHERS ////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   public function matchActions($content = 'foo')
   {
@@ -14,7 +17,9 @@ class ActionsTest extends FormerTests
     );
   }
 
-  // Tests --------------------------------------------------------- /
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////////// TESTS /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   public function testCanCreateAnActionBlock()
   {
@@ -90,4 +95,5 @@ class ActionsTest extends FormerTests
     $matcher['child'] = $this->matchInputButton('btn-small btn-block btn-inverse btn', 'Reset', 'reset');
     $this->assertHTML($matcher, $actions);
   }
+
 }

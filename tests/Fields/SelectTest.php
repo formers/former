@@ -1,7 +1,17 @@
 <?php
 class SelectTest extends FormerTests
 {
+
+  /**
+   * An array of dummy options
+   *
+   * @var array
+   */
   private $options = array('foo' => 'bar', 'kal' => 'ter');
+
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////////// TESTS /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   public function testSelect()
   {
@@ -233,4 +243,5 @@ class SelectTest extends FormerTests
 
     $this->assertEquals($matcher, $select->__toString());
   }
+
 }

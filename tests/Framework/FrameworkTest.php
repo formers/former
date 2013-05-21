@@ -1,6 +1,7 @@
 <?php
 class FrameworkTest extends FormerTests
 {
+
   public function testCanChangeFramework()
   {
     $this->former->framework('ZurbFoundation');
@@ -15,4 +16,5 @@ class FrameworkTest extends FormerTests
 
     $this->assertTrue($isCurrent);
   }
+
 }

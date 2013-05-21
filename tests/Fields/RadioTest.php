@@ -1,7 +1,23 @@
 <?php
 class RadioTest extends FormerTests
 {
-  private function r($name = 'foo', $label = null, $value = 1, $inline = false, $checked = false)
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// MATCHERS ////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Matches a radio element
+   *
+   * @param  string  $name
+   * @param  string  $label
+   * @param  integer $value
+   * @param  boolean $inline
+   * @param  boolean $checked
+   *
+   * @return string
+   */
+  private function matchRadio($name = 'foo', $label = null, $value = 1, $inline = false, $checked = false)
   {
     $radioAttr = array(
       'id'      => $name,
@@ -22,15 +38,29 @@ class RadioTest extends FormerTests
     return $label ? '<label'.$this->attributes($labelAttr). '>' .$radio.$label. '</label>' : $radio;
   }
 
-  private function rc($name = 'foo', $label = null, $value = 1, $inline = false)
+  /**
+   * Matches a checked radio element
+   *
+   * @param  string  $name
+   * @param  string  $label
+   * @param  integer $value
+   * @param  boolean $inline
+   *
+   * @return string
+   */
+  private function matchCheckedRadio($name = 'foo', $label = null, $value = 1, $inline = false)
   {
-    return $this->r($name, $label, $value, $inline, true);
+    return $this->matchRadio($name, $label, $value, $inline, true);
   }
+
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////////// TESTS /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   public function testSingle()
   {
     $radio = $this->former->radio('foo')->__toString();
-    $matcher = $this->controlGroup($this->r());
+    $matcher = $this->controlGroup($this->matchRadio());
 
     $this->assertEquals($matcher, $radio);
   }
@@ -38,7 +68,7 @@ class RadioTest extends FormerTests
   public function testSingleWithLabel()
   {
     $radio = $this->former->radio('foo')->text('bar')->__toString();
-    $matcher = $this->controlGroup($this->r('foo', 'Bar'));
+    $matcher = $this->controlGroup($this->matchRadio('foo', 'Bar'));
 
     $this->assertEquals($matcher, $radio);
   }
@@ -46,7 +76,7 @@ class RadioTest extends FormerTests
   public function testSingleWithValue()
   {
     $radio = $this->former->radio('foo')->text('bar')->value('foo')->__toString();
-    $matcher = $this->controlGroup($this->r('foo', 'Bar', 'foo'));
+    $matcher = $this->controlGroup($this->matchRadio('foo', 'Bar', 'foo'));
 
     $this->assertEquals($matcher, $radio);
   }
@@ -54,7 +84,7 @@ class RadioTest extends FormerTests
   public function testMultiple()
   {
     $radios = $this->former->radios('foo')->radios('foo', 'bar')->__toString();
-    $matcher = $this->controlGroup($this->r('foo', 'Foo', 0).$this->r('foo2', 'Bar'));
+    $matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar'));
 
     $this->assertEquals($matcher, $radios);
   }
@@ -65,7 +95,7 @@ class RadioTest extends FormerTests
     $this->resetLabels();
     $radios2 = $this->former->radios('foo')->inline()->radios('foo', 'bar')->__toString();
 
-    $matcher = $this->controlGroup($this->r('foo', 'Foo', 0, true).$this->r('foo2', 'Bar', 1, true));
+    $matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0, true).$this->matchRadio('foo2', 'Bar', 1, true));
 
     $this->assertEquals($matcher, $radios1);
     $this->assertEquals($matcher, $radios2);
@@ -77,7 +107,7 @@ class RadioTest extends FormerTests
     $this->resetLabels();
     $radios2 = $this->former->radios('foo')->stacked()->radios('foo', 'bar')->__toString();
 
-    $matcher = $this->controlGroup($this->r('foo', 'Foo', 0).$this->r('foo2', 'Bar', 1));
+    $matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar', 1));
 
     $this->assertEquals($matcher, $radios1);
     $this->assertEquals($matcher, $radios2);
@@ -86,7 +116,7 @@ class RadioTest extends FormerTests
   public function testMultipleArray()
   {
     $radios = $this->former->radios('foo')->radios(array('Foo' => 'foo', 'Bar' => 'bar'))->__toString();
-    $matcher = $this->controlGroup($this->r('foo', 'Foo', 0).$this->r('bar', 'Bar'));
+    $matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0).$this->matchRadio('bar', 'Bar'));
 
     $this->assertEquals($matcher, $radios);
   }
@@ -130,7 +160,7 @@ class RadioTest extends FormerTests
   public function testCheck()
   {
     $radio = $this->former->radio('foo')->check()->__toString();
-    $matcher = $this->controlGroup($this->rc());
+    $matcher = $this->controlGroup($this->matchCheckedRadio());
 
     $this->assertEquals($matcher, $radio);
   }
@@ -138,7 +168,7 @@ class RadioTest extends FormerTests
   public function testCheckOneInSeveral()
   {
     $radios = $this->former->radios('foo')->radios('foo', 'bar')->check(0)->__toString();
-    $matcher = $this->controlGroup($this->rc('foo', 'Foo', 0).$this->r('foo2', 'Bar', 1));
+    $matcher = $this->controlGroup($this->matchCheckedRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar', 1));
 
     $this->assertEquals($matcher, $radios);
   }
@@ -146,7 +176,7 @@ class RadioTest extends FormerTests
   public function testCheckMultiple()
   {
     $radios = $this->former->radios('foo')->radios('foo', 'bar')->check(array(0 => false, 1 => true))->__toString();
-    $matcher = $this->controlGroup($this->r('foo', 'Foo', 0).$this->rc('foo2', 'Bar', 1));
+    $matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0).$this->matchCheckedRadio('foo2', 'Bar', 1));
 
     $this->assertEquals($matcher, $radios);
   }
@@ -154,7 +184,7 @@ class RadioTest extends FormerTests
   public function testCanAttributeIndividualLabelsPerRadio()
   {
     $radios = $this->former->radios('foo')->radios('foo', 'bar')->__toString();
-    $matcher = $this->controlGroup($this->r('foo', 'Foo', 0).$this->r('foo2', 'Bar', 1));
+    $matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar', 1));
 
     $this->assertEquals($matcher, $radios);
   }
@@ -164,7 +194,7 @@ class RadioTest extends FormerTests
     $this->app->app['request']->shouldReceive('get')->with('foo', '')->andReturn(0);
 
     $radios = $this->former->radios('foo')->radios('foo', 'bar')->__toString();
-    $matcher = $this->controlGroup($this->rc('foo', 'Foo', 0).$this->r('foo2', 'Bar', 1));
+    $matcher = $this->controlGroup($this->matchCheckedRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar', 1));
 
     $this->assertEquals($matcher, $radios);
   }
@@ -174,7 +204,7 @@ class RadioTest extends FormerTests
     $this->former->populate((object) array('foo' => 0));
 
     $radios = $this->former->radios('foo')->radios('foo', 'bar')->__toString();
-    $matcher = $this->controlGroup($this->rc('foo', 'Foo', 0).$this->r('foo2', 'Bar', 1));
+    $matcher = $this->controlGroup($this->matchCheckedRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar', 1));
 
     $this->assertEquals($matcher, $radios);
   }
@@ -188,4 +218,5 @@ class RadioTest extends FormerTests
 
     $this->assertInternalType('string', $radio);
   }
+
 }
