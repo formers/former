@@ -231,7 +231,12 @@ class Former
 
     // Parse the rules according to Laravel conventions
     foreach ($rules as $name => $fieldRules) {
-      foreach (explode('|', $fieldRules) as $rule) {
+      $expFieldRules = $fieldRules;
+      if (!is_array($expFieldRules)) {
+        $expFieldRules = explode('|', $expFieldRules);
+      }
+
+      foreach ($expFieldRules as $rule) {
 
         // If we have a rule with a value
         if (($colon = strpos($rule, ':')) !== false) {
