@@ -15,6 +15,7 @@
 - [add] You can now add classes to the group via the `->addGroupClass` method
 - [add] Former::withRules() now also take a Laravel-formatted string of rules (ie. "rule|rule:parameter|rule")
 - [add] You can now populate on a form-basis with the chained method `->populate` on a form opener
+- [add] Add support for macros with Former::macro($name, $macro())
 
 2.6.0
 -----

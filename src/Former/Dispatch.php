@@ -13,6 +13,22 @@ class Dispatch
 {
 
   /**
+   * Dispatch a call to a registered macro
+   *
+   * @param  Former $former
+   * @param  string $method       The macro's name
+   * @param  array  $parameters   The macro's arguments
+   *
+   * @return mixed
+   */
+  public static function toMacros(Former $former, $method, $parameters)
+  {
+    if (!$former->hasMacro($method)) return false;
+
+    return call_user_func_array($former->getMacro($method), $parameters);
+  }
+
+  /**
    * Dispatch a call over to Elements
    *
    * @param Container $app        The application container
@@ -25,6 +41,7 @@ class Dispatch
   {
     // Disregards if the method isn't an element
     if (!method_exists($elements = new Form\Elements($app['former'], $app['session']), $method)) return false;
+
     return call_user_func_array(array($elements, $method), $parameters);
   }
 
@@ -60,6 +77,7 @@ class Dispatch
   {
     // Disregards if the method isn't "group"
     if ($method != 'group') return false;
+
     return new Form\Group(
       $former,
       Arrays::get($parameters, 0, null),
@@ -79,6 +97,7 @@ class Dispatch
   public static function toActions(Former $former, $method, $parameters)
   {
     if ($method != 'actions') return false;
+
     return new Form\Actions($former, $parameters);
   }
 

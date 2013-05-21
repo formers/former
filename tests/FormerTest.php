@@ -61,4 +61,25 @@ class FormerTest extends FormerTests
     $this->assertHTML($this->matchToken(), $token);
   }
 
+  public function testCanCreateFormMacros()
+  {
+    $former = $this->former;
+    $this->former->macro('captcha', function($name = null) use ($former) {
+      return $former->text($name)->raw();
+    });
+
+    $this->assertEquals($this->former->text('foo')->raw(), $this->former->captcha('foo'));
+    $this->assertHTML($this->matchField(), $this->former->captcha('foo'));
+  }
+
+  public function testMacrosDontTakePrecedenceOverNativeFields()
+  {
+    $former = $this->former;
+    $this->former->macro('label', function() use ($former) {
+      return 'NOPE';
+    });
+
+    $this->assertNotEquals('NOPE', $this->former->label('foo'));
+  }
+
 }

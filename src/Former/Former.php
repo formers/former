@@ -1,6 +1,7 @@
 <?php
 namespace Former;
 
+use Closure;
 use Former\Interfaces\FrameworkInterface;
 use Illuminate\Container\Container;
 use Underscore\Methods\ArraysMethods as Arrays;
@@ -11,6 +12,8 @@ use Underscore\Methods\ArraysMethods as Arrays;
  */
 class Former
 {
+
+  // Instances ----------------------------------------------------- /
 
   /**
    * The current environment
@@ -47,6 +50,8 @@ class Former
    */
   public $populator;
 
+  // Informations -------------------------------------------------- /
+
   /**
    * The form's errors
    *
@@ -62,11 +67,20 @@ class Former
   protected $rules = array();
 
   /**
+   * An array of field macros
+   *
+   * @var array
+   */
+  protected $macros = array();
+
+  /**
    * The labels created so far
    *
    * @var array
    */
   public $labels = array();
+
+  // Namespaces ---------------------------------------------------- /
 
   /**
    * The namespace of Form elements
@@ -125,6 +139,11 @@ class Former
       return $actions;
     }
 
+    // Dispatch to macros
+    if ($macro = Dispatch::toMacros($this, $method, $parameters)) {
+      return $macro;
+    }
+
     // Checking for any supplementary classes
     $classes = explode('_', $method);
     $method  = array_pop($classes);
@@ -134,6 +153,47 @@ class Former
     $field = $this->getFramework()->getFieldClasses($field, $classes);
 
     return $this->field = $field;
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////////// MACROS ////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Register a macro with Former
+   *
+   * @param  string  $name         The name of the macro
+   * @param  Closure $macro        The macro itself
+   *
+   * @return mixed
+   */
+  public function macro($name, Closure $macro)
+  {
+    $this->macros[$name] = $macro;
+  }
+
+  /**
+   * Check if a macro exists
+   *
+   * @param  string  $name
+   *
+   * @return boolean
+   */
+  public function hasMacro($name)
+  {
+    return isset($this->macros[$name]);
+  }
+
+  /**
+   * Get a registered macro
+   *
+   * @param  string $name
+   *
+   * @return Closure
+   */
+  public function getMacro($name)
+  {
+    return $this->macros[$name];
   }
 
   ////////////////////////////////////////////////////////////////////
