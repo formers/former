@@ -26,4 +26,5 @@ class Uneditable extends Field
 
     return $this->former->getFramework()->createDisabledField($this);
   }
+
 }

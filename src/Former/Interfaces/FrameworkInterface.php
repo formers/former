@@ -10,14 +10,17 @@ use Illuminate\Container\Container;
  */
 interface FrameworkInterface
 {
+
   public function __construct(Container $app);
 
-  // Filter arrays
+  // Filter arrays ------------------------------------------------- /
+
   public function filterButtonClasses($classes);
   public function filterFieldClasses($classes);
   public function filterState($state);
 
-  // Get classes to add to attributes
+  // Get classes to add to attributes ------------------------------ /
+
   public function getFieldClasses(Field $field, $classes);
   public function getGroupClasses();
   public function getLabelClasses();
@@ -25,12 +28,15 @@ interface FrameworkInterface
   public function getUneditableClasses();
   public function getActionClasses();
 
-  // Render blocks
+  // Render blocks ------------------------------------------------- /
+
   public function createLabelOf(Field $field, Element $label);
   public function createHelp($text, $attributes);
   public function createIcon($icon, $attributes);
   public function createDisabledField(Field $field);
 
-  // Wrap blocks (hooks)
+  // Wrap blocks (hooks) ------------------------------------------- /
+
   public function wrapField($field);
+
 }

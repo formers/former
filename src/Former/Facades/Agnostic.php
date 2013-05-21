@@ -15,6 +15,7 @@ use Illuminate\Translation\Translator;
  */
 class Agnostic extends FormerBuilder
 {
+
   /**
    * Build the Former application
    *
@@ -74,4 +75,5 @@ class Agnostic extends FormerBuilder
 
     return $app;
   }
+
 }

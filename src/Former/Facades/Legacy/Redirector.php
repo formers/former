@@ -6,6 +6,7 @@ namespace Former\Facades\Legacy;
  */
 class Redirector
 {
+
   /**
    * The name of the class to redirect to
    *
@@ -61,4 +62,5 @@ class Redirector
   {
     return call_user_func_array('\\'.$this->class.'::'.$method, $parameters);
   }
+
 }

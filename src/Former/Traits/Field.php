@@ -1,9 +1,9 @@
 <?php
 namespace Former\Traits;
 
-use Former\Former;
 use Former\Form\Form;
 use Former\Form\Group;
+use Former\Former;
 use Former\Helpers;
 use Former\Interfaces\FieldInterface;
 use Former\LiveValidation;
@@ -16,6 +16,7 @@ use Underscore\Methods\StringMethods as String;
  */
 abstract class Field extends FormerObject implements FieldInterface
 {
+
   /**
    * The Former instance
    *
@@ -334,4 +335,5 @@ abstract class Field extends FormerObject implements FieldInterface
     $this->name  = $name;
     $this->label($label);
   }
+
 }

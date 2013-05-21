@@ -1,8 +1,8 @@
 <?php
 namespace Former\Form\Fields;
 
-use HtmlObject\Input as HtmlInput;
 use Former\Traits\Field;
+use HtmlObject\Input as HtmlInput;
 use Laravel\File as LaravelFile;
 
 /**
@@ -10,6 +10,7 @@ use Laravel\File as LaravelFile;
  */
 class File extends Field
 {
+
   /**
    * The maximum file size
    * @var integer
@@ -124,4 +125,5 @@ class File extends Field
 
     return $this;
   }
+
 }

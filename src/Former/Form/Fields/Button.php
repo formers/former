@@ -1,7 +1,7 @@
 <?php
 namespace Former\Form\Fields;
 
-use Form;
+use Former\Former;
 use Former\Helpers;
 use Former\Traits\Field;
 
@@ -10,6 +10,7 @@ use Former\Traits\Field;
  */
 class Button extends Field
 {
+
   /**
    * The Illuminate Container
    *
@@ -53,7 +54,7 @@ class Button extends Field
    * @param string    $link       Its link
    * @param array     $attributes Its attributes
    */
-  public function __construct(\Former\Former $former, $type, $value, $link, $attributes)
+  public function __construct(Former $former, $type, $value, $link, $attributes)
   {
     $this->former        = $former;
 
@@ -100,4 +101,5 @@ class Button extends Field
 
     return $this;
   }
+
 }

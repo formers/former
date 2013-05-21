@@ -8,6 +8,7 @@ use Illuminate\Support\ServiceProvider;
  */
 class FormerServiceProvider extends ServiceProvider
 {
+
   public function register()
   {
     // Register config file
@@ -26,4 +27,5 @@ class FormerServiceProvider extends ServiceProvider
   {
     return array('former');
   }
+
 }

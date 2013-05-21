@@ -9,6 +9,7 @@ use Illuminate\Container\Container;
  */
 abstract class FormerBuilder
 {
+
   /**
    * The Container instance
    *
@@ -72,4 +73,5 @@ abstract class FormerBuilder
 
     return $app;
   }
+
 }

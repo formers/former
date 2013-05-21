@@ -38,4 +38,5 @@ class Hidden extends Field
   {
     return HtmlInput::create('hidden', $this->name, $this->value, $this->attributes)->render();
   }
+
 }

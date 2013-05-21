@@ -3,8 +3,8 @@ namespace Former\Traits;
 
 use Former\Former;
 use Former\Helpers;
-use HtmlObject\Input;
 use HtmlObject\Element;
+use HtmlObject\Input;
 use Underscore\Methods\ArraysMethods as Arrays;
 
 /**
@@ -12,6 +12,7 @@ use Underscore\Methods\ArraysMethods as Arrays;
  */
 abstract class Checkable extends Field
 {
+
   /**
    * Renders the checkables as inline
    *
@@ -412,4 +413,5 @@ abstract class Checkable extends Field
       $this->grouped == true or
       strpos($this->name, '[]') !== FALSE;
   }
+
 }

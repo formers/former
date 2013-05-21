@@ -12,6 +12,7 @@ use Underscore\Methods\StringMethods as String;
  */
 class Actions extends FormerObject
 {
+
   /**
    * The current environment
    *
@@ -115,4 +116,5 @@ class Actions extends FormerObject
 
     return (bool) String::find($method, $buttons);
   }
+
 }

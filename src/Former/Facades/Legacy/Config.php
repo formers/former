@@ -8,6 +8,7 @@ use Laravel\Config as LaravelConfig;
  */
 class Config extends Redirector
 {
+
   /**
    * The name of the class to redirect to
    * @var string
@@ -34,4 +35,5 @@ class Config extends Redirector
 
     return LaravelConfig::get($key, $fallback);
   }
+
 }

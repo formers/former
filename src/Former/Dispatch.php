@@ -11,6 +11,7 @@ use Underscore\Types\String;
  */
 class Dispatch
 {
+
   /**
    * Dispatch a call over to Elements
    *
@@ -144,4 +145,5 @@ class Dispatch
 
     return $class;
   }
+
 }

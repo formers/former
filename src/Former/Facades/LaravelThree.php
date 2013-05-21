@@ -9,6 +9,7 @@ use Laravel\Config;
  */
 class LaravelThree extends FormerBuilder
 {
+
   /**
    * Build a Laravel 3 application
    *
@@ -50,4 +51,5 @@ class LaravelThree extends FormerBuilder
 
     return $app;
   }
+
 }

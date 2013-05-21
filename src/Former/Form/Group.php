@@ -14,6 +14,7 @@ use Underscore\Methods\StringMethods as String;
  */
 class Group extends Tag
 {
+
   /**
    * The Former instance
    *
@@ -430,4 +431,5 @@ class Group extends Tag
       $this->{$place}[] = $item;
     }
   }
+
 }

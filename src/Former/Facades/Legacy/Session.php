@@ -7,6 +7,7 @@ namespace Former\Facades\Legacy;
  */
 class Session extends Redirector
 {
+
   /**
    * The name of the class to redirect to
    * @var string
@@ -22,4 +23,5 @@ class Session extends Redirector
   {
     return \Session::csrf_token;
   }
+
 }

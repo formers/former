@@ -10,6 +10,7 @@ use Laravel\File;
  */
 class LiveValidation
 {
+
   /**
    * The field being worked on
    * @var Field
@@ -286,4 +287,5 @@ class LiveValidation
 
     $this->field->$attribute($min);
   }
+
 }

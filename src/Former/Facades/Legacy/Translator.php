@@ -7,6 +7,7 @@ namespace Former\Facades\Legacy;
  */
 class Translator extends Redirector
 {
+
   /**
    * The name of the class to redirect to
    * @var string
@@ -24,4 +25,5 @@ class Translator extends Redirector
   {
     return \Lang::line($key)->get();
   }
+
 }

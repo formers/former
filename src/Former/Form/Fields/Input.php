@@ -9,6 +9,7 @@ use Former\Traits\Field;
  */
 class Input extends Field
 {
+
   /**
    * Current datalist stored
    *
@@ -129,4 +130,5 @@ class Input extends Field
 
     return $datalist;
   }
+
 }

@@ -10,6 +10,7 @@ use Underscore\Methods\ArraysMethods as Arrays;
  */
 abstract class Framework
 {
+
   /**
    * The Container
    *
@@ -116,4 +117,5 @@ abstract class Framework
     if (!$field->isCheckable()) $label->for($field->getName());
     return $label;
   }
+
 }

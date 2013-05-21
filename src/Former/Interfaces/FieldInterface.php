@@ -6,6 +6,12 @@ namespace Former\Interfaces;
  */
 interface FieldInterface
 {
-  // Renders the field
+
+  /**
+   * Renders the field
+   *
+   * @return string
+   */
   public function render();
+
 }

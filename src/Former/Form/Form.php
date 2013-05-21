@@ -12,6 +12,7 @@ use Underscore\Methods\StringMethods as String;
  */
 class Form extends FormerObject
 {
+
   /**
    * The Former instance
    *
@@ -317,4 +318,5 @@ class Form extends FormerObject
 
     return $type;
   }
+
 }

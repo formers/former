@@ -11,6 +11,7 @@ use Underscore\Methods\ArraysMethods as Arrays;
  */
 class Former
 {
+
   /**
    * The current environment
    *
@@ -386,4 +387,5 @@ class Former
 
     return $this->field;
   }
+
 }

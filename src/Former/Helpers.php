@@ -10,6 +10,7 @@ use Underscore\Methods\StringMethods as String;
  */
 class Helpers
 {
+
   /**
    * Instance of Former
    *
@@ -133,4 +134,5 @@ class Helpers
 
     return isset($array) ? $array : $query;
   }
+
 }
