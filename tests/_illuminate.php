@@ -6,8 +6,17 @@ use Illuminate\Container\Container;
  */
 class IlluminateMock
 {
+
+  /**
+   * The current instance of the Container
+   *
+   * @var Container
+   */
   public $app;
 
+  /**
+   * Build the IoC Container for the tests
+   */
   public function __construct()
   {
     $app = new Container;
@@ -38,6 +47,10 @@ class IlluminateMock
   {
     return $this->app;
   }
+
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// CONTAINER ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Get config manager

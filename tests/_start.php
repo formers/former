@@ -2,6 +2,7 @@
 ini_set('memory_limit', '120M');
 date_default_timezone_set('UTC');
 
+// Load the Illuminate Container
 include '_illuminate.php';
 
 // Dummies
@@ -185,32 +186,65 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
   ////////////////////////////// ASSERTIONS //////////////////////////
   ////////////////////////////////////////////////////////////////////
 
+  /**
+   * Asserts that the input is a control group
+   *
+   * @param  string $input
+   *
+   * @return boolean
+   */
   protected function assertControlGroup($input)
   {
     $this->assertLabel($input);
     $this->assertHTML($this->matchControlGroup(), $input);
   }
 
+  /**
+   * Asserts that the input is a label
+   *
+   * @param  string $input
+   *
+   * @return boolean
+   */
   protected function assertLabel($input, $name = 'foo', $required = false)
   {
     $this->assertHTML($this->matchLabel($name, $name, $required), $input);
   }
 
+  /**
+   * Matches a Control Group
+   *
+   * @param  string $input
+   * @param  string $label
+   *
+   * @return boolean
+   */
   protected function controlGroup($input = '<input type="text" name="foo" id="foo">', $label = '<label for="foo" class="control-label">Foo</label>')
   {
     return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';
   }
 
+  /**
+   * Matches a required Control Group
+   *
+   * @param  string $input
+   * @param  string $label
+   *
+   * @return boolean
+   */
   protected function controlGroupRequired($input, $label = '<label for="foo" class="control-label">Foo</label>')
   {
     return '<div class="control-group required">'.$label.'<div class="controls">'.$input.'</div></div>';
   }
 
-  protected function controlGroupMultiple($input, $label = '<label for="foo" class="control-label">Foo</label>')
-  {
-    return '<div class="control-group">'.$label.'<div class="controls">'.$input.'</div></div>';
-  }
-
+  /**
+   * Assert that a piece of HTML matches an array
+   *
+   * @param  array  $matcher
+   * @param  string $input
+   *
+   * @return boolean
+   */
   public function assertHTML($matcher, $input)
   {
     $this->assertTag(
@@ -220,4 +254,5 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
         .$input."\n\t"
         .json_encode($matcher));
   }
+
 }

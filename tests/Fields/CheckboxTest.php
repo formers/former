@@ -56,7 +56,7 @@ class CheckboxTest extends FormerTests
   public function testCanCreateMultipleCheckboxes()
   {
     $checkboxes = $this->former->checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
-    $matcher = $this->controlGroupMultiple($this->cb('foo_0', 'Foo').$this->cb('foo_1', 'Bar'));
+    $matcher = $this->controlGroup($this->cb('foo_0', 'Foo').$this->cb('foo_1', 'Bar'));
 
     $this->assertEquals($matcher, $checkboxes);
   }
@@ -67,7 +67,7 @@ class CheckboxTest extends FormerTests
       ->checkboxes('foo', 'bar')
       ->on(0)->text('first')->on(1)->text('second')->__toString();
 
-    $matcher = $this->controlGroupMultiple($this->cb('foo_0', 'First').$this->cb('foo_1', 'Second'));
+    $matcher = $this->controlGroup($this->cb('foo_0', 'First').$this->cb('foo_1', 'Second'));
 
     $this->assertEquals($matcher, $checkboxes);
   }
@@ -77,7 +77,7 @@ class CheckboxTest extends FormerTests
     $checkboxes1 = $this->former->inline_checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
     $this->resetLabels();
     $checkboxes2 = $this->former->checkboxes('foo')->inline()->checkboxes('foo', 'bar')->__toString();
-    $matcher = $this->controlGroupMultiple($this->cb('foo_0', 'Foo', 1, true).$this->cb('foo_1', 'Bar', 1, true));
+    $matcher = $this->controlGroup($this->cb('foo_0', 'Foo', 1, true).$this->cb('foo_1', 'Bar', 1, true));
 
     $this->assertEquals($matcher, $checkboxes1);
     $this->assertEquals($matcher, $checkboxes2);
@@ -88,7 +88,7 @@ class CheckboxTest extends FormerTests
     $checkboxes1 = $this->former->stacked_checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
     $this->resetLabels();
     $checkboxes2 = $this->former->checkboxes('foo')->stacked()->checkboxes('foo', 'bar')->__toString();
-    $matcher = $this->controlGroupMultiple($this->cb('foo_0', 'Foo', 1).$this->cb('foo_1', 'Bar', 1));
+    $matcher = $this->controlGroup($this->cb('foo_0', 'Foo', 1).$this->cb('foo_1', 'Bar', 1));
 
     $this->assertEquals($matcher, $checkboxes1);
     $this->assertEquals($matcher, $checkboxes2);
@@ -98,7 +98,7 @@ class CheckboxTest extends FormerTests
   {
     $this->resetLabels();
     $checkboxes = $this->former->checkboxes('foo')->checkboxes(array('Foo' => 'foo', 'Bar' => 'bar'))->__toString();
-    $matcher = $this->controlGroupMultiple($this->cb('foo', 'Foo').$this->cb('bar', 'Bar'));
+    $matcher = $this->controlGroup($this->cb('foo', 'Foo').$this->cb('bar', 'Bar'));
 
     $this->assertEquals($matcher, $checkboxes);
   }
@@ -106,7 +106,7 @@ class CheckboxTest extends FormerTests
   public function testCanCustomizeCheckboxesViaAnArray()
   {
     $checkboxes = $this->former->checkboxes('foo')->checkboxes($this->checkables)->__toString();
-    $matcher = $this->controlGroupMultiple(
+    $matcher = $this->controlGroup(
     '<label for="foo" class="checkbox">'.
       '<input data-foo="bar" value="bar" id="foo" type="checkbox" name="foo">'.
       'Foo'.
@@ -126,7 +126,7 @@ class CheckboxTest extends FormerTests
     unset($checkables['Bar']['name']);
 
     $checkboxes = $this->former->checkboxes('foo')->checkboxes($checkables)->__toString();
-    $matcher = $this->controlGroupMultiple(
+    $matcher = $this->controlGroup(
     '<label for="foo_0" class="checkbox">'.
       '<input data-foo="bar" value="bar" id="foo_0" type="checkbox" name="foo_0">'.
       'Foo'.
@@ -150,7 +150,7 @@ class CheckboxTest extends FormerTests
   public function testCanCheckOneInSeveralCheckboxes()
   {
     $checkboxes = $this->former->checkboxes('foo')->checkboxes('foo', 'bar')->check('foo_1')->__toString();
-    $matcher = $this->controlGroupMultiple($this->cb('foo_0', 'Foo').$this->cbc('foo_1', 'Bar'));
+    $matcher = $this->controlGroup($this->cb('foo_0', 'Foo').$this->cbc('foo_1', 'Bar'));
 
     $this->assertEquals($matcher, $checkboxes);
   }
@@ -158,7 +158,7 @@ class CheckboxTest extends FormerTests
   public function testCanCheckMultipleCheckboxesAtOnce()
   {
     $checkboxes = $this->former->checkboxes('foo')->checkboxes('foo', 'bar')->check(array('foo_0' => false, 'foo_1' => true))->__toString();
-    $matcher = $this->controlGroupMultiple($this->cb('foo_0', 'Foo').$this->cbc('foo_1', 'Bar', 1));
+    $matcher = $this->controlGroup($this->cb('foo_0', 'Foo').$this->cbc('foo_1', 'Bar', 1));
 
     $this->assertEquals($matcher, $checkboxes);
   }
@@ -170,7 +170,7 @@ class CheckboxTest extends FormerTests
     $this->app->app['request']->shouldReceive('get')->with('foo_1', '')->andReturn(false);
 
     $checkboxes = $this->former->checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
-    $matcher = $this->controlGroupMultiple($this->cbc('foo_0', 'Foo').$this->cb('foo_1', 'Bar'));
+    $matcher = $this->controlGroup($this->cbc('foo_0', 'Foo').$this->cb('foo_1', 'Bar'));
 
     $this->assertEquals($matcher, $checkboxes);
   }
@@ -180,7 +180,7 @@ class CheckboxTest extends FormerTests
     $this->former->populate((object) array('foo_0' => true));
 
     $checkboxes = $this->former->checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
-    $matcher = $this->controlGroupMultiple($this->cbc('foo_0', 'Foo').$this->cb('foo_1', 'Bar'));
+    $matcher = $this->controlGroup($this->cbc('foo_0', 'Foo').$this->cb('foo_1', 'Bar'));
 
     $this->assertEquals($matcher, $checkboxes);
   }
@@ -191,7 +191,7 @@ class CheckboxTest extends FormerTests
 
     $this->former->populate($eloquent);
     $checkboxes = $this->former->checkboxes('roles')->__toString();
-    $matcher = $this->controlGroupMultiple(
+    $matcher = $this->controlGroup(
       $this->cb('1', 'Foo').$this->cb('3', 'Bar'),
       '<label for="roles" class="control-label">Roles</label>');
 
