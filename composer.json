@@ -18,11 +18,11 @@
   "require": {
     "anahkiasen/html-object": "dev-master",
     "anahkiasen/underscore-php": "dev-master",
-    "illuminate/config": "4.0.*@dev",
-    "illuminate/container": "4.0.*@dev",
-    "illuminate/http": "4.0.*@dev",
-    "illuminate/session": "4.0.*@dev",
-    "illuminate/translation" :"4.0.*@dev"
+    "illuminate/config": "4.0.*",
+    "illuminate/container": "4.0.*",
+    "illuminate/http": "4.0.*",
+    "illuminate/session": "4.0.*",
+    "illuminate/translation" :"4.0.*"
   },
   "require-dev": {
     "mockery/mockery": "dev-master"
