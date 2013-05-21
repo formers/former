@@ -11,6 +11,7 @@ use HtmlObject\Element;
  */
 abstract class FormerObject extends Element
 {
+
   /**
    * The field's name
    *
@@ -58,7 +59,8 @@ abstract class FormerObject extends Element
     $this->setId();
 
     // Encode HTML value
-    if (!$this->isButton() && is_string($this->value)) {
+    $isButton = method_exists($this, 'isButton') ? $this->isButton() : false;
+    if (!$isButton and is_string($this->value)) {
       $this->value = Helpers::encode($this->value);
     }
 
@@ -115,4 +117,5 @@ abstract class FormerObject extends Element
 
     return in_array($this->type, $types);
   }
+
 }

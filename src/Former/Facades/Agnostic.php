@@ -6,7 +6,6 @@ use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Http\Request;
-use Illuminate\Session\CookieStore;
 use Illuminate\Session\SessionManager;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;

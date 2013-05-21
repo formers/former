@@ -70,7 +70,7 @@ class Actions extends FormerObject
   public function __call($method, $parameters)
   {
     // Dynamically add buttons to an actions block
-    if ($this->isButton($method)) {
+    if ($this->isButtonMethod($method)) {
       $text       = Arrays::get($parameters, 0);
       $link       = Arrays::get($parameters, 1);
       $attributes = Arrays::get($parameters, 2);
@@ -109,7 +109,7 @@ class Actions extends FormerObject
    *
    * @return boolean
    */
-  private function isButton($method)
+  private function isButtonMethod($method)
   {
     $buttons = array('button', 'submit', 'link', 'reset');
 
