@@ -53,7 +53,7 @@ class Agnostic extends FormerBuilder
     // Config ------------------------------------------------------ /
 
     $app->bind('config', function($app) {
-      $fileloader = new ConfigLoader($app['files'], 'src/');
+      $fileloader = new ConfigLoader($app['files'], __DIR__.'/../../config');
 
       return new Repository($fileloader, 'config');
     });
