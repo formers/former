@@ -65,7 +65,9 @@ class Agnostic extends FormerBuilder
     });
 
     $app->bind('translator', function($app) {
-      return new Translator($app['loader'], 'fr', 'en');
+      $loader = new FileLoader($app['files'], 'lang');
+
+      return new Translator($loader, 'fr');
     });
 
     // Former ------------------------------------------------------ /
