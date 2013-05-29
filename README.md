@@ -88,7 +88,7 @@ Add Former's service provider to your Laravel application in `app/config/app.php
 
     'Former\FormerServiceProvider',
 
-Add then alias Former's main class by adding its facade to the `facades` array in the same file :
+Add then alias Former's main class by adding its facade to the `aliases` array in the same file :
 
     'Former' => 'Former\Facades\Illuminate',
 
