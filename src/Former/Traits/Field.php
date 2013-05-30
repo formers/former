@@ -115,11 +115,11 @@ abstract class Field extends FormerObject implements FieldInterface
   }
 
   /**
-   * Prints out the field
+   * Prints out the field, wrapped in its group
    *
    * @return string
    */
-  public function __toString()
+  public function wrapAndRender()
   {
     // Dry syntax (hidden fields, plain fields)
     if ($this->isUnwrappable()) $html = $this->render();
@@ -136,6 +136,16 @@ abstract class Field extends FormerObject implements FieldInterface
     }
 
     return $html;
+  }
+
+  /**
+   * Prints out the field
+   *
+   * @return string
+   */
+  public function __toString()
+  {
+    return $this->wrapAndRender();
   }
 
   ////////////////////////////////////////////////////////////////////

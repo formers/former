@@ -244,4 +244,13 @@ class SelectTest extends FormerTests
     $this->assertEquals($matcher, $select->__toString());
   }
 
+  public function testCanRenderSelectsDynamically()
+  {
+    $html[] = $this->former->select('frmVehicleYears')->label('Vehicle Year')->options($this->options)->wrapAndRender();
+    $html[] = $this->former->select('frmVehicleMake')->label('Make')->options($this->options)->wrapAndRender();
+
+    $results = implode(' ', $html);
+    $this->assertContains('control-group', $results);
+  }
+
 }
