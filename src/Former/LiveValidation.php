@@ -158,6 +158,14 @@ class LiveValidation
     $this->field->pattern($pattern);
   }
 
+  /**
+   * Alias for match
+   */
+  public function regex($pattern)
+  {
+    return $this->match($pattern);
+  }
+
   // Boundaries ---------------------------------------------------- /
 
   /**
