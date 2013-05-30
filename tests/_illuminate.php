@@ -78,6 +78,8 @@ class IlluminateMock
     $config->shouldReceive('get')->with('former::automatic_label', Mockery::any())->andReturn($automatic);
     $config->shouldReceive('get')->with('former::error_messages',  Mockery::any())->andReturn($errors);
 
+    $config->shouldReceive('set')->with(Mockery::any(),  Mockery::any());
+
     return $config;
   }
 

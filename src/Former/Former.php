@@ -323,6 +323,7 @@ class Former
   {
     if (!$framework) return $this->app['former']->getFramework()->current();
 
+    $this->setOption('framework', $framework);
     $class = __NAMESPACE__.'\Framework\\'.$framework;
     $this->formFramework = $this->app->make($class);
   }
