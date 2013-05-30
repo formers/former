@@ -1,6 +1,7 @@
 <?php
 namespace Former\Form\Fields;
 
+use Former\Former;
 use Former\Helpers;
 use Former\Traits\Field;
 use HtmlObject\Element;
@@ -45,15 +46,15 @@ class Select extends Field
   /**
    * Easier arguments order for selects
    *
-   * @param Container $app        The Illuminate Container
-   * @param string    $type       file
+   * @param Former    $former     The Former instance
+   * @param string    $type       select
    * @param string    $name       Field name
    * @param string    $label      Its label
    * @param array     $options    The select's options
    * @param string    $selected   The selected option
    * @param array     $attributes Attributes
    */
-  public function __construct(\Former\Former $former, $type, $name, $label, $options, $selected, $attributes)
+  public function __construct(Former $former, $type, $name, $label, $options, $selected, $attributes)
   {
     if($selected) $this->value = $selected;
     if($options)  $this->options($options);

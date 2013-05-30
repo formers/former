@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Collection;
+
 class SelectTest extends FormerTests
 {
 
@@ -229,7 +231,7 @@ class SelectTest extends FormerTests
 
   public function testCanPopulateWithCollections()
   {
-    $collection = new Illuminate\Support\Collection(array(
+    $collection = new Collection(array(
       new DummyEloquent(array('id' => 1, 'name' => 'foo')),
       new DummyEloquent(array('id' => 2, 'name' => 'bar'))
     ));
@@ -251,6 +253,20 @@ class SelectTest extends FormerTests
 
     $results = implode(' ', $html);
     $this->assertContains('control-group', $results);
+  }
+
+  public function testCanPopulateMultipleSelects()
+  {
+    $collection = new Collection(array(
+      new DummyEloquent(array('id' => 1, 'name' => 'foo')),
+      new DummyEloquent(array('id' => 2, 'name' => 'bar')),
+      new DummyEloquent(array('id' => 3, 'name' => 'bar'))
+    ));
+
+    $select = $this->former->select('foo')->fromQuery($collection)->select(array(1, 2))->render();
+    $matcher = '<select id="foo" name="foo"><option value="1" selected="selected">foo</option><option value="2" selected="selected">bar</option><option value="3">bar</option></select>';
+
+    $this->assertEquals($matcher, $select);
   }
 
 }
