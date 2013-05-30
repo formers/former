@@ -354,16 +354,37 @@ class Former
    * Get an option from the config
    *
    * @param string $option  The option
-   * @param mixed $default Optional fallback
+   * @param mixed  $default Optional fallback
    *
    * @return mixed
    */
   public function getOption($option, $default = null)
   {
+    return $this->app['config']->get($this->getOptionPrefix().$option, $default);
+  }
+
+  /**
+   * Set an option on the config
+   *
+   * @param string $option
+   * @param mixed  $value
+   */
+  public function setOption($option, $value)
+  {
+    return $this->app['config']->set($this->getOptionPrefix().$option, $value);
+  }
+
+  /**
+   * Get the correct options prefix to use according to context
+   *
+   * @return string
+   */
+  protected function getOptionPrefix()
+  {
     $prefix = $this->app['config']->get('former::framework');
     $prefix = !empty($prefix) ? 'former::' : 'config.';
 
-    return $this->app['config']->get($prefix.$option, $default);
+    return $prefix;
   }
 
   ////////////////////////////////////////////////////////////////////

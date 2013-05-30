@@ -74,7 +74,7 @@ class LiveValidation
    */
   public function required()
   {
-    $this->field->required();
+      $this->field->required();
   }
 
   // Patterns ------------------------------------------------------ /
