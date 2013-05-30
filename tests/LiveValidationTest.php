@@ -15,6 +15,7 @@ class LiveValidationTest extends FormerTests
       'in:foo'         => '^foo$',
       'in:foo,bar'     => '^(foo|bar)$',
       'integer'        => '\d+',
+      'regex:/[a-z]+/' => '[a-z]+',
       'match:/[a-z]+/' => '[a-z]+',
       'not_in:foo,bar' => '(?:(?!^foo$|^bar$).)*',
       'not_numeric'    => '\D+',
