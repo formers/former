@@ -187,7 +187,9 @@ class Group extends Tag
    */
   public function setLabel($label)
   {
+
     if (!($label instanceof Element)) {
+      $label = Helpers::translate($label);
       $label = Element::create('label', $label)->for($label);
     }
 
