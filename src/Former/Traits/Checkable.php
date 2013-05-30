@@ -314,11 +314,11 @@ abstract class Checkable extends Field
 
     // Add hidden checkbox if requested
     if ($this->former->getOption('push_checkboxes') or $this->isPushed) {
-      $field = $this->former->hidden($name, $this->former->getOption('unchecked_value')) . $field;
+      $field = $this->former->hidden($name)->forceValue($this->former->getOption('unchecked_value')) . $field->render();
     }
 
     // If no label to wrap, return plain checkable
-    if(!$label) return $field->render();
+    if(!$label) return (is_object($field)) ? $field->render() : $field;
 
     return Element::create('label', $field.$label)->for($attributes['id'])->class($this->checkable.$isInline);
   }

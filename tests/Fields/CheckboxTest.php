@@ -329,4 +329,14 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcherFalse, $checkboxFalse);
   }
 
+  public function testCanPushCheckboxesWithoutLabels()
+  {
+    $this->app->app['config'] = $this->app->getConfig(true, '', true, false);
+
+    $html  = $this->former->label('<b>Views per Page</b>')->render();
+    $html .= $this->former->checkbox('per_page')->class('input')->render();
+
+    $this->assertInternalType('string', $html);
+  }
+
 }
