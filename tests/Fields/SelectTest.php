@@ -269,4 +269,13 @@ class SelectTest extends FormerTests
     $this->assertEquals($matcher, $select);
   }
 
+  public function testCanCreateRangeSelects()
+  {
+    $select  = $this->former->select('foo')->range(1, 10);
+
+    $this->assertEquals(range(1, 10), array_keys($select->getOptions()));
+    $this->assertContains('<option value="1">1</option>', $select->render());
+    $this->assertContains('<option value="10">10</option>', $select->render());
+  }
+
 }

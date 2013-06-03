@@ -16,6 +16,7 @@
 - [add] Former::withRules() now also take a Laravel-formatted string of rules (ie. "rule|rule:parameter|rule")
 - [add] You can now populate on a form-basis with the chained method `->populate` on a form opener
 - [add] Add support for macros with Former::macro($name, $macro())
+- [add] Add Select->range() method
 
 2.6.0
 -----

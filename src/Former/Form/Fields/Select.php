@@ -157,6 +157,20 @@ class Select extends Field
   }
 
   /**
+   * Creates a list of options from a range
+   *
+   * @param  integer $from
+   * @param  integer $to
+   */
+  public function range($from, $to)
+  {
+    $range = range($from, $to);
+    $this->options($range, null, true);
+
+    return $this;
+  }
+
+  /**
    * Add an option to the Select's options
    *
    * @param string $text  It's value
