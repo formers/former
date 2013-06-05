@@ -181,7 +181,7 @@ class Populator
         return $model->$attribute;
     }
 
-    if (array_key_exists($attribute, $model)) {
+    if (array_key_exists($attribute, (array) $model)) {
       return $model[$attribute];
     }
 
