@@ -88,6 +88,11 @@ class Group extends Tag
     $this->former = $former;
     $this->addClass($this->former->getFramework()->getGroupClasses());
 
+    // Invisible if Nude
+    if ($this->former->getFramework()->is('Nude')) {
+      $this->element = '';
+    }
+
     // Set group label
     if ($label) $this->setLabel($label);
   }

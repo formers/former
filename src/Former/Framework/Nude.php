@@ -15,6 +15,14 @@ class Nude extends Framework implements FrameworkInterface
 {
 
   /**
+   * The field states available
+   * @var array
+   */
+  protected $states = array(
+    'error',
+  );
+
+  /**
    * Create a new Nude instance
    *
    * @param Container $app
@@ -86,15 +94,15 @@ class Nude extends Framework implements FrameworkInterface
   /**
    * Create an help text
    */
-  public function createHelp($text, $attributes)
+  public function createHelp($text, $attributes = array())
   {
-    return Element::create('small', $text, $attributes);
+    return Element::create('span', $text, $attributes)->addClass('help');
   }
 
   /**
    * Creates a basic icon
    */
-  public function createIcon($icon, $attributes)
+  public function createIcon($icon, $attributes = array())
   {
     return Element::create('i', null, $attributes)->addClass($icon);
   }

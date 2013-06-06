@@ -67,8 +67,7 @@ abstract class Framework
   public function filterState($state)
   {
     // Filter out wrong states
-    if (!in_array($state, $this->states)) return null;
-    return $state;
+    return in_array($state, $this->states) ? $state : null;
   }
 
   ////////////////////////////////////////////////////////////////////

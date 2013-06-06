@@ -90,13 +90,11 @@ abstract class Field extends FormerObject implements FieldInterface
       $rules->apply($this->getRules());
     }
 
-    // Link Control group
-    if ($this->former->getFramework()->isnt('Nude')) {
-      $groupClass = $this->isCheckable() ? 'CheckableGroup' : 'Group';
-      $groupClass = Former::FORMSPACE.$groupClass;
+    // Bind the Group class
+    $groupClass = $this->isCheckable() ? 'CheckableGroup' : 'Group';
+    $groupClass = Former::FORMSPACE.$groupClass;
 
-      $this->group = new $groupClass($this->former, $this->label);
-    }
+    $this->group = new $groupClass($this->former, $this->label);
   }
 
   /**
@@ -125,7 +123,7 @@ abstract class Field extends FormerObject implements FieldInterface
     if ($this->isUnwrappable()) $html = $this->render();
 
     // Control group syntax
-    elseif ($this->former->getFramework()->isnt('Nude') and Form::hasInstanceOpened()) {
+    elseif (Form::hasInstanceOpened()) {
       $html = $this->group->wrapField($this);
     }
 

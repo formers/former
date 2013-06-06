@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Anahkiasen/html-object.git",
-                "reference": "6bdbafce8a775175e4c2fc71ce577f6b917cd7be"
+                "reference": "216bc3fdf29da62e50413aae41220280f53b37bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/6bdbafce8a775175e4c2fc71ce577f6b917cd7be",
-                "reference": "6bdbafce8a775175e4c2fc71ce577f6b917cd7be",
+                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/216bc3fdf29da62e50413aae41220280f53b37bb",
+                "reference": "216bc3fdf29da62e50413aae41220280f53b37bb",
                 "shasum": ""
             },
             "require": {
@@ -34,12 +34,12 @@
             ],
             "authors": [
                 {
-                    "name": "Maxime Fabre",
+                    "name": "Anahkiasen",
                     "email": "ehtnam6@gmail.com"
                 }
             ],
             "description": "A set of classes to create and manipulate HTML objects abstractions",
-            "time": "2013-05-31 16:14:51"
+            "time": "2013-06-06 19:42:31"
         },
         {
             "name": "anahkiasen/underscore-php",
@@ -47,21 +47,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Anahkiasen/underscore-php.git",
-<<<<<<< HEAD
-                "reference": "d2ab26ab6c863d9a77c6dc96002d57b68970bf14"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/underscore-php/zipball/d2ab26ab6c863d9a77c6dc96002d57b68970bf14",
-                "reference": "d2ab26ab6c863d9a77c6dc96002d57b68970bf14",
-=======
                 "reference": "4aa949b884ace9c3804df0edc745821604a62bde"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/Anahkiasen/underscore-php/zipball/4aa949b884ace9c3804df0edc745821604a62bde",
                 "reference": "4aa949b884ace9c3804df0edc745821604a62bde",
->>>>>>> Close #137 - Links dont have type attributes
                 "shasum": ""
             },
             "require": {
@@ -86,11 +77,7 @@
                 }
             ],
             "description": "A redacted port of Underscore.js for PHP",
-<<<<<<< HEAD
-            "time": "2013-05-31 13:15:46"
-=======
             "time": "2013-06-05 16:52:33"
->>>>>>> Close #137 - Links dont have type attributes
         },
         {
             "name": "illuminate/cache",
@@ -286,21 +273,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-<<<<<<< HEAD
-                "reference": "86cae86a220ade7545114645eb75c7aaa4a25e4b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/86cae86a220ade7545114645eb75c7aaa4a25e4b",
-                "reference": "86cae86a220ade7545114645eb75c7aaa4a25e4b",
-=======
                 "reference": "699b642f1035a395553894fcd5726a4b93fc4e0d"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/illuminate/database/zipball/699b642f1035a395553894fcd5726a4b93fc4e0d",
                 "reference": "699b642f1035a395553894fcd5726a4b93fc4e0d",
->>>>>>> Close #137 - Links dont have type attributes
                 "shasum": ""
             },
             "require": {
@@ -346,11 +324,7 @@
                 "orm",
                 "sql"
             ],
-<<<<<<< HEAD
-            "time": "2013-06-02 01:17:31"
-=======
             "time": "2013-06-06 03:30:19"
->>>>>>> Close #137 - Links dont have type attributes
         },
         {
             "name": "illuminate/encryption",
@@ -695,21 +669,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-<<<<<<< HEAD
-                "reference": "b0071663471c6761e4ee524a35c3bbb968dbf0c7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/b0071663471c6761e4ee524a35c3bbb968dbf0c7",
-                "reference": "b0071663471c6761e4ee524a35c3bbb968dbf0c7",
-=======
                 "reference": "21f6d20e45aa0b83e2ea4b0232f361bc16c6f9e4"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/illuminate/support/zipball/21f6d20e45aa0b83e2ea4b0232f361bc16c6f9e4",
                 "reference": "21f6d20e45aa0b83e2ea4b0232f361bc16c6f9e4",
->>>>>>> Close #137 - Links dont have type attributes
                 "shasum": ""
             },
             "require": {
@@ -744,11 +709,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2013-06-01 23:45:27"
-=======
             "time": "2013-06-06 01:53:20"
->>>>>>> Close #137 - Links dont have type attributes
         },
         {
             "name": "illuminate/translation",
@@ -1088,21 +1049,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-<<<<<<< HEAD
-                "reference": "cbe6c533f9ca17bbb5844252147fd8386cc234c0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/cbe6c533f9ca17bbb5844252147fd8386cc234c0",
-                "reference": "cbe6c533f9ca17bbb5844252147fd8386cc234c0",
-=======
                 "reference": "v2.3.0"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/Finder/zipball/v2.3.0",
                 "reference": "v2.3.0",
->>>>>>> Close #137 - Links dont have type attributes
                 "shasum": ""
             },
             "require": {
@@ -1194,21 +1146,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-<<<<<<< HEAD
-                "reference": "ce8aefbe25f5ed74e35584adac4a675a828be442"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/ce8aefbe25f5ed74e35584adac4a675a828be442",
-                "reference": "ce8aefbe25f5ed74e35584adac4a675a828be442",
-=======
                 "reference": "4f0f6485abe0e2e8b8a94369fb98b8447fb1e3cc"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/4f0f6485abe0e2e8b8a94369fb98b8447fb1e3cc",
                 "reference": "4f0f6485abe0e2e8b8a94369fb98b8447fb1e3cc",
->>>>>>> Close #137 - Links dont have type attributes
                 "shasum": ""
             },
             "require": {
@@ -1264,11 +1207,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-<<<<<<< HEAD
-            "time": "2013-05-27 14:49:21"
-=======
             "time": "2013-06-03 15:11:57"
->>>>>>> Close #137 - Links dont have type attributes
         },
         {
             "name": "symfony/routing",
