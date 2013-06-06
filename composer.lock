@@ -34,7 +34,7 @@
             ],
             "authors": [
                 {
-                    "name": "Anahkiasen",
+                    "name": "Maxime Fabre",
                     "email": "ehtnam6@gmail.com"
                 }
             ],
@@ -47,12 +47,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Anahkiasen/underscore-php.git",
+<<<<<<< HEAD
                 "reference": "d2ab26ab6c863d9a77c6dc96002d57b68970bf14"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/Anahkiasen/underscore-php/zipball/d2ab26ab6c863d9a77c6dc96002d57b68970bf14",
                 "reference": "d2ab26ab6c863d9a77c6dc96002d57b68970bf14",
+=======
+                "reference": "4aa949b884ace9c3804df0edc745821604a62bde"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Anahkiasen/underscore-php/zipball/4aa949b884ace9c3804df0edc745821604a62bde",
+                "reference": "4aa949b884ace9c3804df0edc745821604a62bde",
+>>>>>>> Close #137 - Links dont have type attributes
                 "shasum": ""
             },
             "require": {
@@ -77,7 +86,11 @@
                 }
             ],
             "description": "A redacted port of Underscore.js for PHP",
+<<<<<<< HEAD
             "time": "2013-05-31 13:15:46"
+=======
+            "time": "2013-06-05 16:52:33"
+>>>>>>> Close #137 - Links dont have type attributes
         },
         {
             "name": "illuminate/cache",
@@ -273,12 +286,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
+<<<<<<< HEAD
                 "reference": "86cae86a220ade7545114645eb75c7aaa4a25e4b"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/illuminate/database/zipball/86cae86a220ade7545114645eb75c7aaa4a25e4b",
                 "reference": "86cae86a220ade7545114645eb75c7aaa4a25e4b",
+=======
+                "reference": "699b642f1035a395553894fcd5726a4b93fc4e0d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/699b642f1035a395553894fcd5726a4b93fc4e0d",
+                "reference": "699b642f1035a395553894fcd5726a4b93fc4e0d",
+>>>>>>> Close #137 - Links dont have type attributes
                 "shasum": ""
             },
             "require": {
@@ -324,7 +346,11 @@
                 "orm",
                 "sql"
             ],
+<<<<<<< HEAD
             "time": "2013-06-02 01:17:31"
+=======
+            "time": "2013-06-06 03:30:19"
+>>>>>>> Close #137 - Links dont have type attributes
         },
         {
             "name": "illuminate/encryption",
@@ -618,12 +644,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/session.git",
-                "reference": "583f17768e4230276dff62034bd438e55897f7cb"
+                "reference": "83b081e6f3afc9c4781d6b8f89c4ff9790ae2cdf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/session/zipball/583f17768e4230276dff62034bd438e55897f7cb",
-                "reference": "583f17768e4230276dff62034bd438e55897f7cb",
+                "url": "https://api.github.com/repos/illuminate/session/zipball/83b081e6f3afc9c4781d6b8f89c4ff9790ae2cdf",
+                "reference": "83b081e6f3afc9c4781d6b8f89c4ff9790ae2cdf",
                 "shasum": ""
             },
             "require": {
@@ -660,7 +686,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
-            "time": "2013-05-28 20:37:43"
+            "time": "2013-06-06 03:56:56"
         },
         {
             "name": "illuminate/support",
@@ -669,12 +695,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
+<<<<<<< HEAD
                 "reference": "b0071663471c6761e4ee524a35c3bbb968dbf0c7"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/illuminate/support/zipball/b0071663471c6761e4ee524a35c3bbb968dbf0c7",
                 "reference": "b0071663471c6761e4ee524a35c3bbb968dbf0c7",
+=======
+                "reference": "21f6d20e45aa0b83e2ea4b0232f361bc16c6f9e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/21f6d20e45aa0b83e2ea4b0232f361bc16c6f9e4",
+                "reference": "21f6d20e45aa0b83e2ea4b0232f361bc16c6f9e4",
+>>>>>>> Close #137 - Links dont have type attributes
                 "shasum": ""
             },
             "require": {
@@ -709,7 +744,11 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
+<<<<<<< HEAD
             "time": "2013-06-01 23:45:27"
+=======
+            "time": "2013-06-06 01:53:20"
+>>>>>>> Close #137 - Links dont have type attributes
         },
         {
             "name": "illuminate/translation",
@@ -718,12 +757,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/translation.git",
-                "reference": "d1c6c6d55d70a43d4938cd3c1d624d6f8b533809"
+                "reference": "04039a455371ce6a0beafe6c345ad7f9ee5b16de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/translation/zipball/d1c6c6d55d70a43d4938cd3c1d624d6f8b533809",
-                "reference": "d1c6c6d55d70a43d4938cd3c1d624d6f8b533809",
+                "url": "https://api.github.com/repos/illuminate/translation/zipball/04039a455371ce6a0beafe6c345ad7f9ee5b16de",
+                "reference": "04039a455371ce6a0beafe6c345ad7f9ee5b16de",
                 "shasum": ""
             },
             "require": {
@@ -757,7 +796,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
-            "time": "2013-05-28 20:37:43"
+            "time": "2013-06-05 12:58:23"
         },
         {
             "name": "nesbot/carbon",
@@ -1049,12 +1088,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
+<<<<<<< HEAD
                 "reference": "cbe6c533f9ca17bbb5844252147fd8386cc234c0"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/Finder/zipball/cbe6c533f9ca17bbb5844252147fd8386cc234c0",
                 "reference": "cbe6c533f9ca17bbb5844252147fd8386cc234c0",
+=======
+                "reference": "v2.3.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/v2.3.0",
+                "reference": "v2.3.0",
+>>>>>>> Close #137 - Links dont have type attributes
                 "shasum": ""
             },
             "require": {
@@ -1146,12 +1194,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
+<<<<<<< HEAD
                 "reference": "ce8aefbe25f5ed74e35584adac4a675a828be442"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/ce8aefbe25f5ed74e35584adac4a675a828be442",
                 "reference": "ce8aefbe25f5ed74e35584adac4a675a828be442",
+=======
+                "reference": "4f0f6485abe0e2e8b8a94369fb98b8447fb1e3cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/4f0f6485abe0e2e8b8a94369fb98b8447fb1e3cc",
+                "reference": "4f0f6485abe0e2e8b8a94369fb98b8447fb1e3cc",
+>>>>>>> Close #137 - Links dont have type attributes
                 "shasum": ""
             },
             "require": {
@@ -1207,7 +1264,11 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
+<<<<<<< HEAD
             "time": "2013-05-27 14:49:21"
+=======
+            "time": "2013-06-03 15:11:57"
+>>>>>>> Close #137 - Links dont have type attributes
         },
         {
             "name": "symfony/routing",
@@ -1216,12 +1277,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
-                "reference": "255e1163b74a22cd83d3fd51d63c0588afe0bc56"
+                "reference": "v2.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/255e1163b74a22cd83d3fd51d63c0588afe0bc56",
-                "reference": "255e1163b74a22cd83d3fd51d63c0588afe0bc56",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/v2.3.0",
+                "reference": "v2.3.0",
                 "shasum": ""
             },
             "require": {

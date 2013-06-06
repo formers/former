@@ -65,13 +65,14 @@ class Button extends Field
     // Set correct element for the various button patterns
     switch ($type) {
       case 'button':
-        $this->element = 'button';
+        $this->element       = 'button';
         $this->isSelfClosing = false;
         break;
       case 'link':
-        $this->element = 'a';
+        $this->type               = null;
+        $this->element            = 'a';
         $this->attributes['href'] = $link;
-        $this->isSelfClosing = false;
+        $this->isSelfClosing      = false;
         break;
     }
   }
