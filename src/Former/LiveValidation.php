@@ -173,7 +173,19 @@ class LiveValidation
    */
   public function max($max)
   {
-    $this->setMax($max[0]);
+    if ($this->field->isOfType('file')) {
+      $this->size($max);
+    } else {
+      $this->setMax($max[0]);
+    }
+  }
+
+  /**
+   * Max size
+   */
+  public function size($size)
+  {
+    $this->field->max($size[0]);
   }
 
   /**
