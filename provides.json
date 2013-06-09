@@ -1,0 +1,11 @@
+{
+  "providers": [
+    "Former\FormerServiceProvider"
+  ],
+  "aliases": [
+    {
+      "alias": "Former",
+      "facade": "Former\Facades\Illuminate"
+    }
+  ]
+}
