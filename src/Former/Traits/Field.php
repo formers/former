@@ -169,7 +169,8 @@ abstract class Field extends FormerObject implements FieldInterface
   {
     return
       $this->former->form() and $this->former->form()->isOfType('inline') or
-      $this->isOfType('hidden', 'link', 'submit', 'button', 'reset') or
+      $this->isButton() or
+      $this->isOfType('hidden') or
       $this->group and $this->group->isRaw();
   }
 

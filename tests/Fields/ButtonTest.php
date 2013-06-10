@@ -72,4 +72,13 @@ class ButtonTest extends FormerTests
     $this->assertHTML($matcher, $button->render());
   }
 
+  public function testLinksDontHaveTypeAttribute()
+  {
+    $this->former->horizontal_open();
+      $link = $this->former->link('#', 'foo')->__toString();
+    $this->former->close();
+
+    $this->assertEquals('<a href="foo" class="btn">#</a>', $link);
+  }
+
 }
