@@ -243,7 +243,7 @@ class Former
   {
     $oldValue = $this->app['request']->old($name, $fallback);
 
-    return $this->app['request']->get($name, $oldValue);
+    return $this->app['request']->get($name, $oldValue, true);
   }
 
   /**
