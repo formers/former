@@ -44,7 +44,7 @@ class Agnostic extends FormerBuilder
     });
 
     $app->singleton('Symfony\Component\HttpFoundation\Request', function($app) {
-      $request = new Request;
+      $request = Request::createFromGlobals();
       $request->setSessionStore($app['session']);
 
       return $request;
