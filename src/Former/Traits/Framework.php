@@ -102,6 +102,9 @@ abstract class Framework
     // Get the label and its informations
     if (!$label) $label = $field->getLabel();
 
+    // Get label "for"
+    $for = $field->id ?: $field->getName();
+
     // Get label text
     $text = $label->getValue();
     if (!$text) return false;
@@ -113,7 +116,10 @@ abstract class Framework
 
     // Render plain label if checkable, else a classic one
     $label->setValue($text);
-    if (!$field->isCheckable()) $label->for($field->getName());
+    if (!$field->isCheckable()) {
+      $label->for($for);
+    }
+
     return $label;
   }
 

@@ -29,7 +29,6 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
    * @var array
    */
   private $fields = array();
-  
 
   /**
    * The field states available
@@ -58,12 +57,12 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
     // Filter classes
     $classes = array_intersect($classes, $this->buttons);
     $classes[] = 'button';
-    
+
     return $classes;
   }
 
   public function filterFieldClasses($classes)
-  { 
+  {
     return null;
   }
 
@@ -85,7 +84,7 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
   }
 
   public function getGroupClasses()
-  { 
+  {
     return null;
   }
 

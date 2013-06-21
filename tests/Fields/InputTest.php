@@ -382,4 +382,14 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $datalist);
   }
 
+  public function testCanChangeTheFieldIdAndKeepLabelInSync()
+  {
+    $field = $this->former->text('foo');
+    $field->id('bar');
+
+    $matcher = '<div class="control-group"><label for="bar" class="control-label">Foo</label><div class="controls"><input id="bar" type="text" name="foo"></div></div>';
+
+    $this->assertEquals($matcher, $field->__toString());
+  }
+
 }

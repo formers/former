@@ -320,7 +320,7 @@ abstract class Checkable extends Field
     }
 
     // If no label to wrap, return plain checkable
-    if(!$label) {
+    if (!$label) {
       return (is_object($field)) ? $field->render() : $field;
     }
 

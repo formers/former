@@ -52,17 +52,17 @@ class Elements
   /**
    * Creates a label tag
    *
-   * @param  string $name       The field the label's for
    * @param  string $label      The label content
+   * @param  string $for        The field the label's for
    * @param  array  $attributes The label's attributes
    * @return string             A <label> tag
    */
-  public function label($label, $name = null, $attributes = array())
+  public function label($label, $for = null, $attributes = array())
   {
     $label = Helpers::translate($label);
 
-    $attributes['for'] = $name;
-    $this->former->labels[] = $name;
+    $attributes['for'] = $for;
+    $this->former->labels[] = $for;
 
     return Element::create('label', $label, $attributes);
   }
