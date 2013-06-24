@@ -193,9 +193,9 @@ class CheckboxTest extends FormerTests
 
   public function testCanRepopulateCheckboxesFromPost()
   {
-    $this->app->app['request']->shouldReceive('get')->with('foo', '')->andReturn('');
-    $this->app->app['request']->shouldReceive('get')->with('foo_0', '')->andReturn(true);
-    $this->app->app['request']->shouldReceive('get')->with('foo_1', '')->andReturn(false);
+    $this->app->app['request']->shouldReceive('get')->with('foo', '', true)->andReturn('');
+    $this->app->app['request']->shouldReceive('get')->with('foo_0', '', true)->andReturn(true);
+    $this->app->app['request']->shouldReceive('get')->with('foo_1', '', true)->andReturn(false);
 
     $checkboxes = $this->former->checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
     $matcher = $this->controlGroup($this->matchCheckedCheckbox('foo_0', 'Foo').$this->matchCheckbox('foo_1', 'Bar'));
@@ -252,7 +252,7 @@ class CheckboxTest extends FormerTests
   public function testCanRepopulateCheckboxesOnSubmit()
   {
     $this->app->app['config'] = $this->app->getConfig(true, '', true);
-    $this->app->app['request']->shouldReceive('get')->with('foo', '')->andReturn('');
+    $this->app->app['request']->shouldReceive('get')->with('foo', '', true)->andReturn('');
 
     $checkbox = $this->former->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->controlGroup(
