@@ -104,7 +104,7 @@ class ZurbFoundation extends Framework implements FrameworkInterface
   //////////////////////////// RENDER BLOCKS /////////////////////////
   ////////////////////////////////////////////////////////////////////
 
-  public function createHelp($text, $attributes)
+  public function createHelp($text, $attributes = array())
   {
     return Element::create('small', $text, $attributes);
   }
