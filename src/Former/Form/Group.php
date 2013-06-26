@@ -383,7 +383,7 @@ class Group extends Tag
     // Replace help text with error if any found
     $errors = $this->former->getErrors();
     if ($errors and $this->former->getOption('error_messages')) {
-      $inline = $this->former->getFramework()->createHelp($errors);
+      $inline = $this->former->getFramework()->createHelp($errors, $this->attributes);
     }
 
     return join(null, array($inline, $block));
