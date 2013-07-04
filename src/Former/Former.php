@@ -430,7 +430,7 @@ class Former
 
     // Get name and translate array notation
     if(!$name) $name = $this->field->getName();
-    $name = preg_replace('/\[([a-z]+)\]/', '.$1', $name);
+    $name = preg_replace('/\[([0-9a-z_\-]+)\]/', '.$1', $name);
 
     if ($this->errors) {
       return $this->errors->first($name);
