@@ -92,6 +92,22 @@ class Button extends Field
   }
 
   /**
+   * Prepend an icon to the button
+   *
+   * @param  string $icon
+   * @param  array  $attributes
+   *
+   * @return self
+   */
+  public function icon($icon, $attributes = array())
+  {
+    $icon = $this->former->getFramework()->createIcon($icon, $attributes);
+    $this->value = $icon. ' ' .$this->value;
+
+    return $this;
+  }
+
+  /**
    * Hijack Former's Object model value method
    *
    * @param  string $value The new button text
