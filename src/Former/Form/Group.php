@@ -71,6 +71,13 @@ class Group extends Tag
    */
   protected $element = 'div';
 
+  /**
+   * The fields to be checked for errors
+   *
+   * @var array
+   */
+  protected $fields;
+
   ////////////////////////////////////////////////////////////////////
   /////////////////////////// CORE METHODS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -82,7 +89,7 @@ class Group extends Tag
    * @param string    $label      Its label
    * @param array     $attributes Attributes
    */
-  public function __construct(Former $former, $label, $attributes = array())
+  public function __construct(Former $former, $label, $attributes = array(), $fields = null)
   {
     // Get special classes
     $this->former = $former;
@@ -95,6 +102,11 @@ class Group extends Tag
 
     // Set group label
     if ($label) $this->setLabel($label);
+
+    // Set fields used to override groups own conclusions
+    $this->fields = $fields;
+
+    if (!empty($sattributes)) dd($attributes);
   }
 
   /**
@@ -115,7 +127,14 @@ class Group extends Tag
   public function open()
   {
     // If any errors, set state to errors
-    $errors = $this->former->getErrors();
+    if (is_array($this->fields)) {
+      $errors = '';
+      foreach ($this->fields as $field) {
+        $errors .= $this->former->getErrors($field);
+      }
+    } else {
+      $errors = $this->former->getErrors();
+    }
     if($errors) $this->state('error');
 
     // Retrieve state and append it to classes
