@@ -105,8 +105,6 @@ class Group extends Tag
 
     // Set fields used to override groups own conclusions
     $this->fields = $fields;
-
-    if (!empty($sattributes)) dd($attributes);
   }
 
   /**
