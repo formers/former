@@ -233,7 +233,7 @@ abstract class Checkable extends Field
   protected function items($_items)
   {
     // If passing an array
-    if(sizeof($_items) == 1 and
+    if (sizeof($_items) == 1 and
        is_array($_items[0])) {
          $_items = $_items[0];
     }
@@ -277,7 +277,9 @@ abstract class Checkable extends Field
         'name' => $name,
         'label' => Helpers::translate($label),
       );
-      if(isset($attributes)) $item['attributes'] = $attributes;
+      if (isset($attributes)) {
+        $item['attributes'] = $attributes;
+      }
 
       $this->items[] = $item;
       $count++;
@@ -297,20 +299,30 @@ abstract class Checkable extends Field
     extract($item);
 
     // Set default values
-    if(!isset($attributes)) $attributes = array();
-    if(isset($attributes['value'])) $value = $attributes['value'];
-    if(!isset($value) or $value === $this->former->getOption('unchecked_value')) $value = $fallbackValue;
+    if (!isset($attributes)) {
+      $attributes = array();
+    }
+    if (isset($attributes['value'])) {
+      $value = $attributes['value'];
+    }
+    if (!isset($value) or $value == $this->former->getOption('unchecked_value')) {
+      $value = $fallbackValue;
+    }
 
     // If inline items, add class
     $isInline = $this->inline ? ' inline' : null;
 
     // Merge custom attributes with global attributes
     $attributes = array_merge($this->attributes, $attributes);
-    if (!isset($attributes['id'])) $attributes['id'] = $name.$this->unique($name);
+    if (!isset($attributes['id'])) {
+      $attributes['id'] = $name.$this->unique($name);
+    }
 
     // Create field
     $field = Input::create($this->checkable, $name, $value, $attributes);
-    if ($this->isChecked($name, $value)) $field->checked('checked');
+    if ($this->isChecked($name, $value)) {
+      $field->checked('checked');
+    }
 
     // Add hidden checkbox if requested
     if ($this->isOfType('checkbox', 'checkboxes')) {
@@ -342,13 +354,16 @@ abstract class Checkable extends Field
     $this->former->labels[] = $name;
 
     // Count number of fields with the same ID
-    $where = array_filter($this->former->labels, function($label) use ($name) {
+    $where = array_filter($this->former->labels, function ($label) use ($name) {
       return $label == $name;
     });
     $unique = sizeof($where);
 
     // In case the field doesn't need to be numbered
-    if ($unique < 2 or empty($this->items)) return false;
+    if ($unique < 2 or empty($this->items)) {
+      return false;
+    }
+
     return $unique;
   }
 
@@ -360,7 +375,9 @@ abstract class Checkable extends Field
    */
   protected function setOnFocused($attribute, $value)
   {
-    if (is_null($this->focus)) return false;
+    if (is_null($this->focus)) {
+      return false;
+    }
 
     $this->items[$this->focus] = Arrays::set($this->items[$this->focus], $attribute, $value);
 
@@ -374,25 +391,34 @@ abstract class Checkable extends Field
    */
   protected function isChecked($name = null, $value = null)
   {
-    if(!$name) $name = $this->name;
+    if (!$name) {
+      $name = $this->name;
+    }
 
     // If it's a checkbox, see if we marqued that one as checked in the array
     // Or if it's a single radio, simply see if we called check
-    if($this->isCheckbox() or
-      !$this->isCheckbox() and !$this->items)
+    if ($this->isCheckbox() or
+      !$this->isCheckbox() and !$this->items) {
         $checked = Arrays::get($this->checked, $name, false);
 
     // If there are multiple, search for the value
     // as the name are the same between radios
-    else $checked = Arrays::get($this->checked, $value, false);
+    } else {
+      $checked = Arrays::get($this->checked, $value, false);
+    }
 
     // Check the values and POST array
     $post   = $this->former->getPost($name);
     $static = $this->former->getValue($name);
 
-    if(!is_null($post) and $post !== $this->former->getOption('unchecked_value')) $isChecked = ($post == $value);
-    elseif(!is_null($static)) $isChecked = ($static == $value);
-    else $isChecked = $checked;
+    if (!is_null($post) and $post !== $this->former->getOption('unchecked_value')) {
+      $isChecked = ($post == $value);
+    } elseif (!is_null($static)) {
+      $isChecked = ($static == $value);
+    } else {
+      $isChecked = $checked;
+    }
+
     return $isChecked ? true : false;
   }
 
@@ -415,7 +441,6 @@ abstract class Checkable extends Field
   {
     return
       $this->grouped == true or
-      strpos($this->name, '[]') !== FALSE;
+      strpos($this->name, '[]') !== false;
   }
-
 }

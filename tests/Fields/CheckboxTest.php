@@ -315,8 +315,6 @@ class CheckboxTest extends FormerTests
 
   public function testRepopulatedValueDoesntChangeOriginalValue()
   {
-    $this->markTestSkipped('Waiting for the checkboxes refactor');
-
     $this->former->populate(array('foo' => true));
     $checkboxTrue = $this->former->checkbox('foo')->__toString();
     $matcherTrue = $this->controlGroup($this->matchCheckedCheckbox());
