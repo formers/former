@@ -144,14 +144,20 @@ class Select extends Field
 
     // If valuesAsKeys is true, use the values as keys
     if ($valuesAsKeys) {
-      foreach($_options as $v) $options[$v] = $v;
-    } else $options = $_options;
+      foreach ($_options as $v) {
+        $options[$v] = $v;
+      }
+    } else {
+      $options = $_options;
+    }
 
     foreach ($options as $key => $option) {
       $this->addOption($option, $key);
     }
 
-    if($selected) $this->value = $selected;
+    if ($selected) {
+      $this->value = $selected;
+    }
 
     return $this;
   }
@@ -173,13 +179,22 @@ class Select extends Field
   /**
    * Add an option to the Select's options
    *
-   * @param string $text  It's value
-   * @param string $value It's text
+   * @param array|string $text  It's value or an array of values
+   * @param string       $value It's text
    */
   public function addOption($text = null, $value = null)
   {
-    $key = $value ?: sizeof($this->children);
-    $this->children[$key] = Element::create('option', $text)->setAttribute('value', $value);
+    $childrenKey = $value ?: sizeof($this->children);
+
+    if (is_array($text)) {
+      $this->children[$childrenKey] = Element::create('optgroup')->label($value);
+      foreach ($text as $key => $value) {
+        $option = Element::create('option', $key)->setAttribute('value', $value);
+        $this->children[$childrenKey]->nest($option);
+      }
+    } else {
+      $this->children[$childrenKey] = Element::create('option', $text)->setAttribute('value', $value);
+    }
 
     return $this;
   }

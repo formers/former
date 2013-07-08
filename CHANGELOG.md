@@ -17,6 +17,8 @@
 - [add] You can now populate on a form-basis with the chained method `->populate` on a form opener
 - [add] Add support for macros with Former::macro($name, $macro())
 - [add] Add Select->range() method
+- [add] Former now automatically inserts a token in the form
+- [add] Support for select groups
 
 2.6.0
 -----
