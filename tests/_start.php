@@ -1,5 +1,5 @@
 <?php
-ini_set('memory_limit', '150M');
+ini_set('memory_limit', '175M');
 date_default_timezone_set('UTC');
 
 // Load the Illuminate Container
@@ -63,7 +63,9 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
   protected function matchLabel($name = 'foo', $field = 'foo', $required = false)
   {
     $text = str_replace('[]', null, ucfirst($name));
-    if ($required) $text .= '*';
+    if ($required) {
+      $text .= '*';
+    }
 
     return array(
       'tag' => 'label',
