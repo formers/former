@@ -163,7 +163,7 @@ class Form extends FormerObject
   {
     static::$opened = false;
 
-    return '</form>';
+    return $this->former->token().'</form>';
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -237,7 +237,9 @@ class Form extends FormerObject
     if ($this->method == 'PUT' or $this->method == 'DELETE') {
       $spoof = $this->former->hidden('_method', $this->method);
       $this->method = 'POST';
-    } else $spoof = null;
+    } else {
+      $spoof = null;
+    }
 
     return $this->open().$spoof;
   }
@@ -318,5 +320,4 @@ class Form extends FormerObject
 
     return $type;
   }
-
 }
