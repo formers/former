@@ -21,7 +21,9 @@ class Redirector
    */
   public function __construct($class = null)
   {
-    if ($class) $this->class = $class;
+    if ($class) {
+      $this->class = $class;
+    }
   }
 
   /**
@@ -62,5 +64,4 @@ class Redirector
   {
     return call_user_func_array('\\'.$this->class.'::'.$method, $parameters);
   }
-
 }

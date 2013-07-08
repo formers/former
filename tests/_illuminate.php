@@ -90,7 +90,7 @@ class IlluminateMock
   {
     $url = Mockery::mock('Illuminate\Routing\UrlGenerator');
     $url->shouldReceive('getRequest')->andReturn($this->getRequest());
-    $url->shouldReceive('to')->andReturnUsing(function($url) {
+    $url->shouldReceive('to')->andReturnUsing(function ($url) {
       return $url == '#' ? $url : 'https://test/en/'.$url;
     });
 
@@ -103,7 +103,7 @@ class IlluminateMock
   private function getValidator()
   {
     $validator = Mockery::mock('Illuminate\Validation\Validator');
-    $validator->shouldReceive('getMessages')->andReturnUsing(function() {
+    $validator->shouldReceive('getMessages')->andReturnUsing(function () {
       $messages = Mockery::mock('MessageBag');
       $messages->shouldReceive('first')->with('required')->andReturn('The required field is required.');
 
@@ -134,7 +134,7 @@ class IlluminateMock
     $translator = Mockery::mock('Illuminate\Translation\Translator');
     $translator->shouldReceive('get')->with('pagination.next')->andReturn('Next');
     $translator->shouldReceive('get')->with('pagination')->andReturn(array('previous' => 'Previous', 'next' => 'Next'));
-    $translator->shouldReceive('get')->withAnyArgs()->andReturnUsing(function($key) {
+    $translator->shouldReceive('get')->withAnyArgs()->andReturnUsing(function ($key) {
       return $key;
     });
     $translator->shouldReceive('has')->withAnyArgs()->andReturn(true);
@@ -147,11 +147,11 @@ class IlluminateMock
    */
   public function getRequest()
   {
-    $request = Mockery::mock('request');
+    $request = Mockery::mock('Illuminate\Http\Request');
     $request->shouldReceive('url')->andReturn('#');
     $request->shouldReceive('get')->andReturn(null)->byDefault();
     $request->shouldReceive('old')->andReturn(null);
-    $request->shouldReceive('path')->andReturnUsing(function() {
+    $request->shouldReceive('path')->andReturnUsing(function () {
       return 'https://test/en/';
     });
 

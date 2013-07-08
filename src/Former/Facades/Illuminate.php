@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Facade;
  */
 class Illuminate extends Facade
 {
-
   /**
    * Get the registered component.
    *
@@ -18,5 +17,4 @@ class Illuminate extends Facade
   {
     return 'former';
   }
-
 }

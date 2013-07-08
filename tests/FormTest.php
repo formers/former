@@ -57,7 +57,7 @@ class FormTest extends FormerTests
   {
     $close = $this->former->close();
 
-    $this->assertEquals('</form>', $close);
+    $this->assertEquals('<input type="hidden" name="_token" value="csrf_token"></form>', $close);
   }
 
   public function testCanCreateCustomFormOpener()

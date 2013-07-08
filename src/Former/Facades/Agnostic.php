@@ -35,15 +35,15 @@ class Agnostic extends FormerBuilder
 
     // Session ----------------------------------------------------- /
 
-    $app->bind('session.manager', function($app) {
+    $app->bind('session.manager', function ($app) {
       return new SessionManager($app);
     });
 
-    $app->singleton('session', function($app) {
+    $app->singleton('session', function ($app) {
       return $app['session.manager']->driver('array');
     });
 
-    $app->singleton('Symfony\Component\HttpFoundation\Request', function($app) {
+    $app->singleton('Symfony\Component\HttpFoundation\Request', function ($app) {
       $request = Request::createFromGlobals();
       $request->setSessionStore($app['session']);
 
@@ -52,7 +52,7 @@ class Agnostic extends FormerBuilder
 
     // Config ------------------------------------------------------ /
 
-    $app->singleton('config', function($app) {
+    $app->singleton('config', function ($app) {
       $fileloader = new ConfigLoader($app['files'], __DIR__.'/../../config');
 
       return new Repository($fileloader, 'config');
@@ -60,11 +60,11 @@ class Agnostic extends FormerBuilder
 
     // Localization ------------------------------------------------ /
 
-    $app->bind('loader', function($app) {
+    $app->bind('loader', function ($app) {
       return new FileLoader($app['files'], 'src/config');
     });
 
-    $app->bind('translator', function($app) {
+    $app->bind('translator', function ($app) {
       $loader = new FileLoader($app['files'], 'lang');
 
       return new Translator($loader, 'fr');
@@ -77,5 +77,4 @@ class Agnostic extends FormerBuilder
 
     return $app;
   }
-
 }

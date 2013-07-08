@@ -25,5 +25,4 @@ class Translator extends Redirector
   {
     return \Lang::line($key)->get();
   }
-
 }

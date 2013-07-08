@@ -27,7 +27,9 @@ abstract class FormerBuilder
    */
   public static function __callStatic($method, $parameters)
   {
-    if (!static::$app) static::$app = static::getApp();
+    if (!static::$app) {
+      static::$app = static::getApp();
+    }
     $callable = array(static::$app['former'], $method);
 
     return call_user_func_array($callable, $parameters);
@@ -46,7 +48,7 @@ abstract class FormerBuilder
   public static function buildFramework(Container $app, $prefix = 'config.')
   {
     $framework = $app['config']->get($prefix.'framework');
-    $app->bind('\Former\Interfaces\FrameworkInterface', function($app) use ($framework) {
+    $app->bind('\Former\Interfaces\FrameworkInterface', function ($app) use ($framework) {
       $frameworkClass = '\Former\Framework\\'.$framework;
 
       return new $frameworkClass($app);
@@ -64,7 +66,7 @@ abstract class FormerBuilder
    */
   public static function buildFormer(Container $app)
   {
-    $app->singleton('former', function($app) {
+    $app->singleton('former', function ($app) {
       return new Former(
         $app,
         $app->make('\Former\Populator'),
@@ -73,5 +75,4 @@ abstract class FormerBuilder
 
     return $app;
   }
-
 }

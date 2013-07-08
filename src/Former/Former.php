@@ -321,7 +321,9 @@ class Former
    */
   public function framework($framework = null)
   {
-    if (!$framework) return $this->app['former']->getFramework()->current();
+    if (!$framework) {
+      return $this->app['former']->getFramework()->current();
+    }
 
     $this->setOption('framework', $framework);
     $class = __NAMESPACE__.'\Framework\\'.$framework;
@@ -347,7 +349,10 @@ class Former
    */
   public function getContainer($dependency = null)
   {
-    if ($dependency) return $this->app[$dependency];
+    if ($dependency) {
+      return $this->app[$dependency];
+    }
+
     return $this->app;
   }
 
@@ -399,7 +404,9 @@ class Former
    */
   public function close()
   {
-    if (!$this->form) return false;
+    if (!$this->form) {
+      return false;
+    }
 
     $closed = $this->form()->close();
 
@@ -426,10 +433,14 @@ class Former
    */
   public function getErrors($name = null)
   {
-    if (!$this->field) return false;
+    if (!$this->field) {
+      return false;
+    }
 
     // Get name and translate array notation
-    if(!$name) $name = $this->field->getName();
+    if(!$name) {
+      $name = $this->field->getName();
+    }
     $name = preg_replace('/\[([0-9a-z_\-]+)\]/', '.$1', $name);
 
     if ($this->errors) {

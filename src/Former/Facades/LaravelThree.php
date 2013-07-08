@@ -21,23 +21,23 @@ class LaravelThree extends FormerBuilder
 
     // Laravel ----------------------------------------------------- /
 
-    $app->bind('url', function($app) {
+    $app->bind('url', function ($app) {
       return new Legacy\Redirector('Laravel\URL');
     });
 
-    $app->bind('session', function($app) {
+    $app->bind('session', function ($app) {
       return new Legacy\Session;
     });
 
-    $app->bind('config', function($app) {
+    $app->bind('config', function ($app) {
       return new Legacy\Config;
     });
 
-    $app->bind('request', function($app) {
+    $app->bind('request', function ($app) {
       return new Legacy\Redirector('Laravel\Input');
     });
 
-    $app->bind('translator', function($app) {
+    $app->bind('translator', function ($app) {
       return new Legacy\Translator;
     });
 
@@ -51,5 +51,4 @@ class LaravelThree extends FormerBuilder
 
     return $app;
   }
-
 }

@@ -23,5 +23,4 @@ class Session extends Redirector
   {
     return \Session::csrf_token;
   }
-
 }

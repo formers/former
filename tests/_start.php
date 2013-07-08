@@ -1,5 +1,5 @@
 <?php
-ini_set('memory_limit', '120M');
+ini_set('memory_limit', '150M');
 date_default_timezone_set('UTC');
 
 // Load the Illuminate Container
@@ -127,7 +127,10 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
   public function setUp()
   {
     // Create the dummy Illuminate app
-    if (!static::$illuminate) static::$illuminate = new IlluminateMock();
+    if (!static::$illuminate) {
+      static::$illuminate = new IlluminateMock();
+    }
+
     $this->app = static::$illuminate;
     $this->former = $this->app->app['former'];
 
@@ -139,8 +142,8 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
 
   public function tearDown()
   {
-    Mockery::close();
     $this->former->close();
+    Mockery::close();
 
     // Reset config and POST data
     $this->app->app['config']  = static::$illuminate->getConfig();
