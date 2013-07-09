@@ -73,16 +73,14 @@ Now of course in case you want to set an attribute that actually contains an und
 
 ### Under Laravel 3
 
-Clone the repo in your `bundles` folder and add `'former' => array('auto' => true)` to your bundles file.
+Clone the `laravel3` branch of the repo in your `bundles` folder and add `'former' => array('auto' => true)` to your bundles file.
 Then add as an alias `'Former' => 'Former\Facades\LaravelThree'` in your application file and you're good to go !
-
-Now as Laravel 3 doesn't automatically checkout Composer dependencies, you'll have to go into the `bundles/former` folder and do a `composer install` (after that I'll leave you guys alone, promise).
 
 ### Under Laravel 4
 
 Installing Former is easy as hell. Add the following to your `composer.json` :
 
-    "anahkiasen/former": "dev-agnostic"
+    "anahkiasen/former": "dev-master"
 
 Add Former's service provider to your Laravel application in `app/config/app.php`. In the `providers` array add :
 
@@ -91,6 +89,10 @@ Add Former's service provider to your Laravel application in `app/config/app.php
 Add then alias Former's main class by adding its facade to the `aliases` array in the same file :
 
     'Former' => 'Former\Facades\Illuminate',
+
+### With Package installer
+
+Simply do `artisan package:install anahkiasen:former`
 
 ### Outside of a framework
 
