@@ -241,6 +241,7 @@ class Former
    */
   public function getPost($name, $fallback = null)
   {
+    $name = str_replace(array('[', ']'), array('.', ''), $name);
     $oldValue = $this->app['request']->old($name, $fallback);
 
     return $this->app['request']->get($name, $oldValue, true);
@@ -441,7 +442,8 @@ class Former
     if(!$name) {
       $name = $this->field->getName();
     }
-    $name = preg_replace('/\[([0-9a-z_\-]+)\]/', '.$1', $name);
+    $name = str_replace(array('[', ']'), array('.', ''), $name);
+    //$name = preg_replace('/\[([0-9a-z_\-]+)\]/', '.$1', $name);
 
     if ($this->errors) {
       return $this->errors->first($name);
