@@ -65,6 +65,13 @@ class Group extends Tag
   protected $append = array();
 
   /**
+   * The field validations to be checked for errors
+   *
+   * @var array
+   */
+  protected $validations;
+
+  /**
    * The group's element
    *
    * @var string
@@ -82,7 +89,7 @@ class Group extends Tag
    * @param string    $label      Its label
    * @param array     $attributes Attributes
    */
-  public function __construct(Former $former, $label, $attributes = array())
+  public function __construct(Former $former, $label, $validations = null)
   {
     // Get special classes
     $this->former = $former;
@@ -95,6 +102,9 @@ class Group extends Tag
 
     // Set group label
     if ($label) $this->setLabel($label);
+
+    // Set validations used to override groups own conclusions
+    $this->validations = $validations;
   }
 
   /**
@@ -115,7 +125,14 @@ class Group extends Tag
   public function open()
   {
     // If any errors, set state to errors
-    $errors = $this->former->getErrors();
+    if (is_array($this->validations)) {
+      $errors = '';
+      foreach ($this->validations as $validation) {
+        $errors .= $this->former->getErrors($validation);
+      }
+    } else {
+      $errors = $this->former->getErrors();
+    }
     if ($errors) $this->state('error');
 
     // Retrieve state and append it to classes
