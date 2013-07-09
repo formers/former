@@ -286,10 +286,10 @@ class SelectTest extends FormerTests
     $matcher =
     '<select id="foo" name="foo">'.
       '<optgroup label="foo">'.
-        '<option value="foo">1</option><option value="bar">2</option>'.
+        '<option value="1">foo</option><option value="2">bar</option>'.
       '</optgroup>'.
       '<optgroup label="bar">'.
-        '<option value="foo">1</option><option value="bar">2</option>'.
+        '<option value="1">foo</option><option value="2">bar</option>'.
       '</optgroup>'.
     '</select>';
     $this->assertEquals($matcher, $select->render());

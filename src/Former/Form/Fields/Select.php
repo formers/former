@@ -189,7 +189,7 @@ class Select extends Field
     if (is_array($text)) {
       $this->children[$childrenKey] = Element::create('optgroup')->label($value);
       foreach ($text as $key => $value) {
-        $option = Element::create('option', $key)->setAttribute('value', $value);
+        $option = Element::create('option', $value)->setAttribute('value', $key);
         $this->children[$childrenKey]->nest($option);
       }
     } else {
