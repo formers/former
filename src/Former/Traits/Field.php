@@ -122,15 +122,13 @@ abstract class Field extends FormerObject implements FieldInterface
     // Dry syntax (hidden fields, plain fields)
     if ($this->isUnwrappable()) {
       $html = $this->render();
-    }
 
     // Control group syntax
-    elseif (Form::hasInstanceOpened()) {
+    } elseif (Form::hasInstanceOpened()) {
       $html = $this->group->wrapField($this);
-    }
 
     // Classic syntax
-    else {
+    } else {
       $html  = $this->former->getFramework()->createLabelOf($this);
       $html .= $this->render();
     }
@@ -274,7 +272,9 @@ abstract class Field extends FormerObject implements FieldInterface
     // Check if we already have a value stored for this field or in POST data
     $already = $this->repopulate();
 
-    if(!$already) $this->value = $value;
+    if (!$already) {
+      $this->value = $value;
+    }
 
     return $this;
   }
@@ -319,8 +319,12 @@ abstract class Field extends FormerObject implements FieldInterface
     $populate  = $populator->getValue($this->name);
 
     // Assign a priority to each
-    if(!is_null($post))     return $post;
-    if(!is_null($populate)) return $populate;
+    if (!is_null($post)) {
+      return $post;
+    }
+    if (!is_null($populate)) {
+      return $populate;
+    }
 
     return $fallback ?: $this->value;
   }
@@ -343,8 +347,11 @@ abstract class Field extends FormerObject implements FieldInterface
     }
 
     // Check for the two possibilities
-    if($label and is_null($name)) $name = String::slug($label);
-    elseif(is_null($label) and $name) $label = $name;
+    if ($label and is_null($name)) {
+      $name = String::slug($label);
+    } elseif (is_null($label) and $name) {
+      $label = $name;
+    }
 
     // Attempt to translate the label
     $label = Helpers::translate($label);
@@ -353,5 +360,4 @@ abstract class Field extends FormerObject implements FieldInterface
     $this->name  = $name;
     $this->label($label);
   }
-
 }

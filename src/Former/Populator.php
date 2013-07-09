@@ -77,7 +77,7 @@ class Populator
         if (array_key_exists($relationship, $value)) {
           $value = $value[$relationship];
         } else {
-          $value = Arrays::each($value, function($submodel) use ($me, $relationship, $fallback) {
+          $value = Arrays::each($value, function ($submodel) use ($me, $relationship, $fallback) {
             return $me->getAttributeFromModel($submodel, $relationship, $fallback);
           });
         }
@@ -174,7 +174,7 @@ class Populator
    */
   public function getAttributeFromModel($model, $attribute, $fallback)
   {
-    if(
+    if (
       isset($model->$attribute) or
       method_exists($model, 'get_'.$attribute) or
       method_exists($model, 'get'.ucfirst($attribute).'Attribute')) {

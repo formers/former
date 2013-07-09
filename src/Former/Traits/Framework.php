@@ -84,7 +84,7 @@ abstract class Framework
    */
   protected function prependWith($classes, $with)
   {
-    return Arrays::each($classes, function($class) use ($with) {
+    return Arrays::each($classes, function ($class) use ($with) {
       return $with.$class;
     });
   }

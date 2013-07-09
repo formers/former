@@ -27,5 +27,4 @@ class FormerServiceProvider extends ServiceProvider
   {
     return array('former');
   }
-
 }

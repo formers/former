@@ -58,7 +58,7 @@ class Input extends Field
   public function render()
   {
     // Particular case of the search element
-    if($this->isOfType('search')) $this->asSearch();
+    if ($this->isOfType('search')) $this->asSearch();
 
     $this->setId();
 

@@ -269,15 +269,15 @@ class Former
   public function withErrors($validator = null)
   {
     // Try to get the errors form the session
-    if($this->app['session']->has('errors')) $errors = $this->app['session']->get('errors');
+    if ($this->app['session']->has('errors')) $errors = $this->app['session']->get('errors');
 
     // If we're given a raw Validator, go fetch the errors in it
-    if(method_exists($validator, 'getMessageBag')) $errors = $validator->getMessageBag();
-    if($validator instanceof \Laravel\Validator) $errors = $validator->errors;
+    if (method_exists($validator, 'getMessageBag')) $errors = $validator->getMessageBag();
+    if ($validator instanceof \Laravel\Validator) $errors = $validator->errors;
 
     // If we found errors, bind them to the form
-    if(isset($errors)) $this->errors = $errors;
-    elseif($validator) $this->errors = $validator;
+    if (isset($errors)) $this->errors = $errors;
+    elseif ($validator) $this->errors = $validator;
   }
 
   /**
@@ -309,7 +309,7 @@ class Former
        $rule = is_numeric($colon) ? substr($rule, 0, $colon) : $rule;
 
        // Store processed rule in Former's array
-       if(!isset($parameters)) $parameters = array();
+       if (!isset($parameters)) $parameters = array();
        $this->rules[$name][$rule] = $parameters;
       }
     }
@@ -439,7 +439,7 @@ class Former
     }
 
     // Get name and translate array notation
-    if(!$name) {
+    if (!$name) {
       $name = $this->field->getName();
     }
     $name = str_replace(array('[', ']'), array('.', ''), $name);
@@ -478,7 +478,7 @@ class Former
    */
   public function field()
   {
-    if(!$this->field) return false;
+    if (!$this->field) return false;
 
     return $this->field;
   }

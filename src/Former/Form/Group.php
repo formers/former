@@ -116,7 +116,7 @@ class Group extends Tag
   {
     // If any errors, set state to errors
     $errors = $this->former->getErrors();
-    if($errors) $this->state('error');
+    if ($errors) $this->state('error');
 
     // Retrieve state and append it to classes
     if ($this->state) {
@@ -397,12 +397,12 @@ class Group extends Tag
    */
   protected function prependAppend($field)
   {
-    if(!$this->prepend and !$this->append) return $field->render();
+    if (!$this->prepend and !$this->append) return $field->render();
 
     // Prepare wrapping div
     $class = null;
-    if($this->prepend) $class  = 'input-prepend';
-    if($this->append)  $class .= ' input-append';
+    if ($this->prepend) $class  = 'input-prepend';
+    if ($this->append)  $class .= ' input-append';
 
     // Build div
     $return = '<div class="' .$class. '">';
