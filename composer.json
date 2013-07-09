@@ -37,7 +37,7 @@
   "minimum-stability": "dev",
   "extra": {
     "branch-alias": {
-      "dev-agnostic": "dev-master"
+      "dev-agnostic": "3.x.x-dev"
     }
   }
 }
