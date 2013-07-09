@@ -23,7 +23,9 @@ class Dispatch
    */
   public static function toMacros(Former $former, $method, $parameters)
   {
-    if (!$former->hasMacro($method)) return false;
+    if (!$former->hasMacro($method)) {
+      return false;
+    }
 
     return call_user_func_array($former->getMacro($method), $parameters);
   }
@@ -40,7 +42,9 @@ class Dispatch
   public static function toElements(Container $app, $method, $parameters)
   {
     // Disregards if the method isn't an element
-    if (!method_exists($elements = new Form\Elements($app['former'], $app['session']), $method)) return false;
+    if (!method_exists($elements = new Form\Elements($app['former'], $app['session']), $method)) {
+      return false;
+    }
 
     return call_user_func_array(array($elements, $method), $parameters);
   }
@@ -57,7 +61,9 @@ class Dispatch
   public static function toForm(Former $former, $method, $parameters)
   {
     // Disregards if the method doesn't contain 'open'
-    if (!String::contains($method, 'open')) return false;
+    if (!String::contains($method, 'open')) {
+      return false;
+    }
 
     $form = new Form\Form($former, $former->getContainer('url'), $former->getPopulator());
 
@@ -76,7 +82,9 @@ class Dispatch
   public static function toGroup(Former $former, $method, $parameters)
   {
     // Disregards if the method isn't "group"
-    if ($method != 'group') return false;
+    if ($method != 'group') {
+      return false;
+    }
 
     return new Form\Group(
       $former,
@@ -96,7 +104,9 @@ class Dispatch
    */
   public static function toActions(Former $former, $method, $parameters)
   {
-    if ($method != 'actions') return false;
+    if ($method != 'actions') {
+      return false;
+    }
 
     return new Form\Actions($former, $parameters);
   }
@@ -153,16 +163,17 @@ class Dispatch
       case 'link':
       case 'reset':
         $class = 'Button';
-        break;
+      break;
+
       case 'multiselect':
         $class = 'Select';
-        break;
+      break;
+
       default:
         $class = 'Input';
-        break;
+      break;
     }
 
     return $class;
   }
-
 }

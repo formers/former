@@ -84,7 +84,7 @@ abstract class Framework
    */
   protected function prependWith($classes, $with)
   {
-    return Arrays::each($classes, function($class) use ($with) {
+    return Arrays::each($classes, function ($class) use ($with) {
       return $with.$class;
     });
   }
@@ -100,14 +100,18 @@ abstract class Framework
   public function createLabelOf(Field $field, Element $label = null)
   {
     // Get the label and its informations
-    if (!$label) $label = $field->getLabel();
+    if (!$label) {
+      $label = $field->getLabel();
+    }
 
     // Get label "for"
     $for = $field->id ?: $field->getName();
 
     // Get label text
     $text = $label->getValue();
-    if (!$text) return false;
+    if (!$text) {
+      return false;
+    }
 
     // Append required text
     if ($field->isRequired()) {
@@ -122,5 +126,4 @@ abstract class Framework
 
     return $label;
   }
-
 }

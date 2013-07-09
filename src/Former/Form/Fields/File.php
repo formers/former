@@ -90,7 +90,7 @@ class File extends Field
     foreach (func_get_args() as $mime) {
 
       // Shortcuts and extensions
-      if(in_array($mime, $this->mimeGroups)) $mime .= '/*';
+      if (in_array($mime, $this->mimeGroups)) $mime .= '/*';
       $mime = LaravelFile::mime($mime, $mime);
 
       $mimes[] = $mime;
@@ -113,7 +113,7 @@ class File extends Field
     // Bytes or bits ?
     $unit = substr($units, -1);
     $base = 1024;
-    if($unit == 'b') $size = $size / 8;
+    if ($unit == 'b') $size = $size / 8;
 
     // Convert
     switch ($units[0]) {

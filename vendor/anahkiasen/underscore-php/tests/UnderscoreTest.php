@@ -30,7 +30,7 @@ class UnderscoreTest extends UnderscoreWrapper
     $this->assertEquals('Bar', $stringToArray->obtain());
   }
 
-  public function testCanWrapWithShortcutFunction()
+  public function testCanWrapWithShortcutfunction ()
   {
     // Skip if base function not present
     if (!function_exists('underscore')) return $this->assertTrue(true);
@@ -42,7 +42,7 @@ class UnderscoreTest extends UnderscoreWrapper
 
   public function testCanHaveAliasesForMethods()
   {
-    $under = Arrays::select($this->arrayNumbers, function($value) {
+    $under = Arrays::select($this->arrayNumbers, function ($value) {
       return $value == 1;
     });
 
@@ -51,12 +51,12 @@ class UnderscoreTest extends UnderscoreWrapper
 
   public function testUserCanExtendWithCustomFunctions()
   {
-    Arrays::extend('fooify', function($array) {
+    Arrays::extend('fooify', function ($array) {
       return 'bar';
     });
     $this->assertEquals('bar', Arrays::fooify(array('foo')));
 
-    String::extend('unfooer', function($string) {
+    String::extend('unfooer', function ($string) {
       return String::replace($string, 'foo', 'bar');
     });
     $this->assertEquals('bar', String::unfooer('foo'));
@@ -100,8 +100,8 @@ class UnderscoreTest extends UnderscoreWrapper
 
   public function testMacrosCantConflictBetweenTypes()
   {
-    String::extend('foobar', function() { return 'string'; });
-    Arrays::extend('foobar', function() { return 'arrays'; });
+    String::extend('foobar', function () { return 'string'; });
+    Arrays::extend('foobar', function () { return 'arrays'; });
 
     $this->assertEquals('string', String::foobar());
     $this->assertEquals('arrays', Arrays::foobar());
@@ -124,7 +124,7 @@ class UnderscoreTest extends UnderscoreWrapper
   public function testUnderscoreFindsRightClassToCall()
   {
     $numbers = array(3, 4, 5);
-    $product = Underscore::reduce($numbers, function($w, $v) {
+    $product = Underscore::reduce($numbers, function ($w, $v) {
         return $w * $v;
     }, 1);
 

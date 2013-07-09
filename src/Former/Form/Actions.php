@@ -53,7 +53,7 @@ class Actions extends FormerObject
    */
   public function getContent()
   {
-    $content = Arrays::each($this->value, function($content) {
+    $content = Arrays::each($this->value, function ($content) {
       return method_exists($content, '__toString') ? (string) $content : $content;
     });
 

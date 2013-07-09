@@ -10,13 +10,14 @@ use Illuminate\Container\Container;
 use Underscore\Methods\ArraysMethods as Arrays;
 
 /**
- * The Zurb Foundation form framework
+ * The Zurb Foundation 4 form framework
  */
 class ZurbFoundation4 extends Framework implements FrameworkInterface
 {
 
   /**
    * The button types available
+   *
    * @var array
    */
   private $buttons = array(
@@ -26,12 +27,14 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
   /**
    * The field sizes available
    * Zurb Foundation 4 does not apply sizes to the form element, but to the wrapper div
+   *
    * @var array
    */
   private $fields = array();
 
   /**
    * The field states available
+   *
    * @var array
    */
   protected $states = array(
@@ -72,8 +75,11 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
 
   public function getFieldClasses(Field $field, $classes = array())
   {
-    if ($field->isButton()) $classes = $this->filterButtonClasses($classes);
-    else $classes = $this->filterFieldClasses($classes);
+    if ($field->isButton()) {
+      $classes = $this->filterButtonClasses($classes);
+    } else {
+      $classes = $this->filterFieldClasses($classes);
+    }
 
     // If we found any class, add them
     if ($classes) {
@@ -144,5 +150,4 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
   {
     return $field;
   }
-
 }

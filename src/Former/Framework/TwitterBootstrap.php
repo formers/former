@@ -86,7 +86,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
     $classes = array_intersect($classes, $this->fields);
 
     // Prepend field type
-    $classes = Arrays::each($classes, function($class) {
+    $classes = Arrays::each($classes, function ($class) {
       return String::startsWith($class, 'span') ? $class : 'input-'.$class;
     });
 
@@ -113,8 +113,11 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
     }
 
     // Filter classes according to field type
-    if ($field->isButton()) $classes = $this->filterButtonClasses($classes);
-    else $classes = $this->filterFieldClasses($classes);
+    if ($field->isButton()) {
+      $classes = $this->filterButtonClasses($classes);
+    } else {
+      $classes = $this->filterFieldClasses($classes);
+    }
 
     // If we found any class, add them
     if ($classes) {
@@ -241,7 +244,9 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
     }
 
     // Check for empty icons
-    if (!$iconType) return false;
+    if (!$iconType) {
+      return false;
+    }
 
     // Create icon
     $icon->addClass('icon-'.$iconType);

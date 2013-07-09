@@ -127,7 +127,7 @@ class ArraysTest extends UnderscoreWrapper
   public function testCanFallbackClosure()
   {
     $array = array('foo' => array('bar' => 'bis'));
-    $under = Arrays::get($array, 'ter', function() {
+    $under = Arrays::get($array, 'ter', function () {
       return 'closure';
     });
 
@@ -136,7 +136,7 @@ class ArraysTest extends UnderscoreWrapper
 
   public function testCanDoSomethingAtEachValue()
   {
-    $closure = function($value, $key) {
+    $closure = function ($value, $key) {
       echo $key.':'.$value.':';
     };
 
@@ -148,7 +148,7 @@ class ArraysTest extends UnderscoreWrapper
 
   public function testCanActOnEachValueFromArray()
   {
-    $closure = function($value, $key) {
+    $closure = function ($value, $key) {
       return $key.':'.$value;
     };
 
@@ -160,12 +160,12 @@ class ArraysTest extends UnderscoreWrapper
 
   public function testCanFindAValueInAnArray()
   {
-    $under = Arrays::find($this->arrayNumbers, function($value) {
+    $under = Arrays::find($this->arrayNumbers, function ($value) {
       return $value % 2 == 0;
     });
     $this->assertEquals(2, $under);
 
-    $unfound = Arrays::find($this->arrayNumbers, function($value) {
+    $unfound = Arrays::find($this->arrayNumbers, function ($value) {
       return $value == 5;
     });
     $this->assertEquals($this->arrayNumbers, $unfound);
@@ -173,7 +173,7 @@ class ArraysTest extends UnderscoreWrapper
 
   public function testCanFilterValuesFromAnArray()
   {
-    $under = Arrays::filter($this->arrayNumbers, function($value) {
+    $under = Arrays::filter($this->arrayNumbers, function ($value) {
       return $value % 2 != 0;
     });
 
@@ -182,7 +182,7 @@ class ArraysTest extends UnderscoreWrapper
 
   public function testCanFilterRejectedValuesFromAnArray()
   {
-    $under = Arrays::reject($this->arrayNumbers, function($value) {
+    $under = Arrays::reject($this->arrayNumbers, function ($value) {
       return $value % 2 != 0;
     });
 
@@ -191,7 +191,7 @@ class ArraysTest extends UnderscoreWrapper
 
   public function testCanMatchAnArrayContent()
   {
-    $under = Arrays::matches($this->arrayNumbers, function($value) {
+    $under = Arrays::matches($this->arrayNumbers, function ($value) {
       return is_int($value);
     });
 
@@ -200,7 +200,7 @@ class ArraysTest extends UnderscoreWrapper
 
   public function testCanMatchPathOfAnArrayContent()
   {
-    $under = Arrays::matchesAny($this->arrayNumbers, function($value) {
+    $under = Arrays::matchesAny($this->arrayNumbers, function ($value) {
       return $value == 2;
     });
 
@@ -308,7 +308,7 @@ class ArraysTest extends UnderscoreWrapper
 
   public function testCanGetMaxValueFromAnArrayWithClosure()
   {
-    $under = Arrays::max($this->arrayNumbers, function($value) {
+    $under = Arrays::max($this->arrayNumbers, function ($value) {
       return $value * -1;
     });
 
@@ -324,7 +324,7 @@ class ArraysTest extends UnderscoreWrapper
 
   public function testCanGetMinValueFromAnArrayWithClosure()
   {
-    $under = Arrays::min($this->arrayNumbers, function($value) {
+    $under = Arrays::min($this->arrayNumbers, function ($value) {
       return $value * -1;
     });
 
@@ -345,7 +345,7 @@ class ArraysTest extends UnderscoreWrapper
     $under = Arrays::sort(array(5, 3, 1, 2, 4), null, 'desc');
     $this->assertEquals(array(5, 4, 3, 2, 1), $under);
 
-    $under = Arrays::sort(range(1, 5), function($value) {
+    $under = Arrays::sort(range(1, 5), function ($value) {
       return $value % 2 == 0;
     });
     $this->assertEquals(array(1, 3, 5, 2, 4), $under);
@@ -353,7 +353,7 @@ class ArraysTest extends UnderscoreWrapper
 
   public function testCanGroupValues()
   {
-    $under = Arrays::group(range(1, 5), function($value) {
+    $under = Arrays::group(range(1, 5), function ($value) {
       return $value % 2 == 0;
     });
     $matcher = array(

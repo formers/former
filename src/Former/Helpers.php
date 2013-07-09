@@ -62,13 +62,19 @@ class Helpers
   public static function translate($key, $fallback = null)
   {
     // If nothing was given, return nothing, bitch
-    if(!$key) return null;
+    if (!$key) {
+      return null;
+    }
 
     // If no fallback, use the key
-    if(!$fallback) $fallback = $key;
+    if (!$fallback) {
+      $fallback = $key;
+    }
 
     // Assure we don't already have a Lang object
-    if(is_object($key) and method_exists($key, 'get')) return $key->get();
+    if (is_object($key) and method_exists($key, 'get')) {
+      return $key->get();
+    }
 
     $translation   = null;
     $translateFrom = static::$former->getOption('translate_from').'.'.$key;
@@ -113,21 +119,21 @@ class Helpers
     foreach ($query as $model) {
 
       // If it's an array, convert to object
-      if(is_array($model)) $model = (object) $model;
+      if (is_array($model)) $model = (object) $model;
 
       // Calculate the value
-      if($value and isset($model->$value)) $modelValue = $model->$value;
-      elseif(method_exists($model, '__toString')) $modelValue = $model->__toString();
+      if ($value and isset($model->$value)) $modelValue = $model->$value;
+      elseif (method_exists($model, '__toString')) $modelValue = $model->__toString();
       else $modelValue = null;
 
       // Calculate the key
-      if($key and isset($model->$key)) $modelKey = $model->$key;
-      elseif(method_exists($model, 'getKey')) $modelKey = $model->getKey();
-      elseif(isset($model->id)) $modelKey = $model->id;
+      if ($key and isset($model->$key)) $modelKey = $model->$key;
+      elseif (method_exists($model, 'getKey')) $modelKey = $model->getKey();
+      elseif (isset($model->id)) $modelKey = $model->id;
       else $modelKey = $modelValue;
 
       // Skip if no text value found
-      if(!$modelValue) continue;
+      if (!$modelValue) continue;
 
       $array[$modelKey] = (string) $modelValue;
     }

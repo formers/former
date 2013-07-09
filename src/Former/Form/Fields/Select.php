@@ -56,8 +56,8 @@ class Select extends Field
    */
   public function __construct(Former $former, $type, $name, $label, $options, $selected, $attributes)
   {
-    if($selected) $this->value = $selected;
-    if($options)  $this->options($options);
+    if ($selected) $this->value = $selected;
+    if ($options)  $this->options($options);
 
     parent::__construct($former, $type, $name, $label, $selected, $attributes);
 
@@ -116,7 +116,7 @@ class Select extends Field
     if (!$this->placeholder) return false;
 
     $attributes = array('value' => '', 'disabled' => 'disabled');
-    if(!$this->value) $attributes['selected'] = 'selected';
+    if (!$this->value) $attributes['selected'] = 'selected';
 
     return Element::create('option', $this->placeholder, $attributes);
   }

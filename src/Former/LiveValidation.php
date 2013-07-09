@@ -36,12 +36,16 @@ class LiveValidation
   public function apply($rules)
   {
     // If no rules to apply, cancel
-    if (!$rules) return false;
+    if (!$rules) {
+      return false;
+    }
 
     foreach ($rules as $rule => $parameters) {
 
       // If the rule is unsupported yet, skip it
-      if (!method_exists($this, $rule)) continue;
+      if (!method_exists($this, $rule)) {
+        continue;
+      }
 
       $this->$rule($parameters);
     }
@@ -92,8 +96,11 @@ class LiveValidation
    */
   public function numeric()
   {
-    if ($this->field->isOfType('number')) $this->field->step('any');
-    else $this->field->pattern('[+-]?\d*\.?\d+');
+    if ($this->field->isOfType('number')) {
+      $this->field->step('any');
+    } else {
+      $this->field->pattern('[+-]?\d*\.?\d+');
+    }
   }
 
   /**
@@ -213,7 +220,9 @@ class LiveValidation
   public function mimes($mimes)
   {
     // Only useful on file fields
-    if (!$this->field->isOfType('file')) return false;
+    if (!$this->field->isOfType('file')) {
+      return false;
+    }
 
     $this->field->accept($this->setAccepted($mimes));
   }
@@ -307,5 +316,4 @@ class LiveValidation
 
     $this->field->$attribute($min);
   }
-
 }

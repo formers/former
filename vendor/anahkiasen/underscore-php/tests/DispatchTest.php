@@ -17,7 +17,7 @@ class DispatchTest extends UnderscoreWrapper
       array(7E-10, 'Number'),
       array(array(), 'Arrays'),
       array(new stdClass, 'Object'),
-      array(function() { return; }, 'Functions'),
+      array(function () { return; }, 'Functions'),
       array(NULL, 'String')
     );
   }
