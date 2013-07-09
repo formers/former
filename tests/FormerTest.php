@@ -9,8 +9,8 @@ class FormerTest extends FormerTests
   public function matchLegend()
   {
     return array(
-      'tag' => 'legend',
-      'content' => 'Test',
+      'tag'        => 'legend',
+      'content'    => 'Test',
       'attributes' => $this->testAttributes,
     );
   }
@@ -27,11 +27,11 @@ class FormerTest extends FormerTests
     );
   }
 
-  public function matchLabel($name = null, $field = null, $required = null)
+  public function matchLabel()
   {
     return array(
-      'tag' => 'label',
-      'content' => 'Foo',
+      'tag'        => 'label',
+      'content'    => 'Foo',
       'attributes' => array('for' => '')
     );
   }
@@ -64,7 +64,7 @@ class FormerTest extends FormerTests
   public function testCanCreateFormMacros()
   {
     $former = $this->former;
-    $this->former->macro('captcha', function($name = null) use ($former) {
+    $this->former->macro('captcha', function ($name = null) use ($former) {
       return $former->text($name)->raw();
     });
 
@@ -75,11 +75,10 @@ class FormerTest extends FormerTests
   public function testMacrosDontTakePrecedenceOverNativeFields()
   {
     $former = $this->former;
-    $this->former->macro('label', function() use ($former) {
+    $this->former->macro('label', function () use ($former) {
       return 'NOPE';
     });
 
     $this->assertNotEquals('NOPE', $this->former->label('foo'));
   }
-
 }
