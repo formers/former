@@ -313,6 +313,15 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkbox);
   }
 
+  public function testCanHandleAZeroUncheckedValue()
+  {
+    $this->app->app['config'] = $this->app->getConfig(true, 0);
+    $checkboxes = $this->former->checkboxes('foo')->value('bar')->__toString();
+    $matcher = $this->controlGroup($this->matchCheckbox('foo', null, 'bar'));
+
+    $this->assertEquals($matcher, $checkboxes);
+  }
+
   public function testRepopulatedValueDoesntChangeOriginalValue()
   {
     $this->former->populate(array('foo' => true));
