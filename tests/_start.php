@@ -176,10 +176,11 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
       // For numeric keys, we will assume that the key and the value are the
       // same, as this will convert HTML attributes such as "required" that
       // may be specified as required="required", etc.
-      if (is_numeric($key)) $key = $value;
+      if (is_numeric($key)) {
+        $key = $value;
+      }
 
-      if ( ! is_null($value))
-      {
+      if (!is_null($value)) {
         $html[] = $key.'="'.$value.'"';
       }
     }

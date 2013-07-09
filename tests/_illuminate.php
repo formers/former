@@ -31,9 +31,9 @@ class IlluminateMock
     $app['validator']  = $this->getValidator();
 
     // Setup bindings
-    $app->instance('Illuminate\Container\Container', $app);
-    $app = Former\Facades\Agnostic::buildFramework($app, 'former::');
-    $app = Former\Facades\Agnostic::buildFormer($app);
+    $serviceProvider = new Former\FormerServiceProvider($app);
+    $serviceProvider->bindCoreClasses($app);
+    $serviceProvider->bindFormer($app);
 
     $this->app = $app;
 

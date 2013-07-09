@@ -30,25 +30,11 @@ class Former
   protected $field;
 
   /**
-   * The current form framework
-   *
-   * @var FrameworkInterface
-   */
-  protected $formFramework;
-
-  /**
    * The current form being worked on
    *
    * @var Form
    */
   protected $form;
-
-  /**
-   * The Populator instance
-   *
-   * @var Populator
-   */
-  public $populator;
 
   // Informations -------------------------------------------------- /
 
@@ -97,11 +83,9 @@ class Former
    *
    * @param Illuminate\Container\Container $app
    */
-  public function __construct(Container $app, Populator $populator, FrameworkInterface $framework)
+  public function __construct(Container $app)
   {
-    $this->app           = $app;
-    $this->populator     = $populator;
-    $this->formFramework = $framework;
+    $this->app = $app;
     Helpers::setApp($this, $this->app['translator']);
   }
 
@@ -207,7 +191,7 @@ class Former
    */
   public function populate($values)
   {
-    $this->populator->setValues($values);
+    $this->getPopulator()->setValues($values);
   }
 
   /**
@@ -218,7 +202,7 @@ class Former
    */
   public function populateField($field, $value)
   {
-    $this->populator->setValue($field, $value);
+    $this->getPopulator()->setValue($field, $value);
   }
 
   /**
@@ -229,7 +213,7 @@ class Former
    */
   public function getValue($field, $fallback = null)
   {
-    return $this->populator->getValue($field, $fallback);
+    return $this->getPopulator()->getValue($field, $fallback);
   }
 
   /**
@@ -254,7 +238,7 @@ class Former
    */
   public function getPopulator()
   {
-    return $this->populator;
+    return $this->app['former.populator'];
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -265,31 +249,47 @@ class Former
    * Set the errors to use for validations
    *
    * @param Message $validator The result from a validation
+   *
+   * @return  void
    */
   public function withErrors($validator = null)
   {
     // Try to get the errors form the session
-    if ($this->app['session']->has('errors')) $errors = $this->app['session']->get('errors');
+    if ($this->app['session']->has('errors')) {
+      $errors = $this->app['session']->get('errors');
+    }
 
     // If we're given a raw Validator, go fetch the errors in it
-    if (method_exists($validator, 'getMessageBag')) $errors = $validator->getMessageBag();
-    if ($validator instanceof \Laravel\Validator) $errors = $validator->errors;
+    if (method_exists($validator, 'getMessageBag')) {
+      $errors = $validator->getMessageBag();
+    }
+    if ($validator instanceof \Laravel\Validator) {
+      $errors = $validator->errors;
+    }
 
     // If we found errors, bind them to the form
-    if (isset($errors)) $this->errors = $errors;
-    elseif ($validator) $this->errors = $validator;
+    if (isset($errors)) {
+      $this->errors = $errors;
+    } elseif ($validator) {
+      $this->errors = $validator;
+    }
   }
 
   /**
    * Add live validation rules
    *
    * @param  array *$rules An array of Laravel rules
+   *
+   * @return  void
    */
   public function withRules()
   {
     $rules = func_get_args();
-    if (sizeof($rules) == 1 and is_string($rules[0])) $rules = explode('|', $rules[0]);
-    else $rules = call_user_func_array('array_merge', func_get_args());
+    if (sizeof($rules) == 1 and is_string($rules[0])) {
+      $rules = explode('|', $rules[0]);
+    } else {
+      $rules = call_user_func_array('array_merge', func_get_args());
+    }
 
     // Parse the rules according to Laravel conventions
     foreach ($rules as $name => $fieldRules) {
@@ -303,13 +303,16 @@ class Former
         // If we have a rule with a value
         if (($colon = strpos($rule, ':')) !== false) {
           $parameters = str_getcsv(substr($rule, $colon + 1));
-       }
+        }
 
        // Exclude unsupported rules
        $rule = is_numeric($colon) ? substr($rule, 0, $colon) : $rule;
 
        // Store processed rule in Former's array
-       if (!isset($parameters)) $parameters = array();
+       if (!isset($parameters)) {
+        $parameters = array();
+       }
+
        $this->rules[$name][$rule] = $parameters;
       }
     }
@@ -328,7 +331,9 @@ class Former
 
     $this->setOption('framework', $framework);
     $class = __NAMESPACE__.'\Framework\\'.$framework;
-    $this->formFramework = $this->app->make($class);
+    $this->app->bind('former.framework', function ($app) use($class) {
+      return new $class($app);
+    });
   }
 
   /**
@@ -338,7 +343,7 @@ class Former
    */
   public function getFramework()
   {
-    return $this->formFramework;
+    return $this->app['former.framework'];
   }
 
   /**
@@ -351,7 +356,7 @@ class Former
   public function getContainer($dependency = null)
   {
     if ($dependency) {
-      return $this->app[$dependency];
+      return $this->app->make($dependency);
     }
 
     return $this->app;
@@ -413,7 +418,7 @@ class Former
 
     // Destroy instances
     $this->form = null;
-    $this->populator->reset();
+    $this->getPopulator()->reset();
 
     // Reset all values
     $this->errors = null;
@@ -478,9 +483,10 @@ class Former
    */
   public function field()
   {
-    if (!$this->field) return false;
+    if (!$this->field) {
+      return false;
+    }
 
     return $this->field;
   }
-
 }
