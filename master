@@ -32,7 +32,7 @@ do
 done
 
 # Switch branch
-git checkout master
+git checkout laravel3
 
 # Delete current tree
 rm -rf ./{tests,vendor,src}
@@ -45,5 +45,5 @@ cp -R tmp/* ./
 rm -rf tmp/
 
 git add .
-git commit -m "Update master branch"
-git push origin master
+git commit -m "Update laravel3 branch"
+git push origin laravel3
