@@ -1,0 +1,22 @@
+{
+  "name": "anahkiasen/underscore-php",
+  "description": "A redacted port of Underscore.js for PHP",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Maxime Fabre",
+      "email": "ehtnam6@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0",
+    "illuminate/support": "~4",
+    "patchwork/utf8": "1.1.*"
+  },
+  "autoload": {
+    "psr-0": {
+      "Underscore": "src/"
+    }
+  },
+  "minimum-stability": "dev"
+}

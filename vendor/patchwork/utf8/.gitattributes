@@ -1,0 +1,3 @@
+class/Patchwork/Utf8/unicode-data.tbz2 export-ignore
+class/Patchwork/Utf8/Compiler.php export-ignore
+tests/ export-ignore

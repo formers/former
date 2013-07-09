@@ -1,0 +1,24 @@
+{
+    "name": "patchwork/utf8",
+    "type": "library",
+    "description": "UTF-8 strings handling for PHP 5.3: portable, performant and extended",
+    "keywords": ["utf8","utf-8","unicode","i18n"],
+    "homepage": "https://github.com/nicolas-grekas/Patchwork-UTF8",
+    "license": "(Apache-2.0 or GPL-2.0)",
+    "authors": [
+        {
+            "name": "Nicolas Grekas",
+            "email": "p@tchwork.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Patchwork": "class/",
+            "Normalizer": "class/"
+        }
+    }
+}

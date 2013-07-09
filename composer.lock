@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "39592d4349e5fd9fb6d7f92e7ca04cd8",
+    "hash": "48b4a74b94e3c5da594b9b415550f270",
     "packages": [
         {
             "name": "anahkiasen/html-object",
@@ -425,12 +425,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
-                "reference": "6f6448af26ee0f14ed265cab36f8fd1cacb46811"
+                "reference": "fe9915c329ef869efccbc88334cf3ff89f2ecb03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/6f6448af26ee0f14ed265cab36f8fd1cacb46811",
-                "reference": "6f6448af26ee0f14ed265cab36f8fd1cacb46811",
+                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/fe9915c329ef869efccbc88334cf3ff89f2ecb03",
+                "reference": "fe9915c329ef869efccbc88334cf3ff89f2ecb03",
                 "shasum": ""
             },
             "require": {
@@ -462,7 +462,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
-            "time": "2013-06-13 04:24:12"
+            "time": "2013-07-02 17:46:50"
         },
         {
             "name": "illuminate/http",
@@ -1007,7 +1007,7 @@
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "symfony/dependency-injection": "~2.0"
+                "symfony/dependency-injection": ">=2.0,<3.0"
             },
             "suggest": {
                 "symfony/dependency-injection": "",
@@ -1286,8 +1286,8 @@
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "symfony/config": "~2.0",
-                "symfony/yaml": "~2.2"
+                "symfony/config": ">=2.0,<3.0",
+                "symfony/yaml": ">=2.2,<3.0"
             },
             "suggest": {
                 "symfony/config": "",

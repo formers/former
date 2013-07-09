@@ -1,6 +1,6 @@
 ## Changelog
 
-3.0.0 (alpha)
+3.0.0
 -----
 
 - **Refactor of Former – the project is now framework agnostic, see installation details**

@@ -1,0 +1,20 @@
+{
+  "name": "anahkiasen/html-object",
+  "description": "A set of classes to create and manipulate HTML objects abstractions",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Anahkiasen",
+      "email": "ehtnam6@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-0": {
+      "HtmlObject": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.3.0"
+  }
+}
