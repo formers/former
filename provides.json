@@ -5,7 +5,7 @@
   "aliases": [
     {
       "alias": "Former",
-      "facade": "Former\Facades\Illuminate"
+      "facade": "Former\Facades\Former"
     }
   ]
 }
