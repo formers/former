@@ -59,6 +59,18 @@ class PopulatorTest extends FormerTests
     $this->assertEquals('ter', $populator->getValue('foo[bar][bis]'));
   }
 
+  public function testCanGetValueOfFieldsWithUnderscores()
+  {
+    $values = (object) array(
+      'foo_bar' => array(
+        'bar_bis' => 'ter',
+      ),
+    );
+    $populator = new Populator($values);
+
+    $this->assertEquals('ter', $populator->getValue('foo_bar[bar_bis]'));
+  }
+
   public function testCanGetRelationships()
   {
     $model = new DummyEloquent(array('id' => 1, 'name' => 'foo'));
