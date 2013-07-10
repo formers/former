@@ -305,7 +305,7 @@ abstract class Checkable extends Field
     if (isset($attributes['value'])) {
       $value = $attributes['value'];
     }
-    if (!isset($value) or $value == $this->former->getOption('unchecked_value')) {
+    if (!isset($value) or $value === $this->former->getOption('unchecked_value')) {
       $value = $fallbackValue;
     }
 
