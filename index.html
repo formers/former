@@ -34,47 +34,23 @@
 <h2>
 <a name="a-laravelish-way-to-create-and-format-forms" class="anchor" href="#a-laravelish-way-to-create-and-format-forms"><span class="octicon octicon-link"></span></a>A Laravelish way to create and format forms</h2>
 
-<p><a href="http://travis-ci.org/Anahkiasen/former"><img src="https://secure.travis-ci.org/Anahkiasen/former.png" alt="Build Status"></a> <a href="https://packagist.org/packages/anahkiasen/former"><img src="https://poser.pugx.org/anahkiasen/former/v/stable.png" alt="Latest Stable Version"></a> <a href="https://packagist.org/packages/anahkiasen/former"><img src="https://poser.pugx.org/anahkiasen/former/downloads.png" alt="Total Downloads"></a></p>
+<p><a href="http://travis-ci.org/Anahkiasen/former"><img src="https://secure.travis-ci.org/Anahkiasen/former.png" alt="Build Status"></a>
+<a href="https://packagist.org/packages/anahkiasen/former"><img src="https://poser.pugx.org/anahkiasen/former/v/stable.png" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/anahkiasen/former"><img src="https://poser.pugx.org/anahkiasen/former/downloads.png" alt="Total Downloads"></a></p>
 
-<p>Former is the name of a little project I'd like to present you — it's a bundle for the Laravel framework, and a really nice guy too once you get to know him.
-Laravel's original Form class is great — simplistic and full of little helpers, but a tad unelegant compared to the rest of the framework. When you add Bootstrapper classes above it, it just becomes intoxicating ; the mere amount of lines you need to type to create a five fields form with control groups is simply discouraging.</p>
+<p>Former is the name of a little project I'd like to present you — it's a PHP package that allows you to do all kinds of powerful stuff with forms while remaining pretty simple to use. It's also a really nice guy too once you get to know him.</p>
 
-<p>Enter Former, a powerful form builder with helpers for localization, validation, repopulation, and ties-in directly to both Bootstrap and Foundation.</p>
+<p>Former chews a lot of the work for you, it handles repopulation, validation, grouped fields, automatic markup for your favorite CSS framework (Bootstrap, Foundation). I invite you to take a look at the features page to get more informations.</p>
 
 <h3>
-<a name="table-of-contents" class="anchor" href="#table-of-contents"><span class="octicon octicon-link"></span></a>Table of contents</h3>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h3>
 
-<ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#installation">Installation</a></li>
-<li>
-<a href="#features">Features</a>
-
-<ul>
-<li><a href="#out-of-the-box-integration-to-bootstrap-and-foundation">Out-of-the-box integration to Bootstrap and Foundation</a></li>
-<li><a href="#ties-in-with-laravels-validator">Ties-in with Laravel's Validator</a></li>
-<li><a href="#form-populating">Form population</a></li>
-<li><a href="#datalists">Datalists</a></li>
-<li><a href="#live-validation">Live validation</a></li>
-<li><a href="#files-handling">Files handling</a></li>
-<li><a href="#checkboxes-and-radios">Checkboxes and radios</a></li>
-<li><a href="#localization-helpers">Localization helpers</a></li>
-<li><a href="#notes-on-setting-field-values">Notes on setting field values</a></li>
-</ul>
-</li>
-<li><a href="#ultimate-showdown">Ultimate showdown</a></li>
-<li><a href="#sidebar">Sidebar</a></li>
-</ul><hr><p><a name="introduction"></a></p>
-
-<h2>
-<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h2>
-
-<p>Former aims to re-laravelize form creation by transforming each field into its own model, with its own methods and attributes. This means that you can do this sort of stuff :</p>
+<p>Former aims to rethink elegantly form creation by transforming each field into its own model, with its own methods and attributes. This means that you can do this sort of stuff :</p>
 
 <div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">horizontal_open</span><span class="p">()</span>
   <span class="o">-&gt;</span><span class="na">id</span><span class="p">(</span><span class="s1">'MyForm'</span><span class="p">)</span>
   <span class="o">-&gt;</span><span class="na">secure</span><span class="p">()</span>
-  <span class="o">-&gt;</span><span class="na">rules</span><span class="p">(</span><span class="k">array</span><span class="p">(</span> <span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'required'</span> <span class="p">))</span>
+  <span class="o">-&gt;</span><span class="na">rules</span><span class="p">([</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'required'</span><span class="p">])</span>
   <span class="o">-&gt;</span><span class="na">method</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">)</span>
 
   <span class="nx">Former</span><span class="o">::</span><span class="na">xlarge_text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span>
@@ -93,19 +69,30 @@ Laravel's original Form class is great — simplistic and full of little helpers
 <span class="nx">Former</span><span class="o">::</span><span class="na">close</span><span class="p">()</span>
 </pre></div>
 
-<p>While also being able to do – just like in the days of old :</p>
-
-<div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">xlarge_text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="s1">'Joseph'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'required'</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span> <span class="s1">'class'</span> <span class="o">=&gt;</span> <span class="s1">'myclass'</span><span class="p">))</span>
-
-<span class="nx">Former</span><span class="o">::</span><span class="na">textarea</span><span class="p">(</span><span class="s1">'comments'</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'rows'</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">'columns'</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">'autofocus'</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">))</span>
-</pre></div>
-
-<p>The advantages of the first option being that you can skip arguments. If you want to set one single class on a text field, you don't have to go and set the label and the value and the yada yada to <code>null</code>, you just do <code>Former::text('name')-&gt;class('class')</code>.</p>
-
 <p>Every time you call a method that doesn't actually exist, Former assumes you're trying to set an attribute and creates it magically. That's why you can do in the above example <code>-&gt;rows(10)</code> ; in case you want to set attributes that contain dashes, just replace them by underscores : <code>-&gt;data_foo('bar')</code> equals <code>data-foo="bar"</code>.
 Now of course in case you want to set an attribute that actually contains an underscore (jeez aren't you the little smartass) you can always use the fallback method <code>setAttribute('data_foo', 'bar')</code>. You're welcome.</p>
 
-<p><a name="installation"></a></p>
+<p>This is the core of it, but Former offers a lot more. I invite you to consult the wiki to see the extend of what Former does.</p>
+
+<hr><h1>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting started</h1>
+
+<h2>
+<a name="core-concept" class="anchor" href="#core-concept"><span class="octicon octicon-link"></span></a>Core concept</h2>
+
+<p>Former is to be used as a View helper – meaning it provides for you a class that you can use directly in your views to output HTML code.</p>
+
+<div class="highlight"><pre><span class="o">&lt;?=</span> <span class="nx">Former</span><span class="o">::</span><span class="na">open</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">    </span><span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">required</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">Former</span><span class="o">::</span><span class="na">close</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x"></span>
+
+<span class="x">If you're using Twig or other more closed view templating systems, you can still use Former's classes outside :</span>
+
+<span class="x">```php</span>
+<span class="x">$form = Former::open()-&gt;method('GET');</span>
+<span class="x">    $form .= Former::text('name')-&gt;required();</span>
+<span class="x">$form .= Former::close();</span>
+</pre></div>
 
 <h2>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
@@ -114,7 +101,7 @@ Now of course in case you want to set an attribute that actually contains an und
 <a name="under-laravel-3" class="anchor" href="#under-laravel-3"><span class="octicon octicon-link"></span></a>Under Laravel 3</h3>
 
 <p>Clone the <code>laravel3</code> branch of the repo in your <code>bundles</code> folder and add <code>'former' =&gt; array('auto' =&gt; true)</code> to your bundles file.
-Then add as an alias <code>'Former' =&gt; 'Former\Facades\LaravelThree'</code> in your application file and you're good to go !</p>
+Then add as an alias <code>'Former' =&gt; 'Former\Facades\Former'</code> in your application file and you're good to go !</p>
 
 <h3>
 <a name="under-laravel-4" class="anchor" href="#under-laravel-4"><span class="octicon octicon-link"></span></a>Under Laravel 4</h3>
@@ -131,7 +118,7 @@ Then add as an alias <code>'Former' =&gt; 'Former\Facades\LaravelThree'</code> i
 
 <p>Add then alias Former's main class by adding its facade to the <code>aliases</code> array in the same file :</p>
 
-<pre><code>'Former' =&gt; 'Former\Facades\Illuminate',
+<pre><code>'Former' =&gt; 'Former\Facades\Former',
 </code></pre>
 
 <h3>
@@ -144,17 +131,13 @@ Then add as an alias <code>'Former' =&gt; 'Former\Facades\LaravelThree'</code> i
 
 <p>Same as for Laravel 4, add Former to your Composer file. Then do this :</p>
 
-<div class="highlight"><pre><span class="k">use</span> <span class="nx">Former\Facades\Agnostic</span> <span class="k">as</span> <span class="nx">Former</span><span class="p">;</span>
+<div class="highlight"><pre><span class="k">use</span> <span class="nx">Former\Facades\Former</span><span class="p">;</span>
 </pre></div>
 
 <p>And you're done.</p>
 
-<hr><p><a name="features"></a></p>
-
 <h1>
 <a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h1>
-
-<p><a name="out-of-the-box-integration-to-bootstrap-and-foundation"></a></p>
 
 <h2>
 <a name="out-of-the-box-integration-to-bootstrap-and-foundation" class="anchor" href="#out-of-the-box-integration-to-bootstrap-and-foundation"><span class="octicon octicon-link"></span></a>Out-of-the-box integration to Bootstrap and Foundation</h2>
@@ -207,8 +190,6 @@ That means that when you type this :</p>
 <span class="nt">&lt;/div&gt;</span>
 </pre></div>
 
-<p><a name="ties-in-with-laravels-validator"></a></p>
-
 <h2>
 <a name="ties-in-with-laravels-validator" class="anchor" href="#ties-in-with-laravels-validator"><span class="octicon octicon-link"></span></a>Ties-in with Laravel's Validator</h2>
 
@@ -236,8 +217,6 @@ That means that when you type this :</p>
 
 <p>Now on the last example you never actually call Former, be it in your controller or in your view. Why is that ? That's because when Former opens a form on a page, it will automatically check in Session if there's not an object called <code>errors</code> and if there is, it will try to use it without requiring you to call anything.
 You can disable Former's automatic errors fetching with the following option : <code>Former::config('fetch_errors', false)</code>.</p>
-
-<p><a name="form-populating"></a></p>
 
 <h2>
 <a name="form-populating" class="anchor" href="#form-populating"><span class="octicon octicon-link"></span></a>Form populating</h2>
@@ -332,8 +311,6 @@ Former also does some magic if none of those two arguments are specified. Say yo
 
 <p>Kudos to <a href="https://github.com/cviebrock">cviebrock</a> for the original idea.</p>
 
-<p><a name="datalists"></a></p>
-
 <h2>
 <a name="datalists" class="anchor" href="#datalists"><span class="octicon octicon-link"></span></a>Datalists</h2>
 
@@ -347,8 +324,6 @@ Former also does some magic if none of those two arguments are specified. Say yo
 
 <p>You can also (if you need to) set a custom id on the created datalist by doing <code>Former::text('foo')-&gt;list('myId')-&gt;useDatalist()</code>.
 From there it will automatically generate the corresponding <code>&lt;datalist&gt;</code> and link it by <code>id</code> to that field. Which means your text input will get populated by the values in your array, while still letting people type whatever they want if they don't find happiness and/or are little pains in the ass.</p>
-
-<p><a name="live-validation"></a></p>
 
 <h2>
 <a name="live-validation" class="anchor" href="#live-validation"><span class="octicon octicon-link"></span></a>Live validation</h2>
@@ -393,8 +368,6 @@ Take the following (far-fetched) rules array :</p>
 <div class="highlight"><pre><span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">state</span><span class="p">(</span><span class="s1">'error'</span><span class="p">)</span>
 </pre></div>
 
-<p><a name="files-handling"></a></p>
-
 <h2>
 <a name="files-handling" class="anchor" href="#files-handling"><span class="octicon octicon-link"></span></a>Files handling</h2>
 
@@ -420,8 +393,6 @@ Take the following (far-fetched) rules array :</p>
 </pre></div>
 
 <p>This will create an hidden <code>MAX_FILE_SIZE</code> field with the correct value in bytes.</p>
-
-<p><a name="checkboxes-and-radios"></a></p>
 
 <h2>
 <a name="checkboxes-and-radios" class="anchor" href="#checkboxes-and-radios"><span class="octicon octicon-link"></span></a>Checkboxes and Radios</h2>
@@ -472,8 +443,6 @@ You can change what value an unchecked checkbox possesses in the POST array via 
 <p>When creating checkables via the checkboxes/radios() method, by default for each checkable name attribute it will use the original name you specified and append it a number (here in our exemple it would be <code>&lt;input type="checkbox" name="checkme_2"&gt;</code>).
 It also repopulates it, meaning a checked input will stay checked on submit.</p>
 
-<p><a name="localization-helpers"></a></p>
-
 <h2>
 <a name="localization-helpers" class="anchor" href="#localization-helpers"><span class="octicon octicon-link"></span></a>Localization helpers</h2>
 
@@ -496,8 +465,6 @@ It also repopulates it, meaning a checked input will stay checked on submit.</p>
 
 <p>Which you know, is kind of cool. Former will first try to translate the string in itself, ie <code>my.text</code> will return <code>__('my.text')</code> and if that fails, it will look for it in a fallback place. You can set where Former look for translations by changing the following variable : <code>Former::config('translate_from', [boolean])</code> (defaults to <code>validation.attributes</code>). Note that <strong>it must be an array</strong>.</p>
 
-<p><a name="notes-on-setting-field-values"></a></p>
-
 <h2>
 <a name="notes-on-setting-field-values" class="anchor" href="#notes-on-setting-field-values"><span class="octicon octicon-link"></span></a>Notes on setting field values</h2>
 
@@ -509,69 +476,7 @@ It also repopulates it, meaning a checked input will stay checked on submit.</p>
 <li>Then any values set via <code>Former::populate()</code> – that means that if you're editing something or are repopulating with some value, it can be overwritten with <code>forceValue</code>
 </li>
 <li>Finally the classic <code>-&gt;value()</code> gets the least priority – it is created for minimum and default field values and thus gets overwritten by population and POST data</li>
-</ul><hr><p><a name="ultimate-showdown"></a></p>
-
-<h1>
-<a name="ultimate-showdown" class="anchor" href="#ultimate-showdown"><span class="octicon octicon-link"></span></a>ULTIMATE SHOWDOWN</h1>
-
-<div class="highlight"><pre><span class="c1">// Laravel</span>
-<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"control-group"</span><span class="o">&gt;</span>
-  <span class="p">{{</span> <span class="nx">Form</span><span class="o">::</span><span class="na">label</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="nx">__</span><span class="p">(</span><span class="s1">'validation.attributes.input01'</span><span class="p">),</span> <span class="k">array</span><span class="p">(</span><span class="s1">'class'</span> <span class="o">=&gt;</span> <span class="s1">'control-label'</span><span class="p">)</span> <span class="p">)}}</span>
-  <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"controls"</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"input-prepend input-append"</span><span class="o">&gt;</span>
-      <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"add-on"</span><span class="o">&gt;@&lt;/</span><span class="nx">span</span><span class="o">&gt;</span>
-      <span class="p">{{</span> <span class="nx">Form</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="s1">'myname'</span><span class="p">,</span> <span class="p">(</span><span class="nx">Input</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="nx">Input</span><span class="o">::</span><span class="na">old</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">)),</span> <span class="k">array</span><span class="p">(</span><span class="s1">'class'</span> <span class="o">=&gt;</span> <span class="s1">'input-xlarge'</span><span class="p">))</span> <span class="p">}}</span>
-      <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"add-on"</span><span class="o">&gt;&lt;</span><span class="nx">i</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"icon-white icon-enveloppe"</span><span class="o">&gt;&lt;/</span><span class="nx">i</span><span class="o">&gt;&lt;/</span><span class="nx">span</span><span class="o">&gt;</span>
-    <span class="o">&lt;/</span><span class="nx">div</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">p</span> <span class="nx">class</span><span class="o">=</span><span class="s2">"help-block"</span><span class="o">&gt;</span><span class="k">This</span> <span class="nx">is</span> <span class="nx">an</span> <span class="nx">help</span> <span class="nx">text</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
-  <span class="o">&lt;/</span><span class="nx">div</span><span class="o">&gt;</span>
-<span class="o">&lt;/</span><span class="nx">div</span><span class="o">&gt;</span>
-
-<span class="c1">// Bootstrapper</span>
-<span class="k">echo</span> <span class="nx">Form</span><span class="o">::</span><span class="na">prepend_append</span><span class="p">(</span>
-  <span class="nx">Form</span><span class="o">::</span><span class="na">control_group</span><span class="p">(</span>
-    <span class="nx">Form</span><span class="o">::</span><span class="na">label</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="nx">__</span><span class="p">(</span><span class="s1">'validation.attributes.input01'</span><span class="p">)),</span>
-    <span class="nx">Form</span><span class="o">::</span><span class="na">xlarge_text</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">),</span>
-    <span class="p">(</span><span class="nx">Input</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="nx">Input</span><span class="o">::</span><span class="na">old</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="s1">'myname'</span><span class="p">))),</span>
-    <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">errors</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">),</span>
-    <span class="nx">Form</span><span class="o">::</span><span class="na">block_help</span><span class="p">(</span><span class="s1">'This is an help text'</span><span class="p">)</span>
-  <span class="p">),</span>
-  <span class="s1">'@'</span><span class="p">,</span> <span class="nx">Icon</span><span class="o">::</span><span class="na">white_enveloppe</span><span class="p">()</span>
-<span class="p">);</span>
-
-<span class="c1">// Former</span>
-<span class="nx">Former</span><span class="o">::</span><span class="na">xlarge_text</span><span class="p">(</span><span class="s1">'input01'</span><span class="p">,</span> <span class="s1">'Text input'</span><span class="p">)</span>
-  <span class="o">-&gt;</span><span class="na">blockHelp</span><span class="p">(</span><span class="s1">'This is an help text'</span><span class="p">)</span>
-  <span class="o">-&gt;</span><span class="na">prepend</span><span class="p">(</span><span class="s1">'@'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">appendIcon</span><span class="p">(</span><span class="s1">'white-enveloppe'</span><span class="p">)</span>
-  <span class="o">-&gt;</span><span class="na">value</span><span class="p">(</span><span class="s1">'myname'</span><span class="p">)</span>
-</pre></div>
-
-<div class="highlight"><pre><span class="c1">// Laravel</span>
-<span class="c1">// Man don't even get me started</span>
-
-<span class="c1">// Boostrapper</span>
-<span class="k">echo</span> <span class="nx">Form</span><span class="o">::</span><span class="na">control_group</span><span class="p">(</span>
-  <span class="nx">Form</span><span class="o">::</span><span class="na">label</span><span class="p">(</span><span class="s1">'checkboxes'</span><span class="p">,</span> <span class="s1">'Check those boxes'</span><span class="p">),</span>
-  <span class="nx">Form</span><span class="o">::</span><span class="na">inline_labelled_checkbox</span><span class="p">(</span><span class="s1">'check1'</span><span class="p">,</span> <span class="s1">'Check me'</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">Input</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'check1'</span><span class="p">,</span> <span class="nx">Input</span><span class="o">::</span><span class="na">old</span><span class="p">(</span><span class="s1">'check1'</span><span class="p">)))</span><span class="o">.</span>
-  <span class="nx">Form</span><span class="o">::</span><span class="na">inline_labelled_checkbox</span><span class="p">(</span><span class="s1">'check2'</span><span class="p">,</span> <span class="s1">'Check me too'</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">Input</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'check2'</span><span class="p">,</span> <span class="nx">Input</span><span class="o">::</span><span class="na">old</span><span class="p">(</span><span class="s1">'check2'</span><span class="p">))),</span>
-  <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">errors</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'check1'</span><span class="p">),</span>
-  <span class="nx">Form</span><span class="o">::</span><span class="na">inline_help</span><span class="p">(</span><span class="s1">'I SAID CHECK THOSE DOUBLES'</span><span class="p">)</span>
-<span class="p">);</span>
-
-<span class="c1">// Former</span>
-<span class="nx">Former</span><span class="o">::</span><span class="na">checkboxes</span><span class="p">(</span><span class="s1">'check'</span><span class="p">)</span>
-  <span class="o">-&gt;</span><span class="na">checkboxes</span><span class="p">(</span><span class="s1">'Check me'</span><span class="p">,</span> <span class="s1">'Check me too'</span><span class="p">)</span>
-  <span class="o">-&gt;</span><span class="na">help</span><span class="p">(</span><span class="s1">'I SAID CHECK THOSE DOUBLES'</span><span class="p">)</span>
-</pre></div>
-
-<hr><p><a name="sidebar"></a></p>
-
-<h1>
-<a name="sidebar" class="anchor" href="#sidebar"><span class="octicon octicon-link"></span></a>Sidebar</h1>
-
-<p>It may seems like I'm spitting on both Laravel and Bootstrapper here but bare with me — I'm totally not. I love Laravel, it's an amazing and elegant framework, and I couldn't stress out enough how every one of you should have Bootstrapper installed somewhere in your bundles — hell I'm even collaborating actively on the project. I even intended Former to replace Bootstrapper's Form class but to me it was just a little too much out of its scope.</p>
-
-<p>Anyway, that's all for now, hope you enjoy it and don't forget to report any question/bug/idea/issue in the, well, Issues.</p>
+</ul>
         </section>
 
         <aside id="sidebar">
