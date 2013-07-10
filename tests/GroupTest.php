@@ -292,4 +292,32 @@ class GroupTest extends FormerTests
     $this->assertEquals($matcher, $control);
   }
 
+  public function testCanRecognizeGroupValidationErrors()
+  {
+    $this->app->app['session'] = $this->app->getSession(array('foo' => 'bar', 'bar' => 'baz'));
+    $this->former->withErrors();
+
+    $matcher = '<div class="control-group error"><label for="Foo" class="control-label">Foo</label>';
+
+    $group = $this->former->group('foo', array('foo'))->__toString();
+    $this->assertEquals($matcher, $group);
+
+    $group = $this->former->group('foo', array('foo','bar'))->__toString();
+    $this->assertEquals($matcher, $group);
+  }
+
+  public function testCanIgnoreGroupValidationErrors()
+  {
+    $this->app->app['session'] = $this->app->getSession(array('foo' => 'bar', 'bar' => 'baz'));
+    $this->former->withErrors();
+
+    $matcher = '<div class="control-group"><label for="Foo" class="control-label">Foo</label>';
+
+    $group = $this->former->group('foo', array())->__toString();
+    $this->assertEquals($matcher, $group);
+
+    $group = $this->former->group('foo', array('baz'))->__toString();
+    $this->assertEquals($matcher, $group);
+  }
+
 }

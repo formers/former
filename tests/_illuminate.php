@@ -116,11 +116,28 @@ class IlluminateMock
   /**
    * Get Session manager
    */
-  private function getSession()
+  public function getSession($errors = null)
   {
     $session = Mockery::mock('Illuminate\Session\Store');
-    $session->shouldReceive('has')->with('errors')->andReturn(false);
-    $session->shouldReceive('set')->with('errors')->andReturn(false);
+    if ($errors)
+    {
+      $session->shouldReceive('has')->with('errors')->andReturn(true);
+      $session->shouldReceive('get')->with('errors')->andReturnUsing(function () use ($errors) {
+        $messages = Mockery::mock('MessageBag');
+        foreach ($errors as $key => $value)
+        {
+          $messages->shouldReceive('first')->with($key)->andReturn($value);
+        }
+        $messages->shouldReceive('first')->withAnyArgs()->andReturn(null);
+
+        return $messages;
+      });
+    }
+    else
+    {
+      $session->shouldReceive('has')->with('errors')->andReturn(false);
+      $session->shouldReceive('get')->with('errors')->andReturn(null);
+    }
     $session->shouldReceive('getToken')->andReturn('csrf_token');
 
     return $session;
