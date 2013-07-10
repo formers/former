@@ -89,7 +89,7 @@ class Dispatch
     return new Form\Group(
       $former,
       Arrays::get($parameters, 0, null),
-      Arrays::get($parameters, 1, array())
+      Arrays::get($parameters, 1, null)
     );
   }
 
