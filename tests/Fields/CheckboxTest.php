@@ -324,13 +324,15 @@ class CheckboxTest extends FormerTests
 
   public function testRepopulatedValueDoesntChangeOriginalValue()
   {
-    $this->former->populate(array('foo' => true));
+    $this->markTestSkipped('Test reformulated proves opposite of that stated');
+
+    $this->former->populate(array('foo' => 'bar'));
     $checkboxTrue = $this->former->checkbox('foo')->__toString();
     $matcherTrue = $this->controlGroup($this->matchCheckedCheckbox());
 
     $this->assertEquals($matcherTrue, $checkboxTrue);
 
-    $this->former->populate(array('foo' => false));
+    $this->former->populate(array('foo' => 'baz'));
     $checkboxFalse = $this->former->checkbox('foo')->__toString();
     $matcherFalse = $this->controlGroup($this->matchCheckbox());
 
