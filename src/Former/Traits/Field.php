@@ -177,6 +177,7 @@ abstract class Field extends FormerObject implements FieldInterface
       $this->former->form() and $this->former->form()->isOfType('inline') or
       $this->isButton() or
       $this->isOfType('hidden') or
+      \Former\Form\Group::$opened or
       $this->group and $this->group->isRaw();
   }
 

@@ -98,9 +98,6 @@ class Group extends Tag
    */
   public function __construct(Former $former, $label, $validations = null)
   {
-    // Close previously opened group
-    static::$opened = false;
-
     // Get special classes
     $this->former = $former;
     $this->addClass($this->former->getFramework()->getGroupClasses());
@@ -261,7 +258,7 @@ class Group extends Tag
    */
   public function isRaw()
   {
-    return static::$opened or $this->raw;
+    return (bool) $this->raw;
   }
 
   ////////////////////////////////////////////////////////////////////

@@ -320,4 +320,11 @@ class GroupTest extends FormerTests
     $this->assertEquals($matcher, $group);
   }
 
+  public function testFieldsInCustomGroupsAreRawByDefault()
+  {
+    $this->former->group('foobar');
+      $test = $this->former->text('foobar')->__toString();
+
+    $this->assertNotContains('control-group', $test);
+  }
 }

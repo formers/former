@@ -144,6 +144,7 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
 
   public function tearDown()
   {
+    $this->former->closeGroup();
     $this->former->close();
     Mockery::close();
 

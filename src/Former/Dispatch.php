@@ -86,12 +86,17 @@ class Dispatch
       return false;
     }
 
-    Form\Group::$opened = true;
-    return new Form\Group(
+    // Create opener
+    $group = new Form\Group(
       $former,
       Arrays::get($parameters, 0, null),
       Arrays::get($parameters, 1, null)
     );
+
+    // Set custom group as true
+    Form\Group::$opened = true;
+
+    return $group;
   }
 
   /**
