@@ -270,11 +270,10 @@ class Group extends Tag
    */
   public function inlineHelp($help, $attributes = array())
   {
-    // Attempt to translate help text
-    $help = Helpers::translate($help);
-
     // If no help text, do nothing
-    if (!$help) return false;
+    if (!$help) {
+      return false;
+    }
 
     $this->help['inline'] = $this->former->getFramework()->createHelp($help, $attributes);
   }
@@ -292,11 +291,10 @@ class Group extends Tag
       throw new BadMethodCallException('This method is only available on the Bootstrap framework');
     }
 
-    // Attempt to translate help text
-    $help = Helpers::translate($help);
-
     // If no help text, do nothing
-    if (!$help) return false;
+    if (!$help) {
+      return false;
+    }
 
     $this->help['block'] = $this->former->getFramework()->createBlockHelp($help, $attributes);
   }

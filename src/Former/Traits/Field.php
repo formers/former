@@ -102,6 +102,12 @@ abstract class Field extends FormerObject implements FieldInterface
    */
   public function __call($method, $parameters)
   {
+    // Translate attributes
+    $translatable = $this->former->getOption('translatable', array());
+    if (in_array($method, $translatable) and isset($parameters[0])) {
+      $parameters[0] = Helpers::translate($parameters[0]);
+    }
+
     // Redirect calls to the Control Group
     if (method_exists($this->group, $method)) {
       call_user_func_array(array($this->group, $method), $parameters);
@@ -246,20 +252,6 @@ abstract class Field extends FormerObject implements FieldInterface
     } else {
       $this->label = $label;
     }
-
-    return $this;
-  }
-
-  /**
-   * Change the field's placeholder
-   *
-   * @param  string $value
-   *
-   * @return Field
-   */
-  public function placeholder($value)
-  {
-    $this->placeholder = Helpers::translate($value);
 
     return $this;
   }

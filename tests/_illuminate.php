@@ -69,7 +69,7 @@ class IlluminateMock
     $config->shouldReceive('get')->with('former::framework')->andReturn('TwitterBootstrap');
     $config->shouldReceive('get')->with('former::translate_from', Mockery::any())->andReturn('validation.attributes');
     $config->shouldReceive('get')->with('former::required_class', Mockery::any())->andReturn('required');
-    $config->shouldReceive('get')->with('former::required_text', Mockery::any())->andReturn('*');
+    $config->shouldReceive('get')->with('former::required_text',  Mockery::any())->andReturn('*');
 
     // Variable configuration keys
     $config->shouldReceive('get')->with('former::live_validation', Mockery::any())->andReturn($live);
@@ -77,8 +77,13 @@ class IlluminateMock
     $config->shouldReceive('get')->with('former::push_checkboxes', Mockery::any())->andReturn($push);
     $config->shouldReceive('get')->with('former::automatic_label', Mockery::any())->andReturn($automatic);
     $config->shouldReceive('get')->with('former::error_messages',  Mockery::any())->andReturn($errors);
+    $config->shouldReceive('get')->with('former::translatable',    Mockery::any())->andReturn(array(
+      'help', 'inlineHelp', 'blockHelp',
+      'placeholder', 'data_placeholder',
+      'label'
+    ));
 
-    $config->shouldReceive('set')->with(Mockery::any(),  Mockery::any());
+    $config->shouldReceive('set')->with(Mockery::any(), Mockery::any());
 
     return $config;
   }
@@ -119,22 +124,18 @@ class IlluminateMock
   public function getSession($errors = null)
   {
     $session = Mockery::mock('Illuminate\Session\Store');
-    if ($errors)
-    {
+    if ($errors) {
       $session->shouldReceive('has')->with('errors')->andReturn(true);
       $session->shouldReceive('get')->with('errors')->andReturnUsing(function () use ($errors) {
         $messages = Mockery::mock('MessageBag');
-        foreach ($errors as $key => $value)
-        {
+        foreach ($errors as $key => $value) {
           $messages->shouldReceive('first')->with($key)->andReturn($value);
         }
         $messages->shouldReceive('first')->withAnyArgs()->andReturn(null);
 
         return $messages;
       });
-    }
-    else
-    {
+    } else {
       $session->shouldReceive('has')->with('errors')->andReturn(false);
       $session->shouldReceive('get')->with('errors')->andReturn(null);
     }
