@@ -88,6 +88,9 @@ class Elements
    */
   public function closeGroup()
   {
+    // Close custom group
+    Group::$opened = false;
+
     return '</div>';
   }
 

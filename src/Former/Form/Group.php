@@ -78,6 +78,13 @@ class Group extends Tag
    */
   protected $element = 'div';
 
+  /**
+   * Whether a group is opened or not
+   *
+   * @var boolean
+   */
+  public static $opened = false;
+
   ////////////////////////////////////////////////////////////////////
   /////////////////////////// CORE METHODS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -91,6 +98,9 @@ class Group extends Tag
    */
   public function __construct(Former $former, $label, $validations = null)
   {
+    // Close previously opened group
+    static::$opened = false;
+
     // Get special classes
     $this->former = $former;
     $this->addClass($this->former->getFramework()->getGroupClasses());
@@ -101,7 +111,9 @@ class Group extends Tag
     }
 
     // Set group label
-    if ($label) $this->setLabel($label);
+    if ($label) {
+      $this->setLabel($label);
+    }
 
     // Set validations used to override groups own conclusions
     $this->validations = $validations;
@@ -133,7 +145,9 @@ class Group extends Tag
     } else {
       $errors = $this->former->getErrors();
     }
-    if ($errors) $this->state('error');
+    if ($errors) {
+      $this->state('error');
+    }
 
     // Retrieve state and append it to classes
     if ($this->state) {
@@ -225,7 +239,10 @@ class Group extends Tag
    */
   public function getFormattedLabel()
   {
-    if (!$this->label) return false;
+    if (!$this->label) {
+      return false;
+    }
+
     return $this->label->addClass($this->former->getFramework()->getLabelClasses());
   }
 
@@ -244,7 +261,7 @@ class Group extends Tag
    */
   public function isRaw()
   {
-    return $this->raw == true;
+    return static::$opened or $this->raw;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -376,7 +393,9 @@ class Group extends Tag
   protected function getLabel($field = null)
   {
     // Don't create a label if none exist
-    if (!$field or !$this->label) return null;
+    if (!$field or !$this->label) {
+      return null;
+    }
 
     // Wrap label in framework classes
     $this->label->addClass($this->former->getFramework()->getLabelClasses());
@@ -412,7 +431,9 @@ class Group extends Tag
    */
   protected function prependAppend($field)
   {
-    if (!$this->prepend and !$this->append) return $field->render();
+    if (!$this->prepend and !$this->append) {
+      return $field->render();
+    }
 
     // Prepare wrapping div
     $class = null;
@@ -453,5 +474,4 @@ class Group extends Tag
       $this->{$place}[] = $item;
     }
   }
-
 }

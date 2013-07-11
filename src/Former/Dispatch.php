@@ -86,6 +86,7 @@ class Dispatch
       return false;
     }
 
+    Form\Group::$opened = true;
     return new Form\Group(
       $former,
       Arrays::get($parameters, 0, null),
@@ -159,7 +160,7 @@ class Dispatch
 
     // Else convert known fields to their classes
     switch ($method) {
-      case 'submit':
+        case 'submit':
       case 'link':
       case 'reset':
         $class = 'Button';

@@ -81,7 +81,7 @@ class GroupTest extends FormerTests
 
   public function testCanOpenGroupManually()
   {
-    $group = $this->former->group('foo')->__toString();
+    $group   = $this->former->group('foo')->__toString();
     $matcher = '<div class="control-group"><label for="Foo" class="control-label">Foo</label>';
 
     $this->assertEquals($matcher, $group);
