@@ -327,4 +327,11 @@ class GroupTest extends FormerTests
 
     $this->assertNotContains('control-group', $test);
   }
+
+  public function testCanSetAttributesOnGroup()
+  {
+    $text = $this->former->text('foobar')->onGroupAddClass('foobar')->__toString();
+
+    $this->assertContains('control-group foobar', $text);
+  }
 }
