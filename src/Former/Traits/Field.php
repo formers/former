@@ -251,6 +251,20 @@ abstract class Field extends FormerObject implements FieldInterface
   }
 
   /**
+   * Change the field's placeholder
+   *
+   * @param  string $value
+   *
+   * @return Field
+   */
+  public function placeholder($value)
+  {
+    $this->placeholder = Helpers::translate($value);
+
+    return $this;
+  }
+
+  /**
    * Set the Field value no matter what
    *
    * @param string $value A new value
