@@ -1096,12 +1096,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "b1c48bb731933100540c63720303814ebb611c59"
+                "reference": "1c8466eea14e2f9ec50235ff63027c848cf45040"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/b1c48bb731933100540c63720303814ebb611c59",
-                "reference": "b1c48bb731933100540c63720303814ebb611c59",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/1c8466eea14e2f9ec50235ff63027c848cf45040",
+                "reference": "1c8466eea14e2f9ec50235ff63027c848cf45040",
                 "shasum": ""
             },
             "require": {
@@ -1137,7 +1137,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-07-08 13:36:15"
+            "time": "2013-07-11 19:36:36"
         },
         {
             "name": "symfony/http-kernel",
@@ -1146,12 +1146,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "1fc0a1d294a19948f9755ca8957cc61e7d2aab41"
+                "reference": "8055d68c62f3a85b831fe8271d6be41ad43391be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/1fc0a1d294a19948f9755ca8957cc61e7d2aab41",
-                "reference": "1fc0a1d294a19948f9755ca8957cc61e7d2aab41",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/8055d68c62f3a85b831fe8271d6be41ad43391be",
+                "reference": "8055d68c62f3a85b831fe8271d6be41ad43391be",
                 "shasum": ""
             },
             "require": {
@@ -1207,7 +1207,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2013-07-08 13:36:15"
+            "time": "2013-07-11 19:36:36"
         },
         {
             "name": "symfony/routing",

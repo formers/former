@@ -106,7 +106,7 @@ abstract class Checkable extends Field
     if ($this->items) {
       unset($this->former->labels[array_search($this->name, $this->former->labels)]);
       foreach ($this->items as $key => $item) {
-        $value = $this->isCheckbox() ? 1 : $key;
+        $value = $this->isCheckbox() && !$this->isGrouped() ? 1 : $key;
         $html .= $this->createCheckable($item, $value);
       }
 

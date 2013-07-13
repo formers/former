@@ -275,7 +275,7 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($chain, $auto);
     $this->assertEquals(
       '<label for="value_0" class="checkbox">'.
-        '<input id="value_0" type="checkbox" name="value[]" value="1">Value 01'.
+        '<input id="value_0" type="checkbox" name="value[]" value="0">Value 01'.
       '</label>'.
       '<label for="value_1" class="checkbox">'.
         '<input id="value_1" type="checkbox" name="value[]" value="1">Value 02'.
