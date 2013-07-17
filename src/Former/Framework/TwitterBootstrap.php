@@ -17,6 +17,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
 
   /**
    * The button types available
+   *
    * @var array
    */
   private $buttons = array(
@@ -26,6 +27,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
 
   /**
    * The field sizes available
+   *
    * @var array
    */
   private $fields = array(
@@ -36,6 +38,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
 
   /**
    * The field states available
+   *
    * @var array
    */
   protected $states = array(
@@ -60,6 +63,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    * Filter buttons classes
    *
    * @param  array $classes An array of classes
+   *
    * @return array A filtered array
    */
   public function filterButtonClasses($classes)
@@ -78,6 +82,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    * Filter field classes
    *
    * @param  array $classes An array of classes
+   *
    * @return array A filtered array
    */
   public function filterFieldClasses($classes)
@@ -141,6 +146,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    * Add label classes
    *
    * @param  array $attributes An array of attributes
+   *
    * @return array An array of attributes with the label class
    */
   public function getLabelClasses()
@@ -152,6 +158,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    * Add uneditable field classes
    *
    * @param  array $attributes The attributes
+   *
    * @return array An array of attributes with the uneditable class
    */
   public function getUneditableClasses()
@@ -164,6 +171,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    *
    * @param  array  $attributes The attributes
    * @param  string $type       The type of form to add
+   *
    * @return array
    */
   public function getFormClasses($type)
@@ -175,6 +183,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    * Add actions block class
    *
    * @param  array  $attributes The attributes
+   *
    * @return array
    */
   public function getActionClasses()
@@ -262,6 +271,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    * Wrap a field with potential additional tags
    *
    * @param  Field $field
+   *
    * @return string A wrapped field
    */
   public function wrapField($field)

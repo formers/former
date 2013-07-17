@@ -423,7 +423,7 @@ class Group extends Tag
   /**
    * Format the field with prepended/appended elements
    *
-   * @param  string $field The field to format
+   * @param  Field  $field The field to format
    * @return string        Field plus supplementary elements
    */
   protected function prependAppend($field)

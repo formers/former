@@ -117,7 +117,6 @@ class Select extends Field
 
     $attributes = array('value' => '', 'disabled' => 'disabled');
     if (!$this->value) $attributes['selected'] = 'selected';
-
     return Element::create('option', $this->placeholder, $attributes);
   }
 

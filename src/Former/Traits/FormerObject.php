@@ -13,6 +13,13 @@ abstract class FormerObject extends Element
 {
 
   /**
+   * The Former instance
+   *
+   * @var Former
+   */
+  protected $former;
+
+  /**
    * The field's name
    *
    * @var string
@@ -59,7 +66,7 @@ abstract class FormerObject extends Element
     $this->setId();
 
     // Encode HTML value
-    $isButton = method_exists($this, 'isButton') ? $this->isButton() : false;
+    $isButton = ($this instanceof Field) ? $this->isButton() : false;
     if (!$isButton and is_string($this->value)) {
       $this->value = Helpers::encode($this->value);
     }

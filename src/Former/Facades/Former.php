@@ -17,15 +17,15 @@ class Former extends Facade
    */
   protected static function getFacadeAccessor()
   {
-		// Bind Former classes
-		if (!static::$app) {
+    // Bind Former classes
+    if (!static::$app) {
       $app     = new Container;
       $factory = new FormerServiceProvider($app);
       $app     = $factory->bindCoreClasses($app);
       $app     = $factory->bindFormer($app);
 
-			static::$app = $app;
-		}
+      static::$app = $app;
+    }
 
     return 'former';
   }

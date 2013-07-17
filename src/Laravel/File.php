@@ -119,7 +119,7 @@ class File
    */
   public static function mime($extension, $default = 'application/octet-stream')
   {
-    $mimes = static::$mimes;
+    $mimes = self::$mimes;
 
     if ( ! array_key_exists($extension, $mimes)) return $default;
     return (is_array($mimes[$extension])) ? $mimes[$extension][0] : $mimes[$extension];

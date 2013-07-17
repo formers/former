@@ -47,12 +47,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Anahkiasen/underscore-php.git",
-                "reference": "1.2.1"
+                "reference": "049a491701a2ee1c15f82f4c502bbe87671d1619"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/underscore-php/zipball/1.2.1",
-                "reference": "1.2.1",
+                "url": "https://api.github.com/repos/Anahkiasen/underscore-php/zipball/049a491701a2ee1c15f82f4c502bbe87671d1619",
+                "reference": "049a491701a2ee1c15f82f4c502bbe87671d1619",
                 "shasum": ""
             },
             "require": {
@@ -77,7 +77,12 @@
                 }
             ],
             "description": "A redacted port of Underscore.js for PHP",
-            "time": "2013-06-25 10:32:36"
+            "keywords": [
+                "internals",
+                "laravel",
+                "toolkit"
+            ],
+            "time": "2013-07-15 09:18:39"
         },
         {
             "name": "illuminate/cache",
@@ -1049,12 +1054,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "71ced0f8fa27461da26c245ddf6b0e49a6a6c2c4"
+                "reference": "v2.3.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/71ced0f8fa27461da26c245ddf6b0e49a6a6c2c4",
-                "reference": "71ced0f8fa27461da26c245ddf6b0e49a6a6c2c4",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/v2.3.2",
+                "reference": "v2.3.2",
                 "shasum": ""
             },
             "require": {
@@ -1096,12 +1101,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "1c8466eea14e2f9ec50235ff63027c848cf45040"
+                "reference": "v2.3.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/1c8466eea14e2f9ec50235ff63027c848cf45040",
-                "reference": "1c8466eea14e2f9ec50235ff63027c848cf45040",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.3.2",
+                "reference": "v2.3.2",
                 "shasum": ""
             },
             "require": {
@@ -1137,7 +1142,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-07-11 19:36:36"
+            "time": "2013-07-17 05:57:53"
         },
         {
             "name": "symfony/http-kernel",
@@ -1146,12 +1151,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "8055d68c62f3a85b831fe8271d6be41ad43391be"
+                "reference": "515d24cbfcf795292393220a961f51188d7c7b13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/8055d68c62f3a85b831fe8271d6be41ad43391be",
-                "reference": "8055d68c62f3a85b831fe8271d6be41ad43391be",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/515d24cbfcf795292393220a961f51188d7c7b13",
+                "reference": "515d24cbfcf795292393220a961f51188d7c7b13",
                 "shasum": ""
             },
             "require": {
@@ -1207,7 +1212,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2013-07-11 19:36:36"
+            "time": "2013-07-17 08:47:37"
         },
         {
             "name": "symfony/routing",
@@ -1216,12 +1221,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
-                "reference": "3deda53b19ee9d361b03de5268bc91533eb76235"
+                "reference": "v2.3.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/3deda53b19ee9d361b03de5268bc91533eb76235",
-                "reference": "3deda53b19ee9d361b03de5268bc91533eb76235",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/v2.3.2",
+                "reference": "v2.3.2",
                 "shasum": ""
             },
             "require": {
@@ -1274,12 +1279,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "v2.3.1"
+                "reference": "v2.3.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/v2.3.1",
-                "reference": "v2.3.1",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/v2.3.2",
+                "reference": "v2.3.2",
                 "shasum": ""
             },
             "require": {

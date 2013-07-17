@@ -2,41 +2,119 @@
 namespace Former\Interfaces;
 
 use Former\Traits\Field;
-use HtmlObject\Element;
-use Illuminate\Container\Container;
 
 /**
  * Mandatory methods on all frameworks
  */
 interface FrameworkInterface
 {
-
-  public function __construct(Container $app);
-
-  // Filter arrays ------------------------------------------------- /
-
+  /**
+   * Filter buttons classes
+   *
+   * @param  array $classes An array of classes
+   *
+   * @return array A filtered array
+   */
   public function filterButtonClasses($classes);
+
+  /**
+   * Filter field classes
+   *
+   * @param  array $classes An array of classes
+   *
+   * @return array A filtered array
+   */
   public function filterFieldClasses($classes);
-  public function filterState($state);
 
-  // Get classes to add to attributes ------------------------------ /
-
+  /**
+   * Add classes to a field
+   *
+   * @param Field $field
+   * @param array $classes The possible classes to add
+   *
+   * @return Field
+   */
   public function getFieldClasses(Field $field, $classes);
+
+  /**
+   * Add group classes
+   *
+   * @return string A list of group classes
+   */
   public function getGroupClasses();
+
+  /**
+   * Add label classes
+   *
+   * @param  array $attributes An array of attributes
+   *
+   * @return array An array of attributes with the label class
+   */
   public function getLabelClasses();
-  public function getFormClasses($type);
+
+  /**
+   * Add uneditable field classes
+   *
+   * @param  array $attributes The attributes
+   *
+   * @return array An array of attributes with the uneditable class
+   */
   public function getUneditableClasses();
+
+  /**
+   * Add form class
+   *
+   * @param  array  $attributes The attributes
+   * @param  string $type       The type of form to add
+   *
+   * @return array
+   */
+  public function getFormClasses($type);
+
+  /**
+   * Add actions block class
+   *
+   * @param  array  $attributes The attributes
+   *
+   * @return array
+   */
   public function getActionClasses();
 
-  // Render blocks ------------------------------------------------- /
+  /**
+   * Render an help text
+   *
+   * @param string $text
+   * @param array  $attributes
+   *
+   * @return string
+   */
+  public function createHelp($text, $attributes = array());
 
-  public function createLabelOf(Field $field, Element $label);
-  public function createHelp($text, $attributes);
-  public function createIcon($icon, $attributes);
+  /**
+   * Render a disabled field
+   *
+   * @param Field $field
+   *
+   * @return string
+   */
   public function createDisabledField(Field $field);
 
-  // Wrap blocks (hooks) ------------------------------------------- /
+  /**
+   * Render an icon
+   *
+   * @param string $icon       The icon name
+   * @param array  $attributes Its attributes
+   *
+   * @return string
+   */
+  public function createIcon($iconType, $attributes = array());
 
+  /**
+   * Wrap a field with potential additional tags
+   *
+   * @param  Field $field
+   *
+   * @return string A wrapped field
+   */
   public function wrapField($field);
-
 }

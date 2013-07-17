@@ -331,7 +331,7 @@ class Former
 
     $this->setOption('framework', $framework);
     $class = __NAMESPACE__.'\Framework\\'.$framework;
-    $this->app->bind('former.framework', function ($app) use($class) {
+    $this->app->bind('former.framework', function ($app) use ($class) {
       return new $class($app);
     });
   }

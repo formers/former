@@ -3,7 +3,6 @@ namespace Former;
 
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
-use Underscore\Methods\StringMethods as String;
 
 /**
  * Various helpers used by all Former classes
@@ -16,14 +15,14 @@ class Helpers
    *
    * @var Former
    */
-  private static $former;
+  protected static $former;
 
   /**
    * The Translator instance
    *
    * @var Translator
    */
-  private static $translator;
+  protected static $translator;
 
   /**
    * Bind a Container to the Helpers class

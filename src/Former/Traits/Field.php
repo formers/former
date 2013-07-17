@@ -18,13 +18,6 @@ abstract class Field extends FormerObject implements FieldInterface
 {
 
   /**
-   * The Former instance
-   *
-   * @var Former
-   */
-  protected $former;
-
-  /**
    * The Form instance
    *
    * @var Former\Form

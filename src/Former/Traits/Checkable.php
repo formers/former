@@ -289,8 +289,8 @@ abstract class Checkable extends Field
   /**
    * Renders a checkable
    *
-   * @param  string $item          A checkable item
-   * @param  string $fallbackValue A fallback value if none is set
+   * @param  string|array $item          A checkable item
+   * @param  string       $fallbackValue A fallback value if none is set
    * @return string
    */
   protected function createCheckable($item, $fallbackValue = 1)

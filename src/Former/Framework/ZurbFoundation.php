@@ -7,7 +7,6 @@ use Former\Traits\Framework;
 use HtmlObject\Element;
 use HtmlObject\Input;
 use Illuminate\Container\Container;
-use Underscore\Methods\ArraysMethods as Arrays;
 
 /**
  * The Zurb Foundation form framework
@@ -17,6 +16,7 @@ class ZurbFoundation extends Framework implements FrameworkInterface
 
   /**
    * The field sizes available
+   *
    * @var array
    */
   private $fields = array(
@@ -26,6 +26,7 @@ class ZurbFoundation extends Framework implements FrameworkInterface
 
   /**
    * The field states available
+   *
    * @var array
    */
   protected $states = array(
@@ -35,7 +36,7 @@ class ZurbFoundation extends Framework implements FrameworkInterface
   /**
    * Create a new ZurbFoundation instance
    *
-   * @param \Illuminate\Container\Container $app
+   * @param Container $app
    */
   public function __construct(Container $app)
   {
@@ -104,12 +105,12 @@ class ZurbFoundation extends Framework implements FrameworkInterface
   //////////////////////////// RENDER BLOCKS /////////////////////////
   ////////////////////////////////////////////////////////////////////
 
-  public function createHelp($text, $attributes)
+  public function createHelp($text, $attributes = array())
   {
     return Element::create('small', $text, $attributes);
   }
 
-  public function createIcon($icon, $attributes)
+  public function createIcon($icon, $attributes = array())
   {
     return $icon;
   }

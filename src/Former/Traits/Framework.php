@@ -18,6 +18,12 @@ abstract class Framework
    */
   protected $app;
 
+  /**
+   * The field states available
+   * @var array
+   */
+  protected $states = array();
+
   ////////////////////////////////////////////////////////////////////
   //////////////////////// CURRENT FRAMEWORK /////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -36,6 +42,7 @@ abstract class Framework
    * Check if the current framework matches something
    *
    * @param  string $framework
+   *
    * @return boolean
    */
   public function is($framework)
@@ -47,6 +54,7 @@ abstract class Framework
    * Check if the current framework doesn't match something
    *
    * @param  string $framework
+   *
    * @return boolean
    */
   public function isnt($framework)
@@ -62,6 +70,7 @@ abstract class Framework
    * Filter a field state
    *
    * @param string $state
+   *
    * @return string
    */
   public function filterState($state)

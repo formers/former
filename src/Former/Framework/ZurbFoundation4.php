@@ -7,7 +7,6 @@ use Former\Traits\Framework;
 use HtmlObject\Element;
 use HtmlObject\Input;
 use Illuminate\Container\Container;
-use Underscore\Methods\ArraysMethods as Arrays;
 
 /**
  * The Zurb Foundation 4 form framework
