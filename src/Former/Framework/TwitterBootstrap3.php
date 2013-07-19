@@ -1,4 +1,5 @@
-<?php namespace Former\Framework;
+<?php 
+namespace Former\Framework;
 
 use Former\Interfaces\FrameworkInterface;
 use Former\Traits\Field;
@@ -11,7 +12,7 @@ use Underscore\Methods\StringMethods as String;
 /**
  * The Twitter Bootstrap form framework
  */
-class TwitterBootstrap3 extends Framework implements FrameworkInterface
+class TwitterBootstrap3 extends TwitterBootstrap implements FrameworkInterface
 {
 
     /**
@@ -59,24 +60,6 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
     ////////////////////////////////////////////////////////////////////
 
     /**
-     * Filter buttons classes
-     *
-     * @param  array $classes An array of classes
-     * @return array A filtered array
-     */
-    public function filterButtonClasses($classes)
-    {
-        // Filter classes
-        // $classes = array_intersect($classes, $this->buttons);
-
-        // Prepend button type
-        $classes = $this->prependWith($classes, 'btn-');
-        $classes[] = 'btn';
-
-        return $classes;
-    }
-
-    /**
      * Filter field classes
      *
      * @param  array $classes An array of classes
@@ -100,33 +83,6 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
     ////////////////////////////////////////////////////////////////////
 
     /**
-     * Add classes to a field
-     *
-     * @param Field $field
-     * @param array $classes The possible classes to add
-     *
-     * @return Field
-     */
-    public function getFieldClasses(Field $field, $classes)
-    {
-        // Add inline class for checkables
-        if ($field->isCheckable() and in_array('inline', $classes)) {
-            $field->inline();
-        }
-
-        // Filter classes according to field type
-        if ($field->isButton()) $classes = $this->filterButtonClasses($classes);
-        else $classes = $this->filterFieldClasses($classes);
-
-        // If we found any class, add them
-        if ($classes) {
-            $field->class(implode(' ', $classes));
-        }
-
-        return $field;
-    }
-
-    /**
      * Add group classes
      *
      * @return string A list of group classes
@@ -134,40 +90,6 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
     public function getGroupClasses()
     {
         return 'row';
-    }
-
-    /**
-     * Add label classes
-     *
-     * @param  array $attributes An array of attributes
-     * @return array An array of attributes with the label class
-     */
-    public function getLabelClasses()
-    {
-        return 'control-label';
-    }
-
-    /**
-     * Add uneditable field classes
-     *
-     * @param  array $attributes The attributes
-     * @return array An array of attributes with the uneditable class
-     */
-    public function getUneditableClasses()
-    {
-        return 'uneditable-input';
-    }
-
-    /**
-     * Add form class
-     *
-     * @param  array  $attributes The attributes
-     * @param  string $type       The type of form to add
-     * @return array
-     */
-    public function getFormClasses($type)
-    {
-        return $type ? 'form-'.$type : null;
     }
 
     /**
@@ -184,44 +106,6 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
     ////////////////////////////////////////////////////////////////////
     //////////////////////////// RENDER BLOCKS /////////////////////////
     ////////////////////////////////////////////////////////////////////
-
-    /**
-     * Render an help text
-     *
-     * @param string $text
-     * @param array  $attributes
-     *
-     * @return string
-     */
-    public function createHelp($text, $attributes = array())
-    {
-        return Element::create('span', $text, $attributes)->addClass('help-inline');
-    }
-
-    /**
-     * Render a block help text
-     *
-     * @param string $text
-     * @param array  $attributes
-     *
-     * @return string
-     */
-    public function createBlockHelp($text, $attributes = array())
-    {
-        return Element::create('p', $text, $attributes)->addClass('help-block');
-    }
-
-    /**
-     * Render a disabled field
-     *
-     * @param Field $field
-     *
-     * @return string
-     */
-    public function createDisabledField(Field $field)
-    {
-        return Element::create('span', $field->getValue(), $field->getAttributes());
-    }
 
     /**
      * Render an icon
@@ -242,21 +126,6 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
         $icon->addClass('glyphicon-'.$iconType);
 
         return $icon;
-    }
-
-    ////////////////////////////////////////////////////////////////////
-    //////////////////////////// WRAP BLOCKS ///////////////////////////
-    ////////////////////////////////////////////////////////////////////
-
-    /**
-     * Wrap a field with potential additional tags
-     *
-     * @param  Field $field
-     * @return string A wrapped field
-     */
-    public function wrapField($field)
-    {
-        return Element::create('div', $field)->addClass('controls');
     }
 
 }
