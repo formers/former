@@ -271,7 +271,7 @@ class SelectTest extends FormerTests
 
   public function testCanCreateRangeSelects()
   {
-    $select  = $this->former->select('foo')->range(1, 10);
+    $select = $this->former->select('foo')->range(1, 10);
 
     $this->assertEquals(range(1, 10), array_keys($select->getOptions()));
     $this->assertContains('<option value="1">1</option>', $select->render());
@@ -292,6 +292,19 @@ class SelectTest extends FormerTests
         '<option value="1">foo</option><option value="2">bar</option>'.
       '</optgroup>'.
     '</select>';
+    $this->assertEquals($matcher, $select->render());
+  }
+
+  public function testCanUseEmptyPlaceholders()
+  {
+    $select = $this->former->select('foo')->options(array(
+      '' => '',
+      0 => 'foo',
+      1 => 'bar',
+    ));
+
+    $matcher = '<select id="foo" name="foo"><option value=""></option><option value="0">foo</option><option value="1">bar</option></select>';
+
     $this->assertEquals($matcher, $select->render());
   }
 

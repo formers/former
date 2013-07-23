@@ -183,7 +183,7 @@ class Select extends Field
    */
   public function addOption($text = null, $value = null)
   {
-    $childrenKey = $value ?: sizeof($this->children);
+    $childrenKey = !is_null($value) ? $value : sizeof($this->children);
 
     if (is_array($text)) {
       $this->children[$childrenKey] = Element::create('optgroup')->label($value);
