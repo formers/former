@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Anahkiasen/html-object.git",
-                "reference": "0.1.0"
+                "reference": "84d3b1266865e054ef33e24b9eee08aa3dd29c21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/0.1.0",
-                "reference": "0.1.0",
+                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/84d3b1266865e054ef33e24b9eee08aa3dd29c21",
+                "reference": "84d3b1266865e054ef33e24b9eee08aa3dd29c21",
                 "shasum": ""
             },
             "require": {
@@ -39,7 +39,7 @@
                 }
             ],
             "description": "A set of classes to create and manipulate HTML objects abstractions",
-            "time": "2013-06-06 19:42:31"
+            "time": "2013-07-29 14:47:43"
         },
         {
             "name": "anahkiasen/underscore-php",
@@ -858,12 +858,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nrk/predis.git",
-                "reference": "4576dc029f04f25438521065aa4d29419a19bf2a"
+                "reference": "v0.8.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nrk/predis/zipball/4576dc029f04f25438521065aa4d29419a19bf2a",
-                "reference": "4576dc029f04f25438521065aa4d29419a19bf2a",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/v0.8.4",
+                "reference": "v0.8.4",
                 "shasum": ""
             },
             "require": {
@@ -897,7 +897,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2013-06-17 09:16:07"
+            "time": "2013-07-27 09:13:54"
         },
         {
             "name": "psr/log",
@@ -944,12 +944,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Debug.git",
-                "reference": "f1c1b48cfee238f21a6b11b8efec12cb59f55353"
+                "reference": "a0c8c08341a7a572f4e9c71555e70c7b032557f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Debug/zipball/f1c1b48cfee238f21a6b11b8efec12cb59f55353",
-                "reference": "f1c1b48cfee238f21a6b11b8efec12cb59f55353",
+                "url": "https://api.github.com/repos/symfony/Debug/zipball/a0c8c08341a7a572f4e9c71555e70c7b032557f8",
+                "reference": "a0c8c08341a7a572f4e9c71555e70c7b032557f8",
                 "shasum": ""
             },
             "require": {
@@ -991,7 +991,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "http://symfony.com",
-            "time": "2013-07-08 13:37:01"
+            "time": "2013-07-28 20:44:44"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1151,12 +1151,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "491ab88785aa42e5115a8b619e0640ed56c40395"
+                "reference": "80b417bc2f51e0812aec584296091641116f13ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/491ab88785aa42e5115a8b619e0640ed56c40395",
-                "reference": "491ab88785aa42e5115a8b619e0640ed56c40395",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/80b417bc2f51e0812aec584296091641116f13ab",
+                "reference": "80b417bc2f51e0812aec584296091641116f13ab",
                 "shasum": ""
             },
             "require": {
@@ -1212,7 +1212,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2013-07-21 12:12:18"
+            "time": "2013-07-27 05:01:40"
         },
         {
             "name": "symfony/routing",
@@ -1335,12 +1335,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "7c53b7a6d1d1538f8180927247c96dd1df900248"
+                "reference": "437735be9c1760994c401f8752301f187b0954ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/7c53b7a6d1d1538f8180927247c96dd1df900248",
-                "reference": "7c53b7a6d1d1538f8180927247c96dd1df900248",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/437735be9c1760994c401f8752301f187b0954ba",
+                "reference": "437735be9c1760994c401f8752301f187b0954ba",
                 "shasum": ""
             },
             "require": {
@@ -1381,7 +1381,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2013-07-10 22:15:03"
+            "time": "2013-07-24 12:43:00"
         }
     ],
     "aliases": [
