@@ -268,6 +268,42 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   ////////////////////////////////////////////////////////////////////
 
   /**
+   * Wrap an item to be prepended or appended to the current field
+   *
+   * @param  string $item
+   *
+   * @return string A wrapped item
+   */
+  public function placeAround($item)
+  {
+    return Element::create('span', $item)->addClass('add-on');
+  }
+
+  /**
+   * Wrap a field with prepended and appended items
+   *
+   * @param  Field $field
+   * @param  array $prepend
+   * @param  array $append
+   *
+   * @return string A field concatented with prepended and/or appended items
+   */
+  public function prependAppend($field, $prepend, $append)
+  {
+    $class = array();
+    if ($prepend) $class[] = 'input-prepend';
+    if ($append) $class[] = 'input-append';
+
+    $return = '<div class="'.join(' ', $class).'">';
+      $return .= join(null, $prepend);
+      $return .= $field->render();
+      $return .= join(null, $append);
+    $return .= '</div>';
+
+    return $return;
+  }
+
+  /**
    * Wrap a field with potential additional tags
    *
    * @param  Field $field

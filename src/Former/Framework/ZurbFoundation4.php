@@ -145,8 +145,56 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
   //////////////////////////// WRAP BLOCKS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
 
+  /**
+   * Wrap an item to be prepended or appended to the current field.
+   * For Zurb we return the item and handle the wrapping in prependAppend
+   * as wrapping is dependent on whether we're prepending or appending.
+   *
+   * @param  string $field
+   *
+   * @return string A wrapped item
+   */
+  public function placeAround($item)
+  {
+    return $item;
+  }
+
+  /**
+   * Wrap a field with prepended and appended items
+   *
+   * @param  Field $field
+   * @param  array $prepend
+   * @param  array $append
+   *
+   * @return string A field concatented with prepended and/or appended items
+   */
+  public function prependAppend($field, $prepend, $append)
+  {
+    $return = '';
+
+    foreach ($prepend as $item) {
+      $return .= '<div class="large-2 small-3 columns"><span class="prefix">'.$item.'</span></div>';
+    }
+
+    $return .= '<div class="large-10 small-9 columns">'.$field->render().'</div>';
+
+    foreach ($append as $item) {
+      $return .= '<div class="large-2 small-3 columns"><span class="postfix">'.$item.'</span></div>';
+    }
+
+    return $return;
+  }
+
+  /**
+   * Wraps all field contents with potential additional tags.
+   *
+   * @param  Field $field
+   *
+   * @return string A wrapped field
+   */
   public function wrapField($field)
   {
-    return $field;
+    return Element::create('div', $field)->addClass('row collapse');
   }
+  
 }
