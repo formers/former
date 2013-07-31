@@ -125,6 +125,38 @@ class Nude extends Framework implements FrameworkInterface
   //////////////////////////// WRAP BLOCKS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
 
+  /**
+   * Wrap an item to be prepended or appended to the current field
+   *
+   * @param  string $item
+   *
+   * @return string A wrapped item
+   */
+  public function placeAround($item)
+  {
+    return Element::create('span', $item);
+  }
+
+  /**
+   * Wrap a field with prepended and appended items
+   *
+   * @param  Field $field
+   * @param  array $prepend
+   * @param  array $append
+   *
+   * @return string A field concatented with prepended and/or appended items
+   */
+  public function prependAppend($field, $prepend, $append)
+  {
+    $return = '<div>';
+      $return .= join(null, $prepend);
+      $return .= $field->render();
+      $return .= join(null, $append);
+    $return .= '</div>';
+
+    return $return;
+  }
+
   public function wrapField($field)
   {
     return $field;
