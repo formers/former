@@ -50,15 +50,15 @@ class GroupTest extends FormerTests
     foreach($prepend as $k => $p) if(!String::startsWith($p, '<button')) $prepend[$k] = '<span class="add-on">' .$p. '</span>';
     foreach($append as $k => $a)  if(!String::startsWith($a, '<button'))  $append[$k] = '<span class="add-on">' .$a. '</span>';
 
-    $class = null;
-    if($prepend) $class = "input-prepend";
-    if($append) $class .= " input-append";
+    $class = array();
+    if($prepend) $class[] = "input-prepend";
+    if($append) $class[] = "input-append";
 
     return
     '<div class="control-group">' .
       '<label for="foo" class="control-label">Foo</label>' .
       '<div class="controls">' .
-        '<div class="' .$class. '">'.
+        '<div class="' .implode(' ',$class). '">'.
           join(null, $prepend).
           '<input id="foo" type="text" name="foo">' .
           join(null, $append).

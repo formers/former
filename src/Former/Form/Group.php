@@ -432,19 +432,7 @@ class Group extends Tag
       return $field->render();
     }
 
-    // Prepare wrapping div
-    $class = null;
-    if ($this->prepend) $class  = 'input-prepend';
-    if ($this->append)  $class .= ' input-append';
-
-    // Build div
-    $return = '<div class="' .$class. '">';
-      $return .= join(null, $this->prepend);
-      $return .= $field->render();
-      $return .= join(null, $this->append);
-    $return .= '</div>';
-
-    return $return;
+    return $this->former->getFramework()->prependAppend($field, $this->prepend, $this->append);
   }
 
   /**
@@ -465,7 +453,7 @@ class Group extends Tag
 
       // If the item is not a button, wrap it
       if (is_string($item) and !String::startsWith($item, '<button')) {
-        $item = '<span class="add-on">'.$item.'</span>';
+        $item = $this->former->getFramework()->placeAround($item);
       }
 
       $this->{$place}[] = $item;
