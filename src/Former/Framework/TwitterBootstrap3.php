@@ -117,15 +117,9 @@ class TwitterBootstrap3 extends TwitterBootstrap implements FrameworkInterface
    */
   public function createIcon($iconType, $attributes = array())
   {
-    $icon = Element::create('glyphicon', null, $attributes);
-
-    // Check for empty icons
     if (!$iconType) return false;
 
-    // Create icon
-    $icon->addClass('glyphicon-'.$iconType);
-
-    return $icon;
+    return Element::create('span', null, $attributes)->addClass('glyphicon glyphicon-'.$iconType);
   }
 
 }
