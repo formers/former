@@ -110,6 +110,26 @@ interface FrameworkInterface
   public function createIcon($iconType, $attributes = array());
 
   /**
+   * Wrap an item to be prepended or appended to the current field
+   *
+   * @param  string $item
+   *
+   * @return string A wrapped item
+   */
+  public function placeAround($item);
+
+  /**
+   * Wrap a field with prepended and appended items
+   *
+   * @param  Field $field
+   * @param  array $prepend
+   * @param  array $append
+   *
+   * @return string A field concatented with prepended and/or appended items
+   */
+  public function prependAppend($field, $prepend, $append);
+
+  /**
    * Wrap a field with potential additional tags
    *
    * @param  Field $field
