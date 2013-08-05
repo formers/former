@@ -154,11 +154,11 @@ abstract class IlluminateMock extends PHPUnit_Framework_TestCase
   protected function mockMessageBag(array $errors)
   {
     $messages = Mockery::mock('MessageBag');
-    $messages->shouldReceive('first')->andReturn(null)->byDefault();
     foreach ($errors as $key => $value) {
       $messages->shouldReceive('has')->with($key)->andReturn(true);
       $messages->shouldReceive('first')->with($key)->andReturn($value);
     }
+    $messages->shouldReceive('first')->withAnyArgs()->andReturn(null);
 
     return $messages;
   }
