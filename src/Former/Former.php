@@ -86,7 +86,6 @@ class Former
   public function __construct(Container $app)
   {
     $this->app = $app;
-    Helpers::setApp($this, $this->app['translator']);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -256,22 +255,17 @@ class Former
   {
     // Try to get the errors form the session
     if ($this->app['session']->has('errors')) {
-      $errors = $this->app['session']->get('errors');
+      return $this->errors = $this->app['session']->get('errors');
     }
 
     // If we're given a raw Validator, go fetch the errors in it
     if (method_exists($validator, 'getMessageBag')) {
-      $errors = $validator->getMessageBag();
-    }
-    if ($validator instanceof \Laravel\Validator) {
-      $errors = $validator->errors;
+      return $this->errors = $validator->getMessageBag();
     }
 
-    // If we found errors, bind them to the form
-    if (isset($errors)) {
-      $this->errors = $errors;
-    } elseif ($validator) {
-      $this->errors = $validator;
+    // If it's an old Validator
+    if ($validator instanceof \Laravel\Validator) {
+      return $this->errors = $validator->errors;
     }
   }
 
@@ -426,20 +420,17 @@ class Former
    */
   public function getErrors($name = null)
   {
-    if (!$this->field) {
-      return false;
-    }
-
     // Get name and translate array notation
-    if (!$name) {
+    if (!$name and $this->field) {
       $name = $this->field->getName();
     }
-    $name = str_replace(array('[', ']'), array('.', ''), $name);
-    //$name = preg_replace('/\[([0-9a-z_\-]+)\]/', '.$1', $name);
 
-    if ($this->errors) {
+    if ($this->errors and $name) {
+      $name = str_replace(array('[', ']'), array('.', ''), $name);
       return $this->errors->first($name);
     }
+
+    return $this->errors;
   }
 
   /**

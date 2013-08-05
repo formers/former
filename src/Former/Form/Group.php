@@ -14,7 +14,6 @@ use Underscore\Methods\StringMethods as String;
  */
 class Group extends Tag
 {
-
   /**
    * The Former instance
    *
@@ -133,16 +132,7 @@ class Group extends Tag
    */
   public function open()
   {
-    // If any errors, set state to errors
-    if (is_array($this->validations)) {
-      $errors = '';
-      foreach ($this->validations as $validation) {
-        $errors .= $this->former->getErrors($validation);
-      }
-    } else {
-      $errors = $this->former->getErrors();
-    }
-    if ($errors) {
+    if ($this->getErrors()) {
       $this->state('error');
     }
 
@@ -362,6 +352,26 @@ class Group extends Tag
   ////////////////////////////////////////////////////////////////////
   //////////////////////////////// HELPERS ///////////////////////////
   ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Get the errors for the group
+   *
+   * @return string
+   */
+  protected function getErrors()
+  {
+    // If any errors, set state to errors
+    if (is_array($this->validations)) {
+      $errors = '';
+      foreach ($this->validations as $validation) {
+        $errors .= $this->former->getErrors($validation);
+      }
+    } else {
+      $errors = $this->former->getErrors();
+    }
+
+    return $errors;
+  }
 
   /**
    * Wraps content in a group
