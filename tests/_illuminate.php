@@ -7,28 +7,40 @@ use Former\FormerServiceProvider;
  */
 abstract class IlluminateMock extends PHPUnit_Framework_TestCase
 {
+  /**
+   * A cache of the container
+   *
+   * @var Container
+   */
+  protected static $appCache;
 
   /**
    * The current instance of the Container
    *
    * @var Container
    */
-  public $app;
+  protected $app;
 
   /**
    * Build the IoC Container for the tests
    */
   public function setUp()
   {
-    $this->app = FormerServiceProvider::make();
+    if (!static::$appCache) {
+      $app = FormerServiceProvider::make();
 
-    // Setup Illuminate
-    $this->app['config']     = $this->mockConfig();
-    $this->app['request']    = $this->mockRequest();
-    $this->app['session']    = $this->mockSession();
-    $this->app['translator'] = $this->mockTranslator();
-    $this->app['url']        = $this->mockUrl();
-    $this->app['validator']  = $this->mockValidator();
+      // Setup Illuminate
+      $app['session']    = $this->mockSession();
+      $app['translator'] = $this->mockTranslator();
+      $app['url']        = $this->mockUrl();
+      $app['validator']  = $this->mockValidator();
+
+      static::$appCache = $app;
+    }
+
+    $this->app = static::$appCache;
+    $this->app['config']  = $this->mockConfig();
+    $this->app['request'] = $this->mockRequest();
   }
 
   /**
