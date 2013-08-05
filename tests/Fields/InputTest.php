@@ -31,7 +31,7 @@ class InputTest extends FormerTests
 
   public function testCanCreateTextWithoutLabel()
   {
-    $this->app->app['config'] = $this->app->getConfig(true, '', false, false);
+    $this->config = $this->mockConfig(true, '', false, false);
 
     $input = $this->former->text('foo')->__toString();
     $matchField = Arrays::remove($this->matchField(), 'id');
@@ -242,7 +242,7 @@ class InputTest extends FormerTests
 
   public function testCanCreateWithErrors()
   {
-    $validator = $this->app->app['validator']->getMessages();
+    $validator = $this->validator->getMessages();
 
     $this->former->withErrors($validator);
     $required = $this->former->text('required')->__toString();
@@ -260,8 +260,8 @@ class InputTest extends FormerTests
 
   public function testCanDisableErrors()
   {
-    $validator = $this->app->app['validator']->getMessages();
-    $this->app->app['config'] = $this->app->getConfig(true, '', false, true, false);
+    $validator = $this->validator->getMessages();
+    $this->config = $this->mockConfig(true, '', false, true, false);
 
     $this->former->withErrors($validator);
     $required = $this->former->text('required')->__toString();

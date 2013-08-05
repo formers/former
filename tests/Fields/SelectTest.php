@@ -86,7 +86,7 @@ class SelectTest extends FormerTests
 
   public function testSelectLang()
   {
-    $select = $this->former->select('foo')->options($this->app->app['translator']->get('pagination'), 'previous')->__toString();
+    $select = $this->former->select('foo')->options($this->translator->get('pagination'), 'previous')->__toString();
     $matcher = $this->controlGroup(
     '<select id="foo" name="foo">'.
       '<option value="previous" selected="selected">Previous</option>'.

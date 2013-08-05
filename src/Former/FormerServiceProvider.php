@@ -25,8 +25,7 @@ class FormerServiceProvider extends ServiceProvider
    */
   public function register()
   {
-    // Register config file
-    $this->app['config']->package('anahkiasen/former', __DIR__.'/../config');
+    // ...
   }
 
   /**
@@ -36,8 +35,7 @@ class FormerServiceProvider extends ServiceProvider
    */
   public function boot()
   {
-    $this->app = $this->bindCoreClasses($this->app);
-    $this->app = $this->bindFormer($this->app);
+    $this->app = static::make($this->app);
   }
 
   /**
@@ -53,6 +51,27 @@ class FormerServiceProvider extends ServiceProvider
   ////////////////////////////////////////////////////////////////////
   /////////////////////////// CLASS BINDINGS /////////////////////////
   ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Create a Former container
+   *
+   * @param  Container $app
+   *
+   * @return Container
+   */
+  public static function make($app = null)
+  {
+    if (!$app) {
+      $app = new Container;
+    }
+
+    // Bind classes to container
+    $provider = new static($app);
+    $app      = $provider->bindCoreClasses($app);
+    $app      = $provider->bindFormer($app);
+
+    return $app;
+  }
 
   /**
    * Bind legacy classes for Laravel 3
@@ -100,8 +119,14 @@ class FormerServiceProvider extends ServiceProvider
       return $this->bindLegacyClasses($app);
     }
 
+    // Core classes
+    //////////////////////////////////////////////////////////////////
+
     $app->bindIf('files', 'Illuminate\Filesystem\Filesystem');
     $app->bindIf('url', 'Illuminate\Routing\UrlGenerator');
+
+    // Session and request
+    //////////////////////////////////////////////////////////////////
 
     $app->bindIf('session.manager', function ($app) {
       return new SessionManager($app);
@@ -118,11 +143,20 @@ class FormerServiceProvider extends ServiceProvider
       return $request;
     }, true);
 
+    // Config
+    //////////////////////////////////////////////////////////////////
+
     $app->bindIf('config', function ($app) {
       $fileloader = new ConfigLoader($app['files'], __DIR__.'/../config');
 
       return new Repository($fileloader, 'config');
     }, true);
+
+    // Add config namespace
+    $app['config']->package('anahkiasen/former', __DIR__.'/../config');
+
+    // Localization
+    //////////////////////////////////////////////////////////////////
 
     $app->bindIf('translation.loader', function ($app) {
       return new FileLoader($app['files'], 'src/config');

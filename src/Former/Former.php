@@ -372,7 +372,7 @@ class Former
    */
   public function getOption($option, $default = null)
   {
-    return $this->app['config']->get($this->getOptionPrefix().$option, $default);
+    return $this->app['config']->get('former::'.$option, $default);
   }
 
   /**
@@ -383,20 +383,7 @@ class Former
    */
   public function setOption($option, $value)
   {
-    return $this->app['config']->set($this->getOptionPrefix().$option, $value);
-  }
-
-  /**
-   * Get the correct options prefix to use according to context
-   *
-   * @return string
-   */
-  protected function getOptionPrefix()
-  {
-    $prefix = $this->app['config']->get('former::framework');
-    $prefix = !empty($prefix) ? 'former::' : 'config.';
-
-    return $prefix;
+    return $this->app['config']->set('former::'.$option, $value);
   }
 
   ////////////////////////////////////////////////////////////////////

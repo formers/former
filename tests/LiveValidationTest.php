@@ -426,7 +426,7 @@ class LiveValidationTest extends FormerTests
   public function testCanDisableLiveValidation()
   {
     // Change config
-    $this->app->app['config'] = $this->app->getConfig(false);
+    $this->config = $this->mockConfig(false);
     $this->former->withRules(array('foo' => 'required'));
 
     $input = $this->former->text('foo')->__toString();
@@ -439,7 +439,7 @@ class LiveValidationTest extends FormerTests
   public function testCanDisableLiveValidationAsArray()
   {
     // Change config
-    $this->app->app['config'] = $this->app->getConfig(false);
+    $this->config = $this->mockConfig(false);
     $this->former->withRules(array('foo' => array('required')));
 
     $input = $this->former->text('foo')->__toString();

@@ -1,10 +1,11 @@
 <?php
 use Illuminate\Container\Container;
+use Former\FormerServiceProvider;
 
 /**
  * Dummy Illuminate app for testing purposes
  */
-class IlluminateMock
+abstract class IlluminateMock extends PHPUnit_Framework_TestCase
 {
 
   /**
@@ -17,35 +18,40 @@ class IlluminateMock
   /**
    * Build the IoC Container for the tests
    */
-  public function __construct()
+  public function setUp()
   {
-    $app = new Container;
+    $this->app = FormerServiceProvider::make();
 
     // Setup Illuminate
-    $app['config']     = $this->getConfig();
-    $app['request']    = $this->getRequest();
-    $app['session']    = $this->getSession();
-    $app['translator'] = $this->getTranslator();
-    $app['Illuminate\Routing\UrlGenerator'] = $this->getUrl();
-    $app->alias('Illuminate\Routing\UrlGenerator', 'url');
-    $app['validator']  = $this->getValidator();
-
-    // Setup bindings
-    $serviceProvider = new Former\FormerServiceProvider($app);
-    $serviceProvider->bindCoreClasses($app);
-    $serviceProvider->bindFormer($app);
-
-    $this->app = $app;
-
-    return $this;
+    $this->app['config']     = $this->mockConfig();
+    $this->app['request']    = $this->mockRequest();
+    $this->app['session']    = $this->mockSession();
+    $this->app['translator'] = $this->mockTranslator();
+    $this->app['url']        = $this->mockUrl();
+    $this->app['validator']  = $this->mockValidator();
   }
 
   /**
-   * Get the container
+   * Get an instance on the Container
+   *
+   * @param  string $key
+   *
+   * @return object
    */
-  public function get()
+  public function __get($key)
   {
-    return $this->app;
+    return $this->app->make($key);
+  }
+
+  /**
+   * Set an instance on the Container
+   *
+   * @param string $key
+   * @param object $value
+   */
+  public function __set($key, $value)
+  {
+    return $this->app[$key] = $value;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -60,7 +66,7 @@ class IlluminateMock
    * @param boolean $push      Whether unchecked checkboxes should be pushed
    * @param boolean $automatic Automatic live validation or not
    */
-  public function getConfig($live = true, $unchecked = '', $push = false, $automatic = true, $errors = true)
+  protected function mockConfig($live = true, $unchecked = '', $push = false, $automatic = true, $errors = true)
   {
     $config = Mockery::mock('config');
     $config->shouldReceive('get')->with('application.encoding', Mockery::any())->andReturn('UTF-8');
@@ -91,10 +97,10 @@ class IlluminateMock
   /**
    * Get URL manager
    */
-  private function getUrl()
+  protected function mockUrl()
   {
     $url = Mockery::mock('Illuminate\Routing\UrlGenerator');
-    $url->shouldReceive('getRequest')->andReturn($this->getRequest());
+    $url->shouldReceive('getRequest')->andReturn($this->mockRequest());
     $url->shouldReceive('to')->andReturnUsing(function ($url) {
       return $url == '#' ? $url : 'https://test/en/'.$url;
     });
@@ -105,7 +111,7 @@ class IlluminateMock
   /**
    * Get Validator
    */
-  private function getValidator()
+  protected function mockValidator()
   {
     $validator = Mockery::mock('Illuminate\Validation\Validator');
     $validator->shouldReceive('getMessages')->andReturnUsing(function () {
@@ -121,33 +127,46 @@ class IlluminateMock
   /**
    * Get Session manager
    */
-  public function getSession($errors = null)
+  protected function mockSession($errors = null)
   {
     $session = Mockery::mock('Illuminate\Session\Store');
-    if ($errors) {
-      $session->shouldReceive('has')->with('errors')->andReturn(true);
-      $session->shouldReceive('get')->with('errors')->andReturnUsing(function () use ($errors) {
-        $messages = Mockery::mock('MessageBag');
-        foreach ($errors as $key => $value) {
-          $messages->shouldReceive('first')->with($key)->andReturn($value);
-        }
-        $messages->shouldReceive('first')->withAnyArgs()->andReturn(null);
+    $session->shouldReceive('getToken')->andReturn('csrf_token');
 
-        return $messages;
-      });
+    if ($errors) {
+      $messageBag = $this->mockMessageBag($errors);
+      $session->shouldReceive('has')->with('errors')->andReturn(true);
+      $session->shouldReceive('get')->with('errors')->andReturn($messageBag);
     } else {
       $session->shouldReceive('has')->with('errors')->andReturn(false);
       $session->shouldReceive('get')->with('errors')->andReturn(null);
     }
-    $session->shouldReceive('getToken')->andReturn('csrf_token');
 
     return $session;
   }
 
   /**
+   * Mock a MessageBag instance
+   *
+   * @param  array $errors
+   *
+   * @return Mockery
+   */
+  protected function mockMessageBag(array $errors)
+  {
+    $messages = Mockery::mock('MessageBag');
+    $messages->shouldReceive('first')->andReturn(null)->byDefault();
+    foreach ($errors as $key => $value) {
+      $messages->shouldReceive('has')->with($key)->andReturn(true);
+      $messages->shouldReceive('first')->with($key)->andReturn($value);
+    }
+
+    return $messages;
+  }
+
+  /**
    * Get localization manager
    */
-  private function getTranslator()
+  protected function mockTranslator()
   {
     $translator = Mockery::mock('Illuminate\Translation\Translator');
     $translator->shouldReceive('get')->with('pagination.next')->andReturn('Next');
@@ -163,7 +182,7 @@ class IlluminateMock
   /**
    * Get request manager
    */
-  public function getRequest()
+  protected function mockRequest()
   {
     $request = Mockery::mock('Illuminate\Http\Request');
     $request->shouldReceive('url')->andReturn('#');

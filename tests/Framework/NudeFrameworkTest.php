@@ -15,7 +15,7 @@ class NudeFrameworkTest extends FormerTests
 
 	public function testCanDisplayErrorMessages()
 	{
-    $validator = $this->app->app['validator']->getMessages();
+    $validator = $this->validator->getMessages();
 
     // Create field
     $this->former->withErrors($validator);

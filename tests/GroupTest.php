@@ -1,5 +1,5 @@
 <?php
-use Underscore\Methods\StringMethods as String;
+use Illuminate\Support\Str;
 
 class GroupTest extends FormerTests
 {
@@ -47,8 +47,8 @@ class GroupTest extends FormerTests
 
   public function createPrependAppendMatcher($prepend = array(), $append = array())
   {
-    foreach($prepend as $k => $p) if(!String::startsWith($p, '<button')) $prepend[$k] = '<span class="add-on">' .$p. '</span>';
-    foreach($append as $k => $a)  if(!String::startsWith($a, '<button'))  $append[$k] = '<span class="add-on">' .$a. '</span>';
+    foreach($prepend as $k => $p) if(!Str::startsWith($p, '<button')) $prepend[$k] = '<span class="add-on">' .$p. '</span>';
+    foreach($append as $k => $a)  if(!Str::startsWith($a, '<button'))  $append[$k] = '<span class="add-on">' .$a. '</span>';
 
     $class = array();
     if($prepend) $class[] = "input-prepend";
@@ -294,7 +294,7 @@ class GroupTest extends FormerTests
 
   public function testCanRecognizeGroupValidationErrors()
   {
-    $this->app->app['session'] = $this->app->getSession(array('foo' => 'bar', 'bar' => 'baz'));
+    $this->session = $this->mockSession(array('foo' => 'bar', 'bar' => 'baz'));
     $this->former->withErrors();
 
     $matcher = '<div class="control-group error"><label for="Foo" class="control-label">Foo</label>';
@@ -302,13 +302,13 @@ class GroupTest extends FormerTests
     $group = $this->former->group('foo', array('foo'))->__toString();
     $this->assertEquals($matcher, $group);
 
-    $group = $this->former->group('foo', array('foo','bar'))->__toString();
+    $group = $this->former->group('foo', array('foo', 'bar'))->__toString();
     $this->assertEquals($matcher, $group);
   }
 
   public function testCanIgnoreGroupValidationErrors()
   {
-    $this->app->app['session'] = $this->app->getSession(array('foo' => 'bar', 'bar' => 'baz'));
+    $this->session = $this->mockSession(array('foo' => 'bar', 'bar' => 'baz'));
     $this->former->withErrors();
 
     $matcher = '<div class="control-group"><label for="Foo" class="control-label">Foo</label>';

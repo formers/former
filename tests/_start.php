@@ -3,6 +3,7 @@ ini_set('memory_limit', '300M');
 date_default_timezone_set('UTC');
 
 // Load the Illuminate Container
+include __DIR__.'/../vendor/autoload.php';
 include '_illuminate.php';
 
 // Dummies
@@ -12,15 +13,42 @@ include 'Dummy/DummyEloquent.php';
 /**
  * Base testing class
  */
-abstract class FormerTests extends PHPUnit_Framework_TestCase
+abstract class FormerTests extends IlluminateMock
 {
+  /**
+   * Setup the app for testing
+   */
+  public function setUp()
+  {
+    parent::setUp();
+
+    // Reset some parameters
+    $this->resetLabels();
+    $this->former->horizontal_open()->__toString();
+    $this->former->framework('TwitterBootstrap');
+  }
 
   /**
-   * The current IoC Container
+   * Tear down the tests
    *
-   * @var Container
+   * @return void
    */
-  protected static $illuminate;
+  public function tearDown()
+  {
+    $this->former->closeGroup();
+    $this->former->close();
+    Mockery::close();
+  }
+
+  /**
+   * Reset registered labels
+   *
+   * @return void
+   */
+  public function resetLabels()
+  {
+    $this->former->labels = array();
+  }
 
   ////////////////////////////////////////////////////////////////////
   ////////////////////////////// DUMMIES /////////////////////////////
@@ -49,6 +77,15 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
   ///////////////////////////// MATCHERS /////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
+  /**
+   * Match a field
+   *
+   * @param  array  $attributes
+   * @param  string $type
+   * @param  string $name
+   *
+   * @return array
+   */
   protected function matchField($attributes = array(), $type = 'text', $name = 'foo')
   {
     $attributes = array_merge($attributes, array('type' => $type, 'name' => $name));
@@ -60,6 +97,15 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     );
   }
 
+  /**
+   * Match a label
+   *
+   * @param  string  $name
+   * @param  string  $field
+   * @param  boolean $required
+   *
+   * @return array
+   */
   protected function matchLabel($name = 'foo', $field = 'foo', $required = false)
   {
     $text = str_replace('[]', null, ucfirst($name));
@@ -77,6 +123,11 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     );
   }
 
+  /**
+   * Match a control group
+   *
+   * @return array
+   */
   protected function matchControlGroup()
   {
     return array(
@@ -91,6 +142,15 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     );
   }
 
+  /**
+   * Match a button
+   *
+   * @param  string $class
+   * @param  string $text
+   * @param  array  $attributes
+   *
+   * @return array
+   */
   protected function matchButton($class, $text, $attributes = array())
   {
     $matcher = array(
@@ -109,6 +169,15 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
     return $matcher;
   }
 
+  /**
+   * Match an input-type button
+   *
+   * @param  string $class
+   * @param  string $text
+   * @param  string $type
+   *
+   * @return array
+   */
   protected function matchInputButton($class, $text, $type = 'submit')
   {
     return array(
@@ -119,43 +188,6 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
         'class' => $class,
       ),
     );
-  }
-
-  // Setup --------------------------------------------------------- /
-
-  /**
-   * Setup the app for testing
-   */
-  public function setUp()
-  {
-    // Create the dummy Illuminate app
-    if (!static::$illuminate) {
-      static::$illuminate = new IlluminateMock();
-    }
-
-    $this->app = static::$illuminate;
-    $this->former = $this->app->app['former'];
-
-    // Reset some parameters
-    $this->resetLabels();
-    $this->former->horizontal_open()->__toString();
-    $this->former->framework('TwitterBootstrap');
-  }
-
-  public function tearDown()
-  {
-    $this->former->closeGroup();
-    $this->former->close();
-    Mockery::close();
-
-    // Reset config and POST data
-    $this->app->app['config']  = static::$illuminate->getConfig();
-    $this->app->app['request'] = static::$illuminate->getRequest();
-  }
-
-  public function resetLabels()
-  {
-    $this->former->labels = array();
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -261,5 +293,4 @@ abstract class FormerTests extends PHPUnit_Framework_TestCase
         .$input."\n\t"
         .json_encode($matcher));
   }
-
 }

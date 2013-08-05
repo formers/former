@@ -193,10 +193,10 @@ class CheckboxTest extends FormerTests
 
   public function testCanRepopulateCheckboxesFromPost()
   {
-    $this->app->app['request']->shouldReceive('get')->with('_token', '', true)->andReturn('');
-    $this->app->app['request']->shouldReceive('get')->with('foo', '', true)->andReturn('');
-    $this->app->app['request']->shouldReceive('get')->with('foo_0', '', true)->andReturn(true);
-    $this->app->app['request']->shouldReceive('get')->with('foo_1', '', true)->andReturn(false);
+    $this->request->shouldReceive('get')->with('_token', '', true)->andReturn('');
+    $this->request->shouldReceive('get')->with('foo', '', true)->andReturn('');
+    $this->request->shouldReceive('get')->with('foo_0', '', true)->andReturn(true);
+    $this->request->shouldReceive('get')->with('foo_1', '', true)->andReturn(false);
 
     $checkboxes = $this->former->checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
     $matcher = $this->controlGroup($this->matchCheckedCheckbox('foo_0', 'Foo').$this->matchCheckbox('foo_1', 'Bar'));
@@ -238,7 +238,7 @@ class CheckboxTest extends FormerTests
 
   public function testCanPushUncheckedCheckboxes()
   {
-    $this->app->app['config'] = $this->app->getConfig(true, '', true);
+    $this->config = $this->mockConfig(true, '', true);
 
     $checkbox = $this->former->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->controlGroup(
@@ -252,8 +252,8 @@ class CheckboxTest extends FormerTests
 
   public function testCanRepopulateCheckboxesOnSubmit()
   {
-    $this->app->app['config'] = $this->app->getConfig(true, '', true);
-    $this->app->app['request']->shouldReceive('get')->andReturn('');
+    $this->config = $this->mockConfig(true, '', true);
+    $this->request->shouldReceive('get')->andReturn('');
 
     $checkbox = $this->former->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->controlGroup(
@@ -301,7 +301,7 @@ class CheckboxTest extends FormerTests
 
   public function testCanCustomizeTheUncheckedValue()
   {
-    $this->app->app['config'] = $this->app->getConfig(true, 'unchecked', true);
+    $this->config = $this->mockConfig(true, 'unchecked', true);
 
     $checkbox = $this->former->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->controlGroup(
@@ -315,7 +315,7 @@ class CheckboxTest extends FormerTests
 
   public function testCanHandleAZeroUncheckedValue()
   {
-    $this->app->app['config'] = $this->app->getConfig(true, 0);
+    $this->config = $this->mockConfig(true, 0);
     $checkboxes = $this->former->checkboxes('foo')->value('bar')->__toString();
     $matcher = $this->controlGroup($this->matchCheckbox('foo', null, 'bar'));
 
@@ -341,7 +341,7 @@ class CheckboxTest extends FormerTests
 
   public function testCanPushCheckboxesWithoutLabels()
   {
-    $this->app->app['config'] = $this->app->getConfig(true, '', true, false);
+    $this->config = $this->mockConfig(true, '', true, false);
 
     $html  = $this->former->label('<b>Views per Page</b>')->render();
     $html .= $this->former->checkbox('per_page')->class('input')->render();
