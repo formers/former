@@ -1,4 +1,14 @@
-## Changelog
+## CHANGELOG
+
+3.1.0
+-----
+
+- [add] **You can now configure which attributes are translated by default**
+- [add] **Added the `TwitterBootstrap3` framework**
+- [add] Add a second argument to `Former::group` that allows specifying which errors should be displayed
+- [add] Add ability to interact with the Group's method by using `onGroup{method}` (ex: `onGroupAddClass`)
+- [mod] All fields are now displayed as "raw" by default in custom groups
+- [fix] Fix some checkable bugs
 
 3.0.0
 -----
