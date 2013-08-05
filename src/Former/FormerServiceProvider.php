@@ -182,9 +182,6 @@ class FormerServiceProvider extends ServiceProvider
   {
     // Get framework to use
     $framework = $app['config']->get('former::framework');
-    if (!$framework) {
-      $framework = $app['config']->get('config.framework');
-    }
 
     $frameworkClass = '\Former\Framework\\'.$framework;
     $app->bind('former.framework', function ($app) use ($frameworkClass) {
@@ -198,6 +195,8 @@ class FormerServiceProvider extends ServiceProvider
     $app->singleton('former', function ($app) {
       return new Former($app);
     });
+
+    Helpers::setApp($app);
 
     return $app;
   }

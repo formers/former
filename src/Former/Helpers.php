@@ -11,28 +11,20 @@ class Helpers
 {
 
   /**
-   * Instance of Former
+   * The IoC Container
    *
-   * @var Former
+   * @var Container
    */
-  protected static $former;
-
-  /**
-   * The Translator instance
-   *
-   * @var Translator
-   */
-  protected static $translator;
+  protected static $app;
 
   /**
    * Bind a Container to the Helpers class
    *
    * @param Container $app
    */
-  public static function setApp(Former $former, $translator)
+  public static function setApp(Container $app)
   {
-    static::$former     = $former;
-    static::$translator = $translator;
+    static::$app = $app;
   }
 
   /**
@@ -76,15 +68,15 @@ class Helpers
     }
 
     $translation   = null;
-    $translateFrom = static::$former->getOption('translate_from');
+    $translateFrom = static::$app['former']->getOption('translate_from');
     if (substr($translateFrom, -1) !== '/') $translateFrom .= '.';
     $translateFrom .= $key;
 
     // Search for the key itself
-    if (static::$translator->has($key)) {
-      $translation = static::$translator->get($key);
-    } elseif (static::$translator->has($translateFrom)) {
-      $translation  = static::$translator->get($translateFrom);
+    if (static::$app['translator']->has($key)) {
+      $translation = static::$app['translator']->get($key);
+    } elseif (static::$app['translator']->has($translateFrom)) {
+      $translation  = static::$app['translator']->get($translateFrom);
     }
 
     // Replace by fallback if invalid
