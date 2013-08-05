@@ -204,8 +204,7 @@ abstract class FormerTests extends IlluminateMock
   {
     $html = array();
 
-    foreach ((array) $attributes as $key => $value)
-    {
+    foreach ((array) $attributes as $key => $value) {
       // For numeric keys, we will assume that the key and the value are the
       // same, as this will convert HTML attributes such as "required" that
       // may be specified as required="required", etc.

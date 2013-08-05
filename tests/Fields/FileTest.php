@@ -18,7 +18,6 @@ class FileTest extends FormerTests
     );
 
     if ($accept) $file['attributes']['accept'] = $accept;
-
     return $file;
   }
 

@@ -196,5 +196,5 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
   {
     return Element::create('div', $field)->addClass('row collapse');
   }
-  
+
 }

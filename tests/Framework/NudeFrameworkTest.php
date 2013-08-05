@@ -13,8 +13,8 @@ class NudeFrameworkTest extends FormerTests
   //////////////////////////////// TESTS /////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
-	public function testCanDisplayErrorMessages()
-	{
+    public function testCanDisplayErrorMessages()
+    {
     $validator = $this->validator->getMessages();
 
     // Create field
@@ -23,11 +23,11 @@ class NudeFrameworkTest extends FormerTests
 
     // Matcher
     $matcher =
-    	'<label for="required">Required</label>'.
-    	'<input id="required" type="text" name="required">'.
-    	'<span class="help">The required field is required.</span>';
+        '<label for="required">Required</label>'.
+        '<input id="required" type="text" name="required">'.
+        '<span class="help">The required field is required.</span>';
 
     $this->assertEquals($matcher, $required);
-	}
+    }
 
 }

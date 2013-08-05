@@ -180,7 +180,6 @@ class FormTest extends FormerTests
     $matcher = $this->matchForm();
     $matcher['attributes']['name'] = 'foo';
 
-
     $this->assertHTML($matcher, $form);
   }
 

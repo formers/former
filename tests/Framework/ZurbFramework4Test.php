@@ -36,8 +36,6 @@ class ZurbFramework4Test extends FormerTests
     $this->assertHTML($matcher, $input);
   }
 
-
-
   public function testCanSetAnErrorStateOnAField()
   {
     $input = $this->former->text('foo')->state('error')->__toString();

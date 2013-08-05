@@ -15,7 +15,6 @@ class DummyEloquent
     if ($key == 'roles') return $this->roles();
     if ($key == 'attribute_old') return $this->get_attribute_old();
     if ($key == 'custom') return $this->getCustomAttribute();
-
     return $this->$key;
   }
 
