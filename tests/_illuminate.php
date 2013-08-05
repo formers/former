@@ -113,13 +113,10 @@ abstract class IlluminateMock extends PHPUnit_Framework_TestCase
    */
   protected function mockValidator()
   {
-    $validator = Mockery::mock('Illuminate\Validation\Validator');
-    $validator->shouldReceive('getMessages')->andReturnUsing(function () {
-      $messages = Mockery::mock('MessageBag');
-      $messages->shouldReceive('first')->with('required')->andReturn('The required field is required.');
+    $messageBag = $this->mockMessageBag(array('required' => 'The required field is required.'));
 
-      return $messages;
-    });
+    $validator = Mockery::mock('Illuminate\Validation\Validator');
+    $validator->shouldReceive('getMessageBag')->andReturn($messageBag);
 
     return $validator;
   }

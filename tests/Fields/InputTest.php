@@ -242,9 +242,8 @@ class InputTest extends FormerTests
 
   public function testCanCreateWithErrors()
   {
-    $validator = $this->validator->getMessages();
+    $this->former->withErrors($this->validator);
 
-    $this->former->withErrors($validator);
     $required = $this->former->text('required')->__toString();
     $matcher =
     '<div class="control-group error">'.
@@ -260,10 +259,9 @@ class InputTest extends FormerTests
 
   public function testCanDisableErrors()
   {
-    $validator = $this->validator->getMessages();
     $this->config = $this->mockConfig(true, '', false, true, false);
+    $this->former->withErrors($this->validator);
 
-    $this->former->withErrors($validator);
     $required = $this->former->text('required')->__toString();
     $matcher =
     '<div class="control-group error">'.

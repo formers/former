@@ -4,6 +4,7 @@ namespace Former;
 use Closure;
 use Former\Interfaces\FrameworkInterface;
 use Illuminate\Container\Container;
+use Illuminate\Validation\Validator;
 use Underscore\Methods\ArraysMethods as Arrays;
 
 /**
@@ -259,7 +260,7 @@ class Former
     }
 
     // If we're given a raw Validator, go fetch the errors in it
-    if (method_exists($validator, 'getMessageBag')) {
+    if ($validator instanceof Validator) {
       return $this->errors = $validator->getMessageBag();
     }
 
