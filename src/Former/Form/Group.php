@@ -358,7 +358,7 @@ class Group extends Tag
    *
    * @return string
    */
-  protected function getErrors()
+  public function getErrors()
   {
     // If any errors, set state to errors
     if (is_array($this->validations)) {
