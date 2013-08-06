@@ -1,5 +1,10 @@
 ## CHANGELOG
 
+3.1.1
+-----
+
+- [mod] Former now handles camelCase attributes (ie. `dataPlaceholder` for `data-placeholder`)
+
 3.1.0
 -----
 
