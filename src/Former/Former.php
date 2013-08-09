@@ -350,22 +350,6 @@ class Former
   }
 
   /**
-   * Get a class out of the Contaienr
-   *
-   * @param string $dependency The class
-   *
-   * @return object
-   */
-  public function getContainer($dependency = null)
-  {
-    if ($dependency) {
-      return $this->app->make($dependency);
-    }
-
-    return $this->app;
-  }
-
-  /**
    * Get an option from the config
    *
    * @param string $option  The option
