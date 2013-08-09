@@ -196,6 +196,10 @@ class FormerServiceProvider extends ServiceProvider
       return new Former($app);
     });
 
+    $app->bind('former.dispatcher', function ($app) {
+      return new MethodDispatcher($app);
+    });
+
     Helpers::setApp($app);
 
     return $app;

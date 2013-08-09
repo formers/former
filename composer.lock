@@ -91,6 +91,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/cache.git",
+<<<<<<< HEAD
                 "reference": "v4.0.6"
             },
             "dist": {
@@ -108,6 +109,25 @@
                 "illuminate/encryption": "4.0.x",
                 "illuminate/filesystem": "4.0.x",
                 "illuminate/redis": "4.0.x",
+=======
+                "reference": "b9909429677a4c34bd54dc4fc2ed4fa1e73e34d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/cache/zipball/b9909429677a4c34bd54dc4fc2ed4fa1e73e34d2",
+                "reference": "b9909429677a4c34bd54dc4fc2ed4fa1e73e34d2",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "4.1.x",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "illuminate/database": "4.1.x",
+                "illuminate/encryption": "4.1.x",
+                "illuminate/filesystem": "4.1.x",
+                "illuminate/redis": "4.1.x",
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
@@ -131,7 +151,11 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
+<<<<<<< HEAD
             "time": "2013-08-01 14:25:00"
+=======
+            "time": "2013-08-05 13:28:56"
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
         },
         {
             "name": "illuminate/config",
@@ -186,12 +210,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
+<<<<<<< HEAD
                 "reference": "v4.0.6"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/illuminate/container/zipball/v4.0.6",
                 "reference": "v4.0.6",
+=======
+                "reference": "b9ecfb12b5d45f06e6eb0c9db82fcde6cb5c705e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/b9ecfb12b5d45f06e6eb0c9db82fcde6cb5c705e",
+                "reference": "b9ecfb12b5d45f06e6eb0c9db82fcde6cb5c705e",
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
                 "shasum": ""
             },
             "require": {
@@ -221,7 +254,11 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
+<<<<<<< HEAD
             "time": "2013-07-31 14:49:48"
+=======
+            "time": "2013-07-31 15:34:38"
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
         },
         {
             "name": "illuminate/cookie",
@@ -230,12 +267,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/cookie.git",
+<<<<<<< HEAD
                 "reference": "v4.0.6"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/illuminate/cookie/zipball/v4.0.6",
                 "reference": "v4.0.6",
+=======
+                "reference": "d3b6f35572444b20e3d2d02006a84e70a6687be3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/cookie/zipball/d3b6f35572444b20e3d2d02006a84e70a6687be3",
+                "reference": "d3b6f35572444b20e3d2d02006a84e70a6687be3",
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
                 "shasum": ""
             },
             "require": {
@@ -269,7 +315,11 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
+<<<<<<< HEAD
             "time": "2013-05-28 00:50:14"
+=======
+            "time": "2013-07-23 06:29:59"
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
         },
         {
             "name": "illuminate/encryption",
@@ -314,7 +364,11 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
+<<<<<<< HEAD
             "time": "2013-06-02 19:22:55"
+=======
+            "time": "2013-06-02 19:23:05"
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
         },
         {
             "name": "illuminate/filesystem",
@@ -369,12 +423,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/http.git",
+<<<<<<< HEAD
                 "reference": "v4.0.6"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/illuminate/http/zipball/v4.0.6",
                 "reference": "v4.0.6",
+=======
+                "reference": "9d2eed0e9d6af09317d3de68a1922e9ee5ee2ca7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/http/zipball/9d2eed0e9d6af09317d3de68a1922e9ee5ee2ca7",
+                "reference": "9d2eed0e9d6af09317d3de68a1922e9ee5ee2ca7",
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
                 "shasum": ""
             },
             "require": {
@@ -407,7 +470,11 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
+<<<<<<< HEAD
             "time": "2013-07-31 16:22:45"
+=======
+            "time": "2013-08-05 13:28:56"
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
         },
         {
             "name": "illuminate/routing",
@@ -416,12 +483,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/routing.git",
+<<<<<<< HEAD
                 "reference": "v4.0.6"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/illuminate/routing/zipball/v4.0.6",
                 "reference": "v4.0.6",
+=======
+                "reference": "00c7b290e4eb121d6c7fecf9ec5941fefe197318"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/routing/zipball/00c7b290e4eb121d6c7fecf9ec5941fefe197318",
+                "reference": "00c7b290e4eb121d6c7fecf9ec5941fefe197318",
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
                 "shasum": ""
             },
             "require": {
@@ -460,7 +536,11 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
+<<<<<<< HEAD
             "time": "2013-07-30 18:49:52"
+=======
+            "time": "2013-07-31 14:13:10"
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
         },
         {
             "name": "illuminate/session",
@@ -469,12 +549,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/session.git",
+<<<<<<< HEAD
                 "reference": "v4.0.6"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/illuminate/session/zipball/v4.0.6",
                 "reference": "v4.0.6",
+=======
+                "reference": "b9746023b51add02c86aba3eab6b6f330db8f863"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/session/zipball/b9746023b51add02c86aba3eab6b6f330db8f863",
+                "reference": "b9746023b51add02c86aba3eab6b6f330db8f863",
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
                 "shasum": ""
             },
             "require": {
@@ -511,7 +600,11 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
+<<<<<<< HEAD
             "time": "2013-06-11 00:54:27"
+=======
+            "time": "2013-07-19 10:47:48"
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
         },
         {
             "name": "illuminate/support",
@@ -520,12 +613,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
+<<<<<<< HEAD
                 "reference": "v4.0.6"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/illuminate/support/zipball/v4.0.6",
                 "reference": "v4.0.6",
+=======
+                "reference": "9507e57aa5b237993e2bdb82d8534fc89d5dac6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/9507e57aa5b237993e2bdb82d8534fc89d5dac6c",
+                "reference": "9507e57aa5b237993e2bdb82d8534fc89d5dac6c",
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
                 "shasum": ""
             },
             "require": {
@@ -560,7 +662,11 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
+<<<<<<< HEAD
             "time": "2013-08-02 13:31:18"
+=======
+            "time": "2013-08-05 13:28:56"
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
         },
         {
             "name": "illuminate/translation",
@@ -608,7 +714,11 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
+<<<<<<< HEAD
             "time": "2013-06-16 15:27:56"
+=======
+            "time": "2013-06-19 21:34:43"
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
         },
         {
             "name": "patchwork/utf8",
@@ -810,12 +920,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
+<<<<<<< HEAD
                 "reference": "v2.3.2"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/Finder/zipball/v2.3.2",
                 "reference": "v2.3.2",
+=======
+                "reference": "v2.3.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/v2.3.3",
+                "reference": "v2.3.3",
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
                 "shasum": ""
             },
             "require": {
@@ -857,12 +976,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
+<<<<<<< HEAD
                 "reference": "v2.3.2"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.3.2",
                 "reference": "v2.3.2",
+=======
+                "reference": "f2934b0cf525bef5143e52de93f538df4aeef09c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/f2934b0cf525bef5143e52de93f538df4aeef09c",
+                "reference": "f2934b0cf525bef5143e52de93f538df4aeef09c",
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
                 "shasum": ""
             },
             "require": {
@@ -898,7 +1026,11 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
+<<<<<<< HEAD
             "time": "2013-07-17 05:57:53"
+=======
+            "time": "2013-08-08 12:02:32"
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
         },
         {
             "name": "symfony/http-kernel",
@@ -907,12 +1039,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
+<<<<<<< HEAD
                 "reference": "v2.3.2"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/v2.3.2",
                 "reference": "v2.3.2",
+=======
+                "reference": "0cbb96cc6b4fd44830572e4b05df31d79f5fb522"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/0cbb96cc6b4fd44830572e4b05df31d79f5fb522",
+                "reference": "0cbb96cc6b4fd44830572e4b05df31d79f5fb522",
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
                 "shasum": ""
             },
             "require": {
@@ -923,15 +1064,16 @@
                 "symfony/http-foundation": "~2.2"
             },
             "require-dev": {
-                "symfony/browser-kit": "2.2.*",
+                "symfony/browser-kit": "~2.2",
                 "symfony/class-loader": "~2.1",
                 "symfony/config": "~2.0",
-                "symfony/console": "2.2.*",
+                "symfony/console": "~2.2",
                 "symfony/dependency-injection": "~2.0",
                 "symfony/finder": "~2.0",
                 "symfony/process": "~2.0",
                 "symfony/routing": "~2.2",
-                "symfony/stopwatch": "~2.2"
+                "symfony/stopwatch": "~2.2",
+                "symfony/templating": "~2.2"
             },
             "suggest": {
                 "symfony/browser-kit": "",
@@ -968,7 +1110,11 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
+<<<<<<< HEAD
             "time": "2013-07-17 06:22:21"
+=======
+            "time": "2013-08-07 18:24:25"
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
         },
         {
             "name": "symfony/routing",
@@ -977,12 +1123,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
+<<<<<<< HEAD
                 "reference": "v2.3.2"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/Routing/zipball/v2.3.2",
                 "reference": "v2.3.2",
+=======
+                "reference": "v2.3.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/v2.3.3",
+                "reference": "v2.3.3",
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
                 "shasum": ""
             },
             "require": {
@@ -1026,7 +1181,11 @@
             ],
             "description": "Symfony Routing Component",
             "homepage": "http://symfony.com",
+<<<<<<< HEAD
             "time": "2013-06-23 08:16:02"
+=======
+            "time": "2013-08-02 20:53:38"
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
         },
         {
             "name": "symfony/translation",
@@ -1035,12 +1194,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
+<<<<<<< HEAD
                 "reference": "v2.3.2"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/Translation/zipball/v2.3.2",
                 "reference": "v2.3.2",
+=======
+                "reference": "v2.3.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/v2.3.3",
+                "reference": "v2.3.3",
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
                 "shasum": ""
             },
             "require": {
@@ -1081,7 +1249,11 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
+<<<<<<< HEAD
             "time": "2013-05-13 14:36:40"
+=======
+            "time": "2013-08-02 20:53:38"
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
         }
     ],
     "packages-dev": [
@@ -1091,12 +1263,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
+<<<<<<< HEAD
                 "reference": "dcc8e7bda1b011a7e152b53abc58f2cb7a7cb0c5"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/padraic/mockery/zipball/dcc8e7bda1b011a7e152b53abc58f2cb7a7cb0c5",
                 "reference": "dcc8e7bda1b011a7e152b53abc58f2cb7a7cb0c5",
+=======
+                "reference": "f0e835aebf28d7323efefffb31b9a6df27427f29"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/f0e835aebf28d7323efefffb31b9a6df27427f29",
+                "reference": "f0e835aebf28d7323efefffb31b9a6df27427f29",
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
                 "shasum": ""
             },
             "require": {
@@ -1137,7 +1318,11 @@
                 "test double",
                 "testing"
             ],
+<<<<<<< HEAD
             "time": "2013-08-01 12:39:35"
+=======
+            "time": "2013-08-07 21:50:22"
+>>>>>>> 30d3468... Rewrite Dispatch as a non-static class
         }
     ],
     "aliases": [

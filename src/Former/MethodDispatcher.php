@@ -2,47 +2,60 @@
 namespace Former;
 
 use Illuminate\Container\Container;
-use Underscore\Methods\ArraysMethods as Arrays;
-use Underscore\Types\String;
+use Illuminate\Support\Str;
 
 /**
  * Dispatch calls from Former to the different
  * form creators like Form, Actions, Elements and others
  */
-class Dispatch
+class MethodDispatcher
 {
+  /**
+   * The IoC Container
+   *
+   * @var Container
+   */
+  protected $app;
+
+  /**
+   * Build a new Dispatcher
+   *
+   * @param Container $app
+   */
+  public function __construct(Container $app)
+  {
+    $this->app = $app;
+  }
 
   /**
    * Dispatch a call to a registered macro
    *
-   * @param  Former $former
    * @param  string $method       The macro's name
    * @param  array  $parameters   The macro's arguments
    *
    * @return mixed
    */
-  public static function toMacros(Former $former, $method, $parameters)
+  public function toMacros($method, $parameters)
   {
-    if (!$former->hasMacro($method)) {
+    if (!$this->app['former']->hasMacro($method)) {
       return false;
     }
 
-    return call_user_func_array($former->getMacro($method), $parameters);
+    return call_user_func_array($this->app['former']->getMacro($method), $parameters);
   }
 
   /**
    * Dispatch a call over to Elements
    *
-   * @param Container $app        The application container
    * @param string    $method     The method called
    * @param array     $parameters Its parameters
    *
    * @return string
    */
-  public static function toElements(Container $app, $method, $parameters)
+  public function toElements($method, $parameters)
   {
     // Disregards if the method isn't an element
-    if (!method_exists($elements = new Form\Elements($app['former'], $app['session']), $method)) {
+    if (!method_exists($elements = new Form\Elements($this->app['former'], $this->app['session']), $method)) {
       return false;
     }
 
@@ -52,20 +65,19 @@ class Dispatch
   /**
    * Dispatch a call over to Form
    *
-   * @param Former  $app        The application container
    * @param string  $method     The method called
    * @param array   $parameters Its parameters
    *
    * @return Form
    */
-  public static function toForm(Former $former, $method, $parameters)
+  public function toForm($method, $parameters)
   {
     // Disregards if the method doesn't contain 'open'
-    if (!String::contains($method, 'open')) {
+    if (!Str::contains($method, 'open')) {
       return false;
     }
 
-    $form = new Form\Form($former, $former->getContainer('url'), $former->getPopulator());
+    $form = new Form\Form($this->app['former'], $this->app['url'], $this->app['former.populator']);
 
     return $form->openForm($method, $parameters);
   }
@@ -73,13 +85,12 @@ class Dispatch
   /**
    * Dispatch a call over to Group
    *
-   * @param Former    $app        The application container
    * @param string    $method     The method called
    * @param array     $parameters Its parameters
    *
    * @return Group
    */
-  public static function toGroup(Former $former, $method, $parameters)
+  public function toGroup($method, $parameters)
   {
     // Disregards if the method isn't "group"
     if ($method != 'group') {
@@ -88,9 +99,9 @@ class Dispatch
 
     // Create opener
     $group = new Form\Group(
-      $former,
-      Arrays::get($parameters, 0, null),
-      Arrays::get($parameters, 1, null)
+      $this->app['former'],
+      array_get($parameters, 0, null),
+      array_get($parameters, 1, null)
     );
 
     // Set custom group as true
@@ -102,43 +113,41 @@ class Dispatch
   /**
    * Dispatch a call over to Actions
    *
-   * @param Former    $app        The application container
    * @param string    $method     The method called
    * @param array     $parameters Its parameters
    *
    * @return Actions
    */
-  public static function toActions(Former $former, $method, $parameters)
+  public function toActions($method, $parameters)
   {
     if ($method != 'actions') {
       return false;
     }
 
-    return new Form\Actions($former, $parameters);
+    return new Form\Actions($this->app['former'], $parameters);
   }
 
   /**
    * Dispatch a call over to the Fields
    *
-   * @param Former    $app        The application container
    * @param string    $method     The method called
    * @param array     $parameters Its parameters
    *
    * @return Field
    */
-  public static function toFields(Former $former, $method, $parameters)
+  public function toFields($method, $parameters)
   {
     // Listing parameters
     $class = Former::FIELDSPACE.static::getClassFromMethod($method);
     $field = new $class(
-      $former,
+      $this->app['former'],
       $method,
-      Arrays::get($parameters, 0),
-      Arrays::get($parameters, 1),
-      Arrays::get($parameters, 2),
-      Arrays::get($parameters, 3),
-      Arrays::get($parameters, 4),
-      Arrays::get($parameters, 5)
+      array_get($parameters, 0),
+      array_get($parameters, 1),
+      array_get($parameters, 2),
+      array_get($parameters, 3),
+      array_get($parameters, 4),
+      array_get($parameters, 5)
     );
 
     return $field;
@@ -158,14 +167,14 @@ class Dispatch
   protected static function getClassFromMethod($method)
   {
     // If the field's name directly match a class, call it
-    $class = String::from($method)->singular()->title()->obtain();
+    $class = Str::singular(Str::title($method));
     if (class_exists(Former::FIELDSPACE.$class)) {
       return $class;
     }
 
     // Else convert known fields to their classes
     switch ($method) {
-        case 'submit':
+      case 'submit':
       case 'link':
       case 'reset':
         $class = 'Button';

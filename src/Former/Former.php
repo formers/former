@@ -24,6 +24,13 @@ class Former
   protected $app;
 
   /**
+   * The Method Dispatcher
+   *
+   * @var MethodDispatcher
+   */
+  protected $dispatch;
+
+  /**
    * The current field being worked on
    *
    * @var Field
@@ -86,7 +93,8 @@ class Former
    */
   public function __construct(Container $app)
   {
-    $this->app = $app;
+    $this->app      = $app;
+    $this->dispatch = $app['former.dispatcher'];
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -104,27 +112,27 @@ class Former
   public function __call($method, $parameters)
   {
     // Dispatch to Form\Elements
-    if ($element = Dispatch::toElements($this->app, $method, $parameters)) {
+    if ($element = $this->dispatch->toElements($method, $parameters)) {
       return $element;
     }
 
     // Dispatch to Form\Form
-    if ($form = Dispatch::toForm($this, $method, $parameters)) {
+    if ($form = $this->dispatch->toForm($method, $parameters)) {
       return $this->form = $form;
     }
 
     // Dispatch to Form\Group
-    if ($group = Dispatch::toGroup($this, $method, $parameters)) {
+    if ($group = $this->dispatch->toGroup($method, $parameters)) {
       return $group;
     }
 
     // Dispatch to Form\Actions
-    if ($actions = Dispatch::toActions($this, $method, $parameters)) {
+    if ($actions = $this->dispatch->toActions($method, $parameters)) {
       return $actions;
     }
 
     // Dispatch to macros
-    if ($macro = Dispatch::toMacros($this, $method, $parameters)) {
+    if ($macro = $this->dispatch->toMacros($method, $parameters)) {
       return $macro;
     }
 
@@ -133,7 +141,7 @@ class Former
     $method  = array_pop($classes);
 
     // Dispatch to the different Form\Fields
-    $field = Dispatch::toFields($this, $method, $parameters);
+    $field = $this->dispatch->toFields($method, $parameters);
     $field = $this->getFramework()->getFieldClasses($field, $classes);
 
     return $this->field = $field;
