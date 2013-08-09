@@ -102,6 +102,8 @@ abstract class FormerObject extends Element
   public function setType($type)
   {
     $this->type = $type;
+
+    return $this;
   }
 
   /**
@@ -116,5 +118,4 @@ abstract class FormerObject extends Element
 
     return in_array($this->type, $types);
   }
-
 }

@@ -9,7 +9,6 @@ use Illuminate\Support\Collection;
  */
 class Helpers
 {
-
   /**
    * The IoC Container
    *
@@ -133,5 +132,4 @@ class Helpers
 
     return isset($array) ? $array : $query;
   }
-
 }

@@ -10,7 +10,6 @@ use Laravel\File;
  */
 class LiveValidation
 {
-
   /**
    * The field being worked on
    *

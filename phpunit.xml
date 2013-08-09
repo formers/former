@@ -19,6 +19,7 @@
     <whitelist>
       <directory>src/Former</directory>
       <exclude>
+        <file>src/Former/FormerServiceProvider.php</file>
         <directory>src/Former/Facades</directory>
       </exclude>
     </whitelist>

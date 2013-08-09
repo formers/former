@@ -10,7 +10,6 @@ use Underscore\Methods\ArraysMethods as Arrays;
  */
 abstract class Framework
 {
-
   /**
    * The Container
    *

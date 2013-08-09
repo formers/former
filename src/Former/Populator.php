@@ -1,8 +1,7 @@
 <?php
 namespace Former;
 
-use Underscore\Methods\ArraysMethods as Arrays;
-use Underscore\Methods\StringMethods as String;
+use Illuminate\Support\Str;
 
 /**
  * Populates the class with values, and fetches them
@@ -10,7 +9,6 @@ use Underscore\Methods\StringMethods as String;
  */
 class Populator
 {
-
   /**
    * The populated values
    * @var array
@@ -60,7 +58,7 @@ class Populator
   {
     // Plain array
     if (is_array($this->values)) {
-      return Arrays::get($this->values, $field, $fallback);
+      return array_get($this->values, $field, $fallback);
     }
 
     // Transform the name into an array
@@ -72,14 +70,13 @@ class Populator
 
       // Multiple results relation
       if (is_array($value)) {
-        $me = $this;
 
         if (array_key_exists($relationship, $value)) {
           $value = $value[$relationship];
         } else {
-          $value = Arrays::each($value, function ($submodel) use ($me, $relationship, $fallback) {
-            return $me->getAttributeFromModel($submodel, $relationship, $fallback);
-          });
+          foreach ($value as $key => $submodel) {
+            $value[$key] = $this->getAttributeFromModel($submodel, $relationship, $fallback);
+          }
         }
 
       // Get attribute from model
@@ -142,19 +139,19 @@ class Populator
    */
   protected function parseFieldAsArray($field)
   {
-    if (String::contains($field, '[]')) {
+    if (Str::contains($field, '[]')) {
       return (array) $field;
     }
 
     // Transform array notation to dot notation
-    if (String::contains($field, '[')) {
+    if (Str::contains($field, '[')) {
       $field = preg_replace("/[\[\]]/", '.', $field);
-      $field = String::replace($field, '..', '.');
+      $field = str_replace('..', '.', $field);
       $field = trim($field, '.');
     }
 
     // Parse dot notation
-    if (String::contains($field, '.')) {
+    if (Str::contains($field, '.')) {
       $field = explode('.', $field);
     } else {
       $field = (array) $field;
@@ -188,5 +185,4 @@ class Populator
 
     return $fallback;
   }
-
 }

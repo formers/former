@@ -390,4 +390,11 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $field->__toString());
   }
 
+  public function testCanChangeTypeMidCourse()
+  {
+    $field = $this->former->text('foo')->setType('email');
+
+    $this->assertEquals('email', $field->getType());
+  }
+
 }
