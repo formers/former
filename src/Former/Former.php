@@ -144,7 +144,7 @@ class Former
 
     // Dispatch to the different Form\Fields
     $field = $this->dispatch->toFields($method, $parameters);
-    $field = $this->getFramework()->getFieldClasses($field, $classes);
+    $field = $this->app['former.framework']->getFieldClasses($field, $classes);
 
     return $this->field = $field;
   }
@@ -321,7 +321,7 @@ class Former
   public function framework($framework = null)
   {
     if (!$framework) {
-      return $this->getFramework()->current();
+      return $this->app['former.framework']->current();
     }
 
     $this->setOption('framework', $framework);
@@ -329,16 +329,6 @@ class Former
     $this->app->bind('former.framework', function ($app) use ($class) {
       return new $class($app);
     });
-  }
-
-  /**
-   * Get the current framework
-   *
-   * @return FrameworkInterface
-   */
-  public function getFramework()
-  {
-    return $this->app['former.framework'];
   }
 
   /**
