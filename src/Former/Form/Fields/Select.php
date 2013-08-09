@@ -137,11 +137,6 @@ class Select extends Field
   {
     $options = array();
 
-    // Automatically fetch Lang objects for people who store translated options lists
-    if ($_options instanceof \Laravel\Lang) {
-      $_options = $_options->get();
-    }
-
     // If valuesAsKeys is true, use the values as keys
     if ($valuesAsKeys) {
       foreach ($_options as $v) {

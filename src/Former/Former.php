@@ -12,7 +12,6 @@ use Illuminate\Validation\Validator;
  */
 class Former
 {
-
   // Instances
   ////////////////////////////////////////////////////////////////////
 
@@ -262,11 +261,6 @@ class Former
     // If we're given a raw Validator, go fetch the errors in it
     if ($validator instanceof Validator) {
       return $this->errors = $validator->getMessageBag();
-    }
-
-    // If it's an old Validator
-    if ($validator instanceof \Laravel\Validator) {
-      return $this->errors = $validator->errors;
     }
   }
 

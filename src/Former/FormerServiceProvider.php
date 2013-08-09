@@ -1,8 +1,8 @@
 <?php
 namespace Former;
 
-use Former\Populator;
 use Former\Former;
+use Former\Populator;
 use Illuminate\Config\FileLoader as ConfigLoader;
 use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
@@ -17,7 +17,6 @@ use Illuminate\Translation\Translator;
  */
 class FormerServiceProvider extends ServiceProvider
 {
-
   /**
    * Register Former's package with Laravel
    *
@@ -74,38 +73,6 @@ class FormerServiceProvider extends ServiceProvider
   }
 
   /**
-   * Bind legacy classes for Laravel 3
-   *
-   * @param  Container $app
-   *
-   * @return Container
-   */
-  public function bindLegacyClasses(Container $app)
-  {
-    $app->bind('url', function ($app) {
-      return new Legacy\Redirector('Laravel\URL');
-    });
-
-    $app->bind('session', function ($app) {
-      return new Legacy\Session;
-    });
-
-    $app->bind('config', function ($app) {
-      return new Legacy\Config;
-    });
-
-    $app->bind('request', function ($app) {
-      return new Legacy\Redirector('Laravel\Input');
-    });
-
-    $app->bind('translator', function ($app) {
-      return new Legacy\Translator;
-    });
-
-    return $app;
-  }
-
-  /**
    * Bind the core classes to the Container
    *
    * @param  Container $app
@@ -114,11 +81,6 @@ class FormerServiceProvider extends ServiceProvider
    */
   public function bindCoreClasses(Container $app)
   {
-    // Redirect to Legacy classes
-    if (class_exists('Laravel\Input')) {
-      return $this->bindLegacyClasses($app);
-    }
-
     // Core classes
     //////////////////////////////////////////////////////////////////
 
