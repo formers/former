@@ -5,7 +5,6 @@ use Closure;
 use Former\Interfaces\FrameworkInterface;
 use Illuminate\Container\Container;
 use Illuminate\Validation\Validator;
-use Underscore\Methods\ArraysMethods as Arrays;
 
 /**
  * Helps the user interact with it and its classes
@@ -14,7 +13,8 @@ use Underscore\Methods\ArraysMethods as Arrays;
 class Former
 {
 
-  // Instances ----------------------------------------------------- /
+  // Instances
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * The current environment
@@ -44,7 +44,8 @@ class Former
    */
   protected $form;
 
-  // Informations -------------------------------------------------- /
+  // Informations
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * The form's errors
@@ -74,7 +75,8 @@ class Former
    */
   public $labels = array();
 
-  // Namespaces ---------------------------------------------------- /
+  // Namespaces
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * The namespace of Form elements
@@ -199,7 +201,7 @@ class Former
    */
   public function populate($values)
   {
-    $this->getPopulator()->setValues($values);
+    $this->app['former.populator']->setValues($values);
   }
 
   /**
@@ -210,7 +212,7 @@ class Former
    */
   public function populateField($field, $value)
   {
-    $this->getPopulator()->setValue($field, $value);
+    $this->app['former.populator']->setValue($field, $value);
   }
 
   /**
@@ -221,7 +223,7 @@ class Former
    */
   public function getValue($field, $fallback = null)
   {
-    return $this->getPopulator()->getValue($field, $fallback);
+    return $this->app['former.populator']->getValue($field, $fallback);
   }
 
   /**
@@ -237,16 +239,6 @@ class Former
     $oldValue = $this->app['request']->old($name, $fallback);
 
     return $this->app['request']->get($name, $oldValue, true);
-  }
-
-  /**
-   * Get the Populator binded to Former
-   *
-   * @return Populator
-   */
-  public function getPopulator()
-  {
-    return $this->app['former.populator'];
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -329,7 +321,7 @@ class Former
   public function framework($framework = null)
   {
     if (!$framework) {
-      return $this->app['former']->getFramework()->current();
+      return $this->getFramework()->current();
     }
 
     $this->setOption('framework', $framework);
@@ -392,7 +384,7 @@ class Former
 
     // Destroy instances
     $this->form = null;
-    $this->getPopulator()->reset();
+    $this->app['former.populator']->reset();
 
     // Reset all values
     $this->errors = null;
@@ -420,6 +412,7 @@ class Former
 
     if ($this->errors and $name) {
       $name = str_replace(array('[', ']'), array('.', ''), $name);
+
       return $this->errors->first($name);
     }
 
@@ -434,7 +427,7 @@ class Former
    */
   public function getRules($name)
   {
-    return Arrays::get($this->rules, $name);
+    return array_get($this->rules, $name);
   }
 
   /**

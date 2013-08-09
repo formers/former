@@ -2,7 +2,7 @@
 namespace Former;
 
 use Illuminate\Container\Container;
-use Illuminate\Support\Str;
+use Underscore\Methods\StringMethods as String;
 
 /**
  * Dispatch calls from Former to the different
@@ -55,7 +55,7 @@ class MethodDispatcher
   public function toElements($method, $parameters)
   {
     // Disregards if the method isn't an element
-    if (!method_exists($elements = new Form\Elements($this->app['former'], $this->app['session']), $method)) {
+    if (!method_exists($elements = new Form\Elements($this->app, $this->app['session']), $method)) {
       return false;
     }
 
@@ -73,11 +73,11 @@ class MethodDispatcher
   public function toForm($method, $parameters)
   {
     // Disregards if the method doesn't contain 'open'
-    if (!Str::contains($method, 'open')) {
+    if (!String::contains($method, 'open')) {
       return false;
     }
 
-    $form = new Form\Form($this->app['former'], $this->app['url'], $this->app['former.populator']);
+    $form = new Form\Form($this->app, $this->app['url'], $this->app['former.populator']);
 
     return $form->openForm($method, $parameters);
   }
@@ -99,7 +99,7 @@ class MethodDispatcher
 
     // Create opener
     $group = new Form\Group(
-      $this->app['former'],
+      $this->app,
       array_get($parameters, 0, null),
       array_get($parameters, 1, null)
     );
@@ -124,7 +124,7 @@ class MethodDispatcher
       return false;
     }
 
-    return new Form\Actions($this->app['former'], $parameters);
+    return new Form\Actions($this->app, $parameters);
   }
 
   /**
@@ -140,7 +140,7 @@ class MethodDispatcher
     // Listing parameters
     $class = Former::FIELDSPACE.static::getClassFromMethod($method);
     $field = new $class(
-      $this->app['former'],
+      $this->app,
       $method,
       array_get($parameters, 0),
       array_get($parameters, 1),
@@ -167,7 +167,7 @@ class MethodDispatcher
   protected static function getClassFromMethod($method)
   {
     // If the field's name directly match a class, call it
-    $class = Str::singular(Str::title($method));
+    $class = String::singular(String::title($method));
     if (class_exists(Former::FIELDSPACE.$class)) {
       return $class;
     }

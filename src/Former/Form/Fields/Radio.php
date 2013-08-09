@@ -8,7 +8,6 @@ use Former\Traits\Checkable;
  */
 class Radio extends Checkable
 {
-
   /**
    * The current checkable type
    * @var string
@@ -28,5 +27,4 @@ class Radio extends Checkable
 
     return $this;
   }
-
 }

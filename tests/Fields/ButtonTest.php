@@ -81,4 +81,16 @@ class ButtonTest extends FormerTests
     $this->assertEquals('<a href="foo" class="btn">#</a>', $link);
   }
 
+  public function testCanCreateButtonWithIcon()
+  {
+    $button  = $this->former->button('Save')->icon('save');
+    $matcher = $this->matchButton('btn', 'Save');
+    $matcher['child'] = array(
+      'tag' => 'i',
+      'attributes' => array('class' => 'icon-save'),
+    );
+
+    $this->assertHTML($matcher, $button);
+  }
+
 }

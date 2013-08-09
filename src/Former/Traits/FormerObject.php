@@ -11,14 +11,6 @@ use HtmlObject\Element;
  */
 abstract class FormerObject extends Element
 {
-
-  /**
-   * The Former instance
-   *
-   * @var Former
-   */
-  protected $former;
-
   /**
    * The field's name
    *
@@ -50,7 +42,7 @@ abstract class FormerObject extends Element
   protected function setId()
   {
     if (!array_key_exists('id', $this->attributes) and
-      in_array($this->name, $this->former->labels)) {
+      in_array($this->name, $this->app['former']->labels)) {
         $this->attributes['id'] = $this->name;
     }
   }

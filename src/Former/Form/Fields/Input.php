@@ -3,13 +3,13 @@ namespace Former\Form\Fields;
 
 use Former\Helpers;
 use Former\Traits\Field;
+use Illuminate\Container\Container;
 
 /**
  * Renders all basic input types
  */
 class Input extends Field
 {
-
   /**
    * Current datalist stored
    *
@@ -31,16 +31,16 @@ class Input extends Field
   /**
    * Build an input field
    *
-   * @param Container $app        The Illuminate Container
+   * @param Container $app        The Container
    * @param string    $type       The input type
    * @param string    $name       Field name
    * @param string    $label      Its label
    * @param string    $value      Its value
    * @param array     $attributes Attributes
    */
-  public function __construct(\Former\Former $former, $type, $name, $label, $value, $attributes)
+  public function __construct(Container $app, $type, $name, $label, $value, $attributes)
   {
-    parent::__construct($former, $type, $name, $label, $value, $attributes);
+    parent::__construct($app, $type, $name, $label, $value, $attributes);
 
     // Multiple models population
     if (is_array($this->value)) {
@@ -130,5 +130,4 @@ class Input extends Field
 
     return $datalist;
   }
-
 }

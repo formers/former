@@ -5,6 +5,7 @@ use Former\Former;
 use Former\Helpers;
 use Former\Traits\Field;
 use HtmlObject\Element;
+use Illuminate\Container\Container;
 
 /**
  * Everything list-related (select, multiselect, ...)
@@ -46,7 +47,7 @@ class Select extends Field
   /**
    * Easier arguments order for selects
    *
-   * @param Former    $former     The Former instance
+   * @param Container $app        The Container instance
    * @param string    $type       select
    * @param string    $name       Field name
    * @param string    $label      Its label
@@ -54,12 +55,12 @@ class Select extends Field
    * @param string    $selected   The selected option
    * @param array     $attributes Attributes
    */
-  public function __construct(Former $former, $type, $name, $label, $options, $selected, $attributes)
+  public function __construct(Container $app, $type, $name, $label, $options, $selected, $attributes)
   {
     if ($selected) $this->value = $selected;
     if ($options)  $this->options($options);
 
-    parent::__construct($former, $type, $name, $label, $selected, $attributes);
+    parent::__construct($app, $type, $name, $label, $selected, $attributes);
 
     // Multiple models population
     if (is_array($this->value)) {

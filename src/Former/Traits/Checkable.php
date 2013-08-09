@@ -6,13 +6,13 @@ use Former\Helpers;
 use HtmlObject\Element;
 use HtmlObject\Input;
 use Underscore\Methods\ArraysMethods as Arrays;
+use Illuminate\Container\Container;
 
 /**
  * Abstract methods inherited by Checkbox and Radio
  */
 abstract class Checkable extends Field
 {
-
   /**
    * Renders the checkables as inline
    *
@@ -76,9 +76,9 @@ abstract class Checkable extends Field
   /**
    * Build a new checkable
    */
-  public function __construct(Former $former, $type, $name, $label, $value, $attributes)
+  public function __construct(Container $app, $type, $name, $label, $value, $attributes)
   {
-    parent::__construct($former, $type, $name, $label, $value, $attributes);
+    parent::__construct($app, $type, $name, $label, $value, $attributes);
 
     if (is_array($this->value)) {
       $this->items($this->value);
@@ -104,7 +104,7 @@ abstract class Checkable extends Field
 
     // Multiple items
     if ($this->items) {
-      unset($this->former->labels[array_search($this->name, $this->former->labels)]);
+      unset($this->app['former']->labels[array_search($this->name, $this->app['former']->labels)]);
       foreach ($this->items as $key => $item) {
         $value = $this->isCheckbox() && !$this->isGrouped() ? 1 : $key;
         $html .= $this->createCheckable($item, $value);
@@ -305,7 +305,7 @@ abstract class Checkable extends Field
     if (isset($attributes['value'])) {
       $value = $attributes['value'];
     }
-    if (!isset($value) or $value === $this->former->getOption('unchecked_value')) {
+    if (!isset($value) or $value === $this->app['former']->getOption('unchecked_value')) {
       $value = $fallbackValue;
     }
 
@@ -326,8 +326,8 @@ abstract class Checkable extends Field
 
     // Add hidden checkbox if requested
     if ($this->isOfType('checkbox', 'checkboxes')) {
-      if ($this->former->getOption('push_checkboxes') or $this->isPushed) {
-        $field = $this->former->hidden($name)->forceValue($this->former->getOption('unchecked_value')) . $field->render();
+      if ($this->app['former']->getOption('push_checkboxes') or $this->isPushed) {
+        $field = $this->app['former']->hidden($name)->forceValue($this->app['former']->getOption('unchecked_value')) . $field->render();
       }
     }
 
@@ -351,10 +351,10 @@ abstract class Checkable extends Field
    */
   protected function unique($name)
   {
-    $this->former->labels[] = $name;
+    $this->app['former']->labels[] = $name;
 
     // Count number of fields with the same ID
-    $where = array_filter($this->former->labels, function ($label) use ($name) {
+    $where = array_filter($this->app['former']->labels, function ($label) use ($name) {
       return $label == $name;
     });
     $unique = sizeof($where);
@@ -408,10 +408,10 @@ abstract class Checkable extends Field
     }
 
     // Check the values and POST array
-    $post   = $this->former->getPost($name);
-    $static = $this->former->getValue($name);
+    $post   = $this->app['former']->getPost($name);
+    $static = $this->app['former']->getValue($name);
 
-    if (!is_null($post) and $post !== $this->former->getOption('unchecked_value')) {
+    if (!is_null($post) and $post !== $this->app['former']->getOption('unchecked_value')) {
       $isChecked = ($post == $value);
     } elseif (!is_null($static)) {
       $isChecked = ($static == $value);

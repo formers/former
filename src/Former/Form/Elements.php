@@ -4,6 +4,7 @@ namespace Former\Form;
 use Former\Former;
 use Former\Helpers;
 use HtmlObject\Element;
+use Illuminate\Container\Container;
 
 /**
  * The different parts of a form that are neither fields nor groups
@@ -11,13 +12,12 @@ use HtmlObject\Element;
  */
 class Elements
 {
-
   /**
-   * The Former instance
+   * The Container
    *
-   * @var Former
+   * @var Container
    */
-  protected $former;
+  protected $app;
 
   /**
    * The Session instance
@@ -31,9 +31,9 @@ class Elements
    *
    * @param Container $app
    */
-  public function __construct(Former $former, $session)
+  public function __construct(Container $app, $session)
   {
-    $this->former  = $former;
+    $this->app     = $app;
     $this->session = $session;
   }
 
@@ -46,7 +46,7 @@ class Elements
   {
     $csrf = $this->session->getToken();
 
-    return (string) $this->former->hidden('_token', $csrf);
+    return (string) $this->app['former']->hidden('_token', $csrf);
   }
 
   /**
@@ -62,7 +62,7 @@ class Elements
     $label = Helpers::translate($label);
 
     $attributes['for'] = $for;
-    $this->former->labels[] = $for;
+    $this->app['former']->labels[] = $for;
 
     return Element::create('label', $label, $attributes);
   }
