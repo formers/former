@@ -152,11 +152,7 @@ class FormerServiceProvider extends ServiceProvider
     });
 
     $app->singleton('former', function ($app) {
-      return new Former($app);
-    });
-
-    $app->bind('former.dispatcher', function ($app) {
-      return new MethodDispatcher($app);
+      return new Former($app, new MethodDispatcher($app));
     });
 
     Helpers::setApp($app);

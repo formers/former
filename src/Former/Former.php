@@ -74,12 +74,13 @@ class Former
   /**
    * Build a new Former instance
    *
-   * @param Illuminate\Container\Container $app
+   * @param Container         $app
+   * @param MethodDispatcher  $dispatcher
    */
-  public function __construct(Container $app)
+  public function __construct(Container $app, MethodDispatcher $dispatcher)
   {
     $this->app      = $app;
-    $this->dispatch = $app['former.dispatcher'];
+    $this->dispatch = $dispatcher;
   }
 
   ////////////////////////////////////////////////////////////////////
