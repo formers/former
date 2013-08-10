@@ -18,21 +18,18 @@ use Illuminate\Translation\Translator;
 class FormerServiceProvider extends ServiceProvider
 {
   /**
+   * Indicates if loading of the provider is deferred.
+   *
+   * @var bool
+   */
+  protected $defer = true;
+
+  /**
    * Register Former's package with Laravel
    *
    * @return void
    */
   public function register()
-  {
-    // ...
-  }
-
-  /**
-   * Boot Former and its classes
-   *
-   * @return void
-   */
-  public function boot()
   {
     $this->app = static::make($this->app);
   }
@@ -85,7 +82,7 @@ class FormerServiceProvider extends ServiceProvider
     //////////////////////////////////////////////////////////////////
 
     $app->bindIf('files', 'Illuminate\Filesystem\Filesystem');
-    $app->bindIf('url', 'Illuminate\Routing\UrlGenerator');
+    $app->bindIf('url',   'Illuminate\Routing\UrlGenerator');
 
     // Session and request
     //////////////////////////////////////////////////////////////////
