@@ -7,8 +7,7 @@ use Illuminate\Container\Container;
 use Illuminate\Validation\Validator;
 
 /**
- * Helps the user interact with it and its classes
- * Various form helpers for repopulation, rules, etc.
+ * Helps the user interact with the various Former components
  */
 class Former
 {
@@ -28,20 +27,6 @@ class Former
    * @var MethodDispatcher
    */
   protected $dispatch;
-
-  /**
-   * The current field being worked on
-   *
-   * @var Field
-   */
-  protected $field;
-
-  /**
-   * The current form being worked on
-   *
-   * @var Form
-   */
-  protected $form;
 
   // Informations
   ////////////////////////////////////////////////////////////////////
@@ -119,7 +104,8 @@ class Former
 
     // Dispatch to Form\Form
     if ($form = $this->dispatch->toForm($method, $parameters)) {
-      return $this->form = $form;
+      $this->app->instance('former.form', $form);
+      return $this->app['former.form'];
     }
 
     // Dispatch to Form\Group
@@ -145,7 +131,10 @@ class Former
     $field = $this->dispatch->toFields($method, $parameters);
     $field = $this->app['former.framework']->getFieldClasses($field, $classes);
 
-    return $this->field = $field;
+    // Else bind field
+    $this->app->instance('former.field', $field);
+
+    return $this->app['former.field'];
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -360,14 +349,14 @@ class Former
    */
   public function close()
   {
-    if (!$this->form) {
+    if (!$this->app->bound('former.form')) {
       return false;
     }
 
-    $closed = $this->form()->close();
+    $closed = $this->app['former.form']->close();
 
     // Destroy instances
-    $this->form = null;
+    $this->app->offsetUnset('former.form');;
     $this->app['former.populator']->reset();
 
     // Reset all values
@@ -390,8 +379,8 @@ class Former
   public function getErrors($name = null)
   {
     // Get name and translate array notation
-    if (!$name and $this->field) {
-      $name = $this->field->getName();
+    if (!$name and $this->app['former.field']) {
+      $name = $this->app['former.field']->getName();
     }
 
     if ($this->errors and $name) {
@@ -412,29 +401,5 @@ class Former
   public function getRules($name)
   {
     return array_get($this->rules, $name);
-  }
-
-  /**
-   * Returns the current Form
-   *
-   * @return Form
-   */
-  public function form()
-  {
-    return $this->form;
-  }
-
-  /**
-   * Get the current field instance
-   *
-   * @return Field
-   */
-  public function field()
-  {
-    if (!$this->field) {
-      return false;
-    }
-
-    return $this->field;
   }
 }

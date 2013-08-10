@@ -2,7 +2,6 @@
 namespace Former;
 
 use Former\Traits\Field;
-use Laravel\File;
 
 /**
  * Handles the transformation of validation rules into actual
@@ -79,7 +78,7 @@ class LiveValidation
    */
   public function required()
   {
-      $this->field->required();
+    $this->field->required();
   }
 
   // Patterns

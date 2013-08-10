@@ -143,7 +143,7 @@ class Group extends Tag
     }
 
     // Required state
-    if ($this->app['former']->field() and $this->app['former']->field()->isRequired()) {
+    if ($this->app['former.field'] and $this->app['former.field']->isRequired()) {
       $this->addClass($this->app['former']->getOption('required_class'));
     }
 
