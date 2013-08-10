@@ -2,7 +2,6 @@
 namespace Former;
 
 use Closure;
-use Former\Interfaces\FrameworkInterface;
 use Illuminate\Container\Container;
 use Illuminate\Validation\Validator;
 
@@ -105,6 +104,7 @@ class Former
     // Dispatch to Form\Form
     if ($form = $this->dispatch->toForm($method, $parameters)) {
       $this->app->instance('former.form', $form);
+
       return $this->app['former.form'];
     }
 

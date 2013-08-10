@@ -177,18 +177,13 @@ class MethodDispatcher
       case 'submit':
       case 'link':
       case 'reset':
-        $class = 'Button';
-      break;
+        return 'Button';
 
       case 'multiselect':
-        $class = 'Select';
-      break;
+        return 'Select';
 
       default:
-        $class = 'Input';
-      break;
+        return 'Input';
     }
-
-    return $class;
   }
 }
