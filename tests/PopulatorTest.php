@@ -40,7 +40,6 @@ class PopulatorTest extends FormerTests
     $model = new DummyEloquent(array('id' => 1, 'name' => 'foo'));
     $populator = new Populator($model);
 
-    $this->assertEquals('custom', $populator->getValue('attribute_old'));
     $this->assertEquals('custom', $populator->getValue('custom'));
     $this->assertEquals('foo', $populator->getValue('name'));
   }

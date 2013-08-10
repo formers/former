@@ -1,46 +1,23 @@
 <?php
-class DummyEloquent
+use Illuminate\Database\Eloquent\Model;
+
+class DummyEloquent extends Model
 {
-  private $id;
-  private $name;
-
-  public function __construct($array)
-  {
-    $this->id   = $array['id'];
-    $this->name = $array['name'];
-  }
-
-  public function __get($key)
-  {
-    if ($key == 'roles') return $this->roles();
-    if ($key == 'attribute_old') return $this->get_attribute_old();
-    if ($key == 'custom') return $this->getCustomAttribute();
-    return $this->$key;
-  }
-
-  public function __isset($key)
-  {
-    return in_array($key, array('id', 'name', 'roles'));
-  }
+  /**
+   * The guarded attributes
+   *
+   * @var array
+   */
+  protected $guarded = array();
 
   public function roles()
   {
-    return array(
-      new DummyEloquent(array('id' => 1, 'name' => 'foo')),
-      new DummyEloquent(array('id' => 3, 'name' => 'bar')),
-    );
-  }
-
-  public function getKey()
-  {
-    return $this->id;
-  }
-
-  // Mutators ------------------------------------------------------ /
-
-  public function get_attribute_old()
-  {
-    return 'custom';
+    return Mockery::mock('HasMany')
+      ->shouldReceive('getResults')->andReturn(array(
+        new DummyEloquent(array('id' => 1, 'name' => 'foo')),
+        new DummyEloquent(array('id' => 3, 'name' => 'bar')),
+      ))
+      ->mock();
   }
 
   public function getCustomAttribute()

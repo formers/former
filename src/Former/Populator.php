@@ -2,6 +2,7 @@
 namespace Former;
 
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Populates the class with values, and fetches them
@@ -11,6 +12,7 @@ class Populator
 {
   /**
    * The populated values
+   *
    * @var array
    */
   private $values = array();
@@ -171,11 +173,8 @@ class Populator
    */
   public function getAttributeFromModel($model, $attribute, $fallback)
   {
-    if (
-      isset($model->$attribute) or
-      method_exists($model, 'get_'.$attribute) or
-      method_exists($model, 'get'.ucfirst($attribute).'Attribute')) {
-        return $model->$attribute;
+    if ($model instanceof Model) {
+      return $model->getAttribute($attribute);
     }
 
     $model = (array) $model;

@@ -26,7 +26,8 @@
     "illuminate/translation" :"~4"
   },
   "require-dev": {
-    "mockery/mockery": "dev-master"
+    "mockery/mockery": "dev-master",
+    "illuminate/database": "~4"
   },
   "autoload": {
     "psr-0": {
