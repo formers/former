@@ -75,6 +75,7 @@ abstract class Field extends FormerObject implements FieldInterface
     $this->attributes = (array) $attributes;
     $this->type       = $type;
     $this->value      = $value;
+    $this->form       = $this->app['former']->form();
 
     // Compute and translate label
     $this->automaticLabels($name, $label);
@@ -326,7 +327,7 @@ abstract class Field extends FormerObject implements FieldInterface
     // Get values from POST, populated, and manually set value
     $post      = $this->app['former']->getPost($this->name);
     $populator = $this->form ? $this->form->getPopulator() : $this->app['former.populator'];
-    $populate  = $populator->getValue($this->name);
+    $populate  = $populator->get($this->name);
 
     // Assign a priority to each
     if (!is_null($post)) {

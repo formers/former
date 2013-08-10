@@ -3,51 +3,28 @@ namespace Former;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 /**
  * Populates the class with values, and fetches them
  * from various places
  */
-class Populator
+class Populator extends Collection
 {
   /**
-   * The populated values
+   * Create a new collection.
    *
-   * @var array
+   * @param  array|Model  $items
+   * @return void
    */
-  private $values = array();
-
-  /**
-   * Build a new Populator instance with a
-   * set of values to use
-   *
-   * @param array $values
-   */
-  public function __construct($values = array())
+  public function __construct($items = array())
   {
-    $this->values = $values;
+    $this->items = $items;
   }
 
   ////////////////////////////////////////////////////////////////////
   ///////////////////////// INDIVIDUAL VALUES ////////////////////////
   ////////////////////////////////////////////////////////////////////
-
-  /**
-   * Set the value of a particular field
-   *
-   * @param string $field The field's name
-   * @param mixed  $value Its new value
-   *
-   * @return void
-   */
-  public function setValue($field, $value)
-  {
-    if (is_object($this->values)) {
-      $this->values->$field = $value;
-    } else {
-      $this->values[$field] = $value;
-    }
-  }
 
   /**
    * Get the value of a field
@@ -56,35 +33,37 @@ class Populator
    *
    * @return mixed
    */
-  public function getValue($field, $fallback = null)
+  public function get($field, $fallback = null)
   {
     // Plain array
-    if (is_array($this->values)) {
-      return array_get($this->values, $field, $fallback);
+    if (is_array($this->items)) {
+      return parent::get($field, $fallback);
     }
 
     // Transform the name into an array
-    $value = $this->values;
+    $value = $this->items;
     $field = $this->parseFieldAsArray($field);
 
     // Dive into the model
     foreach ($field as $relationship) {
 
-      // Multiple results relation
-      if (is_array($value)) {
-
-        if (array_key_exists($relationship, $value)) {
-          $value = $value[$relationship];
-        } else {
-          foreach ($value as $key => $submodel) {
-            $value[$key] = $this->getAttributeFromModel($submodel, $relationship, $fallback);
-          }
+      // Get attribute from model
+      if (!is_array($value)) {
+        $value = $this->getAttributeFromModel($value, $relationship, $fallback);
+        if ($value === $fallback) {
+          break;
         }
 
+        continue;
+      }
+
       // Get attribute from model
+      if (array_key_exists($relationship, $value)) {
+        $value = $value[$relationship];
       } else {
-        $value = $this->getAttributeFromModel($value, $relationship, $fallback);
-        if ($value === $fallback) break;
+        foreach ($value as $key => $submodel) {
+          $value[$key] = $this->getAttributeFromModel($submodel, $relationship, $fallback);
+        }
       }
 
     }
@@ -97,25 +76,15 @@ class Populator
   ////////////////////////////////////////////////////////////////////
 
   /**
-   * Get all values
+   * Replace the items
    *
-   * @return mixed
-   */
-  public function getValues()
-  {
-    return $this->values;
-  }
-
-  /**
-   * Replace the values array
-   *
-   * @param  mixed $values The new values
+   * @param  mixed $items
    *
    * @return void
    */
-  public function setValues($values)
+  public function replace($items)
   {
-    $this->values = $values;
+    $this->items = $items;
   }
 
   /**
@@ -125,7 +94,7 @@ class Populator
    */
   public function reset()
   {
-    $this->values = array();
+    $this->items = array();
   }
 
   ////////////////////////////////////////////////////////////////////

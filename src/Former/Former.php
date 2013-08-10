@@ -200,7 +200,7 @@ class Former
    */
   public function populate($values)
   {
-    $this->app['former.populator']->setValues($values);
+    $this->app['former.populator']->replace($values);
   }
 
   /**
@@ -211,7 +211,7 @@ class Former
    */
   public function populateField($field, $value)
   {
-    $this->app['former.populator']->setValue($field, $value);
+    $this->app['former.populator']->put($field, $value);
   }
 
   /**
@@ -222,7 +222,7 @@ class Former
    */
   public function getValue($field, $fallback = null)
   {
-    return $this->app['former.populator']->getValue($field, $fallback);
+    return $this->app['former.populator']->get($field, $fallback);
   }
 
   /**
