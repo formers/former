@@ -81,4 +81,11 @@ class FormerTest extends FormerTests
 
     $this->assertNotEquals('NOPE', $this->former->label('foo'));
   }
+
+  public function testCloseCorrectlyRemoveInstances()
+  {
+    $this->former->close();
+
+    $this->assertNull($this->app['former.form']);
+  }
 }

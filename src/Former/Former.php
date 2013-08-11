@@ -350,21 +350,20 @@ class Former
    */
   public function close()
   {
-    if (!$this->app->bound('former.form')) {
-      return false;
+    if ($this->app->bound('former.form')) {
+      $closing = $this->app['former.form']->close();
     }
 
-    $closed = $this->app['former.form']->close();
-
     // Destroy instances
-    $this->app->offsetUnset('former.form');;
+    $this->app['former.form'] = null;
+    unset($this->app['former.form']);
     $this->app['former.populator']->reset();
 
     // Reset all values
     $this->errors = null;
     $this->rules  = null;
 
-    return $closed;
+    return isset($closing) ? $closing : null;
   }
 
   ////////////////////////////////////////////////////////////////////
