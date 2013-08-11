@@ -86,6 +86,6 @@ class FormerTest extends FormerTests
   {
     $this->former->close();
 
-    $this->assertNull($this->app['former.form']);
+    $this->assertFalse($this->app->bound('former.form'));
   }
 }
