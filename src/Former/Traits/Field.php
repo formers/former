@@ -75,7 +75,7 @@ abstract class Field extends FormerObject implements FieldInterface
     $this->attributes = (array) $attributes;
     $this->type       = $type;
     $this->value      = $value;
-    $this->form       = $this->app['former.form'];
+    $this->form       = $this->app->bound('former.form') ? $this->app['former.form'] : null;
 
     // Compute and translate label
     $this->automaticLabels($name, $label);
@@ -178,7 +178,7 @@ abstract class Field extends FormerObject implements FieldInterface
   public function isUnwrappable()
   {
     return
-      $this->app['former.form'] and $this->app['former.form']->isOfType('inline') or
+      $this->form and $this->isOfType('inline') or
       $this->isButton() or
       $this->isOfType('hidden') or
       \Former\Form\Group::$opened or
