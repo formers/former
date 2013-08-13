@@ -404,7 +404,9 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Developer"
                 }
             ],
             "time": "2013-07-31 16:22:45"
@@ -557,7 +559,9 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Developer"
                 }
             ],
             "time": "2013-08-02 13:31:18"
@@ -612,16 +616,16 @@
         },
         {
             "name": "patchwork/utf8",
-            "version": "v1.1.9",
+            "version": "v1.1.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nicolas-grekas/Patchwork-UTF8.git",
-                "reference": "v1.1.9"
+                "reference": "v1.1.10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/v1.1.9",
-                "reference": "v1.1.9",
+                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/v1.1.10",
+                "reference": "v1.1.10",
                 "shasum": ""
             },
             "require": {
@@ -653,7 +657,7 @@
                 "utf-8",
                 "utf8"
             ],
-            "time": "2013-08-04 15:20:14"
+            "time": "2013-08-13 16:36:44"
         },
         {
             "name": "psr/log",
@@ -1188,7 +1192,9 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Developer"
                 }
             ],
             "time": "2013-08-01 14:26:36"
