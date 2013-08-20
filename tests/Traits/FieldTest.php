@@ -158,4 +158,16 @@ class FieldTest extends FormerTests
     $this->assertHTML($this->matchControlGroup(), $static);
     $this->assertHTML($field, $static);
   }
+
+  public function testLabelsGetTranslatedOnlyOnce()
+  {
+    $this->app['translator'] = Mockery::mock('Illuminate\Translation\Translator');
+    $this->app['translator']->shouldReceive('has')->withAnyArgs()->andReturn(true);
+    $this->app['translator']->shouldReceive('get')->withAnyArgs()->andReturnUsing(function($key) {
+      return utf8_decode($key);
+    });
+
+    $text = $this->former->text('foobar', 'Ã¼')->wrapAndRender();
+    $this->assertContains('<label for="foobar" class="control-label">ü</label>', $text);
+  }
 }

@@ -1,7 +1,6 @@
 <?php
 class HelpersTest extends FormerTests
 {
-
   public function testDoesntUseTranslationsArraysAsLabels()
   {
     $former = $this->former->text('pagination')->__toString();
@@ -9,5 +8,4 @@ class HelpersTest extends FormerTests
 
     $this->assertHTML($matcher, $former);
   }
-
 }
