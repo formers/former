@@ -1,7 +1,6 @@
 <?php
 class FormTest extends FormerTests
 {
-
   ////////////////////////////////////////////////////////////////////
   ////////////////////////////// MATCHERS ////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -206,4 +205,19 @@ class FormTest extends FormerTests
     $this->assertHTML($this->matchForm(), $form);
   }
 
+  public function testCanOpenToSpoofedMethod()
+  {
+    $form = $this->former->open('#')->method('PUT')->__toString();
+    $matcher = $this->matchForm();
+
+    $this->assertHTML($matcher, $form);
+    $this->assertHTML(array(
+      'tag' => 'input',
+      'attributes' => array(
+        'type'  => 'hidden',
+        'name'  => '_method',
+        'value' => 'PUT',
+      ),
+    ), $form);
+  }
 }

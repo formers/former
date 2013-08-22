@@ -37,6 +37,14 @@ class LiveValidationTest extends FormerTests
   //////////////////////////////// TESTS /////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
+  public function testCanSkipUnexistingHtmlEquivalents()
+  {
+    $this->former->withRules(array('foo' => 'unique:users'));
+    $input = $this->former->text('foo')->render();
+
+    $this->assertHTML($this->matchField(), $input);
+  }
+
   public function testCanUseMultipleRulesArray()
   {
     $this->former->withRules(array('foo' => 'required'), array('bar' => 'email'));
@@ -272,6 +280,17 @@ class LiveValidationTest extends FormerTests
     $this->assertHTML($matcher, $input);
   }
 
+  public function testCanSetDatetimeAsBeforeSomething()
+  {
+    $this->former->withRules(array('foo' => 'before:2012-03-03 10:00:00'));
+
+    $input = $this->former->datetime('foo')->__toString();
+    $matcher = $this->matchField(array('max' => '2012-03-03T10:00:00'), 'datetime');
+
+    $this->assertControlGroup($input);
+    $this->assertHTML($matcher, $input);
+  }
+
   public function testCanSetDateAsBeforeSomethingAsArray()
   {
     $this->former->withRules(array('foo' => array('before:2012-03-03')));
@@ -324,6 +343,16 @@ class LiveValidationTest extends FormerTests
     $matcher = $this->matchField(array('accept' => 'image/jpeg,image/gif'), 'file');
 
     $this->assertControlGroup($input);
+    $this->assertHTML($matcher, $input);
+  }
+
+  public function testCantUseAcceptOnNonFilesFields()
+  {
+    $this->former->withRules(array('foo' => array('mimes:jpg,gif')));
+
+    $input = $this->former->text('foo')->render();
+    $matcher = $this->matchField();
+
     $this->assertHTML($matcher, $input);
   }
 
@@ -458,4 +487,9 @@ class LiveValidationTest extends FormerTests
     $this->assertHTML($matcher, $input);
   }
 
+  public function testCanCreateMaxFileSizeForFiles()
+  {
+    $input = $this->former->file('foo')->rule('max', 10)->__toString();
+    $this->assertHTML($this->matchField(array('value' => 10240), 'hidden', 'MAX_FILE_SIZE'), $input);
+  }
 }

@@ -1,7 +1,6 @@
 <?php
 class FormerTest extends FormerTests
 {
-
   ////////////////////////////////////////////////////////////////////
   ////////////////////////////// MATCHERS ////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -87,5 +86,12 @@ class FormerTest extends FormerTests
     $this->former->close();
 
     $this->assertFalse($this->app->bound('former.form'));
+  }
+
+  public function testCanUseFacadeWithoutContainer()
+  {
+    $text = Former\Facades\Former::text('foo')->render();
+
+    $this->assertEquals('<input id="foo" type="text" name="foo">', $text);
   }
 }
