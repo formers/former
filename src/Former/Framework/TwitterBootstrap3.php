@@ -47,9 +47,9 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
     'has-warning', 'has-error', 'has-success',
   );
 
-  protected $labelWidth = 'col-2';
+  protected $labelWidth = 'col-lg-2';
 
-  protected $fieldWidth = 'col-10';
+  protected $fieldWidth = 'col-lg-10';
 
   /**
    * Create a new TwitterBootstrap instance
