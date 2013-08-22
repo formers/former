@@ -1,5 +1,5 @@
 <?php
-ini_set('memory_limit', '300M');
+ini_set('memory_limit', '350M');
 date_default_timezone_set('UTC');
 
 // Load the Illuminate Container

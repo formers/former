@@ -1,9 +1,11 @@
 ## CHANGELOG
 
-3.1.1
+3.2.0
 -----
 
-- [mod] Former now handles camelCase attributes (ie. `dataPlaceholder` for `data-placeholder`)
+- **[mod] Updated TwitterBootstrap3 to the latest release**
+- **[mod] Former now handles camelCase attributes (ie. `dataPlaceholder` for `data-placeholder`)**
+- [mod] `$group->getErrors()` is now public
 
 3.1.0
 -----
