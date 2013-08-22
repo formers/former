@@ -14,9 +14,9 @@ use Underscore\Methods\StringMethods as String;
  */
 class TwitterBootstrap3 extends Framework implements FrameworkInterface
 {
-
   /**
    * The button types available
+   *
    * @var array
    */
   private $buttons = array(
@@ -26,6 +26,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 
   /**
    * The field sizes available
+   *
    * @var array
    */
   private $fields = array(
@@ -34,21 +35,32 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
     'col-sm-1', 'col-sm-2', 'col-sm-3', 'col-sm-4', 'col-sm-5', 'col-sm-6',
     'col-sm-7', 'col-sm-8', 'col-sm-9', 'col-sm-10', 'col-sm-11', 'col-sm-12',
     'col-md-1', 'col-md-2', 'col-md-3', 'col-md-4', 'col-md-5', 'col-md-6',
-    'col-md-7', 'col-md-8', 'col-md-9', 'col-md-10', 'col-md-11', 'col-md-12', 
+    'col-md-7', 'col-md-8', 'col-md-9', 'col-md-10', 'col-md-11', 'col-md-12',
     'col-lg-1', 'col-lg-2', 'col-lg-3', 'col-lg-4', 'col-lg-5', 'col-lg-6',
     'col-lg-7', 'col-lg-8', 'col-lg-9', 'col-lg-10', 'col-lg-11', 'col-lg-12',
   );
 
   /**
    * The field states available
+   *
    * @var array
    */
   protected $states = array(
     'has-warning', 'has-error', 'has-success',
   );
 
+  /**
+   * The default label width
+   *
+   * @var string
+   */
   protected $labelWidth = 'col-lg-2';
 
+  /**
+   * The default field width
+   *
+   * @var string
+   */
   protected $fieldWidth = 'col-lg-10';
 
   /**
@@ -130,8 +142,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 
     // Add form-control class for text-type, textarea and select fields
     // As text-type is open-ended we instead exclude those that shouldn't receive the class
-    if ( ! $field->isCheckable() and ! $field->isButton() and ! ($field->getType() == 'file') and ! in_array('form-control', $classes))
-    {
+    if (!$field->isCheckable() and !$field->isButton() and !($field->getType() == 'file') and !in_array('form-control', $classes)) {
       $classes[] = 'form-control';
     }
 
@@ -237,7 +248,10 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
    */
   public function createIcon($iconType, $attributes = array())
   {
-    if (!$iconType) return false;
+    if (!$iconType) {
+      return false;
+    }
+
     return Element::create('span', null, $attributes)->addClass('glyphicon glyphicon-'.$iconType);
   }
 
@@ -287,5 +301,4 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   {
     return $field;
   }
-
 }

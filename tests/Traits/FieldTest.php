@@ -21,10 +21,10 @@ class FieldTest extends FormerTests
 
   public function testCanCreateFieldsOutsideForms()
   {
-  	$this->former->close();
-  	$field = $this->former->text('foo')->raw();
+      $this->former->close();
+      $field = $this->former->text('foo')->raw();
 
-  	$this->assertEquals('<input id="foo" type="text" name="foo">', $field->__toString());
+      $this->assertEquals('<input id="foo" type="text" name="foo">', $field->__toString());
   }
 
   public function testCanChangeTheFieldIdAndKeepLabelInSync()
