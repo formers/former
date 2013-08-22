@@ -36,7 +36,9 @@
 
 <p><a href="http://travis-ci.org/Anahkiasen/former"><img src="https://secure.travis-ci.org/Anahkiasen/former.png" alt="Build Status"></a>
 <a href="https://packagist.org/packages/anahkiasen/former"><img src="https://poser.pugx.org/anahkiasen/former/v/stable.png" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/anahkiasen/former"><img src="https://poser.pugx.org/anahkiasen/former/downloads.png" alt="Total Downloads"></a></p>
+<a href="https://packagist.org/packages/anahkiasen/former"><img src="https://poser.pugx.org/anahkiasen/former/downloads.png" alt="Total Downloads"></a>
+<a href="https://scrutinizer-ci.com/g/Anahkiasen/former/"><img src="https://scrutinizer-ci.com/g/Anahkiasen/former/badges/quality-score.png?s=17a96ec08bcefbdf737feed52b88ebcac596c29c" alt="Scrutinizer Quality Score"></a>
+<a href="https://scrutinizer-ci.com/g/Anahkiasen/former/"><img src="https://scrutinizer-ci.com/g/Anahkiasen/former/badges/coverage.png?s=861f4579957851e68626c91ed1bb9e76694edaa8" alt="Code Coverage"></a></p>
 
 <p>Former is the name of a little project I'd like to present you — it's a PHP package that allows you to do all kinds of powerful stuff with forms while remaining pretty simple to use. It's also a really nice guy too once you get to know him.</p>
 
@@ -63,7 +65,7 @@
     <span class="o">-&gt;</span><span class="na">autofocus</span><span class="p">();</span>
 
   <span class="nx">Former</span><span class="o">::</span><span class="na">actions</span><span class="p">()</span>
-    <span class="o">-&gt;</span><span class="na">large_primary_submit</span><span class="p">(</span><span class="s1">'Submit'</span><span class="p">),</span>
+    <span class="o">-&gt;</span><span class="na">large_primary_submit</span><span class="p">(</span><span class="s1">'Submit'</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">large_inverse_reset</span><span class="p">(</span><span class="s1">'Reset'</span><span class="p">)</span>
 
 <span class="nx">Former</span><span class="o">::</span><span class="na">close</span><span class="p">()</span>
@@ -85,13 +87,13 @@ Now of course in case you want to set an attribute that actually contains an und
 <div class="highlight"><pre><span class="o">&lt;?=</span> <span class="nx">Former</span><span class="o">::</span><span class="na">open</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="x"></span>
 <span class="x">    </span><span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">required</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x"></span>
 <span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">Former</span><span class="o">::</span><span class="na">close</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
 
-<span class="x">If you're using Twig or other more closed view templating systems, you can still use Former's classes outside :</span>
+<p>If you're using Twig or other more closed view templating systems, you can still use Former's classes outside :</p>
 
-<span class="x">```php</span>
-<span class="x">$form = Former::open()-&gt;method('GET');</span>
-<span class="x">    $form .= Former::text('name')-&gt;required();</span>
-<span class="x">$form .= Former::close();</span>
+<div class="highlight"><pre><span class="nv">$form</span> <span class="o">=</span> <span class="nx">Former</span><span class="o">::</span><span class="na">open</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">);</span>
+    <span class="nv">$form</span> <span class="o">.=</span> <span class="nx">Former</span><span class="o">::</span><span class="na">text</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">required</span><span class="p">();</span>
+<span class="nv">$form</span> <span class="o">.=</span> <span class="nx">Former</span><span class="o">::</span><span class="na">close</span><span class="p">();</span>
 </pre></div>
 
 <h2>
@@ -124,7 +126,7 @@ Then add as an alias <code>'Former' =&gt; 'Former\Facades\Former'</code> in your
 <h3>
 <a name="with-package-installer" class="anchor" href="#with-package-installer"><span class="octicon octicon-link"></span></a>With Package installer</h3>
 
-<p>Simply do <code>artisan package:install anahkiasen:former</code></p>
+<p>Simply do <code>artisan package:install anahkiasen/former:dev-master</code></p>
 
 <h3>
 <a name="outside-of-a-framework" class="anchor" href="#outside-of-a-framework"><span class="octicon octicon-link"></span></a>Outside of a framework</h3>
@@ -476,7 +478,419 @@ It also repopulates it, meaning a checked input will stay checked on submit.</p>
 <li>Then any values set via <code>Former::populate()</code> – that means that if you're editing something or are repopulating with some value, it can be overwritten with <code>forceValue</code>
 </li>
 <li>Finally the classic <code>-&gt;value()</code> gets the least priority – it is created for minimum and default field values and thus gets overwritten by population and POST data</li>
+</ul><h1>
+<a name="anatomy-of-former" class="anchor" href="#anatomy-of-former"><span class="octicon octicon-link"></span></a>Anatomy of Former</h1>
+
+<p>Bare with me, there are a lot of classes but it all makes sense once you read what they do :</p>
+
+<ul>
+<li>
+<strong>Former</strong> : The main class, mostly handles configuration and interactions between the form parts</li>
+<li>
+<strong>FormerServiceProvider</strong> : The Service Provider for Laravel 4</li>
+<li>
+<strong>Helpers</strong> : A set of static helpers used troughout the library</li>
+<li>
+<strong>Dispatch</strong> : Catches the call you do the <code>Former</code> facade and dispatches them to the right classes</li>
+<li>
+<strong>LiveValidation</strong> : Handles live validation of fields and translation of rules into attributes</li>
+<li>
+<strong>Populator</strong> : A value container from which Former gets/sets the fields values</li>
+<li>
+<strong>Traits</strong>
+
+<ul>
+<li>
+<strong>Checkable</strong> : Common methods and properties to radios and checkboxes</li>
+<li>
+<strong>Field</strong> : Common methods and properties to all fields</li>
+<li>
+<strong>FormerObject</strong> : A base object extended by the traits above, handles dynamic attributes and stuff</li>
+<li>
+<strong>Framework</strong> : Common methods and properties to all frameworks</li>
 </ul>
+</li>
+<li>
+<strong>Interfaces</strong> : Required methods by all fields an frameworks
+
+<ul>
+<li><strong>FieldInterface</strong></li>
+<li><strong>FrameworkInterface</strong></li>
+</ul>
+</li>
+<li>
+<strong>Framework</strong> : These classes generate the right markup according to the framework in use
+
+<ul>
+<li><strong>Nude</strong></li>
+<li><strong>TwitterBootstrap</strong></li>
+<li><strong>ZurbFoundation</strong></li>
+</ul>
+</li>
+<li>
+<strong>Form</strong> : All the classes underneath handle the actual markup and elements of a form
+
+<ul>
+<li>
+<strong>Actions</strong> : Handles the actions blocks where submit buttons and all are found</li>
+<li>
+<strong>Elements</strong> : Various form elements that are neither fields nor actions (legends, etc)</li>
+<li>
+<strong>Form</strong> : Handles the form opening and closing and the methods that go with it</li>
+<li>
+<strong>Group</strong> : Wraps fields and provide field states, errors fetching and such</li>
+<li>
+<strong>Fields</strong> : The field classes, each handle one kind of field. The names say it all
+
+<ul>
+<li><strong>Button</strong></li>
+<li><strong>Checkbox</strong></li>
+<li><strong>File</strong></li>
+<li><strong>Hidden</strong></li>
+<li><strong>Input</strong></li>
+<li><strong>Radio</strong></li>
+<li><strong>Select</strong></li>
+<li><strong>Textarea</strong></li>
+<li><strong>Uneditable</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Facades</strong> : Various entry points that smooth out the experience across environments
+
+<ul>
+<li>
+<strong>Agnostic</strong> : The base facade used by Former outside of any framework</li>
+<li>
+<strong>FormerBuilder</strong> : Common methods and building blocks for all facades to use</li>
+<li>
+<strong>Illuminate</strong> : The Laravel 4 facade, hooks up Former to the various components (localization etc)</li>
+<li>
+<strong>LaravelThree</strong> : The Laravel 3 facade, hooks up Former to the various components (localization etc)</li>
+<li>
+<strong>Legacy</strong> : A set of redirector classes that unify the interface between Laravel 3 and 4
+
+<ul>
+<li><strong>Config</strong></li>
+<li><strong>Redirector</strong></li>
+<li><strong>Session</strong></li>
+<li><strong>Translator</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul><h1>
+<a name="description-of-each-method" class="anchor" href="#description-of-each-method"><span class="octicon octicon-link"></span></a>Description of each method</h1>
+
+<h2>
+<a name="formerformer" class="anchor" href="#formerformer"><span class="octicon octicon-link"></span></a>Former\Former</h2>
+
+<p>This class is the main class - it is your interface for everything in Former. Now of course, Former makes you interact with its subclasses which means you can not only use its methods but the methods of each class used by Former.</p>
+
+<h3>
+<a name="options" class="anchor" href="#options"><span class="octicon octicon-link"></span></a>Options</h3>
+
+<p>This is a set of options that can be set to modify Former's behavior.</p>
+
+<pre><code>Former::config('translate_from', [string]) ('validation.attributes')
+</code></pre>
+
+<p>By default Former tries to translate most labels, legends and help texts. For that it first tries to translate the string passed as is, and then it tries to look in a special place that can be defined with this variable - defaulting to 'validation.attributes.mykey'.</p>
+
+<pre><code>Former::config('required_class', [string]) ('required')
+</code></pre>
+
+<p>A class to add to fields that are set as required.</p>
+
+<pre><code>Former::config('default_form_type', [horizontal|vertical|inline|search]) ('horizontal')
+</code></pre>
+
+<p>By default when you call <code>Former::open</code> a fallback form type gets assigned to the form – this is the option that says which one is that type. It can be any of those values, or null if you want don't want to use Bootstrap's form classes.</p>
+
+<pre><code>Former::config('fetch_errors', [boolean]) (true)
+</code></pre>
+
+<p>Whenever you call the <code>open</code> method, if this option is set to true, Former will look into the Session array for a <code>Message</code> objects that would have been created by the <code>-&gt;with_errors()</code> method of <code>Redirect</code>. Which means that if on failed validation you do <code>Redirect::to()-&gt;with_errors()</code>, Former will automatically fetch said errors and display them on the corresponding fields without having to type anything.</p>
+
+<pre><code>Former::config('automatic_label', [boolean]) (true)
+</code></pre>
+
+<p>Allows the user to turn on or off the automatic labeling feature. When it's on, if you give per example <code>foo</code> as a field name and no label, Former will assume <code>foo</code> is also to be used as label. Former will then attempt to translate it, capitalize it, and use it as label. With this option turned off, if no label is specific, no label tag will be printed out.</p>
+
+<pre><code>Former::config('live_validation', [boolean]) (true)
+</code></pre>
+
+<p>Whether Former should try to apply Laravel's Validator rules as live validation attributes.</p>
+
+<pre><code>Former::config('push_checkboxes', [boolean]) (true)
+</code></pre>
+
+<p>Whether checkboxes should always be present in the POST data, no matter if you checked them or not</p>
+
+<h3>
+<a name="helpers" class="anchor" href="#helpers"><span class="octicon octicon-link"></span></a>Helpers</h3>
+
+<pre><code>Former::populate([array|Eloquent])
+</code></pre>
+
+<p>Populates the fields with an array of values <strong>or</strong> an Eloquent object.</p>
+
+<pre><code>Former::withErrors([Validator])
+</code></pre>
+
+<p>If you have an <code>$errors</code> variable from a failed validation, Former will automatically fetch it from Session and set the corresponding fields as incorrect and display the error message right next to them. This is if you're calling <code>withErrors</code> in your view. If you're in the controller, you can simply pass the <code>$validator</code> object to Former and it will work just the same.</p>
+
+<pre><code>Former::withRules([array])
+</code></pre>
+
+<p>Let you pass an array of Laravel rules to Former, to let it try and apply those rules live with HTML attributes such as <code>pattern</code>, <code>maxlength</code>, etc.</p>
+
+<pre><code>Former::framework([bootstrap|zurb|null])
+</code></pre>
+
+<p>Select which CSS framework Former should use for its syntax – each gives you more or less access to the available methods. Per example you can't use Bootstrap's <code>-&gt;blockHelp</code> method while using Zurb, etc.</p>
+
+<pre><code>$error = Former::getErrors([string])
+</code></pre>
+
+<p>Equivalent to <code>$error = isset($errors) ? $errors-&gt;first('field') : null</code>.</p>
+
+<h3>
+<a name="form-builders" class="anchor" href="#form-builders"><span class="octicon octicon-link"></span></a>Form builders</h3>
+
+<pre><code>Former::legend([string])
+</code></pre>
+
+<p>Opens a Bootstrap <code>&lt;legend&gt;</code> tag in your form – the string passed to Former can be a translation index since Former will attempt to translate it.</p>
+
+<pre><code>Former::open()
+</code></pre>
+
+<p>The <code>open</code> method mirrors Laravel's, which means you can refer to the doc for it on Laravel's website. But it also support the magic methods introduced by Bootstrapper for backward compatibility :</p>
+
+<pre><code>Former::horizontal_open()
+Former::secure_open()
+Former::open_for_files()
+Former::secure_vertical_open_for_files()
+</code></pre>
+
+<p>You can mix it up however you want as long as each block remain intact (ie. you can't do <code>secure_files_open_for_vertical</code> because that makes no fucking sense).</p>
+
+<pre><code>Former::close()
+</code></pre>
+
+<p>Pretty straightforward, simply prints out a <code>&lt;/form&gt;</code> tag. No argument or nothing.</p>
+
+<pre><code>Former::actions([string, ...])
+</code></pre>
+
+<p>Creates a <code>&lt;div class='form-actions'&gt;</code> tag to wrap your submit/reset/back/etc buttons. To output multiple buttons simply use multiple arguments</p>
+
+<pre><code>// Button class from Bootstrapper
+Former::actions( Button::submit('Submit'), Button::reset('Reset') )
+</code></pre>
+
+<h3>
+<a name="field-builders" class="anchor" href="#field-builders"><span class="octicon octicon-link"></span></a>Field builders</h3>
+
+<p>And the one class you'll be using the two thirds of the time :</p>
+
+<pre><code>Former::[classes]_[field]
+</code></pre>
+
+<p>This method analyze whatever unknown method you're trying to call and creates a field with it. It decomposes it as [classes]_[field] or [field].
+As classes you can call all Bootstrap classes working on fields : <strong>span1</strong> to <strong>span12</strong> and <strong>mini</strong> to <strong>xxlarge</strong>.</p>
+
+<h2>
+<a name="formerfield" class="anchor" href="#formerfield"><span class="octicon octicon-link"></span></a>Former\Field</h2>
+
+<p>This class is what you actually get when you create a field, which means the method listed underneath are only accessible as chained methods after a field was created. To put it simply :</p>
+
+<pre><code>// Here you're using Former
+Former::populate($project)
+
+// Here you're actually using the Field class wrapped in Former
+Former::text('foo')
+</code></pre>
+
+<p>A Former class stops being a field the second that field is printed out. Which means that you can do this :</p>
+
+<pre><code>$textField = Former::text('foo');
+$textField-&gt;class('myclass')
+</code></pre>
+
+<p>But can't do this :</p>
+
+<pre><code>echo Former::text('foo')
+Former::class('myclass')
+</code></pre>
+
+<p>Because fields are like little birds and once they fly away you can't get take care of them anymore.</p>
+
+<h3>
+<a name="interactions-with-the-attributes" class="anchor" href="#interactions-with-the-attributes"><span class="octicon octicon-link"></span></a>Interactions with the attributes</h3>
+
+<pre><code>Former::text('foo')-&gt;addClass([string])
+</code></pre>
+
+<p>Adds a class to the current field <strong>without</strong> overwriting any existing one. This differs front <code>-&gt;class()</code> will — just like any attribute setter — overwrite any existing value.</p>
+
+<pre><code>Former::text('foo')-&gt;forceValue([string])
+</code></pre>
+
+<p>Sets the field value to something. This will be overwritten by POST data, <strong>but will overwrite calls to <code>Former::populate</code></strong>.</p>
+
+<pre><code>Former::text('foo')-&gt;value([string])
+</code></pre>
+
+<p>Sets a default value for a field — a text present in it but that will get overwritten by calls to <code>Former::populate</code> or POST data.</p>
+
+<pre><code>Former::text('foo')-&gt;[attribute]([value])
+</code></pre>
+
+<p>Sets the value of any attribute. Attributes containing dashes have to be replaced with an underscore, so that you'd call <code>data_foo('bar')</code> to set <code>data-foo="bar"</code>.</p>
+
+<pre><code>Former::text('text')-&gt;setAttribute([string], [string])
+</code></pre>
+
+<p>Can be used as a fallback to magic methods if you really have to set an attribute that contains an underscore.</p>
+
+<pre><code>Former::text('foo')-&gt;setAttributes([associative array])
+</code></pre>
+
+<p>Allows you to mass-set a couple of attributes with an array. So the following examples do the exact same thing.</p>
+
+<pre><code>Former::text('foo')-&gt;class('foo')-&gt;foo('bar')
+
+Former::text('foo')-&gt;setAttributes(array( 'class' =&gt; 'foo', 'foo' =&gt; 'bar' ))
+</code></pre>
+
+<p>The second way is not the cleanest per say but is still useful if you have to set the same attributes for a group of fields, you can then just create an array with the attributes you want and assign it to each field in order to stay DRY.</p>
+
+<pre><code>Former::text('foo')-&gt;label([string])
+</code></pre>
+
+<p>Sets the label of a field to a string. If you're using Bootstrap this has a specific meaning since the label that will be created will automatically have the class <code>control-label</code>.</p>
+
+<pre><code>Former::text('foo')-&gt;addGroupClass('bar')
+</code></pre>
+
+<p>Adds specified class attributes to the parent control-group.</p>
+
+<h3>
+<a name="helpers-1" class="anchor" href="#helpers-1"><span class="octicon octicon-link"></span></a>Helpers</h3>
+
+<pre><code>$textField = Former::text('foo')-&gt;require()
+$textField = $textField-&gt;isRequired() // Returns "true"
+</code></pre>
+
+<p>Checks if a field has been set to required, be it by yourself or when transposing Laravel rules.</p>
+
+<h2>
+<a name="formercheckable" class="anchor" href="#formercheckable"><span class="octicon octicon-link"></span></a>Former\Checkable</h2>
+
+<p>Checkable is a subset of Field, which means all methods available with Field are available with Checkable. The latter just offers a few more methods related to radios and checkboxes.</p>
+
+<pre><code>Former::radios('foo')-&gt;inline()
+Former::checkboxes('foo')-&gt;stacked()
+</code></pre>
+
+<p>Set the current radios and checkboxes as inline, or stacked (vertical)</p>
+
+<pre><code>Former::checkbox('foo')-&gt;text('bar')
+</code></pre>
+
+<p>If you're printing only a single checkbox/radio, it's easier to use this method to set the text that will be appended to it.</p>
+
+<pre><code>Former::checkbox('foo')-&gt;check()
+Former::radio('foo')-&gt;check()
+
+Former::checkboxes('foo')-&gt;checkboxes('foo', 'bar')-&gt;check('foo_0')
+
+Former::radios('foo')-&gt;checkboxes('foo', 'bar')-&gt;check(0)
+</code></pre>
+
+<p>The check method allows you to check a one-off checkable element, or to check one in a group of checkable elements. Now for single elements you just call <code>check()</code> without arguments – but when you're using a group you need to specify which element is going to be checked. This is done differently if you're creating radios or checkboxes. Why ? Because checkboxes can only be differentiated by their field name, while radio elements can only be differentiated by their value.
+So that's it, for checkboxes you specify the name of the one you want to see checked, and for radios you specify its value.</p>
+
+<h2>
+<a name="formercontrolgroup" class="anchor" href="#formercontrolgroup"><span class="octicon octicon-link"></span></a>Former\ControlGroup</h2>
+
+<p>Helpers and methods related to Bootstrap's control groups. If you set the <code>$useBootstrap</code> option to false earlier, this class is not accessible, nor are any of its methods.</p>
+
+<pre><code>Former::text('foo')-&gt;state([error|warning|info|success])
+</code></pre>
+
+<p>Set the state of a control group to a particular Bootstrap class.</p>
+
+<pre><code>Former::text('foo')-&gt;inlineHelp([string])
+Former::text('foo')-&gt;blockHelp([string])
+</code></pre>
+
+<p>Adds an inline/block help text to the current field. Both can be called (meaning you can have both an inline and a block text) but can only be called once (which means if you call <code>inlineHelp</code> twice the latter will overwrite whatever you typed in the first one).</p>
+
+<pre><code>Former::text('foo')-&gt;append([string, ...])
+Former::text('foo')-&gt;prepend([string, ...])
+</code></pre>
+
+<p>Prepends one or more icons/text/buttons to the current field. Those functions use <code>func_get_args()</code> so you can per example do that :</p>
+
+<pre><code>Former::text('foo')-&gt;prepend('@', '$')
+</code></pre>
+
+<h2>
+<a name="formerfieldsinput" class="anchor" href="#formerfieldsinput"><span class="octicon octicon-link"></span></a>Former\Fields\Input</h2>
+
+<p>All classes related to Input-type fields.</p>
+
+<pre><code>Former::text('foo')-&gt;useDatalist([array])
+
+Former::text('foo')-&gt;useDatalist([Query], [string], [string (id)])
+</code></pre>
+
+<p>Creates a <code>&lt;datalist&gt;</code> tag and links it to the field in order to create a select/text mix.</p>
+
+<h2>
+<a name="formerfieldsselect" class="anchor" href="#formerfieldsselect"><span class="octicon octicon-link"></span></a>Former\Fields\Select</h2>
+
+<p>All classes related to Select-type fields (select, multiselect, etc)</p>
+
+<pre><code>Former::select('foo')-&gt;options([array], [selected])
+</code></pre>
+
+<p>Populates a <code>&lt;select&gt;</code> field with an array of options, where <strong>key</strong> will be the option's <em>value</em> and <strong>value</strong> will be its <em>text</em>. It sounds retarted explained like that but it means the following :</p>
+
+<pre><code>Former::select('clients')-&gt;options(array(
+    1  =&gt; 'Max',
+    3  =&gt; 'Clémence',
+    12 =&gt; 'Jean Valjean'
+));
+
+&lt;select name="foo"&gt;
+    &lt;option value="1"&gt;Max&lt;/option&gt;
+    &lt;option value="3"&gt;Clémence&lt;/option&gt;
+    &lt;option value="12"&gt;Jean Valjean&lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+
+<p>Which looks really natural : you select a client's name and get it's ID in return. The second parameters allows to preselect one option, per example if in the above example we'd done <code>-&gt;options($clients, 3)</code> then Clémence would have been selected.</p>
+
+<pre><code>Former::select('foo')-&gt;select(3)
+</code></pre>
+
+<p>Alias for <code>-&gt;value()</code>, selects an option.</p>
+
+<pre><code>Former::select('foo')-&gt;fromQuery([array], [string], [string (id)])
+</code></pre>
+
+<p>Populates a <code>&lt;select&gt;</code> field with the results of a Fluent/Eloquent query. Second argument is the attribute used by Former for the options text, third argument is the attribute used by Former for the options value (defaults to the <code>id</code> attribute).
+Second argument defaults to the model's <code>__toString()</code> method, thirds defaults to the model's <code>get_key()</code> method.</p>
+
+<pre><code>Former::select('foo')-&gt;placeholder('Select one option...')
+</code></pre>
+
+<p>Create a ghost option set as disabled by default to serve as placeholder for the select.</p>
         </section>
 
         <aside id="sidebar">
