@@ -34,7 +34,7 @@
             ],
             "authors": [
                 {
-                    "name": "Anahkiasen",
+                    "name": "Maxime Fabre",
                     "email": "ehtnam6@gmail.com"
                 }
             ],
@@ -72,7 +72,7 @@
             ],
             "authors": [
                 {
-                    "name": "Anahkiasen",
+                    "name": "Maxime Fabre",
                     "email": "ehtnam6@gmail.com"
                 }
             ],
@@ -91,12 +91,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/cache.git",
-                "reference": "v4.0.6"
+                "reference": "c2492b119e55e2e410182f5fed68fd390e233454"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/cache/zipball/v4.0.6",
-                "reference": "v4.0.6",
+                "url": "https://api.github.com/repos/illuminate/cache/zipball/c2492b119e55e2e410182f5fed68fd390e233454",
+                "reference": "c2492b119e55e2e410182f5fed68fd390e233454",
                 "shasum": ""
             },
             "require": {
@@ -538,12 +538,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "v4.0.6"
+                "reference": "413e1dcea32b1eb90438901544d859f195d9f6ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/v4.0.6",
-                "reference": "v4.0.6",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/413e1dcea32b1eb90438901544d859f195d9f6ab",
+                "reference": "413e1dcea32b1eb90438901544d859f195d9f6ab",
                 "shasum": ""
             },
             "require": {
@@ -722,12 +722,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Debug.git",
-                "reference": "v2.3.3"
+                "reference": "947e8d434bb461bec07b1ce7102d8823ed150f01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Debug/zipball/v2.3.3",
-                "reference": "v2.3.3",
+                "url": "https://api.github.com/repos/symfony/Debug/zipball/947e8d434bb461bec07b1ce7102d8823ed150f01",
+                "reference": "947e8d434bb461bec07b1ce7102d8823ed150f01",
                 "shasum": ""
             },
             "require": {
@@ -832,12 +832,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "v2.3.3"
+                "reference": "b251476db261edb54bb1d7c6b8be6ae49ff9a371"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/v2.3.3",
-                "reference": "v2.3.3",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/b251476db261edb54bb1d7c6b8be6ae49ff9a371",
+                "reference": "b251476db261edb54bb1d7c6b8be6ae49ff9a371",
                 "shasum": ""
             },
             "require": {
@@ -929,12 +929,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "v2.3.3"
+                "reference": "7eb27ca1fa33d455a0b4667aedf0d6b4e53765c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/v2.3.3",
-                "reference": "v2.3.3",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/7eb27ca1fa33d455a0b4667aedf0d6b4e53765c8",
+                "reference": "7eb27ca1fa33d455a0b4667aedf0d6b4e53765c8",
                 "shasum": ""
             },
             "require": {
@@ -1115,12 +1115,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "v4.0.6"
+                "reference": "07dca5874af5012e8fea126e183b121a5378ba6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/v4.0.6",
-                "reference": "v4.0.6",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/07dca5874af5012e8fea126e183b121a5378ba6c",
+                "reference": "07dca5874af5012e8fea126e183b121a5378ba6c",
                 "shasum": ""
             },
             "require": {
@@ -1225,12 +1225,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "7dbfcdd266797d67ff9c17e8aa44f2adb48662ca"
+                "reference": "b6fe71cbc1909927b5574219ff6d50e3b264abdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/7dbfcdd266797d67ff9c17e8aa44f2adb48662ca",
-                "reference": "7dbfcdd266797d67ff9c17e8aa44f2adb48662ca",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/b6fe71cbc1909927b5574219ff6d50e3b264abdb",
+                "reference": "b6fe71cbc1909927b5574219ff6d50e3b264abdb",
                 "shasum": ""
             },
             "require": {
@@ -1271,20 +1271,20 @@
                 "test double",
                 "testing"
             ],
-            "time": "2013-08-19 15:22:48"
+            "time": "2013-08-21 19:34:19"
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
-                "url": "git://github.com/briannesbitt/Carbon.git",
-                "reference": "1.2.0"
+                "url": "https://github.com/briannesbitt/Carbon.git",
+                "reference": "24c4262e994f7f2a258db5ccb5b2f34073f162ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/briannesbitt/Carbon/zipball/1.2.0",
-                "reference": "1.2.0",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/24c4262e994f7f2a258db5ccb5b2f34073f162ca",
+                "reference": "24c4262e994f7f2a258db5ccb5b2f34073f162ca",
                 "shasum": ""
             },
             "require": {
@@ -1293,7 +1293,7 @@
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Carbon": "."
+                    "Carbon": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1314,7 +1314,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2012-10-14 17:41:18"
+            "time": "2013-08-21 04:36:40"
         }
     ],
     "aliases": [

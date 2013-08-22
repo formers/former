@@ -245,13 +245,15 @@ class Former
   {
     // Try to get the errors form the session
     if ($this->app['session']->has('errors')) {
-      return $this->errors = $this->app['session']->get('errors');
+      $this->errors = $this->app['session']->get('errors');
     }
 
     // If we're given a raw Validator, go fetch the errors in it
     if ($validator instanceof Validator) {
-      return $this->errors = $validator->getMessageBag();
+      $this->errors = $validator->getMessageBag();
     }
+
+    return $this->errors;
   }
 
   /**
@@ -263,12 +265,7 @@ class Former
    */
   public function withRules()
   {
-    $rules = func_get_args();
-    if (sizeof($rules) == 1 and is_string($rules[0])) {
-      $rules = explode('|', $rules[0]);
-    } else {
-      $rules = call_user_func_array('array_merge', func_get_args());
-    }
+    $rules = call_user_func_array('array_merge', func_get_args());
 
     // Parse the rules according to Laravel conventions
     foreach ($rules as $name => $fieldRules) {

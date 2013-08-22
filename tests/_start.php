@@ -89,6 +89,9 @@ abstract class FormerTests extends IlluminateMock
   protected function matchField($attributes = array(), $type = 'text', $name = 'foo')
   {
     $attributes = array_merge($attributes, array('type' => $type, 'name' => $name));
+    if ($type == 'hidden') {
+      return array('tag' => 'input', 'attributes' => $attributes);
+    }
 
     return array(
       'tag'        => 'input',
