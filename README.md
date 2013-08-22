@@ -32,7 +32,7 @@ Former::horizontal_open()
     ->autofocus();
 
   Former::actions()
-    ->large_primary_submit('Submit'),
+    ->large_primary_submit('Submit')
     ->large_inverse_reset('Reset')
 
 Former::close()
