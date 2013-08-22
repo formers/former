@@ -26,7 +26,7 @@ class TwitterBootstrap3FrameworkTest extends FormerTests
     $match = '<div class="form-group"><label for="foo">Foo</label>'.
              '<div class="input-group">'.
              '<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>'.
-             '<input id="foo" type="text" name="foo">'.
+             '<input class="form-control" id="foo" type="text" name="foo">'.
              '</div></div>';
 
     $this->assertEquals($match, $icon);
@@ -37,11 +37,21 @@ class TwitterBootstrap3FrameworkTest extends FormerTests
     $icon = $this->former->text('foo')->appendIcon('ok')->__toString();
     $match = '<div class="form-group"><label for="foo">Foo</label>'.
              '<div class="input-group">'.
-             '<input id="foo" type="text" name="foo">'.
+             '<input class="form-control" id="foo" type="text" name="foo">'.
              '<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>'.
              '</div></div>';
 
     $this->assertEquals($match, $icon);
+  }
+
+  public function testTextFieldsGetControlClass()
+  {
+    $field = $this->former->text('foo')->__toString();
+    $match = '<div class="form-group"><label for="foo">Foo</label>'.
+             '<input class="form-control" id="foo" type="text" name="foo">'.
+             '</div>';
+
+    $this->assertEquals($match, $field);
   }
 
 }
