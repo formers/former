@@ -130,11 +130,11 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 
     // Add form-control class for text-type, textarea and select fields
     // As text-type is open-ended we instead exclude those that shouldn't receive the class
-    if ( ! $field->isCheckable() and ! $field->isButton() && ! in_array('form-control', $classes))
+    if ( ! $field->isCheckable() and ! $field->isButton() and ! ($field->getType() == 'file') and ! in_array('form-control', $classes))
     {
       $classes[] = 'form-control';
     }
-    
+
     // If we found any class, add them
     if ($classes) {
       $field->class(implode(' ', $classes));
