@@ -206,7 +206,7 @@ class Select extends Field
         $attributes['value'] = $value;
       }
 
-      $this->children[$childrenKey] = Element::create('option', $text)->setAttributes($attributes);
+      $this->children[$attributes['value']] = Element::create('option', $text)->setAttributes($attributes);
     }
 
     return $this;

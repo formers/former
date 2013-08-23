@@ -311,9 +311,9 @@ class SelectTest extends FormerTests
     $select = $this->former->select('foo')->options(array(
       'foo' => array('value' => 'bar', 'class' => 'myclass'),
       'baz' => array('value' => 'qux', 'class' => 'myclass'),
-    ));
+    ))->select('bar');
 
-    $matcher = '<select id="foo" name="foo"><option value="bar" class="myclass">foo</option><option value="qux" class="myclass">baz</option></select>';
+    $matcher = '<select id="foo" name="foo"><option value="bar" class="myclass" selected="selected">foo</option><option value="qux" class="myclass">baz</option></select>';
 
     $this->assertEquals($matcher, $select->render());
   }
