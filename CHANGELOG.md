@@ -1,6 +1,11 @@
 ## CHANGELOG
 
-3.2.0
+3.3.0 (develop)
+-----
+
+- [add] Add ability to pass attributes to a select's options
+
+3.2.0 (stable)
 -----
 
 - **[mod] Updated TwitterBootstrap3 to the latest release**

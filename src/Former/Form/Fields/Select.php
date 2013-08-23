@@ -146,10 +146,19 @@ class Select extends Field
       $options = $_options;
     }
 
-    foreach ($options as $key => $option) {
-      $this->addOption($option, $key);
+    // Add the various options
+    foreach ($options as $value => $text) {
+      if (is_array($text) and isset($text['value'])) {
+        $attributes = $text;
+        $text       = $value;
+        $value      = null;
+      } else {
+        $attributes = array();
+      }
+      $this->addOption($text, $value, $attributes);
     }
 
+    // Set the selected value
     if ($selected) {
       $this->value = $selected;
     }
@@ -174,21 +183,30 @@ class Select extends Field
   /**
    * Add an option to the Select's options
    *
-   * @param array|string $text  It's value or an array of values
-   * @param string       $value It's text
+   * @param array|string $text       It's value or an array of values
+   * @param string       $value      It's text
+   * @param array        $attributes The option's attributes
    */
-  public function addOption($text = null, $value = null)
+  public function addOption($text = null, $value = null, $attributes = array())
   {
+    // Get the option's value
     $childrenKey = !is_null($value) ? $value : sizeof($this->children);
 
+    // If we passed an options group
     if (is_array($text)) {
       $this->children[$childrenKey] = Element::create('optgroup')->label($value);
       foreach ($text as $key => $value) {
         $option = Element::create('option', $value)->setAttribute('value', $key);
         $this->children[$childrenKey]->nest($option);
       }
+
+    // Else if it's a simple option
     } else {
-      $this->children[$childrenKey] = Element::create('option', $text)->setAttribute('value', $value);
+      if (!isset($attributes['value'])) {
+        $attributes['value'] = $value;
+      }
+
+      $this->children[$childrenKey] = Element::create('option', $text)->setAttributes($attributes);
     }
 
     return $this;

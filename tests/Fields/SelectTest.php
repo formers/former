@@ -3,7 +3,6 @@ use Illuminate\Support\Collection;
 
 class SelectTest extends FormerTests
 {
-
   /**
    * An array of dummy options
    *
@@ -307,4 +306,15 @@ class SelectTest extends FormerTests
     $this->assertEquals($matcher, $select->render());
   }
 
+  public function testCanPassAttributesToOptions()
+  {
+    $select = $this->former->select('foo')->options(array(
+      'foo' => array('value' => 'bar', 'class' => 'myclass'),
+      'baz' => array('value' => 'qux', 'class' => 'myclass'),
+    ));
+
+    $matcher = '<select id="foo" name="foo"><option value="bar" class="myclass">foo</option><option value="qux" class="myclass">baz</option></select>';
+
+    $this->assertEquals($matcher, $select->render());
+  }
 }

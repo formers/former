@@ -485,12 +485,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/session.git",
-                "reference": "v4.0.6"
+                "reference": "be7549b67662c26745d438e407048274f5679af8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/session/zipball/v4.0.6",
-                "reference": "v4.0.6",
+                "url": "https://api.github.com/repos/illuminate/session/zipball/be7549b67662c26745d438e407048274f5679af8",
+                "reference": "be7549b67662c26745d438e407048274f5679af8",
                 "shasum": ""
             },
             "require": {
