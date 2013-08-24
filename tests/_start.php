@@ -9,6 +9,7 @@ include '_illuminate.php';
 // Dummies
 include 'Dummy/DummyButton.php';
 include 'Dummy/DummyEloquent.php';
+include 'Dummy/DummyMacros.php';
 
 /**
  * Base testing class

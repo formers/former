@@ -1,6 +1,7 @@
 <?php
 namespace Former;
 
+use Closure;
 use Illuminate\Container\Container;
 use Underscore\Methods\StringMethods as String;
 
@@ -41,7 +42,22 @@ class MethodDispatcher
       return false;
     }
 
-    return call_user_func_array($this->app['former']->getMacro($method), $parameters);
+    // Get and format macro
+    $callback = $this->app['former']->getMacro($method);
+    if ($callback instanceof Closure) {
+      return call_user_func_array($callback, $parameters);
+    }
+
+    // Cancel if the macro is invalid
+    elseif (!is_string($callback)) {
+      return false;
+    }
+
+    // Get class and method
+    list($class, $method) = explode('@', $callback);
+    $this->app->instance('Illuminate\Container\Container', $this->app);
+
+    return call_user_func_array(array($this->app->make($class), $method), $parameters);
   }
 
   /**

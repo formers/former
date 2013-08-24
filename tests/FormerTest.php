@@ -71,6 +71,13 @@ class FormerTest extends FormerTests
     $this->assertHTML($this->matchField(), $this->former->captcha('foo'));
   }
 
+  public function testCanUseClassesAsMacros()
+  {
+    $this->former->macro('loltext', 'DummyMacros@loltext');
+
+    $this->assertEquals('lolfoobar', $this->former->loltext('foobar'));
+  }
+
   public function testMacrosDontTakePrecedenceOverNativeFields()
   {
     $former = $this->former;

@@ -145,12 +145,12 @@ class Former
   /**
    * Register a macro with Former
    *
-   * @param  string  $name         The name of the macro
-   * @param  Closure $macro        The macro itself
+   * @param  string   $name         The name of the macro
+   * @param  Callable $macro        The macro itself
    *
    * @return mixed
    */
-  public function macro($name, Closure $macro)
+  public function macro($name, $macro)
   {
     $this->macros[$name] = $macro;
   }
