@@ -317,4 +317,16 @@ class SelectTest extends FormerTests
 
     $this->assertEquals($matcher, $select->render());
   }
+
+  public function testOptionsSelectActsTheSameAsSelect()
+  {
+    $options = array('foo', 'bar');
+    $select = $this->former->select('foo')->options($options, 0)->render();
+    $select2 = $this->former->select('foo')->options($options)->select(0)->render();
+
+    $matcher = '<select id="foo" name="foo"><option value="0" selected="selected">foo</option><option value="1">bar</option></select>';
+
+    $this->assertEquals($select2, $select);
+    $this->assertEquals($matcher, $select);
+  }
 }

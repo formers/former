@@ -159,8 +159,8 @@ class Select extends Field
     }
 
     // Set the selected value
-    if ($selected) {
-      $this->value = $selected;
+    if (!is_null($selected)) {
+      $this->select($selected);
     }
 
     return $this;

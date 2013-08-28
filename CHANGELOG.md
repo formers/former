@@ -4,6 +4,7 @@
 -----
 
 - [add] Add ability to pass attributes to a select's options
+- [fix] Fix bug in selection false values in Selects
 
 3.2.0 (stable)
 -----
