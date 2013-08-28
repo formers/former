@@ -302,6 +302,9 @@ class GroupTest extends FormerTests
     $group = $this->former->group('foo', array('foo'))->__toString();
     $this->assertEquals($matcher, $group);
 
+    $group = $this->former->group('foo', 'foo')->__toString();
+    $this->assertEquals($matcher, $group);
+
     $group = $this->former->group('foo', array('foo', 'bar'))->__toString();
     $this->assertEquals($matcher, $group);
   }

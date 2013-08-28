@@ -69,7 +69,7 @@ class Group extends Tag
    *
    * @var array
    */
-  protected $validations;
+  protected $validations = array();
 
   /**
    * The group's element
@@ -113,7 +113,7 @@ class Group extends Tag
     }
 
     // Set validations used to override groups own conclusions
-    $this->validations = $validations;
+    $this->validations = (array) $validations;
   }
 
   /**
@@ -361,7 +361,7 @@ class Group extends Tag
   public function getErrors()
   {
     // If any errors, set state to errors
-    if (is_array($this->validations)) {
+    if (!empty($this->validations)) {
       $errors = '';
       foreach ($this->validations as $validation) {
         $errors .= $this->app['former']->getErrors($validation);
