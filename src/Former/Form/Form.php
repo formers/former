@@ -234,8 +234,8 @@ class Form extends FormerObject
     $this->attributes['name'] = $this->name;
 
     // Add spoof method
-    if ($this->method == 'PUT' or $this->method == 'DELETE') {
-      $spoof = $this->app['former']->hidden('_method', $this->method);
+    if ($this->method == 'PUT' or $this->method == 'PATCH' or $this->method == 'DELETE') {
+      $spoof = $this->former->hidden('_method', $this->method);
       $this->method = 'POST';
     } else {
       $spoof = null;
