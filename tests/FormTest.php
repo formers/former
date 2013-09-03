@@ -223,7 +223,7 @@ class FormTest extends FormerTests
 
   public function testCanOpenAFormToRoute()
   {
-    $form = $this->former->open()->route('user.edit', [2]);
+    $form = $this->former->open()->route('user.edit', array(2));
 
     $matcher = $this->matchForm('horizontal', false, '/users/2/edit');
     $this->assertHTML($matcher, $form);
