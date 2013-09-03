@@ -116,6 +116,9 @@ abstract class IlluminateMock extends PHPUnit_Framework_TestCase
     $url->shouldReceive('to')->andReturnUsing(function ($url) {
       return $url == '#' ? $url : 'https://test/en/'.$url;
     });
+    $url->shouldReceive('route')->with('user.edit', [2])->andReturnUsing(function ($name, array $params) {
+      return sprintf('/users/%d/edit', array_shift($params));
+    });
 
     return $url;
   }
