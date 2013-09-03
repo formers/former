@@ -221,6 +221,19 @@ class Form extends FormerObject
   }
 
   /**
+   * Change the form's action and method to a route
+   *
+   * @param  string $name   The name of the route to use
+   * @param  array  $params Any route parameters
+   */
+  public function route($name, array $params = array())
+  {
+    $this->action = $this->url->route($name, $params);
+
+    return $this;
+  }
+
+  /**
    * Outputs the current form opened
    *
    * @return string A <form> opening tag
