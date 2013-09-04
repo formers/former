@@ -225,10 +225,27 @@ class Form extends FormerObject
    *
    * @param  string $name   The name of the route to use
    * @param  array  $params Any route parameters
+   *
+   * @return void
    */
-  public function route($name, array $params = array())
+  public function route($name, $params = array())
   {
     $this->action = $this->url->route($name, $params);
+
+    return $this;
+  }
+
+  /**
+   * Change the form's action to a controller method
+   *
+   * @param  string $name         The controller and method
+   * @param  array  $params       Any method parameters
+   *
+   * @return void
+   */
+  public function controller($name, $params = array())
+  {
+    $this->action = $this->url->action($name, $params);
 
     return $this;
   }

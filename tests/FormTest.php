@@ -236,8 +236,20 @@ class FormTest extends FormerTests
   public function testCanOpenAFormToRoute()
   {
     $form = $this->former->open()->route('user.edit', array(2));
+    $formSingle = $this->former->open()->route('user.edit', 2);
 
     $matcher = $this->matchForm('horizontal', false, '/users/2/edit');
     $this->assertHTML($matcher, $form);
+    $this->assertHTML($matcher, $formSingle);
+  }
+
+  public function testCanOpenFormToAControllerMethod()
+  {
+    $form = $this->former->open()->controller('UsersController@edit', array(2));
+    $formSingle = $this->former->open()->controller('UsersController@edit', 2);
+
+    $matcher = $this->matchForm('horizontal', false, '/users/2/edit');
+    $this->assertHTML($matcher, $form);
+    $this->assertHTML($matcher, $formSingle);
   }
 }

@@ -5,6 +5,7 @@
 
 - [add] Add ability to pass attributes to a select's options
 - [add] Add support for PATCH method
+- [add] Added Form->route and Form->controller to set a form's action to a route/controller method
 - [fix] Fix bug in selection false values in Selects
 
 3.2.0 (stable)
