@@ -205,9 +205,21 @@ class FormTest extends FormerTests
     $this->assertHTML($this->matchForm(), $form);
   }
 
-  public function testCanOpenToSpoofedMethod()
+  public function provideMethods()
   {
-    $form = $this->former->open('#')->method('PUT')->__toString();
+    return array(
+      array('PUT'),
+      array('PATCH'),
+      array('DELETE'),
+    );
+  }
+
+  /**
+   * @dataProvider provideMethods
+   */
+  public function testCanOpenToSpoofedMethod($method)
+  {
+    $form = $this->former->open('#')->method($method)->__toString();
     $matcher = $this->matchForm();
 
     $this->assertHTML($matcher, $form);
@@ -216,7 +228,7 @@ class FormTest extends FormerTests
       'attributes' => array(
         'type'  => 'hidden',
         'name'  => '_method',
-        'value' => 'PUT',
+        'value' => $method,
       ),
     ), $form);
   }

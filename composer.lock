@@ -34,7 +34,7 @@
             ],
             "authors": [
                 {
-                    "name": "Anahkiasen",
+                    "name": "Maxime Fabre",
                     "email": "ehtnam6@gmail.com"
                 }
             ],
@@ -142,12 +142,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/config.git",
-                "reference": "405827c25305e82e83c5b5efb4394dbb30f29425"
+                "reference": "v4.0.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/config/zipball/405827c25305e82e83c5b5efb4394dbb30f29425",
-                "reference": "405827c25305e82e83c5b5efb4394dbb30f29425",
+                "url": "https://api.github.com/repos/illuminate/config/zipball/v4.0.6",
+                "reference": "v4.0.6",
                 "shasum": ""
             },
             "require": {
@@ -190,12 +190,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "da34bc87ffba84ae1a466cfee78b0b18a9d15a3d"
+                "reference": "v4.0.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/da34bc87ffba84ae1a466cfee78b0b18a9d15a3d",
-                "reference": "da34bc87ffba84ae1a466cfee78b0b18a9d15a3d",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/v4.0.6",
+                "reference": "v4.0.6",
                 "shasum": ""
             },
             "require": {
@@ -236,12 +236,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/cookie.git",
-                "reference": "40c863b32fd8d1a87d2ba6d1ad6a75165a5a0e9e"
+                "reference": "v4.0.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/cookie/zipball/40c863b32fd8d1a87d2ba6d1ad6a75165a5a0e9e",
-                "reference": "40c863b32fd8d1a87d2ba6d1ad6a75165a5a0e9e",
+                "url": "https://api.github.com/repos/illuminate/cookie/zipball/v4.0.6",
+                "reference": "v4.0.6",
                 "shasum": ""
             },
             "require": {
@@ -286,12 +286,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/encryption.git",
-                "reference": "ed227a6b989ee37177d3083ffe966b6976890b3a"
+                "reference": "v4.0.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/encryption/zipball/ed227a6b989ee37177d3083ffe966b6976890b3a",
-                "reference": "ed227a6b989ee37177d3083ffe966b6976890b3a",
+                "url": "https://api.github.com/repos/illuminate/encryption/zipball/v4.0.6",
+                "reference": "v4.0.6",
                 "shasum": ""
             },
             "require": {
@@ -333,12 +333,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
-                "reference": "c4958fcc3fcbef8751362e7db6315a9c2cf56b6b"
+                "reference": "v4.0.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/c4958fcc3fcbef8751362e7db6315a9c2cf56b6b",
-                "reference": "c4958fcc3fcbef8751362e7db6315a9c2cf56b6b",
+                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/v4.0.6",
+                "reference": "v4.0.6",
                 "shasum": ""
             },
             "require": {
@@ -430,12 +430,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/routing.git",
-                "reference": "a36599a352b3ffcb72be9ffb38b4d86c6c98d0f2"
+                "reference": "v4.0.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/routing/zipball/a36599a352b3ffcb72be9ffb38b4d86c6c98d0f2",
-                "reference": "a36599a352b3ffcb72be9ffb38b4d86c6c98d0f2",
+                "url": "https://api.github.com/repos/illuminate/routing/zipball/v4.0.6",
+                "reference": "v4.0.6",
                 "shasum": ""
             },
             "require": {
@@ -485,12 +485,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/session.git",
-                "reference": "be7549b67662c26745d438e407048274f5679af8"
+                "reference": "v4.0.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/session/zipball/be7549b67662c26745d438e407048274f5679af8",
-                "reference": "be7549b67662c26745d438e407048274f5679af8",
+                "url": "https://api.github.com/repos/illuminate/session/zipball/v4.0.6",
+                "reference": "v4.0.6",
                 "shasum": ""
             },
             "require": {
@@ -589,12 +589,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/translation.git",
-                "reference": "42f769349bb80105bb35327d665aeff344a0eb5e"
+                "reference": "v4.0.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/translation/zipball/42f769349bb80105bb35327d665aeff344a0eb5e",
-                "reference": "42f769349bb80105bb35327d665aeff344a0eb5e",
+                "url": "https://api.github.com/repos/illuminate/translation/zipball/v4.0.6",
+                "reference": "v4.0.6",
                 "shasum": ""
             },
             "require": {
@@ -638,12 +638,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nicolas-grekas/Patchwork-UTF8.git",
-                "reference": "153c3b3e5dded58a1eb749c80049f44ce086399e"
+                "reference": "v1.1.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/153c3b3e5dded58a1eb749c80049f44ce086399e",
-                "reference": "153c3b3e5dded58a1eb749c80049f44ce086399e",
+                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/v1.1.11",
+                "reference": "v1.1.11",
                 "shasum": ""
             },
             "require": {
@@ -682,13 +682,13 @@
             "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/php-fig/log.git",
-                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
+                "url": "https://github.com/php-fig/log",
+                "reference": "1.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
-                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "url": "https://github.com/php-fig/log/archive/1.0.0.zip",
+                "reference": "1.0.0",
                 "shasum": ""
             },
             "type": "library",
