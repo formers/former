@@ -232,4 +232,12 @@ class FormTest extends FormerTests
       ),
     ), $form);
   }
+
+  public function testCanOpenAFormToRoute()
+  {
+    $form = $this->former->open()->route('user.edit', array(2));
+
+    $matcher = $this->matchForm('horizontal', false, '/users/2/edit');
+    $this->assertHTML($matcher, $form);
+  }
 }
