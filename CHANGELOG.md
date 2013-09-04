@@ -4,6 +4,7 @@
 -----
 
 - [add] Add ability to pass attributes to a select's options
+- [add] Add support for PATCH method
 - [fix] Fix bug in selection false values in Selects
 
 3.2.0 (stable)
