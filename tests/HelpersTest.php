@@ -8,4 +8,13 @@ class HelpersTest extends FormerTests
 
     $this->assertHTML($matcher, $former);
   }
+  
+  public function testTranslateFieldNameUnderScoreToSpace()
+  {
+  	$input = $this->former->text('field_name_with_underscore')->__toString();
+    $matcher = $this->matchLabel('Field name with underscore', 'field_name_with_underscore');
+
+    $this->assertHTML($matcher, $input);
+
+  }
 }
