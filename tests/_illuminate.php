@@ -184,9 +184,11 @@ abstract class IlluminateMock extends PHPUnit_Framework_TestCase
     $translator = Mockery::mock('Illuminate\Translation\Translator');
     $translator->shouldReceive('get')->with('pagination.next')->andReturn('Next');
     $translator->shouldReceive('get')->with('pagination')->andReturn(array('previous' => 'Previous', 'next' => 'Next'));
+    $translator->shouldReceive('get')->with('validation.attributes.field_name_with_underscore')->andReturn(false);
     $translator->shouldReceive('get')->withAnyArgs()->andReturnUsing(function ($key) {
       return $key;
     });
+    $translator->shouldReceive('has')->with('field_name_with_underscore')->andReturn(false);
     $translator->shouldReceive('has')->withAnyArgs()->andReturn(true);
 
     return $translator;
