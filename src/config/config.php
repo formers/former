@@ -21,7 +21,7 @@
   // Whether Former should try to apply Validator rules as attributes
   'live_validation'   => true,
 
-  // Whether Former should automatically fetch error mesages and
+  // Whether Former should automatically fetch error messages and
   // display them next to the matching fields
   'error_messages'    => true,
 
