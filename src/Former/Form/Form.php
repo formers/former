@@ -46,7 +46,7 @@ class Form extends FormerObject
    *
    * @var string
    */
-  protected $type = null;
+  protected static $formType = null;
 
   /**
    * The available form types
@@ -141,7 +141,7 @@ class Form extends FormerObject
     $this->secure     = $secure;
 
     // Add any effect of the form type
-    $this->type = $this->applyType($type);
+    self::$formType = $this->applyType($type);
 
     // Add enctype
     if (!array_key_exists('accept-charset', $attributes )) {
@@ -149,7 +149,7 @@ class Form extends FormerObject
     }
 
     // Add supplementary classes
-    $this->addClass($this->app['former.framework']->getFormClasses($this->type));
+    $this->addClass($this->app['former.framework']->getFormClasses(self::$formType));
 
     return $this;
   }
@@ -162,6 +162,8 @@ class Form extends FormerObject
   public function close()
   {
     static::$opened = false;
+
+    static::$formType = null;
 
     return $this->app['former']->token().'</form>';
   }
@@ -178,6 +180,16 @@ class Form extends FormerObject
   public static function hasInstanceOpened()
   {
     return static::$opened;
+  }
+
+  /**
+   * What type of form is currently open
+   *
+   * @return boolean
+   */
+  public static function type()
+  {
+    return self::$formType;
   }
 
   ////////////////////////////////////////////////////////////////////

@@ -4,6 +4,7 @@ namespace Former\Framework;
 use Former\Interfaces\FrameworkInterface;
 use Former\Traits\Field;
 use Former\Traits\Framework;
+use Former\Form\Form;
 use HtmlObject\Element;
 use Illuminate\Container\Container;
 use Underscore\Methods\ArraysMethods as Arrays;
@@ -62,6 +63,14 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
    * @var string
    */
   protected $fieldWidth = 'col-lg-10';
+
+  /**
+   * The default offset for fields
+   * This creates space for labels, so must be at least as wide as default label width
+   *
+   * @var string
+   */
+  protected $fieldOffset = 'col-lg-offset-2';
 
   /**
    * Create a new TwitterBootstrap instance
@@ -172,7 +181,11 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
    */
   public function getLabelClasses()
   {
-    return '';
+    if (Form::type() == 'horizontal') {
+      return array('control-label', $this->labelWidth);
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -299,6 +312,10 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
    */
   public function wrapField($field)
   {
-    return $field;
+    if (Form::type() == 'horizontal') {
+      return Element::create('div', $field)->addClass("$this->fieldWidth");
+    } else {
+      return $field;
+    }
   }
 }
