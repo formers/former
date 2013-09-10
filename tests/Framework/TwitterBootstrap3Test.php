@@ -1,6 +1,6 @@
 <?php
 
-class TwitterBootstrap3FrameworkTest extends FormerTests
+class TwitterBootstrap3Test extends FormerTests
 {
 
   public function setUp()
