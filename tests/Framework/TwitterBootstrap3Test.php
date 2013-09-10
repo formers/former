@@ -11,6 +11,14 @@ class TwitterBootstrap3Test extends FormerTests
   }
 
   ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// MATCHERS ////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  public function hmatch($label, $field) {
+    return '<div class="form-group">'.$label.'<div class="col-lg-10">'.$field.'</div></div>';
+  }
+
+  ////////////////////////////////////////////////////////////////////
   //////////////////////////////// TESTS /////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
@@ -23,11 +31,11 @@ class TwitterBootstrap3Test extends FormerTests
   public function testPrependIcon()
   {
     $icon = $this->former->text('foo')->prependIcon('ok')->__toString();
-    $match = '<div class="form-group"><label for="foo">Foo</label>'.
-             '<div class="input-group">'.
-             '<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>'.
-             '<input class="form-control" id="foo" type="text" name="foo">'.
-             '</div></div>';
+    $match = $this->hmatch('<label for="foo" class="control-label col-lg-2">Foo</label>',
+                           '<div class="input-group">'.
+                           '<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>'.
+                           '<input class="form-control" id="foo" type="text" name="foo">'.
+                           '</div>');
 
     $this->assertEquals($match, $icon);
   }
@@ -35,21 +43,19 @@ class TwitterBootstrap3Test extends FormerTests
   public function testAppendIcon()
   {
     $icon = $this->former->text('foo')->appendIcon('ok')->__toString();
-    $match = '<div class="form-group"><label for="foo">Foo</label>'.
-             '<div class="input-group">'.
-             '<input class="form-control" id="foo" type="text" name="foo">'.
-             '<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>'.
-             '</div></div>';
-
+    $match = $this->hmatch('<label for="foo" class="control-label col-lg-2">Foo</label>',
+                           '<div class="input-group">'.
+                           '<input class="form-control" id="foo" type="text" name="foo">'.
+                           '<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>'.
+                           '</div>');
     $this->assertEquals($match, $icon);
   }
 
   public function testTextFieldsGetControlClass()
   {
     $field = $this->former->text('foo')->__toString();
-    $match = '<div class="form-group"><label for="foo">Foo</label>'.
-             '<input class="form-control" id="foo" type="text" name="foo">'.
-             '</div>';
+    $match =  $this->hmatch('<label for="foo" class="control-label col-lg-2">Foo</label>',
+                            '<input class="form-control" id="foo" type="text" name="foo">');
 
     $this->assertEquals($match, $field);
   }
