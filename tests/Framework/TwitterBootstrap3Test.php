@@ -28,6 +28,12 @@ class TwitterBootstrap3Test extends FormerTests
     $this->assertEquals('TwitterBootstrap3', $this->former->framework());
   }
 
+  public function testVerticalForm()
+  {
+    $form = $this->former->open()->text('foo', 'Foo')->__toString();
+    die($form);
+  }
+
   public function testPrependIcon()
   {
     $icon = $this->former->text('foo')->prependIcon('ok')->__toString();
