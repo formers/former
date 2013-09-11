@@ -181,7 +181,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
    */
   public function getLabelClasses()
   {
-    if (Form::type() == 'horizontal') {
+    if ($this->app['former.form']->isOfType('horizontal')) {
       return array('control-label', $this->labelWidth);
     } else {
       return null;
@@ -312,7 +312,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
    */
   public function wrapField($field)
   {
-    if (Form::type() == 'horizontal') {
+    if ($this->app['former.form']->isOfType('horizontal')) {
       return Element::create('div', $field)->addClass("$this->fieldWidth");
     } else {
       return $field;
