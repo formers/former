@@ -16,6 +16,13 @@ use Underscore\Methods\StringMethods as String;
 class TwitterBootstrap3 extends Framework implements FrameworkInterface
 {
   /**
+   * Form types that trigger special styling for this Framework
+   *
+   * @var array
+   */
+  protected $availableTypes = array('horizontal', 'vertical', 'inline');
+
+  /**
    * The button types available
    *
    * @var array

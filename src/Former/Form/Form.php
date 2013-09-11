@@ -49,13 +49,6 @@ class Form extends FormerObject
   protected $type = null;
 
   /**
-   * The available form types
-   *
-   * @var array
-   */
-  protected $availableTypes = array('horizontal', 'vertical', 'inline', 'search');
-
-  /**
    * The destination of the current form
    *
    * @var string
@@ -344,7 +337,7 @@ class Form extends FormerObject
     $type = trim($type, '_');
 
     // Use default form type if the one provided is invalid
-    if (!in_array($type, $this->availableTypes)) {
+    if (!in_array($type, $this->framework->availableTypes())) {
       $type = $this->app['former']->getOption('default_form_type');
     }
 

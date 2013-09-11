@@ -18,6 +18,13 @@ abstract class Framework
   protected $app;
 
   /**
+   * Form types that trigger special styling
+   *
+   * @var array
+   */
+  protected $availableTypes = array();
+
+  /**
    * The field states available
    * @var array
    */
@@ -66,6 +73,16 @@ abstract class Framework
   ////////////////////////////////////////////////////////////////////
 
   /**
+   * List form types triggered special styling form current framework
+   *
+   * @return array
+   */
+  public function availableTypes()
+  {
+    return $this->availableTypes;
+  }
+
+  /**
    * Filter a field state
    *
    * @param string $state
@@ -77,6 +94,8 @@ abstract class Framework
     // Filter out wrong states
     return in_array($state, $this->states) ? $state : null;
   }
+
+
 
   ////////////////////////////////////////////////////////////////////
   ///////////////////////////// HELPERS //////////////////////////////
