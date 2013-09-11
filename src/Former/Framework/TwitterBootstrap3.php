@@ -219,7 +219,11 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
    */
   public function getActionClasses()
   {
-    return '';
+    if ($this->app['former.form']->isOfType('horizontal')) {
+      return 'form-group';
+    } else {
+      return null;
+    }
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -313,9 +317,25 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   public function wrapField($field)
   {
     if ($this->app['former.form']->isOfType('horizontal')) {
-      return Element::create('div', $field)->addClass("$this->fieldWidth");
+      return Element::create('div', $field)->addClass($this->fieldWidth);
     } else {
       return $field;
     }
   }
+
+  /**
+   * Wrap actions block with potential additional tags
+   *
+   * @param  Actions $action
+   * @return string A wrapped actions block
+   */
+  public function wrapActions($actions)
+  {
+    if ($this->app['former.form']->isOfType('horizontal')) {
+      return Element::create('div', $actions)->addClass(array($this->fieldOffset,$this->fieldWidth));
+    } else {
+      return $actions;
+    }
+  }
+
 }

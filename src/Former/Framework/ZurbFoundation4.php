@@ -197,4 +197,15 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
     return Element::create('div', $field)->addClass('row collapse');
   }
 
+  /**
+   * Wrap actions block with potential additional tags
+   *
+   * @param  Actions $action
+   * @return string A wrapped actions block
+   */
+  public function wrapActions($actions)
+  {
+      return $actions;
+  }
+
 }

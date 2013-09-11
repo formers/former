@@ -315,4 +315,15 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
     return Element::create('div', $field)->addClass('controls');
   }
 
+  /**
+   * Wrap actions block with potential additional tags
+   *
+   * @param  Actions $action
+   * @return string A wrapped actions block
+   */
+  public function wrapActions($actions)
+  {
+      return $actions;
+  }
+
 }

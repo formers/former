@@ -157,8 +157,27 @@ class Nude extends Framework implements FrameworkInterface
     return $return;
   }
 
+  /**
+   * Wraps all field contents with potential additional tags.
+   *
+   * @param  Field $field
+   *
+   * @return string A wrapped field
+   */
   public function wrapField($field)
   {
     return $field;
   }
+
+  /**
+   * Wrap actions block with potential additional tags
+   *
+   * @param  Actions $action
+   * @return string A wrapped actions block
+   */
+  public function wrapActions($actions)
+  {
+      return $actions;
+  }
+
 }

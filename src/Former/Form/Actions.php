@@ -57,7 +57,7 @@ class Actions extends FormerObject
       return method_exists($content, '__toString') ? (string) $content : $content;
     });
 
-    return implode(' ', $content);
+    return $this->app['former.framework']->wrapActions( implode(' ', $content) );
   }
 
   /**
