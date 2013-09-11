@@ -18,6 +18,10 @@ class TwitterBootstrap3Test extends FormerTests
     return '<div class="form-group">'.$label.'<div class="col-lg-10">'.$field.'</div></div>';
   }
 
+  public function vmatch($label, $field) {
+    return '<div class="form-group">'.$label.$field.'</div>';
+  }
+
   ////////////////////////////////////////////////////////////////////
   //////////////////////////////// TESTS /////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -28,10 +32,16 @@ class TwitterBootstrap3Test extends FormerTests
     $this->assertEquals('TwitterBootstrap3', $this->former->framework());
   }
 
-  public function testVerticalForm()
+  public function testVerticalFormFieldsDontInheritHorizontalMarkup()
   {
-    $form = $this->former->open()->text('foo', 'Foo')->__toString();
-    die($form);
+    $this->former->open_vertical();
+    $field = $this->former->text('foo')->__toString();
+    $this->former->close();
+
+    $match = $this->vmatch('<label for="foo">Foo</label>',
+                           '<input class="form-control" id="foo" type="text" name="foo">');
+
+    $this->assertEquals($match, $field);
   }
 
   public function testPrependIcon()
