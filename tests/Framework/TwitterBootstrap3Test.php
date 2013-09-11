@@ -79,11 +79,13 @@ class TwitterBootstrap3Test extends FormerTests
   public function testButtonSizes()
   {
     $buttons = $this->former->actions()->lg_submit('Submit')->submit('Submit')->sm_submit('Submit')->xs_submit('Submit')->__toString();
-    $match = '<div>'.
+    $match = '<div class="form-group">'.
+             '<div class="col-lg-offset-2 col-lg-10">'.
              '<input class="btn-lg btn" type="submit" value="Submit">'.
              ' <input class="btn" type="submit" value="Submit">'.
              ' <input class="btn-sm btn" type="submit" value="Submit">'.
              ' <input class="btn-xs btn" type="submit" value="Submit">'.
+             '</div>'.
              '</div>';
 
     $this->assertEquals($match, $buttons);
