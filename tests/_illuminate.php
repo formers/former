@@ -85,6 +85,9 @@ abstract class IlluminateMock extends PHPUnit_Framework_TestCase
     $config->shouldReceive('get')->with('former::default_form_type', Mockery::any())->andReturn('horizontal');
     $config->shouldReceive('get')->with('former::fetch_errors', Mockery::any())->andReturn(false);
     $config->shouldReceive('get')->with('former::framework')->andReturn('TwitterBootstrap');
+    $config->shouldReceive('get')->with('former::icon_tag', Mockery::any())->andReturn(null);
+    $config->shouldReceive('get')->with('former::icon_set', Mockery::any())->andReturn(null);
+    $config->shouldReceive('get')->with('former::icon_prefix', Mockery::any())->andReturn(null);
     $config->shouldReceive('get')->with('former::translate_from', Mockery::any())->andReturn('validation.attributes');
     $config->shouldReceive('get')->with('former::required_class', Mockery::any())->andReturn('required');
     $config->shouldReceive('get')->with('former::required_text',  Mockery::any())->andReturn('*');
