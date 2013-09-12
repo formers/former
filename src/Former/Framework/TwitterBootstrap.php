@@ -52,6 +52,30 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   );
 
   /**
+   * The default HTML tag used for icons
+   *
+   * @var string
+   */
+  protected $iconTag = 'i';
+
+  /**
+   * The default group for icon fonts
+   * By default Bootstrap uses images, so this isn't relevant
+   * Font-Awesome up to version 3.2.1 doesn't it either
+   *
+   * @var string
+   */
+  protected $iconSet = null;
+
+  /**
+   * The default prefix icon names
+   * "icon" works for Bootstrap 2 and Font-awesome
+   *
+   * @var string
+   */
+  protected $iconPrefix = 'icon';
+
+  /**
    * Create a new TwitterBootstrap instance
    *
    * @param \Illuminate\Container\Container $app
@@ -59,6 +83,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   public function __construct(Container $app)
   {
     $this->app = $app;
+    $this->setIconDefaults();
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -242,29 +267,33 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   /**
    * Render an icon
    *
-   * @param string $icon       The icon name
-   * @param array  $attributes Its attributes
+   * @param string $icon          The icon name
+   * @param array  $attributes    Its general attributes
+   * @param array  $iconSettings  Icon-specific settings
    *
    * @return string
    */
-  public function createIcon($iconType, $attributes = array())
+  public function createIcon($iconType, $attributes = array(), $iconSettings = array())
   {
-    $icon = Element::create('i', null, $attributes);
+    // Check for empty icons
+    if (!$iconType) return false;
 
-    // White icon
+    //Create tag
+    $tag = isset($iconSettings['tag']) ? $iconSettings['tag'] : $this->iconTag;
+    $icon = Element::create($tag, null, $attributes);
+
+    // White icons ignore user overrides to use legacy Bootstrap styling
     if (String::contains($iconType, 'white')) {
       $iconType = String::remove($iconType, 'white');
       $iconType = trim($iconType, '-');
       $icon->addClass('icon-white');
+      $set = null;
+      $prefix = 'icon';
+    } else {
+      $set = isset($iconSettings['set']) ? $iconSettings['set'] : $this->iconSet;
+      $prefix = isset($iconSettings['prefix']) ? $iconSettings['prefix'] : $this->iconPrefix;
     }
-
-    // Check for empty icons
-    if (!$iconType) {
-      return false;
-    }
-
-    // Create icon
-    $icon->addClass('icon-'.$iconType);
+    $icon->addClass("$set $prefix-$iconType");
 
     return $icon;
   }

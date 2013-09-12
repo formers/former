@@ -95,7 +95,46 @@ abstract class Framework
     return in_array($state, $this->states) ? $state : null;
   }
 
+  /**
+   * Override framework defaults for icons with config values where set
+   *
+   */
+  protected function setIconDefaults()
+  {
+    if ($iconTag = $this->app['former']->getOption('icon_tag')) {
+      $this->iconTag = $iconTag;
+    }
+    
+    if ($iconSet = $this->app['former']->getOption('icon_set')) {
+      $this->iconSet = $iconSet;
+    }
 
+    if ($iconPrefix = $this->app['former']->getOption('icon_prefix')) {
+      $this->iconPrefix = $iconPrefix;
+    }
+  }
+
+  /**
+   * Render an icon
+   *
+   * @param string $icon          The icon name
+   * @param array  $attributes    Its general attributes
+   * @param array  $iconSettings  Icon-specific settings
+   *
+   * @return string
+   */
+  public function createIcon($iconType, $attributes = array(), $iconSettings = array())
+  {
+    // Check for empty icons
+    if (!$iconType) return false;
+
+    // icon settings can be overridden for a specific icon
+    $tag = isset($iconSettings['tag']) ? $iconSettings['tag'] : $this->iconTag;  
+    $set = isset($iconSettings['set']) ? $iconSettings['set'] : $this->iconSet;  
+    $prefix = isset($iconSettings['prefix']) ? $iconSettings['prefix'] : $this->iconPrefix;  
+
+    return Element::create($tag, null, $attributes)->addClass("$set $prefix-$iconType");
+  }
 
   ////////////////////////////////////////////////////////////////////
   ///////////////////////////// HELPERS //////////////////////////////
@@ -153,4 +192,5 @@ abstract class Framework
 
     return $label;
   }
+
 }

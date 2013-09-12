@@ -12,6 +12,18 @@
   // The framework to be used by Former
   'framework'         => 'TwitterBootstrap',
 
+  // Icons (to override framework defaults)
+  ////////////////////////////////////////////////////////////////////
+
+  // tag (usually "i" or "span")
+  'icon_tag'          => null,
+
+  // font group - Glyicons and Foundation
+  'icon_group'        => null,
+
+  // prefix
+  'icon_prefix'       => null,
+
   // Validation
   ////////////////////////////////////////////////////////////////////
 

@@ -34,6 +34,28 @@ class ZurbFoundation extends Framework implements FrameworkInterface
   );
 
   /**
+   * The default HTML tag used for icons
+   *
+   * @var string
+   */
+  protected $iconTag = 'i';
+
+  /**
+   * The default set for icon fonts
+   * which Foundation 3 doesn't appear to use
+   *
+   * @var string
+   */
+  protected $iconSet = null;
+
+  /**
+   * The default prefix for icon names
+   *
+   * @var string
+   */
+  protected $iconPrefix = 'fi';
+
+  /**
    * Create a new ZurbFoundation instance
    *
    * @param Container $app
@@ -41,6 +63,7 @@ class ZurbFoundation extends Framework implements FrameworkInterface
   public function __construct(Container $app)
   {
     $this->app = $app;
+    $this->setIconDefaults();
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -108,11 +131,6 @@ class ZurbFoundation extends Framework implements FrameworkInterface
   public function createHelp($text, $attributes = array())
   {
     return Element::create('small', $text, $attributes);
-  }
-
-  public function createIcon($icon, $attributes = array())
-  {
-    return $icon;
   }
 
   /**

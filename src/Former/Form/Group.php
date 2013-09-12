@@ -329,9 +329,9 @@ class Group extends Tag
    * @param string $icon       The icon to prepend
    * @param array  $attributes Its attributes
    */
-  public function prependIcon($icon, $attributes = array())
+  public function prependIcon($icon, $attributes = array(), $iconSettings = array())
   {
-    $icon = $this->app['former.framework']->createIcon($icon, $attributes);
+    $icon = $this->app['former.framework']->createIcon($icon, $attributes, $iconSettings);
 
     $this->prepend($icon);
   }
@@ -342,9 +342,9 @@ class Group extends Tag
    * @param string $icon       The icon to prepend
    * @param array  $attributes Its attributes
    */
-  public function appendIcon($icon, $attributes = array())
+  public function appendIcon($icon, $attributes = array(), $iconSettings = array())
   {
-    $icon = $this->app['former.framework']->createIcon($icon, $attributes);
+    $icon = $this->app['former.framework']->createIcon($icon, $attributes, $iconSettings);
 
     $this->append($icon);
   }

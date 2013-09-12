@@ -80,6 +80,30 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   protected $fieldOffset = 'col-lg-offset-2';
 
   /**
+   * The default HTML tag used for icons
+   *
+   * @var string
+   */
+  protected $iconTag = 'span';
+
+  /**
+   * The default set for icon fonts
+   * By default Bootstrap 3 offers only 'glyphicon'
+   * See Former docs to use 'social' and 'filetypes' sets for specific icons.
+   *
+   * @var string
+   */
+  protected $iconSet = 'glyphicon';
+
+  /**
+   * The default prefix icon names
+   * "icon" works for Bootstrap 2 and Font-awesome
+   *
+   * @var string
+   */
+  protected $iconPrefix = 'glyphicon';
+
+  /**
    * Create a new TwitterBootstrap instance
    *
    * @param \Illuminate\Container\Container $app
@@ -87,6 +111,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   public function __construct(Container $app)
   {
     $this->app = $app;
+    $this->setIconDefaults();
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -260,23 +285,6 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   public function createDisabledField(Field $field)
   {
     return Element::create('span', $field->getValue(), $field->getAttributes());
-  }
-
-  /**
-   * Render an icon
-   *
-   * @param string $icon       The icon name
-   * @param array  $attributes Its attributes
-   *
-   * @return string
-   */
-  public function createIcon($iconType, $attributes = array())
-  {
-    if (!$iconType) {
-      return false;
-    }
-
-    return Element::create('span', null, $attributes)->addClass('glyphicon glyphicon-'.$iconType);
   }
 
   ////////////////////////////////////////////////////////////////////
