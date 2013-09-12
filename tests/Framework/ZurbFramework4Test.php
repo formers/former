@@ -63,4 +63,34 @@ class ZurbFramework4Test extends FormerTests
     $this->former->text('foo')->blockHelp('bar')->__toString();
   }
 
+  public function testCreateIconWithFrameworkSpecificIcon()
+  {
+    $icon = $this->app['former.framework']->createIcon('smiley')->__toString();
+    $match = '<i class="general foundicon-smiley"></i>';
+
+    $this->assertEquals($match, $icon);
+  }
+
+  public function testCanAppendIcon()
+  {
+    $input = $this->former->text('foo')->appendIcon('ok')->__toString();
+    $match = '<div><label for="foo">Foo</label>'.
+             '<div class="row collapse">'.
+             '<div class="large-10 small-9 columns">'.
+             '<input id="foo" type="text" name="foo">'.
+             '</div><div class="large-2 small-3 columns">'.
+             '<span class="postfix">'.
+             '<i class="general foundicon-ok"></i>'.
+             '</span></div></div></div>';
+
+    $this->assertEquals($match, $input);
+  }
+
+  public function testCreateOverideIconSettingsWithFrameworkSpecificIcon()
+  {
+    $icon = $this->app['former.framework']->createIcon('smiley')->__toString();
+    $match = '<i class="general foundicon-smiley"></i>';
+
+    $this->assertEquals($match, $icon);
+  }  
 }

@@ -91,4 +91,19 @@ class TwitterBootstrap3Test extends FormerTests
     $this->assertEquals($match, $buttons);
   }
 
+  public function testCanOverrideFrameworkIconSettings()
+  {
+    // e.g. using other Glyphicon sets
+    $icon1 = $this->app['former.framework']->createIcon('facebook', null, array('set'=>'social','prefix'=>'glyphicon'))->__toString();
+    $match1 = '<span class="social glyphicon-facebook"></span>';
+
+    $this->assertEquals($match1, $icon1);
+
+    // e.g using Font-Awesome circ v3.2.1
+    $icon2 = $this->app['former.framework']->createIcon('flag', null, array('tag'=>'i', 'set' => '', 'prefix'=>'icon'))->__toString();
+    $match2 = '<i class="icon-flag"></i>';
+
+    $this->assertEquals($match2, $icon2);
+  }
+
 }
