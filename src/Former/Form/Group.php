@@ -134,7 +134,7 @@ class Group extends Tag
   public function open()
   {
     if ($this->getErrors()) {
-      $this->state('error');
+      $this->state($this->app['former.framework']->errorState());
     }
 
     // Retrieve state and append it to classes

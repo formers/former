@@ -106,4 +106,21 @@ class TwitterBootstrap3Test extends FormerTests
     $this->assertEquals($match2, $icon2);
   }
 
+  public function testCanCreateWithErrors()
+  {
+    $this->former->withErrors($this->validator);
+
+    $required = $this->former->text('required')->__toString();
+    $matcher =
+    '<div class="form-group has-error">'.
+      '<label for="required" class="control-label col-lg-2">Required</label>'.
+      '<div class="col-lg-10">'.
+        '<input class="form-control" id="required" type="text" name="required">'.
+        '<span class="help-block">The required field is required.</span>'.
+      '</div>'.
+    '</div>';
+
+    $this->assertEquals($matcher, $required);
+  }
+
 }

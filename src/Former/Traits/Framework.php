@@ -96,6 +96,16 @@ abstract class Framework
   }
 
   /**
+   * Framework error state
+   *
+   * @return string
+   */
+  public function errorState()
+  {
+    return 'error';
+  }
+
+  /**
    * Override framework defaults for icons with config values where set
    *
    */
