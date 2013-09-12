@@ -125,14 +125,6 @@ class Nude extends Framework implements FrameworkInterface
   }
 
   /**
-   * Creates a basic icon
-   */
-  public function createIcon($icon, $attributes = array())
-  {
-    return Element::create('i', null, $attributes)->addClass($icon);
-  }
-
-  /**
    * Render a disabled field
    *
    * @param Field $field
