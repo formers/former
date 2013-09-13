@@ -229,6 +229,8 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   {
     if ($this->app['former.form']->isOfType('horizontal')) {
       return array('control-label', $this->labelWidth);
+    } elseif ($this->app['former.form']->isOfType('inline')) {
+      return array('sr-only');
     } else {
       return null;
     }

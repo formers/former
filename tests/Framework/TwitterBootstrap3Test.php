@@ -123,4 +123,23 @@ class TwitterBootstrap3Test extends FormerTests
     $this->assertEquals($matcher, $required);
   }
 
+  public function testAddScreenReaderClassToInlineFormLabels()
+  {
+    $this->former->open_inline();
+
+    $field = $this->former->text('foo')->__toString();
+    $label = $this->former->text('foo')->label('Foo')->__toString();
+
+    $match =
+    '<div class="form-group">'.
+      '<label for="foo" class="sr-only">Foo</label>'.
+      '<input class="form-control" id="foo" type="text" name="foo">'.
+    '</div>';
+
+    $this->assertEquals($match, $field);
+    $this->assertEquals($match, $label);
+
+    $this->former->close();
+  }
+
 }
