@@ -79,7 +79,7 @@ class Group extends Tag
   protected $element = 'div';
 
   /**
-   * Whether a group is opened or not
+   * Whether a custom group is opened or not
    *
    * @var boolean
    */
@@ -360,14 +360,19 @@ class Group extends Tag
    */
   public function getErrors()
   {
-    // If any errors, set state to errors
-    if (!empty($this->validations)) {
-      $errors = '';
+    $errors = '';
+
+    if (!self::$opened) {
+
+      // for non-custom groups, normal error handling applies
+      $errors = $this->app['former']->getErrors();
+
+    } elseif (!empty($this->validations)) {
+
+      // error handling only when validations specified for custom groups
       foreach ($this->validations as $validation) {
         $errors .= $this->app['former']->getErrors($validation);
       }
-    } else {
-      $errors = $this->app['former']->getErrors();
     }
 
     return $errors;
