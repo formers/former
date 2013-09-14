@@ -376,7 +376,7 @@ class Former
   public function getErrors($name = null)
   {
     // Get name and translate array notation
-    if (!$name and $this->app['former.field']) {
+    if (!$name and $this->app->bound('former.field') and $this->app['former.field']) {
       $name = $this->app['former.field']->getName();
     }
 
