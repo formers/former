@@ -97,6 +97,22 @@ class Input extends Field
     return $this;
   }
 
+  /**
+   * Add range to the input
+   *
+   * @param  integer $min
+   * @param  integer $max
+   *
+   * @return self
+   */
+  public function range($min, $max)
+  {
+    $this->min($min);
+    $this->max($max);
+
+    return $this;
+  }
+
   ////////////////////////////////////////////////////////////////////
   /////////////////////////////// HELPERS ////////////////////////////
   ////////////////////////////////////////////////////////////////////
