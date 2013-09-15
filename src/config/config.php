@@ -15,13 +15,13 @@
   // Icons (to override framework defaults)
   ////////////////////////////////////////////////////////////////////
 
-  // tag (usually "i" or "span")
+  // Which tag to use (usually "i" or "span")
   'icon_tag'          => null,
 
-  // font group - Glyicons and Foundation
+  // The font group (for Glyicons and Foundation)
   'icon_group'        => null,
 
-  // prefix
+  // Which prefix to use for icons (icon- per example)
   'icon_prefix'       => null,
 
   // Validation
