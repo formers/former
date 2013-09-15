@@ -38,6 +38,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
    * @var array
    */
   private $fields = array(
+    'lg','sm',
     'col-xs-1', 'col-xs-2', 'col-xs-3', 'col-xs-4', 'col-xs-5', 'col-xs-6',
     'col-xs-7', 'col-xs-8', 'col-xs-9', 'col-xs-10', 'col-xs-11', 'col-xs-12',
     'col-sm-1', 'col-sm-2', 'col-sm-3', 'col-sm-4', 'col-sm-5', 'col-sm-6',
