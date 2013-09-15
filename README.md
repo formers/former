@@ -53,7 +53,7 @@ Former is developed by [Maxime Fabre][] and [Peter Coles][].
 - [Features][]
 - [Anatomy][]
 
-  [Peter Coles]: https://www.cartalyst.com/
+  [Peter Coles]: http://petercoles.com
   [Maxime Fabre]: http://autopergamene.eu
   [Anatomy]: https://github.com/Anahkiasen/former/wiki/Anatomy
   [Features]: https://github.com/Anahkiasen/former/wiki/Features
