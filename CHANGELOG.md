@@ -10,6 +10,7 @@
 - [add] Allow switching to alternate icon fonts
 - [mod] Form classes are now framework-dependant
 - [mod] More work on the Bootstrap 3 integration
+- [fix] Prevent custom groups from responding to errors fro non-grouped fields
 - [fix] Fix bug in selection false values in Selects
 
 3.2.0 (stable)
