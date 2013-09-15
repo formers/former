@@ -142,4 +142,27 @@ class TwitterBootstrap3Test extends FormerTests
     $this->former->close();
   }
 
+  public function testHeightSettingForFields()
+  {
+    $this->former->open_vertical();
+
+    $field = $this->former->lg_text('foo')->__toString();
+    $match =
+    '<div class="form-group">'.
+      '<label for="foo">Foo</label>'.
+      '<input class="input-lg form-control" id="foo" type="text" name="foo">'.
+    '</div>';
+    $this->assertEquals($match, $field);
+
+    $field = $this->former->sm_select('foo')->__toString();
+    $match =
+    '<div class="form-group">'.
+      '<label for="foo">Foo</label>'.
+      '<select class="input-sm form-control" id="foo" name="foo"></select>'.
+    '</div>';
+    $this->assertEquals($match, $field);
+
+    $this->former->close();
+  }
+
 }
