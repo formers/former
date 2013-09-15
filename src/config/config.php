@@ -18,8 +18,8 @@
   // Which tag to use (usually "i" or "span")
   'icon_tag'          => null,
 
-  // The font group (for Glyicons and Foundation)
-  'icon_group'        => null,
+  // The default font set (for fonts divided into sets)
+  'icon_set'        => null,
 
   // Which prefix to use for icons (icon- per example)
   'icon_prefix'       => null,
