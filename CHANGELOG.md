@@ -7,7 +7,7 @@
 - [add] Add support for PATCH method
 - [add] Add ability to create range number fields (`Former::number('foo')->range(1, 5)` sets the `min` to 1 and `max` to 5)
 - [add] Added Form->route and Form->controller to set a form's action to a route/controller method
-- [add] Added some options related to icons (which prefix to use, etc)
+- [add] Allow switching to alternate icon fonts
 - [mod] Form classes are now framework-dependant
 - [mod] More work on the Bootstrap 3 integration
 - [fix] Fix bug in selection false values in Selects
