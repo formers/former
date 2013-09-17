@@ -19,7 +19,7 @@
   'icon_tag'          => null,
 
   // The default font set (for fonts divided into sets)
-  'icon_set'        => null,
+  'icon_set'          => null,
 
   // Which prefix to use for icons (icon- per example)
   'icon_prefix'       => null,
