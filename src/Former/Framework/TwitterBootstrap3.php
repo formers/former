@@ -59,28 +59,6 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   );
 
   /**
-   * The default label width
-   *
-   * @var string
-   */
-  protected $labelWidth = 'col-lg-2';
-
-  /**
-   * The default field width
-   *
-   * @var string
-   */
-  protected $fieldWidth = 'col-lg-10';
-
-  /**
-   * The default offset for fields
-   * This creates space for labels, so must be at least as wide as default label width
-   *
-   * @var string
-   */
-  protected $fieldOffset = 'col-lg-offset-2';
-
-  /**
    * The default HTML tag used for icons
    *
    * @var string
@@ -112,6 +90,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   public function __construct(Container $app)
   {
     $this->app = $app;
+    $this->setFrameworkDefaults();
     $this->setIconDefaults();
   }
 
@@ -168,6 +147,25 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   public function errorState()
   {
     return 'has-error';
+  }
+
+  protected function setFieldWidths($labelWidths)
+  {
+    $labelWidthClass = $fieldWidthClass = $fieldOffsetClass = '';
+
+    $viewports = $this->getFrameworkOption('viewports');
+
+    foreach ($labelWidths as $viewport => $columns) {
+      if ($viewport) {
+        $labelWidthClass .= " col-$viewports[$viewport]-$columns";
+        $fieldWidthClass .= " col-$viewports[$viewport]-".(12-$columns);
+        $fieldOffsetClass .= " col-$viewports[$viewport]-offset-$columns";
+      }
+    }
+
+    $this->labelWidth = ltrim($labelWidthClass);
+    $this->fieldWidth = ltrim($fieldWidthClass);
+    $this->fieldOffset = ltrim($fieldOffsetClass);
   }
 
   ////////////////////////////////////////////////////////////////////

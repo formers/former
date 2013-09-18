@@ -30,6 +30,28 @@ abstract class Framework
    */
   protected $states = array();
 
+  /**
+   * The default label width (for horizontal forms)
+   *
+   * @var string
+   */
+  protected $labelWidth;
+
+  /**
+   * The default field width (for horizontal forms)
+   *
+   * @var string
+   */
+  protected $fieldWidth;
+
+  /**
+   * The default offset for fields (for horizontal form fields
+   * with no label, so usually equal to the default label width)
+   *
+   * @var string
+   */
+  protected $fieldOffset;
+
   ////////////////////////////////////////////////////////////////////
   //////////////////////// CURRENT FRAMEWORK /////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -106,8 +128,15 @@ abstract class Framework
   }
 
   /**
+   * Set framework defaults from its config file
+   */
+  protected function setFrameworkDefaults()
+  {
+    $this->setFieldWidths($this->getFrameworkOption('labelWidths'));
+  }
+
+  /**
    * Override framework defaults for icons with config values where set
-   *
    */
   protected function setIconDefaults()
   {
@@ -201,6 +230,11 @@ abstract class Framework
     }
 
     return $label;
+  }
+
+  protected function getFrameworkOption($option)
+  {
+    return $this->app['config']->get("former::{$this->current()}.$option");
   }
 
 }

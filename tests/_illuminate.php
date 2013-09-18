@@ -104,6 +104,10 @@ abstract class IlluminateMock extends PHPUnit_Framework_TestCase
       'label'
     ));
 
+    // Framework specific config keys
+    $config->shouldReceive('get')->with('former::TwitterBootstrap3.viewports')->andReturn(array('large'=>'lg','medium'=>'md','small'=>'sm','mini'=>'xs'));
+    $config->shouldReceive('get')->with('former::TwitterBootstrap3.labelWidths')->andReturn(array('large'=>2,'small'=>'4'));
+
     $config->shouldReceive('set')->with(Mockery::any(), Mockery::any());
 
     return $config;
