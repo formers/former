@@ -46,8 +46,9 @@ class TwitterBootstrap3Test extends FormerTests
 
   public function testPrependIcon()
   {
+    $this->former->open_vertical();
     $icon = $this->former->text('foo')->prependIcon('ok')->__toString();
-    $match = $this->hmatch('<label for="foo" class="control-label col-lg-2">Foo</label>',
+    $match = $this->vmatch('<label for="foo">Foo</label>',
                            '<div class="input-group">'.
                            '<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>'.
                            '<input class="form-control" id="foo" type="text" name="foo">'.
@@ -58,8 +59,9 @@ class TwitterBootstrap3Test extends FormerTests
 
   public function testAppendIcon()
   {
+    $this->former->open_vertical();
     $icon = $this->former->text('foo')->appendIcon('ok')->__toString();
-    $match = $this->hmatch('<label for="foo" class="control-label col-lg-2">Foo</label>',
+    $match = $this->vmatch('<label for="foo">Foo</label>',
                            '<div class="input-group">'.
                            '<input class="form-control" id="foo" type="text" name="foo">'.
                            '<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>'.
@@ -69,8 +71,9 @@ class TwitterBootstrap3Test extends FormerTests
 
   public function testTextFieldsGetControlClass()
   {
+    $this->former->open_vertical();
     $field = $this->former->text('foo')->__toString();
-    $match =  $this->hmatch('<label for="foo" class="control-label col-lg-2">Foo</label>',
+    $match =  $this->vmatch('<label for="foo">Foo</label>',
                             '<input class="form-control" id="foo" type="text" name="foo">');
 
     $this->assertEquals($match, $field);
@@ -78,14 +81,13 @@ class TwitterBootstrap3Test extends FormerTests
 
   public function testButtonSizes()
   {
+    $this->former->open_vertical();
     $buttons = $this->former->actions()->lg_submit('Submit')->submit('Submit')->sm_submit('Submit')->xs_submit('Submit')->__toString();
-    $match = '<div class="form-group">'.
-             '<div class="col-lg-offset-2 col-lg-10">'.
-             '<input class="btn-lg btn" type="submit" value="Submit">'.
-             ' <input class="btn" type="submit" value="Submit">'.
-             ' <input class="btn-sm btn" type="submit" value="Submit">'.
-             ' <input class="btn-xs btn" type="submit" value="Submit">'.
-             '</div>'.
+    $match = '<div>'.
+               '<input class="btn-lg btn" type="submit" value="Submit">'.
+               ' <input class="btn" type="submit" value="Submit">'.
+               ' <input class="btn-sm btn" type="submit" value="Submit">'.
+               ' <input class="btn-xs btn" type="submit" value="Submit">'.
              '</div>';
 
     $this->assertEquals($match, $buttons);
@@ -108,16 +110,15 @@ class TwitterBootstrap3Test extends FormerTests
 
   public function testCanCreateWithErrors()
   {
+    $this->former->open_vertical();
     $this->former->withErrors($this->validator);
 
     $required = $this->former->text('required')->__toString();
     $matcher =
     '<div class="form-group has-error">'.
-      '<label for="required" class="control-label col-lg-2">Required</label>'.
-      '<div class="col-lg-10">'.
-        '<input class="form-control" id="required" type="text" name="required">'.
-        '<span class="help-block">The required field is required.</span>'.
-      '</div>'.
+      '<label for="required">Required</label>'.
+      '<input class="form-control" id="required" type="text" name="required">'.
+      '<span class="help-block">The required field is required.</span>'.
     '</div>';
 
     $this->assertEquals($matcher, $required);
