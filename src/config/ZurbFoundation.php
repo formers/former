@@ -23,4 +23,13 @@ return array(
 	// Classes to be applied to wrapped labels in horizontal forms
 	'wrappedLabelClasses' => array('right','inline'),
 
+	// HTML markup and classes used by Foundation 3 for icons
+	'icon' => array(
+
+		'tag' => 'i',
+		'set' => null,
+		'prefix' => 'fi',
+
+	),
+
 );

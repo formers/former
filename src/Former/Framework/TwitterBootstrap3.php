@@ -91,7 +91,6 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   {
     $this->app = $app;
     $this->setFrameworkDefaults();
-    $this->setIconDefaults();
   }
 
   ////////////////////////////////////////////////////////////////////

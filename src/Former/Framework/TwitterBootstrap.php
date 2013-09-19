@@ -52,30 +52,6 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   );
 
   /**
-   * The default HTML tag used for icons
-   *
-   * @var string
-   */
-  protected $iconTag = 'i';
-
-  /**
-   * The default group for icon fonts
-   * By default Bootstrap uses images, so this isn't relevant
-   * Font-Awesome up to version 3.2.1 doesn't it either
-   *
-   * @var string
-   */
-  protected $iconSet = null;
-
-  /**
-   * The default prefix icon names
-   * "icon" works for Bootstrap 2 and Font-awesome
-   *
-   * @var string
-   */
-  protected $iconPrefix = 'icon';
-
-  /**
    * Create a new TwitterBootstrap instance
    *
    * @param \Illuminate\Container\Container $app
@@ -83,7 +59,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   public function __construct(Container $app)
   {
     $this->app = $app;
-    $this->setIconDefaults();
+    $this->setFrameworkDefaults();
   }
 
   ////////////////////////////////////////////////////////////////////

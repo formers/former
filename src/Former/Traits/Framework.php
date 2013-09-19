@@ -52,6 +52,27 @@ abstract class Framework
    */
   protected $fieldOffset;
 
+  /**
+   * The default HTML tag used for icons
+   *
+   * @var string
+   */
+  protected $iconTag;
+
+  /**
+   * The default set for icon fonts
+   *
+   * @var string
+   */
+  protected $iconSet;
+
+  /**
+   * The default prefix icon names
+   *
+   * @var string
+   */
+  protected $iconPrefix;
+
   ////////////////////////////////////////////////////////////////////
   //////////////////////// CURRENT FRAMEWORK /////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -133,24 +154,19 @@ abstract class Framework
   protected function setFrameworkDefaults()
   {
     $this->setFieldWidths($this->getFrameworkOption('labelWidths'));
+    $this->setIconDefaults();
   }
+
+  protected function setFieldWidths ($widths) {}
 
   /**
    * Override framework defaults for icons with config values where set
    */
   protected function setIconDefaults()
   {
-    if ($iconTag = $this->app['former']->getOption('icon_tag')) {
-      $this->iconTag = $iconTag;
-    }
-    
-    if ($iconSet = $this->app['former']->getOption('icon_set')) {
-      $this->iconSet = $iconSet;
-    }
-
-    if ($iconPrefix = $this->app['former']->getOption('icon_prefix')) {
-      $this->iconPrefix = $iconPrefix;
-    }
+    $this->iconTag = $this->getFrameworkOption('icon.tag');
+    $this->iconSet = $this->getFrameworkOption('icon.set');
+    $this->iconPrefix = $this->getFrameworkOption('icon.prefix');
   }
 
   /**

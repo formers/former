@@ -105,14 +105,35 @@ abstract class IlluminateMock extends PHPUnit_Framework_TestCase
     ));
 
     // Framework specific config keys
+    $config->shouldReceive('get')->with('former::Nude.labelWidths')->andReturn(null);
+    $config->shouldReceive('get')->with('former::Nude.icon.tag')->andReturn('i');
+    $config->shouldReceive('get')->with('former::Nude.icon.set')->andReturn(null);
+    $config->shouldReceive('get')->with('former::Nude.icon.prefix')->andReturn('icon');
+
     $config->shouldReceive('get')->with('former::ZurbFoundation.viewports')->andReturn(array('large'=>'','medium'=>null,'small'=>'mobile-','mini'=>null));
     $config->shouldReceive('get')->with('former::ZurbFoundation.labelWidths')->andReturn(array('large'=>2,'small'=>4));
     $config->shouldReceive('get')->with('former::ZurbFoundation.wrappedLabelClasses')->andReturn(array('right','inline'));
+    $config->shouldReceive('get')->with('former::ZurbFoundation.icon.tag')->andReturn('i');
+    $config->shouldReceive('get')->with('former::ZurbFoundation.icon.set')->andReturn(null);
+    $config->shouldReceive('get')->with('former::ZurbFoundation.icon.prefix')->andReturn('fi');
+
     $config->shouldReceive('get')->with('former::ZurbFoundation4.viewports')->andReturn(array('large'=>'large','medium'=>null,'small'=>'small','mini'=>null));
     $config->shouldReceive('get')->with('former::ZurbFoundation4.labelWidths')->andReturn(array('small'=>3));
     $config->shouldReceive('get')->with('former::ZurbFoundation4.wrappedLabelClasses')->andReturn(array('right','inline'));
+    $config->shouldReceive('get')->with('former::ZurbFoundation4.icon.tag')->andReturn('i');
+    $config->shouldReceive('get')->with('former::ZurbFoundation4.icon.set')->andReturn('general');
+    $config->shouldReceive('get')->with('former::ZurbFoundation4.icon.prefix')->andReturn('foundicon');
+
+    $config->shouldReceive('get')->with('former::TwitterBootstrap.labelWidths')->andReturn(null);
+    $config->shouldReceive('get')->with('former::TwitterBootstrap.icon.tag')->andReturn('i');
+    $config->shouldReceive('get')->with('former::TwitterBootstrap.icon.set')->andReturn(null);
+    $config->shouldReceive('get')->with('former::TwitterBootstrap.icon.prefix')->andReturn('icon');
+  
     $config->shouldReceive('get')->with('former::TwitterBootstrap3.viewports')->andReturn(array('large'=>'lg','medium'=>'md','small'=>'sm','mini'=>'xs'));
     $config->shouldReceive('get')->with('former::TwitterBootstrap3.labelWidths')->andReturn(array('large'=>2,'small'=>4));
+    $config->shouldReceive('get')->with('former::TwitterBootstrap3.icon.tag')->andReturn('span');
+    $config->shouldReceive('get')->with('former::TwitterBootstrap3.icon.set')->andReturn('glyphicon');
+    $config->shouldReceive('get')->with('former::TwitterBootstrap3.icon.prefix')->andReturn('glyphicon');
 
     $config->shouldReceive('set')->with(Mockery::any(), Mockery::any());
 

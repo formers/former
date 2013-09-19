@@ -47,27 +47,6 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
   );
 
   /**
-   * The default HTML tag used for icons
-   *
-   * @var string
-   */
-  protected $iconTag = 'i';
-
-  /**
-   * The default set for icon fonts
-   *
-   * @var string
-   */
-  protected $iconSet = 'general';
-
-  /**
-   * The default prefix for icon names
-   *
-   * @var string
-   */
-  protected $iconPrefix = 'foundicon';
-
-  /**
    * Create a new ZurbFoundation instance
    *
    * @param \Illuminate\Container\Container $app
@@ -76,7 +55,6 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
   {
     $this->app = $app;
     $this->setFrameworkDefaults();
-    $this->setIconDefaults();
   }
 
   ////////////////////////////////////////////////////////////////////

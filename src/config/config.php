@@ -12,18 +12,6 @@
   // The framework to be used by Former
   'framework'         => 'TwitterBootstrap',
 
-  // Icons (to override framework defaults)
-  ////////////////////////////////////////////////////////////////////
-
-  // Which tag to use (usually "i" or "span")
-  'icon_tag'          => null,
-
-  // The default font set (for fonts divided into sets)
-  'icon_set'          => null,
-
-  // Which prefix to use for icons (icon- per example)
-  'icon_prefix'       => null,
-
   // Validation
   ////////////////////////////////////////////////////////////////////
 
