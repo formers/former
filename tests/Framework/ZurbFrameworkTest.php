@@ -63,7 +63,7 @@ class ZurbFrameworkTest extends FormerTests
     $this->former->text('foo')->blockHelp('bar')->__toString();
   }
 
-  public function testVerticalForm()
+  public function testVerticalFormInputField()
   {
     $this->former->vertical_open();
     $field = $this->former->text('foo')->__toString();
@@ -76,7 +76,7 @@ class ZurbFrameworkTest extends FormerTests
     $this->assertEquals($match, $field);
   }
 
-  public function testHorizontalForm()
+  public function testHorizontalFormInputField()
   {
     $field = $this->former->text('foo')->__toString();
 
