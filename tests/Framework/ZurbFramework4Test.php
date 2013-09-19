@@ -73,15 +73,19 @@ class ZurbFramework4Test extends FormerTests
 
   public function testCanAppendIcon()
   {
+    $this->former->vertical_open();    
     $input = $this->former->text('foo')->appendIcon('ok')->__toString();
-    $match = '<div><label for="foo">Foo</label>'.
-             '<div class="row collapse">'.
-             '<div class="large-10 small-9 columns">'.
-             '<input id="foo" type="text" name="foo">'.
-             '</div><div class="large-2 small-3 columns">'.
-             '<span class="postfix">'.
-             '<i class="general foundicon-ok"></i>'.
-             '</span></div></div></div>';
+    $match = '<div>'.
+               '<label for="foo">Foo</label>'.
+               '<div class="large-10 small-9 columns">'.
+                 '<input id="foo" type="text" name="foo">'.
+               '</div>'.
+               '<div class="large-2 small-3 columns">'.
+                 '<span class="postfix">'.
+                   '<i class="general foundicon-ok"></i>'.
+                 '</span>'.
+               '</div>'.
+             '</div>';
 
     $this->assertEquals($match, $input);
   }
@@ -92,5 +96,6 @@ class ZurbFramework4Test extends FormerTests
     $match = '<i class="general foundicon-smiley"></i>';
 
     $this->assertEquals($match, $icon);
-  }  
+  }
+
 }
