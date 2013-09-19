@@ -237,4 +237,20 @@ abstract class Framework
     return $this->app['config']->get("former::{$this->current()}.$option");
   }
 
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////// WRAP BLOCKS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Wraps all label contents with potential additional tags.
+   *
+   * @param  string $label
+   *
+   * @return string A wrapped label
+   */
+  public function wrapLabel($label)
+  {
+    return $label;
+  }
+
 }

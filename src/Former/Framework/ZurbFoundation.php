@@ -13,6 +13,12 @@ use Illuminate\Container\Container;
  */
 class ZurbFoundation extends Framework implements FrameworkInterface
 {
+  /**
+   * Form types that trigger special styling for this Framework
+   *
+   * @var array
+   */
+  protected $availableTypes = array('horizontal', 'vertical');
 
   /**
    * The field sizes available
@@ -20,8 +26,18 @@ class ZurbFoundation extends Framework implements FrameworkInterface
    * @var array
    */
   private $fields = array(
-    'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight',
-    'nine', 'ten', 'eleven', 'twelve'
+    1 => 'one',
+    2 => 'two',
+    3 => 'three',
+    4 => 'four',
+    5 => 'five',
+    6 => 'six',
+    7 => 'seven',
+    8 => 'eight',
+    9 => 'nine',
+    10 => 'ten',
+    11 => 'eleven',
+    12 => 'twelve'
   );
 
   /**
@@ -63,6 +79,7 @@ class ZurbFoundation extends Framework implements FrameworkInterface
   public function __construct(Container $app)
   {
     $this->app = $app;
+    $this->setFrameworkDefaults();
     $this->setIconDefaults();
   }
 
@@ -84,6 +101,29 @@ class ZurbFoundation extends Framework implements FrameworkInterface
   }
 
   ////////////////////////////////////////////////////////////////////
+  ///////////////////// EXPOSE FRAMEWORK SPECIFICS ///////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  protected function setFieldWidths($labelWidths)
+  {
+    $labelWidthClass = $fieldWidthClass = $fieldOffsetClass = '';
+
+    $viewports = $this->getFrameworkOption('viewports');
+
+    foreach ($labelWidths as $viewport => $columns) {
+      if ($viewport) {
+        $labelWidthClass .= $viewports[$viewport].$this->fields[$columns].' ';
+        $fieldWidthClass .= $viewports[$viewport].$this->fields[12-$columns].' ';
+        $fieldOffsetClass .= $viewports[$viewport].'offset-by-'.$this->fields[$columns].' ';
+      }
+    }
+
+    $this->labelWidth = $labelWidthClass . 'columns';
+    $this->fieldWidth = $fieldWidthClass . 'columns';
+    $this->fieldOffset = $fieldOffsetClass . 'columns';
+  }
+
+  ////////////////////////////////////////////////////////////////////
   ///////////////////////////// ADD CLASSES //////////////////////////
   ////////////////////////////////////////////////////////////////////
 
@@ -101,12 +141,26 @@ class ZurbFoundation extends Framework implements FrameworkInterface
 
   public function getGroupClasses()
   {
-    return null;
+    if ($this->app['former.form']->isOfType('horizontal')) {
+      return 'row';
+    } else {
+      return null;
+    }
   }
 
+  /**
+   * Add label classes
+   *
+   * @param  array $attributes An array of attributes
+   * @return array An array of attributes with the label class
+   */
   public function getLabelClasses()
   {
-    return null;
+    if ($this->app['former.form']->isOfType('horizontal')) {
+      return array('right', 'inline');
+    } else {
+      return null;
+    }
   }
 
   public function getUneditableClasses()
@@ -192,6 +246,22 @@ class ZurbFoundation extends Framework implements FrameworkInterface
   }
 
   /**
+   * Wraps all label contents with potential additional tags.
+   *
+   * @param  string $label
+   *
+   * @return string A wrapped label
+   */
+  public function wrapLabel($label)
+  {
+    if ($this->app['former.form']->isOfType('horizontal')) {
+      return Element::create('div', $label)->addClass($this->labelWidth);
+    } else {
+      return $label;
+    }
+  }
+
+  /**
    * Wraps all field contents with potential additional tags.
    *
    * @param  Field $field
@@ -200,7 +270,11 @@ class ZurbFoundation extends Framework implements FrameworkInterface
    */
   public function wrapField($field)
   {
-    return Element::create('div', $field)->addClass('row collapse');
+    if ($this->app['former.form']->isOfType('horizontal')) {
+      return Element::create('div', $field)->addClass($this->fieldWidth);
+    } else {
+      return $field;
+    }
   }
 
   /**
@@ -211,7 +285,11 @@ class ZurbFoundation extends Framework implements FrameworkInterface
    */
   public function wrapActions($actions)
   {
+    if ($this->app['former.form']->isOfType('horizontal')) {
+      return Element::create('div', $actions)->addClass(array($this->fieldOffset,$this->fieldWidth));
+    } else {
       return $actions;
+    }
   }
 
 }
