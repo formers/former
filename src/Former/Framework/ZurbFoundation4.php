@@ -13,6 +13,12 @@ use Illuminate\Container\Container;
  */
 class ZurbFoundation4 extends Framework implements FrameworkInterface
 {
+  /**
+   * Form types that trigger special styling for this Framework
+   *
+   * @var array
+   */
+  protected $availableTypes = array('horizontal', 'vertical');
 
   /**
    * The button types available
@@ -69,6 +75,7 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
   public function __construct(Container $app)
   {
     $this->app = $app;
+    $this->setFrameworkDefaults();
     $this->setIconDefaults();
   }
 
@@ -88,6 +95,29 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
   public function filterFieldClasses($classes)
   {
     return null;
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  ///////////////////// EXPOSE FRAMEWORK SPECIFICS ///////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  protected function setFieldWidths($labelWidths)
+  {
+    $labelWidthClass = $fieldWidthClass = $fieldOffsetClass = '';
+
+    $viewports = $this->getFrameworkOption('viewports');
+
+    foreach ($labelWidths as $viewport => $columns) {
+      if ($viewport) {
+        $labelWidthClass .= $viewports[$viewport].'-'.$columns.' ';
+        $fieldWidthClass .= $viewports[$viewport].'-'.(12-$columns).' ';
+        $fieldOffsetClass .= $viewports[$viewport].'-offset-'.$columns.' ';
+      }
+    }
+
+    $this->labelWidth = $labelWidthClass . 'columns';
+    $this->fieldWidth = $fieldWidthClass . 'columns';
+    $this->fieldOffset = $fieldOffsetClass . 'columns';
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -112,12 +142,26 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
 
   public function getGroupClasses()
   {
-    return null;
+    if ($this->app['former.form']->isOfType('horizontal')) {
+      return 'row';
+    } else {
+      return null;
+    }
   }
 
+  /**
+   * Add label classes
+   *
+   * @param  array $attributes An array of attributes
+   * @return array An array of attributes with the label class
+   */
   public function getLabelClasses()
   {
-    return null;
+    if ($this->app['former.form']->isOfType('horizontal')) {
+      return $this->getFrameworkOption('wrappedLabelClasses');
+    } else {
+      return null;
+    }
   }
 
   public function getUneditableClasses()
@@ -203,6 +247,22 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
   }
 
   /**
+   * Wraps all label contents with potential additional tags.
+   *
+   * @param  string $label
+   *
+   * @return string A wrapped label
+   */
+  public function wrapLabel($label)
+  {
+    if ($this->app['former.form']->isOfType('horizontal')) {
+      return Element::create('div', $label)->addClass($this->labelWidth);
+    } else {
+      return $label;
+    }
+  }
+
+  /**
    * Wraps all field contents with potential additional tags.
    *
    * @param  Field $field
@@ -211,8 +271,12 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
    */
   public function wrapField($field)
   {
-    return Element::create('div', $field)->addClass('row collapse');
-  }
+    if ($this->app['former.form']->isOfType('horizontal')) {
+      return Element::create('div', $field)->addClass($this->fieldWidth);
+    } else {
+      return $field;
+    }
+  }  
 
   /**
    * Wrap actions block with potential additional tags

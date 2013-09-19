@@ -108,6 +108,9 @@ abstract class IlluminateMock extends PHPUnit_Framework_TestCase
     $config->shouldReceive('get')->with('former::ZurbFoundation.viewports')->andReturn(array('large'=>'','medium'=>null,'small'=>'mobile-','mini'=>null));
     $config->shouldReceive('get')->with('former::ZurbFoundation.labelWidths')->andReturn(array('large'=>2,'small'=>4));
     $config->shouldReceive('get')->with('former::ZurbFoundation.wrappedLabelClasses')->andReturn(array('right','inline'));
+    $config->shouldReceive('get')->with('former::ZurbFoundation4.viewports')->andReturn(array('large'=>'large','medium'=>null,'small'=>'small','mini'=>null));
+    $config->shouldReceive('get')->with('former::ZurbFoundation4.labelWidths')->andReturn(array('small'=>3));
+    $config->shouldReceive('get')->with('former::ZurbFoundation4.wrappedLabelClasses')->andReturn(array('right','inline'));
     $config->shouldReceive('get')->with('former::TwitterBootstrap3.viewports')->andReturn(array('large'=>'lg','medium'=>'md','small'=>'sm','mini'=>'xs'));
     $config->shouldReceive('get')->with('former::TwitterBootstrap3.labelWidths')->andReturn(array('large'=>2,'small'=>4));
 

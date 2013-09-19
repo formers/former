@@ -98,4 +98,33 @@ class ZurbFramework4Test extends FormerTests
     $this->assertEquals($match, $icon);
   }
 
+  public function testVerticalFormInputField()
+  {
+    $this->former->vertical_open();
+    $field = $this->former->text('foo')->__toString();
+
+    $match = '<div>'.
+               '<label for="foo">Foo</label>'.
+               '<input id="foo" type="text" name="foo">'.
+             '</div>';
+
+    $this->assertEquals($match, $field);
+  }
+
+  public function testHorizontalFormInputField()
+  {
+    $field = $this->former->text('foo')->__toString();
+
+    $match = '<div class="row">'.
+               '<div class="small-3 columns">'.
+                 '<label for="foo" class="right inline">Foo</label>'.
+               '</div>'.
+               '<div class="small-9 columns">'.
+                 '<input id="foo" type="text" name="foo">'.
+               '</div>'.
+             '</div>';
+
+    $this->assertEquals($match, $field);
+  }
+
 }
