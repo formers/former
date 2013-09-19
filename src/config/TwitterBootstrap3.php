@@ -2,7 +2,7 @@
 
 return array(
 
-	// Map Former-supported viewports to framework-supported equivalents
+	// Map Former-supported viewports to Bootstrap 3 equivalents
 	'viewports' => array(
 
 		'large' => 'lg',
