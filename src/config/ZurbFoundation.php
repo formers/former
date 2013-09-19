@@ -20,4 +20,7 @@ return array(
 
 	),
 
+	// Classes to be applied to wrapped labels in horizontal forms
+	'wrappedLabelClasses' => array('right','inline'),
+
 );

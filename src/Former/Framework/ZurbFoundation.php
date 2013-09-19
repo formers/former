@@ -157,7 +157,7 @@ class ZurbFoundation extends Framework implements FrameworkInterface
   public function getLabelClasses()
   {
     if ($this->app['former.form']->isOfType('horizontal')) {
-      return array('right', 'inline');
+      return $this->getFrameworkOption('wrappedLabelClasses');
     } else {
       return null;
     }
