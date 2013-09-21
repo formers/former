@@ -158,4 +158,22 @@ class FieldTest extends FormerTests
     $this->assertHTML($this->matchControlGroup(), $static);
     $this->assertHTML($field, $static);
   }
+
+  public function testAutomaticLabelsForSingleSelectField()
+  {
+    $field = $this->former->select('foo');
+
+    $matcher = '<div class="control-group"><label for="foo" class="control-label">Foo</label><div class="controls"><select id="foo" name="foo"></select></div></div>';
+
+    $this->assertEquals($matcher, $field->__toString());
+  }
+
+  public function testAutomaticLabelsForMultiSelectField()
+  {
+    $field = $this->former->select('foo[]');
+
+    $matcher = '<div class="control-group"><label for="foo[]" class="control-label">Foo</label><div class="controls"><select id="foo[]" name="foo[]"></select></div></div>';
+
+    $this->assertEquals($matcher, $field->__toString());
+  }
 }
