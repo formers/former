@@ -253,4 +253,13 @@ class InputTest extends FormerTests
 
     $this->assertContains('min="1" max="5"', $range);
   }
+
+  public function testLabelCastsToString()
+  {
+    $object = new DummyEloquent(array('name' => 'Bar'));
+
+    $static  = $this->former->checkbox('foo')->label($object)->__toString();
+    $label = $this->matchLabel('Bar', 'foo');
+    $this->assertHTML($label, $static);
+  }
 }
