@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Anahkiasen/html-object.git",
-                "reference": "6c38e388bd75fe49c927ec88c1261e57b2124ba7"
+                "reference": "c6a901b12285f9a5b4a3731565eef9580d55dbee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/6c38e388bd75fe49c927ec88c1261e57b2124ba7",
-                "reference": "6c38e388bd75fe49c927ec88c1261e57b2124ba7",
+                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/c6a901b12285f9a5b4a3731565eef9580d55dbee",
+                "reference": "c6a901b12285f9a5b4a3731565eef9580d55dbee",
                 "shasum": ""
             },
             "require": {
@@ -39,7 +39,7 @@
                 }
             ],
             "description": "A set of classes to create and manipulate HTML objects abstractions",
-            "time": "2013-08-20 12:47:19"
+            "time": "2013-10-16 23:04:59"
         },
         {
             "name": "anahkiasen/underscore-php",
@@ -634,16 +634,16 @@
         },
         {
             "name": "patchwork/utf8",
-            "version": "v1.1.12",
+            "version": "v1.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nicolas-grekas/Patchwork-UTF8.git",
-                "reference": "bf556062f69380066dacd03b4bcc6727c5b8e97e"
+                "reference": "92376c92e7edc281a2ca4e3384f3da9237415db6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/bf556062f69380066dacd03b4bcc6727c5b8e97e",
-                "reference": "bf556062f69380066dacd03b4bcc6727c5b8e97e",
+                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/92376c92e7edc281a2ca4e3384f3da9237415db6",
+                "reference": "92376c92e7edc281a2ca4e3384f3da9237415db6",
                 "shasum": ""
             },
             "require": {
@@ -673,7 +673,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "UTF-8 strings handling for PHP 5.3: portable, performant and extended",
+            "description": "Extensive, portable and performant handling of UTF-8 and grapheme clusters for PHP",
             "homepage": "https://github.com/nicolas-grekas/Patchwork-UTF8",
             "keywords": [
                 "i18n",
@@ -681,7 +681,7 @@
                 "utf-8",
                 "utf8"
             ],
-            "time": "2013-10-04 09:47:08"
+            "time": "2013-10-12 09:48:20"
         },
         {
             "name": "psr/log",
