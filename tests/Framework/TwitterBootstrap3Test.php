@@ -175,4 +175,17 @@ class TwitterBootstrap3Test extends FormerTests
     $this->former->close();
   }
 
+  public function testAddFormControlClassToInlineActionsBlock()
+  {
+    $this->former->open_inline();
+    $buttons = $this->former->actions()->submit('Foo')->__toString();
+    $match = '<div class="form-group">'.
+               '<input class="btn" type="submit" value="Foo">'.
+             '</div>';
+
+    $this->assertEquals($match, $buttons);
+
+    $this->former->close();
+  }
+
 }

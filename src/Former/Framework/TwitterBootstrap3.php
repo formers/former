@@ -265,7 +265,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
    */
   public function getActionClasses()
   {
-    if ($this->app['former.form']->isOfType('horizontal')) {
+    if ($this->app['former.form']->isOfType('horizontal') || $this->app['former.form']->isOfType('inline')) {
       return 'form-group';
     } else {
       return null;
