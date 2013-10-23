@@ -381,7 +381,7 @@ class Former
     }
 
     if ($this->errors and $name) {
-      $name = str_replace(array('[', ']'), array('.', ''), $name);
+      $name = str_replace(array('[]', '[', ']'), array('', '.', ''), $name);
 
       return $this->errors->first($name);
     }
