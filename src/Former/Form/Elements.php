@@ -59,7 +59,7 @@ class Elements
    */
   public function label($label, $for = null, $attributes = array())
   {
-    $label = Helpers::translate($label);
+    $label = Helpers::translate((string) $label);
 
     $attributes['for'] = $for;
     $this->app['former']->labels[] = $for;

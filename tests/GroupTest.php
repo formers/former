@@ -217,14 +217,6 @@ class GroupTest extends FormerTests
     $this->assertEquals($matcher, $control);
   }
 
-  public function testAppendWhiteIcon()
-  {
-    $control = $this->former->text('foo')->appendIcon('white-something')->__toString();
-    $matcher = $this->createPrependAppendMatcher(array(), array('<i class="icon-white icon-something"></i>'));
-
-    $this->assertEquals($matcher, $control);
-  }
-
   public function testAllTheThings()
   {
     $control = $this->former->text('foo')

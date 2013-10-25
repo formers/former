@@ -30,6 +30,7 @@ class Nude extends Framework implements FrameworkInterface
   public function __construct(Container $app)
   {
     $this->app = $app;
+    $this->setFrameworkDefaults();
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -100,14 +101,6 @@ class Nude extends Framework implements FrameworkInterface
   }
 
   /**
-   * Creates a basic icon
-   */
-  public function createIcon($icon, $attributes = array())
-  {
-    return Element::create('i', null, $attributes)->addClass($icon);
-  }
-
-  /**
    * Render a disabled field
    *
    * @param Field $field
@@ -157,8 +150,27 @@ class Nude extends Framework implements FrameworkInterface
     return $return;
   }
 
+  /**
+   * Wraps all field contents with potential additional tags.
+   *
+   * @param  Field $field
+   *
+   * @return string A wrapped field
+   */
   public function wrapField($field)
   {
     return $field;
   }
+
+  /**
+   * Wrap actions block with potential additional tags
+   *
+   * @param  Actions $action
+   * @return string A wrapped actions block
+   */
+  public function wrapActions($actions)
+  {
+      return $actions;
+  }
+
 }

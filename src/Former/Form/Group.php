@@ -79,7 +79,7 @@ class Group extends Tag
   protected $element = 'div';
 
   /**
-   * Whether a group is opened or not
+   * Whether a custom group is opened or not
    *
    * @var boolean
    */
@@ -134,7 +134,7 @@ class Group extends Tag
   public function open()
   {
     if ($this->getErrors()) {
-      $this->state('error');
+      $this->state($this->app['former.framework']->errorState());
     }
 
     // Retrieve state and append it to classes
@@ -329,9 +329,9 @@ class Group extends Tag
    * @param string $icon       The icon to prepend
    * @param array  $attributes Its attributes
    */
-  public function prependIcon($icon, $attributes = array())
+  public function prependIcon($icon, $attributes = array(), $iconSettings = array())
   {
-    $icon = $this->app['former.framework']->createIcon($icon, $attributes);
+    $icon = $this->app['former.framework']->createIcon($icon, $attributes, $iconSettings);
 
     $this->prepend($icon);
   }
@@ -342,9 +342,9 @@ class Group extends Tag
    * @param string $icon       The icon to prepend
    * @param array  $attributes Its attributes
    */
-  public function appendIcon($icon, $attributes = array())
+  public function appendIcon($icon, $attributes = array(), $iconSettings = array())
   {
-    $icon = $this->app['former.framework']->createIcon($icon, $attributes);
+    $icon = $this->app['former.framework']->createIcon($icon, $attributes, $iconSettings);
 
     $this->append($icon);
   }
@@ -360,14 +360,19 @@ class Group extends Tag
    */
   public function getErrors()
   {
-    // If any errors, set state to errors
-    if (!empty($this->validations)) {
-      $errors = '';
+    $errors = '';
+
+    if (!self::$opened) {
+
+      // for non-custom groups, normal error handling applies
+      $errors = $this->app['former']->getErrors();
+
+    } elseif (!empty($this->validations)) {
+
+      // error handling only when validations specified for custom groups
       foreach ($this->validations as $validation) {
         $errors .= $this->app['former']->getErrors($validation);
       }
-    } else {
-      $errors = $this->app['former']->getErrors();
     }
 
     return $errors;
@@ -407,7 +412,8 @@ class Group extends Tag
     // Wrap label in framework classes
     $this->label->addClass($this->app['former.framework']->getLabelClasses());
     $this->label = $this->app['former.framework']->createLabelOf($field, $this->label);
-
+    $this->label = $this->app['former.framework']->wrapLabel($this->label);
+ 
     return $this->label;
   }
 

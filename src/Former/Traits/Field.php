@@ -360,7 +360,7 @@ abstract class Field extends FormerObject implements FieldInterface
     if ($label and is_null($name)) {
       $name = String::slug($label);
     } elseif (is_null($label) and $name) {
-      $label = $name;
+      $label = preg_replace('/\[\]$/', '', $name);
     }
 
     // Save values

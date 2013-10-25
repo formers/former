@@ -49,13 +49,6 @@ class Form extends FormerObject
   protected $type = null;
 
   /**
-   * The available form types
-   *
-   * @var array
-   */
-  protected $availableTypes = array('horizontal', 'vertical', 'inline', 'search');
-
-  /**
    * The destination of the current form
    *
    * @var string
@@ -163,7 +156,13 @@ class Form extends FormerObject
   {
     static::$opened = false;
 
-    return $this->app['former']->token().'</form>';
+    // Add token if necessary
+    $closing = '</form>';
+    if ($this->method != 'GET') {
+      $closing = $this->app['former']->token().$closing;
+    }
+
+    return $closing;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -230,7 +229,13 @@ class Form extends FormerObject
    */
   public function route($name, $params = array())
   {
+    // Set the form action
     $this->action = $this->url->route($name, $params);
+
+    // Set the proper method
+    if ($method = $this->findRouteMethod($name)) {
+      $this->method($method);
+    }
 
     return $this;
   }
@@ -246,6 +251,11 @@ class Form extends FormerObject
   public function controller($name, $params = array())
   {
     $this->action = $this->url->action($name, $params);
+
+    // Set the proper method
+    if ($method = $this->findRouteMethod($name)) {
+      $this->method($method);
+    }
 
     return $this;
   }
@@ -315,6 +325,37 @@ class Form extends FormerObject
   ////////////////////////////////////////////////////////////////////
 
   /**
+   * Find the method of a route by its _uses or name
+   *
+   * @param  string $name
+   *
+   * @return string
+   */
+  protected function findRouteMethod($name)
+  {
+    if (!$this->app->bound('router')) {
+      return;
+    }
+
+    // Get string by name
+    if (!String::contains($name, '@')) {
+      $route = $this->app['router']->getRoutes()->get($name);
+
+    // Get string by uses
+    } else {
+      foreach ($this->app['router']->getRoutes() as $route) {
+        if ($action = $route->getOption('_uses')) {
+          if ($action == $name) {
+            break;
+          }
+        }
+      }
+    }
+
+    return array_get($route->getMethods(), 0);
+  }
+
+  /**
    * Apply various parameters according to form type
    *
    * @param  string $type The original form type provided
@@ -344,7 +385,7 @@ class Form extends FormerObject
     $type = trim($type, '_');
 
     // Use default form type if the one provided is invalid
-    if (!in_array($type, $this->availableTypes)) {
+    if (!in_array($type, $this->framework->availableTypes())) {
       $type = $this->app['former']->getOption('default_form_type');
     }
 
