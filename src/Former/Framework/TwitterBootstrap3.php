@@ -230,7 +230,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
     } elseif ($this->app['former.form']->isOfType('inline')) {
       return array('sr-only');
     } else {
-      return null;
+      return array('control-label');
     }
   }
 

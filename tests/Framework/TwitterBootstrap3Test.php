@@ -38,7 +38,7 @@ class TwitterBootstrap3Test extends FormerTests
     $field = $this->former->text('foo')->__toString();
     $this->former->close();
 
-    $match = $this->vmatch('<label for="foo">Foo</label>',
+    $match = $this->vmatch('<label for="foo" class="control-label">Foo</label>',
                            '<input class="form-control" id="foo" type="text" name="foo">');
 
     $this->assertEquals($match, $field);
@@ -50,14 +50,14 @@ class TwitterBootstrap3Test extends FormerTests
     $match = $this->hmatch('<label for="foo" class="control-label col-lg-2 col-sm-4">Foo</label>',
                            '<input class="form-control" id="foo" type="text" name="foo">');
 
-    $this->assertEquals($match, $field);   
+    $this->assertEquals($match, $field);
   }
 
   public function testPrependIcon()
   {
     $this->former->open_vertical();
     $icon = $this->former->text('foo')->prependIcon('ok')->__toString();
-    $match = $this->vmatch('<label for="foo">Foo</label>',
+    $match = $this->vmatch('<label for="foo" class="control-label">Foo</label>',
                            '<div class="input-group">'.
                              '<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>'.
                              '<input class="form-control" id="foo" type="text" name="foo">'.
@@ -70,7 +70,7 @@ class TwitterBootstrap3Test extends FormerTests
   {
     $this->former->open_vertical();
     $icon = $this->former->text('foo')->appendIcon('ok')->__toString();
-    $match = $this->vmatch('<label for="foo">Foo</label>',
+    $match = $this->vmatch('<label for="foo" class="control-label">Foo</label>',
                            '<div class="input-group">'.
                              '<input class="form-control" id="foo" type="text" name="foo">'.
                              '<span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>'.
@@ -82,7 +82,7 @@ class TwitterBootstrap3Test extends FormerTests
   {
     $this->former->open_vertical();
     $field = $this->former->text('foo')->__toString();
-    $match =  $this->vmatch('<label for="foo">Foo</label>',
+    $match =  $this->vmatch('<label for="foo" class="control-label">Foo</label>',
                             '<input class="form-control" id="foo" type="text" name="foo">');
 
     $this->assertEquals($match, $field);
@@ -125,7 +125,7 @@ class TwitterBootstrap3Test extends FormerTests
     $required = $this->former->text('required')->__toString();
     $matcher =
     '<div class="form-group has-error">'.
-      '<label for="required">Required</label>'.
+      '<label for="required" class="control-label">Required</label>'.
       '<input class="form-control" id="required" type="text" name="required">'.
       '<span class="help-block">The required field is required.</span>'.
     '</div>';
@@ -159,7 +159,7 @@ class TwitterBootstrap3Test extends FormerTests
     $field = $this->former->lg_text('foo')->__toString();
     $match =
     '<div class="form-group">'.
-      '<label for="foo">Foo</label>'.
+      '<label for="foo" class="control-label">Foo</label>'.
       '<input class="input-lg form-control" id="foo" type="text" name="foo">'.
     '</div>';
     $this->assertEquals($match, $field);
@@ -167,7 +167,7 @@ class TwitterBootstrap3Test extends FormerTests
     $field = $this->former->sm_select('foo')->__toString();
     $match =
     '<div class="form-group">'.
-      '<label for="foo">Foo</label>'.
+      '<label for="foo" class="control-label">Foo</label>'.
       '<select class="input-sm form-control" id="foo" name="foo"></select>'.
     '</div>';
     $this->assertEquals($match, $field);
