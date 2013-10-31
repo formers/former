@@ -188,11 +188,11 @@ class FormerServiceProvider extends ServiceProvider
       return new $frameworkClass($app);
     });
 
-    $app->singleton('former.populator', function ($app) {
+    $app->bindShared('former.populator', function ($app) {
       return new Populator;
     });
 
-    $app->singleton('former', function ($app) {
+    $app->bindShared('former', function ($app) {
       return new Former($app);
     });
 
