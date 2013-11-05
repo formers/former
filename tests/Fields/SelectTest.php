@@ -278,7 +278,7 @@ class SelectTest extends FormerTests
 
   public function testCanCreateSelectGroups()
   {
-    $values = array('foo' => array(1 => 'foo', 2 => 'bar'), 'bar' => array(1 => 'foo', 2 => 'bar'));
+    $values = array('foo' => array(1 => 'foo', 2 => 'bar'), 'bar' => array(3 => 'foo', 4 => 'bar'));
     $select = $this->former->select('foo')->options($values);
 
     $matcher =
@@ -287,7 +287,24 @@ class SelectTest extends FormerTests
         '<option value="1">foo</option><option value="2">bar</option>'.
       '</optgroup>'.
       '<optgroup label="bar">'.
+        '<option value="3">foo</option><option value="4">bar</option>'.
+      '</optgroup>'.
+    '</select>';
+    $this->assertEquals($matcher, $select->render());
+  }
+
+  public function testCanPopulateSelectGroups()
+  {
+    $values = array('foo' => array(1 => 'foo', 2 => 'bar'), 'bar' => array(3 => 'foo', 4 => 'bar'));
+    $select = $this->former->select('foo')->options($values)->select(4);
+
+    $matcher =
+    '<select id="foo" name="foo">'.
+      '<optgroup label="foo">'.
         '<option value="1">foo</option><option value="2">bar</option>'.
+      '</optgroup>'.
+      '<optgroup label="bar">'.
+        '<option value="3">foo</option><option value="4" selected="selected">bar</option>'.
       '</optgroup>'.
     '</select>';
     $this->assertEquals($matcher, $select->render());

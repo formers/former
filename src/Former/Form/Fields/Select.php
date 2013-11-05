@@ -91,9 +91,7 @@ class Select extends Field
     // Mark selected values as selected
     if ($this->hasChildren() and !empty($this->value)) {
       foreach ($this->value as $value) {
-        if ($child = $this->getChild($value)) {
-          $child->selected('selected');
-        }
+        $this->selectValue($value);
       }
     }
 
@@ -105,6 +103,39 @@ class Select extends Field
     $this->value = null;
 
     return parent::render();
+  }
+
+  /**
+   * Select a value in the field's children
+   *
+   * @param mixed   $value
+   * @param Element $parent
+   *
+   * @return void
+   */
+  protected function selectValue($value, $parent = null)
+  {
+    // If no parent element defined, use direct children
+    if (!$parent) {
+      $parent = $this;
+    }
+
+    // Look in direct childs
+    if ($child = $parent->getChild($value)) {
+      return $child->selected('selected');
+    }
+
+    foreach ($parent->getChildren() as $child) {
+      // Search by value
+      if ($child->getAttribute('value') == $value) {
+        $child->selected('selected');
+      }
+
+      // Else iterate over subchilds
+      if ($child->hasChildren()) {
+        $this->selectValue($value, $child);
+      }
+    }
   }
 
   /**

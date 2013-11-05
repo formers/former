@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-3.3.0 (develop)
+3.3.0 (stable)
 -----
 
 - [add] Add ability to pass attributes to a select's options
@@ -10,10 +10,11 @@
 - [add] Allow switching to alternate icon fonts
 - [mod] Form classes are now framework-dependant
 - [mod] More work on the Bootstrap 3 integration
-- [fix] Prevent custom groups from responding to errors fro non-grouped fields
+- [fix] Prevent custom groups from responding to errors from non-grouped fields
 - [fix] Fix bug in selection false values in Selects
+- [fix] Fix bug where selects with optgroups weren't populated correctly
 
-3.2.0 (stable)
+3.2.0
 -----
 
 - **[mod] Updated TwitterBootstrap3 to the latest release**
