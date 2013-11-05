@@ -4,6 +4,7 @@ namespace Former\Form;
 use Former\Former;
 use Former\Populator;
 use Former\Traits\FormerObject;
+use Illuminate\Container\Container;
 use Underscore\Methods\ArraysMethods as Arrays;
 use Underscore\Methods\StringMethods as String;
 
@@ -12,13 +13,12 @@ use Underscore\Methods\StringMethods as String;
  */
 class Form extends FormerObject
 {
-
   /**
-   * The Former instance
+   * The IoC Container
    *
-   * @var Former
+   * @var Container
    */
-  protected $former;
+  protected $app;
 
   /**
    * The Framework Interface
@@ -47,13 +47,6 @@ class Form extends FormerObject
    * @var string
    */
   protected $type = null;
-
-  /**
-   * The available form types
-   *
-   * @var array
-   */
-  protected $availableTypes = array('horizontal', 'vertical', 'inline', 'search');
 
   /**
    * The destination of the current form
@@ -107,10 +100,10 @@ class Form extends FormerObject
    * @param Former       $former
    * @param UrlGenerator $url
    */
-  public function __construct(Former $former, $url, Populator $populator)
+  public function __construct(Container $app, $url, Populator $populator)
   {
-    $this->former    = $former;
-    $this->framework = $former->getFramework();
+    $this->app       = $app;
+    $this->framework = $app['former.framework'];
     $this->url       = $url;
     $this->populator = $populator;
   }
@@ -130,8 +123,8 @@ class Form extends FormerObject
     $secure     = Arrays::get($parameters, 3, false);
 
     // Fetch errors if asked for
-    if ($this->former->getOption('fetch_errors')) {
-      $this->former->withErrors();
+    if ($this->app['former']->getOption('fetch_errors')) {
+      $this->app['former']->withErrors();
     }
 
     // Open the form
@@ -149,7 +142,7 @@ class Form extends FormerObject
     }
 
     // Add supplementary classes
-    $this->addClass($this->former->getFramework()->getFormClasses($this->type));
+    $this->addClass($this->app['former.framework']->getFormClasses($this->type));
 
     return $this;
   }
@@ -163,7 +156,13 @@ class Form extends FormerObject
   {
     static::$opened = false;
 
-    return $this->former->token().'</form>';
+    // Add token if necessary
+    $closing = '</form>';
+    if ($this->method != 'GET') {
+      $closing = $this->app['former']->token().$closing;
+    }
+
+    return $closing;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -221,6 +220,47 @@ class Form extends FormerObject
   }
 
   /**
+   * Change the form's action and method to a route
+   *
+   * @param  string $name   The name of the route to use
+   * @param  array  $params Any route parameters
+   *
+   * @return void
+   */
+  public function route($name, $params = array())
+  {
+    // Set the form action
+    $this->action = $this->url->route($name, $params);
+
+    // Set the proper method
+    if ($method = $this->findRouteMethod($name)) {
+      $this->method($method);
+    }
+
+    return $this;
+  }
+
+  /**
+   * Change the form's action to a controller method
+   *
+   * @param  string $name         The controller and method
+   * @param  array  $params       Any method parameters
+   *
+   * @return void
+   */
+  public function controller($name, $params = array())
+  {
+    $this->action = $this->url->action($name, $params);
+
+    // Set the proper method
+    if ($method = $this->findRouteMethod($name)) {
+      $this->method($method);
+    }
+
+    return $this;
+  }
+
+  /**
    * Outputs the current form opened
    *
    * @return string A <form> opening tag
@@ -235,7 +275,7 @@ class Form extends FormerObject
 
     // Add spoof method
     if (in_array($this->method, array('PUT', 'PATCH', 'DELETE'))) {
-      $spoof = $this->former->hidden('_method', $this->method);
+      $spoof = $this->app['former']->hidden('_method', $this->method);
       $this->method = 'POST';
     } else {
       $spoof = null;
@@ -249,11 +289,11 @@ class Form extends FormerObject
   ////////////////////////////////////////////////////////////////////
 
   /**
-   * Alias for $this->former->withRules
+   * Alias for $this->app['former']->withRules
    */
   public function rules()
   {
-    call_user_func_array(array($this->former, 'withRules'), func_get_args());
+    call_user_func_array(array($this->app['former'], 'withRules'), func_get_args());
 
     return $this;
   }
@@ -265,7 +305,7 @@ class Form extends FormerObject
    */
   public function populate($values)
   {
-    $this->populator->setValues($values);
+    $this->populator->replace($values);
 
     return $this;
   }
@@ -285,6 +325,37 @@ class Form extends FormerObject
   ////////////////////////////////////////////////////////////////////
 
   /**
+   * Find the method of a route by its _uses or name
+   *
+   * @param  string $name
+   *
+   * @return string
+   */
+  protected function findRouteMethod($name)
+  {
+    if (!$this->app->bound('router')) {
+      return;
+    }
+
+    // Get string by name
+    if (!String::contains($name, '@')) {
+      $route = $this->app['router']->getRoutes()->get($name);
+
+    // Get string by uses
+    } else {
+      foreach ($this->app['router']->getRoutes() as $route) {
+        if ($action = $route->getOption('_uses')) {
+          if ($action == $name) {
+            break;
+          }
+        }
+      }
+    }
+
+    return array_get($route->getMethods(), 0);
+  }
+
+  /**
    * Apply various parameters according to form type
    *
    * @param  string $type The original form type provided
@@ -294,7 +365,7 @@ class Form extends FormerObject
   {
     // If classic form
     if ($type == 'open') {
-      return $this->former->getOption('default_form_type');
+      return $this->app['former']->getOption('default_form_type');
     }
 
     // Look for HTTPS form
@@ -314,8 +385,8 @@ class Form extends FormerObject
     $type = trim($type, '_');
 
     // Use default form type if the one provided is invalid
-    if (!in_array($type, $this->availableTypes)) {
-      $type = $this->former->getOption('default_form_type');
+    if (!in_array($type, $this->framework->availableTypes())) {
+      $type = $this->app['former']->getOption('default_form_type');
     }
 
     return $type;

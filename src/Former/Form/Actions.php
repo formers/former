@@ -3,6 +3,7 @@ namespace Former\Form;
 
 use Former\Former;
 use Former\Traits\FormerObject;
+use Illuminate\Container\Container;
 use Underscore\Methods\ArraysMethods as Arrays;
 use Underscore\Methods\StringMethods as String;
 
@@ -12,13 +13,12 @@ use Underscore\Methods\StringMethods as String;
  */
 class Actions extends FormerObject
 {
-
   /**
-   * The current environment
+   * The Container
    *
-   * @var Illuminate\Container
+   * @var Container
    */
-  protected $former;
+  protected $app;
 
   /**
    * The Actions element
@@ -37,13 +37,13 @@ class Actions extends FormerObject
    * @param Container $app
    * @param array     $value The block content
    */
-  public function __construct(Former $former, $value)
+  public function __construct(Container $app, $value)
   {
-    $this->former = $former;
-    $this->value  = $value;
+    $this->app   = $app;
+    $this->value = $value;
 
     // Add specific actions classes to the actions block
-    $this->addClass($this->former->getFramework()->getActionClasses());
+    $this->addClass($this->app['former.framework']->getActionClasses());
   }
 
   /**
@@ -57,7 +57,7 @@ class Actions extends FormerObject
       return method_exists($content, '__toString') ? (string) $content : $content;
     });
 
-    return implode(' ', $content);
+    return $this->app['former.framework']->wrapActions( implode(' ', $content) );
   }
 
   /**
@@ -98,7 +98,7 @@ class Actions extends FormerObject
    */
   private function createButtonOfType($type, $name, $link, $attributes)
   {
-    $this->value[] = $this->former->$type($name, $link, $attributes)->__toString();
+    $this->value[] = $this->app['former']->$type($name, $link, $attributes)->__toString();
 
     return $this;
   }

@@ -1,5 +1,26 @@
 ## CHANGELOG
 
+3.3.0 (stable)
+-----
+
+- [add] Add ability to pass attributes to a select's options
+- [add] Add support for PATCH method
+- [add] Add ability to create range number fields (`Former::number('foo')->range(1, 5)` sets the `min` to 1 and `max` to 5)
+- [add] Added Form->route and Form->controller to set a form's action to a route/controller path, and the corresponding method
+- [add] Allow switching to alternate icon fonts
+- [mod] Form classes are now framework-dependant
+- [mod] More work on the Bootstrap 3 integration
+- [fix] Prevent custom groups from responding to errors from non-grouped fields
+- [fix] Fix bug in selection false values in Selects
+- [fix] Fix bug where selects with optgroups weren't populated correctly
+
+3.2.0
+-----
+
+- **[mod] Updated TwitterBootstrap3 to the latest release**
+- **[mod] Former now handles camelCase attributes (ie. `dataPlaceholder` for `data-placeholder`)**
+- [mod] `$group->getErrors()` is now public
+
 3.1.0
 -----
 

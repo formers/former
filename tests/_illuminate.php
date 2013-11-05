@@ -85,6 +85,9 @@ abstract class IlluminateMock extends PHPUnit_Framework_TestCase
     $config->shouldReceive('get')->with('former::default_form_type', Mockery::any())->andReturn('horizontal');
     $config->shouldReceive('get')->with('former::fetch_errors', Mockery::any())->andReturn(false);
     $config->shouldReceive('get')->with('former::framework')->andReturn('TwitterBootstrap');
+    $config->shouldReceive('get')->with('former::icon_tag', Mockery::any())->andReturn(null);
+    $config->shouldReceive('get')->with('former::icon_set', Mockery::any())->andReturn(null);
+    $config->shouldReceive('get')->with('former::icon_prefix', Mockery::any())->andReturn(null);
     $config->shouldReceive('get')->with('former::translate_from', Mockery::any())->andReturn('validation.attributes');
     $config->shouldReceive('get')->with('former::required_class', Mockery::any())->andReturn('required');
     $config->shouldReceive('get')->with('former::required_text',  Mockery::any())->andReturn('*');
@@ -101,6 +104,37 @@ abstract class IlluminateMock extends PHPUnit_Framework_TestCase
       'label'
     ));
 
+    // Framework specific config keys
+    $config->shouldReceive('get')->with('former::Nude.labelWidths')->andReturn(null);
+    $config->shouldReceive('get')->with('former::Nude.icon.tag')->andReturn('i');
+    $config->shouldReceive('get')->with('former::Nude.icon.set')->andReturn(null);
+    $config->shouldReceive('get')->with('former::Nude.icon.prefix')->andReturn('icon');
+
+    $config->shouldReceive('get')->with('former::ZurbFoundation.viewports')->andReturn(array('large'=>'','medium'=>null,'small'=>'mobile-','mini'=>null));
+    $config->shouldReceive('get')->with('former::ZurbFoundation.labelWidths')->andReturn(array('large'=>2,'small'=>4));
+    $config->shouldReceive('get')->with('former::ZurbFoundation.wrappedLabelClasses')->andReturn(array('right','inline'));
+    $config->shouldReceive('get')->with('former::ZurbFoundation.icon.tag')->andReturn('i');
+    $config->shouldReceive('get')->with('former::ZurbFoundation.icon.set')->andReturn(null);
+    $config->shouldReceive('get')->with('former::ZurbFoundation.icon.prefix')->andReturn('fi');
+
+    $config->shouldReceive('get')->with('former::ZurbFoundation4.viewports')->andReturn(array('large'=>'large','medium'=>null,'small'=>'small','mini'=>null));
+    $config->shouldReceive('get')->with('former::ZurbFoundation4.labelWidths')->andReturn(array('small'=>3));
+    $config->shouldReceive('get')->with('former::ZurbFoundation4.wrappedLabelClasses')->andReturn(array('right','inline'));
+    $config->shouldReceive('get')->with('former::ZurbFoundation4.icon.tag')->andReturn('i');
+    $config->shouldReceive('get')->with('former::ZurbFoundation4.icon.set')->andReturn('general');
+    $config->shouldReceive('get')->with('former::ZurbFoundation4.icon.prefix')->andReturn('foundicon');
+
+    $config->shouldReceive('get')->with('former::TwitterBootstrap.labelWidths')->andReturn(null);
+    $config->shouldReceive('get')->with('former::TwitterBootstrap.icon.tag')->andReturn('i');
+    $config->shouldReceive('get')->with('former::TwitterBootstrap.icon.set')->andReturn(null);
+    $config->shouldReceive('get')->with('former::TwitterBootstrap.icon.prefix')->andReturn('icon');
+  
+    $config->shouldReceive('get')->with('former::TwitterBootstrap3.viewports')->andReturn(array('large'=>'lg','medium'=>'md','small'=>'sm','mini'=>'xs'));
+    $config->shouldReceive('get')->with('former::TwitterBootstrap3.labelWidths')->andReturn(array('large'=>2,'small'=>4));
+    $config->shouldReceive('get')->with('former::TwitterBootstrap3.icon.tag')->andReturn('span');
+    $config->shouldReceive('get')->with('former::TwitterBootstrap3.icon.set')->andReturn('glyphicon');
+    $config->shouldReceive('get')->with('former::TwitterBootstrap3.icon.prefix')->andReturn('glyphicon');
+
     $config->shouldReceive('set')->with(Mockery::any(), Mockery::any());
 
     return $config;
@@ -116,6 +150,10 @@ abstract class IlluminateMock extends PHPUnit_Framework_TestCase
     $url->shouldReceive('to')->andReturnUsing(function ($url) {
       return $url == '#' ? $url : 'https://test/en/'.$url;
     });
+    $url->shouldReceive('action')->with('UsersController@edit', array(2))->andReturn('/users/2/edit');
+    $url->shouldReceive('action')->with('UsersController@edit', 2)->andReturn('/users/2/edit');
+    $url->shouldReceive('route')->with('user.edit', array(2))->andReturn('/users/2/edit');
+    $url->shouldReceive('route')->with('user.edit', 2)->andReturn('/users/2/edit');
 
     return $url;
   }
@@ -180,9 +218,11 @@ abstract class IlluminateMock extends PHPUnit_Framework_TestCase
     $translator = Mockery::mock('Illuminate\Translation\Translator');
     $translator->shouldReceive('get')->with('pagination.next')->andReturn('Next');
     $translator->shouldReceive('get')->with('pagination')->andReturn(array('previous' => 'Previous', 'next' => 'Next'));
+    $translator->shouldReceive('get')->with('validation.attributes.field_name_with_underscore')->andReturn(false);
     $translator->shouldReceive('get')->withAnyArgs()->andReturnUsing(function ($key) {
       return $key;
     });
+    $translator->shouldReceive('has')->with('field_name_with_underscore')->andReturn(false);
     $translator->shouldReceive('has')->withAnyArgs()->andReturn(true);
 
     return $translator;

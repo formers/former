@@ -5,6 +5,7 @@ use Former\Former;
 use Former\Helpers;
 use Former\Traits\Field;
 use HtmlObject\Element;
+use Illuminate\Container\Container;
 
 /**
  * Everything list-related (select, multiselect, ...)
@@ -46,7 +47,7 @@ class Select extends Field
   /**
    * Easier arguments order for selects
    *
-   * @param Former    $former     The Former instance
+   * @param Container $app        The Container instance
    * @param string    $type       select
    * @param string    $name       Field name
    * @param string    $label      Its label
@@ -54,12 +55,12 @@ class Select extends Field
    * @param string    $selected   The selected option
    * @param array     $attributes Attributes
    */
-  public function __construct(Former $former, $type, $name, $label, $options, $selected, $attributes)
+  public function __construct(Container $app, $type, $name, $label, $options, $selected, $attributes)
   {
     if ($selected) $this->value = $selected;
     if ($options)  $this->options($options);
 
-    parent::__construct($former, $type, $name, $label, $selected, $attributes);
+    parent::__construct($app, $type, $name, $label, $selected, $attributes);
 
     // Multiple models population
     if (is_array($this->value)) {
@@ -90,9 +91,7 @@ class Select extends Field
     // Mark selected values as selected
     if ($this->hasChildren() and !empty($this->value)) {
       foreach ($this->value as $value) {
-        if ($child = $this->getChild($value)) {
-          $child->selected('selected');
-        }
+        $this->selectValue($value);
       }
     }
 
@@ -104,6 +103,39 @@ class Select extends Field
     $this->value = null;
 
     return parent::render();
+  }
+
+  /**
+   * Select a value in the field's children
+   *
+   * @param mixed   $value
+   * @param Element $parent
+   *
+   * @return void
+   */
+  protected function selectValue($value, $parent = null)
+  {
+    // If no parent element defined, use direct children
+    if (!$parent) {
+      $parent = $this;
+    }
+
+    // Look in direct childs
+    if ($child = $parent->getChild($value)) {
+      return $child->selected('selected');
+    }
+
+    foreach ($parent->getChildren() as $child) {
+      // Search by value
+      if ($child->getAttribute('value') == $value) {
+        $child->selected('selected');
+      }
+
+      // Else iterate over subchilds
+      if ($child->hasChildren()) {
+        $this->selectValue($value, $child);
+      }
+    }
   }
 
   /**
@@ -136,11 +168,6 @@ class Select extends Field
   {
     $options = array();
 
-    // Automatically fetch Lang objects for people who store translated options lists
-    if ($_options instanceof \Laravel\Lang) {
-      $_options = $_options->get();
-    }
-
     // If valuesAsKeys is true, use the values as keys
     if ($valuesAsKeys) {
       foreach ($_options as $v) {
@@ -150,12 +177,21 @@ class Select extends Field
       $options = $_options;
     }
 
-    foreach ($options as $key => $option) {
-      $this->addOption($option, $key);
+    // Add the various options
+    foreach ($options as $value => $text) {
+      if (is_array($text) and isset($text['value'])) {
+        $attributes = $text;
+        $text       = $value;
+        $value      = null;
+      } else {
+        $attributes = array();
+      }
+      $this->addOption($text, $value, $attributes);
     }
 
-    if ($selected) {
-      $this->value = $selected;
+    // Set the selected value
+    if (!is_null($selected)) {
+      $this->select($selected);
     }
 
     return $this;
@@ -178,21 +214,30 @@ class Select extends Field
   /**
    * Add an option to the Select's options
    *
-   * @param array|string $text  It's value or an array of values
-   * @param string       $value It's text
+   * @param array|string $text       It's value or an array of values
+   * @param string       $value      It's text
+   * @param array        $attributes The option's attributes
    */
-  public function addOption($text = null, $value = null)
+  public function addOption($text = null, $value = null, $attributes = array())
   {
+    // Get the option's value
     $childrenKey = !is_null($value) ? $value : sizeof($this->children);
 
+    // If we passed an options group
     if (is_array($text)) {
       $this->children[$childrenKey] = Element::create('optgroup')->label($value);
       foreach ($text as $key => $value) {
         $option = Element::create('option', $value)->setAttribute('value', $key);
         $this->children[$childrenKey]->nest($option);
       }
+
+    // Else if it's a simple option
     } else {
-      $this->children[$childrenKey] = Element::create('option', $text)->setAttribute('value', $value);
+      if (!isset($attributes['value'])) {
+        $attributes['value'] = $value;
+      }
+
+      $this->children[$attributes['value']] = Element::create('option', $text)->setAttributes($attributes);
     }
 
     return $this;

@@ -14,6 +14,12 @@ use Underscore\Methods\StringMethods as String;
  */
 class TwitterBootstrap extends Framework implements FrameworkInterface
 {
+  /**
+   * Form types that trigger special styling for this Framework
+   *
+   * @var array
+   */
+  protected $availableTypes = array('horizontal', 'vertical', 'inline', 'search');
 
   /**
    * The button types available
@@ -53,6 +59,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   public function __construct(Container $app)
   {
     $this->app = $app;
+    $this->setFrameworkDefaults();
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -236,29 +243,33 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   /**
    * Render an icon
    *
-   * @param string $icon       The icon name
-   * @param array  $attributes Its attributes
+   * @param string $icon          The icon name
+   * @param array  $attributes    Its general attributes
+   * @param array  $iconSettings  Icon-specific settings
    *
    * @return string
    */
-  public function createIcon($iconType, $attributes = array())
+  public function createIcon($iconType, $attributes = array(), $iconSettings = array())
   {
-    $icon = Element::create('i', null, $attributes);
+    // Check for empty icons
+    if (!$iconType) return false;
 
-    // White icon
+    //Create tag
+    $tag = isset($iconSettings['tag']) ? $iconSettings['tag'] : $this->iconTag;
+    $icon = Element::create($tag, null, $attributes);
+
+    // White icons ignore user overrides to use legacy Bootstrap styling
     if (String::contains($iconType, 'white')) {
       $iconType = String::remove($iconType, 'white');
       $iconType = trim($iconType, '-');
       $icon->addClass('icon-white');
+      $set = null;
+      $prefix = 'icon';
+    } else {
+      $set = isset($iconSettings['set']) ? $iconSettings['set'] : $this->iconSet;
+      $prefix = isset($iconSettings['prefix']) ? $iconSettings['prefix'] : $this->iconPrefix;
     }
-
-    // Check for empty icons
-    if (!$iconType) {
-      return false;
-    }
-
-    // Create icon
-    $icon->addClass('icon-'.$iconType);
+    $icon->addClass("$set $prefix-$iconType");
 
     return $icon;
   }
@@ -313,6 +324,17 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   public function wrapField($field)
   {
     return Element::create('div', $field)->addClass('controls');
+  }
+
+  /**
+   * Wrap actions block with potential additional tags
+   *
+   * @param  Actions $action
+   * @return string A wrapped actions block
+   */
+  public function wrapActions($actions)
+  {
+      return $actions;
   }
 
 }

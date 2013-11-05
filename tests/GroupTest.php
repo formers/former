@@ -217,14 +217,6 @@ class GroupTest extends FormerTests
     $this->assertEquals($matcher, $control);
   }
 
-  public function testAppendWhiteIcon()
-  {
-    $control = $this->former->text('foo')->appendIcon('white-something')->__toString();
-    $matcher = $this->createPrependAppendMatcher(array(), array('<i class="icon-white icon-something"></i>'));
-
-    $this->assertEquals($matcher, $control);
-  }
-
   public function testAllTheThings()
   {
     $control = $this->former->text('foo')
@@ -300,6 +292,9 @@ class GroupTest extends FormerTests
     $matcher = '<div class="control-group error"><label for="Foo" class="control-label">Foo</label>';
 
     $group = $this->former->group('foo', array('foo'))->__toString();
+    $this->assertEquals($matcher, $group);
+
+    $group = $this->former->group('foo', 'foo')->__toString();
     $this->assertEquals($matcher, $group);
 
     $group = $this->former->group('foo', array('foo', 'bar'))->__toString();

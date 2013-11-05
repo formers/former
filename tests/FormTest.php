@@ -1,7 +1,6 @@
 <?php
 class FormTest extends FormerTests
 {
-
   ////////////////////////////////////////////////////////////////////
   ////////////////////////////// MATCHERS ////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -58,6 +57,14 @@ class FormTest extends FormerTests
     $close = $this->former->close();
 
     $this->assertEquals('<input type="hidden" name="_token" value="csrf_token"></form>', $close);
+  }
+
+  public function testDoesntAddTokenToGetForms()
+  {
+    $open  = $this->former->open()->method('GET');
+    $close = $this->former->close();
+
+    $this->assertEquals('</form>', $close);
   }
 
   public function testCanCreateCustomFormOpener()
@@ -206,4 +213,51 @@ class FormTest extends FormerTests
     $this->assertHTML($this->matchForm(), $form);
   }
 
+  public function provideMethods()
+  {
+    return array(
+      array('PUT'),
+      array('PATCH'),
+      array('DELETE'),
+    );
+  }
+
+  /**
+   * @dataProvider provideMethods
+   */
+  public function testCanOpenToSpoofedMethod($method)
+  {
+    $form = $this->former->open('#')->method($method)->__toString();
+    $matcher = $this->matchForm();
+
+    $this->assertHTML($matcher, $form);
+    $this->assertHTML(array(
+      'tag' => 'input',
+      'attributes' => array(
+        'type'  => 'hidden',
+        'name'  => '_method',
+        'value' => $method,
+      ),
+    ), $form);
+  }
+
+  public function testCanOpenAFormToRoute()
+  {
+    $form = $this->former->open()->route('user.edit', array(2));
+    $formSingle = $this->former->open()->route('user.edit', 2);
+
+    $matcher = $this->matchForm('horizontal', false, '/users/2/edit');
+    $this->assertHTML($matcher, $form);
+    $this->assertHTML($matcher, $formSingle);
+  }
+
+  public function testCanOpenFormToAControllerMethod()
+  {
+    $form = $this->former->open()->controller('UsersController@edit', array(2));
+    $formSingle = $this->former->open()->controller('UsersController@edit', 2);
+
+    $matcher = $this->matchForm('horizontal', false, '/users/2/edit');
+    $this->assertHTML($matcher, $form);
+    $this->assertHTML($matcher, $formSingle);
+  }
 }

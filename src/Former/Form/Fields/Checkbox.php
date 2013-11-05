@@ -8,7 +8,6 @@ use Former\Traits\Checkable;
  */
 class Checkbox extends Checkable
 {
-
   /**
    * The current checkable type
    *
@@ -29,5 +28,4 @@ class Checkbox extends Checkable
 
     return $this;
   }
-
 }

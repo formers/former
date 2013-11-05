@@ -7,6 +7,7 @@ use Former\Former;
 use Former\Helpers;
 use Former\Interfaces\FieldInterface;
 use Former\LiveValidation;
+use Illuminate\Container\Container;
 use Underscore\Methods\ArraysMethods as Arrays;
 use Underscore\Methods\StringMethods as String;
 
@@ -16,6 +17,12 @@ use Underscore\Methods\StringMethods as String;
  */
 abstract class Field extends FormerObject implements FieldInterface
 {
+  /**
+   * The IoC Container
+   *
+   * @var Container
+   */
+  protected $app;
 
   /**
    * The Form instance
@@ -61,13 +68,14 @@ abstract class Field extends FormerObject implements FieldInterface
    *
    * @param string $type A field type
    */
-  public function __construct(Former $former, $type, $name, $label, $value, $attributes)
+  public function __construct(Container $app, $type, $name, $label, $value, $attributes)
   {
     // Set base parameters
-    $this->former     = $former;
+    $this->app        = $app;
     $this->attributes = (array) $attributes;
     $this->type       = $type;
     $this->value      = $value;
+    $this->form       = $this->app->bound('former.form') ? $this->app['former.form'] : null;
 
     // Compute and translate label
     $this->automaticLabels($name, $label);
@@ -78,7 +86,7 @@ abstract class Field extends FormerObject implements FieldInterface
     }
 
     // Apply Live validation rules
-    if ($this->former->getOption('live_validation')) {
+    if ($this->app['former']->getOption('live_validation')) {
       $rules = new LiveValidation($this);
       $rules->apply($this->getRules());
     }
@@ -87,7 +95,7 @@ abstract class Field extends FormerObject implements FieldInterface
     $groupClass = $this->isCheckable() ? 'CheckableGroup' : 'Group';
     $groupClass = Former::FORMSPACE.$groupClass;
 
-    $this->group = new $groupClass($this->former, $this->label);
+    $this->group = new $groupClass($this->app, $this->label);
   }
 
   /**
@@ -96,7 +104,7 @@ abstract class Field extends FormerObject implements FieldInterface
   public function __call($method, $parameters)
   {
     // Translate attributes
-    $translatable = $this->former->getOption('translatable', array());
+    $translatable = $this->app['former']->getOption('translatable', array());
     if (in_array($method, $translatable) and isset($parameters[0])) {
       $parameters[0] = Helpers::translate($parameters[0]);
     }
@@ -131,7 +139,7 @@ abstract class Field extends FormerObject implements FieldInterface
 
     // Classic syntax
     } else {
-      $html  = $this->former->getFramework()->createLabelOf($this);
+      $html  = $this->app['former.framework']->createLabelOf($this);
       $html .= $this->render();
     }
 
@@ -170,7 +178,7 @@ abstract class Field extends FormerObject implements FieldInterface
   public function isUnwrappable()
   {
     return
-      $this->former->form() and $this->former->form()->isOfType('inline') or
+      $this->form and $this->isOfType('inline') or
       $this->isButton() or
       $this->isOfType('hidden') or
       \Former\Form\Group::$opened or
@@ -184,7 +192,7 @@ abstract class Field extends FormerObject implements FieldInterface
    */
   public function isCheckable()
   {
-    return $this->isOfType('checkboxes', 'radios');
+    return $this->isOfType('checkbox', 'checkboxes', 'radio', 'radios');
   }
 
   /**
@@ -204,7 +212,7 @@ abstract class Field extends FormerObject implements FieldInterface
    */
   public function getRules()
   {
-    return $this->former->getRules($this->name);
+    return $this->app['former']->getRules($this->name);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -239,9 +247,8 @@ abstract class Field extends FormerObject implements FieldInterface
   public function label($text, $attributes = array())
   {
     // Create the Label element
-    $text  = Helpers::translate($text);
     $for   = $this->id ?: $this->name;
-    $label = $this->former->label($text, $for, $attributes);
+    $label = $this->app['former']->label($text, $for, $attributes);
 
     // Set label
     if ($this->group) {
@@ -317,9 +324,9 @@ abstract class Field extends FormerObject implements FieldInterface
   private function repopulate($fallback = null)
   {
     // Get values from POST, populated, and manually set value
-    $post      = $this->former->getPost($this->name);
-    $populator = $this->form ? $this->form->getPopulator() : $this->former->getPopulator();
-    $populate  = $populator->getValue($this->name);
+    $post      = $this->app['former']->getPost($this->name);
+    $populator = $this->form ? $this->form->getPopulator() : $this->app['former.populator'];
+    $populate  = $populator->get($this->name);
 
     // Assign a priority to each
     if (!is_null($post)) {
@@ -342,7 +349,7 @@ abstract class Field extends FormerObject implements FieldInterface
   private function automaticLabels($name, $label)
   {
     // Disabled automatic labels
-    if (!$this->former->getOption('automatic_label')) {
+    if (!$this->app['former']->getOption('automatic_label')) {
       $this->name = $name;
       $this->label($label);
 
@@ -353,11 +360,8 @@ abstract class Field extends FormerObject implements FieldInterface
     if ($label and is_null($name)) {
       $name = String::slug($label);
     } elseif (is_null($label) and $name) {
-      $label = $name;
+      $label = preg_replace('/\[\]$/', '', $name);
     }
-
-    // Attempt to translate the label
-    $label = Helpers::translate($label);
 
     // Save values
     $this->name  = $name;

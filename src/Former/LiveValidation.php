@@ -2,7 +2,6 @@
 namespace Former;
 
 use Former\Traits\Field;
-use Laravel\File;
 
 /**
  * Handles the transformation of validation rules into actual
@@ -10,9 +9,9 @@ use Laravel\File;
  */
 class LiveValidation
 {
-
   /**
    * The field being worked on
+   *
    * @var Field
    */
   public $field;
@@ -55,7 +54,8 @@ class LiveValidation
   //////////////////////////////// RULES /////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
-  // Field types --------------------------------------------------- /
+  // Field types
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Email field
@@ -78,10 +78,11 @@ class LiveValidation
    */
   public function required()
   {
-      $this->field->required();
+    $this->field->required();
   }
 
-  // Patterns ------------------------------------------------------ /
+  // Patterns
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Integer field
@@ -173,7 +174,8 @@ class LiveValidation
     return $this->match($pattern);
   }
 
-  // Boundaries ---------------------------------------------------- /
+  // Boundaries
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Max value
@@ -235,7 +237,8 @@ class LiveValidation
     $this->mimes(array('jpg', 'png', 'gif', 'bmp'));
   }
 
-  // Dates --------------------------------------------------------- /
+  // Dates
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Before a date

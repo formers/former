@@ -4,6 +4,7 @@ namespace Former\Framework;
 use Former\Interfaces\FrameworkInterface;
 use Former\Traits\Field;
 use Former\Traits\Framework;
+use Former\Form\Form;
 use HtmlObject\Element;
 use Illuminate\Container\Container;
 use Underscore\Methods\ArraysMethods as Arrays;
@@ -14,40 +15,72 @@ use Underscore\Methods\StringMethods as String;
  */
 class TwitterBootstrap3 extends Framework implements FrameworkInterface
 {
+  /**
+   * Form types that trigger special styling for this Framework
+   *
+   * @var array
+   */
+  protected $availableTypes = array('horizontal', 'vertical', 'inline');
 
   /**
    * The button types available
+   *
    * @var array
    */
   private $buttons = array(
-    'large', 'small', 'block', 'link',
+    'lg', 'sm', 'xs', 'block', 'link',
     'default', 'primary', 'warning',  'danger', 'success', 'info',
   );
 
   /**
    * The field sizes available
+   *
    * @var array
    */
   private $fields = array(
-    'col-1', 'col-2', 'col-3', 'col-4', 'col-5', 'col-6',
-    'col-7', 'col-8', 'col-9', 'col-10', 'col-11', 'col-12',
-    'col-sm-1', 'col-sm-2', 'col-sm-3', 'col-sm-4', 'col-sm-5', 'col-sm-6',
-    'col-sm-7', 'col-sm-8', 'col-sm-9', 'col-sm-10', 'col-sm-11', 'col-sm-12',
-    'col-lg-1', 'col-lg-2', 'col-lg-3', 'col-lg-4', 'col-lg-5', 'col-lg-6',
-    'col-lg-7', 'col-lg-8', 'col-lg-9', 'col-lg-10', 'col-lg-11', 'col-lg-12',
+    'lg','sm',
+    // 'col-xs-1', 'col-xs-2', 'col-xs-3', 'col-xs-4', 'col-xs-5', 'col-xs-6',
+    // 'col-xs-7', 'col-xs-8', 'col-xs-9', 'col-xs-10', 'col-xs-11', 'col-xs-12',
+    // 'col-sm-1', 'col-sm-2', 'col-sm-3', 'col-sm-4', 'col-sm-5', 'col-sm-6',
+    // 'col-sm-7', 'col-sm-8', 'col-sm-9', 'col-sm-10', 'col-sm-11', 'col-sm-12',
+    // 'col-md-1', 'col-md-2', 'col-md-3', 'col-md-4', 'col-md-5', 'col-md-6',
+    // 'col-md-7', 'col-md-8', 'col-md-9', 'col-md-10', 'col-md-11', 'col-md-12',
+    // 'col-lg-1', 'col-lg-2', 'col-lg-3', 'col-lg-4', 'col-lg-5', 'col-lg-6',
+    // 'col-lg-7', 'col-lg-8', 'col-lg-9', 'col-lg-10', 'col-lg-11', 'col-lg-12',
   );
 
   /**
    * The field states available
+   *
    * @var array
    */
   protected $states = array(
     'has-warning', 'has-error', 'has-success',
   );
 
-  protected $labelWidth = 'col-2';
+  /**
+   * The default HTML tag used for icons
+   *
+   * @var string
+   */
+  protected $iconTag = 'span';
 
-  protected $fieldWidth = 'col-10';
+  /**
+   * The default set for icon fonts
+   * By default Bootstrap 3 offers only 'glyphicon'
+   * See Former docs to use 'social' and 'filetypes' sets for specific icons.
+   *
+   * @var string
+   */
+  protected $iconSet = 'glyphicon';
+
+  /**
+   * The default prefix icon names
+   * "icon" works for Bootstrap 2 and Font-awesome
+   *
+   * @var string
+   */
+  protected $iconPrefix = 'glyphicon';
 
   /**
    * Create a new TwitterBootstrap instance
@@ -57,6 +90,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   public function __construct(Container $app)
   {
     $this->app = $app;
+    $this->setFrameworkDefaults();
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -101,6 +135,39 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   }
 
   ////////////////////////////////////////////////////////////////////
+  ///////////////////// EXPOSE FRAMEWORK SPECIFICS ///////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Framework error state
+   *
+   * @return string
+   */
+  public function errorState()
+  {
+    return 'has-error';
+  }
+
+  protected function setFieldWidths($labelWidths)
+  {
+    $labelWidthClass = $fieldWidthClass = $fieldOffsetClass = '';
+
+    $viewports = $this->getFrameworkOption('viewports');
+
+    foreach ($labelWidths as $viewport => $columns) {
+      if ($viewport) {
+        $labelWidthClass .= " col-$viewports[$viewport]-$columns";
+        $fieldWidthClass .= " col-$viewports[$viewport]-".(12-$columns);
+        $fieldOffsetClass .= " col-$viewports[$viewport]-offset-$columns";
+      }
+    }
+
+    $this->labelWidth = ltrim($labelWidthClass);
+    $this->fieldWidth = ltrim($fieldWidthClass);
+    $this->fieldOffset = ltrim($fieldOffsetClass);
+  }
+
+  ////////////////////////////////////////////////////////////////////
   ///////////////////////////// ADD CLASSES //////////////////////////
   ////////////////////////////////////////////////////////////////////
 
@@ -124,6 +191,12 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
       $classes = $this->filterButtonClasses($classes);
     } else {
       $classes = $this->filterFieldClasses($classes);
+    }
+
+    // Add form-control class for text-type, textarea and select fields
+    // As text-type is open-ended we instead exclude those that shouldn't receive the class
+    if (!$field->isCheckable() and !$field->isButton() and $field->getType() != 'file' and !in_array('form-control', $classes)) {
+      $classes[] = 'form-control';
     }
 
     // If we found any class, add them
@@ -152,7 +225,13 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
    */
   public function getLabelClasses()
   {
-    return '';
+    if ($this->app['former.form']->isOfType('horizontal')) {
+      return array('control-label', $this->labelWidth);
+    } elseif ($this->app['former.form']->isOfType('inline')) {
+      return array('sr-only');
+    } else {
+      return array('control-label');
+    }
   }
 
   /**
@@ -186,7 +265,11 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
    */
   public function getActionClasses()
   {
-    return '';
+    if ($this->app['former.form']->isOfType('horizontal') || $this->app['former.form']->isOfType('inline')) {
+      return 'form-group';
+    } else {
+      return null;
+    }
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -216,20 +299,6 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   public function createDisabledField(Field $field)
   {
     return Element::create('span', $field->getValue(), $field->getAttributes());
-  }
-
-  /**
-   * Render an icon
-   *
-   * @param string $icon       The icon name
-   * @param array  $attributes Its attributes
-   *
-   * @return string
-   */
-  public function createIcon($iconType, $attributes = array())
-  {
-    if (!$iconType) return false;
-    return Element::create('span', null, $attributes)->addClass('glyphicon glyphicon-'.$iconType);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -276,7 +345,26 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
    */
   public function wrapField($field)
   {
-    return $field;
+    if ($this->app['former.form']->isOfType('horizontal')) {
+      return Element::create('div', $field)->addClass($this->fieldWidth);
+    } else {
+      return $field;
+    }
+  }
+
+  /**
+   * Wrap actions block with potential additional tags
+   *
+   * @param  Actions $action
+   * @return string A wrapped actions block
+   */
+  public function wrapActions($actions)
+  {
+    if ($this->app['former.form']->isOfType('horizontal')) {
+      return Element::create('div', $actions)->addClass(array($this->fieldOffset,$this->fieldWidth));
+    } else {
+      return $actions;
+    }
   }
 
 }

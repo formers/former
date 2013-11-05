@@ -1,53 +1,30 @@
 <?php
 namespace Former;
 
-use Underscore\Methods\ArraysMethods as Arrays;
-use Underscore\Methods\StringMethods as String;
+use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 /**
  * Populates the class with values, and fetches them
  * from various places
  */
-class Populator
+class Populator extends Collection
 {
-
   /**
-   * The populated values
-   * @var array
-   */
-  private $values = array();
-
-  /**
-   * Build a new Populator instance with a
-   * set of values to use
+   * Create a new collection.
    *
-   * @param array $values
+   * @param  array|Model  $items
+   * @return void
    */
-  public function __construct($values = array())
+  public function __construct($items = array())
   {
-    $this->values = $values;
+    $this->items = $items;
   }
 
   ////////////////////////////////////////////////////////////////////
   ///////////////////////// INDIVIDUAL VALUES ////////////////////////
   ////////////////////////////////////////////////////////////////////
-
-  /**
-   * Set the value of a particular field
-   *
-   * @param string $field The field's name
-   * @param mixed  $value Its new value
-   *
-   * @return void
-   */
-  public function setValue($field, $value)
-  {
-    if (is_object($this->values)) {
-      $this->values->$field = $value;
-    } else {
-      $this->values[$field] = $value;
-    }
-  }
 
   /**
    * Get the value of a field
@@ -56,36 +33,37 @@ class Populator
    *
    * @return mixed
    */
-  public function getValue($field, $fallback = null)
+  public function get($field, $fallback = null)
   {
     // Plain array
-    if (is_array($this->values)) {
-      return Arrays::get($this->values, $field, $fallback);
+    if (is_array($this->items)) {
+      return parent::get($field, $fallback);
     }
 
     // Transform the name into an array
-    $value = $this->values;
+    $value = $this->items;
     $field = $this->parseFieldAsArray($field);
 
     // Dive into the model
     foreach ($field as $relationship) {
 
-      // Multiple results relation
-      if (is_array($value)) {
-        $me = $this;
-
-        if (array_key_exists($relationship, $value)) {
-          $value = $value[$relationship];
-        } else {
-          $value = Arrays::each($value, function ($submodel) use ($me, $relationship, $fallback) {
-            return $me->getAttributeFromModel($submodel, $relationship, $fallback);
-          });
+      // Get attribute from model
+      if (!is_array($value)) {
+        $value = $this->getAttributeFromModel($value, $relationship, $fallback);
+        if ($value === $fallback) {
+          break;
         }
 
+        continue;
+      }
+
       // Get attribute from model
+      if (array_key_exists($relationship, $value)) {
+        $value = $value[$relationship];
       } else {
-        $value = $this->getAttributeFromModel($value, $relationship, $fallback);
-        if ($value === $fallback) break;
+        foreach ($value as $key => $submodel) {
+          $value[$key] = $this->getAttributeFromModel($submodel, $relationship, $fallback);
+        }
       }
 
     }
@@ -98,25 +76,15 @@ class Populator
   ////////////////////////////////////////////////////////////////////
 
   /**
-   * Get all values
+   * Replace the items
    *
-   * @return mixed
-   */
-  public function getValues()
-  {
-    return $this->values;
-  }
-
-  /**
-   * Replace the values array
-   *
-   * @param  mixed $values The new values
+   * @param  mixed $items
    *
    * @return void
    */
-  public function setValues($values)
+  public function replace($items)
   {
-    $this->values = $values;
+    $this->items = $items;
   }
 
   /**
@@ -126,7 +94,7 @@ class Populator
    */
   public function reset()
   {
-    $this->values = array();
+    $this->items = array();
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -142,19 +110,19 @@ class Populator
    */
   protected function parseFieldAsArray($field)
   {
-    if (String::contains($field, '[]')) {
+    if (Str::contains($field, '[]')) {
       return (array) $field;
     }
 
     // Transform array notation to dot notation
-    if (String::contains($field, '[')) {
+    if (Str::contains($field, '[')) {
       $field = preg_replace("/[\[\]]/", '.', $field);
-      $field = String::replace($field, '..', '.');
+      $field = str_replace('..', '.', $field);
       $field = trim($field, '.');
     }
 
     // Parse dot notation
-    if (String::contains($field, '.')) {
+    if (Str::contains($field, '.')) {
       $field = explode('.', $field);
     } else {
       $field = (array) $field;
@@ -174,11 +142,8 @@ class Populator
    */
   public function getAttributeFromModel($model, $attribute, $fallback)
   {
-    if (
-      isset($model->$attribute) or
-      method_exists($model, 'get_'.$attribute) or
-      method_exists($model, 'get'.ucfirst($attribute).'Attribute')) {
-        return $model->$attribute;
+    if ($model instanceof Model) {
+      return $model->getAttribute($attribute);
     }
 
     $model = (array) $model;
@@ -188,5 +153,4 @@ class Populator
 
     return $fallback;
   }
-
 }

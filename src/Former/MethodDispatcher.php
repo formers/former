@@ -1,48 +1,77 @@
 <?php
 namespace Former;
 
+use Closure;
 use Illuminate\Container\Container;
-use Underscore\Methods\ArraysMethods as Arrays;
-use Underscore\Types\String;
+use Underscore\Methods\StringMethods as String;
 
 /**
  * Dispatch calls from Former to the different
  * form creators like Form, Actions, Elements and others
  */
-class Dispatch
+class MethodDispatcher
 {
+  /**
+   * The IoC Container
+   *
+   * @var Container
+   */
+  protected $app;
+
+  /**
+   * Build a new Dispatcher
+   *
+   * @param Container $app
+   */
+  public function __construct(Container $app)
+  {
+    $this->app = $app;
+  }
 
   /**
    * Dispatch a call to a registered macro
    *
-   * @param  Former $former
    * @param  string $method       The macro's name
    * @param  array  $parameters   The macro's arguments
    *
    * @return mixed
    */
-  public static function toMacros(Former $former, $method, $parameters)
+  public function toMacros($method, $parameters)
   {
-    if (!$former->hasMacro($method)) {
+    if (!$this->app['former']->hasMacro($method)) {
       return false;
     }
 
-    return call_user_func_array($former->getMacro($method), $parameters);
+    // Get and format macro
+    $callback = $this->app['former']->getMacro($method);
+    if ($callback instanceof Closure) {
+      return call_user_func_array($callback, $parameters);
+    }
+
+    // Cancel if the macro is invalid
+    elseif (!is_string($callback)) {
+      return false;
+    }
+
+    // Get class and method
+    list($class, $method) = explode('@', $callback);
+    $this->app->instance('Illuminate\Container\Container', $this->app);
+
+    return call_user_func_array(array($this->app->make($class), $method), $parameters);
   }
 
   /**
    * Dispatch a call over to Elements
    *
-   * @param Container $app        The application container
    * @param string    $method     The method called
    * @param array     $parameters Its parameters
    *
    * @return string
    */
-  public static function toElements(Container $app, $method, $parameters)
+  public function toElements($method, $parameters)
   {
     // Disregards if the method isn't an element
-    if (!method_exists($elements = new Form\Elements($app['former'], $app['session']), $method)) {
+    if (!method_exists($elements = new Form\Elements($this->app, $this->app['session']), $method)) {
       return false;
     }
 
@@ -52,20 +81,19 @@ class Dispatch
   /**
    * Dispatch a call over to Form
    *
-   * @param Former  $app        The application container
    * @param string  $method     The method called
    * @param array   $parameters Its parameters
    *
    * @return Form
    */
-  public static function toForm(Former $former, $method, $parameters)
+  public function toForm($method, $parameters)
   {
     // Disregards if the method doesn't contain 'open'
     if (!String::contains($method, 'open')) {
       return false;
     }
 
-    $form = new Form\Form($former, $former->getContainer('url'), $former->getPopulator());
+    $form = new Form\Form($this->app, $this->app['url'], $this->app['former.populator']);
 
     return $form->openForm($method, $parameters);
   }
@@ -73,13 +101,12 @@ class Dispatch
   /**
    * Dispatch a call over to Group
    *
-   * @param Former    $app        The application container
    * @param string    $method     The method called
    * @param array     $parameters Its parameters
    *
    * @return Group
    */
-  public static function toGroup(Former $former, $method, $parameters)
+  public function toGroup($method, $parameters)
   {
     // Disregards if the method isn't "group"
     if ($method != 'group') {
@@ -88,9 +115,9 @@ class Dispatch
 
     // Create opener
     $group = new Form\Group(
-      $former,
-      Arrays::get($parameters, 0, null),
-      Arrays::get($parameters, 1, null)
+      $this->app,
+      array_get($parameters, 0, null),
+      array_get($parameters, 1, null)
     );
 
     // Set custom group as true
@@ -102,43 +129,41 @@ class Dispatch
   /**
    * Dispatch a call over to Actions
    *
-   * @param Former    $app        The application container
    * @param string    $method     The method called
    * @param array     $parameters Its parameters
    *
    * @return Actions
    */
-  public static function toActions(Former $former, $method, $parameters)
+  public function toActions($method, $parameters)
   {
     if ($method != 'actions') {
       return false;
     }
 
-    return new Form\Actions($former, $parameters);
+    return new Form\Actions($this->app, $parameters);
   }
 
   /**
    * Dispatch a call over to the Fields
    *
-   * @param Former    $app        The application container
    * @param string    $method     The method called
    * @param array     $parameters Its parameters
    *
    * @return Field
    */
-  public static function toFields(Former $former, $method, $parameters)
+  public function toFields($method, $parameters)
   {
     // Listing parameters
     $class = Former::FIELDSPACE.static::getClassFromMethod($method);
     $field = new $class(
-      $former,
+      $this->app,
       $method,
-      Arrays::get($parameters, 0),
-      Arrays::get($parameters, 1),
-      Arrays::get($parameters, 2),
-      Arrays::get($parameters, 3),
-      Arrays::get($parameters, 4),
-      Arrays::get($parameters, 5)
+      array_get($parameters, 0),
+      array_get($parameters, 1),
+      array_get($parameters, 2),
+      array_get($parameters, 3),
+      array_get($parameters, 4),
+      array_get($parameters, 5)
     );
 
     return $field;
@@ -158,28 +183,23 @@ class Dispatch
   protected static function getClassFromMethod($method)
   {
     // If the field's name directly match a class, call it
-    $class = String::from($method)->singular()->title()->obtain();
+    $class = String::singular(String::title($method));
     if (class_exists(Former::FIELDSPACE.$class)) {
       return $class;
     }
 
     // Else convert known fields to their classes
     switch ($method) {
-        case 'submit':
+      case 'submit':
       case 'link':
       case 'reset':
-        $class = 'Button';
-      break;
+        return 'Button';
 
       case 'multiselect':
-        $class = 'Select';
-      break;
+        return 'Select';
 
       default:
-        $class = 'Input';
-      break;
+        return 'Input';
     }
-
-    return $class;
   }
 }

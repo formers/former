@@ -3,7 +3,6 @@ use Illuminate\Support\Collection;
 
 class SelectTest extends FormerTests
 {
-
   /**
    * An array of dummy options
    *
@@ -279,7 +278,7 @@ class SelectTest extends FormerTests
 
   public function testCanCreateSelectGroups()
   {
-    $values = array('foo' => array(1 => 'foo', 2 => 'bar'), 'bar' => array(1 => 'foo', 2 => 'bar'));
+    $values = array('foo' => array(1 => 'foo', 2 => 'bar'), 'bar' => array(3 => 'foo', 4 => 'bar'));
     $select = $this->former->select('foo')->options($values);
 
     $matcher =
@@ -288,7 +287,24 @@ class SelectTest extends FormerTests
         '<option value="1">foo</option><option value="2">bar</option>'.
       '</optgroup>'.
       '<optgroup label="bar">'.
+        '<option value="3">foo</option><option value="4">bar</option>'.
+      '</optgroup>'.
+    '</select>';
+    $this->assertEquals($matcher, $select->render());
+  }
+
+  public function testCanPopulateSelectGroups()
+  {
+    $values = array('foo' => array(1 => 'foo', 2 => 'bar'), 'bar' => array(3 => 'foo', 4 => 'bar'));
+    $select = $this->former->select('foo')->options($values)->select(4);
+
+    $matcher =
+    '<select id="foo" name="foo">'.
+      '<optgroup label="foo">'.
         '<option value="1">foo</option><option value="2">bar</option>'.
+      '</optgroup>'.
+      '<optgroup label="bar">'.
+        '<option value="3">foo</option><option value="4" selected="selected">bar</option>'.
       '</optgroup>'.
     '</select>';
     $this->assertEquals($matcher, $select->render());
@@ -307,4 +323,27 @@ class SelectTest extends FormerTests
     $this->assertEquals($matcher, $select->render());
   }
 
+  public function testCanPassAttributesToOptions()
+  {
+    $select = $this->former->select('foo')->options(array(
+      'foo' => array('value' => 'bar', 'class' => 'myclass'),
+      'baz' => array('value' => 'qux', 'class' => 'myclass'),
+    ))->select('bar');
+
+    $matcher = '<select id="foo" name="foo"><option value="bar" class="myclass" selected="selected">foo</option><option value="qux" class="myclass">baz</option></select>';
+
+    $this->assertEquals($matcher, $select->render());
+  }
+
+  public function testOptionsSelectActsTheSameAsSelect()
+  {
+    $options = array('foo', 'bar');
+    $select = $this->former->select('foo')->options($options, 0)->render();
+    $select2 = $this->former->select('foo')->options($options)->select(0)->render();
+
+    $matcher = '<select id="foo" name="foo"><option value="0" selected="selected">foo</option><option value="1">bar</option></select>';
+
+    $this->assertEquals($select2, $select);
+    $this->assertEquals($matcher, $select);
+  }
 }

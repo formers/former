@@ -43,6 +43,8 @@ Now of course in case you want to set an attribute that actually contains an und
 
 This is the core of it, but Former offers a lot more. I invite you to consult the wiki to see the extend of what Former does.
 
+Former is developed by [Maxime Fabre][] and [Peter Coles][].
+
 -----
 
 ### Table of contents
@@ -51,6 +53,8 @@ This is the core of it, but Former offers a lot more. I invite you to consult th
 - [Features][]
 - [Anatomy][]
 
+  [Peter Coles]: http://petercoles.com
+  [Maxime Fabre]: http://autopergamene.eu
   [Anatomy]: https://github.com/Anahkiasen/former/wiki/Anatomy
   [Features]: https://github.com/Anahkiasen/former/wiki/Features
   [Getting started]: https://github.com/Anahkiasen/former/wiki/Getting-started

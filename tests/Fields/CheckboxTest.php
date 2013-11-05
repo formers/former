@@ -238,6 +238,20 @@ class CheckboxTest extends FormerTests
 
   public function testCanPushUncheckedCheckboxes()
   {
+    $this->config = $this->mockConfig(true, '', false);
+
+    $checkbox = $this->former->checkbox('foo')->text('foo')->push(true);
+    $matcher  = $this->controlGroup(
+      '<label for="foo" class="checkbox">'.
+        '<input type="hidden" name="foo" value="">'.
+        $this->matchCheckbox('foo').'Foo'.
+      '</label>');
+
+    $this->assertEquals($matcher, $checkbox->wrapAndRender());
+  }
+
+  public function testCanPushASingleCheckbox()
+  {
     $this->config = $this->mockConfig(true, '', true);
 
     $checkbox = $this->former->checkbox('foo')->text('foo')->__toString();

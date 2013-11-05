@@ -9,7 +9,6 @@ use Illuminate\Support\Collection;
  */
 class Helpers
 {
-
   /**
    * The IoC Container
    *
@@ -36,7 +35,7 @@ class Helpers
    */
   public static function encode($value)
   {
-    return htmlentities($value, ENT_QUOTES, 'UTF-8', false);
+    return htmlentities($value, ENT_QUOTES, 'UTF-8', true);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -59,7 +58,7 @@ class Helpers
 
     // If no fallback, use the key
     if (!$fallback) {
-      $fallback = $key;
+      $fallback = str_replace('_', ' ', $key);
     }
 
     // Assure we don't already have a Lang object
@@ -103,7 +102,7 @@ class Helpers
   {
     // Automatically fetch Lang objects for people who store translated options lists
     // Same of unfetched queries
-    if (!($query instanceof Collection)) {
+    if (!$query instanceof Collection) {
       if (method_exists($query, 'get')) $query = $query->get();
       if (!is_array($query)) $query = (array) $query;
     }
@@ -133,5 +132,4 @@ class Helpers
 
     return isset($array) ? $array : $query;
   }
-
 }

@@ -4,20 +4,13 @@ namespace Former\Form\Fields;
 use Former\Former;
 use Former\Helpers;
 use Former\Traits\Field;
+use Illuminate\Container\Container;
 
 /**
  * Button fields
  */
 class Button extends Field
 {
-
-  /**
-   * The Illuminate Container
-   *
-   * @var Container
-   */
-  protected $former;
-
   /**
    * The Button default element
    *
@@ -48,16 +41,15 @@ class Button extends Field
   /**
    * Easier arguments order for button fields
    *
-   * @param Container $app        The Illuminate Container
+   * @param Container $app        The Container
    * @param string    $type       button/submit/reset/etc
    * @param string    $value      The text of the button
    * @param string    $link       Its link
    * @param array     $attributes Its attributes
    */
-  public function __construct(Former $former, $type, $value, $link, $attributes)
+  public function __construct(Container $app, $type, $value, $link, $attributes)
   {
-    $this->former        = $former;
-
+    $this->app        = $app;
     $this->attributes = (array) $attributes;
     $this->type       = $type;
     $this->value($value);
@@ -101,7 +93,7 @@ class Button extends Field
    */
   public function icon($icon, $attributes = array())
   {
-    $icon = $this->former->getFramework()->createIcon($icon, $attributes);
+    $icon = $this->app['former.framework']->createIcon($icon, $attributes);
     $this->value = $icon. ' ' .$this->value;
 
     return $this;
@@ -118,5 +110,4 @@ class Button extends Field
 
     return $this;
   }
-
 }

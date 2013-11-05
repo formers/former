@@ -1,7 +1,6 @@
 <?php
 class FormerTest extends FormerTests
 {
-
   ////////////////////////////////////////////////////////////////////
   ////////////////////////////// MATCHERS ////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -72,6 +71,13 @@ class FormerTest extends FormerTests
     $this->assertHTML($this->matchField(), $this->former->captcha('foo'));
   }
 
+  public function testCanUseClassesAsMacros()
+  {
+    $this->former->macro('loltext', 'DummyMacros@loltext');
+
+    $this->assertEquals('lolfoobar', $this->former->loltext('foobar'));
+  }
+
   public function testMacrosDontTakePrecedenceOverNativeFields()
   {
     $former = $this->former;
@@ -80,5 +86,19 @@ class FormerTest extends FormerTests
     });
 
     $this->assertNotEquals('NOPE', $this->former->label('foo'));
+  }
+
+  public function testCloseCorrectlyRemoveInstances()
+  {
+    $this->former->close();
+
+    $this->assertFalse($this->app->bound('former.form'));
+  }
+
+  public function testCanUseFacadeWithoutContainer()
+  {
+    $text = Former\Facades\Former::text('foo')->render();
+
+    $this->assertEquals('<input id="foo" type="text" name="foo">', $text);
   }
 }

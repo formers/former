@@ -6,6 +6,7 @@ use Former\Former;
 use Former\Helpers;
 use HtmlObject\Element;
 use HtmlObject\Traits\Tag;
+use Illuminate\Container\Container;
 use Underscore\Methods\ArraysMethods as Arrays;
 use Underscore\Methods\StringMethods as String;
 
@@ -15,11 +16,11 @@ use Underscore\Methods\StringMethods as String;
 class Group extends Tag
 {
   /**
-   * The Former instance
+   * The Container
    *
-   * @var Former
+   * @var Container
    */
-  protected $former;
+  protected $app;
 
   /**
    * The current state of the group
@@ -68,7 +69,7 @@ class Group extends Tag
    *
    * @var array
    */
-  protected $validations;
+  protected $validations = array();
 
   /**
    * The group's element
@@ -78,7 +79,7 @@ class Group extends Tag
   protected $element = 'div';
 
   /**
-   * Whether a group is opened or not
+   * Whether a custom group is opened or not
    *
    * @var boolean
    */
@@ -91,18 +92,18 @@ class Group extends Tag
   /**
    * Creates a group
    *
-   * @param Former    $former     The Former instance
+   * @param Container    $Container     The Container instance
    * @param string    $label      Its label
    * @param array     $attributes Attributes
    */
-  public function __construct(Former $former, $label, $validations = null)
+  public function __construct(Container $app, $label, $validations = null)
   {
     // Get special classes
-    $this->former = $former;
-    $this->addClass($this->former->getFramework()->getGroupClasses());
+    $this->app = $app;
+    $this->addClass($this->app['former.framework']->getGroupClasses());
 
     // Invisible if Nude
-    if ($this->former->getFramework()->is('Nude')) {
+    if ($this->app['former.framework']->is('Nude')) {
       $this->element = '';
     }
 
@@ -112,7 +113,7 @@ class Group extends Tag
     }
 
     // Set validations used to override groups own conclusions
-    $this->validations = $validations;
+    $this->validations = (array) $validations;
   }
 
   /**
@@ -133,7 +134,7 @@ class Group extends Tag
   public function open()
   {
     if ($this->getErrors()) {
-      $this->state('error');
+      $this->state($this->app['former.framework']->errorState());
     }
 
     // Retrieve state and append it to classes
@@ -142,8 +143,8 @@ class Group extends Tag
     }
 
     // Required state
-    if ($this->former->field() and $this->former->field()->isRequired()) {
-      $this->addClass($this->former->getOption('required_class'));
+    if ($this->app->bound('former.field') and $this->app['former.field']->isRequired()) {
+      $this->addClass($this->app['former']->getOption('required_class'));
     }
 
     return parent::open();
@@ -188,7 +189,7 @@ class Group extends Tag
   public function state($state)
   {
     // Filter state
-    $state = $this->former->getFramework()->filterState($state);
+    $state = $this->app['former.framework']->filterState($state);
 
     $this->state = $state;
   }
@@ -210,8 +211,7 @@ class Group extends Tag
    */
   public function setLabel($label)
   {
-
-    if (!($label instanceof Element)) {
+    if (!$label instanceof Element) {
       $label = Helpers::translate($label);
       $label = Element::create('label', $label)->for($label);
     }
@@ -230,7 +230,7 @@ class Group extends Tag
       return false;
     }
 
-    return $this->label->addClass($this->former->getFramework()->getLabelClasses());
+    return $this->label->addClass($this->app['former.framework']->getLabelClasses());
   }
 
   /**
@@ -279,7 +279,7 @@ class Group extends Tag
       return false;
     }
 
-    $this->help['inline'] = $this->former->getFramework()->createHelp($help, $attributes);
+    $this->help['inline'] = $this->app['former.framework']->createHelp($help, $attributes);
   }
 
   /**
@@ -291,7 +291,7 @@ class Group extends Tag
   public function blockHelp($help, $attributes = array())
   {
     // Reserved method
-    if ($this->former->getFramework()->isnt('TwitterBootstrap')) {
+    if ($this->app['former.framework']->isnt('TwitterBootstrap')) {
       throw new BadMethodCallException('This method is only available on the Bootstrap framework');
     }
 
@@ -300,7 +300,7 @@ class Group extends Tag
       return false;
     }
 
-    $this->help['block'] = $this->former->getFramework()->createBlockHelp($help, $attributes);
+    $this->help['block'] = $this->app['former.framework']->createBlockHelp($help, $attributes);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -329,9 +329,9 @@ class Group extends Tag
    * @param string $icon       The icon to prepend
    * @param array  $attributes Its attributes
    */
-  public function prependIcon($icon, $attributes = array())
+  public function prependIcon($icon, $attributes = array(), $iconSettings = array())
   {
-    $icon = $this->former->getFramework()->createIcon($icon, $attributes);
+    $icon = $this->app['former.framework']->createIcon($icon, $attributes, $iconSettings);
 
     $this->prepend($icon);
   }
@@ -342,9 +342,9 @@ class Group extends Tag
    * @param string $icon       The icon to prepend
    * @param array  $attributes Its attributes
    */
-  public function appendIcon($icon, $attributes = array())
+  public function appendIcon($icon, $attributes = array(), $iconSettings = array())
   {
-    $icon = $this->former->getFramework()->createIcon($icon, $attributes);
+    $icon = $this->app['former.framework']->createIcon($icon, $attributes, $iconSettings);
 
     $this->append($icon);
   }
@@ -358,16 +358,21 @@ class Group extends Tag
    *
    * @return string
    */
-  protected function getErrors()
+  public function getErrors()
   {
-    // If any errors, set state to errors
-    if (is_array($this->validations)) {
-      $errors = '';
+    $errors = '';
+
+    if (!self::$opened) {
+
+      // for non-custom groups, normal error handling applies
+      $errors = $this->app['former']->getErrors();
+
+    } elseif (!empty($this->validations)) {
+
+      // error handling only when validations specified for custom groups
       foreach ($this->validations as $validation) {
-        $errors .= $this->former->getErrors($validation);
+        $errors .= $this->app['former']->getErrors($validation);
       }
-    } else {
-      $errors = $this->former->getErrors();
     }
 
     return $errors;
@@ -385,7 +390,7 @@ class Group extends Tag
   {
     $group = $this->open();
       $group .= $label;
-      $group .= $this->former->getFramework()->wrapField($contents);
+      $group .= $this->app['former.framework']->wrapField($contents);
     $group .= $this->close();
 
     return $group;
@@ -405,9 +410,10 @@ class Group extends Tag
     }
 
     // Wrap label in framework classes
-    $this->label->addClass($this->former->getFramework()->getLabelClasses());
-    $this->label = $this->former->getFramework()->createLabelOf($field, $this->label);
-
+    $this->label->addClass($this->app['former.framework']->getLabelClasses());
+    $this->label = $this->app['former.framework']->createLabelOf($field, $this->label);
+    $this->label = $this->app['former.framework']->wrapLabel($this->label);
+ 
     return $this->label;
   }
 
@@ -422,9 +428,9 @@ class Group extends Tag
     $block  = Arrays::get($this->help, 'block');
 
     // Replace help text with error if any found
-    $errors = $this->former->getErrors();
-    if ($errors and $this->former->getOption('error_messages')) {
-      $inline = $this->former->getFramework()->createHelp($errors);
+    $errors = $this->app['former']->getErrors();
+    if ($errors and $this->app['former']->getOption('error_messages')) {
+      $inline = $this->app['former.framework']->createHelp($errors);
     }
 
     return join(null, array($inline, $block));
@@ -442,7 +448,7 @@ class Group extends Tag
       return $field->render();
     }
 
-    return $this->former->getFramework()->prependAppend($field, $this->prepend, $this->append);
+    return $this->app['former.framework']->prependAppend($field, $this->prepend, $this->append);
   }
 
   /**
@@ -463,7 +469,7 @@ class Group extends Tag
 
       // If the item is not a button, wrap it
       if (is_string($item) and !String::startsWith($item, '<button')) {
-        $item = $this->former->getFramework()->placeAround($item);
+        $item = $this->app['former.framework']->placeAround($item);
       }
 
       $this->{$place}[] = $item;

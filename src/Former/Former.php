@@ -2,19 +2,16 @@
 namespace Former;
 
 use Closure;
-use Former\Interfaces\FrameworkInterface;
 use Illuminate\Container\Container;
 use Illuminate\Validation\Validator;
-use Underscore\Methods\ArraysMethods as Arrays;
 
 /**
- * Helps the user interact with it and its classes
- * Various form helpers for repopulation, rules, etc.
+ * Helps the user interact with the various Former components
  */
 class Former
 {
-
-  // Instances ----------------------------------------------------- /
+  // Instances
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * The current environment
@@ -24,20 +21,14 @@ class Former
   protected $app;
 
   /**
-   * The current field being worked on
+   * The Method Dispatcher
    *
-   * @var Field
+   * @var MethodDispatcher
    */
-  protected $field;
+  protected $dispatch;
 
-  /**
-   * The current form being worked on
-   *
-   * @var Form
-   */
-  protected $form;
-
-  // Informations -------------------------------------------------- /
+  // Informations
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * The form's errors
@@ -67,7 +58,8 @@ class Former
    */
   public $labels = array();
 
-  // Namespaces ---------------------------------------------------- /
+  // Namespaces
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * The namespace of Form elements
@@ -82,11 +74,13 @@ class Former
   /**
    * Build a new Former instance
    *
-   * @param Illuminate\Container\Container $app
+   * @param Container         $app
+   * @param MethodDispatcher  $dispatcher
    */
-  public function __construct(Container $app)
+  public function __construct(Container $app, MethodDispatcher $dispatcher)
   {
-    $this->app = $app;
+    $this->app      = $app;
+    $this->dispatch = $dispatcher;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -104,27 +98,29 @@ class Former
   public function __call($method, $parameters)
   {
     // Dispatch to Form\Elements
-    if ($element = Dispatch::toElements($this->app, $method, $parameters)) {
+    if ($element = $this->dispatch->toElements($method, $parameters)) {
       return $element;
     }
 
     // Dispatch to Form\Form
-    if ($form = Dispatch::toForm($this, $method, $parameters)) {
-      return $this->form = $form;
+    if ($form = $this->dispatch->toForm($method, $parameters)) {
+      $this->app->instance('former.form', $form);
+
+      return $this->app['former.form'];
     }
 
     // Dispatch to Form\Group
-    if ($group = Dispatch::toGroup($this, $method, $parameters)) {
+    if ($group = $this->dispatch->toGroup($method, $parameters)) {
       return $group;
     }
 
     // Dispatch to Form\Actions
-    if ($actions = Dispatch::toActions($this, $method, $parameters)) {
+    if ($actions = $this->dispatch->toActions($method, $parameters)) {
       return $actions;
     }
 
     // Dispatch to macros
-    if ($macro = Dispatch::toMacros($this, $method, $parameters)) {
+    if ($macro = $this->dispatch->toMacros($method, $parameters)) {
       return $macro;
     }
 
@@ -133,10 +129,13 @@ class Former
     $method  = array_pop($classes);
 
     // Dispatch to the different Form\Fields
-    $field = Dispatch::toFields($this, $method, $parameters);
-    $field = $this->getFramework()->getFieldClasses($field, $classes);
+    $field = $this->dispatch->toFields($method, $parameters);
+    $field = $this->app['former.framework']->getFieldClasses($field, $classes);
 
-    return $this->field = $field;
+    // Else bind field
+    $this->app->instance('former.field', $field);
+
+    return $this->app['former.field'];
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -146,12 +145,12 @@ class Former
   /**
    * Register a macro with Former
    *
-   * @param  string  $name         The name of the macro
-   * @param  Closure $macro        The macro itself
+   * @param  string   $name         The name of the macro
+   * @param  Callable $macro        The macro itself
    *
    * @return mixed
    */
-  public function macro($name, Closure $macro)
+  public function macro($name, $macro)
   {
     $this->macros[$name] = $macro;
   }
@@ -191,7 +190,7 @@ class Former
    */
   public function populate($values)
   {
-    $this->getPopulator()->setValues($values);
+    $this->app['former.populator']->replace($values);
   }
 
   /**
@@ -202,7 +201,7 @@ class Former
    */
   public function populateField($field, $value)
   {
-    $this->getPopulator()->setValue($field, $value);
+    $this->app['former.populator']->put($field, $value);
   }
 
   /**
@@ -213,7 +212,7 @@ class Former
    */
   public function getValue($field, $fallback = null)
   {
-    return $this->getPopulator()->getValue($field, $fallback);
+    return $this->app['former.populator']->get($field, $fallback);
   }
 
   /**
@@ -231,16 +230,6 @@ class Former
     return $this->app['request']->get($name, $oldValue, true);
   }
 
-  /**
-   * Get the Populator binded to Former
-   *
-   * @return Populator
-   */
-  public function getPopulator()
-  {
-    return $this->app['former.populator'];
-  }
-
   ////////////////////////////////////////////////////////////////////
   ////////////////////////////// TOOLKIT /////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -256,18 +245,15 @@ class Former
   {
     // Try to get the errors form the session
     if ($this->app['session']->has('errors')) {
-      return $this->errors = $this->app['session']->get('errors');
+      $this->errors = $this->app['session']->get('errors');
     }
 
     // If we're given a raw Validator, go fetch the errors in it
     if ($validator instanceof Validator) {
-      return $this->errors = $validator->getMessageBag();
+      $this->errors = $validator->getMessageBag();
     }
 
-    // If it's an old Validator
-    if ($validator instanceof \Laravel\Validator) {
-      return $this->errors = $validator->errors;
-    }
+    return $this->errors;
   }
 
   /**
@@ -279,12 +265,7 @@ class Former
    */
   public function withRules()
   {
-    $rules = func_get_args();
-    if (sizeof($rules) == 1 and is_string($rules[0])) {
-      $rules = explode('|', $rules[0]);
-    } else {
-      $rules = call_user_func_array('array_merge', func_get_args());
-    }
+    $rules = call_user_func_array('array_merge', func_get_args());
 
     // Parse the rules according to Laravel conventions
     foreach ($rules as $name => $fieldRules) {
@@ -321,7 +302,7 @@ class Former
   public function framework($framework = null)
   {
     if (!$framework) {
-      return $this->app['former']->getFramework()->current();
+      return $this->app['former.framework']->current();
     }
 
     $this->setOption('framework', $framework);
@@ -329,32 +310,6 @@ class Former
     $this->app->bind('former.framework', function ($app) use ($class) {
       return new $class($app);
     });
-  }
-
-  /**
-   * Get the current framework
-   *
-   * @return FrameworkInterface
-   */
-  public function getFramework()
-  {
-    return $this->app['former.framework'];
-  }
-
-  /**
-   * Get a class out of the Contaienr
-   *
-   * @param string $dependency The class
-   *
-   * @return object
-   */
-  public function getContainer($dependency = null)
-  {
-    if ($dependency) {
-      return $this->app->make($dependency);
-    }
-
-    return $this->app;
   }
 
   /**
@@ -392,21 +347,20 @@ class Former
    */
   public function close()
   {
-    if (!$this->form) {
-      return false;
+    if ($this->app->bound('former.form')) {
+      $closing = $this->app['former.form']->close();
     }
 
-    $closed = $this->form()->close();
-
     // Destroy instances
-    $this->form = null;
-    $this->getPopulator()->reset();
+    $this->app['former.form'] = null;
+    unset($this->app['former.form']);
+    $this->app['former.populator']->reset();
 
     // Reset all values
     $this->errors = null;
     $this->rules  = null;
 
-    return $closed;
+    return isset($closing) ? $closing : null;
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -422,12 +376,13 @@ class Former
   public function getErrors($name = null)
   {
     // Get name and translate array notation
-    if (!$name and $this->field) {
-      $name = $this->field->getName();
+    if (!$name and $this->app['former.field']) {
+      $name = $this->app['former.field']->getName();
     }
 
     if ($this->errors and $name) {
       $name = str_replace(array('[', ']'), array('.', ''), $name);
+
       return $this->errors->first($name);
     }
 
@@ -442,30 +397,6 @@ class Former
    */
   public function getRules($name)
   {
-    return Arrays::get($this->rules, $name);
-  }
-
-  /**
-   * Returns the current Form
-   *
-   * @return Form
-   */
-  public function form()
-  {
-    return $this->form;
-  }
-
-  /**
-   * Get the current field instance
-   *
-   * @return Field
-   */
-  public function field()
-  {
-    if (!$this->field) {
-      return false;
-    }
-
-    return $this->field;
+    return array_get($this->rules, $name);
   }
 }
