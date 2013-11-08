@@ -138,7 +138,6 @@ class TwitterBootstrap3Test extends FormerTests
     $this->former->open_inline();
 
     $field = $this->former->text('foo')->__toString();
-    $label = $this->former->text('foo')->label('Foo')->__toString();
 
     $match =
     '<div class="form-group">'.
@@ -147,7 +146,7 @@ class TwitterBootstrap3Test extends FormerTests
     '</div>';
 
     $this->assertEquals($match, $field);
-    $this->assertEquals($match, $label);
+    $this->assertEquals($match, $field);
 
     $this->former->close();
   }
@@ -164,6 +163,7 @@ class TwitterBootstrap3Test extends FormerTests
     '</div>';
     $this->assertEquals($match, $field);
 
+    $this->resetLabels();
     $field = $this->former->sm_select('foo')->__toString();
     $match =
     '<div class="form-group">'.

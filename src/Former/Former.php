@@ -58,6 +58,13 @@ class Former
    */
   public $labels = array();
 
+  /**
+   * The IDs created so far
+   *
+   * @var array
+   */
+  public $ids = array();
+
   // Namespaces
   ////////////////////////////////////////////////////////////////////
 

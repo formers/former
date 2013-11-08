@@ -83,7 +83,8 @@ class InputTest extends FormerTests
     $this->assertHTML($this->matchField(), $static);
     $this->assertHTML($this->matchControlGroup(), $static);
 
-    $input   = $this->former->text('foo', 'bar')->__toString();
+    $this->resetLabels();
+    $input = $this->former->text('foo', 'bar')->__toString();
     $this->assertHTML($this->matchLabel('Bar', 'foo'), $input);
     $this->assertHTML($this->matchField(), $input);
     $this->assertHTML($this->matchControlGroup(), $input);

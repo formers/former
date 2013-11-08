@@ -339,11 +339,11 @@ class SelectTest extends FormerTests
   {
     $options = array('foo', 'bar');
     $select = $this->former->select('foo')->options($options, 0)->render();
-    $select2 = $this->former->select('foo')->options($options)->select(0)->render();
+    $select2 = $this->former->select('bar')->options($options)->select(0)->render();
 
-    $matcher = '<select id="foo" name="foo"><option value="0" selected="selected">foo</option><option value="1">bar</option></select>';
+    $matcher = '<option value="0" selected="selected">foo</option><option value="1">bar</option>';
 
-    $this->assertEquals($select2, $select);
-    $this->assertEquals($matcher, $select);
+    $this->assertContains($matcher, $select2);
+    $this->assertContains($matcher, $select);
   }
 }

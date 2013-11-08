@@ -193,11 +193,12 @@ class GroupTest extends FormerTests
 
   public function testPrependButton()
   {
-    $control1 = $this->former->text('foo')->prepend($this->createButton('Submit'))->__toString();
-    $control2 = $this->former->text('foo')->prepend('<button type="button" class="btn">Submit</button>')->__toString();
     $matcher = $this->createPrependAppendMatcher(array('<button type="button" class="btn">Submit</button>'));
-
+    $control1 = $this->former->text('foo')->prepend($this->createButton('Submit'))->__toString();
     $this->assertEquals($matcher, $control1);
+
+    $this->resetLabels();
+    $control2 = $this->former->text('foo')->prepend('<button type="button" class="btn">Submit</button>')->__toString();
     $this->assertEquals($matcher, $control2);
   }
 

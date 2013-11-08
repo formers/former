@@ -1,5 +1,10 @@
 ## CHANGELOG
 
+3.3.1 (develop)
+------
+
+- [fix] Fixed a bug where two fields with the same name would get the same ID
+
 3.3.0 (stable)
 -----
 

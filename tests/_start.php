@@ -49,6 +49,7 @@ abstract class FormerTests extends IlluminateMock
   public function resetLabels()
   {
     $this->former->labels = array();
+    $this->former->ids    = array();
   }
 
   ////////////////////////////////////////////////////////////////////
