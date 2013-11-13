@@ -263,4 +263,11 @@ class InputTest extends FormerTests
     $label = $this->matchLabel('Bar', 'foo');
     $this->assertHTML($label, $static);
   }
+
+  public function testUnderscoresInLabelsAreConverted()
+  {
+    $static  = $this->former->text('foo')->label('customer_name')->__toString();
+    $label = $this->matchLabel('Customer name', 'foo');
+    $this->assertHTML($label, $static);
+  }
 }
