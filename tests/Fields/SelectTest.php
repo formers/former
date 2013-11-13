@@ -350,6 +350,7 @@ class SelectTest extends FormerTests
   public function testCanRepopulateArrayNotation()
   {
     $options = array('foo', 'bar');
+    $this->request->shouldReceive('get')->with('_token', '', true)->andReturn('foobar');
     $this->request->shouldReceive('get')->with('foo', '', true)->andReturn(array(0, 1));
 
     $select  = $this->former->select('foo[]')->options($options);

@@ -90,4 +90,10 @@ class PopulatorTest extends FormerTests
     $this->assertEquals($values, $populator->get('roles'));
   }
 
+  public function testCanGetNestedArrayValues()
+  {
+    $populator = new Populator(array('foo' => array(0 => 'one', 1 => 'two')));
+
+    $this->assertEquals('two', $populator->get('foo[1]'));
+  }
 }
