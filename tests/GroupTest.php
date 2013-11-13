@@ -302,6 +302,14 @@ class GroupTest extends FormerTests
     $this->assertEquals($matcher, $group);
   }
 
+  public function testUnderscoresInHelpTextAreKept()
+  {
+    $control = $this->former->text('foo')->help('/path_to_foo.jpg')->__toString();
+    $matcher = $this->createMatcher(null, '/path_to_foo.jpg');
+
+    $this->assertEquals($matcher, $control);
+  }
+
   public function testCanIgnoreGroupValidationErrors()
   {
     $this->session = $this->mockSession(array('foo' => 'bar', 'bar' => 'baz'));

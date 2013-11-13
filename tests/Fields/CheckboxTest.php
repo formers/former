@@ -327,6 +327,31 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkbox);
   }
 
+  public function testCanRecognizeGroupedCheckboxesValidationErrors()
+  {
+    $this->session = $this->mockSession(array('foo' => 'bar', 'bar' => 'baz'));
+    $this->former->withErrors();
+
+    $auto =  $this->former->checkboxes('foo[]', '')->checkboxes('Value 01', 'Value 02')->__toString();
+    $chain = $this->former->checkboxes('foo', '')->grouped()->checkboxes('Value 01', 'Value 02')->__toString();
+
+    $matcher =
+      '<div class="control-group error">'.
+      '<div class="controls">'.
+      '<label for="foo_0" class="checkbox">'.
+      '<input id="foo_0" type="checkbox" name="foo[]" value="0">Value 01'.
+      '</label>'.
+      '<label for="foo_1" class="checkbox">'.
+      '<input id="foo_1" type="checkbox" name="foo[]" value="1">Value 02'.
+      '</label>'.
+      '<span class="help-inline">bar</span>'.
+      '</div>'.
+      '</div>';
+
+    $this->assertEquals($matcher, $auto);
+    $this->assertEquals($matcher, $chain);
+  }
+
   public function testCanHandleAZeroUncheckedValue()
   {
     $this->config = $this->mockConfig(true, 0);
