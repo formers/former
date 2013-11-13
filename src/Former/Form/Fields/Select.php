@@ -63,7 +63,7 @@ class Select extends Field
     parent::__construct($app, $type, $name, $label, $selected, $attributes);
 
     // Multiple models population
-    if (is_array($this->value)) {
+    if (is_array($this->value) and is_string($this->value[0])) {
       $this->fromQuery($this->value);
       $this->value = $selected ?: null;
     }
