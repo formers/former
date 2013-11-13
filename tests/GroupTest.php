@@ -106,6 +106,13 @@ class GroupTest extends FormerTests
     $this->assertEquals($matcher, $control);
   }
 
+  public function testHelpNoUnderscoreConversion()
+  {
+    $control = $this->former->text('foo')->help('/path_to_foo.jpg')->__toString();
+    $matcher = $this->createMatcher(null, '/path_to_foo.jpg');
+    $this->assertEquals($matcher, $control);
+  }
+
   public function testInlineHelp()
   {
     $control = $this->former->text('foo')->inlineHelp('foo')->__toString();

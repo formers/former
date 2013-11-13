@@ -58,7 +58,7 @@ class Helpers
 
     // If no fallback, use the key
     if (!$fallback) {
-      $fallback = str_replace('_', ' ', $key);
+      $fallback = $key;
     }
 
     // Assure we don't already have a Lang object
