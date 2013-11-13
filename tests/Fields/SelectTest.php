@@ -358,4 +358,16 @@ class SelectTest extends FormerTests
 
     $this->assertEquals($matcher, $select->render());
   }
+
+  public function testMultiselectRepopulationDoesntCreateOptions()
+  {
+    $options = array(1 => 'foo', 2 => 'bar');
+    $this->request->shouldReceive('get')->with('_token', '', true)->andReturn('foobar');
+    $this->request->shouldReceive('get')->with('foo', '', true)->andReturn(array(1));
+
+    $select  = $this->former->multiselect('foo')->options($options);
+    $matcher = '<select id="foo" multiple="true" name="foo[]"><option value="1" selected="selected">foo</option><option value="2">bar</option></select>';
+
+    $this->assertEquals($matcher, $select->render());
+  }
 }
