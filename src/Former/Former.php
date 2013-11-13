@@ -232,6 +232,7 @@ class Former
   public function getPost($name, $fallback = null)
   {
     $name = str_replace(array('[', ']'), array('.', ''), $name);
+    $name = trim($name, '.');
     $oldValue = $this->app['request']->old($name, $fallback);
 
     return $this->app['request']->get($name, $oldValue, true);
@@ -389,6 +390,7 @@ class Former
 
     if ($this->errors and $name) {
       $name = str_replace(array('[', ']'), array('.', ''), $name);
+      $name = trim($name, '.');
 
       return $this->errors->first($name);
     }
