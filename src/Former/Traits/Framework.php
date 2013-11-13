@@ -164,8 +164,8 @@ abstract class Framework
    */
   protected function setIconDefaults()
   {
-    $this->iconTag = $this->getFrameworkOption('icon.tag');
-    $this->iconSet = $this->getFrameworkOption('icon.set');
+    $this->iconTag    = $this->getFrameworkOption('icon.tag');
+    $this->iconSet    = $this->getFrameworkOption('icon.set');
     $this->iconPrefix = $this->getFrameworkOption('icon.prefix');
   }
 
@@ -181,12 +181,14 @@ abstract class Framework
   public function createIcon($iconType, $attributes = array(), $iconSettings = array())
   {
     // Check for empty icons
-    if (!$iconType) return false;
+    if (!$iconType) {
+      return false;
+    }
 
     // icon settings can be overridden for a specific icon
-    $tag = isset($iconSettings['tag']) ? $iconSettings['tag'] : $this->iconTag;  
-    $set = isset($iconSettings['set']) ? $iconSettings['set'] : $this->iconSet;  
-    $prefix = isset($iconSettings['prefix']) ? $iconSettings['prefix'] : $this->iconPrefix;  
+    $tag    = array_get($iconSettings, 'tag', $this->iconTag);
+    $set    = array_get($iconSettings, 'set', $this->iconSet);
+    $prefix = array_get($iconSettings, 'prefix', $this->iconPrefix);
 
     return Element::create($tag, null, $attributes)->addClass("$set $prefix-$iconType");
   }

@@ -254,8 +254,8 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
     // Check for empty icons
     if (!$iconType) return false;
 
-    //Create tag
-    $tag = isset($iconSettings['tag']) ? $iconSettings['tag'] : $this->iconTag;
+    // Create tag
+    $tag  = array_get($iconSettings, 'tag', $this->iconTag);
     $icon = Element::create($tag, null, $attributes);
 
     // White icons ignore user overrides to use legacy Bootstrap styling
@@ -263,11 +263,11 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
       $iconType = String::remove($iconType, 'white');
       $iconType = trim($iconType, '-');
       $icon->addClass('icon-white');
-      $set = null;
+      $set    = null;
       $prefix = 'icon';
     } else {
-      $set = isset($iconSettings['set']) ? $iconSettings['set'] : $this->iconSet;
-      $prefix = isset($iconSettings['prefix']) ? $iconSettings['prefix'] : $this->iconPrefix;
+      $set    = array_get($iconSettings, 'set', $this->iconSet);
+      $prefix = array_get($iconSettings, 'prefix', $this->iconPrefix);
     }
     $icon->addClass("$set $prefix-$iconType");
 
@@ -303,7 +303,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   {
     $class = array();
     if ($prepend) $class[] = 'input-prepend';
-    if ($append) $class[] = 'input-append';
+    if ($append)  $class[] = 'input-append';
 
     $return = '<div class="'.join(' ', $class).'">';
       $return .= join(null, $prepend);
