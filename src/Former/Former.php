@@ -136,8 +136,9 @@ class Former
     $method  = array_pop($classes);
 
     // Dispatch to the different Form\Fields
-    $field = $this->dispatch->toFields($method, $parameters);
-    $field = $this->app['former.framework']->getFieldClasses($field, $classes);
+    $framework = isset($this->app['former.form.framework']) ? $this->app['former.form.framework'] : $this->app['former.framework'];
+    $field     = $this->dispatch->toFields($method, $parameters);
+    $field     = $framework->getFieldClasses($field, $classes);
 
     // Else bind field
     $this->app->instance('former.field', $field);

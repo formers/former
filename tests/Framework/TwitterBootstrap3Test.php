@@ -8,6 +8,7 @@ class TwitterBootstrap3Test extends FormerTests
     parent::setUp();
 
     $this->former->framework('TwitterBootstrap3');
+    $this->former->horizontal_open()->__toString();
   }
 
   ////////////////////////////////////////////////////////////////////

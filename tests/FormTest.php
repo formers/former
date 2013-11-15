@@ -279,6 +279,8 @@ class FormTest extends FormerTests
 
   public function testCanOpenRawForm()
   {
+    $this->former->framework('TwitterBootstrap3');
+
     $form  = $this->former->raw_open();
     $form .= $this->former->text('foo');
     $form .= $this->former->actions()->large_submit('Submit');
@@ -287,7 +289,7 @@ class FormTest extends FormerTests
     $matcher =
       '<form accept-charset="utf-8" method="POST">'.
       '<input id="foo" type="text" name="foo">'.
-      '<div class="form-actions"><input class="btn-large btn" type="submit" value="Submit"></div>'.
+      '<div><input class="large" type="submit" value="Submit"></div>'.
       '<input type="hidden" name="_token" value="csrf_token">'.
       '</form>';
 
