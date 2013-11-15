@@ -130,6 +130,7 @@ class Form extends FormerObject
     $this->secure     = $secure;
 
     // Add any effect of the form type
+    $type = String::toSnakeCase($type);
     $this->type = $this->applyType($type);
 
     // Add enctype

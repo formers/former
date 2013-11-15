@@ -294,4 +294,11 @@ class FormTest extends FormerTests
     $this->assertEquals($matcher, $form);
   }
 
+  public function testCanOpenFormWithCamelCase()
+  {
+    $open = $this->former->verticalOpen('#')->__toString();
+    $matcher = $this->matchForm('vertical');
+
+    $this->assertHTML($matcher, $open);
+  }
 }

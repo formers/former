@@ -89,7 +89,7 @@ class MethodDispatcher
   public function toForm($method, $parameters)
   {
     // Disregards if the method doesn't contain 'open'
-    if (!String::contains($method, 'open')) {
+    if (!String::contains($method, 'open') and !String::contains($method, 'Open')) {
       return false;
     }
 
