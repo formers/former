@@ -25,8 +25,8 @@ abstract class FormerTests extends IlluminateMock
 
     // Reset some parameters
     $this->resetLabels();
-    $this->former->horizontal_open()->__toString();
     $this->former->framework('TwitterBootstrap');
+    $this->former->horizontal_open()->__toString();
   }
 
   /**

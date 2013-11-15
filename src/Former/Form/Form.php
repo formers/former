@@ -21,13 +21,6 @@ class Form extends FormerObject
   protected $app;
 
   /**
-   * The Framework Interface
-   *
-   * @var FrameworkInterface
-   */
-  protected $framework;
-
-  /**
    * The URL generator
    *
    * @var UrlGenerator
@@ -103,9 +96,12 @@ class Form extends FormerObject
   public function __construct(Container $app, $url, Populator $populator)
   {
     $this->app       = $app;
-    $this->framework = $app['former.framework'];
     $this->url       = $url;
     $this->populator = $populator;
+
+    $this->app->singleton('former.form.framework', function ($app) {
+      return clone $app['former.framework'];
+    });
   }
 
   /**
@@ -142,7 +138,9 @@ class Form extends FormerObject
     }
 
     // Add supplementary classes
-    $this->addClass($this->app['former.framework']->getFormClasses($this->type));
+    if ($this->type !== 'raw') {
+      $this->addClass($this->app['former.form.framework']->getFormClasses($this->type));
+    }
 
     return $this;
   }
@@ -384,8 +382,15 @@ class Form extends FormerObject
     $type = String::remove($type, 'open');
     $type = trim($type, '_');
 
+    // If raw form
+    if ($type == 'raw') {
+      $this->app->bind('former.form.framework', function ($app) {
+        return $app['former']->getFrameworkInstance('Nude');
+      });
+    }
+
     // Use default form type if the one provided is invalid
-    if (!in_array($type, $this->framework->availableTypes())) {
+    if ($type !== 'raw' and !in_array($type, $this->app['former.form.framework']->availableTypes())) {
       $type = $this->app['former']->getOption('default_form_type');
     }
 

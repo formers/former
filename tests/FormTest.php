@@ -260,4 +260,38 @@ class FormTest extends FormerTests
     $this->assertHTML($matcher, $form);
     $this->assertHTML($matcher, $formSingle);
   }
+
+  public function testFormCanHaveDifferentFrameworkFromMain()
+  {
+    $form = $this->former->raw_open();
+
+    $this->assertEquals('TwitterBootstrap', $this->app['former.framework']->current());
+    $this->assertEquals('Nude', $this->app['former.form.framework']->current());
+
+    $this->former->framework('Nude');
+    $this->assertEquals('Nude', $this->app['former.framework']->current());
+    $this->assertEquals('Nude', $this->app['former.form.framework']->current());
+
+    $this->former->framework('TwitterBootstrap');
+    $this->assertEquals('TwitterBootstrap', $this->app['former.framework']->current());
+    $this->assertEquals('Nude', $this->app['former.form.framework']->current());
+  }
+
+  public function testCanOpenRawForm()
+  {
+    $form  = $this->former->raw_open();
+    $form .= $this->former->text('foo');
+    $form .= $this->former->actions()->large_submit('Submit');
+    $form .= $this->former->close();
+
+    $matcher =
+      '<form accept-charset="utf-8" method="POST">'.
+      '<input id="foo" type="text" name="foo">'.
+      '<div class="form-actions"><input class="btn-large btn" type="submit" value="Submit"></div>'.
+      '<input type="hidden" name="_token" value="csrf_token">'.
+      '</form>';
+
+    $this->assertEquals($matcher, $form);
+  }
+
 }

@@ -4,6 +4,7 @@
 ------
 
 - [fix] Fixed a bug where two fields with the same name would get the same ID
+- [fix] Various bugfixes related to repopulation
 
 3.3.0 (stable)
 -----

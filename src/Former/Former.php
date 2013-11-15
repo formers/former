@@ -314,10 +314,26 @@ class Former
     }
 
     $this->setOption('framework', $framework);
-    $class = __NAMESPACE__.'\Framework\\'.$framework;
-    $this->app->bind('former.framework', function ($app) use ($class) {
-      return new $class($app);
+
+    $framework = $this->getFrameworkInstance($framework);
+    $this->app->bind('former.framework', function ($app) use ($framework) {
+      return $framework;
     });
+  }
+
+  /**
+   * Get a new framework instance
+   *
+   * @param string $framework
+   *
+   * @return Framework
+   */
+  public function getFrameworkInstance($framework)
+  {
+    // Get the fully qualified name
+    $class = __NAMESPACE__.'\Framework\\'.$framework;
+
+    return new $class($this->app);
   }
 
   /**

@@ -139,7 +139,7 @@ abstract class Field extends FormerObject implements FieldInterface
 
     // Classic syntax
     } else {
-      $html  = $this->app['former.framework']->createLabelOf($this);
+      $html  = $this->app['former.form.framework']->createLabelOf($this);
       $html .= $this->render();
     }
 
@@ -178,7 +178,8 @@ abstract class Field extends FormerObject implements FieldInterface
   public function isUnwrappable()
   {
     return
-      $this->form and $this->isOfType('inline') or
+      ($this->form and $this->app['former.form.framework']->is('Nude')) or
+      ($this->form and $this->isOfType('inline')) or
       $this->isButton() or
       $this->isOfType('hidden') or
       \Former\Form\Group::$opened or
