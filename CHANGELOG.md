@@ -1,8 +1,10 @@
 ## CHANGELOG
 
-3.3.1 (develop)
+3.4.0 (develop)
 ------
 
+- [add] Added `Former::rawOpen` to open a temporary no-framework/no-label form
+- [add] Added support for camelCase form openers (ie. `verticalOpen` and `vertical_open`)
 - [fix] Fixed a bug where two fields with the same name would get the same ID
 - [fix] Various bugfixes related to repopulation
 
