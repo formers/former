@@ -106,7 +106,7 @@ abstract class Checkable extends Field
     if ($this->items) {
       unset($this->app['former']->labels[array_search($this->name, $this->app['former']->labels)]);
       foreach ($this->items as $key => $item) {
-        $value = $this->isCheckbox() ? 1 : $key;
+        $value = $this->isCheckbox() && !$this->isGrouped() ? 1 : $key;
         $html .= $this->createCheckable($item, $value);
       }
 
@@ -320,7 +320,7 @@ abstract class Checkable extends Field
 
     // Create field
     $field = Input::create($this->checkable, $name, $value, $attributes);
-    if ($this->isChecked($item, $value)) {
+    if ($this->isChecked($name, $value)) {
       $field->checked('checked');
     }
 
@@ -389,14 +389,8 @@ abstract class Checkable extends Field
    *
    * @return boolean Checked or not
    */
-  protected function isChecked($item = null, $value = null)
+  protected function isChecked($name = null, $value = null)
   {
-    if (isset($item['name'])) {
-      $name = $item['name'];
-    }
-    if (isset($item['attributes']['id'])) {
-      $id = $item['attributes']['id'];
-    }
     if (!$name) {
       $name = $this->name;
     }
@@ -416,9 +410,6 @@ abstract class Checkable extends Field
     // Check the values and POST array
     $post   = $this->app['former']->getPost($name);
     $static = $this->app['former']->getValue($name);
-    if (!isset($static) && isset($id)) {
-      $static = $this->app['former']->getValue($id);
-    }
 
     if (!is_null($post) and $post !== $this->app['former']->getOption('unchecked_value')) {
       $isChecked = ($post == $value);
