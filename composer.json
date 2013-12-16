@@ -35,9 +35,5 @@
       "Laravel": "src"
     }
   },
-  "extra": {
-    "branch-alias": {
-      "dev-agnostic": "3.x.x-dev"
-    }
-  }
+  "minimum-stability": "stable"
 }
