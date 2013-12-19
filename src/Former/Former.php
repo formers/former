@@ -377,8 +377,13 @@ class Former
     }
 
     // Destroy instances
-    $this->app['former.form'] = null;
-    unset($this->app['former.form']);
+    $instances = array('former.form', 'former.form.framework');
+    foreach($instances as $instance) {
+      $this->app[$instance] = null;
+      unset($this->app[$instance]);
+    }
+
+    // Reset populator
     $this->app['former.populator']->reset();
 
     // Reset all values

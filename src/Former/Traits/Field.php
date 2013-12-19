@@ -59,6 +59,20 @@ abstract class Field extends FormerObject implements FieldInterface
    */
   protected $isSelfClosing = true;
 
+  /**
+   * Get the current framework instance
+   *
+   * @return Framework
+   */
+  protected function currentFramework()
+  {
+    if ($this->app->bound('former.form.framework')) {
+      return $this->app['former.form.framework'];
+    }
+
+    return $this->app['former.framework'];
+  }
+
   ////////////////////////////////////////////////////////////////////
   ///////////////////////////// INTERFACE ////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -139,7 +153,7 @@ abstract class Field extends FormerObject implements FieldInterface
 
     // Classic syntax
     } else {
-      $html  = $this->app['former.form.framework']->createLabelOf($this);
+      $html  = $this->currentFramework()->createLabelOf($this);
       $html .= $this->render();
     }
 
@@ -178,7 +192,7 @@ abstract class Field extends FormerObject implements FieldInterface
   public function isUnwrappable()
   {
     return
-      ($this->form and $this->app['former.form.framework']->is('Nude')) or
+      ($this->form and $this->currentFramework()->is('Nude')) or
       ($this->form and $this->isOfType('inline')) or
       $this->isButton() or
       $this->isOfType('hidden') or

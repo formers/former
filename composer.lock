@@ -86,7 +86,7 @@
         },
         {
             "name": "illuminate/cache",
-            "version": "v4.1.8",
+            "version": "v4.1.9",
             "target-dir": "Illuminate/Cache",
             "source": {
                 "type": "git",
@@ -138,7 +138,7 @@
         },
         {
             "name": "illuminate/config",
-            "version": "v4.1.8",
+            "version": "v4.1.9",
             "target-dir": "Illuminate/Config",
             "source": {
                 "type": "git",
@@ -186,7 +186,7 @@
         },
         {
             "name": "illuminate/container",
-            "version": "v4.1.8",
+            "version": "v4.1.9",
             "target-dir": "Illuminate/Container",
             "source": {
                 "type": "git",
@@ -232,7 +232,7 @@
         },
         {
             "name": "illuminate/cookie",
-            "version": "v4.1.8",
+            "version": "v4.1.9",
             "target-dir": "Illuminate/Cookie",
             "source": {
                 "type": "git",
@@ -283,7 +283,7 @@
         },
         {
             "name": "illuminate/encryption",
-            "version": "v4.1.8",
+            "version": "v4.1.9",
             "target-dir": "Illuminate/Encryption",
             "source": {
                 "type": "git",
@@ -330,7 +330,7 @@
         },
         {
             "name": "illuminate/filesystem",
-            "version": "v4.1.8",
+            "version": "v4.1.9",
             "target-dir": "Illuminate/Filesystem",
             "source": {
                 "type": "git",
@@ -378,7 +378,7 @@
         },
         {
             "name": "illuminate/http",
-            "version": "v4.1.8",
+            "version": "v4.1.9",
             "target-dir": "Illuminate/Http",
             "source": {
                 "type": "git",
@@ -428,17 +428,17 @@
         },
         {
             "name": "illuminate/routing",
-            "version": "v4.1.8",
+            "version": "v4.1.9",
             "target-dir": "Illuminate/Routing",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/routing.git",
-                "reference": "9bd517273db96976df7b5028277cac4ca0aee474"
+                "reference": "acea134f195b55b8fbd01af69cb991c12a6977a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/routing/zipball/9bd517273db96976df7b5028277cac4ca0aee474",
-                "reference": "9bd517273db96976df7b5028277cac4ca0aee474",
+                "url": "https://api.github.com/repos/illuminate/routing/zipball/acea134f195b55b8fbd01af69cb991c12a6977a6",
+                "reference": "acea134f195b55b8fbd01af69cb991c12a6977a6",
                 "shasum": ""
             },
             "require": {
@@ -478,11 +478,11 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2013-12-13 18:42:25"
+            "time": "2013-12-19 01:54:07"
         },
         {
             "name": "illuminate/session",
-            "version": "v4.1.8",
+            "version": "v4.1.9",
             "target-dir": "Illuminate/Session",
             "source": {
                 "type": "git",
@@ -537,7 +537,7 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v4.1.8",
+            "version": "v4.1.9",
             "target-dir": "Illuminate/Support",
             "source": {
                 "type": "git",
@@ -588,7 +588,7 @@
         },
         {
             "name": "illuminate/translation",
-            "version": "v4.1.8",
+            "version": "v4.1.9",
             "target-dir": "Illuminate/Translation",
             "source": {
                 "type": "git",
@@ -1107,7 +1107,7 @@
     "packages-dev": [
         {
             "name": "illuminate/database",
-            "version": "v4.1.8",
+            "version": "v4.1.9",
             "target-dir": "Illuminate/Database",
             "source": {
                 "type": "git",
@@ -1169,7 +1169,7 @@
         },
         {
             "name": "illuminate/events",
-            "version": "v4.1.8",
+            "version": "v4.1.9",
             "target-dir": "Illuminate/Events",
             "source": {
                 "type": "git",

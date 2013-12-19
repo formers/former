@@ -303,4 +303,14 @@ class FormTest extends FormerTests
 
     $this->assertHTML($matcher, $open);
   }
+
+  public function testClosingFormRemovesFrameworkInstance()
+  {
+    $form = $this->former->raw_open();
+    $this->assertEquals('TwitterBootstrap', $this->app['former.framework']->current());
+    $this->assertEquals('Nude', $this->app['former.form.framework']->current());
+    $this->former->close();
+
+    $this->assertFalse($this->app->bound('former.form.framework'));
+  }
 }
