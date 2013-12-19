@@ -343,7 +343,7 @@ class Form extends FormerObject
     // Get string by uses
     } else {
       foreach ($this->app['router']->getRoutes() as $route) {
-        $routeUses = method_exists($route, 'getOption') ? $route->getOption('_uses') : $route->getAction()['controller'];
+        $routeUses = method_exists($route, 'getOption') ? $route->getOption('_uses') : array_get($route->getAction(), 'controller');
         if ($action = $routeUses) {
           if ($action == $name) {
             break;
