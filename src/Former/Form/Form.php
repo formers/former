@@ -338,7 +338,8 @@ class Form extends FormerObject
 
     // Get string by name
     if (!String::contains($name, '@')) {
-      $route = $this->app['router']->getRoutes()->get($name);
+      $routes = $this->app['router']->getRoutes();
+      $route = method_exists($routes, 'getByName') ? $routes->getByName($name) : $routes->get($name);
 
     // Get string by uses
     } else {
