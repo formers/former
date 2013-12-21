@@ -50,6 +50,10 @@
   // Where Former should look for translations
   'translate_from'    => 'validation.attributes',
 
+  // Whether text that comes out of the translated
+  // should be capitalized (ex: email => Email) automatically
+  'capitalize_translations' => true,
+
   // An array of attributes to automatically translate
   'translatable'      => array(
     'help', 'inlineHelp', 'blockHelp',
