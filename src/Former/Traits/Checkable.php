@@ -5,7 +5,6 @@ use Former\Former;
 use Former\Helpers;
 use HtmlObject\Element;
 use HtmlObject\Input;
-use Underscore\Methods\ArraysMethods as Arrays;
 use Illuminate\Container\Container;
 
 /**
@@ -90,7 +89,7 @@ abstract class Checkable extends Field
    */
   public function __call($method, $parameters)
   {
-    $focused = $this->setOnFocused('attributes.'.$method, Arrays::get($parameters, 0));
+    $focused = $this->setOnFocused('attributes.'.$method, array_get($parameters, 0));
     if ($focused) return $this;
     return parent::__call($method, $parameters);
   }
@@ -268,7 +267,7 @@ abstract class Checkable extends Field
       // If we gave custom information on the item, add them
       if (is_array($name)) {
         $attributes = $name;
-        $name = Arrays::get($attributes, 'name', $fallback);
+        $name = array_get($attributes, 'name', $fallback);
         unset($attributes['name']);
       }
 
@@ -379,7 +378,7 @@ abstract class Checkable extends Field
       return false;
     }
 
-    $this->items[$this->focus] = Arrays::set($this->items[$this->focus], $attribute, $value);
+    $this->items[$this->focus] = array_set($this->items[$this->focus], $attribute, $value);
 
     return $this;
   }
@@ -399,12 +398,12 @@ abstract class Checkable extends Field
     // Or if it's a single radio, simply see if we called check
     if ($this->isCheckbox() or
       !$this->isCheckbox() and !$this->items) {
-        $checked = Arrays::get($this->checked, $name, false);
+        $checked = array_get($this->checked, $name, false);
 
     // If there are multiple, search for the value
     // as the name are the same between radios
     } else {
-      $checked = Arrays::get($this->checked, $value, false);
+      $checked = array_get($this->checked, $value, false);
     }
 
     // Check the values and POST array

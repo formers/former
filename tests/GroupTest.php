@@ -3,7 +3,6 @@ use Illuminate\Support\Str;
 
 class GroupTest extends FormerTests
 {
-
   public function createButton($text)
   {
     return new DummyButton($text);

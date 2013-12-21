@@ -7,8 +7,7 @@ use Former\Helpers;
 use HtmlObject\Element;
 use HtmlObject\Traits\Tag;
 use Illuminate\Container\Container;
-use Underscore\Methods\ArraysMethods as Arrays;
-use Underscore\Methods\StringMethods as String;
+use Illuminate\Support\Str;
 
 /**
  * Helper class to build groups
@@ -424,8 +423,8 @@ class Group extends Tag
    */
   protected function getHelp()
   {
-    $inline = Arrays::get($this->help, 'inline');
-    $block  = Arrays::get($this->help, 'block');
+    $inline = array_get($this->help, 'inline');
+    $block  = array_get($this->help, 'block');
 
     // Replace help text with error if any found
     $errors = $this->app['former']->getErrors();
@@ -468,7 +467,7 @@ class Group extends Tag
       }
 
       // If the item is not a button, wrap it
-      if (is_string($item) and !String::startsWith($item, '<button')) {
+      if (is_string($item) and !Str::startsWith($item, '<button')) {
         $item = $this->app['former.framework']->placeAround($item);
       }
 

@@ -1,14 +1,13 @@
 <?php
 namespace Former\Framework;
 
+use Former\Form\Form;
 use Former\Interfaces\FrameworkInterface;
 use Former\Traits\Field;
 use Former\Traits\Framework;
-use Former\Form\Form;
 use HtmlObject\Element;
 use Illuminate\Container\Container;
-use Underscore\Methods\ArraysMethods as Arrays;
-use Underscore\Methods\StringMethods as String;
+use Illuminate\Support\Str;
 
 /**
  * The Twitter Bootstrap form framework
@@ -127,9 +126,9 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
     $classes = array_intersect($classes, $this->fields);
 
     // Prepend field type
-    $classes = Arrays::each($classes, function ($class) {
-      return String::startsWith($class, 'col') ? $class : 'input-'.$class;
-    });
+    $classes = array_map(function ($class) {
+      return Str::startsWith($class, 'col') ? $class : 'input-'.$class;
+    }, $classes);
 
     return $classes;
   }

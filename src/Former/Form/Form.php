@@ -5,8 +5,7 @@ use Former\Former;
 use Former\Populator;
 use Former\Traits\FormerObject;
 use Illuminate\Container\Container;
-use Underscore\Methods\ArraysMethods as Arrays;
-use Underscore\Methods\StringMethods as String;
+use Illuminate\Support\Str;
 
 /**
  * Construct and manages the form wrapping all fields
@@ -113,10 +112,10 @@ class Form extends FormerObject
    */
   public function openForm($type, $parameters)
   {
-    $action     = Arrays::get($parameters, 0);
-    $method     = Arrays::get($parameters, 1, 'POST');
-    $attributes = Arrays::get($parameters, 2, array());
-    $secure     = Arrays::get($parameters, 3, false);
+    $action     = array_get($parameters, 0);
+    $method     = array_get($parameters, 1, 'POST');
+    $attributes = array_get($parameters, 2, array());
+    $secure     = array_get($parameters, 3, false);
 
     // Fetch errors if asked for
     if ($this->app['former']->getOption('fetch_errors')) {
@@ -130,7 +129,7 @@ class Form extends FormerObject
     $this->secure     = $secure;
 
     // Add any effect of the form type
-    $type = String::toSnakeCase($type);
+    $type = Str::snake($type);
     $this->type = $this->applyType($type);
 
     // Add enctype
@@ -337,7 +336,7 @@ class Form extends FormerObject
     }
 
     // Get string by name
-    if (!String::contains($name, '@')) {
+    if (!Str::contains($name, '@')) {
       $routes = $this->app['router']->getRoutes();
       $route = method_exists($routes, 'getByName') ? $routes->getByName($name) : $routes->get($name);
 
@@ -374,19 +373,19 @@ class Form extends FormerObject
     }
 
     // Look for HTTPS form
-    if (String::contains($type, 'secure')) {
-      $type = String::remove($type, 'secure');
+    if (Str::contains($type, 'secure')) {
+      $type = str_replace('secure', '', $type);
       $this->secure = true;
     }
 
     // Look for file form
-    if (String::contains($type, 'for_files')) {
-      $type = String::remove($type, 'for_files');
+    if (Str::contains($type, 'for_files')) {
+      $type = str_replace('for_files', '', $type);
       $this->attributes['enctype'] = 'multipart/form-data';
     }
 
     // Calculate form type
-    $type = String::remove($type, 'open');
+    $type = str_replace('open', '', $type);
     $type = trim($type, '_');
 
     // If raw form

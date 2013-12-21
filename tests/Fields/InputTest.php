@@ -1,5 +1,4 @@
 <?php
-use Underscore\Methods\ArraysMethods as Arrays;
 
 class InputTest extends FormerTests
 {
@@ -16,7 +15,7 @@ class InputTest extends FormerTests
     $this->mockConfig(array('automatic_label' => false));
 
     $input = $this->former->text('foo')->__toString();
-    $matchField = Arrays::remove($this->matchField(), 'id');
+    $matchField = array_except($this->matchField(), 'id');
 
     $this->assertHTML($this->matchControlGroup(), $input);
     $this->assertHTML($matchField, $input);
@@ -25,7 +24,7 @@ class InputTest extends FormerTests
   public function testCanCreateSingleTextWithoutLabelOnStart()
   {
     $input = $this->former->text('foo', '')->__toString();
-    $matchField = Arrays::remove($this->matchField(), 'id');
+    $matchField = array_except($this->matchField(), 'id');
 
     $this->assertHTML($this->matchControlGroup(), $input);
     $this->assertHTML($matchField, $input);
@@ -34,7 +33,7 @@ class InputTest extends FormerTests
   public function testCanCreateSingleTextWithoutLabel()
   {
     $input = $this->former->text('foo')->label(null)->__toString();
-    $matchField = Arrays::remove($this->matchField(), 'id');
+    $matchField = array_except($this->matchField(), 'id');
 
     $this->assertHTML($this->matchControlGroup(), $input);
     $this->assertHTML($matchField, $input);
@@ -43,7 +42,8 @@ class InputTest extends FormerTests
   public function testCanCreateSearchField()
   {
     $input = $this->former->search('foo')->__toString();
-    $matchField = Arrays::set($this->matchField(), 'attributes.class', 'search-query');
+    $matchField = $this->matchField();
+    array_set($matchField, 'attributes.class', 'search-query');
 
     $this->assertControlGroup($input);
     $this->assertHTML($matchField, $input);
@@ -54,7 +54,8 @@ class InputTest extends FormerTests
     $this->former->framework('Nude');
 
     $input = $this->former->text('foo')->data('foo')->class('bar')->__toString();
-    $label = Arrays::remove($this->matchLabel('Foo'), 'attributes.class');
+    $label = $this->matchLabel('Foo');
+    array_forget($label, 'attributes.class');
 
     $this->assertHTML($label, $input);
     $this->assertHTML($this->matchField(), $input);

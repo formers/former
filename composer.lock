@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1b6aa9f404d32900a62785179bc83316",
+    "hash": "a120f7036ae41ea4c4e259b216e8257a",
     "packages": [
         {
             "name": "anahkiasen/html-object",
@@ -40,49 +40,6 @@
             ],
             "description": "A set of classes to create and manipulate HTML objects abstractions",
             "time": "2013-11-19 15:20:02"
-        },
-        {
-            "name": "anahkiasen/underscore-php",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Anahkiasen/underscore-php.git",
-                "reference": "735759486fa1128420d601065dc6f7af07d6b8cb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/underscore-php/zipball/735759486fa1128420d601065dc6f7af07d6b8cb",
-                "reference": "735759486fa1128420d601065dc6f7af07d6b8cb",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "~4",
-                "patchwork/utf8": "1.1.*",
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Underscore": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Maxime Fabre",
-                    "email": "ehtnam6@gmail.com"
-                }
-            ],
-            "description": "A redacted port of Underscore.js for PHP",
-            "keywords": [
-                "internals",
-                "laravel",
-                "toolkit"
-            ],
-            "time": "2013-12-14 14:27:47"
         },
         {
             "name": "illuminate/cache",
@@ -683,57 +640,6 @@
             "time": "2013-12-05 04:13:29"
         },
         {
-            "name": "patchwork/utf8",
-            "version": "v1.1.16",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nicolas-grekas/Patchwork-UTF8.git",
-                "reference": "bc719e850b57791c1024d06f9fe7d474348e7ba6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/bc719e850b57791c1024d06f9fe7d474348e7ba6",
-                "reference": "bc719e850b57791c1024d06f9fe7d474348e7ba6",
-                "shasum": ""
-            },
-            "require": {
-                "lib-pcre": "*",
-                "php": ">=5.3.0"
-            },
-            "suggest": {
-                "ext-mbstring": "Use Mbstring for best performance",
-                "lib-iconv": "Use iconv for best performance",
-                "lib-icu": "Use Intl for best performance"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Patchwork": "class/",
-                    "Normalizer": "class/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "(Apache-2.0 or GPL-2.0)"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Extensive, portable and performant handling of UTF-8 and grapheme clusters for PHP",
-            "homepage": "https://github.com/nicolas-grekas/Patchwork-UTF8",
-            "keywords": [
-                "i18n",
-                "unicode",
-                "utf-8",
-                "utf8"
-            ],
-            "time": "2013-12-07 12:20:20"
-        },
-        {
             "name": "psr/log",
             "version": "1.0.0",
             "source": {
@@ -1277,7 +1183,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "anahkiasen/html-object": 20,
-        "anahkiasen/underscore-php": 20,
         "mockery/mockery": 20
     },
     "platform": [

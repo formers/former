@@ -4,8 +4,7 @@ namespace Former\Form;
 use Former\Former;
 use Former\Traits\FormerObject;
 use Illuminate\Container\Container;
-use Underscore\Methods\ArraysMethods as Arrays;
-use Underscore\Methods\StringMethods as String;
+use Illuminate\Support\Str;
 
 /**
  * Handles the actions part of a form
@@ -53,9 +52,9 @@ class Actions extends FormerObject
    */
   public function getContent()
   {
-    $content = Arrays::each($this->value, function ($content) {
+    $content = array_map(function ($content) {
       return method_exists($content, '__toString') ? (string) $content : $content;
-    });
+    }, $this->value);
 
     return $this->app['former.framework']->wrapActions( implode(' ', $content) );
   }
@@ -72,9 +71,9 @@ class Actions extends FormerObject
   {
     // Dynamically add buttons to an actions block
     if ($this->isButtonMethod($method)) {
-      $text       = Arrays::get($parameters, 0);
-      $link       = Arrays::get($parameters, 1);
-      $attributes = Arrays::get($parameters, 2);
+      $text       = array_get($parameters, 0);
+      $link       = array_get($parameters, 1);
+      $attributes = array_get($parameters, 2);
       if (!$attributes and is_array($link)) $attributes = $link;
       return $this->createButtonOfType($method, $text, $link, $attributes);
     }
@@ -114,7 +113,7 @@ class Actions extends FormerObject
   {
     $buttons = array('button', 'submit', 'link', 'reset');
 
-    return (bool) String::find($method, $buttons);
+    return (bool) Str::contains($method, $buttons);
   }
 
 }

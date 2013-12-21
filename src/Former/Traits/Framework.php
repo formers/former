@@ -3,7 +3,6 @@ namespace Former\Traits;
 
 use Former\Traits\Field;
 use HtmlObject\Element;
-use Underscore\Methods\ArraysMethods as Arrays;
 
 /**
  * Base helpers and common methods to all frameworks
@@ -207,9 +206,9 @@ abstract class Framework
    */
   protected function prependWith($classes, $with)
   {
-    return Arrays::each($classes, function ($class) use ($with) {
+    return array_map(function ($class) use ($with) {
       return $with.$class;
-    });
+    }, $classes);
   }
 
   /**
