@@ -157,7 +157,7 @@ abstract class Framework
     $this->setIconDefaults();
   }
 
-  protected function setFieldWidths ($widths) {}
+  protected function setFieldWidths($widths) {}
 
   /**
    * Override framework defaults for icons with config values where set

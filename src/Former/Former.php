@@ -378,7 +378,7 @@ class Former
 
     // Destroy instances
     $instances = array('former.form', 'former.form.framework');
-    foreach($instances as $instance) {
+    foreach ($instances as $instance) {
       $this->app[$instance] = null;
       unset($this->app[$instance]);
     }

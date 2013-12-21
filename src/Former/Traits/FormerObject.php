@@ -65,7 +65,7 @@ abstract class FormerObject extends Element
     }
 
     // Get the number of existing occurences
-    $existing = array_filter($existing, function($value) use ($name) {
+    $existing = array_filter($existing, function ($value) use ($name) {
       return $value == $name;
     });
     $existing = sizeof($existing) + 1;

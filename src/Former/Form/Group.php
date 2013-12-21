@@ -413,7 +413,7 @@ class Group extends Tag
     $this->label->addClass($this->app['former.framework']->getLabelClasses());
     $this->label = $this->app['former.framework']->createLabelOf($field, $this->label);
     $this->label = $this->app['former.framework']->wrapLabel($this->label);
- 
+
     return $this->label;
   }
 

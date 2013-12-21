@@ -15,11 +15,13 @@ class TwitterBootstrap3Test extends FormerTests
   ////////////////////////////// MATCHERS ////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
-  public function hmatch($label, $field) {
+  public function hmatch($label, $field)
+  {
     return '<div class="form-group">'.$label.'<div class="col-lg-10 col-sm-8">'.$field.'</div></div>';
   }
 
-  public function vmatch($label, $field) {
+  public function vmatch($label, $field)
+  {
     return '<div class="form-group">'.$label.$field.'</div>';
   }
 
