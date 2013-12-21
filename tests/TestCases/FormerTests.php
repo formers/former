@@ -2,19 +2,10 @@
 ini_set('memory_limit', '400M');
 date_default_timezone_set('UTC');
 
-// Load the Illuminate Container
-include __DIR__.'/../vendor/autoload.php';
-include '_illuminate.php';
-
-// Dummies
-include 'Dummy/DummyButton.php';
-include 'Dummy/DummyEloquent.php';
-include 'Dummy/DummyMacros.php';
-
 /**
  * Base testing class
  */
-abstract class FormerTests extends IlluminateMock
+abstract class FormerTests extends ContainerTestCase
 {
   /**
    * Setup the app for testing

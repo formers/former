@@ -287,7 +287,7 @@ class GroupTest extends FormerTests
 
   public function testCanRecognizeGroupValidationErrors()
   {
-    $this->session = $this->mockSession(array('foo' => 'bar', 'bar' => 'baz'));
+    $this->mockSession(array('foo' => 'bar', 'bar' => 'baz'));
     $this->former->withErrors();
 
     $matcher = '<div class="control-group error"><label for="Foo" class="control-label">Foo</label>';
@@ -312,7 +312,7 @@ class GroupTest extends FormerTests
 
   public function testCanIgnoreGroupValidationErrors()
   {
-    $this->session = $this->mockSession(array('foo' => 'bar', 'bar' => 'baz'));
+    $this->mockSession(array('foo' => 'bar', 'bar' => 'baz'));
     $this->former->withErrors();
 
     $matcher = '<div class="control-group"><label for="Foo" class="control-label">Foo</label>';

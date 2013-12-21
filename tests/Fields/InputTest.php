@@ -13,7 +13,7 @@ class InputTest extends FormerTests
 
   public function testCanCreateTextWithoutLabel()
   {
-    $this->config = $this->mockConfig(true, '', false, false);
+    $this->mockConfig(array('automatic_label' => false));
 
     $input = $this->former->text('foo')->__toString();
     $matchField = Arrays::remove($this->matchField(), 'id');
@@ -127,7 +127,7 @@ class InputTest extends FormerTests
 
   public function testCanDisableErrors()
   {
-    $this->config = $this->mockConfig(true, '', false, true, false);
+    $this->mockConfig(array('error_messages' => false));
     $this->former->withErrors($this->validator);
 
     $required = $this->former->text('required')->__toString();

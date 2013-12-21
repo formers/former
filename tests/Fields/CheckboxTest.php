@@ -238,8 +238,6 @@ class CheckboxTest extends FormerTests
 
   public function testCanPushUncheckedCheckboxes()
   {
-    $this->config = $this->mockConfig(true, '', false);
-
     $checkbox = $this->former->checkbox('foo')->text('foo')->push(true);
     $matcher  = $this->controlGroup(
       '<label for="foo" class="checkbox">'.
@@ -252,7 +250,7 @@ class CheckboxTest extends FormerTests
 
   public function testCanPushASingleCheckbox()
   {
-    $this->config = $this->mockConfig(true, '', true);
+    $this->mockConfig(array('push_checkboxes' => true));
 
     $checkbox = $this->former->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->controlGroup(
@@ -266,7 +264,7 @@ class CheckboxTest extends FormerTests
 
   public function testCanRepopulateCheckboxesOnSubmit()
   {
-    $this->config = $this->mockConfig(true, '', true);
+    $this->mockConfig(array('push_checkboxes' => true));
     $this->request->shouldReceive('get')->andReturn('');
 
     $checkbox = $this->former->checkbox('foo')->text('foo')->__toString();
@@ -315,7 +313,7 @@ class CheckboxTest extends FormerTests
 
   public function testCanCustomizeTheUncheckedValue()
   {
-    $this->config = $this->mockConfig(true, 'unchecked', true);
+    $this->mockConfig(array('unchecked_value' => 'unchecked', 'push_checkboxes' => true));
 
     $checkbox = $this->former->checkbox('foo')->text('foo')->__toString();
     $matcher = $this->controlGroup(
@@ -329,7 +327,7 @@ class CheckboxTest extends FormerTests
 
   public function testCanRecognizeGroupedCheckboxesValidationErrors()
   {
-    $this->session = $this->mockSession(array('foo' => 'bar', 'bar' => 'baz'));
+    $this->mockSession(array('foo' => 'bar', 'bar' => 'baz'));
     $this->former->withErrors();
 
     $auto =  $this->former->checkboxes('foo[]', '')->checkboxes('Value 01', 'Value 02')->__toString();
@@ -354,7 +352,7 @@ class CheckboxTest extends FormerTests
 
   public function testCanHandleAZeroUncheckedValue()
   {
-    $this->config = $this->mockConfig(true, 0);
+    $this->mockConfig(array('unchecked_value' => 0));
     $checkboxes = $this->former->checkboxes('foo')->value('bar')->__toString();
     $matcher = $this->controlGroup($this->matchCheckbox('foo', null, 'bar'));
 
@@ -380,7 +378,7 @@ class CheckboxTest extends FormerTests
 
   public function testCanPushCheckboxesWithoutLabels()
   {
-    $this->config = $this->mockConfig(true, '', true, false);
+    $this->mockConfig(array('automatic_label' => false, 'push_checkboxes' => true));
 
     $html  = $this->former->label('<b>Views per Page</b>')->render();
     $html .= $this->former->checkbox('per_page')->class('input')->render();

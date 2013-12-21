@@ -33,7 +33,8 @@
     "psr-0": {
       "Former": "src",
       "Laravel": "src"
-    }
+    },
+    "classmap": ["tests"]
   },
   "minimum-stability": "stable"
 }
