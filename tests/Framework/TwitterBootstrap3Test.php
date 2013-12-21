@@ -8,17 +8,20 @@ class TwitterBootstrap3Test extends FormerTests
     parent::setUp();
 
     $this->former->framework('TwitterBootstrap3');
+    $this->former->horizontal_open()->__toString();
   }
 
   ////////////////////////////////////////////////////////////////////
   ////////////////////////////// MATCHERS ////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
-  public function hmatch($label, $field) {
+  public function hmatch($label, $field)
+  {
     return '<div class="form-group">'.$label.'<div class="col-lg-10 col-sm-8">'.$field.'</div></div>';
   }
 
-  public function vmatch($label, $field) {
+  public function vmatch($label, $field)
+  {
     return '<div class="form-group">'.$label.$field.'</div>';
   }
 
@@ -138,7 +141,6 @@ class TwitterBootstrap3Test extends FormerTests
     $this->former->open_inline();
 
     $field = $this->former->text('foo')->__toString();
-    $label = $this->former->text('foo')->label('Foo')->__toString();
 
     $match =
     '<div class="form-group">'.
@@ -147,7 +149,7 @@ class TwitterBootstrap3Test extends FormerTests
     '</div>';
 
     $this->assertEquals($match, $field);
-    $this->assertEquals($match, $label);
+    $this->assertEquals($match, $field);
 
     $this->former->close();
   }
@@ -164,6 +166,7 @@ class TwitterBootstrap3Test extends FormerTests
     '</div>';
     $this->assertEquals($match, $field);
 
+    $this->resetLabels();
     $field = $this->former->sm_select('foo')->__toString();
     $match =
     '<div class="form-group">'.

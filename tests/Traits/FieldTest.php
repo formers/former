@@ -56,12 +56,13 @@ class FieldTest extends FormerTests
 
   public function testCanSetValueOnFields()
   {
-    $static = $this->former->text('foo')->value('bar')->__toString();
-    $input  = $this->former->text('foo', null, 'bar')->__toString();
     $matcher = $this->controlGroup('<input id="foo" type="text" name="foo" value="bar">');
-
+    $static = $this->former->text('foo')->value('bar')->__toString();
     $this->assertHTML($this->matchField(), $static);
     $this->assertHTML($this->matchControlGroup(), $static);
+
+    $this->resetLabels();
+    $input  = $this->former->text('foo', null, 'bar')->__toString();
     $this->assertHTML($this->matchField(), $input);
     $this->assertHTML($this->matchControlGroup(), $input);
   }
@@ -78,10 +79,11 @@ class FieldTest extends FormerTests
   public function testCanCreateViaMagicAttribute()
   {
     $static = $this->former->text('foo')->class('foo')->data_bar('bar')->__toString();
-    $input  = $this->former->text('foo', null, null, array('class' => 'foo', 'data-bar' => 'bar'))->__toString();
-
     $this->assertHTML($this->matchField(), $static);
     $this->assertHTML($this->matchControlGroup(), $static);
+
+    $this->resetLabels();
+    $input  = $this->former->text('foo', null, null, array('class' => 'foo', 'data-bar' => 'bar'))->__toString();
     $this->assertHTML($this->matchField(), $input);
     $this->assertHTML($this->matchControlGroup(), $input);
   }
@@ -133,12 +135,13 @@ class FieldTest extends FormerTests
 
   public function testCanAddClass()
   {
-    $static = $this->former->text('foo')->class('foo')->addClass('bar')->__toString();
-    $input  = $this->former->text('foo', null, null, array('class' => 'foo'))->addClass('bar')->__toString();
     $matcher = $this->controlGroup('<input class="foo bar" type="text" name="foo" id="foo">');
-
+    $static = $this->former->text('foo')->class('foo')->addClass('bar')->__toString();
     $this->assertHTML($this->matchControlGroup(), $static);
     $this->assertHTML($this->matchField(), $static);
+
+    $this->resetLabels();
+    $input  = $this->former->text('foo', null, null, array('class' => 'foo'))->addClass('bar')->__toString();
     $this->assertHTML($this->matchControlGroup(), $input);
     $this->assertHTML($this->matchField(), $input);
   }
@@ -175,5 +178,14 @@ class FieldTest extends FormerTests
     $matcher = '<div class="control-group"><label for="foo[]" class="control-label">Foo</label><div class="controls"><select id="foo[]" name="foo[]"></select></div></div>';
 
     $this->assertEquals($matcher, $field->__toString());
+  }
+
+  public function testCantHaveDuplicateIdsForFields()
+  {
+    $field    = $this->former->text('name')->render();
+    $fieldTwo = $this->former->text('name')->render();
+
+    $this->assertEquals('<input id="name" type="text" name="name">', $field);
+    $this->assertEquals('<input id="name-2" type="text" name="name">', $fieldTwo);
   }
 }

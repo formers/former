@@ -5,8 +5,7 @@ use Former\Former;
 use Former\Populator;
 use Former\Traits\FormerObject;
 use Illuminate\Container\Container;
-use Underscore\Methods\ArraysMethods as Arrays;
-use Underscore\Methods\StringMethods as String;
+use Illuminate\Support\Str;
 
 /**
  * Construct and manages the form wrapping all fields
@@ -19,13 +18,6 @@ class Form extends FormerObject
    * @var Container
    */
   protected $app;
-
-  /**
-   * The Framework Interface
-   *
-   * @var FrameworkInterface
-   */
-  protected $framework;
 
   /**
    * The URL generator
@@ -103,9 +95,12 @@ class Form extends FormerObject
   public function __construct(Container $app, $url, Populator $populator)
   {
     $this->app       = $app;
-    $this->framework = $app['former.framework'];
     $this->url       = $url;
     $this->populator = $populator;
+
+    $this->app->singleton('former.form.framework', function ($app) {
+      return clone $app['former.framework'];
+    });
   }
 
   /**
@@ -117,10 +112,10 @@ class Form extends FormerObject
    */
   public function openForm($type, $parameters)
   {
-    $action     = Arrays::get($parameters, 0);
-    $method     = Arrays::get($parameters, 1, 'POST');
-    $attributes = Arrays::get($parameters, 2, array());
-    $secure     = Arrays::get($parameters, 3, false);
+    $action     = array_get($parameters, 0);
+    $method     = array_get($parameters, 1, 'POST');
+    $attributes = array_get($parameters, 2, array());
+    $secure     = array_get($parameters, 3, false);
 
     // Fetch errors if asked for
     if ($this->app['former']->getOption('fetch_errors')) {
@@ -134,6 +129,7 @@ class Form extends FormerObject
     $this->secure     = $secure;
 
     // Add any effect of the form type
+    $type = Str::snake($type);
     $this->type = $this->applyType($type);
 
     // Add enctype
@@ -142,7 +138,9 @@ class Form extends FormerObject
     }
 
     // Add supplementary classes
-    $this->addClass($this->app['former.framework']->getFormClasses($this->type));
+    if ($this->type !== 'raw') {
+      $this->addClass($this->app['former.form.framework']->getFormClasses($this->type));
+    }
 
     return $this;
   }
@@ -338,13 +336,15 @@ class Form extends FormerObject
     }
 
     // Get string by name
-    if (!String::contains($name, '@')) {
-      $route = $this->app['router']->getRoutes()->get($name);
+    if (!Str::contains($name, '@')) {
+      $routes = $this->app['router']->getRoutes();
+      $route = method_exists($routes, 'getByName') ? $routes->getByName($name) : $routes->get($name);
 
     // Get string by uses
     } else {
       foreach ($this->app['router']->getRoutes() as $route) {
-        if ($action = $route->getOption('_uses')) {
+        $routeUses = method_exists($route, 'getOption') ? $route->getOption('_uses') : array_get($route->getAction(), 'controller');
+        if ($action = $routeUses) {
           if ($action == $name) {
             break;
           }
@@ -352,7 +352,11 @@ class Form extends FormerObject
       }
     }
 
-    return array_get($route->getMethods(), 0);
+    // Get method
+    $methods = method_exists($route, 'getMethods') ? $route->getMethods() : $route->methods();
+    $method  = array_get($methods, 0);
+
+    return $method;
   }
 
   /**
@@ -369,23 +373,30 @@ class Form extends FormerObject
     }
 
     // Look for HTTPS form
-    if (String::contains($type, 'secure')) {
-      $type = String::remove($type, 'secure');
+    if (Str::contains($type, 'secure')) {
+      $type = str_replace('secure', '', $type);
       $this->secure = true;
     }
 
     // Look for file form
-    if (String::contains($type, 'for_files')) {
-      $type = String::remove($type, 'for_files');
+    if (Str::contains($type, 'for_files')) {
+      $type = str_replace('for_files', '', $type);
       $this->attributes['enctype'] = 'multipart/form-data';
     }
 
     // Calculate form type
-    $type = String::remove($type, 'open');
+    $type = str_replace('open', '', $type);
     $type = trim($type, '_');
 
+    // If raw form
+    if ($type == 'raw') {
+      $this->app->bind('former.form.framework', function ($app) {
+        return $app['former']->getFrameworkInstance('Nude');
+      });
+    }
+
     // Use default form type if the one provided is invalid
-    if (!in_array($type, $this->framework->availableTypes())) {
+    if ($type !== 'raw' and !in_array($type, $this->app['former.form.framework']->availableTypes())) {
       $type = $this->app['former']->getOption('default_form_type');
     }
 

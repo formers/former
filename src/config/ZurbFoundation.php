@@ -1,23 +1,20 @@
-<?php
+<?php return array(
 
-return array(
+	// Zurb Foundation framework markup
+	////////////////////////////////////////////////////////////////////
 
 	// Map Former-supported viewports to Foundation 3 equivalents
 	'viewports' => array(
-
-		'large' => '',
+		'large'  => '',
 		'medium' => null,
-		'small' => 'mobile-',
-		'mini' => null,
-
+		'small'  => 'mobile-',
+		'mini'   => null,
 	),
 
 	// Width of labels for horizontal forms expressed as viewport => grid columns
 	'labelWidths' => array(
-
 		'large' => 2,
 		'small' => 4,
-
 	),
 
 	// Classes to be applied to wrapped labels in horizontal forms
@@ -25,11 +22,9 @@ return array(
 
 	// HTML markup and classes used by Foundation 3 for icons
 	'icon' => array(
-
 		'tag' => 'i',
 		'set' => null,
 		'prefix' => 'fi',
-
 	),
 
 );

@@ -6,8 +6,7 @@ use Former\Traits\Field;
 use Former\Traits\Framework;
 use HtmlObject\Element;
 use Illuminate\Container\Container;
-use Underscore\Methods\ArraysMethods as Arrays;
-use Underscore\Methods\StringMethods as String;
+use Illuminate\Support\Str;
 
 /**
  * The Twitter Bootstrap form framework
@@ -98,9 +97,9 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
     $classes = array_intersect($classes, $this->fields);
 
     // Prepend field type
-    $classes = Arrays::each($classes, function ($class) {
-      return String::startsWith($class, 'span') ? $class : 'input-'.$class;
-    });
+    $classes = array_map(function ($class) {
+      return Str::startsWith($class, 'span') ? $class : 'input-'.$class;
+    }, $classes);
 
     return $classes;
   }
@@ -254,20 +253,20 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
     // Check for empty icons
     if (!$iconType) return false;
 
-    //Create tag
-    $tag = isset($iconSettings['tag']) ? $iconSettings['tag'] : $this->iconTag;
+    // Create tag
+    $tag  = array_get($iconSettings, 'tag', $this->iconTag);
     $icon = Element::create($tag, null, $attributes);
 
     // White icons ignore user overrides to use legacy Bootstrap styling
-    if (String::contains($iconType, 'white')) {
-      $iconType = String::remove($iconType, 'white');
+    if (Str::contains($iconType, 'white')) {
+      $iconType = str_replace('white', '', $iconType);
       $iconType = trim($iconType, '-');
       $icon->addClass('icon-white');
-      $set = null;
+      $set    = null;
       $prefix = 'icon';
     } else {
-      $set = isset($iconSettings['set']) ? $iconSettings['set'] : $this->iconSet;
-      $prefix = isset($iconSettings['prefix']) ? $iconSettings['prefix'] : $this->iconPrefix;
+      $set    = array_get($iconSettings, 'set', $this->iconSet);
+      $prefix = array_get($iconSettings, 'prefix', $this->iconPrefix);
     }
     $icon->addClass("$set $prefix-$iconType");
 
@@ -303,7 +302,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
   {
     $class = array();
     if ($prepend) $class[] = 'input-prepend';
-    if ($append) $class[] = 'input-append';
+    if ($append)  $class[] = 'input-append';
 
     $return = '<div class="'.join(' ', $class).'">';
       $return .= join(null, $prepend);

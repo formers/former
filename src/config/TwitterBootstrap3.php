@@ -1,6 +1,7 @@
-<?php
+<?php return array(
 
-return array(
+	// Twitter Bootstrap 3 framework markup
+	////////////////////////////////////////////////////////////////////
 
 	// Map Former-supported viewports to Bootstrap 3 equivalents
 	'viewports' => array(

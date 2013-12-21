@@ -8,7 +8,6 @@ use Former\Traits\Field;
  */
 class Textarea extends Field
 {
-
   /**
    * The textarea's element
    *
@@ -22,5 +21,4 @@ class Textarea extends Field
    * @var boolean
    */
   protected $isSelfClosing = false;
-
 }

@@ -157,7 +157,7 @@ class FormTest extends FormerTests
 
     // Check field
     $input = $this->former->text('foo')->__toString();
-    $label = $this->matchLabel('foo', 'foo', true);
+    $label = $this->matchLabel('Foo', 'foo', true);
 
     $this->assertHTML($this->matchField(array('required' => 'true')), $input);
     $this->assertHTML($label, $input);
@@ -259,5 +259,58 @@ class FormTest extends FormerTests
     $matcher = $this->matchForm('horizontal', false, '/users/2/edit');
     $this->assertHTML($matcher, $form);
     $this->assertHTML($matcher, $formSingle);
+  }
+
+  public function testFormCanHaveDifferentFrameworkFromMain()
+  {
+    $form = $this->former->raw_open();
+
+    $this->assertEquals('TwitterBootstrap', $this->app['former.framework']->current());
+    $this->assertEquals('Nude', $this->app['former.form.framework']->current());
+
+    $this->former->framework('Nude');
+    $this->assertEquals('Nude', $this->app['former.framework']->current());
+    $this->assertEquals('Nude', $this->app['former.form.framework']->current());
+
+    $this->former->framework('TwitterBootstrap');
+    $this->assertEquals('TwitterBootstrap', $this->app['former.framework']->current());
+    $this->assertEquals('Nude', $this->app['former.form.framework']->current());
+  }
+
+  public function testCanOpenRawForm()
+  {
+    $this->former->framework('TwitterBootstrap3');
+
+    $form  = $this->former->raw_open();
+    $form .= $this->former->text('foo');
+    $form .= $this->former->actions()->large_submit('Submit');
+    $form .= $this->former->close();
+
+    $matcher =
+      '<form accept-charset="utf-8" method="POST">'.
+      '<input id="foo" type="text" name="foo">'.
+      '<div><input class="large" type="submit" value="Submit"></div>'.
+      '<input type="hidden" name="_token" value="csrf_token">'.
+      '</form>';
+
+    $this->assertEquals($matcher, $form);
+  }
+
+  public function testCanOpenFormWithCamelCase()
+  {
+    $open = $this->former->verticalOpen('#')->__toString();
+    $matcher = $this->matchForm('vertical');
+
+    $this->assertHTML($matcher, $open);
+  }
+
+  public function testClosingFormRemovesFrameworkInstance()
+  {
+    $form = $this->former->raw_open();
+    $this->assertEquals('TwitterBootstrap', $this->app['former.framework']->current());
+    $this->assertEquals('Nude', $this->app['former.form.framework']->current());
+    $this->former->close();
+
+    $this->assertFalse($this->app->bound('former.form.framework'));
   }
 }

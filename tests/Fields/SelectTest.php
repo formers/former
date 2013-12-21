@@ -339,11 +339,35 @@ class SelectTest extends FormerTests
   {
     $options = array('foo', 'bar');
     $select = $this->former->select('foo')->options($options, 0)->render();
-    $select2 = $this->former->select('foo')->options($options)->select(0)->render();
+    $select2 = $this->former->select('bar')->options($options)->select(0)->render();
 
-    $matcher = '<select id="foo" name="foo"><option value="0" selected="selected">foo</option><option value="1">bar</option></select>';
+    $matcher = '<option value="0" selected="selected">foo</option><option value="1">bar</option>';
 
-    $this->assertEquals($select2, $select);
-    $this->assertEquals($matcher, $select);
+    $this->assertContains($matcher, $select2);
+    $this->assertContains($matcher, $select);
+  }
+
+  public function testCanRepopulateArrayNotation()
+  {
+    $options = array('foo', 'bar');
+    $this->request->shouldReceive('get')->with('_token', '', true)->andReturn('foobar');
+    $this->request->shouldReceive('get')->with('foo', '', true)->andReturn(array(0, 1));
+
+    $select  = $this->former->select('foo[]')->options($options);
+    $matcher = '<select id="foo[]" name="foo[]"><option value="0" selected="selected">foo</option><option value="1" selected="selected">bar</option></select>';
+
+    $this->assertEquals($matcher, $select->render());
+  }
+
+  public function testMultiselectRepopulationDoesntCreateOptions()
+  {
+    $options = array(1 => 'foo', 2 => 'bar');
+    $this->request->shouldReceive('get')->with('_token', '', true)->andReturn('foobar');
+    $this->request->shouldReceive('get')->with('foo', '', true)->andReturn(array(1));
+
+    $select  = $this->former->multiselect('foo')->options($options);
+    $matcher = '<select id="foo" multiple="true" name="foo[]"><option value="1" selected="selected">foo</option><option value="2">bar</option></select>';
+
+    $this->assertEquals($matcher, $select->render());
   }
 }

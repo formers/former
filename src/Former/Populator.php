@@ -36,7 +36,7 @@ class Populator extends Collection
   public function get($field, $fallback = null)
   {
     // Plain array
-    if (is_array($this->items)) {
+    if (is_array($this->items) and !str_contains($field, '[')) {
       return parent::get($field, $fallback);
     }
 

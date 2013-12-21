@@ -43,8 +43,34 @@ abstract class FormerObject extends Element
   {
     if (!array_key_exists('id', $this->attributes) and
       in_array($this->name, $this->app['former']->labels)) {
-        $this->attributes['id'] = $this->name;
+        // Set and save the field's ID
+        $id = $this->getUniqueId($this->name);
+        $this->attributes['id']     = $id;
+        $this->app['former']->ids[] = $id;
     }
+  }
+
+  /**
+   * Get an unique ID for a field from its name
+   *
+   * @param string $name
+   *
+   * @return string
+   */
+  protected function getUniqueId($name)
+  {
+    $existing = $this->app['former']->ids;
+    if (!in_array($name, $existing)) {
+      return $name;
+    }
+
+    // Get the number of existing occurences
+    $existing = array_filter($existing, function ($value) use ($name) {
+      return $value == $name;
+    });
+    $existing = sizeof($existing) + 1;
+
+    return $name.'-'.$existing;
   }
 
   /**

@@ -3,7 +3,7 @@ namespace Former;
 
 use Closure;
 use Illuminate\Container\Container;
-use Underscore\Methods\StringMethods as String;
+use Illuminate\Support\Str;
 
 /**
  * Dispatch calls from Former to the different
@@ -89,7 +89,7 @@ class MethodDispatcher
   public function toForm($method, $parameters)
   {
     // Disregards if the method doesn't contain 'open'
-    if (!String::contains($method, 'open')) {
+    if (!Str::contains($method, 'open') and !Str::contains($method, 'Open')) {
       return false;
     }
 
@@ -183,7 +183,7 @@ class MethodDispatcher
   protected static function getClassFromMethod($method)
   {
     // If the field's name directly match a class, call it
-    $class = String::singular(String::title($method));
+    $class = Str::singular(Str::title($method));
     if (class_exists(Former::FIELDSPACE.$class)) {
       return $class;
     }

@@ -3,7 +3,6 @@ namespace Former\Traits;
 
 use Former\Traits\Field;
 use HtmlObject\Element;
-use Underscore\Methods\ArraysMethods as Arrays;
 
 /**
  * Base helpers and common methods to all frameworks
@@ -157,15 +156,15 @@ abstract class Framework
     $this->setIconDefaults();
   }
 
-  protected function setFieldWidths ($widths) {}
+  protected function setFieldWidths($widths) {}
 
   /**
    * Override framework defaults for icons with config values where set
    */
   protected function setIconDefaults()
   {
-    $this->iconTag = $this->getFrameworkOption('icon.tag');
-    $this->iconSet = $this->getFrameworkOption('icon.set');
+    $this->iconTag    = $this->getFrameworkOption('icon.tag');
+    $this->iconSet    = $this->getFrameworkOption('icon.set');
     $this->iconPrefix = $this->getFrameworkOption('icon.prefix');
   }
 
@@ -181,12 +180,14 @@ abstract class Framework
   public function createIcon($iconType, $attributes = array(), $iconSettings = array())
   {
     // Check for empty icons
-    if (!$iconType) return false;
+    if (!$iconType) {
+      return false;
+    }
 
     // icon settings can be overridden for a specific icon
-    $tag = isset($iconSettings['tag']) ? $iconSettings['tag'] : $this->iconTag;  
-    $set = isset($iconSettings['set']) ? $iconSettings['set'] : $this->iconSet;  
-    $prefix = isset($iconSettings['prefix']) ? $iconSettings['prefix'] : $this->iconPrefix;  
+    $tag    = array_get($iconSettings, 'tag', $this->iconTag);
+    $set    = array_get($iconSettings, 'set', $this->iconSet);
+    $prefix = array_get($iconSettings, 'prefix', $this->iconPrefix);
 
     return Element::create($tag, null, $attributes)->addClass("$set $prefix-$iconType");
   }
@@ -205,9 +206,9 @@ abstract class Framework
    */
   protected function prependWith($classes, $with)
   {
-    return Arrays::each($classes, function ($class) use ($with) {
+    return array_map(function ($class) use ($with) {
       return $with.$class;
-    });
+    }, $classes);
   }
 
   /**

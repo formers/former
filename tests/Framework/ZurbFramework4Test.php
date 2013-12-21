@@ -7,6 +7,7 @@ class ZurbFramework4Test extends FormerTests
     parent::setUp();
 
     $this->former->framework('ZurbFoundation4');
+    $this->former->horizontal_open()->__toString();
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -73,7 +74,7 @@ class ZurbFramework4Test extends FormerTests
 
   public function testCanAppendIcon()
   {
-    $this->former->vertical_open();    
+    $this->former->vertical_open();
     $input = $this->former->text('foo')->appendIcon('ok')->__toString();
     $match = '<div>'.
                '<label for="foo">Foo</label>'.

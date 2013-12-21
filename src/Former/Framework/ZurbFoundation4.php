@@ -254,7 +254,7 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
     } else {
       return $field;
     }
-  }  
+  }
 
   /**
    * Wrap actions block with potential additional tags

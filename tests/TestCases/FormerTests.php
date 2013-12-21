@@ -1,20 +1,11 @@
 <?php
-ini_set('memory_limit', '350M');
+ini_set('memory_limit', '400M');
 date_default_timezone_set('UTC');
-
-// Load the Illuminate Container
-include __DIR__.'/../vendor/autoload.php';
-include '_illuminate.php';
-
-// Dummies
-include 'Dummy/DummyButton.php';
-include 'Dummy/DummyEloquent.php';
-include 'Dummy/DummyMacros.php';
 
 /**
  * Base testing class
  */
-abstract class FormerTests extends IlluminateMock
+abstract class FormerTests extends ContainerTestCase
 {
   /**
    * Setup the app for testing
@@ -25,8 +16,8 @@ abstract class FormerTests extends IlluminateMock
 
     // Reset some parameters
     $this->resetLabels();
-    $this->former->horizontal_open()->__toString();
     $this->former->framework('TwitterBootstrap');
+    $this->former->horizontal_open()->__toString();
   }
 
   /**
@@ -49,6 +40,7 @@ abstract class FormerTests extends IlluminateMock
   public function resetLabels()
   {
     $this->former->labels = array();
+    $this->former->ids    = array();
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -58,14 +50,14 @@ abstract class FormerTests extends IlluminateMock
   protected $checkables = array(
     'Foo' => array(
       'data-foo' => 'bar',
-      'value' => 'bar',
-      'name' => 'foo',
+      'value'    => 'bar',
+      'name'     => 'foo',
     ),
     'Bar' => array(
       'data-foo' => 'bar',
-      'value' => 'bar',
-      'name' => 'foo',
-      'id' => 'bar',
+      'value'    => 'bar',
+      'name'     => 'foo',
+      'id'       => 'bar',
     ),
   );
 
@@ -112,13 +104,13 @@ abstract class FormerTests extends IlluminateMock
    */
   protected function matchLabel($name = 'foo', $field = 'foo', $required = false)
   {
-    $text = str_replace('[]', null, ucfirst($name));
+    $text = str_replace('[]', null, $name);
     if ($required) {
       $text .= '*';
     }
 
     return array(
-      'tag' => 'label',
+      'tag'     => 'label',
       'content' => $text,
       'attributes' => array(
         'for'   => $field,
@@ -250,7 +242,7 @@ abstract class FormerTests extends IlluminateMock
    */
   protected function assertLabel($input, $name = 'foo', $required = false)
   {
-    $this->assertHTML($this->matchLabel($name, $name, $required), $input);
+    $this->assertHTML($this->matchLabel(ucfirst($name), $name, $required), $input);
   }
 
   /**

@@ -109,7 +109,7 @@ class LiveValidationTest extends FormerTests
     $this->former->withRules(array('foo' => 'required'));
 
     $input = $this->former->text('foo')->__toString();
-    $label = $this->matchLabel('foo', 'foo', true);
+    $label = $this->matchLabel('Foo', 'foo', true);
     unset($label['attributes']['class']);
 
     $this->assertHTML($this->matchField(array('required' => 'true')), $input);
@@ -122,7 +122,7 @@ class LiveValidationTest extends FormerTests
     $this->former->withRules(array('foo' => array('required')));
 
     $input = $this->former->text('foo')->__toString();
-    $label = $this->matchLabel('foo', 'foo', true);
+    $label = $this->matchLabel('Foo', 'foo', true);
     unset($label['attributes']['class']);
 
     $this->assertHTML($this->matchField(array('required' => 'true')), $input);
@@ -455,7 +455,7 @@ class LiveValidationTest extends FormerTests
   public function testCanDisableLiveValidation()
   {
     // Change config
-    $this->config = $this->mockConfig(false);
+    $this->mockConfig(array('live_validation' => false));
     $this->former->withRules(array('foo' => 'required'));
 
     $input = $this->former->text('foo')->__toString();
@@ -468,7 +468,7 @@ class LiveValidationTest extends FormerTests
   public function testCanDisableLiveValidationAsArray()
   {
     // Change config
-    $this->config = $this->mockConfig(false);
+    $this->mockConfig(array('live_validation' => false));
     $this->former->withRules(array('foo' => array('required')));
 
     $input = $this->former->text('foo')->__toString();

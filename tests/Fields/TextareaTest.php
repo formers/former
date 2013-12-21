@@ -31,6 +31,15 @@ class TextareaTest extends FormerTests
   //////////////////////////////// TESTS /////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
+  public function testCanCreateArrayFields()
+  {
+    $this->former->populate(array('foo' => array('fr' => 'bar')));
+    $textarea = $this->former->textarea('foo[fr]')->__toString();
+    $matcher = '<div class="control-group"><label for="foo[fr]" class="control-label">Foo[fr]</label><div class="controls"><textarea id="foo[fr]" name="foo[fr]">bar</textarea></div></div>';
+
+    $this->assertEquals($matcher, $textarea);
+  }
+
   public function testCanCreateTextareas()
   {
     $attributes = $this->matchTextarea();
@@ -56,5 +65,4 @@ class TextareaTest extends FormerTests
     $this->assertControlGroup($textarea);
     $this->assertHTML($matcher, $textarea);
   }
-
 }

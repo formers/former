@@ -58,7 +58,7 @@ class Helpers
 
     // If no fallback, use the key
     if (!$fallback) {
-      $fallback = str_replace('_', ' ', $key);
+      $fallback = $key;
     }
 
     // Assure we don't already have a Lang object
@@ -68,7 +68,9 @@ class Helpers
 
     $translation   = null;
     $translateFrom = static::$app['former']->getOption('translate_from');
-    if (substr($translateFrom, -1) !== '/') $translateFrom .= '.';
+    if (substr($translateFrom, -1) !== '/') {
+      $translateFrom .= '.';
+    }
     $translateFrom .= $key;
 
     // Search for the key itself
@@ -83,7 +85,10 @@ class Helpers
       $translation = $fallback;
     }
 
-    return ucfirst($translation);
+    // Capitalize
+    $capitalize = static::$app['former']->getOption('capitalize_translations');
+
+    return $capitalize ? ucfirst($translation) : $translation;
   }
 
   ////////////////////////////////////////////////////////////////////
