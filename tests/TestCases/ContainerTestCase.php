@@ -167,9 +167,11 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
    */
   protected function mockUrl()
   {
-    $this->mock('url', 'Illuminate\Routing\UrlGenerator', function ($mock) {
+    $request = $this->mockRequest();
+
+    $this->mock('url', 'Illuminate\Routing\UrlGenerator', function ($mock) use ($request) {
       return $mock
-        ->shouldReceive('getRequest')->andReturn($this->mockRequest())
+        ->shouldReceive('getRequest')->andReturn($request)
         ->shouldReceive('to')->andReturnUsing(function ($url) {
           return $url == '#' ? $url : 'https://test/en/'.$url;
         })
