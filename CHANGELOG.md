@@ -5,8 +5,10 @@
 
 - [add] Added `Former::rawOpen` to open a temporary no-framework/no-label form
 - [add] Added support for camelCase form openers (ie. `verticalOpen` and `vertical_open`)
+- [add] Added possibility to disable automatic capitalization of translations
 - [fix] Fixed a bug where two fields with the same name would get the same ID
 - [fix] Various bugfixes related to repopulation
+- [fix] Fix various memory and 4.1 compatibility issues
 
 3.3.0 (stable)
 -----

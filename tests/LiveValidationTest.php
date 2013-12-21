@@ -109,7 +109,7 @@ class LiveValidationTest extends FormerTests
     $this->former->withRules(array('foo' => 'required'));
 
     $input = $this->former->text('foo')->__toString();
-    $label = $this->matchLabel('foo', 'foo', true);
+    $label = $this->matchLabel('Foo', 'foo', true);
     unset($label['attributes']['class']);
 
     $this->assertHTML($this->matchField(array('required' => 'true')), $input);
@@ -122,7 +122,7 @@ class LiveValidationTest extends FormerTests
     $this->former->withRules(array('foo' => array('required')));
 
     $input = $this->former->text('foo')->__toString();
-    $label = $this->matchLabel('foo', 'foo', true);
+    $label = $this->matchLabel('Foo', 'foo', true);
     unset($label['attributes']['class']);
 
     $this->assertHTML($this->matchField(array('required' => 'true')), $input);

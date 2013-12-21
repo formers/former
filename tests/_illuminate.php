@@ -93,6 +93,7 @@ abstract class IlluminateMock extends PHPUnit_Framework_TestCase
     $config->shouldReceive('get')->with('former::required_text',  Mockery::any())->andReturn('*');
 
     // Variable configuration keys
+    $config->shouldReceive('get')->with('former::capitalize_translations', Mockery::any())->andReturn(true);
     $config->shouldReceive('get')->with('former::live_validation', Mockery::any())->andReturn($live);
     $config->shouldReceive('get')->with('former::unchecked_value', Mockery::any())->andReturn($unchecked);
     $config->shouldReceive('get')->with('former::push_checkboxes', Mockery::any())->andReturn($push);
@@ -128,7 +129,7 @@ abstract class IlluminateMock extends PHPUnit_Framework_TestCase
     $config->shouldReceive('get')->with('former::TwitterBootstrap.icon.tag')->andReturn('i');
     $config->shouldReceive('get')->with('former::TwitterBootstrap.icon.set')->andReturn(null);
     $config->shouldReceive('get')->with('former::TwitterBootstrap.icon.prefix')->andReturn('icon');
-  
+
     $config->shouldReceive('get')->with('former::TwitterBootstrap3.viewports')->andReturn(array('large'=>'lg','medium'=>'md','small'=>'sm','mini'=>'xs'));
     $config->shouldReceive('get')->with('former::TwitterBootstrap3.labelWidths')->andReturn(array('large'=>2,'small'=>4));
     $config->shouldReceive('get')->with('former::TwitterBootstrap3.icon.tag')->andReturn('span');

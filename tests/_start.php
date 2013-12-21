@@ -59,14 +59,14 @@ abstract class FormerTests extends IlluminateMock
   protected $checkables = array(
     'Foo' => array(
       'data-foo' => 'bar',
-      'value' => 'bar',
-      'name' => 'foo',
+      'value'    => 'bar',
+      'name'     => 'foo',
     ),
     'Bar' => array(
       'data-foo' => 'bar',
-      'value' => 'bar',
-      'name' => 'foo',
-      'id' => 'bar',
+      'value'    => 'bar',
+      'name'     => 'foo',
+      'id'       => 'bar',
     ),
   );
 
@@ -113,13 +113,13 @@ abstract class FormerTests extends IlluminateMock
    */
   protected function matchLabel($name = 'foo', $field = 'foo', $required = false)
   {
-    $text = str_replace('[]', null, ucfirst($name));
+    $text = str_replace('[]', null, $name);
     if ($required) {
       $text .= '*';
     }
 
     return array(
-      'tag' => 'label',
+      'tag'     => 'label',
       'content' => $text,
       'attributes' => array(
         'for'   => $field,
@@ -251,7 +251,7 @@ abstract class FormerTests extends IlluminateMock
    */
   protected function assertLabel($input, $name = 'foo', $required = false)
   {
-    $this->assertHTML($this->matchLabel($name, $name, $required), $input);
+    $this->assertHTML($this->matchLabel(ucfirst($name), $name, $required), $input);
   }
 
   /**

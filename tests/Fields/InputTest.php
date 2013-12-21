@@ -54,7 +54,7 @@ class InputTest extends FormerTests
     $this->former->framework('Nude');
 
     $input = $this->former->text('foo')->data('foo')->class('bar')->__toString();
-    $label = Arrays::remove($this->matchLabel(), 'attributes.class');
+    $label = Arrays::remove($this->matchLabel('Foo'), 'attributes.class');
 
     $this->assertHTML($label, $input);
     $this->assertHTML($this->matchField(), $input);

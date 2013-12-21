@@ -157,7 +157,7 @@ class FormTest extends FormerTests
 
     // Check field
     $input = $this->former->text('foo')->__toString();
-    $label = $this->matchLabel('foo', 'foo', true);
+    $label = $this->matchLabel('Foo', 'foo', true);
 
     $this->assertHTML($this->matchField(array('required' => 'true')), $input);
     $this->assertHTML($label, $input);
