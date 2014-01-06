@@ -84,11 +84,11 @@ abstract class Field extends FormerObject implements FieldInterface
   public function __construct(Container $app, $type, $name, $label, $value, $attributes)
   {
     // Set base parameters
-    $this->app        = $app;
-    $this->attributes = (array) $attributes;
-    $this->type       = $type;
-    $this->value      = $value;
-    $this->form       = $this->app->bound('former.form') ? $this->app['former.form'] : null;
+    $this->app   = $app;
+    $this->type  = $type;
+    $this->value = $value;
+    $this->setAttributes($attributes);
+    $this->form  = $this->app->bound('former.form') ? $this->app['former.form'] : null;
 
     // Compute and translate label
     $this->automaticLabels($name, $label);

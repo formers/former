@@ -19,13 +19,21 @@ class MethodDispatcher
   protected $app;
 
   /**
+   * Where fields classes are stored
+   *
+   * @var string
+   */
+  protected $fields;
+
+  /**
    * Build a new Dispatcher
    *
    * @param Container $app
    */
-  public function __construct(Container $app)
+  public function __construct(Container $app, $fields)
   {
-    $this->app = $app;
+    $this->app    = $app;
+    $this->fields = $fields;
   }
 
   /**
@@ -154,7 +162,7 @@ class MethodDispatcher
   public function toFields($method, $parameters)
   {
     // Listing parameters
-    $class = Former::FIELDSPACE.static::getClassFromMethod($method);
+    $class = $this->fields.$this->getClassFromMethod($method);
     $field = new $class(
       $this->app,
       $method,
@@ -180,11 +188,11 @@ class MethodDispatcher
    *
    * @return string The correct class
    */
-  protected static function getClassFromMethod($method)
+  protected function getClassFromMethod($method)
   {
     // If the field's name directly match a class, call it
     $class = Str::singular(Str::title($method));
-    if (class_exists(Former::FIELDSPACE.$class)) {
+    if (class_exists($this->fields.$class)) {
       return $class;
     }
 
