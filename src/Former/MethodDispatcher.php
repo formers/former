@@ -19,22 +19,42 @@ class MethodDispatcher
   protected $app;
 
   /**
-   * Where fields classes are stored
+   * An array of fields repositories
    *
-   * @var string
+   * @var array
    */
-  protected $fields;
+  protected $repositories = array();
 
   /**
    * Build a new Dispatcher
    *
    * @param Container $app
    */
-  public function __construct(Container $app, $fields)
+  public function __construct(Container $app, $repositories)
   {
-    $this->app    = $app;
-    $this->fields = $fields;
+    $this->app          = $app;
+    $this->repositories = (array) $repositories;
   }
+
+  ////////////////////////////////////////////////////////////////////
+  ///////////////////////////// REPOSITORIES /////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Add a fields repository
+   *
+   * @param string $repository
+   */
+  public function addRepository($repository)
+  {
+    array_unshift($repository, $this->repositories);
+
+    return $this;
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  ///////////////////////////// DISPATCHERS //////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Dispatch a call to a registered macro
@@ -162,7 +182,7 @@ class MethodDispatcher
   public function toFields($method, $parameters)
   {
     // Listing parameters
-    $class = $this->fields.$this->getClassFromMethod($method);
+    $class = $this->getClassFromMethod($method);
     $field = new $class(
       $this->app,
       $method,
@@ -192,8 +212,10 @@ class MethodDispatcher
   {
     // If the field's name directly match a class, call it
     $class = Str::singular(Str::title($method));
-    if (class_exists($this->fields.$class)) {
-      return $class;
+    foreach ($this->repositories as $repository) {
+      if (class_exists($repository.$class)) {
+        return $repository.$class;
+      }
     }
 
     // Else convert known fields to their classes
@@ -201,13 +223,18 @@ class MethodDispatcher
       case 'submit':
       case 'link':
       case 'reset':
-        return 'Button';
+        $class = 'Button';
+        break;
 
       case 'multiselect':
-        return 'Select';
+        $class = 'Select';
+        break;
 
       default:
-        return 'Input';
+        $class = 'Input';
+        break;
     }
+
+    return $this->repositories[0].$class;
   }
 }
