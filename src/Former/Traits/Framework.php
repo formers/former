@@ -197,6 +197,22 @@ abstract class Framework
   ////////////////////////////////////////////////////////////////////
 
   /**
+   * Add classes to a field
+   *
+   * @param Field $field
+   * @param array $classes
+   */
+  protected function addClassesToField($field, $classes)
+  {
+    // If we found any class, add them
+    if ($classes) {
+      $field->addClass(implode(' ', $classes));
+    }
+
+    return $field;
+  }
+
+  /**
    * Prepend an array of classes with a string
    *
    * @param array  $classes The classes to prepend
@@ -249,6 +265,13 @@ abstract class Framework
     return $label;
   }
 
+  /**
+   * Get an option for the current framework
+   *
+   * @param string $option
+   *
+   * @return string
+   */
   protected function getFrameworkOption($option)
   {
     return $this->app['config']->get("former::{$this->current()}.$option");
@@ -269,5 +292,4 @@ abstract class Framework
   {
     return $label;
   }
-
 }
