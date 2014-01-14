@@ -146,7 +146,11 @@ class Populator extends Collection
       return $model->getAttribute($attribute);
     }
 
-    $model = (array) $model;
+    if (method_exists($model, 'toArray')) {
+      $model = $model->toArray();
+    } else {
+      $model = (array) $model;
+    }
     if (array_key_exists($attribute, $model)) {
       return $model[$attribute];
     }

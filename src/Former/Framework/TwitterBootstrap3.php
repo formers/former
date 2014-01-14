@@ -202,12 +202,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
       $classes[] = 'form-control';
     }
 
-    // If we found any class, add them
-    if ($classes) {
-      $field->class(implode(' ', $classes));
-    }
-
-    return $field;
+    return $this->addClassesToField($field, $classes);
   }
 
   /**

@@ -96,4 +96,14 @@ class PopulatorTest extends FormerTests
 
     $this->assertEquals('two', $populator->get('foo[1]'));
   }
+
+  public function testCanCastModelToArray()
+  {
+    $model = new DummyToArray(array(
+      'user' => new DummyToArray(array('name' => 'foo'))
+    ));
+    $populator = new Populator($model);
+
+    $this->assertEquals('foo', $populator->get('user.name'));
+  }
 }

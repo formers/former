@@ -16,7 +16,7 @@
     }
   ],
   "require": {
-    "anahkiasen/html-object": "dev-master",
+    "anahkiasen/html-object": "~1.2.0",
     "illuminate/config": "~4",
     "illuminate/container": "~4",
     "illuminate/http": "~4",

@@ -4,6 +4,7 @@ namespace Former;
 use Closure;
 use Illuminate\Container\Container;
 use Illuminate\Validation\Validator;
+use Illuminate\Support\MessageBag;
 
 /**
  * Helps the user interact with the various Former components
@@ -260,6 +261,9 @@ class Former
     // If we're given a raw Validator, go fetch the errors in it
     if ($validator instanceof Validator) {
       $this->errors = $validator->getMessageBag();
+
+    } else if ($validator instanceof MessagBag) {
+      $this->errors = $validator;
     }
 
     return $this->errors;

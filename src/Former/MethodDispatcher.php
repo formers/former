@@ -19,14 +19,42 @@ class MethodDispatcher
   protected $app;
 
   /**
+   * An array of fields repositories
+   *
+   * @var array
+   */
+  protected $repositories = array();
+
+  /**
    * Build a new Dispatcher
    *
    * @param Container $app
    */
-  public function __construct(Container $app)
+  public function __construct(Container $app, $repositories)
   {
-    $this->app = $app;
+    $this->app          = $app;
+    $this->repositories = (array) $repositories;
   }
+
+  ////////////////////////////////////////////////////////////////////
+  ///////////////////////////// REPOSITORIES /////////////////////////
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+   * Add a fields repository
+   *
+   * @param string $repository
+   */
+  public function addRepository($repository)
+  {
+    array_unshift($repository, $this->repositories);
+
+    return $this;
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  ///////////////////////////// DISPATCHERS //////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   /**
    * Dispatch a call to a registered macro
@@ -154,7 +182,7 @@ class MethodDispatcher
   public function toFields($method, $parameters)
   {
     // Listing parameters
-    $class = Former::FIELDSPACE.static::getClassFromMethod($method);
+    $class = $this->getClassFromMethod($method);
     $field = new $class(
       $this->app,
       $method,
@@ -180,12 +208,14 @@ class MethodDispatcher
    *
    * @return string The correct class
    */
-  protected static function getClassFromMethod($method)
+  protected function getClassFromMethod($method)
   {
     // If the field's name directly match a class, call it
     $class = Str::singular(Str::title($method));
-    if (class_exists(Former::FIELDSPACE.$class)) {
-      return $class;
+    foreach ($this->repositories as $repository) {
+      if (class_exists($repository.$class)) {
+        return $repository.$class;
+      }
     }
 
     // Else convert known fields to their classes
@@ -193,13 +223,18 @@ class MethodDispatcher
       case 'submit':
       case 'link':
       case 'reset':
-        return 'Button';
+        $class = 'Button';
+        break;
 
       case 'multiselect':
-        return 'Select';
+        $class = 'Select';
+        break;
 
       default:
-        return 'Input';
+        $class = 'Input';
+        break;
     }
+
+    return $this->repositories[0].$class;
   }
 }
