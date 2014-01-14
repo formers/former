@@ -1,7 +1,16 @@
 ## CHANGELOG
 
-3.4.0 (develop)
-------
+3.4.1
+-----
+
+- [add] Added support for passing MessageBag instances to `withErrors`
+- [mod] MethodDispatcher can now look for field classes in multiple namespaces
+- [mod] Use objects' `toArray` instead of array casting when possible
+- [fix] Fix framework classes overwriting classes predefined on Field classes
+- [fix] Fix stability problems that prevented Former form being installed
+
+3.4.0
+-----
 
 - [add] Added `Former::rawOpen` to open a temporary no-framework/no-label form
 - [add] Added support for camelCase form openers (ie. `verticalOpen` and `vertical_open`)
@@ -10,7 +19,7 @@
 - [fix] Various bugfixes related to repopulation
 - [fix] Fix various memory and 4.1 compatibility issues
 
-3.3.0 (stable)
+3.3.0
 -----
 
 - [add] Add ability to pass attributes to a select's options
