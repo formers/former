@@ -148,6 +148,25 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   }
 
   /**
+   * Returns corresponding inline class of a field
+   *
+   * @param Field $field
+   *
+   * @return string
+   */
+  public function getInlineLabelClass($field)
+  {
+    $inlineClass = 'inline';
+    if ($field->isOfType('checkbox', 'checkboxes')) {
+      $inlineClass = 'checkbox-'.$inlineClass;
+    } elseif ($field->isOfType('radio', 'radios')) {
+      $inlineClass = 'radio-'.$inlineClass;
+    }
+
+    return $inlineClass;
+  }
+
+  /**
    * Set the fields width from a label width
    *
    * @param array $labelWidths
@@ -185,7 +204,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   public function getFieldClasses(Field $field, $classes)
   {
     // Add inline class for checkables
-    if ($field->isCheckable() and count(array_intersect(array('inline', 'checkbox-inline', 'radio-inline'), $classes)) > 0) {
+    if ($field->isCheckable() and in_array('inline', $classes)) {
       $field->inline();
     }
 
