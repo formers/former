@@ -37,6 +37,18 @@ abstract class FormerObject extends Element
   ////////////////////////////////////////////////////////////////////
 
   /**
+   * Create an unique ID and return it
+   *
+   * @return string
+   */
+  public function getId()
+  {
+    $this->setId();
+
+    return $this->id;
+  }
+
+  /**
    * Set the matching ID on a field if possible
    */
   protected function setId()
