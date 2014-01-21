@@ -309,7 +309,18 @@ abstract class Checkable extends Field
     }
 
     // If inline items, add class
-    $isInline = $this->inline ? ' inline' : null;
+    $isInline = null;
+    if ($this->inline) {
+      $inlineClass = 'inline';
+      if ($this->app['former.framework']->current() === 'TwitterBootstrap3') {
+        if ($this->isOfType('checkbox', 'checkboxes')) {
+          $inlineClass = 'checkbox-'.$inlineClass;
+        } elseif ($this->isOfType('radio', 'radios')) {
+          $inlineClass = 'radio-'.$inlineClass;
+        }
+      }
+      $isInline =  ' '.$inlineClass;
+    }
 
     // Merge custom attributes with global attributes
     $attributes = array_merge($this->attributes, $attributes);

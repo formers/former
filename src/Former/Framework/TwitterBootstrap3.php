@@ -185,7 +185,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   public function getFieldClasses(Field $field, $classes)
   {
     // Add inline class for checkables
-    if ($field->isCheckable() and in_array('inline', $classes)) {
+    if ($field->isCheckable() and count(array_intersect(['inline', 'checkbox-inline', 'radio-inline'], $classes)) > 0) {
       $field->inline();
     }
 
