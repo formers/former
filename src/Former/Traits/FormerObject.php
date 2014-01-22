@@ -41,11 +41,11 @@ abstract class FormerObject extends Element
    *
    * @return string
    */
-  public function getId()
+  public function getCreatedId()
   {
     $this->setId();
 
-    return $this->id;
+    return $this->attributes['id'];
   }
 
   /**
