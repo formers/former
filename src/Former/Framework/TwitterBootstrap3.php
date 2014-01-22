@@ -156,7 +156,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
    */
   public function getInlineLabelClass($field)
   {
-    $inlineClass = 'inline';
+    $inlineClass = parent::getInlineLabelClass($field);
     if ($field->isOfType('checkbox', 'checkboxes')) {
       $inlineClass = 'checkbox-'.$inlineClass;
     } elseif ($field->isOfType('radio', 'radios')) {
