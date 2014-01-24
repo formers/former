@@ -30,7 +30,9 @@ class CheckboxTest extends FormerTests
       'for'   => $name,
       'class' => 'checkbox',
     );
-    if ($inline) $labelAttr['class'] .= ' inline';
+    if ($inline) {
+      $labelAttr['class'] .= $this->former->framework() === 'TwitterBootstrap3' ? ' checkbox-inline' : ' inline';
+    }
     if (!$checked) unset($checkAttr['checked']);
 
     $radio = '<input'.$this->attributes($checkAttr).'>';
@@ -106,6 +108,19 @@ class CheckboxTest extends FormerTests
     $this->resetLabels();
     $checkboxes2 = $this->former->checkboxes('foo')->inline()->checkboxes('foo', 'bar')->__toString();
     $matcher = $this->controlGroup($this->matchCheckbox('foo_0', 'Foo', 1, true).$this->matchCheckbox('foo_1', 'Bar', 1, true));
+
+    $this->assertEquals($matcher, $checkboxes1);
+    $this->assertEquals($matcher, $checkboxes2);
+  }
+
+  public function testCanCreateInlineCheckboxesTwitterBootstrap3()
+  {
+    $this->former->framework('TwitterBootstrap3');
+
+    $checkboxes1 = $this->former->inline_checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
+    $this->resetLabels();
+    $checkboxes2 = $this->former->checkboxes('foo')->inline()->checkboxes('foo', 'bar')->__toString();
+    $matcher = $this->formGroup($this->matchCheckbox('foo_0', 'Foo', 1, true).$this->matchCheckbox('foo_1', 'Bar', 1, true));
 
     $this->assertEquals($matcher, $checkboxes1);
     $this->assertEquals($matcher, $checkboxes2);

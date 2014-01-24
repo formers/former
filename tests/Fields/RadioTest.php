@@ -30,7 +30,9 @@ class RadioTest extends FormerTests
       'for'   => $name,
       'class' => 'radio',
     );
-    if ($inline) $labelAttr['class'] .= ' inline';
+    if ($inline) {
+      $labelAttr['class'] .= $this->former->framework() === 'TwitterBootstrap3' ? ' radio-inline' : ' inline';
+    }
     if (!$checked) unset($radioAttr['checked']);
 
     $radio = '<input'.$this->attributes($radioAttr).'>';
@@ -96,6 +98,20 @@ class RadioTest extends FormerTests
     $radios2 = $this->former->radios('foo')->inline()->radios('foo', 'bar')->__toString();
 
     $matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0, true).$this->matchRadio('foo2', 'Bar', 1, true));
+
+    $this->assertEquals($matcher, $radios1);
+    $this->assertEquals($matcher, $radios2);
+  }
+
+  public function testInlineTwitterBootstrap3()
+  {
+    $this->former->framework('TwitterBootstrap3');
+
+    $radios1 = $this->former->inline_radios('foo')->radios('foo', 'bar')->__toString();
+    $this->resetLabels();
+    $radios2 = $this->former->radios('foo')->inline()->radios('foo', 'bar')->__toString();
+
+    $matcher = $this->formGroup($this->matchRadio('foo', 'Foo', 0, true).$this->matchRadio('foo2', 'Bar', 1, true));
 
     $this->assertEquals($matcher, $radios1);
     $this->assertEquals($matcher, $radios2);
