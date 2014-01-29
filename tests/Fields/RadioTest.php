@@ -207,7 +207,7 @@ class RadioTest extends FormerTests
 
   public function testRepopulateFromPost()
   {
-    $this->request->shouldReceive('get')->andReturn(0);
+    $this->request->shouldReceive('input')->andReturn(0);
 
     $radios = $this->former->radios('foo')->radios('foo', 'bar')->__toString();
     $matcher = $this->controlGroup($this->matchCheckedRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar', 1));
