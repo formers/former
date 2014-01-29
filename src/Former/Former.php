@@ -262,7 +262,7 @@ class Former
     if ($validator instanceof Validator) {
       $this->errors = $validator->getMessageBag();
 
-    } else if ($validator instanceof MessagBag) {
+    } else if ($validator instanceof MessageBag) {
       $this->errors = $validator;
     }
 
