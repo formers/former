@@ -120,11 +120,6 @@ class Select extends Field
       $parent = $this;
     }
 
-    // Look in direct childs
-    if ($child = $parent->getChild($value)) {
-      return $child->selected('selected');
-    }
-
     foreach ($parent->getChildren() as $child) {
       // Search by value
       if ($child->getAttribute('value') == $value) {

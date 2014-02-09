@@ -370,4 +370,22 @@ class SelectTest extends FormerTests
 
     $this->assertEquals($matcher, $select->render());
   }
+
+  public function testSelectCanPickRightOptionWithOptgroups()
+  {
+    $items = array(
+      'foo' => array(
+        1 => 'foo',
+      ),
+      'bar' => array(
+        3 => 'bar',
+        4 => 'baz',
+      ),
+    );
+
+    $select = $this->former->select('category_id')->options($items, 1);
+    $matcher = '<optgroup label="foo"><option value="1" selected="selected">foo</option></optgroup><optgroup label="bar"><option value="3">bar</option><option value="4">baz</option></optgroup>';
+
+    $this->assertContains($matcher, $select->render());
+  }
 }
