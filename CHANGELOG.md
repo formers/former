@@ -3,6 +3,8 @@
 ## 3.4.2
 
 - [add] Added the ability to specify multiple namespaces to look for fields in the MethodDispatcher
+- [mod] Appended buttons are now properly wrapped in input-group-btn in Bootstrap 3
+- [fix] Fixed a bug where wrong items would get selected in optgroups
 - [fix] Fixed some bug when fetching data from the request
 - [fix] Fixed spaces in validation rules causing errors
 
