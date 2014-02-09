@@ -281,6 +281,16 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
    */
   public function placeAround($item)
   {
+    // Render object
+    if (is_object($item) and method_exists($item, '__toString')) {
+      $item = $item->__toString();
+    }
+
+    // Return unwrapped if button
+    if (strpos($item, '<button') !== false) {
+      return $item;
+    }
+
     return Element::create('span', $item)->addClass('add-on');
   }
 

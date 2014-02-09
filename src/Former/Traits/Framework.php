@@ -147,6 +147,19 @@ abstract class Framework
     return 'error';
   }
 
+
+  /**
+   * Returns corresponding inline class of a field
+   *
+   * @param Field $field
+   *
+   * @return string
+   */
+  public function getInlineLabelClass($field)
+  {
+    return 'inline';
+  }
+
   /**
    * Set framework defaults from its config file
    */

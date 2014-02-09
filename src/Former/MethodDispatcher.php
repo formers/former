@@ -223,18 +223,18 @@ class MethodDispatcher
       case 'submit':
       case 'link':
       case 'reset':
-        $class = 'Button';
+        $class = Former::FIELDSPACE.'Button';
         break;
 
       case 'multiselect':
-        $class = 'Select';
+        $class = Former::FIELDSPACE.'Select';
         break;
 
       default:
-        $class = 'Input';
+        $class = Former::FIELDSPACE.'Input';
         break;
     }
 
-    return $this->repositories[0].$class;
+    return $class;
   }
 }

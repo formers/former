@@ -270,7 +270,7 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
     return $this->mock('request', 'Illuminate\Http\Request', function ($mock) {
       return $mock
         ->shouldReceive('url')->andReturn('#')
-        ->shouldReceive('get')->andReturn(null)->byDefault()
+        ->shouldReceive('input')->andReturn(null)->byDefault()
         ->shouldReceive('old')->andReturn(null)
         ->shouldReceive('path')->andReturnUsing(function () {
           return 'https://test/en/';

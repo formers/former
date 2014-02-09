@@ -309,7 +309,7 @@ abstract class Checkable extends Field
     }
 
     // If inline items, add class
-    $isInline = $this->inline ? ' inline' : null;
+    $isInline = $this->inline ? ' '.$this->app['former.framework']->getInlineLabelClass($this) : null;
 
     // Merge custom attributes with global attributes
     $attributes = array_merge($this->attributes, $attributes);

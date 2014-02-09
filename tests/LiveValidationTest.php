@@ -45,6 +45,14 @@ class LiveValidationTest extends FormerTests
     $this->assertHTML($this->matchField(), $input);
   }
 
+  public function testCanHaveSpacesInRulesForSomeReason()
+  {
+    $this->former->withRules(array('foo' => 'required | email'));
+    $input = $this->former->text('foo')->render();
+
+    $this->assertHTML($this->matchField(array('required' => true), 'email'), $input);
+  }
+
   public function testCanUseMultipleRulesArray()
   {
     $this->former->withRules(array('foo' => 'required'), array('bar' => 'email'));

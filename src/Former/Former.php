@@ -2,9 +2,10 @@
 namespace Former;
 
 use Closure;
+use Former\Traits\Field;
 use Illuminate\Container\Container;
-use Illuminate\Validation\Validator;
 use Illuminate\Support\MessageBag;
+use Illuminate\Validation\Validator;
 
 /**
  * Helps the user interact with the various Former components
@@ -139,7 +140,10 @@ class Former
     // Dispatch to the different Form\Fields
     $framework = isset($this->app['former.form.framework']) ? $this->app['former.form.framework'] : $this->app['former.framework'];
     $field     = $this->dispatch->toFields($method, $parameters);
-    $field     = $framework->getFieldClasses($field, $classes);
+
+    if ($field instanceof Field) {
+      $field = $framework->getFieldClasses($field, $classes);
+    }
 
     // Else bind field
     $this->app->instance('former.field', $field);
@@ -237,7 +241,7 @@ class Former
     $name = trim($name, '.');
     $oldValue = $this->app['request']->old($name, $fallback);
 
-    return $this->app['request']->get($name, $oldValue, true);
+    return $this->app['request']->input($name, $oldValue, true);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -262,7 +266,7 @@ class Former
     if ($validator instanceof Validator) {
       $this->errors = $validator->getMessageBag();
 
-    } else if ($validator instanceof MessagBag) {
+    } else if ($validator instanceof MessageBag) {
       $this->errors = $validator;
     }
 
@@ -285,6 +289,7 @@ class Former
       $expFieldRules = $fieldRules;
       if (!is_array($expFieldRules)) {
         $expFieldRules = explode('|', $expFieldRules);
+        $expFieldRules = array_map('trim', $expFieldRules);
       }
 
       foreach ($expFieldRules as $rule) {

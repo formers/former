@@ -350,8 +350,8 @@ class SelectTest extends FormerTests
   public function testCanRepopulateArrayNotation()
   {
     $options = array('foo', 'bar');
-    $this->request->shouldReceive('get')->with('_token', '', true)->andReturn('foobar');
-    $this->request->shouldReceive('get')->with('foo', '', true)->andReturn(array(0, 1));
+    $this->request->shouldReceive('input')->with('_token', '', true)->andReturn('foobar');
+    $this->request->shouldReceive('input')->with('foo', '', true)->andReturn(array(0, 1));
 
     $select  = $this->former->select('foo[]')->options($options);
     $matcher = '<select id="foo[]" name="foo[]"><option value="0" selected="selected">foo</option><option value="1" selected="selected">bar</option></select>';
@@ -362,12 +362,30 @@ class SelectTest extends FormerTests
   public function testMultiselectRepopulationDoesntCreateOptions()
   {
     $options = array(1 => 'foo', 2 => 'bar');
-    $this->request->shouldReceive('get')->with('_token', '', true)->andReturn('foobar');
-    $this->request->shouldReceive('get')->with('foo', '', true)->andReturn(array(1));
+    $this->request->shouldReceive('input')->with('_token', '', true)->andReturn('foobar');
+    $this->request->shouldReceive('input')->with('foo', '', true)->andReturn(array(1));
 
     $select  = $this->former->multiselect('foo')->options($options);
     $matcher = '<select id="foo" multiple="true" name="foo[]"><option value="1" selected="selected">foo</option><option value="2">bar</option></select>';
 
     $this->assertEquals($matcher, $select->render());
+  }
+
+  public function testSelectCanPickRightOptionWithOptgroups()
+  {
+    $items = array(
+      'foo' => array(
+        1 => 'foo',
+      ),
+      'bar' => array(
+        3 => 'bar',
+        4 => 'baz',
+      ),
+    );
+
+    $select = $this->former->select('category_id')->options($items, 1);
+    $matcher = '<optgroup label="foo"><option value="1" selected="selected">foo</option></optgroup><optgroup label="bar"><option value="3">bar</option><option value="4">baz</option></optgroup>';
+
+    $this->assertContains($matcher, $select->render());
   }
 }

@@ -102,7 +102,11 @@ class FormerServiceProvider extends ServiceProvider
 
     $app->bindIf('request', function ($app) {
       $request = Request::createFromGlobals();
-      $request->setSessionStore($app['session']);
+      if (method_exists($request, 'setSessionStore')) {
+        $request->setSessionStore($app['session']);
+      } else {
+        $request->setSession($app['session']);
+      }
 
       return $request;
     }, true);
