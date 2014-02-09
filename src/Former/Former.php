@@ -289,6 +289,7 @@ class Former
       $expFieldRules = $fieldRules;
       if (!is_array($expFieldRules)) {
         $expFieldRules = explode('|', $expFieldRules);
+        $expFieldRules = array_map('trim', $expFieldRules);
       }
 
       foreach ($expFieldRules as $rule) {
