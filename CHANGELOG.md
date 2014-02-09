@@ -2,6 +2,7 @@
 
 ## 3.4.2
 
+- [add] Added the ability to specify multiple namespaces to look for fields in the MethodDispatcher
 - [fix] Fixed some bug when fetching data from the request
 - [fix] Fixed spaces in validation rules causing errors
 

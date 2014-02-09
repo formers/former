@@ -460,17 +460,7 @@ class Group extends Tag
   {
     // Iterate over the items and place them where they should
     foreach ((array) $items as $item) {
-
-      // Render the item if it's an object
-      if (is_object($item) and method_exists($item, '__toString')) {
-        $item  = $item->__toString();
-      }
-
-      // If the item is not a button, wrap it
-      if (is_string($item) and !Str::startsWith($item, '<button')) {
-        $item = $this->app['former.framework']->placeAround($item);
-      }
-
+      $item = $this->app['former.framework']->placeAround($item);
       $this->{$place}[] = $item;
     }
   }

@@ -331,7 +331,15 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
    */
   public function placeAround($item)
   {
-    return Element::create('span', $item)->addClass('input-group-addon');
+    // Render object
+    if (is_object($item) and method_exists($item, '__toString')) {
+      $item = $item->__toString();
+    }
+
+    // Get class to use
+    $class = (strpos($item, '<button') !== false) ? 'btn' : 'addon';
+
+    return Element::create('span', $item)->addClass('input-group-'.$class);
   }
 
   /**

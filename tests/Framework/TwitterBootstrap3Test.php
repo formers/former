@@ -191,4 +191,11 @@ class TwitterBootstrap3Test extends FormerTests
     $this->former->close();
   }
 
+  public function testButtonsAreWrappedInSpecialClass()
+  {
+    $button = $this->former->text('foo')->append($this->former->button('Search'))->wrapAndRender();
+    $matcher = '<span class="input-group-btn"><button class="btn" type="button">Search</button></span>';
+
+    $this->assertContains($matcher, $button);
+  }
 }
