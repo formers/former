@@ -29,4 +29,15 @@ class HelpersTest extends FormerTests
 
     $this->assertEquals('field', Former\Helpers::translate('field'));
   }
+
+  public function testNestedTranslationFieldNames()
+  {
+    $matcher = $this->matchLabel('City', 'address.city');
+    $input = $this->former->text('address.city')->__toString();
+    $this->assertHTML($matcher, $input);
+
+    $matcher = $this->matchLabel('City', 'address[city]');
+    $input = $this->former->text('address[city]')->__toString();
+    $this->assertHTML($matcher, $input);
+  }
 }
