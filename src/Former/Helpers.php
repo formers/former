@@ -73,6 +73,11 @@ class Helpers
     }
     $translateFrom .= $key;
 
+    // Convert a[b[c]] to a.b.c for nested translations [a => [b => 'B!']]
+    if (strpos($translateFrom, ']') !== false) {
+      $translateFrom = str_replace(array(']', '['), array('', '.'), $translateFrom);
+    }
+
     // Search for the key itself
     if (static::$app['translator']->has($key)) {
       $translation = static::$app['translator']->get($key);

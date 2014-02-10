@@ -254,8 +254,11 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
         ->shouldReceive('get')->with('pagination.next')->andReturn('Next')
         ->shouldReceive('get')->with('pagination')->andReturn(array('previous' => 'Previous', 'next' => 'Next'))
         ->shouldReceive('get')->with('validation.attributes.field_name_with_underscore')->andReturn(false)
+        ->shouldReceive('get')->with('validation.attributes.address.city')->andReturn('City')
         ->shouldReceive('get')->withAnyArgs()->andReturnUsing(function ($key) { return $key; })
         ->shouldReceive('has')->with('field_name_with_underscore')->andReturn(false)
+        ->shouldReceive('has')->with('address.city')->andReturn(false)
+        ->shouldReceive('has')->with('address[city]')->andReturn(false)
         ->shouldReceive('has')->withAnyArgs()->andReturn(true);
     });
   }
