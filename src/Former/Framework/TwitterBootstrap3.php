@@ -154,7 +154,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
    */
   protected function setFieldWidths($labelWidths)
   {
-    $labelWidthClass = $fieldWidthClass = $fieldOffsetClass = '';
+    $labelWidthClass = $fieldWidthClass = $fieldOffsetClass = $fieldFullWidthClass = '';
 
     $viewports = $this->getFrameworkOption('viewports');
     foreach ($labelWidths as $viewport => $columns) {
@@ -162,12 +162,14 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
         $labelWidthClass  .= " col-$viewports[$viewport]-$columns";
         $fieldWidthClass  .= " col-$viewports[$viewport]-".(12-$columns);
         $fieldOffsetClass .= " col-$viewports[$viewport]-offset-$columns";
+        $fieldFullWidthClass .= " col-$viewports[$viewport]-12";
       }
     }
 
     $this->labelWidth  = ltrim($labelWidthClass);
     $this->fieldWidth  = ltrim($fieldWidthClass);
     $this->fieldOffset = ltrim($fieldOffsetClass);
+    $this->fieldFullWidth = ltrim($fieldFullWidthClass);
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -343,8 +345,11 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
    */
   public function wrapField($field)
   {
+    $labelValue = $this->app['former.form']->getLabel()->getValue();
+
     if ($this->app['former.form']->isOfType('horizontal')) {
-      return Element::create('div', $field)->addClass($this->fieldWidth);
+      $fieldWidth = $labelValue ? $this->fieldWidth : $this->fieldFullWidth;
+      return Element::create('div', $field)->addClass($fieldWidth);
     }
 
     return $field;
