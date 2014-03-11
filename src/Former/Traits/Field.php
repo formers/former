@@ -266,10 +266,9 @@ abstract class Field extends FormerObject implements FieldInterface
     $label = $this->app['former']->label($text, $for, $attributes);
 
     // Set label
+    $this->label = $label;
     if ($this->group) {
       $this->group->setLabel($label);
-    } else {
-      $this->label = $label;
     }
 
     return $this;
