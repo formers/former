@@ -74,10 +74,11 @@ class Helpers
     $translateFrom .= $key;
 
     // Search for the key itself
-    if (static::$app['translator']->has($key)) {
-      $translation = static::$app['translator']->get($key);
-    } elseif (static::$app['translator']->has($translateFrom)) {
-      $translation  = static::$app['translator']->get($translateFrom);
+	$translator = static::$app['translator'];
+    if ($translator->has($key) && !is_array($translator->get($key))) {
+      $translation = $translator->get($key);
+    } elseif ($translator->has($translateFrom)) {
+      $translation  = $translator->get($translateFrom);
     }
 
     // Replace by fallback if invalid
