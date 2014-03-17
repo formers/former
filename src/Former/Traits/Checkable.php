@@ -66,7 +66,7 @@ abstract class Checkable extends Field
    *
    * @var boolean
    */
-  protected $isPushed = false;
+  protected $isPushed = null;
 
   ////////////////////////////////////////////////////////////////////
   //////////////////////////// CORE METHODS //////////////////////////
@@ -325,7 +325,7 @@ abstract class Checkable extends Field
 
     // Add hidden checkbox if requested
     if ($this->isOfType('checkbox', 'checkboxes')) {
-      if ($this->app['former']->getOption('push_checkboxes') or $this->isPushed) {
+      if ($this->app['former']->getOption('push_checkboxes') and $this->isPushed !== false) {
         $field = $this->app['former']->hidden($name)->forceValue($this->app['former']->getOption('unchecked_value')) . $field->render();
       }
     }
