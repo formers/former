@@ -325,7 +325,7 @@ abstract class Checkable extends Field
 
     // Add hidden checkbox if requested
     if ($this->isOfType('checkbox', 'checkboxes')) {
-      if ($this->app['former']->getOption('push_checkboxes') and $this->isPushed !== false) {
+      if ($this->isPushed or ($this->app['former']->getOption('push_checkboxes') and $this->isPushed !== false)) {
         $field = $this->app['former']->hidden($name)->forceValue($this->app['former']->getOption('unchecked_value')) . $field->render();
       }
     }
