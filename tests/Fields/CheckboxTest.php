@@ -263,6 +263,19 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkbox->wrapAndRender());
   }
 
+  public function testCanOverrideGloballyPushedCheckboxes()
+  {
+    $this->mockConfig(array('push_checkboxes' => true));
+    $checkbox = $this->former->checkbox('foo')->text('foo')->push(false);
+
+    $matcher  = $this->controlGroup(
+      '<label for="foo" class="checkbox">'.
+        $this->matchCheckbox('foo').'Foo'.
+      '</label>');
+
+    $this->assertEquals($matcher, $checkbox->wrapAndRender());
+  }
+
   public function testCanPushASingleCheckbox()
   {
     $this->mockConfig(array('push_checkboxes' => true));
