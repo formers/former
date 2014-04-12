@@ -417,6 +417,8 @@ class Former
     // Get name and translate array notation
     if (!$name and $this->app['former.field']) {
       $name = $this->app['former.field']->getName();
+      // Always return empty string for anonymous fields (i.e. fields with no name/id)
+      if (!$name) return '';
     }
 
     if ($this->errors and $name) {
