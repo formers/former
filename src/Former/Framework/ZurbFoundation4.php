@@ -158,11 +158,10 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
 
   public function createHelp($text, $attributes = null)
   {
-      if ($attributes == null)
-      {
+    if (is_null($attributes)) {
         $attributes = $this->getFrameworkOption('error_classes');
-      }
-      return Element::create('span', $text, $attributes);
+    }
+    return Element::create('span', $text, $attributes);
   }
 
   /**
