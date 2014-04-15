@@ -49,7 +49,7 @@ class ZurbFrameworkTest extends FormerTests
   public function testCanAppendHelpTexts()
   {
     $input = $this->former->text('foo')->inlineHelp('bar')->__toString();
-    $matcher = array('tag' => 'small', 'content' => 'Bar');
+    $matcher = array('tag' => 'span', 'content' => 'Bar');
 
     $this->assertLabel($input);
     $this->assertHTML($this->matchField(), $input);
