@@ -154,10 +154,14 @@ class ZurbFoundation extends Framework implements FrameworkInterface
   //////////////////////////// RENDER BLOCKS /////////////////////////
   ////////////////////////////////////////////////////////////////////
 
-  public function createHelp($text, $attributes = array())
+  public function createHelp($text, $attributes = null)
   {
+    if (is_null($attributes)) {
+        $attributes = $this->getFrameworkOption('error_classes');
+    }
     return Element::create('span', $text, $attributes);
   }
+
 
   /**
    * Render a disabled field
