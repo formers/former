@@ -92,4 +92,14 @@ class ZurbFrameworkTest extends FormerTests
     $this->assertEquals($match, $field);
   }
 
+  public function testHelpTextHasCorrectClasses()
+  {
+
+    $input = $this->former->text('foo')->inlineHelp('bar')->__toString();
+    $matcher = array('tag' => 'span', 'attributes' => array( 'class' => 'alert-box alert error' ), 'content' => 'Bar');
+    $this->assertHTML($matcher, $input);
+
+  }
+
+
 }
