@@ -1,5 +1,4 @@
 <?php
-use \Mockery as m;
 
 class ZurbFramework4Test extends FormerTests
 {
