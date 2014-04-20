@@ -72,7 +72,7 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
 
   public function filterFieldClasses($classes)
   {
-    return null;
+    return $this->fieldOffset;
   }
 
   ////////////////////////////////////////////////////////////////////
