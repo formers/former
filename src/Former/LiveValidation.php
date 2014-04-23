@@ -212,7 +212,7 @@ class LiveValidation
   {
     list($min, $max) = $between;
 
-	$this->setBetween($min, $max);
+    $this->setBetween($min, $max);
   }
 
   /**
