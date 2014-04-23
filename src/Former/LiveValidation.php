@@ -212,8 +212,7 @@ class LiveValidation
   {
     list($min, $max) = $between;
 
-    $this->setMin($min);
-    $this->setMax($max);
+    $this->setBetween($min, $max);
   }
 
   /**
@@ -315,8 +314,30 @@ class LiveValidation
    */
   private function setMin($min)
   {
-    $attribute = $this->field->isOfType('number') ? 'min' : 'minlength';
+    if ($this->field->isOfType('number') == 'min') {
+      $this->field->min($min);
+    } else {
+      $this->field->pattern(".{" . $min . ",}");
+    }
+  }
 
-    $this->field->$attribute($min);
+  /**
+   * Set a minimum and maximum value to a field
+   *
+   * @param $min
+   * @param $max
+   */
+  public function setBetween($min, $max)
+  {
+    if ($this->field->isOfType('number') == 'min') {
+      // min, max values for generation of the pattern
+      $this->field->min($min);
+      $this->field->max($max);
+    } else {
+      $this->field->pattern('.{' . $min . ',' . $max . '}');
+
+      // still let the browser limit text input after reaching the max
+      $this->field->maxlength($max);
+    }
   }
 }
