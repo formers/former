@@ -139,12 +139,14 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
       'ZurbFoundation.labelWidths'          => array('large' => 2, 'small' => 4),
       'ZurbFoundation.viewports'            => array('large' => '', 'medium' => null, 'small' => 'mobile-', 'mini' => null),
       'ZurbFoundation.wrappedLabelClasses'  => array('right', 'inline'),
+      'ZurbFoundation.error_classes'       => array('class' => 'alert-box alert error'),
       'ZurbFoundation4.icon.prefix'         => 'foundicon',
       'ZurbFoundation4.icon.set'            => 'general',
       'ZurbFoundation4.icon.tag'            => 'i',
       'ZurbFoundation4.labelWidths'         => array('small' => 3),
       'ZurbFoundation4.viewports'           => array('large' => 'large', 'medium' => null, 'small' => 'small', 'mini' => null),
       'ZurbFoundation4.wrappedLabelClasses' => array('right','inline'),
+      'ZurbFoundation4.error_classes'       => array('class' => 'alert-box radius warning'),
     ), $options);
 
     return $this->mock('config', 'Config', function ($mock) use ($options) {
@@ -254,8 +256,11 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
         ->shouldReceive('get')->with('pagination.next')->andReturn('Next')
         ->shouldReceive('get')->with('pagination')->andReturn(array('previous' => 'Previous', 'next' => 'Next'))
         ->shouldReceive('get')->with('validation.attributes.field_name_with_underscore')->andReturn(false)
+        ->shouldReceive('get')->with('validation.attributes.address.city')->andReturn('City')
         ->shouldReceive('get')->withAnyArgs()->andReturnUsing(function ($key) { return $key; })
         ->shouldReceive('has')->with('field_name_with_underscore')->andReturn(false)
+        ->shouldReceive('has')->with('address.city')->andReturn(false)
+        ->shouldReceive('has')->with('address[city]')->andReturn(false)
         ->shouldReceive('has')->withAnyArgs()->andReturn(true);
     });
   }

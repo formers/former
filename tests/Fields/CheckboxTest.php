@@ -263,6 +263,19 @@ class CheckboxTest extends FormerTests
     $this->assertEquals($matcher, $checkbox->wrapAndRender());
   }
 
+  public function testCanOverrideGloballyPushedCheckboxes()
+  {
+    $this->mockConfig(array('push_checkboxes' => true));
+    $checkbox = $this->former->checkbox('foo')->text('foo')->push(false);
+
+    $matcher  = $this->controlGroup(
+      '<label for="foo" class="checkbox">'.
+        $this->matchCheckbox('foo').'Foo'.
+      '</label>');
+
+    $this->assertEquals($matcher, $checkbox->wrapAndRender());
+  }
+
   public function testCanPushASingleCheckbox()
   {
     $this->mockConfig(array('push_checkboxes' => true));
@@ -309,21 +322,120 @@ class CheckboxTest extends FormerTests
       '</label>', $auto);
   }
 
+
+  public function testCanCustomizeGroupedCheckboxes()
+  {
+    $this->former->framework('Nude');
+
+    $checkboxes = array(
+      'Value 01' => array(
+        'id' => 'value[foo_id]',
+        'name' => 'value[foo_name]',
+        'value' => 'foo_value',
+      ),
+      'Value 02' => array(
+        'id' => 'value[bar_id]',
+        'name' => 'value[bar_name]',
+        'value' => 'bar_value',
+      ),
+    );
+
+    $this->former->populate(array('value' => array('foo_name' => 'foo_value')));
+    $auto =  $this->former->checkboxes('value[]', '')->checkboxes($checkboxes)->__toString();
+    $chain = $this->former->checkboxes('value', '')->grouped()->checkboxes($checkboxes)->__toString();
+
+    $this->assertEquals($chain, $auto);
+    $this->assertEquals(
+      '<label for="value[foo_id]" class="checkbox">'.
+        '<input id="value[foo_id]" value="foo_value" type="checkbox" name="value[foo_name]" checked="checked">Value 01'.
+      '</label>'.
+      '<label for="value[bar_id]" class="checkbox">'.
+        '<input id="value[bar_id]" value="bar_value" type="checkbox" name="value[bar_name]">Value 02'.
+      '</label>', $auto);
+  }
+
   public function testCanRepopulateGroupedCheckboxes()
   {
-    $this->markTestSkipped('This is failing you guys');
-
     $this->former->framework('Nude');
-    $this->former->populate(array('foo' => array('foo_0')));
-    $checkboxes = $this->former->checkboxes('foo', '')->grouped()->checkboxes('Value 01', 'Value 02')->__toString();
+    $this->former->populate(array('foo' => array(0 => 0, 1 => 1)));
 
-    $this->assertEquals(
+    $chain = $this->former->checkboxes('foo', '')->grouped()->checkboxes('Value 01', 'Value 02', 'Value 03')->__toString();
+    $auto = $this->former->checkboxes('foo[]', '')->checkboxes('Value 01', 'Value 02', 'Value 03')->__toString();
+
+    $matcher =
       '<label for="foo_0" class="checkbox">'.
-        '<input id="foo_0" checked="checked" type="checkbox" name="foo[]" value="1">Value 01'.
+        '<input id="foo_0" type="checkbox" name="foo[]" checked="checked" value="0">Value 01'.
       '</label>'.
       '<label for="foo_1" class="checkbox">'.
-        '<input id="foo_1" type="checkbox" name="foo[]" value="1">Value 02'.
-      '</label>', $checkboxes);
+        '<input id="foo_1" type="checkbox" name="foo[]" checked="checked" value="1">Value 02'.
+      '</label>'.
+      '<label for="foo_2" class="checkbox">'.
+        '<input id="foo_2" type="checkbox" name="foo[]" value="2">Value 03'.
+      '</label>';
+
+    $this->assertEquals($matcher, $chain);
+    $this->assertEquals($matcher, $auto);
+  }
+
+  public function testCanRepopulateGroupedCheckboxesFromPost()
+  {
+    $this->former->framework('Nude');
+
+    $this->request->shouldReceive('input')->with('_token', '', true)->andReturn('');
+    $this->request->shouldReceive('input')->with('foo', '', true)->andReturn(
+      array(0 => 0, 1 => 1)
+    );
+
+    $chain = $this->former->checkboxes('foo', '')->grouped()->checkboxes('Value 01', 'Value 02', 'Value 03')->__toString();
+    $auto = $this->former->checkboxes('foo[]', '')->checkboxes('Value 01', 'Value 02', 'Value 03')->__toString();
+
+    $matcher =
+      '<label for="foo_0" class="checkbox">'.
+        '<input id="foo_0" type="checkbox" name="foo[]" checked="checked" value="0">Value 01'.
+      '</label>'.
+      '<label for="foo_1" class="checkbox">'.
+        '<input id="foo_1" type="checkbox" name="foo[]" checked="checked" value="1">Value 02'.
+      '</label>'.
+      '<label for="foo_2" class="checkbox">'.
+        '<input id="foo_2" type="checkbox" name="foo[]" value="2">Value 03'.
+      '</label>';
+
+    $this->assertEquals($matcher, $chain);
+    $this->assertEquals($matcher, $auto);
+  }
+
+  public function testCanRepopulateCustomizedGroupedCheckboxesFromPost()
+  {
+    $this->former->framework('Nude');
+
+    $checkboxes = array(
+      'Value 01' => array(
+        'id' => 'value[foo_id]',
+        'name' => 'value[foo_name]',
+        'value' => 'foo_value',
+      ),
+      'Value 02' => array(
+        'id' => 'value[bar_id]',
+        'name' => 'value[bar_name]',
+        'value' => 'bar_value',
+      ),
+    );
+
+    $this->request->shouldReceive('input')->with('_token', '', true)->andReturn('');
+    $this->request->shouldReceive('input')->with('value', '', true)->andReturn(
+      array('foo_name' => 'foo_value')
+    );
+    $auto =  $this->former->checkboxes('value[]', '')->checkboxes($checkboxes)->__toString();
+    $chain = $this->former->checkboxes('value', '')->grouped()->checkboxes($checkboxes)->__toString();
+
+    $this->assertEquals($chain, $auto);
+    $this->assertEquals(
+      '<label for="value[foo_id]" class="checkbox">'.
+        '<input id="value[foo_id]" value="foo_value" type="checkbox" name="value[foo_name]" checked="checked">Value 01'.
+      '</label>'.
+      '<label for="value[bar_id]" class="checkbox">'.
+        '<input id="value[bar_id]" value="bar_value" type="checkbox" name="value[bar_name]">Value 02'.
+      '</label>', $auto);
   }
 
   public function testCanCustomizeTheUncheckedValue()

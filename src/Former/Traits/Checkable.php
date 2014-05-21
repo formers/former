@@ -66,7 +66,7 @@ abstract class Checkable extends Field
    *
    * @var boolean
    */
-  protected $isPushed = false;
+  protected $isPushed = null;
 
   ////////////////////////////////////////////////////////////////////
   //////////////////////////// CORE METHODS //////////////////////////
@@ -77,6 +77,11 @@ abstract class Checkable extends Field
    */
   public function __construct(Container $app, $type, $name, $label, $value, $attributes)
   {
+    // Unify auto and chained methods of grouping checkboxes
+    if (ends_with($name,'[]')) {
+      $name = substr($name, 0, -2);
+      $this->grouped();
+    }
     parent::__construct($app, $type, $name, $label, $value, $attributes);
 
     if (is_array($this->value)) {
@@ -233,6 +238,7 @@ abstract class Checkable extends Field
   {
     // If passing an array
     if (sizeof($_items) == 1 and
+       isset($_items[0]) and
        is_array($_items[0])) {
          $_items = $_items[0];
     }
@@ -275,6 +281,7 @@ abstract class Checkable extends Field
       $item = array(
         'name' => $name,
         'label' => Helpers::translate($label),
+        'count' => $count,
       );
       if (isset($attributes)) {
         $item['attributes'] = $attributes;
@@ -319,13 +326,13 @@ abstract class Checkable extends Field
 
     // Create field
     $field = Input::create($this->checkable, $name, $value, $attributes);
-    if ($this->isChecked($name, $value)) {
+    if ($this->isChecked($item, $value)) {
       $field->checked('checked');
     }
 
     // Add hidden checkbox if requested
     if ($this->isOfType('checkbox', 'checkboxes')) {
-      if ($this->app['former']->getOption('push_checkboxes') or $this->isPushed) {
+      if ($this->isPushed or ($this->app['former']->getOption('push_checkboxes') and $this->isPushed !== false)) {
         $field = $this->app['former']->hidden($name)->forceValue($this->app['former']->getOption('unchecked_value')) . $field->render();
       }
     }
@@ -388,9 +395,12 @@ abstract class Checkable extends Field
    *
    * @return boolean Checked or not
    */
-  protected function isChecked($name = null, $value = null)
+  protected function isChecked($item = null, $value = null)
   {
-    if (!$name) {
+    if (isset($item['name'])) {
+      $name = $item['name'];
+    }
+    if (empty($name)) {
       $name = $this->name;
     }
 
@@ -407,8 +417,24 @@ abstract class Checkable extends Field
     }
 
     // Check the values and POST array
-    $post   = $this->app['former']->getPost($name);
-    $static = $this->app['former']->getValue($name);
+    if ($this->isGrouped()) {
+      $groupIndex = self::getGroupIndexFromItem($item);
+
+      // Search using the bare name, not the individual item name
+      $post   = $this->app['former']->getPost($this->name);
+      $static = $this->app['former']->getValue($this->name);
+
+      if (isset($post[$groupIndex])) {
+        $post = $post[$groupIndex];
+      }
+      if (isset($static[$groupIndex])) {
+        $static = $static[$groupIndex];
+      }
+
+    } else {
+      $post   = $this->app['former']->getPost($name);
+      $static = $this->app['former']->getValue($name);
+    }
 
     if (!is_null($post) and $post !== $this->app['former']->getOption('unchecked_value')) {
       $isChecked = ($post == $value);
@@ -441,5 +467,18 @@ abstract class Checkable extends Field
     return
       $this->grouped == true or
       strpos($this->name, '[]') !== false;
+  }
+
+  /**
+   * @param array $item The item array, containing at least name and count keys.
+   * @return mixed The group index. (e.g. returns bar if the item name is foo[bar], or the item count for foo[])
+   */
+  public static function getGroupIndexFromItem($item)
+  {
+    $groupIndex = preg_replace('/^.*?\[(.*)\]$/', '$1', $item['name']);
+    if (empty($groupIndex) or $groupIndex == $item['name']) {
+      return $item['count'];
+    }
+    return $groupIndex;
   }
 }

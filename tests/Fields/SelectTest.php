@@ -267,6 +267,28 @@ class SelectTest extends FormerTests
     $this->assertEquals($matcher, $select);
   }
 
+  public function testCanRepopulateMultipleSelectsFromPost()
+  {
+    $options = array(
+      'foo' => 'foo_name',
+      'bar' => 'bar_name',
+      'baz' => 'baz_name',
+    );
+
+    $this->request->shouldReceive('input')->with('_token', '', true)->andReturn('foobar');
+    $this->request->shouldReceive('input')->with('test', '', true)->andReturn(array('foo', 'bar'));
+
+    $select = $this->former->multiselect('test')->options($options)->render();
+    $matcher =
+      '<select id="test" multiple="true" name="test[]">'.
+        '<option value="foo" selected="selected">foo_name</option>'.
+        '<option value="bar" selected="selected">bar_name</option>'.
+        '<option value="baz">baz_name</option>'.
+      '</select>';
+
+    $this->assertEquals($matcher, $select);
+  }
+
   public function testCanCreateRangeSelects()
   {
     $select = $this->former->select('foo')->range(1, 10);
@@ -347,7 +369,7 @@ class SelectTest extends FormerTests
     $this->assertContains($matcher, $select);
   }
 
-  public function testCanRepopulateArrayNotation()
+  public function testCanRepopulateFromPostArrayNotation()
   {
     $options = array('foo', 'bar');
     $this->request->shouldReceive('input')->with('_token', '', true)->andReturn('foobar');
@@ -355,6 +377,22 @@ class SelectTest extends FormerTests
 
     $select  = $this->former->select('foo[]')->options($options);
     $matcher = '<select id="foo[]" name="foo[]"><option value="0" selected="selected">foo</option><option value="1" selected="selected">bar</option></select>';
+
+    $this->assertEquals($matcher, $select->render());
+  }
+
+  public function testCanRepopulateFromPostStringIndexedArrayNotation()
+  {
+    $options = array('foo' => 'foo_name', 'bar' => 'bar_name');
+    $this->request->shouldReceive('input')->with('_token', '', true)->andReturn('foobar');
+    $this->request->shouldReceive('input')->with('foo', '', true)->andReturn(array('foo', 'bar'));
+
+    $select  = $this->former->select('foo[]')->options($options);
+    $matcher =
+      '<select id="foo[]" name="foo[]">'.
+        '<option value="foo" selected="selected">foo_name</option>'.
+        '<option value="bar" selected="selected">bar_name</option>'.
+      '</select>';
 
     $this->assertEquals($matcher, $select->render());
   }

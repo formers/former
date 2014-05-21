@@ -186,7 +186,7 @@ class LiveValidationTest extends FormerTests
     $this->former->withRules(array('foo' => 'min:42'));
 
     $input = $this->former->text('foo')->__toString();
-    $matcher = $this->matchField(array('minlength' => '42'));
+    $matcher = $this->matchField(array('pattern' => '.{42,}'));
 
     $this->assertHTML($matcher, $input);
     $this->assertControlGroup($input);
@@ -197,7 +197,7 @@ class LiveValidationTest extends FormerTests
     $this->former->withRules(array('foo' => array('min:42')));
 
     $input = $this->former->text('foo')->__toString();
-    $matcher = $this->matchField(array('minlength' => '42'));
+    $matcher = $this->matchField(array('pattern' => '.{42,}'));
 
     $this->assertHTML($matcher, $input);
     $this->assertControlGroup($input);
@@ -421,7 +421,7 @@ class LiveValidationTest extends FormerTests
     $this->former->withRules(array('foo' => 'between:1,10'));
 
     $input = $this->former->text('foo')->__toString();
-    $matcher = $this->matchField(array('minlength' => '1', 'maxlength' => '10'));
+    $matcher = $this->matchField(array('pattern' => '.{1,10}', 'maxlength' => '10'));
 
     $this->assertControlGroup($input);
     $this->assertHTML($matcher, $input);
@@ -432,7 +432,7 @@ class LiveValidationTest extends FormerTests
     $this->former->withRules(array('foo' => array('between:1,10')));
 
     $input = $this->former->text('foo')->__toString();
-    $matcher = $this->matchField(array('minlength' => '1', 'maxlength' => '10'));
+    $matcher = $this->matchField(array('pattern' => '.{1,10}', 'maxlength' => '10'));
 
     $this->assertControlGroup($input);
     $this->assertHTML($matcher, $input);
