@@ -197,8 +197,9 @@ class Select extends Field
    *
    * @param  integer $from
    * @param  integer $to
+   * @param  integer $step
    */
-  public function range($from, $to)
+  public function range($from, $to, $step = 1)
   {
     $range = range($from, $to);
     $this->options($range, null, true);
