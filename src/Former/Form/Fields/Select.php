@@ -201,7 +201,7 @@ class Select extends Field
    */
   public function range($from, $to, $step = 1)
   {
-    $range = range($from, $to);
+    $range = range($from, $to, $step);
     $this->options($range, null, true);
 
     return $this;
