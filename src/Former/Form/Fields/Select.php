@@ -246,9 +246,9 @@ class Select extends Field
    * @param  string $value    The attribute to use as text
    * @param  string $key      The attribute to use as value
    */
-  public function fromQuery($results, $value = null, $key = null)
+  public function fromQuery($results, $value = null, $key = null, $selected = null)
   {
-    $this->options(Helpers::queryToArray($results, $value, $key));
+    $this->options(Helpers::queryToArray($results, $value, $key), $selected);
 
     return $this;
   }

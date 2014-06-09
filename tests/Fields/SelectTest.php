@@ -111,7 +111,14 @@ class SelectTest extends FormerTests
 
     $this->assertEquals($matcher, $select);
   }
+  public function testSelectEloquentKeySelected()
+  {
+    for($i = 0; $i < 2; $i++) $eloquent[] = (object) array('age' => $i, 'foo' => 'bar');
+    $select = $this->former->select('foo')->fromQuery($eloquent, 'foo', 'age',1)->__toString();
+    $matcher = $this->controlGroup('<select id="foo" name="foo"><option value="0">bar</option><option value="1" selected="selected">bar</option></select>');
 
+    $this->assertEquals($matcher, $select);
+  }
   public function testSelectEloquentWrongKey()
   {
     for($i = 0; $i < 2; $i++) $eloquent[] = (object) array('age' => $i, 'foo' => 'bar');
