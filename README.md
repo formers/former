@@ -20,7 +20,7 @@ Former::horizontal_open()
   ->id('MyForm')
   ->secure()
   ->rules(['name' => 'required'])
-  ->method('GET')
+  ->method('GET');
 
   Former::xlarge_text('name')
     ->class('myclass')
@@ -33,9 +33,9 @@ Former::horizontal_open()
 
   Former::actions()
     ->large_primary_submit('Submit')
-    ->large_inverse_reset('Reset')
+    ->large_inverse_reset('Reset');
 
-Former::close()
+Former::close();
 ```
 
 Every time you call a method that doesn't actually exist, Former assumes you're trying to set an attribute and creates it magically. That's why you can do in the above example `->rows(10)` ; in case you want to set attributes that contain dashes, just replace them by underscores : `->data_foo('bar')` equals `data-foo="bar"`.
