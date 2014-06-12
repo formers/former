@@ -20,7 +20,7 @@ Former::horizontal_open()
   ->id('MyForm')
   ->secure()
   ->rules(['name' => 'required'])
-  ->method('GET')
+  ->method('GET');
 
   Former::xlarge_text('name')
     ->class('myclass')
@@ -33,7 +33,7 @@ Former::horizontal_open()
 
   Former::actions()
     ->large_primary_submit('Submit')
-    ->large_inverse_reset('Reset')
+    ->large_inverse_reset('Reset');
 
 Former::close()
 ```
