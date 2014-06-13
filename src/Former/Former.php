@@ -300,14 +300,14 @@ class Former
         }
 
        // Exclude unsupported rules
-       $rule = is_numeric($colon) ? substr($rule, 0, $colon) : $rule;
+        $rule = is_numeric($colon) ? substr($rule, 0, $colon) : $rule;
 
        // Store processed rule in Former's array
-       if (!isset($parameters)) {
-        $parameters = array();
-       }
+        if (!isset($parameters)) {
+          $parameters = array();
+        }
 
-       $this->rules[$name][$rule] = $parameters;
+        $this->rules[$name][$rule] = $parameters;
       }
     }
   }
@@ -421,6 +421,7 @@ class Former
       if (!$name) {
         return '';
       }
+
     }
 
     if ($this->errors and $name) {

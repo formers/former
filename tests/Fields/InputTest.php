@@ -133,10 +133,8 @@ class InputTest extends FormerTests
     $required = $this->former->text()->__toString();
     $matcher =
     '<div class="control-group">'.
-      '<label for="" class="control-label"></label>'.
       '<div class="controls">'.
-        '<input id="" type="text" name="">'.
-        '<span class="help-inline"></span>'.
+        '<input type="text">'.
       '</div>'.
     '</div>';
 

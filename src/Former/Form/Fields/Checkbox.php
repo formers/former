@@ -24,10 +24,6 @@ class Checkbox extends Checkable
    */
   public function checkboxes()
   {
-    if ($this->isGrouped()) {
-      // Remove any possible items added by the Populator.
-      $this->items = array();
-    }
     $this->items(func_get_args());
 
     return $this;

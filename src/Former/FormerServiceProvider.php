@@ -160,12 +160,8 @@ class FormerServiceProvider extends ServiceProvider
       return new Populator;
     });
 
-    $app->singleton('former.dispatcher', function($app) {
-      return new MethodDispatcher($app, Former::FIELDSPACE);
-    });
-
     $app->singleton('former', function ($app) {
-      return new Former($app, $app->make('former.dispatcher'));
+      return new Former($app, new MethodDispatcher($app, Former::FIELDSPACE));
     });
 
     Helpers::setApp($app);
