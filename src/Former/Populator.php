@@ -35,6 +35,11 @@ class Populator extends Collection
    */
   public function get($field, $fallback = null)
   {
+    // Anonymous fields should not return any value
+    if ($field == null) {
+      return null;
+    }
+
     // Plain array
     if (is_array($this->items) and !str_contains($field, '[')) {
       return parent::get($field, $fallback);
