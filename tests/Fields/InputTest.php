@@ -126,6 +126,21 @@ class InputTest extends FormerTests
     $this->assertEquals($matcher, $required);
   }
 
+  public function testAnonymousFieldHasNoErrors()
+  {
+    $this->former->withErrors($this->validator);
+
+    $required = $this->former->text()->__toString();
+    $matcher =
+    '<div class="control-group">'.
+      '<div class="controls">'.
+        '<input type="text">'.
+      '</div>'.
+    '</div>';
+
+    $this->assertEquals($matcher, $required);
+  }
+
   public function testCanDisableErrors()
   {
     $this->mockConfig(array('error_messages' => false));
