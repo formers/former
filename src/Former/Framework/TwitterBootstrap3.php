@@ -307,6 +307,19 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
   }
 
   /**
+   * Render an help text
+   *
+   * @param string $text
+   * @param array  $attributes
+   *
+   * @return string
+   */
+  public function createBlockHelp($text, $attributes = array())
+  {
+    return Element::create('p', $text, $attributes)->addClass('help-block');
+  }
+
+  /**
    * Render a disabled field
    *
    * @param Field $field
