@@ -61,6 +61,20 @@ abstract class FormerTests extends ContainerTestCase
     ),
   );
 
+  protected $radioCheckables = array(
+    'Foo' => array(
+      'data-foo' => 'bar',
+      'value'    => 'foo',
+      'name'     => 'foo',
+    ),
+    'Bar' => array(
+      'data-foo' => 'bar',
+      'value'    => 'bar',
+      'name'     => 'foo',
+      'id'       => 'bar',
+    ),
+  );
+
   protected $testAttributes = array(
     'class'    => 'foo',
     'data-foo' => 'bar',

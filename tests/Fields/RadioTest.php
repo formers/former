@@ -139,10 +139,10 @@ class RadioTest extends FormerTests
 
   public function testMultipleCustom()
   {
-    $radios = $this->former->radios('foo')->radios($this->checkables)->__toString();
+    $radios = $this->former->radios('foo')->radios($this->radioCheckables)->__toString();
     $matcher = $this->controlGroup(
     '<label for="foo" class="radio">'.
-      '<input data-foo="bar" value="bar" id="foo" type="radio" name="foo">'.
+      '<input data-foo="bar" value="foo" id="foo" type="radio" name="foo">'.
       'Foo'.
     '</label>'.
     '<label for="bar" class="radio">'.
@@ -155,14 +155,14 @@ class RadioTest extends FormerTests
 
   public function testMultipleCustomNoName()
   {
-    $checkables = $this->checkables;
+    $checkables = $this->radioCheckables;
     unset($checkables['Foo']['name']);
     unset($checkables['Bar']['name']);
 
     $radios = $this->former->radios('foo')->radios($checkables)->__toString();
     $matcher = $this->controlGroup(
     '<label for="foo" class="radio">'.
-      '<input data-foo="bar" value="bar" id="foo" type="radio" name="foo">'.
+      '<input data-foo="bar" value="foo" id="foo" type="radio" name="foo">'.
       'Foo'.
     '</label>'.
     '<label for="bar" class="radio">'.
@@ -189,10 +189,42 @@ class RadioTest extends FormerTests
     $this->assertEquals($matcher, $radios);
   }
 
+  public function testCheckOneInSeveralCustom()
+  {
+    $radios = $this->former->radios('foo')->radios($this->radioCheckables)->check('foo')->__toString();
+    $matcher = $this->controlGroup(
+      '<label for="foo" class="radio">'.
+      '<input data-foo="bar" value="foo" id="foo" type="radio" name="foo" checked="checked">'.
+      'Foo'.
+      '</label>'.
+      '<label for="bar" class="radio">'.
+      '<input data-foo="bar" value="bar" id="bar" type="radio" name="foo">'.
+      'Bar'.
+      '</label>');
+
+    $this->assertEquals($matcher, $radios);
+  }
+
   public function testCheckMultiple()
   {
     $radios = $this->former->radios('foo')->radios('foo', 'bar')->check(array(0 => false, 1 => true))->__toString();
     $matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0).$this->matchCheckedRadio('foo2', 'Bar', 1));
+
+    $this->assertEquals($matcher, $radios);
+  }
+
+  public function testCheckMultipleCustom()
+  {
+    $radios = $this->former->radios('foo')->radios($this->radioCheckables)->check(array('foo' => true, 'bar' => false))->__toString();
+    $matcher = $this->controlGroup(
+      '<label for="foo" class="radio">'.
+      '<input data-foo="bar" value="foo" id="foo" type="radio" name="foo" checked="checked">'.
+      'Foo'.
+      '</label>'.
+      '<label for="bar" class="radio">'.
+      '<input data-foo="bar" value="bar" id="bar" type="radio" name="foo">'.
+      'Bar'.
+      '</label>');
 
     $this->assertEquals($matcher, $radios);
   }
