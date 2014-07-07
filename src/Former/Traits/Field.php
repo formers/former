@@ -81,7 +81,7 @@ abstract class Field extends FormerObject implements FieldInterface
    *
    * @param string $type A field type
    */
-  public function __construct(Container $app, $type, $name, $label, $value, $attributes)
+  public function __construct(Container $app, $type, $label, $name, $value, $attributes)
   {
     // Set base parameters
     $this->app   = $app;
@@ -90,8 +90,8 @@ abstract class Field extends FormerObject implements FieldInterface
     $this->setAttributes($attributes);
     $this->form  = $this->app->bound('former.form') ? $this->app['former.form'] : null;
 
-    // Compute and translate label
-    $this->automaticLabels($name, $label);
+    // Compute and translate name
+    $this->automaticNames($name, $label);
 
     // Repopulate field
     if ($type != 'password') {
@@ -360,10 +360,10 @@ abstract class Field extends FormerObject implements FieldInterface
    * @param  string $name  A field name
    * @return array         A label and a field name
    */
-  private function automaticLabels($name, $label)
+  private function automaticNames($name, $label)
   {
-    // Disabled automatic labels
-    if (!$this->app['former']->getOption('automatic_label')) {
+    // Disabled automatic names
+    if (!$this->app['former']->getOption('automatic_name')) {
       $this->name = $name;
       $this->label($label);
 

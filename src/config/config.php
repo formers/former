@@ -3,8 +3,8 @@
   // Markup
   ////////////////////////////////////////////////////////////////////
 
-  // Whether labels should be automatically computed from name
-  'automatic_label'   => true,
+  // Whether names should be automatically computed from label
+  'automatic_name'   => true,
 
   // The default form type
   'default_form_type' => 'horizontal',
