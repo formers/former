@@ -315,6 +315,8 @@ abstract class Field extends FormerObject implements FieldInterface
 
     // Also relink the label to the new name
     $this->label($name);
+    // And repolulate the field using the new name
+    $this->value = $this->repopulate();
 
     return $this;
   }
