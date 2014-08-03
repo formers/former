@@ -16,24 +16,23 @@
     }
   ],
   "require": {
-    "anahkiasen/html-object": "1.*",
-    "illuminate/config": "~4",
-    "illuminate/container": "~4",
-    "illuminate/http": "~4",
-    "illuminate/routing": "~4",
-    "illuminate/session": "~4",
-    "illuminate/translation" :"~4"
+    "anahkiasen/html-object": "~1.4",
+    "illuminate/config": "~4.0",
+    "illuminate/container": "~4.0",
+    "illuminate/http": "~4.0",
+    "illuminate/routing": "~4.0",
+    "illuminate/session": "~4.0",
+    "illuminate/translation" :"~4.0"
   },
   "require-dev": {
-    "mockery/mockery": "dev-master",
-    "illuminate/database": "~4"
+		"phpunit/phpunit": "~4.1.4",
+    "mockery/mockery": "~0.9.1",
+    "illuminate/database": "~4.0"
   },
   "autoload": {
-    "psr-0": {
-      "Former": "src",
-      "Laravel": "src"
-    },
-    "classmap": ["tests"]
-  },
-  "minimum-stability": "stable"
+    "psr-4": {
+      "Former\\": ["src/Former", "tests"],
+      "Laravel\\": "src/Laravel"
+    }
+  }
 }

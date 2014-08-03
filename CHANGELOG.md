@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 3.4.3
+
+- [add] Added step parameter to `Select::range()` method
+- [add] Allow individual checkboxes to override the global push-checkbox setting
+- [fix] Fix some repopulation issues
+- [mod] Add some additional options for Foundation 4
+- [mod] Allow translation method to fetch nested keys via dot or brackets
+
 ## 3.4.2
 
 - [add] Added the ability to specify multiple namespaces to look for fields in the MethodDispatcher

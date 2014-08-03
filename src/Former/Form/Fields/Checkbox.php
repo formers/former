@@ -8,24 +8,28 @@ use Former\Traits\Checkable;
  */
 class Checkbox extends Checkable
 {
-  /**
-   * The current checkable type
-   *
-   * @var string
-   */
-  protected $checkable = 'checkbox';
+	/**
+	 * The current checkable type
+	 *
+	 * @var string
+	 */
+	protected $checkable = 'checkbox';
 
-  ////////////////////////////////////////////////////////////////////
-  ////////////////////////// FIELD METHODS ///////////////////////////
-  ////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	////////////////////////// FIELD METHODS ///////////////////////////
+	////////////////////////////////////////////////////////////////////
 
-  /**
-   * Create a serie of checkboxes
-   */
-  public function checkboxes()
-  {
-    $this->items(func_get_args());
+	/**
+	 * Create a serie of checkboxes
+	 */
+	public function checkboxes()
+	{
+		if ($this->isGrouped()) {
+			// Remove any possible items added by the Populator.
+			$this->items = array();
+		}
+		$this->items(func_get_args());
 
-    return $this;
-  }
+		return $this;
+	}
 }

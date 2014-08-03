@@ -1,238 +1,278 @@
 <?php
+namespace Former\Fields;
+
+use Former\TestCases\FormerTests;
+
 class RadioTest extends FormerTests
 {
 
-  ////////////////////////////////////////////////////////////////////
-  ////////////////////////////// MATCHERS ////////////////////////////
-  ////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////// MATCHERS ////////////////////////////
+	////////////////////////////////////////////////////////////////////
 
-  /**
-   * Matches a radio element
-   *
-   * @param  string  $name
-   * @param  string  $label
-   * @param  integer $value
-   * @param  boolean $inline
-   * @param  boolean $checked
-   *
-   * @return string
-   */
-  private function matchRadio($name = 'foo', $label = null, $value = 1, $inline = false, $checked = false)
-  {
-    $radioAttr = array(
-      'id'      => $name,
-      'type'    => 'radio',
-      'name'    => preg_replace('/[0-9]/', null, $name),
-      'checked' => 'checked',
-      'value'   => $value,
-    );
-    $labelAttr = array(
-      'for'   => $name,
-      'class' => 'radio',
-    );
-    if ($inline) {
-      $labelAttr['class'] .= $this->former->framework() === 'TwitterBootstrap3' ? ' radio-inline' : ' inline';
-    }
-    if (!$checked) unset($radioAttr['checked']);
+	/**
+	 * Matches a radio element
+	 *
+	 * @param  string  $name
+	 * @param  string  $label
+	 * @param  integer $value
+	 * @param  boolean $inline
+	 * @param  boolean $checked
+	 *
+	 * @return string
+	 */
+	private function matchRadio($name = 'foo', $label = null, $value = 1, $inline = false, $checked = false)
+	{
+		$radioAttr = array(
+			'id'      => $name,
+			'type'    => 'radio',
+			'name'    => preg_replace('/[0-9]/', null, $name),
+			'checked' => 'checked',
+			'value'   => $value,
+		);
+		$labelAttr = array(
+			'for'   => $name,
+			'class' => 'radio',
+		);
+		if ($inline) {
+			$labelAttr['class'] .= $this->former->framework() === 'TwitterBootstrap3' ? ' radio-inline' : ' inline';
+		}
+		if (!$checked) {
+			unset($radioAttr['checked']);
+		}
 
-    $radio = '<input'.$this->attributes($radioAttr).'>';
+		$radio = '<input'.$this->attributes($radioAttr).'>';
 
-    return $label ? '<label'.$this->attributes($labelAttr). '>' .$radio.$label. '</label>' : $radio;
-  }
+		return $label ? '<label'.$this->attributes($labelAttr).'>'.$radio.$label.'</label>' : $radio;
+	}
 
-  /**
-   * Matches a checked radio element
-   *
-   * @param  string  $name
-   * @param  string  $label
-   * @param  integer $value
-   * @param  boolean $inline
-   *
-   * @return string
-   */
-  private function matchCheckedRadio($name = 'foo', $label = null, $value = 1, $inline = false)
-  {
-    return $this->matchRadio($name, $label, $value, $inline, true);
-  }
+	/**
+	 * Matches a checked radio element
+	 *
+	 * @param  string  $name
+	 * @param  string  $label
+	 * @param  integer $value
+	 * @param  boolean $inline
+	 *
+	 * @return string
+	 */
+	private function matchCheckedRadio($name = 'foo', $label = null, $value = 1, $inline = false)
+	{
+		return $this->matchRadio($name, $label, $value, $inline, true);
+	}
 
-  ////////////////////////////////////////////////////////////////////
-  //////////////////////////////// TESTS /////////////////////////////
-  ////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	//////////////////////////////// TESTS /////////////////////////////
+	////////////////////////////////////////////////////////////////////
 
-  public function testSingle()
-  {
-    $radio = $this->former->radio('foo')->__toString();
-    $matcher = $this->controlGroup($this->matchRadio());
+	public function testSingle()
+	{
+		$radio   = $this->former->radio('foo')->__toString();
+		$matcher = $this->controlGroup($this->matchRadio());
 
-    $this->assertEquals($matcher, $radio);
-  }
+		$this->assertEquals($matcher, $radio);
+	}
 
-  public function testSingleWithLabel()
-  {
-    $radio = $this->former->radio('foo')->text('bar')->__toString();
-    $matcher = $this->controlGroup($this->matchRadio('foo', 'Bar'));
+	public function testSingleWithLabel()
+	{
+		$radio   = $this->former->radio('foo')->text('bar')->__toString();
+		$matcher = $this->controlGroup($this->matchRadio('foo', 'Bar'));
 
-    $this->assertEquals($matcher, $radio);
-  }
+		$this->assertEquals($matcher, $radio);
+	}
 
-  public function testSingleWithValue()
-  {
-    $radio = $this->former->radio('foo')->text('bar')->value('foo')->__toString();
-    $matcher = $this->controlGroup($this->matchRadio('foo', 'Bar', 'foo'));
+	public function testSingleWithValue()
+	{
+		$radio   = $this->former->radio('foo')->text('bar')->value('foo')->__toString();
+		$matcher = $this->controlGroup($this->matchRadio('foo', 'Bar', 'foo'));
 
-    $this->assertEquals($matcher, $radio);
-  }
+		$this->assertEquals($matcher, $radio);
+	}
 
-  public function testMultiple()
-  {
-    $radios = $this->former->radios('foo')->radios('foo', 'bar')->__toString();
-    $matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar'));
+	public function testMultiple()
+	{
+		$radios  = $this->former->radios('foo')->radios('foo', 'bar')->__toString();
+		$matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar'));
 
-    $this->assertEquals($matcher, $radios);
-  }
+		$this->assertEquals($matcher, $radios);
+	}
 
-  public function testInline()
-  {
-    $radios1 = $this->former->inline_radios('foo')->radios('foo', 'bar')->__toString();
-    $this->resetLabels();
-    $radios2 = $this->former->radios('foo')->inline()->radios('foo', 'bar')->__toString();
+	public function testInline()
+	{
+		$radios1 = $this->former->inline_radios('foo')->radios('foo', 'bar')->__toString();
+		$this->resetLabels();
+		$radios2 = $this->former->radios('foo')->inline()->radios('foo', 'bar')->__toString();
 
-    $matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0, true).$this->matchRadio('foo2', 'Bar', 1, true));
+		$matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0, true).$this->matchRadio('foo2', 'Bar', 1, true));
 
-    $this->assertEquals($matcher, $radios1);
-    $this->assertEquals($matcher, $radios2);
-  }
+		$this->assertEquals($matcher, $radios1);
+		$this->assertEquals($matcher, $radios2);
+	}
 
-  public function testInlineTwitterBootstrap3()
-  {
-    $this->former->framework('TwitterBootstrap3');
+	public function testInlineTwitterBootstrap3()
+	{
+		$this->former->framework('TwitterBootstrap3');
 
-    $radios1 = $this->former->inline_radios('foo')->radios('foo', 'bar')->__toString();
-    $this->resetLabels();
-    $radios2 = $this->former->radios('foo')->inline()->radios('foo', 'bar')->__toString();
+		$radios1 = $this->former->inline_radios('foo')->radios('foo', 'bar')->__toString();
+		$this->resetLabels();
+		$radios2 = $this->former->radios('foo')->inline()->radios('foo', 'bar')->__toString();
 
-    $matcher = $this->formGroup($this->matchRadio('foo', 'Foo', 0, true).$this->matchRadio('foo2', 'Bar', 1, true));
+		$matcher = $this->formGroup($this->matchRadio('foo', 'Foo', 0, true).$this->matchRadio('foo2', 'Bar', 1, true));
 
-    $this->assertEquals($matcher, $radios1);
-    $this->assertEquals($matcher, $radios2);
-  }
+		$this->assertEquals($matcher, $radios1);
+		$this->assertEquals($matcher, $radios2);
+	}
 
-  public function testStacked()
-  {
-    $radios1 = $this->former->stacked_radios('foo')->radios('foo', 'bar')->__toString();
-    $this->resetLabels();
-    $radios2 = $this->former->radios('foo')->stacked()->radios('foo', 'bar')->__toString();
+	public function testStacked()
+	{
+		$radios1 = $this->former->stacked_radios('foo')->radios('foo', 'bar')->__toString();
+		$this->resetLabels();
+		$radios2 = $this->former->radios('foo')->stacked()->radios('foo', 'bar')->__toString();
 
-    $matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar', 1));
+		$matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar', 1));
 
-    $this->assertEquals($matcher, $radios1);
-    $this->assertEquals($matcher, $radios2);
-  }
+		$this->assertEquals($matcher, $radios1);
+		$this->assertEquals($matcher, $radios2);
+	}
 
-  public function testMultipleArray()
-  {
-    $radios = $this->former->radios('foo')->radios(array('Foo' => 'foo', 'Bar' => 'bar'))->__toString();
-    $matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0).$this->matchRadio('bar', 'Bar'));
+	public function testMultipleArray()
+	{
+		$radios  = $this->former->radios('foo')->radios(array('Foo' => 'foo', 'Bar' => 'bar'))->__toString();
+		$matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0).$this->matchRadio('bar', 'Bar'));
 
-    $this->assertEquals($matcher, $radios);
-  }
+		$this->assertEquals($matcher, $radios);
+	}
 
-  public function testMultipleCustom()
-  {
-    $radios = $this->former->radios('foo')->radios($this->checkables)->__toString();
-    $matcher = $this->controlGroup(
-    '<label for="foo" class="radio">'.
-      '<input data-foo="bar" value="bar" id="foo" type="radio" name="foo">'.
-      'Foo'.
-    '</label>'.
-    '<label for="bar" class="radio">'.
-      '<input data-foo="bar" value="bar" id="bar" type="radio" name="foo">'.
-      'Bar'.
-    '</label>');
+	public function testMultipleCustom()
+	{
+		$radios  = $this->former->radios('foo')->radios($this->radioCheckables)->__toString();
+		$matcher = $this->controlGroup(
+			'<label for="foo" class="radio">'.
+			'<input data-foo="bar" value="foo" id="foo" type="radio" name="foo">'.
+			'Foo'.
+			'</label>'.
+			'<label for="bar" class="radio">'.
+			'<input data-foo="bar" value="bar" id="bar" type="radio" name="foo">'.
+			'Bar'.
+			'</label>');
 
-    $this->assertEquals($matcher, $radios);
-  }
+		$this->assertEquals($matcher, $radios);
+	}
 
-  public function testMultipleCustomNoName()
-  {
-    $checkables = $this->checkables;
-    unset($checkables['Foo']['name']);
-    unset($checkables['Bar']['name']);
+	public function testMultipleCustomNoName()
+	{
+		$checkables = $this->radioCheckables;
+		unset($checkables['Foo']['name']);
+		unset($checkables['Bar']['name']);
 
-    $radios = $this->former->radios('foo')->radios($checkables)->__toString();
-    $matcher = $this->controlGroup(
-    '<label for="foo" class="radio">'.
-      '<input data-foo="bar" value="bar" id="foo" type="radio" name="foo">'.
-      'Foo'.
-    '</label>'.
-    '<label for="bar" class="radio">'.
-      '<input data-foo="bar" value="bar" id="bar" type="radio" name="foo">'.
-      'Bar'.
-    '</label>');
+		$radios  = $this->former->radios('foo')->radios($checkables)->__toString();
+		$matcher = $this->controlGroup(
+			'<label for="foo" class="radio">'.
+			'<input data-foo="bar" value="foo" id="foo" type="radio" name="foo">'.
+			'Foo'.
+			'</label>'.
+			'<label for="bar" class="radio">'.
+			'<input data-foo="bar" value="bar" id="bar" type="radio" name="foo">'.
+			'Bar'.
+			'</label>');
 
-    $this->assertEquals($matcher, $radios);
-  }
+		$this->assertEquals($matcher, $radios);
+	}
 
-  public function testCheck()
-  {
-    $radio = $this->former->radio('foo')->check()->__toString();
-    $matcher = $this->controlGroup($this->matchCheckedRadio());
+	public function testCheck()
+	{
+		$radio   = $this->former->radio('foo')->check()->__toString();
+		$matcher = $this->controlGroup($this->matchCheckedRadio());
 
-    $this->assertEquals($matcher, $radio);
-  }
+		$this->assertEquals($matcher, $radio);
+	}
 
-  public function testCheckOneInSeveral()
-  {
-    $radios = $this->former->radios('foo')->radios('foo', 'bar')->check(0)->__toString();
-    $matcher = $this->controlGroup($this->matchCheckedRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar', 1));
+	public function testCheckOneInSeveral()
+	{
+		$radios  = $this->former->radios('foo')->radios('foo', 'bar')->check(0)->__toString();
+		$matcher = $this->controlGroup($this->matchCheckedRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar', 1));
 
-    $this->assertEquals($matcher, $radios);
-  }
+		$this->assertEquals($matcher, $radios);
+	}
 
-  public function testCheckMultiple()
-  {
-    $radios = $this->former->radios('foo')->radios('foo', 'bar')->check(array(0 => false, 1 => true))->__toString();
-    $matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0).$this->matchCheckedRadio('foo2', 'Bar', 1));
+	public function testCheckOneInSeveralCustom()
+	{
+		$radios  = $this->former->radios('foo')->radios($this->radioCheckables)->check('foo')->__toString();
+		$matcher = $this->controlGroup(
+			'<label for="foo" class="radio">'.
+			'<input data-foo="bar" value="foo" id="foo" type="radio" name="foo" checked="checked">'.
+			'Foo'.
+			'</label>'.
+			'<label for="bar" class="radio">'.
+			'<input data-foo="bar" value="bar" id="bar" type="radio" name="foo">'.
+			'Bar'.
+			'</label>');
 
-    $this->assertEquals($matcher, $radios);
-  }
+		$this->assertEquals($matcher, $radios);
+	}
 
-  public function testCanAttributeIndividualLabelsPerRadio()
-  {
-    $radios = $this->former->radios('foo')->radios('foo', 'bar')->__toString();
-    $matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar', 1));
+	public function testCheckMultiple()
+	{
+		$radios  = $this->former->radios('foo')->radios('foo', 'bar')->check(array(0 => false, 1 => true))->__toString();
+		$matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0).$this->matchCheckedRadio('foo2', 'Bar', 1));
 
-    $this->assertEquals($matcher, $radios);
-  }
+		$this->assertEquals($matcher, $radios);
+	}
 
-  public function testRepopulateFromPost()
-  {
-    $this->request->shouldReceive('input')->andReturn(0);
+	public function testCheckMultipleCustom()
+	{
+		$radios  = $this->former->radios('foo')->radios($this->radioCheckables)->check(array(
+				'foo' => true,
+				'bar' => false
+			))->__toString();
+		$matcher = $this->controlGroup(
+			'<label for="foo" class="radio">'.
+			'<input data-foo="bar" value="foo" id="foo" type="radio" name="foo" checked="checked">'.
+			'Foo'.
+			'</label>'.
+			'<label for="bar" class="radio">'.
+			'<input data-foo="bar" value="bar" id="bar" type="radio" name="foo">'.
+			'Bar'.
+			'</label>');
 
-    $radios = $this->former->radios('foo')->radios('foo', 'bar')->__toString();
-    $matcher = $this->controlGroup($this->matchCheckedRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar', 1));
+		$this->assertEquals($matcher, $radios);
+	}
 
-    $this->assertEquals($matcher, $radios);
-  }
+	public function testCanAttributeIndividualLabelsPerRadio()
+	{
+		$radios  = $this->former->radios('foo')->radios('foo', 'bar')->__toString();
+		$matcher = $this->controlGroup($this->matchRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar', 1));
 
-  public function testRepopulateFromModel()
-  {
-    $this->former->populate((object) array('foo' => 0));
+		$this->assertEquals($matcher, $radios);
+	}
 
-    $radios = $this->former->radios('foo')->radios('foo', 'bar')->__toString();
-    $matcher = $this->controlGroup($this->matchCheckedRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar', 1));
+	public function testRepopulateFromPost()
+	{
+		$this->request->shouldReceive('input')->andReturn(0);
 
-    $this->assertEquals($matcher, $radios);
-  }
+		$radios  = $this->former->radios('foo')->radios('foo', 'bar')->__toString();
+		$matcher = $this->controlGroup($this->matchCheckedRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar', 1));
 
-  public function testInlineRadiosAreRendered()
-  {
-    $this->former->form()->close();
-    $this->former->inline_open();
+		$this->assertEquals($matcher, $radios);
+	}
 
-    $radio = $this->former->radio('foo', 'bar')->__toString();
+	public function testRepopulateFromModel()
+	{
+		$this->former->populate((object) array('foo' => 0));
 
-    $this->assertInternalType('string', $radio);
-  }
+		$radios  = $this->former->radios('foo')->radios('foo', 'bar')->__toString();
+		$matcher = $this->controlGroup($this->matchCheckedRadio('foo', 'Foo', 0).$this->matchRadio('foo2', 'Bar', 1));
 
+		$this->assertEquals($matcher, $radios);
+	}
+
+	public function testInlineRadiosAreRendered()
+	{
+		$this->former->form()->close();
+		$this->former->inline_open();
+
+		$radio = $this->former->radio('foo', 'bar')->__toString();
+
+		$this->assertInternalType('string', $radio);
+	}
 }
