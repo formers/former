@@ -217,6 +217,8 @@ abstract class Framework
 	 *
 	 * @param Field $field
 	 * @param array $classes
+	 *
+	 * @return \Former\Traits\Field
 	 */
 	protected function addClassesToField($field, $classes)
 	{

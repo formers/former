@@ -185,6 +185,8 @@ class Form extends FormerObject
 	 * Change the form's action
 	 *
 	 * @param  string $action The new action
+	 *
+	 * @return $this
 	 */
 	public function action($action)
 	{
@@ -197,6 +199,8 @@ class Form extends FormerObject
 	 * Change the form's method
 	 *
 	 * @param  string $method The method to use
+	 *
+	 * @return $this
 	 */
 	public function method($method)
 	{
@@ -209,6 +213,8 @@ class Form extends FormerObject
 	 * Whether the form should be secure
 	 *
 	 * @param  boolean $secure Secure or not
+	 *
+	 * @return $this
 	 */
 	public function secure($secure = true)
 	{
@@ -227,15 +233,7 @@ class Form extends FormerObject
 	 */
 	public function route($name, $params = array())
 	{
-		// Set the form action
-		$this->action = $this->url->route($name, $params);
-
-		// Set the proper method
-		if ($method = $this->findRouteMethod($name)) {
-			$this->method($method);
-		}
-
-		return $this;
+		return $this->setRouteOrAction($name, $params, 'route');
 	}
 
 	/**
@@ -248,14 +246,7 @@ class Form extends FormerObject
 	 */
 	public function controller($name, $params = array())
 	{
-		$this->action = $this->url->action($name, $params);
-
-		// Set the proper method
-		if ($method = $this->findRouteMethod($name)) {
-			$this->method($method);
-		}
-
-		return $this;
+		return $this->setRouteOrAction($name, $params, 'action');
 	}
 
 	/**
@@ -300,6 +291,8 @@ class Form extends FormerObject
 	 * Populate a form with specific values
 	 *
 	 * @param array|object $values
+	 *
+	 * @return $this
 	 */
 	public function populate($values)
 	{
@@ -356,6 +349,26 @@ class Form extends FormerObject
 		$method  = array_get($methods, 0);
 
 		return $method;
+	}
+
+	/**
+	 * @param $name
+	 * @param $params
+	 * @param $type
+	 *
+	 * @return $this
+	 */
+	protected function setRouteOrAction($name, $params, $type)
+	{
+		// Set the form action
+		$this->action = $this->url->$type($name, $params);
+
+		// Set the proper method
+		if ($method = $this->findRouteMethod($name)) {
+			$this->method($method);
+		}
+
+		return $this;
 	}
 
 	/**
