@@ -46,7 +46,6 @@ interface FrameworkInterface
 	/**
 	 * Add label classes
 	 *
-	 * @param  array $attributes An array of attributes
 	 *
 	 * @return array An array of attributes with the label class
 	 */
@@ -55,7 +54,6 @@ interface FrameworkInterface
 	/**
 	 * Add uneditable field classes
 	 *
-	 * @param  array $attributes The attributes
 	 *
 	 * @return array An array of attributes with the uneditable class
 	 */
@@ -64,7 +62,6 @@ interface FrameworkInterface
 	/**
 	 * Add form class
 	 *
-	 * @param  array  $attributes The attributes
 	 * @param  string $type       The type of form to add
 	 *
 	 * @return array
@@ -74,7 +71,6 @@ interface FrameworkInterface
 	/**
 	 * Add actions block class
 	 *
-	 * @param  array $attributes The attributes
 	 *
 	 * @return array
 	 */
@@ -102,7 +98,6 @@ interface FrameworkInterface
 	/**
 	 * Render an icon
 	 *
-	 * @param string $icon       The icon name
 	 * @param array  $attributes Its attributes
 	 *
 	 * @return string

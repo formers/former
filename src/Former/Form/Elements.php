@@ -55,7 +55,7 @@ class Elements
 	 * @param  string $for        The field the label's for
 	 * @param  array  $attributes The label's attributes
 	 *
-	 * @return string             A <label> tag
+	 * @return Element             A <label> tag
 	 */
 	public function label($label, $for = null, $attributes = array())
 	{
@@ -80,7 +80,7 @@ class Elements
 	 * @param  string $legend     The text
 	 * @param  array  $attributes Its attributes
 	 *
-	 * @return string             A <legend> tag
+	 * @return Element             A <legend> tag
 	 */
 	public function legend($legend, $attributes = array())
 	{

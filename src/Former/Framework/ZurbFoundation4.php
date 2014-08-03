@@ -134,9 +134,8 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
 	/**
 	 * Add label classes
 	 *
-	 * @param  array $attributes An array of attributes
 	 *
-	 * @return array An array of attributes with the label class
+	 * @return string|null An array of attributes with the label class
 	 */
 	public function getLabelClasses()
 	{
@@ -180,7 +179,7 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
 	 *
 	 * @param Field $field
 	 *
-	 * @return string
+	 * @return Input
 	 */
 	public function createDisabledField(Field $field)
 	{
@@ -198,7 +197,6 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
 	 * For Zurb we return the item and handle the wrapping in prependAppend
 	 * as wrapping is dependent on whether we're prepending or appending.
 	 *
-	 * @param  string $field
 	 *
 	 * @return string A wrapped item
 	 */
@@ -254,7 +252,7 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
 	 *
 	 * @param  Field $field
 	 *
-	 * @return string A wrapped field
+	 * @return Element A wrapped field
 	 */
 	public function wrapField($field)
 	{
@@ -268,7 +266,7 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
 	/**
 	 * Wrap actions block with potential additional tags
 	 *
-	 * @param  Actions $action
+	 * @param  Actions $actions
 	 *
 	 * @return string A wrapped actions block
 	 */

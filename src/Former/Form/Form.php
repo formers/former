@@ -89,7 +89,6 @@ class Form extends FormerObject
 	/**
 	 * Build a new Form instance
 	 *
-	 * @param Former       $former
 	 * @param UrlGenerator $url
 	 */
 	public function __construct(Container $app, $url, Populator $populator)
@@ -109,7 +108,7 @@ class Form extends FormerObject
 	 * @param  string $type       The form type asked
 	 * @param  array  $parameters Parameters passed
 	 *
-	 * @return string             A form opening tag
+	 * @return Form             A form opening tag
 	 */
 	public function openForm($type, $parameters)
 	{
@@ -224,7 +223,7 @@ class Form extends FormerObject
 	 * @param  string $name   The name of the route to use
 	 * @param  array  $params Any route parameters
 	 *
-	 * @return void
+	 * @return Form
 	 */
 	public function route($name, $params = array())
 	{
@@ -245,7 +244,7 @@ class Form extends FormerObject
 	 * @param  string $name   The controller and method
 	 * @param  array  $params Any method parameters
 	 *
-	 * @return void
+	 * @return Form
 	 */
 	public function controller($name, $params = array())
 	{

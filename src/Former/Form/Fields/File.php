@@ -81,7 +81,6 @@ class File extends Field
 	/**
 	 * Set which types of files are accepted by the file input
 	 *
-	 * @param string $mimes A list of extensions/mimes/groups to accept
 	 */
 	public function accept()
 	{

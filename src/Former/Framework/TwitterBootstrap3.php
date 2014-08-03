@@ -112,7 +112,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 	 *
 	 * @param  array $classes An array of classes
 	 *
-	 * @return array A filtered array
+	 * @return string[] A filtered array
 	 */
 	public function filterButtonClasses($classes)
 	{
@@ -250,9 +250,8 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 	/**
 	 * Add label classes
 	 *
-	 * @param  array $attributes An array of attributes
 	 *
-	 * @return array An array of attributes with the label class
+	 * @return string[] An array of attributes with the label class
 	 */
 	public function getLabelClasses()
 	{
@@ -268,9 +267,8 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 	/**
 	 * Add uneditable field classes
 	 *
-	 * @param  array $attributes The attributes
 	 *
-	 * @return array An array of attributes with the uneditable class
+	 * @return string An array of attributes with the uneditable class
 	 */
 	public function getUneditableClasses()
 	{
@@ -280,10 +278,9 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 	/**
 	 * Add form class
 	 *
-	 * @param  array  $attributes The attributes
 	 * @param  string $type       The type of form to add
 	 *
-	 * @return array
+	 * @return string|null
 	 */
 	public function getFormClasses($type)
 	{
@@ -293,9 +290,8 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 	/**
 	 * Add actions block class
 	 *
-	 * @param  array $attributes The attributes
 	 *
-	 * @return array
+	 * @return string|null
 	 */
 	public function getActionClasses()
 	{
@@ -316,7 +312,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 	 * @param string $text
 	 * @param array  $attributes
 	 *
-	 * @return string
+	 * @return Element
 	 */
 	public function createHelp($text, $attributes = array())
 	{
@@ -329,7 +325,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 	 * @param string $text
 	 * @param array  $attributes
 	 *
-	 * @return string
+	 * @return Element
 	 */
 	public function createBlockHelp($text, $attributes = array())
 	{
@@ -341,7 +337,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 	 *
 	 * @param Field $field
 	 *
-	 * @return string
+	 * @return Element
 	 */
 	public function createDisabledField(Field $field)
 	{
@@ -355,9 +351,8 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 	/**
 	 * Wrap an item to be prepended or appended to the current field
 	 *
-	 * @param  string $field
 	 *
-	 * @return string A wrapped item
+	 * @return Element A wrapped item
 	 */
 	public function placeAround($item)
 	{
@@ -397,7 +392,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 	 *
 	 * @param  Field $field
 	 *
-	 * @return string A wrapped field
+	 * @return Element A wrapped field
 	 */
 	public function wrapField($field)
 	{
@@ -411,7 +406,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 	/**
 	 * Wrap actions block with potential additional tags
 	 *
-	 * @param  Actions $action
+	 * @param  Actions $actions
 	 *
 	 * @return string A wrapped actions block
 	 */
