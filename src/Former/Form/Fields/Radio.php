@@ -8,23 +8,24 @@ use Former\Traits\Checkable;
  */
 class Radio extends Checkable
 {
-  /**
-   * The current checkable type
-   * @var string
-   */
-  protected $checkable = 'radio';
+	/**
+	 * The current checkable type
+	 *
+	 * @var string
+	 */
+	protected $checkable = 'radio';
 
-  ////////////////////////////////////////////////////////////////////
-  ////////////////////////// FIELD METHODS ///////////////////////////
-  ////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	////////////////////////// FIELD METHODS ///////////////////////////
+	////////////////////////////////////////////////////////////////////
 
-  /**
-   * Create a serie of radios
-   */
-  public function radios()
-  {
-    $this->items(func_get_args());
+	/**
+	 * Create a serie of radios
+	 */
+	public function radios()
+	{
+		$this->items(func_get_args());
 
-    return $this;
-  }
+		return $this;
+	}
 }

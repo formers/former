@@ -9,22 +9,21 @@ use Former\Traits\Field;
 class Uneditable extends Field
 {
 
-  ////////////////////////////////////////////////////////////////////
-  /////////////////////////// CORE METHODS ///////////////////////////
-  ////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	/////////////////////////// CORE METHODS ///////////////////////////
+	////////////////////////////////////////////////////////////////////
 
-  /**
-   * Prints out the current tag
-   *
-   * @return string An uneditable input tag
-   */
-  public function render()
-  {
-    $this->addClass($this->app['former.framework']->getUneditableClasses());
+	/**
+	 * Prints out the current tag
+	 *
+	 * @return string An uneditable input tag
+	 */
+	public function render()
+	{
+		$this->addClass($this->app['former.framework']->getUneditableClasses());
 
-    $this->setId();
+		$this->setId();
 
-    return $this->app['former.framework']->createDisabledField($this);
-  }
-
+		return $this->app['former.framework']->createDisabledField($this);
+	}
 }

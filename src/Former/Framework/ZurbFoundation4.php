@@ -13,256 +13,267 @@ use Illuminate\Container\Container;
  */
 class ZurbFoundation4 extends Framework implements FrameworkInterface
 {
-  /**
-   * Form types that trigger special styling for this Framework
-   *
-   * @var array
-   */
-  protected $availableTypes = array('horizontal', 'vertical');
+	/**
+	 * Form types that trigger special styling for this Framework
+	 *
+	 * @var array
+	 */
+	protected $availableTypes = array('horizontal', 'vertical');
 
-  /**
-   * The button types available
-   *
-   * @var array
-   */
-  private $buttons = array(
-    'tiny', 'small', 'medium', 'large', 'success', 'radius', 'round', 'disabled', 'prefix', 'postfix',
-  );
+	/**
+	 * The button types available
+	 *
+	 * @var array
+	 */
+	private $buttons = array(
+		'tiny',
+		'small',
+		'medium',
+		'large',
+		'success',
+		'radius',
+		'round',
+		'disabled',
+		'prefix',
+		'postfix',
+	);
 
-  /**
-   * The field sizes available
-   * Zurb Foundation 4 does not apply sizes to the form element, but to the wrapper div
-   *
-   * @var array
-   */
-  private $fields = array();
+	/**
+	 * The field sizes available
+	 * Zurb Foundation 4 does not apply sizes to the form element, but to the wrapper div
+	 *
+	 * @var array
+	 */
+	private $fields = array();
 
-  /**
-   * The field states available
-   *
-   * @var array
-   */
-  protected $states = array(
-    'error',
-  );
+	/**
+	 * The field states available
+	 *
+	 * @var array
+	 */
+	protected $states = array(
+		'error',
+	);
 
-  /**
-   * Create a new ZurbFoundation instance
-   *
-   * @param \Illuminate\Container\Container $app
-   */
-  public function __construct(Container $app)
-  {
-    $this->app = $app;
-    $this->setFrameworkDefaults();
-  }
+	/**
+	 * Create a new ZurbFoundation instance
+	 *
+	 * @param \Illuminate\Container\Container $app
+	 */
+	public function __construct(Container $app)
+	{
+		$this->app = $app;
+		$this->setFrameworkDefaults();
+	}
 
-  ////////////////////////////////////////////////////////////////////
-  /////////////////////////// FILTER ARRAYS //////////////////////////
-  ////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	/////////////////////////// FILTER ARRAYS //////////////////////////
+	////////////////////////////////////////////////////////////////////
 
-  public function filterButtonClasses($classes)
-  {
-    // Filter classes
-    $classes = array_intersect($classes, $this->buttons);
-    $classes[] = 'button';
+	public function filterButtonClasses($classes)
+	{
+		// Filter classes
+		$classes   = array_intersect($classes, $this->buttons);
+		$classes[] = 'button';
 
-    return $classes;
-  }
+		return $classes;
+	}
 
-  public function filterFieldClasses($classes)
-  {
-    return null;
-  }
+	public function filterFieldClasses($classes)
+	{
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////
-  ///////////////////// EXPOSE FRAMEWORK SPECIFICS ///////////////////
-  ////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	///////////////////// EXPOSE FRAMEWORK SPECIFICS ///////////////////
+	////////////////////////////////////////////////////////////////////
 
-  protected function setFieldWidths($labelWidths)
-  {
-    $labelWidthClass = $fieldWidthClass = $fieldOffsetClass = '';
+	protected function setFieldWidths($labelWidths)
+	{
+		$labelWidthClass = $fieldWidthClass = $fieldOffsetClass = '';
 
-    $viewports = $this->getFrameworkOption('viewports');
+		$viewports = $this->getFrameworkOption('viewports');
 
-    foreach ($labelWidths as $viewport => $columns) {
-      if ($viewport) {
-        $labelWidthClass .= $viewports[$viewport].'-'.$columns.' ';
-        $fieldWidthClass .= $viewports[$viewport].'-'.(12-$columns).' ';
-        $fieldOffsetClass .= $viewports[$viewport].'-offset-'.$columns.' ';
-      }
-    }
+		foreach ($labelWidths as $viewport => $columns) {
+			if ($viewport) {
+				$labelWidthClass .= $viewports[$viewport].'-'.$columns.' ';
+				$fieldWidthClass .= $viewports[$viewport].'-'.(12 - $columns).' ';
+				$fieldOffsetClass .= $viewports[$viewport].'-offset-'.$columns.' ';
+			}
+		}
 
-    $this->labelWidth = $labelWidthClass . 'columns';
-    $this->fieldWidth = $fieldWidthClass . 'columns';
-    $this->fieldOffset = $fieldOffsetClass . 'columns';
-  }
+		$this->labelWidth  = $labelWidthClass.'columns';
+		$this->fieldWidth  = $fieldWidthClass.'columns';
+		$this->fieldOffset = $fieldOffsetClass.'columns';
+	}
 
-  ////////////////////////////////////////////////////////////////////
-  ///////////////////////////// ADD CLASSES //////////////////////////
-  ////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	///////////////////////////// ADD CLASSES //////////////////////////
+	////////////////////////////////////////////////////////////////////
 
-  public function getFieldClasses(Field $field, $classes = array())
-  {
-    if ($field->isButton()) {
-      $classes = $this->filterButtonClasses($classes);
-    } else {
-      $classes = $this->filterFieldClasses($classes);
-    }
+	public function getFieldClasses(Field $field, $classes = array())
+	{
+		if ($field->isButton()) {
+			$classes = $this->filterButtonClasses($classes);
+		} else {
+			$classes = $this->filterFieldClasses($classes);
+		}
 
-    return $this->addClassesToField($field, $classes);
-  }
+		return $this->addClassesToField($field, $classes);
+	}
 
-  public function getGroupClasses()
-  {
-    if ($this->app['former.form']->isOfType('horizontal')) {
-      return 'row';
-    } else {
-      return null;
-    }
-  }
+	public function getGroupClasses()
+	{
+		if ($this->app['former.form']->isOfType('horizontal')) {
+			return 'row';
+		} else {
+			return null;
+		}
+	}
 
-  /**
-   * Add label classes
-   *
-   * @param  array $attributes An array of attributes
-   * @return array An array of attributes with the label class
-   */
-  public function getLabelClasses()
-  {
-    if ($this->app['former.form']->isOfType('horizontal')) {
-      return $this->getFrameworkOption('wrappedLabelClasses');
-    } else {
-      return null;
-    }
-  }
+	/**
+	 * Add label classes
+	 *
+	 * @param  array $attributes An array of attributes
+	 *
+	 * @return array An array of attributes with the label class
+	 */
+	public function getLabelClasses()
+	{
+		if ($this->app['former.form']->isOfType('horizontal')) {
+			return $this->getFrameworkOption('wrappedLabelClasses');
+		} else {
+			return null;
+		}
+	}
 
-  public function getUneditableClasses()
-  {
-    return null;
-  }
+	public function getUneditableClasses()
+	{
+		return null;
+	}
 
-  public function getFormClasses($type)
-  {
-    return null;
-  }
+	public function getFormClasses($type)
+	{
+		return null;
+	}
 
-  public function getActionClasses()
-  {
-    return null;
-  }
+	public function getActionClasses()
+	{
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////
-  //////////////////////////// RENDER BLOCKS /////////////////////////
-  ////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	//////////////////////////// RENDER BLOCKS /////////////////////////
+	////////////////////////////////////////////////////////////////////
 
-  public function createHelp($text, $attributes = null)
-  {
-    if (is_null($attributes) or empty($attributes)) {
-        $attributes = $this->getFrameworkOption('error_classes');
-    }
-    return Element::create('span', $text, $attributes);
-  }
+	public function createHelp($text, $attributes = null)
+	{
+		if (is_null($attributes) or empty($attributes)) {
+			$attributes = $this->getFrameworkOption('error_classes');
+		}
 
-  /**
-   * Render a disabled field
-   *
-   * @param Field $field
-   *
-   * @return string
-   */
-  public function createDisabledField(Field $field)
-  {
-    $field->disabled();
+		return Element::create('span', $text, $attributes);
+	}
 
-    return Input::create('text', $field->getName(), $field->getValue(), $field->getAttributes());
-  }
+	/**
+	 * Render a disabled field
+	 *
+	 * @param Field $field
+	 *
+	 * @return string
+	 */
+	public function createDisabledField(Field $field)
+	{
+		$field->disabled();
 
-  ////////////////////////////////////////////////////////////////////
-  //////////////////////////// WRAP BLOCKS ///////////////////////////
-  ////////////////////////////////////////////////////////////////////
+		return Input::create('text', $field->getName(), $field->getValue(), $field->getAttributes());
+	}
 
-  /**
-   * Wrap an item to be prepended or appended to the current field.
-   * For Zurb we return the item and handle the wrapping in prependAppend
-   * as wrapping is dependent on whether we're prepending or appending.
-   *
-   * @param  string $field
-   *
-   * @return string A wrapped item
-   */
-  public function placeAround($item)
-  {
-    return $item;
-  }
+	////////////////////////////////////////////////////////////////////
+	//////////////////////////// WRAP BLOCKS ///////////////////////////
+	////////////////////////////////////////////////////////////////////
 
-  /**
-   * Wrap a field with prepended and appended items
-   *
-   * @param  Field $field
-   * @param  array $prepend
-   * @param  array $append
-   *
-   * @return string A field concatented with prepended and/or appended items
-   */
-  public function prependAppend($field, $prepend, $append)
-  {
-    $return = '';
+	/**
+	 * Wrap an item to be prepended or appended to the current field.
+	 * For Zurb we return the item and handle the wrapping in prependAppend
+	 * as wrapping is dependent on whether we're prepending or appending.
+	 *
+	 * @param  string $field
+	 *
+	 * @return string A wrapped item
+	 */
+	public function placeAround($item)
+	{
+		return $item;
+	}
 
-    foreach ($prepend as $item) {
-      $return .= '<div class="large-2 small-3 columns"><span class="prefix">'.$item.'</span></div>';
-    }
+	/**
+	 * Wrap a field with prepended and appended items
+	 *
+	 * @param  Field $field
+	 * @param  array $prepend
+	 * @param  array $append
+	 *
+	 * @return string A field concatented with prepended and/or appended items
+	 */
+	public function prependAppend($field, $prepend, $append)
+	{
+		$return = '';
 
-    $return .= '<div class="large-10 small-9 columns">'.$field->render().'</div>';
+		foreach ($prepend as $item) {
+			$return .= '<div class="large-2 small-3 columns"><span class="prefix">'.$item.'</span></div>';
+		}
 
-    foreach ($append as $item) {
-      $return .= '<div class="large-2 small-3 columns"><span class="postfix">'.$item.'</span></div>';
-    }
+		$return .= '<div class="large-10 small-9 columns">'.$field->render().'</div>';
 
-    return $return;
-  }
+		foreach ($append as $item) {
+			$return .= '<div class="large-2 small-3 columns"><span class="postfix">'.$item.'</span></div>';
+		}
 
-  /**
-   * Wraps all label contents with potential additional tags.
-   *
-   * @param  string $label
-   *
-   * @return string A wrapped label
-   */
-  public function wrapLabel($label)
-  {
-    if ($this->app['former.form']->isOfType('horizontal')) {
-      return Element::create('div', $label)->addClass($this->labelWidth);
-    } else {
-      return $label;
-    }
-  }
+		return $return;
+	}
 
-  /**
-   * Wraps all field contents with potential additional tags.
-   *
-   * @param  Field $field
-   *
-   * @return string A wrapped field
-   */
-  public function wrapField($field)
-  {
-    if ($this->app['former.form']->isOfType('horizontal')) {
-      return Element::create('div', $field)->addClass($this->fieldWidth);
-    } else {
-      return $field;
-    }
-  }
+	/**
+	 * Wraps all label contents with potential additional tags.
+	 *
+	 * @param  string $label
+	 *
+	 * @return string A wrapped label
+	 */
+	public function wrapLabel($label)
+	{
+		if ($this->app['former.form']->isOfType('horizontal')) {
+			return Element::create('div', $label)->addClass($this->labelWidth);
+		} else {
+			return $label;
+		}
+	}
 
-  /**
-   * Wrap actions block with potential additional tags
-   *
-   * @param  Actions $action
-   * @return string A wrapped actions block
-   */
-  public function wrapActions($actions)
-  {
-      return $actions;
-  }
+	/**
+	 * Wraps all field contents with potential additional tags.
+	 *
+	 * @param  Field $field
+	 *
+	 * @return string A wrapped field
+	 */
+	public function wrapField($field)
+	{
+		if ($this->app['former.form']->isOfType('horizontal')) {
+			return Element::create('div', $field)->addClass($this->fieldWidth);
+		} else {
+			return $field;
+		}
+	}
 
+	/**
+	 * Wrap actions block with potential additional tags
+	 *
+	 * @param  Actions $action
+	 *
+	 * @return string A wrapped actions block
+	 */
+	public function wrapActions($actions)
+	{
+		return $actions;
+	}
 }

@@ -8,17 +8,17 @@ use Former\Traits\Field;
  */
 class Textarea extends Field
 {
-  /**
-   * The textarea's element
-   *
-   * @var string
-   */
-  protected $element = 'textarea';
+	/**
+	 * The textarea's element
+	 *
+	 * @var string
+	 */
+	protected $element = 'textarea';
 
-  /**
-   * The textarea's self-closing state
-   *
-   * @var boolean
-   */
-  protected $isSelfClosing = false;
+	/**
+	 * The textarea's self-closing state
+	 *
+	 * @var boolean
+	 */
+	protected $isSelfClosing = false;
 }

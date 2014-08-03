@@ -16,369 +16,369 @@ use Illuminate\Support\Str;
  */
 abstract class Field extends FormerObject implements FieldInterface
 {
-  /**
-   * The IoC Container
-   *
-   * @var Container
-   */
-  protected $app;
+	/**
+	 * The IoC Container
+	 *
+	 * @var Container
+	 */
+	protected $app;
 
-  /**
-   * The Form instance
-   *
-   * @var Former\Form
-   */
-  protected $form;
+	/**
+	 * The Form instance
+	 *
+	 * @var Former\Form
+	 */
+	protected $form;
 
-  /**
-   * A label for the field (if not using Bootstrap)
-   *
-   * @var string
-   */
-  protected $label;
+	/**
+	 * A label for the field (if not using Bootstrap)
+	 *
+	 * @var string
+	 */
+	protected $label;
 
-  /**
-   * The field's group
-   *
-   * @var Group
-   */
-  protected $group;
+	/**
+	 * The field's group
+	 *
+	 * @var Group
+	 */
+	protected $group;
 
-  /**
-   * The field's default element
-   *
-   * @var string
-   */
-  protected $element = 'input';
+	/**
+	 * The field's default element
+	 *
+	 * @var string
+	 */
+	protected $element = 'input';
 
-  /**
-   * Whether the Field is self-closing or not
-   *
-   * @var boolean
-   */
-  protected $isSelfClosing = true;
+	/**
+	 * Whether the Field is self-closing or not
+	 *
+	 * @var boolean
+	 */
+	protected $isSelfClosing = true;
 
-  /**
-   * Get the current framework instance
-   *
-   * @return Framework
-   */
-  protected function currentFramework()
-  {
-    if ($this->app->bound('former.form.framework')) {
-      return $this->app['former.form.framework'];
-    }
+	/**
+	 * Get the current framework instance
+	 *
+	 * @return Framework
+	 */
+	protected function currentFramework()
+	{
+		if ($this->app->bound('former.form.framework')) {
+			return $this->app['former.form.framework'];
+		}
 
-    return $this->app['former.framework'];
-  }
+		return $this->app['former.framework'];
+	}
 
-  ////////////////////////////////////////////////////////////////////
-  ///////////////////////////// INTERFACE ////////////////////////////
-  ////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	///////////////////////////// INTERFACE ////////////////////////////
+	////////////////////////////////////////////////////////////////////
 
-  /**
-   * Set up a Field instance
-   *
-   * @param string $type A field type
-   */
-  public function __construct(Container $app, $type, $name, $label, $value, $attributes)
-  {
-    // Set base parameters
-    $this->app   = $app;
-    $this->type  = $type;
-    $this->value = $value;
-    $this->setAttributes($attributes);
-    $this->form  = $this->app->bound('former.form') ? $this->app['former.form'] : null;
+	/**
+	 * Set up a Field instance
+	 *
+	 * @param string $type A field type
+	 */
+	public function __construct(Container $app, $type, $name, $label, $value, $attributes)
+	{
+		// Set base parameters
+		$this->app   = $app;
+		$this->type  = $type;
+		$this->value = $value;
+		$this->setAttributes($attributes);
+		$this->form = $this->app->bound('former.form') ? $this->app['former.form'] : null;
 
-    // Compute and translate label
-    $this->automaticLabels($name, $label);
+		// Compute and translate label
+		$this->automaticLabels($name, $label);
 
-    // Repopulate field
-    if ($type != 'password') {
-      $this->value = $this->repopulate();
-    }
+		// Repopulate field
+		if ($type != 'password') {
+			$this->value = $this->repopulate();
+		}
 
-    // Apply Live validation rules
-    if ($this->app['former']->getOption('live_validation')) {
-      $rules = new LiveValidation($this);
-      $rules->apply($this->getRules());
-    }
+		// Apply Live validation rules
+		if ($this->app['former']->getOption('live_validation')) {
+			$rules = new LiveValidation($this);
+			$rules->apply($this->getRules());
+		}
 
-    // Bind the Group class
-    $groupClass = $this->isCheckable() ? 'CheckableGroup' : 'Group';
-    $groupClass = Former::FORMSPACE.$groupClass;
+		// Bind the Group class
+		$groupClass = $this->isCheckable() ? 'CheckableGroup' : 'Group';
+		$groupClass = Former::FORMSPACE.$groupClass;
 
-    $this->group = new $groupClass($this->app, $this->label);
-  }
+		$this->group = new $groupClass($this->app, $this->label);
+	}
 
-  /**
-   * Redirect calls to the group if necessary
-   */
-  public function __call($method, $parameters)
-  {
-    // Translate attributes
-    $translatable = $this->app['former']->getOption('translatable', array());
-    if (in_array($method, $translatable) and isset($parameters[0])) {
-      $parameters[0] = Helpers::translate($parameters[0]);
-    }
+	/**
+	 * Redirect calls to the group if necessary
+	 */
+	public function __call($method, $parameters)
+	{
+		// Translate attributes
+		$translatable = $this->app['former']->getOption('translatable', array());
+		if (in_array($method, $translatable) and isset($parameters[0])) {
+			$parameters[0] = Helpers::translate($parameters[0]);
+		}
 
-    // Redirect calls to the Control Group
-    if (method_exists($this->group, $method) or Str::startsWith($method, 'onGroup')) {
-      $method = str_replace('onGroup', '', $method);
-      $method = lcfirst($method);
+		// Redirect calls to the Control Group
+		if (method_exists($this->group, $method) or Str::startsWith($method, 'onGroup')) {
+			$method = str_replace('onGroup', '', $method);
+			$method = lcfirst($method);
 
-      call_user_func_array(array($this->group, $method), $parameters);
+			call_user_func_array(array($this->group, $method), $parameters);
 
-      return $this;
-    }
+			return $this;
+		}
 
-    return parent::__call($method, $parameters);
-  }
+		return parent::__call($method, $parameters);
+	}
 
-  /**
-   * Prints out the field, wrapped in its group
-   *
-   * @return string
-   */
-  public function wrapAndRender()
-  {
-    // Dry syntax (hidden fields, plain fields)
-    if ($this->isUnwrappable()) {
-      $html = $this->render();
+	/**
+	 * Prints out the field, wrapped in its group
+	 *
+	 * @return string
+	 */
+	public function wrapAndRender()
+	{
+		// Dry syntax (hidden fields, plain fields)
+		if ($this->isUnwrappable()) {
+			$html = $this->render();
+			// Control group syntax
+		} elseif (Form::hasInstanceOpened()) {
+			$html = $this->group->wrapField($this);
+			// Classic syntax
+		} else {
+			$html = $this->currentFramework()->createLabelOf($this);
+			$html .= $this->render();
+		}
 
-    // Control group syntax
-    } elseif (Form::hasInstanceOpened()) {
-      $html = $this->group->wrapField($this);
+		return $html;
+	}
 
-    // Classic syntax
-    } else {
-      $html  = $this->currentFramework()->createLabelOf($this);
-      $html .= $this->render();
-    }
+	/**
+	 * Prints out the field
+	 *
+	 * @return string
+	 */
+	public function __toString()
+	{
+		return $this->wrapAndRender();
+	}
 
-    return $html;
-  }
+	////////////////////////////////////////////////////////////////////
+	////////////////////////// PUBLIC INTERFACE ////////////////////////
+	////////////////////////////////////////////////////////////////////
 
-  /**
-   * Prints out the field
-   *
-   * @return string
-   */
-  public function __toString()
-  {
-    return $this->wrapAndRender();
-  }
+	/**
+	 * Whether the current field is required or not
+	 *
+	 * @return boolean
+	 */
+	public function isRequired()
+	{
+		return isset($this->attributes['required']);
+	}
 
-  ////////////////////////////////////////////////////////////////////
-  ////////////////////////// PUBLIC INTERFACE ////////////////////////
-  ////////////////////////////////////////////////////////////////////
+	/**
+	 * Check if a field is unwrappable (no label)
+	 *
+	 * @return boolean
+	 */
+	public function isUnwrappable()
+	{
+		return
+			($this->form and $this->currentFramework()->is('Nude')) or
+			($this->form and $this->isOfType('inline')) or
+			$this->isButton() or
+			$this->isOfType('hidden') or
+			\Former\Form\Group::$opened or
+			$this->group and $this->group->isRaw();
+	}
 
-  /**
-   * Whether the current field is required or not
-   *
-   * @return boolean
-   */
-  public function isRequired()
-  {
-    return isset($this->attributes['required']);
-  }
+	/**
+	 * Check if field is a checkbox or a radio
+	 *
+	 * @return boolean
+	 */
+	public function isCheckable()
+	{
+		return $this->isOfType('checkbox', 'checkboxes', 'radio', 'radios');
+	}
 
-  /**
-   * Check if a field is unwrappable (no label)
-   *
-   * @return boolean
-   */
-  public function isUnwrappable()
-  {
-    return
-      ($this->form and $this->currentFramework()->is('Nude')) or
-      ($this->form and $this->isOfType('inline')) or
-      $this->isButton() or
-      $this->isOfType('hidden') or
-      \Former\Form\Group::$opened or
-      $this->group and $this->group->isRaw();
-  }
+	/**
+	 * Check if the field is a button
+	 *
+	 * @return boolean
+	 */
+	public function isButton()
+	{
+		return false;
+	}
 
-  /**
-   * Check if field is a checkbox or a radio
-   *
-   * @return boolean
-   */
-  public function isCheckable()
-  {
-    return $this->isOfType('checkbox', 'checkboxes', 'radio', 'radios');
-  }
+	/**
+	 * Get the rules applied to the current field
+	 *
+	 * @return array An array of rules
+	 */
+	public function getRules()
+	{
+		return $this->app['former']->getRules($this->name);
+	}
 
-  /**
-   * Check if the field is a button
-   *
-   * @return boolean
-   */
-  public function isButton()
-  {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////
+	//////////////////////// SETTERS AND GETTERS ///////////////////////
+	////////////////////////////////////////////////////////////////////
 
-  /**
-   * Get the rules applied to the current field
-   *
-   * @return array An array of rules
-   */
-  public function getRules()
-  {
-    return $this->app['former']->getRules($this->name);
-  }
+	/**
+	 * Apply a Live Validation rule by chaining
+	 *
+	 * @param string $rule       The rule
+	 * @param mixed  $parameters * The rule parameters
+	 */
+	public function rule($rule)
+	{
+		$parameters = func_get_args();
+		array_shift($parameters);
 
-  ////////////////////////////////////////////////////////////////////
-  //////////////////////// SETTERS AND GETTERS ///////////////////////
-  ////////////////////////////////////////////////////////////////////
+		$live = new LiveValidation($this);
+		$live->apply(array(
+			$rule => $parameters,
+		));
 
-  /**
-   * Apply a Live Validation rule by chaining
-   *
-   * @param string $rule The rule
-   * @param mixed $parameters* The rule parameters
-   */
-  public function rule($rule)
-  {
-    $parameters = func_get_args();
-    array_shift($parameters);
+		return $this;
+	}
 
-    $live = new LiveValidation($this);
-    $live->apply(array(
-      $rule => $parameters,
-    ));
+	/**
+	 * Adds a label to the group/field
+	 *
+	 * @param  string $text       A label
+	 * @param  array  $attributes The label's attributes
+	 *
+	 * @return Field              A field
+	 */
+	public function label($text, $attributes = array())
+	{
+		// Create the Label element
+		$for   = $this->id ?: $this->name;
+		$label = $this->app['former']->label($text, $for, $attributes);
 
-    return $this;
-  }
+		// Set label
+		$this->label = $label;
+		if ($this->group) {
+			$this->group->setLabel($label);
+		}
 
-  /**
-   * Adds a label to the group/field
-   *
-   * @param  string $text       A label
-   * @param  array  $attributes The label's attributes
-   * @return Field              A field
-   */
-  public function label($text, $attributes = array())
-  {
-    // Create the Label element
-    $for   = $this->id ?: $this->name;
-    $label = $this->app['former']->label($text, $for, $attributes);
+		return $this;
+	}
 
-    // Set label
-    $this->label = $label;
-    if ($this->group) {
-      $this->group->setLabel($label);
-    }
+	/**
+	 * Set the Field value no matter what
+	 *
+	 * @param string $value A new value
+	 */
+	public function forceValue($value)
+	{
+		$this->value = $value;
 
-    return $this;
-  }
+		return $this;
+	}
 
-  /**
-   * Set the Field value no matter what
-   *
-   * @param string $value A new value
-   */
-  public function forceValue($value)
-  {
-    $this->value = $value;
+	/**
+	 * Classic setting of attribute, won't overwrite any populate() attempt
+	 *
+	 * @param  string $value A new value
+	 */
+	public function value($value)
+	{
+		// Check if we already have a value stored for this field or in POST data
+		$already = $this->repopulate();
 
-    return $this;
-  }
+		if (!$already) {
+			$this->value = $value;
+		}
 
-  /**
-   * Classic setting of attribute, won't overwrite any populate() attempt
-   *
-   * @param  string $value A new value
-   */
-  public function value($value)
-  {
-    // Check if we already have a value stored for this field or in POST data
-    $already = $this->repopulate();
+		return $this;
+	}
 
-    if (!$already) {
-      $this->value = $value;
-    }
+	/**
+	 * Change the field's name
+	 *
+	 * @param  string $name The new name
+	 */
+	public function name($name)
+	{
+		$this->name = $name;
 
-    return $this;
-  }
+		// Also relink the label to the new name
+		$this->label($name);
 
-  /**
-   * Change the field's name
-   *
-   * @param  string $name The new name
-   */
-  public function name($name)
-  {
-    $this->name = $name;
+		return $this;
+	}
 
-    // Also relink the label to the new name
-    $this->label($name);
+	/**
+	 * Get the field's labels
+	 *
+	 * @return array
+	 */
+	public function getLabel()
+	{
+		return $this->label;
+	}
 
-    return $this;
-  }
+	////////////////////////////////////////////////////////////////////
+	//////////////////////////////// HELPERS ///////////////////////////
+	////////////////////////////////////////////////////////////////////
 
-  /**
-   * Get the field's labels
-   *
-   * @return array
-   */
-  public function getLabel()
-  {
-    return $this->label;
-  }
+	/**
+	 * Use values stored in Former to populate the current field
+	 */
+	private function repopulate($fallback = null)
+	{
+		// Get values from POST, populated, and manually set value
+		$post      = $this->app['former']->getPost($this->name);
+		$populator = $this->form ? $this->form->getPopulator() : $this->app['former.populator'];
+		$populate  = $populator->get($this->name);
 
-  ////////////////////////////////////////////////////////////////////
-  //////////////////////////////// HELPERS ///////////////////////////
-  ////////////////////////////////////////////////////////////////////
+		// Assign a priority to each
+		if (!is_null($post)) {
+			return $post;
+		}
+		if (!is_null($populate)) {
+			return $populate;
+		}
 
-  /**
-   * Use values stored in Former to populate the current field
-   */
-  private function repopulate($fallback = null)
-  {
-    // Get values from POST, populated, and manually set value
-    $post      = $this->app['former']->getPost($this->name);
-    $populator = $this->form ? $this->form->getPopulator() : $this->app['former.populator'];
-    $populate  = $populator->get($this->name);
+		return $fallback ?: $this->value;
+	}
 
-    // Assign a priority to each
-    if (!is_null($post)) {
-      return $post;
-    }
-    if (!is_null($populate)) {
-      return $populate;
-    }
+	/**
+	 * Ponders a label and a field name, and tries to get the best out of it
+	 *
+	 * @param  string $label A label
+	 * @param  string $name  A field name
+	 *
+	 * @return array         A label and a field name
+	 */
+	private function automaticLabels($name, $label)
+	{
+		// Disabled automatic labels
+		if (!$this->app['former']->getOption('automatic_label')) {
+			$this->name = $name;
+			$this->label($label);
 
-    return $fallback ?: $this->value;
-  }
+			return false;
+		}
 
-  /**
-   * Ponders a label and a field name, and tries to get the best out of it
-   *
-   * @param  string $label A label
-   * @param  string $name  A field name
-   * @return array         A label and a field name
-   */
-  private function automaticLabels($name, $label)
-  {
-    // Disabled automatic labels
-    if (!$this->app['former']->getOption('automatic_label')) {
-      $this->name = $name;
-      $this->label($label);
+		// Check for the two possibilities
+		if ($label and is_null($name)) {
+			$name = Str::slug($label);
+		} elseif (is_null($label) and $name) {
+			$label = preg_replace('/\[\]$/', '', $name);
+		}
 
-      return false;
-    }
-
-    // Check for the two possibilities
-    if ($label and is_null($name)) {
-      $name = Str::slug($label);
-    } elseif (is_null($label) and $name) {
-      $label = preg_replace('/\[\]$/', '', $name);
-    }
-
-    // Save values
-    $this->name  = $name;
-    $this->label($label);
-  }
+		// Save values
+		$this->name = $name;
+		$this->label($label);
+	}
 }

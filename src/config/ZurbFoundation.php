@@ -27,7 +27,7 @@
 		'prefix' => 'fi',
 	),
 
-        // CSS for inline validation errors 
+        // CSS for inline validation errors
         // should work for Zurb 2 and 3
         'error_classes' => array('class' => 'alert-box alert error')
 
