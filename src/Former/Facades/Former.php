@@ -12,7 +12,7 @@ class Former extends Facade
 	/**
 	 * Get the registered component.
 	 *
-	 * @return object
+	 * @return string
 	 */
 	protected static function getFacadeAccessor()
 	{

@@ -113,6 +113,7 @@ abstract class Field extends FormerObject implements FieldInterface
 
 	/**
 	 * Redirect calls to the group if necessary
+	 * @param string $method
 	 */
 	public function __call($method, $parameters)
 	{
@@ -235,7 +236,6 @@ abstract class Field extends FormerObject implements FieldInterface
 	 * Apply a Live Validation rule by chaining
 	 *
 	 * @param string $rule       The rule
-	 * @param mixed  $parameters * The rule parameters
 	 */
 	public function rule($rule)
 	{
@@ -320,7 +320,7 @@ abstract class Field extends FormerObject implements FieldInterface
 	/**
 	 * Get the field's labels
 	 *
-	 * @return array
+	 * @return string
 	 */
 	public function getLabel()
 	{
@@ -358,7 +358,7 @@ abstract class Field extends FormerObject implements FieldInterface
 	 * @param  string $label A label
 	 * @param  string $name  A field name
 	 *
-	 * @return array         A label and a field name
+	 * @return false|null         A label and a field name
 	 */
 	private function automaticLabels($name, $label)
 	{

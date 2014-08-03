@@ -169,6 +169,9 @@ abstract class Framework
 		$this->setIconDefaults();
 	}
 
+	/**
+	 * @param string $widths
+	 */
 	protected function setFieldWidths($widths)
 	{
 	}
@@ -186,9 +189,7 @@ abstract class Framework
 	/**
 	 * Render an icon
 	 *
-	 * @param string $icon         The icon name
 	 * @param array  $attributes   Its general attributes
-	 * @param array  $iconSettings Icon-specific settings
 	 *
 	 * @return string
 	 */
@@ -246,7 +247,7 @@ abstract class Framework
 	 * Create a label for a field
 	 *
 	 * @param Field  $field
-	 * @param string $label The field label if non provided
+	 * @param Element $label The field label if non provided
 	 *
 	 * @return string A label
 	 */

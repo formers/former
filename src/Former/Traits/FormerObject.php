@@ -147,7 +147,6 @@ abstract class FormerObject extends Element
 	/**
 	 * Check if an object is of a certain type
 	 *
-	 * @param  string $types * The type(s) to check for
 	 *
 	 * @return boolean
 	 */
