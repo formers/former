@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9ec56abab359ed035525fa27f81648a4",
+    "hash": "7bc7ec8dc442a06cc2ba234f8dd91797",
     "packages": [
         {
             "name": "anahkiasen/html-object",
@@ -47,34 +47,35 @@
         },
         {
             "name": "illuminate/cache",
-            "version": "v4.2.7",
+            "version": "v4.1.30",
             "target-dir": "Illuminate/Cache",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/cache.git",
-                "reference": "e91341f67300b776225fce66920a30c1379a8266"
+                "reference": "fe78a7cd013cd4a175cad1cfc564e549ac234a6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/cache/zipball/e91341f67300b776225fce66920a30c1379a8266",
-                "reference": "e91341f67300b776225fce66920a30c1379a8266",
+                "url": "https://api.github.com/repos/illuminate/cache/zipball/fe78a7cd013cd4a175cad1cfc564e549ac234a6f",
+                "reference": "fe78a7cd013cd4a175cad1cfc564e549ac234a6f",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "4.2.*",
-                "nesbot/carbon": "~1.0",
-                "php": ">=5.4.0"
+                "illuminate/support": "4.1.*",
+                "nesbot/carbon": "1.*",
+                "php": ">=5.3.0"
             },
             "require-dev": {
-                "illuminate/database": "4.2.*",
-                "illuminate/encryption": "4.2.*",
-                "illuminate/filesystem": "4.2.*",
-                "illuminate/redis": "4.2.*"
+                "illuminate/database": "4.1.*",
+                "illuminate/encryption": "4.1.*",
+                "illuminate/filesystem": "4.1.*",
+                "illuminate/redis": "4.1.*",
+                "phpunit/phpunit": "4.0.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -89,35 +90,40 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-07-20 12:44:38"
+            "time": "2014-05-02 18:11:11"
         },
         {
             "name": "illuminate/config",
-            "version": "v4.2.7",
+            "version": "v4.1.30",
             "target-dir": "Illuminate/Config",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/config.git",
-                "reference": "03de040d413800bd3c672a484202bc8b355b6f9b"
+                "reference": "7492390a13d575e73460e6738ba38a3e41ac0341"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/config/zipball/03de040d413800bd3c672a484202bc8b355b6f9b",
-                "reference": "03de040d413800bd3c672a484202bc8b355b6f9b",
+                "url": "https://api.github.com/repos/illuminate/config/zipball/7492390a13d575e73460e6738ba38a3e41ac0341",
+                "reference": "7492390a13d575e73460e6738ba38a3e41ac0341",
                 "shasum": ""
             },
             "require": {
-                "illuminate/filesystem": "4.2.*",
-                "illuminate/support": "4.2.*",
-                "php": ">=5.4.0"
+                "illuminate/filesystem": "4.1.*",
+                "illuminate/support": "4.1.*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.0.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -132,33 +138,38 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-07-15 11:11:21"
+            "time": "2014-04-16 00:49:36"
         },
         {
             "name": "illuminate/container",
-            "version": "v4.2.7",
+            "version": "v4.1.30",
             "target-dir": "Illuminate/Container",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "33f3dbfc21eafa2a71f64c156955e618142afc3c"
+                "reference": "5b76abf9138fe1ad99788944e0561ebc655a254f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/33f3dbfc21eafa2a71f64c156955e618142afc3c",
-                "reference": "33f3dbfc21eafa2a71f64c156955e618142afc3c",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/5b76abf9138fe1ad99788944e0561ebc655a254f",
+                "reference": "5b76abf9138fe1ad99788944e0561ebc655a254f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.0.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -173,37 +184,43 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-07-18 22:26:34"
+            "time": "2014-05-22 21:07:57"
         },
         {
             "name": "illuminate/cookie",
-            "version": "v4.2.7",
+            "version": "v4.1.30",
             "target-dir": "Illuminate/Cookie",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/cookie.git",
-                "reference": "31179cf37749cb7b78a5aa5f1f45f20485467c93"
+                "reference": "007daf5970f9bdf48180965b62384390e370848b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/cookie/zipball/31179cf37749cb7b78a5aa5f1f45f20485467c93",
-                "reference": "31179cf37749cb7b78a5aa5f1f45f20485467c93",
+                "url": "https://api.github.com/repos/illuminate/cookie/zipball/007daf5970f9bdf48180965b62384390e370848b",
+                "reference": "007daf5970f9bdf48180965b62384390e370848b",
                 "shasum": ""
             },
             "require": {
-                "illuminate/encryption": "4.2.*",
-                "illuminate/support": "4.2.*",
-                "php": ">=5.4.0",
-                "symfony/http-foundation": "2.5.*",
-                "symfony/http-kernel": "2.5.*"
+                "illuminate/encryption": "4.1.*",
+                "illuminate/support": "4.1.*",
+                "php": ">=5.3.0",
+                "symfony/http-foundation": "2.4.*",
+                "symfony/http-kernel": "2.4.*"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.0.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -218,35 +235,40 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-07-14 11:39:35"
+            "time": "2014-04-04 20:50:53"
         },
         {
             "name": "illuminate/encryption",
-            "version": "v4.2.7",
+            "version": "v4.1.30",
             "target-dir": "Illuminate/Encryption",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/encryption.git",
-                "reference": "99f8e9e8735b8445f2f65af8886cb227ab790a16"
+                "reference": "afa985079aa97909df7840e847d38cc3d307fe92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/encryption/zipball/99f8e9e8735b8445f2f65af8886cb227ab790a16",
-                "reference": "99f8e9e8735b8445f2f65af8886cb227ab790a16",
+                "url": "https://api.github.com/repos/illuminate/encryption/zipball/afa985079aa97909df7840e847d38cc3d307fe92",
+                "reference": "afa985079aa97909df7840e847d38cc3d307fe92",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "4.2.*",
-                "php": ">=5.4.0",
-                "symfony/security-core": "2.5.*"
+                "illuminate/support": "4.1.*",
+                "php": ">=5.3.0",
+                "symfony/security-core": "2.4.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.0.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -261,35 +283,40 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-07-15 10:07:40"
+            "time": "2014-05-02 21:03:07"
         },
         {
             "name": "illuminate/filesystem",
-            "version": "v4.2.7",
+            "version": "v4.1.30",
             "target-dir": "Illuminate/Filesystem",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
-                "reference": "568f829aebe886bbe84bcd726e1509f830d5a1b0"
+                "reference": "bae44b67e7bd68ef676c77cdb70eb505a3aff9aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/568f829aebe886bbe84bcd726e1509f830d5a1b0",
-                "reference": "568f829aebe886bbe84bcd726e1509f830d5a1b0",
+                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/bae44b67e7bd68ef676c77cdb70eb505a3aff9aa",
+                "reference": "bae44b67e7bd68ef676c77cdb70eb505a3aff9aa",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "4.2.*",
-                "php": ">=5.4.0",
-                "symfony/finder": "2.5.*"
+                "illuminate/support": "4.1.*",
+                "php": ">=5.3.0",
+                "symfony/finder": "2.4.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.0.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -304,37 +331,43 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-05-23 16:40:19"
+            "time": "2014-03-22 20:12:48"
         },
         {
             "name": "illuminate/http",
-            "version": "v4.2.7",
+            "version": "v4.1.30",
             "target-dir": "Illuminate/Http",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/http.git",
-                "reference": "c462654b18d73074eb35bfc3a580c76863d2c495"
+                "reference": "7a4540e4094a2072df74ada17c74560409ef4875"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/http/zipball/c462654b18d73074eb35bfc3a580c76863d2c495",
-                "reference": "c462654b18d73074eb35bfc3a580c76863d2c495",
+                "url": "https://api.github.com/repos/illuminate/http/zipball/7a4540e4094a2072df74ada17c74560409ef4875",
+                "reference": "7a4540e4094a2072df74ada17c74560409ef4875",
                 "shasum": ""
             },
             "require": {
-                "illuminate/session": "4.2.*",
-                "illuminate/support": "4.2.*",
-                "php": ">=5.4.0",
-                "symfony/http-foundation": "2.5.*",
-                "symfony/http-kernel": "2.5.*"
+                "illuminate/session": "4.1.*",
+                "illuminate/support": "4.1.*",
+                "php": ">=5.3.0",
+                "symfony/http-foundation": "2.4.*",
+                "symfony/http-kernel": "2.4.*"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.0.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -349,44 +382,48 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-07-15 11:11:21"
+            "time": "2014-05-30 14:04:56"
         },
         {
             "name": "illuminate/routing",
-            "version": "v4.2.7",
+            "version": "v4.1.30",
             "target-dir": "Illuminate/Routing",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/routing.git",
-                "reference": "686fd21309adf405be10d3b1b9586c2d52476af7"
+                "reference": "d3b12e043d752d94ac84f6f720d0bda01f4e9b97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/routing/zipball/686fd21309adf405be10d3b1b9586c2d52476af7",
-                "reference": "686fd21309adf405be10d3b1b9586c2d52476af7",
+                "url": "https://api.github.com/repos/illuminate/routing/zipball/d3b12e043d752d94ac84f6f720d0bda01f4e9b97",
+                "reference": "d3b12e043d752d94ac84f6f720d0bda01f4e9b97",
                 "shasum": ""
             },
             "require": {
-                "illuminate/container": "4.2.*",
-                "illuminate/http": "4.2.*",
-                "illuminate/session": "4.2.*",
-                "illuminate/support": "4.2.*",
-                "php": ">=5.4.0",
-                "symfony/http-foundation": "2.5.*",
-                "symfony/http-kernel": "2.5.*",
-                "symfony/routing": "2.5.*"
+                "illuminate/container": "4.1.*",
+                "illuminate/http": "4.1.*",
+                "illuminate/session": "4.1.*",
+                "illuminate/support": "4.1.*",
+                "php": ">=5.3.0",
+                "symfony/http-foundation": "2.4.*",
+                "symfony/http-kernel": "2.4.*",
+                "symfony/routing": "2.4.*"
             },
             "require-dev": {
-                "illuminate/console": "4.2.*",
-                "illuminate/filesystem": "4.2.*"
+                "illuminate/console": "4.1.*",
+                "illuminate/filesystem": "4.1.*",
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.0.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -401,43 +438,47 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-07-21 20:56:06"
+            "time": "2014-05-23 13:55:42"
         },
         {
             "name": "illuminate/session",
-            "version": "v4.2.7",
+            "version": "v4.1.30",
             "target-dir": "Illuminate/Session",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/session.git",
-                "reference": "7234dd93201c358b7adcf8e4b73963f3f4de6023"
+                "reference": "bdf63771abd0e090453474896b4b396f44f48117"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/session/zipball/7234dd93201c358b7adcf8e4b73963f3f4de6023",
-                "reference": "7234dd93201c358b7adcf8e4b73963f3f4de6023",
+                "url": "https://api.github.com/repos/illuminate/session/zipball/bdf63771abd0e090453474896b4b396f44f48117",
+                "reference": "bdf63771abd0e090453474896b4b396f44f48117",
                 "shasum": ""
             },
             "require": {
-                "illuminate/cache": "4.2.*",
-                "illuminate/cookie": "4.2.*",
-                "illuminate/encryption": "4.2.*",
-                "illuminate/support": "4.2.*",
-                "nesbot/carbon": "~1.0",
-                "php": ">=5.4.0",
-                "symfony/finder": "2.5.*",
-                "symfony/http-foundation": "2.5.*"
+                "illuminate/cache": "4.1.*",
+                "illuminate/cookie": "4.1.*",
+                "illuminate/encryption": "4.1.*",
+                "illuminate/support": "4.1.*",
+                "nesbot/carbon": "1.*",
+                "php": ">=5.3.0",
+                "symfony/finder": "2.4.*",
+                "symfony/http-foundation": "2.4.*"
             },
             "require-dev": {
-                "illuminate/console": "4.2.*"
+                "illuminate/console": "4.1.*",
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.0.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -452,37 +493,41 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-07-18 13:39:39"
+            "time": "2014-03-18 21:30:53"
         },
         {
             "name": "illuminate/support",
-            "version": "v4.2.7",
+            "version": "v4.1.30",
             "target-dir": "Illuminate/Support",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "b3d84fa93aa3f2081a935158f860de8308d62d5a"
+                "reference": "205a132f7d5e5222d23e17d49ad922bf349d240e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/b3d84fa93aa3f2081a935158f860de8308d62d5a",
-                "reference": "b3d84fa93aa3f2081a935158f860de8308d62d5a",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/205a132f7d5e5222d23e17d49ad922bf349d240e",
+                "reference": "205a132f7d5e5222d23e17d49ad922bf349d240e",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=5.3.0"
             },
             "require-dev": {
-                "jeremeamia/superclosure": "~1.0",
-                "patchwork/utf8": "1.1.*"
+                "jeremeamia/superclosure": "1.0.*",
+                "mockery/mockery": "0.9.*",
+                "patchwork/utf8": "1.1.*",
+                "phpunit/phpunit": "4.0.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -500,36 +545,42 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-07-21 21:14:59"
+            "time": "2014-05-30 16:22:08"
         },
         {
             "name": "illuminate/translation",
-            "version": "v4.2.7",
+            "version": "v4.1.30",
             "target-dir": "Illuminate/Translation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/translation.git",
-                "reference": "03a4460dfd83154b6781a996d120b11032e7da24"
+                "reference": "b867d46b71e32718dedb53342d373d30ae41fb87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/translation/zipball/03a4460dfd83154b6781a996d120b11032e7da24",
-                "reference": "03a4460dfd83154b6781a996d120b11032e7da24",
+                "url": "https://api.github.com/repos/illuminate/translation/zipball/b867d46b71e32718dedb53342d373d30ae41fb87",
+                "reference": "b867d46b71e32718dedb53342d373d30ae41fb87",
                 "shasum": ""
             },
             "require": {
-                "illuminate/filesystem": "4.2.*",
-                "illuminate/support": "4.2.*",
-                "php": ">=5.4.0",
-                "symfony/translation": "2.5.*"
+                "illuminate/filesystem": "4.1.*",
+                "illuminate/support": "4.1.*",
+                "php": ">=5.3.0",
+                "symfony/translation": "2.4.*"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.0.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -544,10 +595,12 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-07-15 11:11:21"
+            "time": "2014-04-18 11:14:11"
         },
         {
             "name": "nesbot/carbon",
@@ -749,17 +802,17 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v2.5.2",
+            "version": "v2.4.8",
             "target-dir": "Symfony/Component/Finder",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "576d8f69feec477067e91b6bd0367c113e76a1a0"
+                "reference": "b495517531feb9f27c35991d0ed606ffb210faea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/576d8f69feec477067e91b6bd0367c113e76a1a0",
-                "reference": "576d8f69feec477067e91b6bd0367c113e76a1a0",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/b495517531feb9f27c35991d0ed606ffb210faea",
+                "reference": "b495517531feb9f27c35991d0ed606ffb210faea",
                 "shasum": ""
             },
             "require": {
@@ -768,7 +821,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.4-dev"
                 }
             },
             "autoload": {
@@ -794,21 +847,21 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-15 14:15:12"
+            "time": "2014-07-15 14:07:10"
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.5.2",
+            "version": "v2.4.8",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "32ca1659e64bff5df61668e137bb3c3f64b7ce55"
+                "reference": "68abe34601c519359b60363b99c29ecfb6679bc4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/32ca1659e64bff5df61668e137bb3c3f64b7ce55",
-                "reference": "32ca1659e64bff5df61668e137bb3c3f64b7ce55",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/68abe34601c519359b60363b99c29ecfb6679bc4",
+                "reference": "68abe34601c519359b60363b99c29ecfb6679bc4",
                 "shasum": ""
             },
             "require": {
@@ -820,7 +873,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.4-dev"
                 }
             },
             "autoload": {
@@ -849,28 +902,28 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-15 14:15:12"
+            "time": "2014-07-15 14:07:10"
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v2.5.2",
+            "version": "v2.4.8",
             "target-dir": "Symfony/Component/HttpKernel",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "bc645cd0e83008b15586dc60b6acc39fd09bcce3"
+                "reference": "b2c3fc145e7b50c8e09daab303674126ca3a8c5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/bc645cd0e83008b15586dc60b6acc39fd09bcce3",
-                "reference": "bc645cd0e83008b15586dc60b6acc39fd09bcce3",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/b2c3fc145e7b50c8e09daab303674126ca3a8c5b",
+                "reference": "b2c3fc145e7b50c8e09daab303674126ca3a8c5b",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
                 "psr/log": "~1.0",
-                "symfony/debug": "~2.5",
-                "symfony/event-dispatcher": "~2.5",
+                "symfony/debug": "~2.3",
+                "symfony/event-dispatcher": "~2.1",
                 "symfony/http-foundation": "~2.4"
             },
             "require-dev": {
@@ -896,7 +949,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.4-dev"
                 }
             },
             "autoload": {
@@ -922,21 +975,21 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-15 15:39:46"
+            "time": "2014-07-15 14:52:02"
         },
         {
             "name": "symfony/routing",
-            "version": "v2.5.2",
+            "version": "v2.4.8",
             "target-dir": "Symfony/Component/Routing",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
-                "reference": "24d5f003a794894513d67c888181ba8c3b8e0693"
+                "reference": "d290f15b7083cee926e17299ab6889210058b30e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/24d5f003a794894513d67c888181ba8c3b8e0693",
-                "reference": "24d5f003a794894513d67c888181ba8c3b8e0693",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/d290f15b7083cee926e17299ab6889210058b30e",
+                "reference": "d290f15b7083cee926e17299ab6889210058b30e",
                 "shasum": ""
             },
             "require": {
@@ -958,7 +1011,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.4-dev"
                 }
             },
             "autoload": {
@@ -990,21 +1043,21 @@
                 "uri",
                 "url"
             ],
-            "time": "2014-07-09 09:05:48"
+            "time": "2014-07-09 09:04:55"
         },
         {
             "name": "symfony/security-core",
-            "version": "v2.5.2",
+            "version": "v2.4.8",
             "target-dir": "Symfony/Component/Security/Core",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-core.git",
-                "reference": "dfc7d40b0a4d2f5ccc743eba08f840743f4ea984"
+                "reference": "b38465247685449d36f8b45c74de88ecc8c6c6e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-core/zipball/dfc7d40b0a4d2f5ccc743eba08f840743f4ea984",
-                "reference": "dfc7d40b0a4d2f5ccc743eba08f840743f4ea984",
+                "url": "https://api.github.com/repos/symfony/security-core/zipball/b38465247685449d36f8b45c74de88ecc8c6c6e2",
+                "reference": "b38465247685449d36f8b45c74de88ecc8c6c6e2",
                 "shasum": ""
             },
             "require": {
@@ -1028,7 +1081,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.4-dev"
                 }
             },
             "autoload": {
@@ -1054,21 +1107,21 @@
             ],
             "description": "Symfony Security Component - Core Library",
             "homepage": "http://symfony.com",
-            "time": "2014-06-23 07:34:27"
+            "time": "2014-06-20 22:02:36"
         },
         {
             "name": "symfony/translation",
-            "version": "v2.5.2",
+            "version": "v2.4.8",
             "target-dir": "Symfony/Component/Translation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "059d57c361043f5a06eb348b9b7554213f9ab8d1"
+                "reference": "2e9116d2d6d4e673a196f5699465e79a6910359d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/059d57c361043f5a06eb348b9b7554213f9ab8d1",
-                "reference": "059d57c361043f5a06eb348b9b7554213f9ab8d1",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/2e9116d2d6d4e673a196f5699465e79a6910359d",
+                "reference": "2e9116d2d6d4e673a196f5699465e79a6910359d",
                 "shasum": ""
             },
             "require": {
@@ -1085,7 +1138,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.4-dev"
                 }
             },
             "autoload": {
@@ -1111,43 +1164,45 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-15 14:22:44"
+            "time": "2014-07-15 14:22:28"
         }
     ],
     "packages-dev": [
         {
             "name": "illuminate/database",
-            "version": "v4.2.7",
+            "version": "v4.1.30",
             "target-dir": "Illuminate/Database",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "35adb30b2b9e26222e6c0803a5643e86674f13c1"
+                "reference": "d6c2bffdc04d2d73b6ae82aab10647ddbda1daab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/35adb30b2b9e26222e6c0803a5643e86674f13c1",
-                "reference": "35adb30b2b9e26222e6c0803a5643e86674f13c1",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/d6c2bffdc04d2d73b6ae82aab10647ddbda1daab",
+                "reference": "d6c2bffdc04d2d73b6ae82aab10647ddbda1daab",
                 "shasum": ""
             },
             "require": {
-                "illuminate/container": "4.2.*",
-                "illuminate/events": "4.2.*",
-                "illuminate/support": "4.2.*",
-                "nesbot/carbon": "~1.0",
-                "php": ">=5.4.0"
+                "illuminate/container": "4.1.*",
+                "illuminate/events": "4.1.*",
+                "illuminate/support": "4.1.*",
+                "nesbot/carbon": "1.*",
+                "php": ">=5.3.0"
             },
             "require-dev": {
-                "illuminate/cache": "4.2.*",
-                "illuminate/console": "4.2.*",
-                "illuminate/filesystem": "4.2.*",
-                "illuminate/pagination": "4.2.*",
-                "illuminate/support": "4.2.*"
+                "illuminate/cache": "4.1.*",
+                "illuminate/console": "4.1.*",
+                "illuminate/filesystem": "4.1.*",
+                "illuminate/pagination": "4.1.*",
+                "illuminate/support": "4.1.*",
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.0.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -1162,7 +1217,9 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Creator of Laravel"
                 }
             ],
             "keywords": [
@@ -1171,32 +1228,36 @@
                 "orm",
                 "sql"
             ],
-            "time": "2014-07-20 23:19:36"
+            "time": "2014-06-01 01:57:51"
         },
         {
             "name": "illuminate/events",
-            "version": "v4.2.7",
+            "version": "v4.1.30",
             "target-dir": "Illuminate/Events",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/events.git",
-                "reference": "c95614873f4e437ed7a723c1734197b51feaf991"
+                "reference": "4e83ee4f255ec084d510e533ef8e98961aae8729"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/events/zipball/c95614873f4e437ed7a723c1734197b51feaf991",
-                "reference": "c95614873f4e437ed7a723c1734197b51feaf991",
+                "url": "https://api.github.com/repos/illuminate/events/zipball/4e83ee4f255ec084d510e533ef8e98961aae8729",
+                "reference": "4e83ee4f255ec084d510e533ef8e98961aae8729",
                 "shasum": ""
             },
             "require": {
-                "illuminate/container": "4.2.*",
-                "illuminate/support": "4.2.*",
-                "php": ">=5.4.0"
+                "illuminate/container": "4.1.*",
+                "illuminate/support": "4.1.*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.0.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -1211,10 +1272,12 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-06-06 13:58:46"
+            "time": "2014-03-22 20:12:48"
         },
         {
             "name": "mockery/mockery",
@@ -1983,6 +2046,8 @@
     "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": false,
-    "platform": [],
+    "platform": {
+        "php": ">=5.3.0"
+    },
     "platform-dev": []
 }
