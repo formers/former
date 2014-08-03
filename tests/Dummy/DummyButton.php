@@ -1,4 +1,6 @@
 <?php
+namespace Former\Dummy;
+
 class DummyButton
 {
   public function __construct($text)

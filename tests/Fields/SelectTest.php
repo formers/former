@@ -1,5 +1,10 @@
 <?php
+namespace Former\Fields;
+
+use Former\TestCases\FormerTests;
+use HtmlObject\Element;
 use Illuminate\Support\Collection;
+use Former\Dummy\DummyEloquent;
 
 class SelectTest extends FormerTests
 {
@@ -50,7 +55,7 @@ class SelectTest extends FormerTests
     $select = $this->former->select('foo')->options($this->options);
 
     foreach ($this->options as $key => $option) {
-      $options[$key] = HtmlObject\Element::create('option', $option, array('value' => $key));
+      $options[$key] = Element::create('option', $option, array('value' => $key));
     }
 
     $this->assertEquals($select->getOptions(), $options);

@@ -1,4 +1,8 @@
 <?php
+namespace Former;
+
+use Former\TestCases\FormerTests;
+
 class LiveValidationTest extends FormerTests
 {
 

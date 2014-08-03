@@ -1,4 +1,8 @@
 <?php
+namespace Former\Fields;
+
+use Former\TestCases\FormerTests;
+
 class UneditableTest extends FormerTests
 {
 

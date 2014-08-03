@@ -1,4 +1,5 @@
 <?php
+namespace Former\Dummy;
 
 class DummyToArray
 {

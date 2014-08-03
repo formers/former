@@ -1,4 +1,8 @@
 <?php
+namespace Former;
+
+use Former\TestCases\FormerTests;
+use Former\Dummy\DummyButton;
 use Illuminate\Support\Str;
 
 class GroupTest extends FormerTests

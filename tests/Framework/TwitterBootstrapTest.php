@@ -1,4 +1,8 @@
 <?php
+namespace Former\Framework;
+
+use Former\TestCases\FormerTests;
+
 use Illuminate\Support\Str;
 
 class TwitterBootstrap2Test extends FormerTests

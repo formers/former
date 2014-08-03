@@ -1,4 +1,7 @@
 <?php
+namespace Former\Traits;
+
+use Former\TestCases\FormerTests;
 use Illuminate\Support\Str;
 
 class FieldTest extends FormerTests

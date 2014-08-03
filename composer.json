@@ -25,14 +25,14 @@
     "illuminate/translation" :"~4.0"
   },
   "require-dev": {
-    "mockery/mockery": "~0.9",
+		"phpunit/phpunit": "~4.1.4",
+    "mockery/mockery": "~0.9.1",
     "illuminate/database": "~4.0"
   },
   "autoload": {
-    "psr-0": {
-      "Former": "src",
-      "Laravel": "src"
-    },
-    "classmap": ["tests"]
+    "psr-4": {
+      "Former\\": ["src/Former", "tests"],
+      "Laravel\\": "src/Laravel"
+    }
   }
 }

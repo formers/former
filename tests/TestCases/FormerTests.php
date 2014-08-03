@@ -1,6 +1,9 @@
 <?php
+namespace Former\TestCases;
+
 ini_set('memory_limit', '400M');
 date_default_timezone_set('UTC');
+use Mockery;
 
 /**
  * Base testing class

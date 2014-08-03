@@ -1,4 +1,8 @@
 <?php
+namespace Former\Framework;
+
+use Former\TestCases\FormerTests;
+
 class ZurbFrameworkTest extends FormerTests
 {
 

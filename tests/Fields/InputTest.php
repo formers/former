@@ -1,4 +1,9 @@
 <?php
+namespace Former\Fields;
+
+use Former\TestCases\FormerTests;
+use Former\Dummy\DummyEloquent;
+
 
 class InputTest extends FormerTests
 {

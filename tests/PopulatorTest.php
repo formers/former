@@ -1,5 +1,10 @@
 <?php
+namespace Former;
+
+use Former\TestCases\FormerTests;
+use Former\Dummy\DummyEloquent;
 use Former\Populator;
+use Former\Dummy\DummyToArray;
 
 class PopulatorTest extends FormerTests
 {

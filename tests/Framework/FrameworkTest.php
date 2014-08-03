@@ -1,4 +1,8 @@
 <?php
+namespace Former\Framework;
+
+use Former\TestCases\FormerTests;
+
 class FrameworkTest extends FormerTests
 {
   public function testCanChangeFramework()

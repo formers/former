@@ -1,4 +1,9 @@
 <?php
+namespace Former;
+
+use Former\TestCases\FormerTests;
+use Mockery;
+
 class HelpersTest extends FormerTests
 {
   public function testDoesntUseTranslationsArraysAsLabels()
@@ -25,9 +30,9 @@ class HelpersTest extends FormerTests
       ->shouldReceive('get')->with('former::automatic_label', '')->andReturn(true)
       ->shouldReceive('get')->with('former::capitalize_translations', '')->andReturn(false)
       ->mock();
-    Former\Helpers::setApp($this->app);
+    Helpers::setApp($this->app);
 
-    $this->assertEquals('field', Former\Helpers::translate('field'));
+    $this->assertEquals('field', Helpers::translate('field'));
   }
 
   public function testNestedTranslationFieldNames()

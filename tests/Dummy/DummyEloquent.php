@@ -1,5 +1,8 @@
 <?php
+namespace Former\Dummy;
+
 use Illuminate\Database\Eloquent\Model;
+use Mockery;
 
 class DummyEloquent extends Model
 {

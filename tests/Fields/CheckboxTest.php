@@ -1,4 +1,9 @@
 <?php
+namespace Former\Fields;
+
+use Former\Dummy\DummyEloquent;
+use Former\TestCases\FormerTests;
+
 class CheckboxTest extends FormerTests
 {
 

@@ -1,6 +1,10 @@
 <?php
+namespace Former\TestCases;
+
 use Illuminate\Container\Container;
 use Former\FormerServiceProvider;
+use PHPUnit_Framework_TestCase;
+use Mockery;
 
 /**
  * A TestCase that creates a mocked Container to use as core

@@ -1,4 +1,9 @@
 <?php
+namespace Former;
+
+use Former\TestCases\FormerTests;
+use Former\Facades\Former;
+
 class FormerTest extends FormerTests
 {
   ////////////////////////////////////////////////////////////////////
@@ -73,7 +78,7 @@ class FormerTest extends FormerTests
 
   public function testCanUseClassesAsMacros()
   {
-    $this->former->macro('loltext', 'DummyMacros@loltext');
+    $this->former->macro('loltext', 'Former\Dummy\DummyMacros@loltext');
 
     $this->assertEquals('lolfoobar', $this->former->loltext('foobar'));
   }
@@ -97,7 +102,7 @@ class FormerTest extends FormerTests
 
   public function testCanUseFacadeWithoutContainer()
   {
-    $text = Former\Facades\Former::text('foo')->render();
+    $text = Former::text('foo')->render();
 
     $this->assertEquals('<input id="foo" type="text" name="foo">', $text);
   }
