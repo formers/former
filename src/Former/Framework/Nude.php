@@ -106,7 +106,7 @@ class Nude extends Framework implements FrameworkInterface
 	 *
 	 * @param Field $field
 	 *
-	 * @return string
+	 * @return Input
 	 */
 	public function createDisabledField(Field $field)
 	{
@@ -124,7 +124,7 @@ class Nude extends Framework implements FrameworkInterface
 	 *
 	 * @param  string $item
 	 *
-	 * @return string A wrapped item
+	 * @return Element A wrapped item
 	 */
 	public function placeAround($item)
 	{
@@ -156,7 +156,7 @@ class Nude extends Framework implements FrameworkInterface
 	 *
 	 * @param  Field $field
 	 *
-	 * @return string A wrapped field
+	 * @return Field A wrapped field
 	 */
 	public function wrapField($field)
 	{
@@ -166,7 +166,7 @@ class Nude extends Framework implements FrameworkInterface
 	/**
 	 * Wrap actions block with potential additional tags
 	 *
-	 * @param  Actions $action
+	 * @param  Actions $actions
 	 *
 	 * @return string A wrapped actions block
 	 */

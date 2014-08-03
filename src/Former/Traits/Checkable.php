@@ -323,7 +323,7 @@ abstract class Checkable extends Field
 	 * Renders a checkable
 	 *
 	 * @param string|array $item          A checkable item
-	 * @param int|string   $fallbackValue A fallback value if none is set
+	 * @param integer   $fallbackValue A fallback value if none is set
 	 *
 	 * @return string
 	 */

@@ -50,7 +50,7 @@ class MethodDispatcher
 	 */
 	public function addRepository($repository)
 	{
-		array_unshift($repository, $this->repositories);
+		array_unshift($this->repositories, $repository);
 
 		return $this;
 	}

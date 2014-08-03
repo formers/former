@@ -367,7 +367,7 @@ class Former
 	 * Set an option on the config
 	 *
 	 * @param string $option
-	 * @param mixed  $value
+	 * @param string  $value
 	 */
 	public function setOption($option, $value)
 	{

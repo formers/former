@@ -35,7 +35,7 @@ class FormerServiceProvider extends ServiceProvider
 	/**
 	 * Get the services provided by the provider.
 	 *
-	 * @return array
+	 * @return string[]
 	 */
 	public function provides()
 	{

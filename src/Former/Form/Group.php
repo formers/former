@@ -89,9 +89,7 @@ class Group extends Tag
 	/**
 	 * Creates a group
 	 *
-	 * @param Container $Container  The Container instance
 	 * @param string    $label      Its label
-	 * @param array     $attributes Attributes
 	 */
 	public function __construct(Container $app, $label, $validations = null)
 	{
@@ -162,7 +160,7 @@ class Group extends Tag
 	/**
 	 * Wrap a Field with the current group
 	 *
-	 * @param  Field $field A Field instance
+	 * @param  \Former\Traits\Field $field A Field instance
 	 *
 	 * @return string        A group
 	 */
@@ -220,7 +218,7 @@ class Group extends Tag
 	/**
 	 * Get the formatted group label
 	 *
-	 * @return string
+	 * @return string|null
 	 */
 	public function getFormattedLabel()
 	{
@@ -378,7 +376,7 @@ class Group extends Tag
 	/**
 	 * Wraps content in a group
 	 *
-	 * @param mixed  $contents The content
+	 * @param string  $contents The content
 	 * @param string $label    The label to add
 	 *
 	 * @return string A group
