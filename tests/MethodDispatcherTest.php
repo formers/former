@@ -3,6 +3,7 @@ namespace Former;
 
 use Former\MethodDispatcher;
 use Former\TestCases\FormerTests;
+use PHPUnit_Framework_Assert;
 
 class MethodDispatcherTest extends FormerTests
 {
