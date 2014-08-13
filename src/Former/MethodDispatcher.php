@@ -215,8 +215,11 @@ class MethodDispatcher
 	{
 		// If the field's name directly match a class, call it
 		$class = Str::singular(Str::title($method));
+		$studly_class = Str::singular(Str::studly($method));
 		foreach ($this->repositories as $repository) {
-			if (class_exists($repository.$class)) {
+			if (class_exists($repository.$studly_class)) {
+				return $repository.$studly_class;
+			} else if (class_exists($repository.$class)) {
 				return $repository.$class;
 			}
 		}
