@@ -171,6 +171,18 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 			),
 			'ZurbFoundation4.wrappedLabelClasses' => array('right', 'inline'),
 			'ZurbFoundation4.error_classes'       => array('class' => 'alert-box radius warning'),
+			'ZurbFoundation5.icon.prefix'         => 'fi',
+			'ZurbFoundation5.icon.set'            => null,
+			'ZurbFoundation5.icon.tag'            => 'i',
+			'ZurbFoundation5.labelWidths'         => array('small' => 3),
+			'ZurbFoundation5.viewports'           => array(
+				'large'  => 'large',
+				'medium' => null,
+				'small'  => 'small',
+				'mini'   => null
+			),
+			'ZurbFoundation5.wrappedLabelClasses' => array('right', 'inline'),
+			'ZurbFoundation5.error_classes'       => array('class' => 'error'),
 		), $options);
 
 		return $this->mock('config', 'Config', function ($mock) use ($options) {
