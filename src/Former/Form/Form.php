@@ -123,10 +123,11 @@ class Form extends FormerObject
 		}
 
 		// Open the form
-		$this->action($action);
+
 		$this->attributes = $attributes;
 		$this->method     = strtoupper($method);
 		$this->secure     = $secure;
+		$this->action($action);
 
 		// Add any effect of the form type
 		$type       = Str::snake($type);
@@ -216,7 +217,7 @@ class Form extends FormerObject
 	 *
 	 * @return $this
 	 */
-	public function secure($secure = true)
+	public function secure($secure)
 	{
 		$this->secure = $secure;
 
