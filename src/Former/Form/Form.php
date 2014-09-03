@@ -12,408 +12,407 @@ use Illuminate\Support\Str;
  */
 class Form extends FormerObject
 {
-	/**
-	 * The IoC Container
-	 *
-	 * @var Container
-	 */
-	protected $app;
+  /**
+   * The IoC Container
+   *
+   * @var Container
+   */
+  protected $app;
 
-	/**
-	 * The URL generator
-	 *
-	 * @var UrlGenerator
-	 */
-	protected $url;
+  /**
+   * If the urls shoudl be relative or not
+   *
+   * @var boolean
+   */
+  protected $relative;
 
-	/**
-	 * The Populator
-	 *
-	 * @var Populator
-	 */
-	protected $populator;
+  /**
+   * The URL generator
+   *
+   * @var UrlGenerator
+   */
+  protected $url;
 
-	/**
-	 * The Form type
-	 *
-	 * @var string
-	 */
-	protected $type = null;
+  /**
+   * The Populator
+   *
+   * @var Populator
+   */
+  protected $populator;
 
-	/**
-	 * The destination of the current form
-	 *
-	 * @var string
-	 */
-	protected $action;
+  /**
+   * The Form type
+   *
+   * @var string
+   */
+  protected $type = null;
 
-	/**
-	 * The form method
-	 *
-	 * @var string
-	 */
-	protected $method;
+  /**
+   * The destination of the current form
+   *
+   * @var string
+   */
+  protected $action;
 
-	/**
-	 * Whether the form should be secured or not
-	 *
-	 * @var boolean
-	 */
-	protected $secure;
+  /**
+   * The form method
+   *
+   * @var string
+   */
+  protected $method;
 
-	/**
-	 * The form element
-	 *
-	 * @var string
-	 */
-	protected $element = 'form';
+  /**
+   * Whether the form should be secured or not
+   *
+   * @var boolean
+   */
+  protected $secure;
 
-	/**
-	 * A list of injected properties
-	 *
-	 * @var array
-	 */
-	protected $injectedProperties = array('method', 'action');
+  /**
+   * The form element
+   *
+   * @var string
+   */
+  protected $element = 'form';
 
-	/**
-	 * Whether a form is opened or not
-	 *
-	 * @var boolean
-	 */
-	protected static $opened = false;
+  /**
+   * A list of injected properties
+   *
+   * @var array
+   */
+  protected $injectedProperties = array('method', 'action');
 
-	////////////////////////////////////////////////////////////////////
-	/////////////////////////// CORE METHODS ///////////////////////////
-	////////////////////////////////////////////////////////////////////
+  /**
+   * Whether a form is opened or not
+   *
+   * @var boolean
+   */
+  protected static $opened = false;
 
-	/**
-	 * Build a new Form instance
-	 *
-	 * @param UrlGenerator $url
-	 */
-	public function __construct(Container $app, $url, Populator $populator)
-	{
-		$this->app       = $app;
-		$this->url       = $url;
-		$this->populator = $populator;
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////// CORE METHODS ///////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
-		$this->app->singleton('former.form.framework', function ($app) {
-			return clone $app['former.framework'];
-		});
-	}
+  /**
+   * Build a new Form instance
+   *
+   * @param Former       $former
+   * @param UrlGenerator $url
+   */
+  public function __construct(Container $app, $url, Populator $populator)
+  {
+    $this->relative  = $app['former']->getOption('relative');
+    $this->app       = $app;
+    $this->url       = $url;
+    $this->populator = $populator;
 
-	/**
-	 * Opens up magically a form
-	 *
-	 * @param  string $type       The form type asked
-	 * @param  array  $parameters Parameters passed
-	 *
-	 * @return Form             A form opening tag
-	 */
-	public function openForm($type, $parameters)
-	{
-		$action     = array_get($parameters, 0);
-		$method     = array_get($parameters, 1, 'POST');
-		$attributes = array_get($parameters, 2, array());
-		$secure     = array_get($parameters, 3, false);
+    $this->app->singleton('former.form.framework', function ($app) {
+      return clone $app['former.framework'];
+    });
+  }
 
-		// Fetch errors if asked for
-		if ($this->app['former']->getOption('fetch_errors')) {
-			$this->app['former']->withErrors();
-		}
+  /**
+   * Opens up magically a form
+   *
+   * @param  string $type       The form type asked
+   * @param  array  $parameters Parameters passed
+   * @return string             A form opening tag
+   */
+  public function openForm($type, $parameters)
+  {
+    $action     = array_get($parameters, 0);
+    $method     = array_get($parameters, 1, 'POST');
+    $attributes = array_get($parameters, 2, array());
+    $secure     = array_get($parameters, 3, false);
 
-		// Open the form
+    // Fetch errors if asked for
+    if ($this->app['former']->getOption('fetch_errors')) {
+      $this->app['former']->withErrors();
+    }
 
-		$this->attributes = $attributes;
-		$this->method     = strtoupper($method);
-		$this->secure     = $secure;
-		$this->action($action);
+    // Open the form
+    $this->action($action);
+    $this->attributes = $attributes;
+    $this->method     = strtoupper($method);
+    $this->secure     = $secure;
 
-		// Add any effect of the form type
-		$type       = Str::snake($type);
-		$this->type = $this->applyType($type);
+    // Add any effect of the form type
+    $type = Str::snake($type);
+    $this->type = $this->applyType($type);
 
-		// Add enctype
-		if (!array_key_exists('accept-charset', $attributes)) {
-			$this->attributes['accept-charset'] = 'utf-8';
-		}
+    // Add enctype
+    if (!array_key_exists('accept-charset', $attributes )) {
+      $this->attributes['accept-charset'] = 'utf-8';
+    }
 
-		// Add supplementary classes
-		if ($this->type !== 'raw') {
-			$this->addClass($this->app['former.form.framework']->getFormClasses($this->type));
-		}
+    // Add supplementary classes
+    if ($this->type !== 'raw') {
+      $this->addClass($this->app['former.form.framework']->getFormClasses($this->type));
+    }
 
-		return $this;
-	}
+    return $this;
+  }
 
-	/**
-	 * Closes a Form
-	 *
-	 * @return string A closing <form> tag
-	 */
-	public function close()
-	{
-		static::$opened = false;
+  /**
+   * Closes a Form
+   *
+   * @return string A closing <form> tag
+   */
+  public function close()
+  {
+    static::$opened = false;
 
-		// Add token if necessary
-		$closing = '</form>';
-		if ($this->method != 'GET') {
-			$closing = $this->app['former']->token().$closing;
-		}
+    // Add token if necessary
+    $closing = '</form>';
+    if ($this->method != 'GET') {
+      $closing = $this->app['former']->token().$closing;
+    }
 
-		return $closing;
-	}
+    return $closing;
+  }
 
-	////////////////////////////////////////////////////////////////////
-	//////////////////////////// STATIC HELPERS ////////////////////////
-	////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+  //////////////////////////// STATIC HELPERS ////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Whether a form is currently opened or not
-	 *
-	 * @return boolean
-	 */
-	public static function hasInstanceOpened()
-	{
-		return static::$opened;
-	}
+  /**
+   * Whether a form is currently opened or not
+   *
+   * @return boolean
+   */
+  public static function hasInstanceOpened()
+  {
+    return static::$opened;
+  }
 
-	////////////////////////////////////////////////////////////////////
-	/////////////////////////////// SETTER /////////////////////////////
-	////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+  /////////////////////////////// SETTER /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Change the form's action
-	 *
-	 * @param  string $action The new action
-	 *
-	 * @return $this
-	 */
-	public function action($action)
-	{
-		$this->action = $action ? $this->url->to($action, array(), $this->secure) : null;
+  /**
+   * Change the form's action
+   *
+   * @param  string $action The new action
+   */
+   public function action($action)
+   {
+       if( $this->relative ){
+           $this->action = $action;
+       }else{
+           $this->action = $action ? $this->url->to($action, array(), $this->secure) : null;
+       }
 
-		return $this;
-	}
 
-	/**
-	 * Change the form's method
-	 *
-	 * @param  string $method The method to use
-	 *
-	 * @return $this
-	 */
-	public function method($method)
-	{
-		$this->method = strtoupper($method);
+       return $this;
+   }
 
-		return $this;
-	}
+  /**
+   * Change the form's method
+   *
+   * @param  string $method The method to use
+   */
+  public function method($method)
+  {
+    $this->method = strtoupper($method);
 
-	/**
-	 * Whether the form should be secure
-	 *
-	 * @param  boolean $secure Secure or not
-	 *
-	 * @return $this
-	 */
-	public function secure($secure)
-	{
-		$this->secure = $secure;
+    return $this;
+  }
 
-		return $this;
-	}
+  /**
+   * Whether the form should be secure
+   *
+   * @param  boolean $secure Secure or not
+   */
+  public function secure($secure = true)
+  {
+    $this->secure = $secure;
 
-	/**
-	 * Change the form's action and method to a route
-	 *
-	 * @param  string $name   The name of the route to use
-	 * @param  array  $params Any route parameters
-	 *
-	 * @return Form
-	 */
-	public function route($name, $params = array())
-	{
-		return $this->setRouteOrAction($name, $params, 'route');
-	}
+    return $this;
+  }
 
-	/**
-	 * Change the form's action to a controller method
-	 *
-	 * @param  string $name   The controller and method
-	 * @param  array  $params Any method parameters
-	 *
-	 * @return Form
-	 */
-	public function controller($name, $params = array())
-	{
-		return $this->setRouteOrAction($name, $params, 'action');
-	}
+  /**
+   * Change the form's action and method to a route
+   *
+   * @param  string $name   The name of the route to use
+   * @param  array  $params Any route parameters
+   *
+   * @return void
+   */
+  public function route($name, $params = array())
+  {
+    // Set the form action
+    $this->action = $this->url->route($name, $params);
 
-	/**
-	 * Outputs the current form opened
-	 *
-	 * @return string A <form> opening tag
-	 */
-	public function __toString()
-	{
-		// Mark the form as opened
-		static::$opened = true;
+    // Set the proper method
+    if ($method = $this->findRouteMethod($name)) {
+      $this->method($method);
+    }
 
-		// Add name to attributes
-		$this->attributes['name'] = $this->name;
+    return $this;
+  }
 
-		// Add spoof method
-		if (in_array($this->method, array('PUT', 'PATCH', 'DELETE'))) {
-			$spoof        = $this->app['former']->hidden('_method', $this->method);
-			$this->method = 'POST';
-		} else {
-			$spoof = null;
-		}
+  /**
+   * Change the form's action to a controller method
+   *
+   * @param  string $name         The controller and method
+   * @param  array  $params       Any method parameters
+   *
+   * @return void
+   */
+  public function controller($name, $params = array())
+  {
+    $this->action = $this->url->action($name, $params);
 
-		return $this->open().$spoof;
-	}
+    // Set the proper method
+    if ($method = $this->findRouteMethod($name)) {
+      $this->method($method);
+    }
 
-	////////////////////////////////////////////////////////////////////
-	////////////////////////// PUBLIC HELPERS //////////////////////////
-	////////////////////////////////////////////////////////////////////
+    return $this;
+  }
 
-	/**
-	 * Alias for $this->app['former']->withRules
-	 */
-	public function rules()
-	{
-		call_user_func_array(array($this->app['former'], 'withRules'), func_get_args());
+  /**
+   * Outputs the current form opened
+   *
+   * @return string A <form> opening tag
+   */
+  public function __toString()
+  {
+    // Mark the form as opened
+    static::$opened = true;
 
-		return $this;
-	}
+    // Add name to attributes
+    $this->attributes['name'] = $this->name;
 
-	/**
-	 * Populate a form with specific values
-	 *
-	 * @param array|object $values
-	 *
-	 * @return $this
-	 */
-	public function populate($values)
-	{
-		$this->populator->replace($values);
+    // Add spoof method
+    if (in_array($this->method, array('PUT', 'PATCH', 'DELETE'))) {
+      $spoof = $this->app['former']->hidden('_method', $this->method);
+      $this->method = 'POST';
+    } else {
+      $spoof = null;
+    }
 
-		return $this;
-	}
+    return $this->open().$spoof;
+  }
 
-	/**
-	 * Get the Populator binded to the Form
-	 *
-	 * @return Populator
-	 */
-	public function getPopulator()
-	{
-		return $this->populator;
-	}
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////// PUBLIC HELPERS //////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
-	////////////////////////////////////////////////////////////////////
-	////////////////////////////// HELPERS /////////////////////////////
-	////////////////////////////////////////////////////////////////////
+  /**
+   * Alias for $this->app['former']->withRules
+   */
+  public function rules()
+  {
+    call_user_func_array(array($this->app['former'], 'withRules'), func_get_args());
 
-	/**
-	 * Find the method of a route by its _uses or name
-	 *
-	 * @param  string $name
-	 *
-	 * @return string
-	 */
-	protected function findRouteMethod($name)
-	{
-		if (!$this->app->bound('router')) {
-			return;
-		}
+    return $this;
+  }
 
-		// Get string by name
-		if (!Str::contains($name, '@')) {
-			$routes = $this->app['router']->getRoutes();
-			$route  = method_exists($routes, 'getByName') ? $routes->getByName($name) : $routes->get($name);
-			// Get string by uses
-		} else {
-			foreach ($this->app['router']->getRoutes() as $route) {
-				$routeUses = method_exists($route, 'getOption') ? $route->getOption('_uses') : array_get($route->getAction(), 'controller');
-				if ($action = $routeUses) {
-					if ($action == $name) {
-						break;
-					}
-				}
-			}
-		}
+  /**
+   * Populate a form with specific values
+   *
+   * @param array|object $values
+   */
+  public function populate($values)
+  {
+    $this->populator->replace($values);
 
-		// Get method
-		$methods = method_exists($route, 'getMethods') ? $route->getMethods() : $route->methods();
-		$method  = array_get($methods, 0);
+    return $this;
+  }
 
-		return $method;
-	}
+  /**
+   * Get the Populator binded to the Form
+   *
+   * @return Populator
+   */
+  public function getPopulator()
+  {
+    return $this->populator;
+  }
 
-	/**
-	 * @param $name
-	 * @param $params
-	 * @param $type
-	 *
-	 * @return $this
-	 */
-	protected function setRouteOrAction($name, $params, $type)
-	{
-		// Set the form action
-		$this->action = $this->url->$type($name, $params);
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////// HELPERS /////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
-		// Set the proper method
-		if ($method = $this->findRouteMethod($name)) {
-			$this->method($method);
-		}
+  /**
+   * Find the method of a route by its _uses or name
+   *
+   * @param  string $name
+   *
+   * @return string
+   */
+  protected function findRouteMethod($name)
+  {
+    if (!$this->app->bound('router')) {
+      return;
+    }
 
-		return $this;
-	}
+    // Get string by name
+    if (!Str::contains($name, '@')) {
+      $routes = $this->app['router']->getRoutes();
+      $route = method_exists($routes, 'getByName') ? $routes->getByName($name) : $routes->get($name);
 
-	/**
-	 * Apply various parameters according to form type
-	 *
-	 * @param  string $type The original form type provided
-	 *
-	 * @return string The final form type
-	 */
-	private function applyType($type)
-	{
-		// If classic form
-		if ($type == 'open') {
-			return $this->app['former']->getOption('default_form_type');
-		}
+    // Get string by uses
+    } else {
+      foreach ($this->app['router']->getRoutes() as $route) {
+        $routeUses = method_exists($route, 'getOption') ? $route->getOption('_uses') : array_get($route->getAction(), 'controller');
+        if ($action = $routeUses) {
+          if ($action == $name) {
+            break;
+          }
+        }
+      }
+    }
 
-		// Look for HTTPS form
-		if (Str::contains($type, 'secure')) {
-			$type         = str_replace('secure', '', $type);
-			$this->secure = true;
-		}
+    // Get method
+    $methods = method_exists($route, 'getMethods') ? $route->getMethods() : $route->methods();
+    $method  = array_get($methods, 0);
 
-		// Look for file form
-		if (Str::contains($type, 'for_files')) {
-			$type                        = str_replace('for_files', '', $type);
-			$this->attributes['enctype'] = 'multipart/form-data';
-		}
+    return $method;
+  }
 
-		// Calculate form type
-		$type = str_replace('open', '', $type);
-		$type = trim($type, '_');
+  /**
+   * Apply various parameters according to form type
+   *
+   * @param  string $type The original form type provided
+   * @return string The final form type
+   */
+  private function applyType($type)
+  {
+    // If classic form
+    if ($type == 'open') {
+      return $this->app['former']->getOption('default_form_type');
+    }
 
-		// If raw form
-		if ($type == 'raw') {
-			$this->app->bind('former.form.framework', function ($app) {
-				return $app['former']->getFrameworkInstance('Nude');
-			});
-		}
+    // Look for HTTPS form
+    if (Str::contains($type, 'secure')) {
+      $type = str_replace('secure', '', $type);
+      $this->secure = true;
+    }
 
-		// Use default form type if the one provided is invalid
-		if ($type !== 'raw' and !in_array($type, $this->app['former.form.framework']->availableTypes())) {
-			$type = $this->app['former']->getOption('default_form_type');
-		}
+    // Look for file form
+    if (Str::contains($type, 'for_files')) {
+      $type = str_replace('for_files', '', $type);
+      $this->attributes['enctype'] = 'multipart/form-data';
+    }
 
-		return $type;
-	}
+    // Calculate form type
+    $type = str_replace('open', '', $type);
+    $type = trim($type, '_');
+
+    // If raw form
+    if ($type == 'raw') {
+      $this->app->bind('former.form.framework', function ($app) {
+        return $app['former']->getFrameworkInstance('Nude');
+      });
+    }
+
+    // Use default form type if the one provided is invalid
+    if ($type !== 'raw' and !in_array($type, $this->app['former.form.framework']->availableTypes())) {
+      $type = $this->app['former']->getOption('default_form_type');
+    }
+
+    return $type;
+  }
 }
