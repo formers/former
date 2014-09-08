@@ -35,7 +35,8 @@ class RadioTest extends FormerTests
 			'class' => 'radio',
 		);
 		if ($inline) {
-			$labelAttr['class'] .= $this->former->framework() === 'TwitterBootstrap3' ? ' radio-inline' : ' inline';
+			if ($this->former->framework() === 'TwitterBootstrap3') $labelAttr['class'] = 'radio-inline';
+			else $labelAttr['class'] .= ' inline';
 		}
 		if (!$checked) {
 			unset($radioAttr['checked']);

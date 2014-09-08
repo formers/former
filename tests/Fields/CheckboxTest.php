@@ -36,7 +36,8 @@ class CheckboxTest extends FormerTests
 			'class' => 'checkbox',
 		);
 		if ($inline) {
-			$labelAttr['class'] .= $this->former->framework() === 'TwitterBootstrap3' ? ' checkbox-inline' : ' inline';
+			if ($this->former->framework() === 'TwitterBootstrap3') $labelAttr['class'] = 'checkbox-inline';
+			else $labelAttr['class'] .= ' inline';
 		}
 		if (!$checked) {
 			unset($checkAttr['checked']);
