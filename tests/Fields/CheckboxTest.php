@@ -22,9 +22,10 @@ class CheckboxTest extends FormerTests
 	 *
 	 * @return string
 	 */
-	private function matchCheckbox($name = 'foo', $label = null, $value = 1, $inline = false, $checked = false)
+	private function matchCheckbox($name = 'foo', $label = null, $value = 1, $inline = false, $checked = false, $disabled = false)
 	{
 		$checkAttr = array(
+			'disabled' => 'true',
 			'id'      => $name,
 			'type'    => 'checkbox',
 			'name'    => $name,
@@ -42,10 +43,23 @@ class CheckboxTest extends FormerTests
 		if (!$checked) {
 			unset($checkAttr['checked']);
 		}
+		if (!$disabled) {
+			unset($checkAttr['disabled']);
+		}
 
 		$radio = '<input'.$this->attributes($checkAttr).'>';
 
-		return $label ? '<label'.$this->attributes($labelAttr).'>'.$radio.$label.'</label>' : $radio;
+		if (!$inline && $this->former->framework() === 'TwitterBootstrap3') {
+			unset($labelAttr['class']);
+		}
+
+		$control = $label ? '<label'.$this->attributes($labelAttr).'>'.$radio.$label.'</label>' : $radio;
+
+		if (!$inline && $this->former->framework() === 'TwitterBootstrap3') {
+			$control = '<div class="checkbox'.($disabled?' disabled':null).'">'.$control.'</div>';
+		}
+
+		return $control;
 	}
 
 	/**
@@ -140,6 +154,20 @@ class CheckboxTest extends FormerTests
 		$this->resetLabels();
 		$checkboxes2 = $this->former->checkboxes('foo')->stacked()->checkboxes('foo', 'bar')->__toString();
 		$matcher     = $this->controlGroup($this->matchCheckbox('foo_0', 'Foo', 1).$this->matchCheckbox('foo_1', 'Bar', 1));
+
+		$this->assertEquals($matcher, $checkboxes1);
+		$this->assertEquals($matcher, $checkboxes2);
+	}
+
+	public function testCanCreateStackedCheckboxesTwitterBootstrap3()
+	{
+
+		$this->former->framework('TwitterBootstrap3');
+
+		$checkboxes1 = $this->former->stacked_checkboxes('foo')->checkboxes('foo', 'bar')->__toString();
+		$this->resetLabels();
+		$checkboxes2 = $this->former->checkboxes('foo')->stacked()->checkboxes('foo', 'bar')->__toString();
+		$matcher     = $this->formGroup($this->matchCheckbox('foo_0', 'Foo', 1).$this->matchCheckbox('foo_1', 'Bar', 1));
 
 		$this->assertEquals($matcher, $checkboxes1);
 		$this->assertEquals($matcher, $checkboxes2);
@@ -521,5 +549,18 @@ class CheckboxTest extends FormerTests
 		$html .= $this->former->checkbox('per_page')->class('input')->render();
 
 		$this->assertInternalType('string', $html);
+	}
+
+	public function testDisabled() {
+		$checkbox = $this->former->checkbox('foo')->disabled()->__toString();
+		$matcher  = $this->controlGroup($this->matchCheckbox('foo', null, 1, false, false, true));
+		$this->assertEquals($matcher, $checkbox);
+	}
+
+	public function testDisabledStackedBS3() {
+		$this->former->framework('TwitterBootstrap3');
+		$checkbox = $this->former->checkbox('foo')->disabled()->__toString();
+		$matcher  = $this->formGroup($this->matchCheckbox('foo', null, 1, false, false, true));
+		$this->assertEquals($matcher, $checkbox);
 	}
 }
