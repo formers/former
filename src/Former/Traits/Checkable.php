@@ -370,8 +370,11 @@ abstract class Checkable extends Field
 		}
 
 		// If no label to wrap, return plain checkable
-		if (!$label) $element = (is_object($field)) ? $field->render() : $field;
-		else $element = Element::create('label', $field.$label)->for($attributes['id'])->class($class);
+		if (!$label) {
+			$element = (is_object($field)) ? $field->render() : $field;
+		} else {
+			$element = Element::create('label', $field.$label)->for($attributes['id'])->class($class);
+		}
 
 		// If BS3, if checkables are stacked, wrap them in a div with the checkable type
 		if (!$isInline && $this->app['former']->framework() == 'TwitterBootstrap3') {
