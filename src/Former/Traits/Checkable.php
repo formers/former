@@ -256,7 +256,7 @@ abstract class Checkable extends Field
 	////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Creates a serie of checkable items
+	 * Creates a series of checkable items
 	 *
 	 * @param array $_items Items to create
 	 */
@@ -371,10 +371,19 @@ abstract class Checkable extends Field
 
 		// If no label to wrap, return plain checkable
 		if (!$label) {
-			return (is_object($field)) ? $field->render() : $field;
+			$element = (is_object($field)) ? $field->render() : $field;
+		} else {
+			$element = Element::create('label', $field.$label)->for($attributes['id'])->class($class);
 		}
 
-		return Element::create('label', $field.$label)->for($attributes['id'])->class($class);
+		// If BS3, if checkables are stacked, wrap them in a div with the checkable type
+		if (!$isInline && $this->app['former']->framework() == 'TwitterBootstrap3') {
+			$element = Element::create('div', $element)->class($this->checkable);
+			if ($this->getAttribute('disabled')) $element->addClass('disabled');
+		}
+
+		// Return the field
+		return $element;
 	}
 
 	////////////////////////////////////////////////////////////////////
