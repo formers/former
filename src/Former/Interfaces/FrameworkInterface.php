@@ -60,6 +60,14 @@ interface FrameworkInterface
 	public function getUneditableClasses();
 
 	/**
+	 * Add plain text field classes
+	 *
+	 *
+	 * @return array An array of attributes with the plain text class
+	 */
+	public function getPlainTextClasses();
+
+	/**
 	 * Add form class
 	 *
 	 * @param  string $type       The type of form to add
@@ -94,6 +102,15 @@ interface FrameworkInterface
 	 * @return string
 	 */
 	public function createDisabledField(Field $field);
+
+	/**
+	 * Render a plain text field
+	 *
+	 * @param Field $field
+	 *
+	 * @return string
+	 */
+	public function createPlainTextField(Field $field);
 
 	/**
 	 * Render an icon

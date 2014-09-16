@@ -140,6 +140,11 @@ class ZurbFoundation extends Framework implements FrameworkInterface
 		return null;
 	}
 
+	public function getPlainTextClasses()
+	{
+		return null;
+	}
+
 	public function getFormClasses($type)
 	{
 		return null;
@@ -175,6 +180,19 @@ class ZurbFoundation extends Framework implements FrameworkInterface
 		$field->disabled();
 
 		return Input::create('text', $field->getName(), $field->getValue(), $field->getAttributes());
+	}
+
+	/**
+	 * Render a plain text field
+	 * Which fallback to a disabled field
+	 *
+	 * @param Field $field
+	 *
+	 * @return Element
+	 */
+	public function createPlainTextField(Field $field)
+	{
+		return $this->createDisabledField($field);
 	}
 
 	////////////////////////////////////////////////////////////////////
