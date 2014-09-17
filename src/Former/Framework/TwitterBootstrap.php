@@ -192,6 +192,11 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
 		return 'uneditable-input';
 	}
 
+	public function getPlainTextClasses()
+	{
+		return null;
+	}
+
 	/**
 	 * Add form class
 	 *
@@ -255,6 +260,19 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
 	public function createDisabledField(Field $field)
 	{
 		return Element::create('span', $field->getValue(), $field->getAttributes());
+	}
+
+	/**
+	 * Render a plain text field
+	 * Which fallback to a disabled field
+	 *
+	 * @param Field $field
+	 *
+	 * @return Element
+	 */
+	public function createPlainTextField(Field $field)
+	{
+		return $this->createDisabledField($field);
 	}
 
 	/**
