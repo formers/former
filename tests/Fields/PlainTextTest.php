@@ -51,7 +51,7 @@ class PlainTextTest extends FormerTests
 	public function matchPlainTextInput()
 	{
 		return array(
-			'tag'        => 'p',
+			'tag'        => 'div',
 			'content'    => 'bar',
 			'attributes' => array(
 				'class' => 'form-control-static',
@@ -72,7 +72,7 @@ class PlainTextTest extends FormerTests
 	 * @return boolean
 	 */
 	protected function formStaticGroup(
-		$input = '<p class="form-control-static" id="foo">bar</p>',
+		$input = '<div class="form-control-static" id="foo">bar</div>',
 		$label = '<label for="foo" class="control-label col-lg-2 col-sm-4">Foo</label>'
 	) {
 		return $this->formGroup($input, $label);
@@ -105,7 +105,7 @@ class PlainTextTest extends FormerTests
 
 		$this->assertHTML($this->matchPlainLabel(), $input);
 		$this->assertHTML($this->matchPlainTextInput(), $input);
-		
+
 		$matcher = $this->formStaticGroup();
 		$this->assertEquals($matcher, $input);
 	}
