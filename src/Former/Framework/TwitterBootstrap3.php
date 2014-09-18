@@ -364,6 +364,11 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 	 */
 	public function createPlainTextField(Field $field)
 	{
+		$label = $field->getLabel();
+		if ($label) {
+			$label->for('');
+		}
+
 		return Element::create('div', $field->getValue(), $field->getAttributes());
 	}
 
