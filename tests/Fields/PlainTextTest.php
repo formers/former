@@ -24,6 +24,18 @@ class PlainTextTest extends FormerTests
 	}
 
 	/**
+	* Matches a plain label without 'for' attribute
+	*
+	* @return array
+	*/
+	public function matchPlainLabelWithBS3()
+	{
+		return array(
+			'tag' => 'label',
+		);
+	}
+
+	/**
 	 * Matches an plain text fallback input
 	 * Which is a disabled input
 	 *
@@ -51,7 +63,7 @@ class PlainTextTest extends FormerTests
 	public function matchPlainTextInput()
 	{
 		return array(
-			'tag'        => 'p',
+			'tag'        => 'div',
 			'content'    => 'bar',
 			'attributes' => array(
 				'class' => 'form-control-static',
@@ -72,8 +84,8 @@ class PlainTextTest extends FormerTests
 	 * @return boolean
 	 */
 	protected function formStaticGroup(
-		$input = '<p class="form-control-static" id="foo">bar</p>',
-		$label = '<label for="foo" class="control-label col-lg-2 col-sm-4">Foo</label>'
+		$input = '<div class="form-control-static" id="foo">bar</div>',
+		$label = '<label class="control-label col-lg-2 col-sm-4">Foo</label>'
 	) {
 		return $this->formGroup($input, $label);
 	}
@@ -103,9 +115,9 @@ class PlainTextTest extends FormerTests
 		$this->former->framework('TwitterBootstrap3');
 		$input = $this->former->plaintext('foo')->value('bar')->__toString();
 
-		$this->assertHTML($this->matchPlainLabel(), $input);
+		$this->assertHTML($this->matchPlainLabelWithBS3(), $input);
 		$this->assertHTML($this->matchPlainTextInput(), $input);
-		
+
 		$matcher = $this->formStaticGroup();
 		$this->assertEquals($matcher, $input);
 	}
