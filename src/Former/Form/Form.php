@@ -1,7 +1,6 @@
 <?php
 namespace Former\Form;
 
-use Former\Former;
 use Former\Populator;
 use Former\Traits\FormerObject;
 use Illuminate\Container\Container;

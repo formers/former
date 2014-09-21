@@ -255,9 +255,9 @@ class InputTest extends FormerTests
 	public function testCanCreateDatalistCustomList()
 	{
 		$datalist = $this->former->text('foo')->list('bar')->useDatalist(array(
-				'foo' => 'bar',
-				'kel' => 'tar'
-			))->__toString();
+			'foo' => 'bar',
+			'kel' => 'tar'
+		))->__toString();
 		$matcher  =
 			'<div class="control-group">'.
 			'<label for="foo" class="control-label">Foo</label>'.

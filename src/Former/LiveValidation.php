@@ -216,6 +216,7 @@ class LiveValidation
 
 	/**
 	 * Set accepted mime types
+	 *
 	 * @param string[] $mimes
 	 */
 	public function mimes($mimes)

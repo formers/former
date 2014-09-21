@@ -21,23 +21,32 @@ class RadioTest extends FormerTests
 	 *
 	 * @return string
 	 */
-	private function matchRadio($name = 'foo', $label = null, $value = 1, $inline = false, $checked = false, $disabled = false)
-	{
+	private function matchRadio(
+		$name = 'foo',
+		$label = null,
+		$value = 1,
+		$inline = false,
+		$checked = false,
+		$disabled = false
+	) {
 		$radioAttr = array(
 			'disabled' => 'true',
-			'id'      => $name,
-			'type'    => 'radio',
-			'name'    => preg_replace('/[0-9]/', null, $name),
-			'checked' => 'checked',
-			'value'   => $value,
+			'id'       => $name,
+			'type'     => 'radio',
+			'name'     => preg_replace('/[0-9]/', null, $name),
+			'checked'  => 'checked',
+			'value'    => $value,
 		);
 		$labelAttr = array(
 			'for'   => $name,
 			'class' => 'radio',
 		);
 		if ($inline) {
-			if ($this->former->framework() === 'TwitterBootstrap3') $labelAttr['class'] = 'radio-inline';
-			else $labelAttr['class'] .= ' inline';
+			if ($this->former->framework() === 'TwitterBootstrap3') {
+				$labelAttr['class'] = 'radio-inline';
+			} else {
+				$labelAttr['class'] .= ' inline';
+			}
 		}
 		if (!$checked) {
 			unset($radioAttr['checked']);
@@ -51,11 +60,11 @@ class RadioTest extends FormerTests
 		if (!$inline && $this->former->framework() === 'TwitterBootstrap3') {
 			unset($labelAttr['class']);
 		}
-		
+
 		$control = $label ? '<label'.$this->attributes($labelAttr).'>'.$radio.$label.'</label>' : $radio;
 
 		if (!$inline && $this->former->framework() === 'TwitterBootstrap3') {
-			$control = '<div class="radio'.($disabled?' disabled':null).'">'.$control.'</div>';
+			$control = '<div class="radio'.($disabled ? ' disabled' : null).'">'.$control.'</div>';
 		}
 
 		return $control;
@@ -252,9 +261,9 @@ class RadioTest extends FormerTests
 	public function testCheckMultipleCustom()
 	{
 		$radios  = $this->former->radios('foo')->radios($this->radioCheckables)->check(array(
-				'foo' => true,
-				'bar' => false
-			))->__toString();
+			'foo' => true,
+			'bar' => false
+		))->__toString();
 		$matcher = $this->controlGroup(
 			'<label for="foo" class="radio">'.
 			'<input data-foo="bar" value="foo" id="foo" type="radio" name="foo" checked="checked">'.
@@ -306,16 +315,18 @@ class RadioTest extends FormerTests
 		$this->assertInternalType('string', $radio);
 	}
 
-	public function testDisabled() {
-		$radio = $this->former->radio('foo')->disabled()->__toString();
-		$matcher  = $this->controlGroup($this->matchRadio('foo', null, 1, false, false, true));
+	public function testDisabled()
+	{
+		$radio   = $this->former->radio('foo')->disabled()->__toString();
+		$matcher = $this->controlGroup($this->matchRadio('foo', null, 1, false, false, true));
 		$this->assertEquals($matcher, $radio);
 	}
 
-	public function testDisabledStackedBS3() {
+	public function testDisabledStackedBS3()
+	{
 		$this->former->framework('TwitterBootstrap3');
-		$radio = $this->former->radio('foo')->disabled()->__toString();
-		$matcher  = $this->formGroup($this->matchRadio('foo', null, 1, false, false, true));
+		$radio   = $this->former->radio('foo')->disabled()->__toString();
+		$matcher = $this->formGroup($this->matchRadio('foo', null, 1, false, false, true));
 		$this->assertEquals($matcher, $radio);
 	}
 }

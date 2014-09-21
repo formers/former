@@ -124,7 +124,7 @@ class Nude extends Framework implements FrameworkInterface
 	 * Render a plain text field
 	 * Which fallback to a disabled field
 	 *
- 	 * @param Field $field
+	 * @param Field $field
 	 *
 	 * @return Element
 	 */

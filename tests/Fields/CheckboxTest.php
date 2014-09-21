@@ -22,23 +22,32 @@ class CheckboxTest extends FormerTests
 	 *
 	 * @return string
 	 */
-	private function matchCheckbox($name = 'foo', $label = null, $value = 1, $inline = false, $checked = false, $disabled = false)
-	{
+	private function matchCheckbox(
+		$name = 'foo',
+		$label = null,
+		$value = 1,
+		$inline = false,
+		$checked = false,
+		$disabled = false
+	) {
 		$checkAttr = array(
 			'disabled' => 'true',
-			'id'      => $name,
-			'type'    => 'checkbox',
-			'name'    => $name,
-			'checked' => 'checked',
-			'value'   => $value,
+			'id'       => $name,
+			'type'     => 'checkbox',
+			'name'     => $name,
+			'checked'  => 'checked',
+			'value'    => $value,
 		);
 		$labelAttr = array(
 			'for'   => $name,
 			'class' => 'checkbox',
 		);
 		if ($inline) {
-			if ($this->former->framework() === 'TwitterBootstrap3') $labelAttr['class'] = 'checkbox-inline';
-			else $labelAttr['class'] .= ' inline';
+			if ($this->former->framework() === 'TwitterBootstrap3') {
+				$labelAttr['class'] = 'checkbox-inline';
+			} else {
+				$labelAttr['class'] .= ' inline';
+			}
 		}
 		if (!$checked) {
 			unset($checkAttr['checked']);
@@ -56,7 +65,7 @@ class CheckboxTest extends FormerTests
 		$control = $label ? '<label'.$this->attributes($labelAttr).'>'.$radio.$label.'</label>' : $radio;
 
 		if (!$inline && $this->former->framework() === 'TwitterBootstrap3') {
-			$control = '<div class="checkbox'.($disabled?' disabled':null).'">'.$control.'</div>';
+			$control = '<div class="checkbox'.($disabled ? ' disabled' : null).'">'.$control.'</div>';
 		}
 
 		return $control;
@@ -237,9 +246,9 @@ class CheckboxTest extends FormerTests
 	public function testCanCheckMultipleCheckboxesAtOnce()
 	{
 		$checkboxes = $this->former->checkboxes('foo')->checkboxes('foo', 'bar')->check(array(
-				'foo_0' => false,
-				'foo_1' => true
-			))->__toString();
+			'foo_0' => false,
+			'foo_1' => true
+		))->__toString();
 		$matcher    = $this->controlGroup($this->matchCheckbox('foo_0', 'Foo').$this->matchCheckedCheckbox('foo_1', 'Bar', 1));
 
 		$this->assertEquals($matcher, $checkboxes);
@@ -551,13 +560,15 @@ class CheckboxTest extends FormerTests
 		$this->assertInternalType('string', $html);
 	}
 
-	public function testDisabled() {
+	public function testDisabled()
+	{
 		$checkbox = $this->former->checkbox('foo')->disabled()->__toString();
 		$matcher  = $this->controlGroup($this->matchCheckbox('foo', null, 1, false, false, true));
 		$this->assertEquals($matcher, $checkbox);
 	}
 
-	public function testDisabledStackedBS3() {
+	public function testDisabledStackedBS3()
+	{
 		$this->former->framework('TwitterBootstrap3');
 		$checkbox = $this->former->checkbox('foo')->disabled()->__toString();
 		$matcher  = $this->formGroup($this->matchCheckbox('foo', null, 1, false, false, true));

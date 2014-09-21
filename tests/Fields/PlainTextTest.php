@@ -24,10 +24,10 @@ class PlainTextTest extends FormerTests
 	}
 
 	/**
-	* Matches a plain label without 'for' attribute
-	*
-	* @return array
-	*/
+	 * Matches a plain label without 'for' attribute
+	 *
+	 * @return array
+	 */
 	public function matchPlainLabelWithBS3()
 	{
 		return array(

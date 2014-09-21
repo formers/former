@@ -189,7 +189,7 @@ abstract class Framework
 	/**
 	 * Render an icon
 	 *
-	 * @param array  $attributes   Its general attributes
+	 * @param array $attributes Its general attributes
 	 *
 	 * @return string
 	 */
@@ -248,7 +248,7 @@ abstract class Framework
 	/**
 	 * Create a label for a field
 	 *
-	 * @param Field  $field
+	 * @param Field   $field
 	 * @param Element $label The field label if non provided
 	 *
 	 * @return string A label

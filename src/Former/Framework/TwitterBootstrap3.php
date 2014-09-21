@@ -230,7 +230,11 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 
 		// Add form-control class for text-type, textarea and select fields
 		// As text-type is open-ended we instead exclude those that shouldn't receive the class
-		if (!$field->isCheckable() and !$field->isButton() and !in_array($field->getType(), array('file', 'plaintext')) and !in_array('form-control', $classes)) {
+		if (!$field->isCheckable() and !$field->isButton() and !in_array($field->getType(), array(
+					'file',
+					'plaintext'
+				)) and !in_array('form-control', $classes)
+		) {
 			$classes[] = 'form-control';
 		}
 
@@ -250,7 +254,6 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 	/**
 	 * Add label classes
 	 *
-	 *
 	 * @return string[] An array of attributes with the label class
 	 */
 	public function getLabelClasses()
@@ -267,7 +270,6 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 	/**
 	 * Add uneditable field classes
 	 *
-	 *
 	 * @return string An array of attributes with the uneditable class
 	 */
 	public function getUneditableClasses()
@@ -277,7 +279,6 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 
 	/**
 	 * Add plain text field classes
-	 *
 	 *
 	 * @return string An array of attributes with the plain text class
 	 */
@@ -289,7 +290,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 	/**
 	 * Add form class
 	 *
-	 * @param  string $type       The type of form to add
+	 * @param  string $type The type of form to add
 	 *
 	 * @return string|null
 	 */
@@ -300,7 +301,6 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 
 	/**
 	 * Add actions block class
-	 *
 	 *
 	 * @return string|null
 	 */
@@ -378,7 +378,6 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 
 	/**
 	 * Wrap an item to be prepended or appended to the current field
-	 *
 	 *
 	 * @return Element A wrapped item
 	 */

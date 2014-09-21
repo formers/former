@@ -113,6 +113,7 @@ abstract class Field extends FormerObject implements FieldInterface
 
 	/**
 	 * Redirect calls to the group if necessary
+	 *
 	 * @param string $method
 	 */
 	public function __call($method, $parameters)
@@ -235,7 +236,7 @@ abstract class Field extends FormerObject implements FieldInterface
 	/**
 	 * Apply a Live Validation rule by chaining
 	 *
-	 * @param string $rule       The rule
+	 * @param string $rule The rule
 	 */
 	public function rule($rule)
 	{

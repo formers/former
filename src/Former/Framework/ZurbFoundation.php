@@ -123,7 +123,6 @@ class ZurbFoundation extends Framework implements FrameworkInterface
 	/**
 	 * Add label classes
 	 *
-	 *
 	 * @return string|null An array of attributes with the label class
 	 */
 	public function getLabelClasses()
@@ -203,7 +202,6 @@ class ZurbFoundation extends Framework implements FrameworkInterface
 	 * Wrap an item to be prepended or appended to the current field.
 	 * For Zurb we return the item and handle the wrapping in prependAppend
 	 * as wrapping is dependent on whether we're prepending or appending.
-	 *
 	 *
 	 * @return string A wrapped item
 	 */

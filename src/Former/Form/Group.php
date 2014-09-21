@@ -89,7 +89,7 @@ class Group extends Tag
 	/**
 	 * Creates a group
 	 *
-	 * @param string    $label      Its label
+	 * @param string $label Its label
 	 */
 	public function __construct(Container $app, $label, $validations = null)
 	{
@@ -376,7 +376,7 @@ class Group extends Tag
 	/**
 	 * Wraps content in a group
 	 *
-	 * @param string  $contents The content
+	 * @param string $contents The content
 	 * @param string $label    The label to add
 	 *
 	 * @return string A group

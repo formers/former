@@ -1,11 +1,10 @@
 <?php
 namespace Former;
 
-use Former\MethodDispatcher;
 use Former\TestCases\FormerTests;
+use Mockery;
 use PHPUnit_Framework_Assert;
 use ReflectionMethod;
-use Mockery;
 
 class MethodDispatcherTest extends FormerTests
 {
@@ -26,7 +25,7 @@ class MethodDispatcherTest extends FormerTests
 	public function testSupportsTitleCasedFields()
 	{
 		$dispatcher = new MethodDispatcher($this->app, array('A\\'));
-		$method = new ReflectionMethod($dispatcher, 'getClassFromMethod');
+		$method     = new ReflectionMethod($dispatcher, 'getClassFromMethod');
 		$method->setAccessible(true);
 
 		$mock = Mockery::mock('A\Fakefield');
@@ -41,13 +40,12 @@ class MethodDispatcherTest extends FormerTests
 	public function testSupportsCamelCasedAndSnakeCasedFields()
 	{
 		$dispatcher = new MethodDispatcher($this->app, array('A\\'));
-		$method = new ReflectionMethod($dispatcher, 'getClassFromMethod');
+		$method     = new ReflectionMethod($dispatcher, 'getClassFromMethod');
 		$method->setAccessible(true);
 
 		$mock = Mockery::mock('A\FakeField');
-		
+
 		$this->assertEquals('A\FakeField', $method->invoke($dispatcher, 'fakeField'));
 		$this->assertEquals('A\FakeField', $method->invoke($dispatcher, 'fake_field'));
 	}
-
 }

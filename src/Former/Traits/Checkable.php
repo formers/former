@@ -323,7 +323,7 @@ abstract class Checkable extends Field
 	 * Renders a checkable
 	 *
 	 * @param string|array $item          A checkable item
-	 * @param integer   $fallbackValue A fallback value if none is set
+	 * @param integer      $fallbackValue A fallback value if none is set
 	 *
 	 * @return string
 	 */
@@ -379,7 +379,9 @@ abstract class Checkable extends Field
 		// If BS3, if checkables are stacked, wrap them in a div with the checkable type
 		if (!$isInline && $this->app['former']->framework() == 'TwitterBootstrap3') {
 			$element = Element::create('div', $element)->class($this->checkable);
-			if ($this->getAttribute('disabled')) $element->addClass('disabled');
+			if ($this->getAttribute('disabled')) {
+				$element->addClass('disabled');
+			}
 		}
 
 		// Return the field

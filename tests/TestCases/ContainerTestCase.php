@@ -142,10 +142,11 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 			'TwitterBootstrap3.icon.set'          => 'glyphicon',
 			'TwitterBootstrap3.icon.tag'          => 'span',
 			'TwitterBootstrap3.labelWidths'       => array('large' => 2, 'small' => 4),
-			'TwitterBootstrap3.viewports'         => array('large'  => 'lg',
-			                                               'medium' => 'md',
-			                                               'small'  => 'sm',
-			                                               'mini'   => 'xs'
+			'TwitterBootstrap3.viewports'         => array(
+				'large'  => 'lg',
+				'medium' => 'md',
+				'small'  => 'sm',
+				'mini'   => 'xs'
 			),
 			'ZurbFoundation.icon.prefix'          => 'fi',
 			'ZurbFoundation.icon.set'             => null,
@@ -294,8 +295,8 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 				->shouldReceive('get')->with('validation.attributes.field_name_with_underscore')->andReturn(false)
 				->shouldReceive('get')->with('validation.attributes.address.city')->andReturn('City')
 				->shouldReceive('get')->withAnyArgs()->andReturnUsing(function ($key) {
-						return $key;
-					})
+					return $key;
+				})
 				->shouldReceive('has')->with('field_name_with_underscore')->andReturn(false)
 				->shouldReceive('has')->with('address.city')->andReturn(false)
 				->shouldReceive('has')->with('address[city]')->andReturn(false)
