@@ -94,7 +94,7 @@ class File
 		'xht'   => 'application/xhtml+xml',
 		'xhtml' => 'application/xhtml+xml',
 		'xl'    => 'application/excel',
-		'xls'   => array('application/excel', 'application/vnd.ms-excel', 'application/msexcel'),
+		'xls'   => array('application/vnd.ms-excel', 'application/excel', 'application/msexcel'),
 		'xlsx'  => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 		'xml'   => 'text/xml',
 		'xsl'   => 'text/xml',
