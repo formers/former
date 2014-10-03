@@ -353,7 +353,6 @@ class Former
 	 */
 	public function getFrameworkInstance($framework)
 	{
-		start_measure('get framework');
 		if(isset($this->framework))
 		{
 			return $this->framework;
