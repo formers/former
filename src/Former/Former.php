@@ -16,12 +16,6 @@ class Former
 	// Instances
 	////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Framework instance cache
-	 *
-	 * @var
-	 */
-	protected $framework;
 
 	/**
 	 * The current environment
@@ -353,9 +347,6 @@ class Former
 	 */
 	public function getFrameworkInstance($framework)
 	{
-		if(isset($this->framework) && $framework !== $this->framework)	{
-			return $this->framework;
-		}
 		$formerClass = __NAMESPACE__ . '\Framework\\' . $framework;
 
 		//get interfaces of the given framework
@@ -369,10 +360,7 @@ class Former
 		} else {
 			throw (new InvalidFrameworkException())->setFramework($framework);
 		}
-		// Save framework for later use
-		$this->framework =  new $returnClass($this->app);
-
-		return $this->framework;
+		return new $returnClass($this->app);
 	}
 
 	/**
