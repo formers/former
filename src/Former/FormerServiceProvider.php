@@ -146,12 +146,9 @@ class FormerServiceProvider extends ServiceProvider
 		// Add config namespace
 		$app['config']->package('anahkiasen/former', __DIR__.'/../config');
 
-		// Get framework to use
-		$framework = $app['config']->get('former::framework');
 
-		$frameworkClass = '\Former\Framework\\'.$framework;
-		$app->bind('former.framework', function ($app) use ($frameworkClass) {
-			return new $frameworkClass($app);
+		$app->bind('former.framework', function ($app) {
+			return $app['former']->getFrameworkInstance($app['config']->get('former::framework'));
 		});
 
 		$app->singleton('former.populator', function ($app) {

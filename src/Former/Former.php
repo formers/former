@@ -2,6 +2,7 @@
 namespace Former;
 
 use Closure;
+use Former\Exceptions\InvalidFrameworkException;
 use Former\Traits\Field;
 use Illuminate\Container\Container;
 use Illuminate\Support\MessageBag;
@@ -14,6 +15,7 @@ class Former
 {
 	// Instances
 	////////////////////////////////////////////////////////////////////
+
 
 	/**
 	 * The current environment
@@ -340,14 +342,25 @@ class Former
 	 *
 	 * @param string $framework
 	 *
-	 * @return Framework
+	 * @throws Exceptions\InvalidFrameworkException
+	 * @return \Former\Interfaces\FrameworkInterface
 	 */
 	public function getFrameworkInstance($framework)
 	{
-		// Get the fully qualified name
-		$class = __NAMESPACE__.'\Framework\\'.$framework;
+		$formerClass = __NAMESPACE__ . '\Framework\\' . $framework;
 
-		return new $class($this->app);
+		//get interfaces of the given framework
+		$interfaces = class_exists($framework) ? class_implements($framework) : array();
+
+		if(class_exists($formerClass)) {
+			$returnClass = $formerClass;
+		} elseif(class_exists($framework) && isset($interfaces['Former\Interfaces\FrameworkInterface'])) {
+			// We have some outside class, lets return it.
+			$returnClass = $framework;
+		} else {
+			throw (new InvalidFrameworkException())->setFramework($framework);
+		}
+		return new $returnClass($this->app);
 	}
 
 	/**
