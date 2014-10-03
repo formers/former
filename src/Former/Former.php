@@ -353,32 +353,26 @@ class Former
 	 */
 	public function getFrameworkInstance($framework)
 	{
-		if(isset($this->framework))
-		{
+		if(isset($this->framework))	{
 			return $this->framework;
 		}
 		$formerClass = __NAMESPACE__ . '\Framework\\' . $framework;
 
 		//get interfaces of the given framework
-		$interfaces = class_exists($framework) ? class_implements($framework) : [];
+		$interfaces = class_exists($framework) ? class_implements($framework) : array();
 
-		if(class_exists($formerClass))
-		{
+		if(class_exists($formerClass)) {
 			$returnClass = $formerClass;
-		}
-		elseif(class_exists($framework) && isset($interfaces['Former\Interfaces\FrameworkInterface']))
-		{
+		} elseif(class_exists($framework) && isset($interfaces['Former\Interfaces\FrameworkInterface'])) {
 			// We have some outside class, lets return it.
 			$returnClass = $framework;
-		}
-		else
-		{
+		} else {
 			throw (new InvalidFrameworkException())->setFramework($framework);
 		}
+		// Save framework for later use
 		$this->framework =  new $returnClass($this->app);
 
 		return $this->framework;
-
 	}
 
 	/**
