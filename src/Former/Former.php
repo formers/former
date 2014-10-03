@@ -353,7 +353,7 @@ class Former
 	 */
 	public function getFrameworkInstance($framework)
 	{
-		if(isset($this->framework))	{
+		if(isset($this->framework) && $framework !== $this->framework)	{
 			return $this->framework;
 		}
 		$formerClass = __NAMESPACE__ . '\Framework\\' . $framework;
