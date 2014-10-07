@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 3.5.1
+
+### Added
+- Added support for Foundation 5
+- Added PlainText field type
+- Added `->bind()` method to fields to change which binding to use for repopulation
+
+### Changed
+- Peformance tweaks (framework caching)
+
+### Fixed
+- Fixed position of MAX_FILE_SIZE field
+- Fixed Laravel 5 compatibility
+- Fixed wrong class for inline checkables on Bootstrap 3
+
 ## 3.5.0
 
 ### Changed
