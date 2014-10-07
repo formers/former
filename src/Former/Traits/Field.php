@@ -59,6 +59,13 @@ abstract class Field extends FormerObject implements FieldInterface
 	protected $isSelfClosing = true;
 
 	/**
+	 * The field's bind destination
+	 *
+	 * @var string
+	 */
+	protected $bind;
+
+	/**
 	 * Get the current framework instance
 	 *
 	 * @return Framework
@@ -328,6 +335,18 @@ abstract class Field extends FormerObject implements FieldInterface
 		return $this->label;
 	}
 
+	/**
+	 * Change the field's bind destination
+	 *
+	 * @param $destination
+	 */
+	public function bind($destination) {
+		$this->bind = $destination;
+		if ($this->type != 'password') {
+			$this->value = $this->repopulate();
+		}
+	}
+
 	////////////////////////////////////////////////////////////////////
 	//////////////////////////////// HELPERS ///////////////////////////
 	////////////////////////////////////////////////////////////////////
@@ -340,7 +359,7 @@ abstract class Field extends FormerObject implements FieldInterface
 		// Get values from POST, populated, and manually set value
 		$post      = $this->app['former']->getPost($this->name);
 		$populator = $this->form ? $this->form->getPopulator() : $this->app['former.populator'];
-		$populate  = $populator->get($this->name);
+		$populate  = $populator->get($this->bind ?: $this->name);
 
 		// Assign a priority to each
 		if (!is_null($post)) {
