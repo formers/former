@@ -146,7 +146,6 @@ class FormerServiceProvider extends ServiceProvider
 		// Add config namespace
 		$app['config']->package('anahkiasen/former', __DIR__.'/../config');
 
-
 		$app->bind('former.framework', function ($app) {
 			return $app['former']->getFrameworkInstance($app['config']->get('former::framework'));
 		});

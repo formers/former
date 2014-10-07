@@ -246,7 +246,7 @@ class SelectTest extends FormerTests
 	{
 		$collection = new Collection(array(
 			new DummyEloquent(array('id' => 1, 'name' => 'foo')),
-			new DummyEloquent(array('id' => 2, 'name' => 'bar'))
+			new DummyEloquent(array('id' => 2, 'name' => 'bar')),
 		));
 
 		$select  = $this->former->select('foo')->fromQuery($collection);
@@ -273,7 +273,7 @@ class SelectTest extends FormerTests
 		$collection = new Collection(array(
 			new DummyEloquent(array('id' => 1, 'name' => 'foo')),
 			new DummyEloquent(array('id' => 2, 'name' => 'bar')),
-			new DummyEloquent(array('id' => 3, 'name' => 'bar'))
+			new DummyEloquent(array('id' => 3, 'name' => 'bar')),
 		));
 
 		$select  = $this->former->select('foo')->fromQuery($collection)->select(array(1, 2))->render();

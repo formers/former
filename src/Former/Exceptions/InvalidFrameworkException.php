@@ -19,6 +19,7 @@ class InvalidFrameworkException extends \RuntimeException{
 	{
 		$this->framework = $framework;
 		$this->message = "Framework was not found [{$this->framework}]";
+
 		return $this;
 	}
 	/**

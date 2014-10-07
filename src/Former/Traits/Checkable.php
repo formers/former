@@ -135,7 +135,7 @@ abstract class Checkable extends Field
 		return $this->createCheckable(array(
 			'name'  => $this->name,
 			'label' => $this->text,
-			'value' => $this->value
+			'value' => $this->value,
 		));
 	}
 

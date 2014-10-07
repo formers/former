@@ -262,7 +262,7 @@ class RadioTest extends FormerTests
 	{
 		$radios  = $this->former->radios('foo')->radios($this->radioCheckables)->check(array(
 			'foo' => true,
-			'bar' => false
+			'bar' => false,
 		))->__toString();
 		$matcher = $this->controlGroup(
 			'<label for="foo" class="radio">'.

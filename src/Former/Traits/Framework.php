@@ -147,7 +147,6 @@ abstract class Framework
 		return 'error';
 	}
 
-
 	/**
 	 * Returns corresponding inline class of a field
 	 *

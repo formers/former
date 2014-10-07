@@ -256,7 +256,7 @@ class InputTest extends FormerTests
 	{
 		$datalist = $this->former->text('foo')->list('bar')->useDatalist(array(
 			'foo' => 'bar',
-			'kel' => 'tar'
+			'kel' => 'tar',
 		))->__toString();
 		$matcher  =
 			'<div class="control-group">'.

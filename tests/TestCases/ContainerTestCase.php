@@ -128,7 +128,7 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 				'blockHelp',
 				'placeholder',
 				'data_placeholder',
-				'label'
+				'label',
 			),
 			'Nude.icon.prefix'                    => 'icon',
 			'Nude.icon.set'                       => null,
@@ -146,7 +146,7 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 				'large'  => 'lg',
 				'medium' => 'md',
 				'small'  => 'sm',
-				'mini'   => 'xs'
+				'mini'   => 'xs',
 			),
 			'ZurbFoundation.icon.prefix'          => 'fi',
 			'ZurbFoundation.icon.set'             => null,
@@ -156,7 +156,7 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 				'large'  => '',
 				'medium' => null,
 				'small'  => 'mobile-',
-				'mini'   => null
+				'mini'   => null,
 			),
 			'ZurbFoundation.wrappedLabelClasses'  => array('right', 'inline'),
 			'ZurbFoundation.error_classes'        => array('class' => 'alert-box alert error'),
@@ -168,7 +168,7 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 				'large'  => 'large',
 				'medium' => null,
 				'small'  => 'small',
-				'mini'   => null
+				'mini'   => null,
 			),
 			'ZurbFoundation4.wrappedLabelClasses' => array('right', 'inline'),
 			'ZurbFoundation4.error_classes'       => array('class' => 'alert-box radius warning'),
@@ -180,7 +180,7 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 				'large'  => 'large',
 				'medium' => null,
 				'small'  => 'small',
-				'mini'   => null
+				'mini'   => null,
 			),
 			'ZurbFoundation5.wrappedLabelClasses' => array('right', 'inline'),
 			'ZurbFoundation5.error_classes'       => array('class' => 'error'),
@@ -229,7 +229,7 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 	protected function mockValidator()
 	{
 		$messageBag = $this->mockMessageBag(array(
-			'required' => 'The required field is required.'
+			'required' => 'The required field is required.',
 		));
 
 		return $this->mock('validator', 'Illuminate\Validation\Validator', function ($mock) use ($messageBag) {

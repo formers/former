@@ -204,6 +204,4 @@ class FieldTest extends FormerTests
 
 		$this->assertEquals($matcher, $static);
 	}
-
-
 }

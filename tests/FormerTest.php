@@ -36,7 +36,7 @@ class FormerTest extends FormerTests
 		return array(
 			'tag'        => 'label',
 			'content'    => 'Foo',
-			'attributes' => array('for' => '')
+			'attributes' => array('for' => ''),
 		);
 	}
 

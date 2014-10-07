@@ -36,7 +36,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
 		'link',
 		'primary',
 		'success',
-		'warning'
+		'warning',
 	);
 
 	/**
@@ -62,7 +62,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
 		'span9',
 		'span10',
 		'span11',
-		'span12'
+		'span12',
 	);
 
 	/**

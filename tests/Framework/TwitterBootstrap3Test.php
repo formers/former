@@ -113,7 +113,7 @@ class TwitterBootstrap3Test extends FormerTests
 		// e.g. using other Glyphicon sets
 		$icon1  = $this->app['former.framework']->createIcon('facebook', null, array(
 			'set'    => 'social',
-			'prefix' => 'glyphicon'
+			'prefix' => 'glyphicon',
 		))->__toString();
 		$match1 = '<span class="social glyphicon-facebook"></span>';
 
@@ -123,7 +123,7 @@ class TwitterBootstrap3Test extends FormerTests
 		$icon2  = $this->app['former.framework']->createIcon('flag', null, array(
 			'tag'    => 'i',
 			'set'    => '',
-			'prefix' => 'icon'
+			'prefix' => 'icon',
 		))->__toString();
 		$match2 = '<i class="icon-flag"></i>';
 

@@ -247,7 +247,7 @@ class CheckboxTest extends FormerTests
 	{
 		$checkboxes = $this->former->checkboxes('foo')->checkboxes('foo', 'bar')->check(array(
 			'foo_0' => false,
-			'foo_1' => true
+			'foo_1' => true,
 		))->__toString();
 		$matcher    = $this->controlGroup($this->matchCheckbox('foo_0', 'Foo').$this->matchCheckedCheckbox('foo_1', 'Bar', 1));
 

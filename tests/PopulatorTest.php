@@ -104,7 +104,7 @@ class PopulatorTest extends FormerTests
 	public function testCanCastModelToArray()
 	{
 		$model     = new DummyToArray(array(
-			'user' => new DummyToArray(array('name' => 'foo'))
+			'user' => new DummyToArray(array('name' => 'foo')),
 		));
 		$populator = new Populator($model);
 

@@ -347,7 +347,7 @@ class Former
 	 */
 	public function getFrameworkInstance($framework)
 	{
-		$formerClass = __NAMESPACE__ . '\Framework\\' . $framework;
+		$formerClass = __NAMESPACE__.'\Framework\\'.$framework;
 
 		//get interfaces of the given framework
 		$interfaces = class_exists($framework) ? class_implements($framework) : array();
@@ -360,6 +360,7 @@ class Former
 		} else {
 			throw (new InvalidFrameworkException())->setFramework($framework);
 		}
+
 		return new $returnClass($this->app);
 	}
 

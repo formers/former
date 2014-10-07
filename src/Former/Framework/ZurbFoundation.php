@@ -37,7 +37,7 @@ class ZurbFoundation extends Framework implements FrameworkInterface
 		9  => 'nine',
 		10 => 'ten',
 		11 => 'eleven',
-		12 => 'twelve'
+		12 => 'twelve',
 	);
 
 	/**

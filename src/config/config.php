@@ -61,6 +61,6 @@
 		'blockHelp',
 		'placeholder',
 		'data_placeholder',
-		'label'
+		'label',
 	),
 );

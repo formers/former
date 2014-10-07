@@ -232,7 +232,7 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 		// As text-type is open-ended we instead exclude those that shouldn't receive the class
 		if (!$field->isCheckable() and !$field->isButton() and !in_array($field->getType(), array(
 					'file',
-					'plaintext'
+					'plaintext',
 				)) and !in_array('form-control', $classes)
 		) {
 			$classes[] = 'form-control';

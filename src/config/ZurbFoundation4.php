@@ -25,6 +25,6 @@
 		'prefix' => 'foundicon',
 	),
 	// CSS for inline validation errors
-	'error_classes'       => array('class' => 'alert-box radius warning')
+	'error_classes'       => array('class' => 'alert-box radius warning'),
 
 );

@@ -23,6 +23,6 @@
 		'prefix' => 'fi',
 	),
 	// CSS for inline validation errors
-	'error_classes'       => array('class' => 'error')
+	'error_classes'       => array('class' => 'error'),
 
 );
