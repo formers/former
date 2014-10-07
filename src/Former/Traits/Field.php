@@ -345,6 +345,8 @@ abstract class Field extends FormerObject implements FieldInterface
 		if ($this->type != 'password') {
 			$this->value = $this->repopulate();
 		}
+
+		return $this;
 	}
 
 	////////////////////////////////////////////////////////////////////
