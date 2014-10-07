@@ -195,4 +195,15 @@ class FieldTest extends FormerTests
 		$this->assertEquals('<input id="name" type="text" name="name">', $field);
 		$this->assertEquals('<input id="name-2" type="text" name="name">', $fieldTwo);
 	}
+
+	public function testCanChangeBindingOfField()
+	{
+		$this->former->populate(array('bar' => 'unbar'));
+		$static  = $this->former->text('foo')->bind('bar')->__toString();
+		$matcher = $this->controlGroup('<input id="foo" type="text" name="foo" value="unbar">');
+
+		$this->assertEquals($matcher, $static);
+	}
+
+
 }
