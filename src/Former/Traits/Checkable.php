@@ -469,7 +469,7 @@ abstract class Checkable extends Field
 
 			// Search using the bare name, not the individual item name
 			$post   = $this->app['former']->getPost($this->name);
-			$static = $this->app['former']->getValue($this->name);
+			$static = $this->app['former']->getValue($this->bind ?: $this->name);
 
 			if (isset($post[$groupIndex])) {
 				$post = $post[$groupIndex];
@@ -479,7 +479,7 @@ abstract class Checkable extends Field
 			}
 		} else {
 			$post   = $this->app['former']->getPost($name);
-			$static = $this->app['former']->getValue($name);
+			$static = $this->app['former']->getValue($this->bind ?: $name);
 		}
 
 		if (!is_null($post) and $post !== $this->app['former']->getOption('unchecked_value')) {
