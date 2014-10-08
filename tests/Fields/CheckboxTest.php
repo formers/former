@@ -574,4 +574,11 @@ class CheckboxTest extends FormerTests
 		$matcher  = $this->formGroup($this->matchCheckbox('foo', null, 1, false, false, true));
 		$this->assertEquals($matcher, $checkbox);
 	}
+
+	public function testToStringMagicMethodShouldOnlyReturnString()
+	{
+		$this->former->group();
+		$output = $this->former->checkbox('foo')->text('bar').'';
+		$this->former->closeGroup();
+	}
 }

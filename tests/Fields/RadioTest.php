@@ -329,4 +329,11 @@ class RadioTest extends FormerTests
 		$matcher = $this->formGroup($this->matchRadio('foo', null, 1, false, false, true));
 		$this->assertEquals($matcher, $radio);
 	}
+
+	public function testToStringMagicMethodShouldOnlyReturnString()
+	{
+		$this->former->group();
+		$output = $this->former->radio('foo')->text('bar').'';
+		$this->former->closeGroup();
+	}
 }
