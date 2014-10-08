@@ -136,6 +136,7 @@ abstract class Checkable extends Field
 			'name'  => $this->name,
 			'label' => $this->text,
 			'value' => $this->value,
+			'attributes' => $this->attributes,
 		));
 	}
 
