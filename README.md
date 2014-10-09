@@ -1,11 +1,13 @@
 # Former
 ## A Laravelish way to create and format forms
 
-[![Build Status](https://secure.travis-ci.org/Anahkiasen/former.png)](http://travis-ci.org/Anahkiasen/former)
-[![Latest Stable Version](https://poser.pugx.org/anahkiasen/former/v/stable.png)](https://packagist.org/packages/anahkiasen/former)
-[![Total Downloads](https://poser.pugx.org/anahkiasen/former/downloads.png)](https://packagist.org/packages/anahkiasen/former)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/Anahkiasen/former/badges/quality-score.png?s=17a96ec08bcefbdf737feed52b88ebcac596c29c)](https://scrutinizer-ci.com/g/Anahkiasen/former/)
-[![Code Coverage](https://scrutinizer-ci.com/g/Anahkiasen/former/badges/coverage.png?s=861f4579957851e68626c91ed1bb9e76694edaa8)](https://scrutinizer-ci.com/g/Anahkiasen/former/)
+[![Build Status](http://img.shields.io/travis/Anahkiasen/former.svg?style=flat)](https://travis-ci.org/Anahkiasen/former)
+[![Latest Stable Version](http://img.shields.io/packagist/v/anahkiasen/former.svg?style=flat)](https://packagist.org/packages/anahkiasen/former)
+[![Total Downloads](http://img.shields.io/packagist/dt/anahkiasen/former.svg?style=flat)](https://packagist.org/packages/anahkiasen/former)
+[![Scrutinizer Quality Score](http://img.shields.io/scrutinizer/g/Anahkiasen/former.svg?style=flat)](https://scrutinizer-ci.com/g/Anahkiasen/former/)
+[![Code Coverage](http://img.shields.io/scrutinizer/coverage/g/Anahkiasen/former.svg?style=flat)](https://scrutinizer-ci.com/g/Anahkiasen/former/)
+[![Dependency Status](https://www.versioneye.com/user/projects/53f1c65f13bb0677b1000744/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53f1c65f13bb0677b1000744)
+[![Support via Gittip](http://img.shields.io/gittip/Anahkiasen.svg?style=flat)](https://www.gittip.com/Anahkiasen/)
 
 Former is the name of a little project I'd like to present you — it's a PHP package that allows you to do all kinds of powerful stuff with forms while remaining pretty simple to use. It's also a really nice guy too once you get to know him.
 
