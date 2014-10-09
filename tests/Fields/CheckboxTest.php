@@ -581,4 +581,32 @@ class CheckboxTest extends FormerTests
 		$output = $this->former->checkbox('foo')->text('bar').'';
 		$this->former->closeGroup();
 	}
+
+	public function testCanBeManualyDefinied()
+	{
+		$checkbox = $this->former->checkbox('foo', null, 'foo', ['value' => 'bar'])->__toString();
+		$matcher  = $this->controlGroup('<input value="bar" id="foo" type="checkbox" name="foo">');
+
+		$this->assertEquals($matcher, $checkbox);
+	}
+
+	public function testCanBeManualyDefiniedAndRepopulated()
+	{
+		$this->former->populate(array('foo' => 'bar'));
+		$checkbox = $this->former->checkbox('foo', null, 'foo', ['value' => 'bar'])->__toString();
+		$matcher  = $this->controlGroup('<input value="bar" id="foo" type="checkbox" name="foo" checked="checked">');
+
+		$this->assertEquals($matcher, $checkbox);
+	}
+
+	public function testShouldNotBeCheckedIfHisValueIsManualyChanged()
+	{
+		$this->former->populate(array('foo' => 'foo'));
+		$checkbox = $this->former->checkbox('foo', null, 'foo', ['value' => 'bar'])->__toString();
+		$matcher  = $this->controlGroup('<input value="bar" id="foo" type="checkbox" name="foo">');
+
+		$this->assertEquals($matcher, $checkbox);
+	}
+
+
 }

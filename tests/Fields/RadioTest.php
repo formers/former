@@ -336,4 +336,30 @@ class RadioTest extends FormerTests
 		$output = $this->former->radio('foo')->text('bar').'';
 		$this->former->closeGroup();
 	}
+
+	public function testCanBeManualyDefinied()
+	{
+		$checkbox = $this->former->radio('foo', null, 'foo', ['value' => 'bar'])->__toString();
+		$matcher  = $this->controlGroup('<input value="bar" id="foo" type="radio" name="foo">');
+
+		$this->assertEquals($matcher, $checkbox);
+	}
+
+	public function testCanBeManualyDefiniedAndRepopulated()
+	{
+		$this->former->populate(array('foo' => 'bar'));
+		$checkbox = $this->former->radio('foo', null, 'foo', ['value' => 'bar'])->__toString();
+		$matcher  = $this->controlGroup('<input value="bar" id="foo" type="radio" name="foo" checked="checked">');
+
+		$this->assertEquals($matcher, $checkbox);
+	}
+
+	public function testShouldNotBeCheckedIfHisValueIsManualyChanged()
+	{
+		$this->former->populate(array('foo' => 'foo'));
+		$checkbox = $this->former->radio('foo', null, 'foo', ['value' => 'bar'])->__toString();
+		$matcher  = $this->controlGroup('<input value="bar" id="foo" type="radio" name="foo">');
+
+		$this->assertEquals($matcher, $checkbox);
+	}
 }
