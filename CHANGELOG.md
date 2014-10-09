@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.5.2
+
+### Fixed
+- Fix the `bind` function for checkables
+- Fixed an error when manually creating checkables
+
 ## 3.5.1
 
 ### Added
