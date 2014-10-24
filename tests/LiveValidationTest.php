@@ -109,10 +109,50 @@ class LiveValidationTest extends FormerTests
 		$this->assertHTML($this->matchControlGroup(), $input);
 	}
 
+	public function testCanSetNestedBracketFieldAsRequired()
+	{
+		$this->former->withRules(array('foo[bar]' => 'required'));
+		$input = $this->former->text('foo[bar]')->name('foo')->__toString();
+
+		$this->assertHTML($this->matchField(array('required' => 'true')), $input);
+		$this->assertLabel($input, 'foo', true);
+		$this->assertHTML($this->matchControlGroup(), $input);
+	}
+
+	public function testCanSetNestedDotFieldAsRequired()
+	{
+		$this->former->withRules(array('foo.bar' => 'required'));
+		$input = $this->former->text('foo[bar]')->name('foo')->__toString();
+
+		$this->assertHTML($this->matchField(array('required' => 'true')), $input);
+		$this->assertLabel($input, 'foo', true);
+		$this->assertHTML($this->matchControlGroup(), $input);
+	}
+
 	public function testCanSetFieldAsRequiredAsArray()
 	{
 		$this->former->withRules(array('foo' => array('required')));
 		$input = $this->former->text('foo')->__toString();
+
+		$this->assertHTML($this->matchField(array('required' => 'true')), $input);
+		$this->assertLabel($input, 'foo', true);
+		$this->assertHTML($this->matchControlGroup(), $input);
+	}
+
+	public function testCanSetNestedBracketFieldAsRequiredAsArray()
+	{
+		$this->former->withRules(array('foo[bar]' => array('required')));
+		$input = $this->former->text('foo[bar]')->name('foo')->__toString();
+
+		$this->assertHTML($this->matchField(array('required' => 'true')), $input);
+		$this->assertLabel($input, 'foo', true);
+		$this->assertHTML($this->matchControlGroup(), $input);
+	}
+
+	public function testCanSetNestedDotFieldAsRequiredAsArray()
+	{
+		$this->former->withRules(array('foo.bar' => array('required')));
+		$input = $this->former->text('foo[bar]')->name('foo')->__toString();
 
 		$this->assertHTML($this->matchField(array('required' => 'true')), $input);
 		$this->assertLabel($input, 'foo', true);
