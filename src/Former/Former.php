@@ -462,6 +462,16 @@ class Former
 	 */
 	public function getRules($name)
 	{
-		return array_get($this->rules, $name);
+		// Check the rules for the name as given
+		$ruleset = array_get($this->rules, $name);
+
+		// If no rules found, convert to dot notation and try again
+		if (is_null($ruleset)) {
+			$name = str_replace(array('[', ']'), array('.', ''), $name);
+			$name = trim($name, '.');
+			$ruleset = array_get($this->rules, $name);
+		}
+
+		return $ruleset;
 	}
 }
