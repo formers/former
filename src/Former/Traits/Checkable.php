@@ -5,6 +5,7 @@ use Former\Helpers;
 use HtmlObject\Element;
 use HtmlObject\Input;
 use Illuminate\Container\Container;
+use Illuminate\Support\Collection;
 
 /**
  * Abstract methods inherited by Checkbox and Radio
@@ -467,6 +468,7 @@ abstract class Checkable extends Field
 
 		// Check the values and POST array
 		if ($this->isGrouped()) {
+			// The group index. (e.g. 'bar' if the item name is foo[bar], or the item index for foo[])
 			$groupIndex = self::getGroupIndexFromItem($item);
 
 			// Search using the bare name, not the individual item name
@@ -476,7 +478,26 @@ abstract class Checkable extends Field
 			if (isset($post[$groupIndex])) {
 				$post = $post[$groupIndex];
 			}
-			if (isset($static[$groupIndex])) {
+
+			/**
+			 * Support for Laravel Collection repopulating for grouped checkboxes. Note that the groupIndex must
+			 * match the value in order for the checkbox to be considered checked, e.g.:
+			 *
+			 *  array(
+			 *    'name' = 'roles[foo]',
+			 *    'value' => 'foo',
+			 *  )
+			 */
+			if ($static instanceof Collection) {
+				// If the repopulate value is a collection, search for an item matching the $groupIndex
+				foreach ($static as $staticItem) {
+					$staticItemValue = method_exists($staticItem, 'getKey') ? $staticItem->getKey() : $staticItem;
+					if ($staticItemValue == $groupIndex) {
+						$static = $staticItemValue;
+						break;
+					}
+				}
+			} else if (isset($static[$groupIndex])) {
 				$static = $static[$groupIndex];
 			}
 		} else {
