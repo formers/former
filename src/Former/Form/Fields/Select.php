@@ -90,11 +90,16 @@ class Select extends Field
 			$this->name .= '[]';
 		}
 
-		$this->value = (array) $this->value;
+		if ( ! $this->value instanceOf \ArrayAccess) {
+			$this->value = (array) $this->value;
+		}
 
 		// Mark selected values as selected
 		if ($this->hasChildren() and !empty($this->value)) {
 			foreach ($this->value as $value) {
+				if (is_object($value) && method_exists($value, 'getKey')) {
+					$value = $value->getKey();
+				}
 				$this->selectValue($value);
 			}
 		}
