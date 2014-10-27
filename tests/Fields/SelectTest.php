@@ -277,7 +277,40 @@ class SelectTest extends FormerTests
 		));
 
 		$select  = $this->former->select('foo')->fromQuery($collection)->select(array(1, 2))->render();
-		$matcher = '<select id="foo" name="foo"><option value="1" selected="selected">foo</option><option value="2" selected="selected">bar</option><option value="3">bar</option></select>';
+		$matcher =
+			'<select id="foo" name="foo">'.
+			'<option value="1" selected="selected">foo</option>'.
+			'<option value="2" selected="selected">bar</option>'.
+			'<option value="3">bar</option>'.
+			'</select>';
+
+		$this->assertEquals($matcher, $select);
+	}
+
+	public function testCanRepopulateFromCollection()
+	{
+		$model = new DummyEloquent;
+
+		$collection = new Collection(array(
+			new DummyEloquent(array('id' => 1, 'name' => 'foo')),
+			new DummyEloquent(array('id' => 2, 'name' => 'bar')),
+			new DummyEloquent(array('id' => 3, 'name' => 'bar')),
+		));
+
+		/**
+		 * $model->roles returns a Collection with id's of 1 and 3, so these ID's should end up selected
+		 */
+		$this->former->populate($model);
+		$select  = $this->former->select('roles')->fromQuery($collection)->__toString();
+
+		$matcher = $this->controlGroup(
+			'<select id="roles" name="roles">'.
+			'<option value="1" selected="selected">foo</option>'.
+			'<option value="2">bar</option>'.
+			'<option value="3" selected="selected">bar</option>'.
+			'</select>',
+			'<label for="roles" class="control-label">Roles</label>'
+			);
 
 		$this->assertEquals($matcher, $select);
 	}
