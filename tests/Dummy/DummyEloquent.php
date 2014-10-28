@@ -2,6 +2,7 @@
 namespace Former\Dummy;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Mockery;
 
 class DummyEloquent extends Model
@@ -21,6 +22,16 @@ class DummyEloquent extends Model
 				new DummyEloquent(array('id' => 3, 'name' => 'bar')),
 			))
 		              ->mock();
+	}
+
+	public function rolesAsCollection()
+	{
+		return Mockery::mock('Illuminate\Database\Eloquent\Relations\HasMany')
+			->shouldReceive('getResults')->andReturn(new Collection(array(
+				new DummyEloquent(array('id' => 1, 'name' => 'foo')),
+				new DummyEloquent(array('id' => 3, 'name' => 'bar')),
+			)))
+			->mock();
 	}
 
 	public function getCustomAttribute()
