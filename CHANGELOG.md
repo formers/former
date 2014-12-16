@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 3.5.3
+
+### Added
+- Allow repopulating multiselects from Laravel relationships
+- Support checkbox repopulation from models
+
+### Fixed
+- Handle dot notation in live validation
+- Don't repopulate _token fields
+- Encode values of hidden fields
+
 ## 3.5.2
 
 ### Fixed
