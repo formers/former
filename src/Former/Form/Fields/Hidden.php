@@ -1,6 +1,7 @@
 <?php
 namespace Former\Form\Fields;
 
+use Former\Helpers;
 use Former\Traits\Field;
 use HtmlObject\Input as HtmlInput;
 use Illuminate\Container\Container;
@@ -36,6 +37,6 @@ class Hidden extends Field
 	 */
 	public function render()
 	{
-		return HtmlInput::create('hidden', $this->name, $this->value, $this->attributes)->render();
+		return HtmlInput::create('hidden', $this->name, Helpers::encode($this->value), $this->attributes)->render();
 	}
 }
