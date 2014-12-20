@@ -297,10 +297,11 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 				->shouldReceive('get')->withAnyArgs()->andReturnUsing(function ($key) {
 					return $key;
 				})
-				->shouldReceive('has')->with('field_name_with_underscore')->andReturn(false)
-				->shouldReceive('has')->with('address.city')->andReturn(false)
-				->shouldReceive('has')->with('address[city]')->andReturn(false)
-				->shouldReceive('has')->withAnyArgs()->andReturn(true);
+				->shouldReceive('has')->with('pagination.next')->andReturn(true)
+				->shouldReceive('has')->with('pagination.previous')->andReturn(true)
+				->shouldReceive('has')->with('validation.attributes.address.city')->andReturn(true)
+                ->shouldReceive('has')->with('Invalid Label?')->andThrow(new \Exception("Invalid translation key"))
+				->shouldReceive('has')->withAnyArgs()->andReturn(false);
 		});
 	}
 
