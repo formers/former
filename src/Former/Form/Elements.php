@@ -96,9 +96,17 @@ class Elements
 	 */
 	public function closeGroup()
 	{
+		$closing = '';
+		if (Group::$opened && isset(Group::$openGroup)) {
+			$closing = Group::$openGroup->close();
+		}
+
 		// Close custom group
 		Group::$opened = false;
 
-		return '</div>';
+		// Reset custom group reference
+		Group::$openGroup = null;
+
+		return $closing;
 	}
 }
