@@ -357,4 +357,20 @@ class GroupTest extends FormerTests
 
 		$this->assertContains('control-group foobar', $text);
 	}
+
+	public function testCloseUnopenedGroup()
+	{
+		$text = $this->former->closeGroup();
+
+		$this->assertEmpty($text);
+	}
+
+	public function testCloseOpenedGroup()
+	{
+		$this->former->group('foo');
+		$text = $this->former->closeGroup();
+		$matcher = '</div>';
+
+		$this->assertEquals($matcher, $text);
+	}
 }
