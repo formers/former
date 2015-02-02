@@ -1,7 +1,7 @@
 <?php
 namespace Former;
 
-use Illuminate\Config\FileLoader as ConfigLoader;
+use Illuminate\Translation\FileLoader as ConfigLoader;
 use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
 use Illuminate\Http\Request;
@@ -144,10 +144,12 @@ class FormerServiceProvider extends ServiceProvider
 	public function bindFormer(Container $app)
 	{
 		// Add config namespace
-		$app['config']->package('anahkiasen/former', __DIR__.'/../config');
+		$configPath = __DIR__ . '/../config/former.php';
+		$this->mergeConfigFrom($configPath, 'former');
+		$this->publishes([$configPath => $app['path.config'] . '/former.php']);
 
 		$app->bind('former.framework', function ($app) {
-			return $app['former']->getFrameworkInstance($app['config']->get('former::framework'));
+			return $app['former']->getFrameworkInstance($app['config']->get('former.framework'));
 		});
 
 		$app->singleton('former.populator', function ($app) {

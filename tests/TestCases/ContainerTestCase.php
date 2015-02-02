@@ -52,7 +52,7 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 	 *
 	 * @param string  $binding
 	 * @param string  $name
-	 * @param Closure $expectations
+	 * @param \Closure $expectations
 	 *
 	 * @return Mockery
 	 */
@@ -191,8 +191,8 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 			$mock->shouldReceive('set')->with(Mockery::any(), Mockery::any());
 
 			foreach ($options as $key => $value) {
-				$mock->shouldReceive('get')->with('former::'.$key)->andReturn($value);
-				$mock->shouldReceive('get')->with('former::'.$key, Mockery::any())->andReturn($value);
+				$mock->shouldReceive('get')->with('former.'.$key)->andReturn($value);
+				$mock->shouldReceive('get')->with('former.'.$key, Mockery::any())->andReturn($value);
 			}
 
 			return $mock;

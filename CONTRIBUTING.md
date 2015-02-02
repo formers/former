@@ -4,7 +4,8 @@ Before reporting any issue, please put in the name of your issue a tag specifyin
 
 ```
 [L3] Problem with X
-[L4] Added X yo Y
+[L4] Added X to Y
+[L5] Feature X request
 [Agnostic] etc.
 ```
 

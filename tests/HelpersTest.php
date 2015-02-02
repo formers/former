@@ -25,10 +25,10 @@ class HelpersTest extends FormerTests
 	public function testCanDisableTranslationCapitalization()
 	{
 		$this->app['config'] = Mockery::mock('Config')
-		                              ->shouldReceive('get')->with('former::live_validation', '')->andReturn(true)
-		                              ->shouldReceive('get')->with('former::translate_from', '')->andReturn(true)
-		                              ->shouldReceive('get')->with('former::automatic_label', '')->andReturn(true)
-		                              ->shouldReceive('get')->with('former::capitalize_translations', '')->andReturn(false)
+		                              ->shouldReceive('get')->with('former.live_validation', '')->andReturn(true)
+		                              ->shouldReceive('get')->with('former.translate_from', '')->andReturn(true)
+		                              ->shouldReceive('get')->with('former.automatic_label', '')->andReturn(true)
+		                              ->shouldReceive('get')->with('former.capitalize_translations', '')->andReturn(false)
 		                              ->mock();
 		Helpers::setApp($this->app);
 

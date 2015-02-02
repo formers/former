@@ -6,7 +6,7 @@ use Former\Exceptions\InvalidFrameworkException;
 use Former\Traits\Field;
 use Illuminate\Container\Container;
 use Illuminate\Support\MessageBag;
-use Illuminate\Validation\Validator;
+use Illuminate\Contracts\Validation\Validator;
 
 /**
  * Helps the user interact with the various Former components
@@ -374,7 +374,7 @@ class Former
 	 */
 	public function getOption($option, $default = null)
 	{
-		return $this->app['config']->get('former::'.$option, $default);
+		return $this->app['config']->get('former.'.$option, $default);
 	}
 
 	/**
@@ -385,7 +385,7 @@ class Former
 	 */
 	public function setOption($option, $value)
 	{
-		return $this->app['config']->set('former::'.$option, $value);
+		return $this->app['config']->set('former.'.$option, $value);
 	}
 
 	////////////////////////////////////////////////////////////////////
