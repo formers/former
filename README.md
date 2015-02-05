@@ -9,6 +9,8 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/54363f5eb2a9c51d400000d0/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54363f5eb2a9c51d400000d0)
 [![Support via Gittip](http://img.shields.io/gittip/Anahkiasen.svg?style=flat)](https://www.gittip.com/Anahkiasen/)
 
+### For Laravel 5, use the [4.0 branch](https://github.com/Anahkiasen/former/tree/4.0)
+
 Former is the name of a little project I'd like to present you — it's a PHP package that allows you to do all kinds of powerful stuff with forms while remaining pretty simple to use. It's also a really nice guy too once you get to know him.
 
 Former chews a lot of the work for you, it handles repopulation, validation, grouped fields, automatic markup for your favorite CSS framework (Bootstrap, Foundation). I invite you to take a look at the features page to get more informations.
