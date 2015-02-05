@@ -147,6 +147,9 @@ class FormerServiceProvider extends ServiceProvider
 		$configPath = __DIR__ . '/../config/former.php';
 		$this->mergeConfigFrom($configPath, 'former');
 		$this->publishes([$configPath => $app['path.config'] . '/former.php']);
+		
+		$framework = $app['config']->get('former.framework');
+		$this->mergeConfigFrom(__DIR__ . '/../config/'.$framework.'.php', 'former.'.$framework);
 
 		$app->bind('former.framework', function ($app) {
 			return $app['former']->getFrameworkInstance($app['config']->get('former.framework'));
