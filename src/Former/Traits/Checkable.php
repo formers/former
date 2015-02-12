@@ -368,6 +368,10 @@ abstract class Checkable extends Field
 		if ($this->isOfType('checkbox', 'checkboxes')) {
 			if ($this->isPushed or ($this->app['former']->getOption('push_checkboxes') and $this->isPushed !== false)) {
 				$field = $this->app['former']->hidden($name)->forceValue($this->app['former']->getOption('unchecked_value')).$field->render();
+
+				// app['former.field'] was overwritten by Former::hidden() call in the line above, so here
+				// we reset it to $this to enable $this->app['former']->getErrors() to retrieve the correct object
+				$this->app->instance('former.field', $this);
 			}
 		}
 
