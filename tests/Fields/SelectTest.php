@@ -13,7 +13,7 @@ class SelectTest extends FormerTests
 	 *
 	 * @var array
 	 */
-	private $options = array('foo' => 'bar', 'kal' => 'ter');
+	private $options = array(0 => 'baz', 'foo' => 'bar', 'kal' => 'ter');
 
 	////////////////////////////////////////////////////////////////////
 	//////////////////////////////// TESTS /////////////////////////////
@@ -38,14 +38,14 @@ class SelectTest extends FormerTests
 	public function testMultiselectOptions()
 	{
 		$select  = $this->former->multiselect('foo')->options($this->options)->value(array('foo', 'kal'))->__toString();
-		$matcher = $this->controlGroup('<select id="foo" multiple="true" name="foo[]"><option value="foo" selected="selected">bar</option><option value="kal" selected="selected">ter</option></select>');
+		$matcher = $this->controlGroup('<select id="foo" multiple="true" name="foo[]"><option value="0">baz</option><option value="foo" selected="selected">bar</option><option value="kal" selected="selected">ter</option></select>');
 		$this->assertEquals($matcher, $select);
 	}
 
 	public function testSelectOptions()
 	{
 		$select  = $this->former->select('foo')->options($this->options)->__toString();
-		$matcher = $this->controlGroup('<select id="foo" name="foo"><option value="foo">bar</option><option value="kal">ter</option></select>');
+		$matcher = $this->controlGroup('<select id="foo" name="foo"><option value="0">baz</option><option value="foo">bar</option><option value="kal">ter</option></select>');
 
 		$this->assertEquals($matcher, $select);
 	}
@@ -67,6 +67,7 @@ class SelectTest extends FormerTests
 		$matcher = $this->controlGroup(
 			'<select id="foo" name="foo">'.
 			'<option value="" disabled="disabled" selected="selected">Pick something</option>'.
+			'<option value="0">baz</option>'.
 			'<option value="foo">bar</option>'.
 			'<option value="kal">ter</option>'.
 			'</select>');
@@ -80,6 +81,7 @@ class SelectTest extends FormerTests
 		$matcher = $this->controlGroup(
 			'<select id="foo" name="foo">'.
 			'<option value="" disabled="disabled">Pick something</option>'.
+			'<option value="0">baz</option>'.
 			'<option value="foo" selected="selected">bar</option>'.
 			'<option value="kal">ter</option>'.
 			'</select>');
@@ -196,6 +198,7 @@ class SelectTest extends FormerTests
 		$select  = $this->former->select('foo')->data_foo('bar')->options($this->options, 'kal')->__toString();
 		$matcher = $this->controlGroup(
 			'<select data-foo="bar" id="foo" name="foo">'.
+			'<option value="0">baz</option>'.
 			'<option value="foo">bar</option>'.
 			'<option value="kal" selected="selected">ter</option>'.
 			'</select>');
@@ -208,6 +211,7 @@ class SelectTest extends FormerTests
 		$select  = $this->former->select('foo')->data_foo('bar')->options($this->options)->select('kal')->__toString();
 		$matcher = $this->controlGroup(
 			'<select data-foo="bar" id="foo" name="foo">'.
+			'<option value="0">baz</option>'.
 			'<option value="foo">bar</option>'.
 			'<option value="kal" selected="selected">ter</option>'.
 			'</select>');
@@ -222,6 +226,7 @@ class SelectTest extends FormerTests
 		$matcher = $this->controlGroup(
 			'<select id="foo" name="foo">'.
 			'<option value=""></option>'.
+			'<option value="0">baz</option>'.
 			'<option value="foo">bar</option>'.
 			'<option value="kal">ter</option>'.
 			'<option value="ter">bis</option>'.
