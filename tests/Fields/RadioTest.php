@@ -58,7 +58,7 @@ class RadioTest extends FormerTests
 		$radio = '<input'.$this->attributes($radioAttr).'>';
 
 		if (!$inline && $this->former->framework() === 'TwitterBootstrap3') {
-			unset($labelAttr['class']);
+			$labelAttr['class'] = "";
 		}
 
 		$control = $label ? '<label'.$this->attributes($labelAttr).'>'.$radio.$label.'</label>' : $radio;
