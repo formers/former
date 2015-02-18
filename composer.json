@@ -38,6 +38,5 @@
       ],
       "Laravel\\": "src/Laravel"
     }
-  },
-  "minimum-stability": "dev"
+  }
 }
