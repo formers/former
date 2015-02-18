@@ -232,7 +232,7 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 			'required' => 'The required field is required.',
 		));
 
-		return $this->mock('validator', 'Illuminate\Validation\Validator', function ($mock) use ($messageBag) {
+		return $this->mock('validator', 'Illuminate\Contracts\Validation\Validator', function ($mock) use ($messageBag) {
 			return $mock->shouldReceive('getMessageBag')->andReturn($messageBag);
 		});
 	}

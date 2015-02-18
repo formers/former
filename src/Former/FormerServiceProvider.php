@@ -1,7 +1,6 @@
 <?php
 namespace Former;
 
-use Illuminate\Translation\FileLoader as ConfigLoader;
 use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
 use Illuminate\Http\Request;
