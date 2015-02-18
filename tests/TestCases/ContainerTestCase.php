@@ -104,7 +104,7 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 	 */
 	protected function mockConfig(array $options = array())
 	{
-		$defaults = include realpath(__DIR__.'/../../src/config/config.php');
+		$defaults = include realpath(__DIR__.'/../../src/config/former.php');
 
 		$options = array_merge($defaults, array(
 			'automatic_label'                     => true,
