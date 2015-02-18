@@ -104,6 +104,6 @@ class FormerTest extends FormerTests
 	{
 		$text = Former::text('foo')->render();
 
-		$this->assertEquals('<input id="foo" type="text" name="foo">', $text);
+		$this->assertEquals('<input class="form-control" id="foo" type="text" name="foo">', $text);
 	}
 }
