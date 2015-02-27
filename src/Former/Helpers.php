@@ -79,8 +79,9 @@ class Helpers
 			$translateFrom = str_replace(array(']', '['), array('', '.'), $translateFrom);
 		}
 
-		// Search for the key itself
-		if (static::$app['translator']->has($key)) {
+		// Search for the key itself, if it is valid
+		$validKey = preg_match("/^[a-z0-9_-]+([.][a-z0-9 _-]+)+$/i", $key) === 1;
+		if ($validKey && static::$app['translator']->has($key)) {
 			$translation = static::$app['translator']->get($key);
 		} elseif (static::$app['translator']->has($translateFrom)) {
 			$translation = static::$app['translator']->get($translateFrom);

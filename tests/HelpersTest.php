@@ -45,4 +45,12 @@ class HelpersTest extends FormerTests
 		$input   = $this->former->text('address[city]')->__toString();
 		$this->assertHTML($matcher, $input);
 	}
+    
+    public function testDoesntTryInvalidKeys()
+    {
+        $input   = $this->former->text('Invalid Label?')->__toString();
+        $matcher = $this->matchLabel('Invalid Label?', 'Invalid Label?');
+
+        $this->assertHTML($matcher, $input);
+    }
 }
