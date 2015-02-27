@@ -316,7 +316,8 @@ abstract class FormerTests extends ContainerTestCase
 	 */
 	public function assertHTML($matcher, $input)
 	{
-		$this->assertTag(
+		// assertTag is deprecated, so we silence the E_DEPRECATED notice to make tests pass for now.
+		@$this->assertTag(
 			$matcher,
 			$input,
 			"Failed asserting that the HTML matches the provided format :\n\t"
