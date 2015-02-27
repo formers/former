@@ -59,7 +59,7 @@ class CheckboxTest extends FormerTests
 		$radio = '<input'.$this->attributes($checkAttr).'>';
 
 		if (!$inline && $this->former->framework() === 'TwitterBootstrap3') {
-			unset($labelAttr['class']);
+			$labelAttr['class'] = "";
 		}
 
 		$control = $label ? '<label'.$this->attributes($labelAttr).'>'.$radio.$label.'</label>' : $radio;
