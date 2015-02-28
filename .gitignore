@@ -4,3 +4,4 @@
 # Dependencies
 composer.lock
 vendor
+/composer.phar
