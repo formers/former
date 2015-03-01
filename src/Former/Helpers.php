@@ -105,7 +105,7 @@ class Helpers
 	/**
 	 * Transforms an array of models into an associative array
 	 *
-	 * @param  array           $query      The array of results
+	 * @param  array|object    $query      The array of results
 	 * @param  string|function $text       The value to use as text
 	 * @param  string|array    $attributes The data to use as attributes
 	 *
@@ -185,7 +185,12 @@ class Helpers
 					$optionAttributeValue = '';
 				}
 
-				$array[$optionText][$optionAttributeName] = (string) $optionAttributeValue;
+				//For backward compatibility
+				if (count($attributes) === 1) {
+					$array[$optionAttributeValue] = (string) $optionText;
+				} else {
+					$array[$optionText][$optionAttributeName] = (string) $optionAttributeValue;
+				}
 			}
 		}
 
