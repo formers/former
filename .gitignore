@@ -5,3 +5,4 @@
 composer.lock
 vendor
 /composer.phar
+/phpunit.phar
