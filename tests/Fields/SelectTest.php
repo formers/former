@@ -159,6 +159,41 @@ class SelectTest extends FormerTests
 		$this->assertEquals($matcher, $select);
 	}
 
+	public function testSelectEloquentArrayWithOptionTextAsFunction()
+	{
+		$optionTextFunction = function($model) {
+			return $model->foo;
+		};
+		for ($i = 0; $i < 2; $i++) {
+			$eloquent[] = (object) array('age' => $i, 'foo' => 'bar');
+		}
+		$select  = $this->former->select('foo')->fromQuery($eloquent, $optionTextFunction, 'age')->__toString();
+		$matcher = $this->controlGroup('<select id="foo" name="foo"><option value="0">bar</option><option value="1">bar</option></select>');
+
+		$this->assertEquals($matcher, $select);
+	}
+
+	public function testSelectEloquentArrayWithOptionAttributes()
+	{
+		$optionTextFunction = function($model) {
+			return $model->foo . $model->age;
+		};
+		$optionDataFunction = function($model) {
+			return $model->foo;
+		};
+		$optionAttributes = [
+			'value' => 'age',
+			'data-test' => $optionDataFunction,
+		];
+		for ($i = 0; $i < 2; $i++) {
+			$eloquent[] = (object) array('age' => $i, 'foo' => 'bar');
+		}
+		$select  = $this->former->select('foo')->fromQuery($eloquent, $optionTextFunction, $optionAttributes)->__toString();
+		$matcher = $this->controlGroup('<select id="foo" name="foo"><option value="0" data-test="bar">bar0</option><option value="1" data-test="bar">bar1</option></select>');
+
+		$this->assertEquals($matcher, $select);
+	}
+
 	public function testNestedRelationships()
 	{
 		for ($i = 0; $i < 2; $i++) {
