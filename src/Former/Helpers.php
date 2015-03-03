@@ -105,13 +105,13 @@ class Helpers
 	/**
 	 * Transforms an array of models into an associative array
 	 *
-	 * @param  array|object $query The array of results
-	 * @param  string       $value The attribute to use as value
-	 * @param  string       $key   The attribute to use as key
+	 * @param  array|object    $query      The array of results
+	 * @param  string|function $text       The value to use as text
+	 * @param  string|array    $attributes The data to use as attributes
 	 *
 	 * @return array               A data array
 	 */
-	public static function queryToArray($query, $value = null, $key = null)
+	public static function queryToArray($query, $text = null, $attributes = null)
 	{
 		// Automatically fetch Lang objects for people who store translated options lists
 		// Same of unfetched queries
@@ -124,42 +124,76 @@ class Helpers
 			}
 		}
 
+		//Convert parametrs of old format to new format
+		if (!is_callable($text)) {
+			$optionTextValue = $text;
+			$text = function ($model) use($optionTextValue) {
+				if ($optionTextValue and isset($model->$optionTextValue)) {
+					return $model->$optionTextValue;
+				} elseif (method_exists($model, '__toString')) {
+					return  $model->__toString();
+				} else {
+					return null;
+				}
+			};
+		}
+
+		if (!is_array($attributes)) {
+			if (is_string($attributes)) {
+				$attributes = ['value' => $attributes];
+			} else {
+				$attributes = ['value' => null];
+			}
+		}
+
+		if (!isset($attributes['value'])) {
+			$attributes['value'] = null;
+		}
+		//-------------------------------------------------
+
 		// Populates the new options
 		foreach ($query as $model) {
-
 			// If it's an array, convert to object
 			if (is_array($model)) {
 				$model = (object) $model;
 			}
 
-			// Calculate the value
-			if ($value and isset($model->$value)) {
-				$modelValue = $model->$value;
-			} elseif (method_exists($model, '__toString')) {
-				$modelValue = $model->__toString();
-			} else {
-				$modelValue = null;
-			}
-
-			// Calculate the key
-			if ($key and isset($model->$key)) {
-				$modelKey = $model->$key;
-			} elseif (method_exists($model, 'getKey')) {
-				$modelKey = $model->getKey();
-			} elseif (isset($model->id)) {
-				$modelKey = $model->id;
-			} else {
-				$modelKey = $modelValue;
-			}
+			// Calculate option text
+			$optionText = $text($model);
 
 			// Skip if no text value found
-			if (!$modelValue) {
+			if (!$optionText) {
 				continue;
 			}
 
-			$array[$modelKey] = (string) $modelValue;
+			//Collect option attributes
+			foreach ($attributes as $optionAttributeName => $modelAttributeName) {
+				if (is_callable($modelAttributeName)) {
+					$optionAttributeValue = $modelAttributeName($model);
+				} elseif ($modelAttributeName and isset($model->$modelAttributeName)) {
+					$optionAttributeValue = $model->$modelAttributeName;
+				} elseif($optionAttributeName === 'value') {
+					//For backward compatibility
+					if (method_exists($model, 'getKey')) {
+						$optionAttributeValue = $model->getKey();
+					} elseif (isset($model->id)) {
+						$optionAttributeValue = $model->id;
+					} else {
+						$optionAttributeValue = $optionText;
+					}
+				} else {
+					$optionAttributeValue = '';
+				}
+
+				//For backward compatibility
+				if (count($attributes) === 1) {
+					$array[$optionAttributeValue] = (string) $optionText;
+				} else {
+					$array[$optionText][$optionAttributeName] = (string) $optionAttributeValue;
+				}
+			}
 		}
 
-		return isset($array) ? $array : $query;
+		return !empty($array) ? $array : $query;
 	}
 }
