@@ -89,6 +89,20 @@ class SelectTest extends FormerTests
 		$this->assertEquals($matcher, $select);
 	}
 
+    public function testSelectNumeric()
+    {
+        $select  = $this->former->select('foo')->value(0)->options($this->options)->placeholder('Pick something')->__toString();
+        $matcher = $this->controlGroup(
+            '<select id="foo" name="foo">'.
+            '<option value="" disabled="disabled">Pick something</option>'.
+            '<option value="0" selected="selected">baz</option>'.
+            '<option value="foo">bar</option>'.
+            '<option value="kal">ter</option>'.
+            '</select>');
+
+        $this->assertEquals($matcher, $select);
+    }
+
 	public function testSelectLang()
 	{
 		$select  = $this->former->select('foo')->options($this->translator->get('pagination'), 'previous')->__toString();
