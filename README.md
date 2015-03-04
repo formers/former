@@ -4,6 +4,7 @@
 [![Build Status](http://img.shields.io/travis/formers/former.svg?style=flat)](https://travis-ci.org/formers/former)
 [![Latest Stable Version](http://img.shields.io/packagist/v/anahkiasen/former.svg?style=flat)](https://packagist.org/packages/anahkiasen/former)
 [![Total Downloads](http://img.shields.io/packagist/dt/anahkiasen/former.svg?style=flat)](https://packagist.org/packages/anahkiasen/former)
+[![Visit our IRC channel](https://kiwiirc.com/buttons/chat.freenode.net/former.png)](https://kiwiirc.com/client/chat.freenode.net/#former)
 
 ### For Laravel 5, use the [4.0 branch](https://github.com/formers/former/tree/4.0)
 

@@ -109,7 +109,8 @@ class Former
 	public function __call($method, $parameters)
 	{
 		// Dispatch to Form\Elements
-		if ($element = $this->dispatch->toElements($method, $parameters)) {
+		// Explicitly check false since closeGroup() may return an empty string
+		if (($element = $this->dispatch->toElements($method, $parameters)) !== false) {
 			return $element;
 		}
 
