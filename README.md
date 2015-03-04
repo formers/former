@@ -1,7 +1,7 @@
 # Former
 ## A Laravelish way to create and format forms
 
-[![Build Status](http://img.shields.io/travis/Anahkiasen/former.svg?style=flat)](https://travis-ci.org/Anahkiasen/former)
+[![Build Status](http://img.shields.io/travis/formers/former.svg?style=flat)](https://travis-ci.org/formers/former)
 [![Latest Stable Version](http://img.shields.io/packagist/v/anahkiasen/former.svg?style=flat)](https://packagist.org/packages/anahkiasen/former)
 [![Total Downloads](http://img.shields.io/packagist/dt/anahkiasen/former.svg?style=flat)](https://packagist.org/packages/anahkiasen/former)
 
