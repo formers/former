@@ -131,7 +131,8 @@ class Select extends Field
 
 		foreach ($parent->getChildren() as $child) {
 			// Search by value
-			if ($child->getAttribute('value') === $value) {
+
+			if ($child->getAttribute('value') === $value || is_numeric($value) && $child->getAttribute('value') === (int)$value ) {
 				$child->selected('selected');
 			}
 
