@@ -38,5 +38,10 @@
       ],
       "Laravel\\": "src/Laravel"
     }
+  },
+  "extra": {
+      "branch-alias": {
+          "dev-master": "3.5-dev"
+      }
   }
 }
