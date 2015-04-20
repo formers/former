@@ -39,7 +39,7 @@ class FormerServiceProvider extends ServiceProvider
 	 */
 	public function provides()
 	{
-		return array('former');
+		return array('former', 'Former\Former');
 	}
 
 	////////////////////////////////////////////////////////////////////
@@ -206,6 +206,7 @@ class FormerServiceProvider extends ServiceProvider
 		$app->singleton('former', function ($app) {
 			return new Former($app, $app->make('former.dispatcher'));
 		});
+		$app->alias('former', 'Former\Former');
 
 		Helpers::setApp($app);
 
