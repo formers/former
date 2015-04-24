@@ -538,7 +538,7 @@ abstract class Checkable extends Field
 	protected function isGrouped()
 	{
 		return
-			$this->grouped == true or
+			$this->grouped === true or
 			strpos($this->name, '[]') !== false;
 	}
 
