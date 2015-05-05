@@ -187,10 +187,6 @@ class FormerServiceProvider extends ServiceProvider
 		
 		$framework = $app['config']->get('former.framework');
 		
-		if(file_exists(__DIR__ . '/../config/'.$framework.'.php')) {
-			$this->mergeConfigFrom(__DIR__ . '/../config/'.$framework.'.php', 'former.'.$framework);
-		}
-
 		$app->bind('former.framework', function ($app) {
 			return $app['former']->getFrameworkInstance($app['config']->get('former.framework'));
 		});
