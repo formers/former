@@ -9,9 +9,6 @@
 	// The default form type
 	'default_form_type'       => 'horizontal',
 
-	// The framework to be used by Former
-	'framework'               => 'TwitterBootstrap3',
-
 	// Validation
 	////////////////////////////////////////////////////////////////////
 
@@ -62,5 +59,36 @@
 		'placeholder',
 		'data_placeholder',
 		'label',
+	),
+
+	// Framework
+	////////////////////////////////////////////////////////////////////
+
+	// The framework to be used by Former
+	'framework'               => 'TwitterBootstrap3',
+
+	// Framework-specific settings. You can find default settings for each framework in Former's src/config folder.
+	// They must be added to this config file in order to override the default settings.
+	'TwitterBootstrap3'       => array(
+
+		// Map Former-supported viewports to Bootstrap 3 equivalents
+		'viewports'   => array(
+			'large'  => 'lg',
+			'medium' => 'md',
+			'small'  => 'sm',
+			'mini'   => 'xs',
+		),
+		// Width of labels for horizontal forms expressed as viewport => grid columns
+		'labelWidths' => array(
+			'large' => 2,
+			'small' => 4,
+		),
+		// HTML markup and classes used by Bootstrap 3 for icons
+		'icon'        => array(
+			'tag'    => 'span',
+			'set'    => 'glyphicon',
+			'prefix' => 'glyphicon',
+		),
+
 	),
 );
