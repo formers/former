@@ -152,6 +152,9 @@ class MethodDispatcher
 		// Set custom group as true
 		Form\Group::$opened = true;
 
+		// Set custom group reference
+		Form\Group::$openGroup = $group;
+
 		return $group;
 	}
 

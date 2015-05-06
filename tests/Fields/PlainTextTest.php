@@ -85,7 +85,7 @@ class PlainTextTest extends FormerTests
 	 */
 	protected function formStaticGroup(
 		$input = '<div class="form-control-static" id="foo">bar</div>',
-		$label = '<label class="control-label col-lg-2 col-sm-4">Foo</label>'
+		$label = '<label for="" class="control-label col-lg-2 col-sm-4">Foo</label>'
 	) {
 		return $this->formGroup($input, $label);
 	}
