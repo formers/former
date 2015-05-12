@@ -511,7 +511,7 @@ abstract class Checkable extends Field
 
 		if (!is_null($post) and $post !== $this->app['former']->getOption('unchecked_value')) {
 			$isChecked = ($post == $value);
-		} elseif (!is_null($static)) {
+		} elseif (!is_null($static) && !(is_array($static) && empty($static))) {
 			$isChecked = ($static == $value);
 		} else {
 			$isChecked = $checked;
