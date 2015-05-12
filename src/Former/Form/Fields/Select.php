@@ -131,7 +131,8 @@ class Select extends Field
 
 		foreach ($parent->getChildren() as $child) {
 			// Search by value
-			if ($child->getAttribute('value') == $value) {
+
+			if ($child->getAttribute('value') === $value || is_numeric($value) && $child->getAttribute('value') === (int)$value ) {
 				$child->selected('selected');
 			}
 
@@ -255,13 +256,13 @@ class Select extends Field
 	/**
 	 * Use the results from a Fluent/Eloquent query as options
 	 *
-	 * @param  array  $results An array of Eloquent models
-	 * @param  string $value   The attribute to use as text
-	 * @param  string $key     The attribute to use as value
+	 * @param  array           $results    An array of Eloquent models
+	 * @param  string|function $text       The value to use as text
+	 * @param  string|array    $attributes The data to use as attributes
 	 */
-	public function fromQuery($results, $value = null, $key = null)
+	public function fromQuery($results, $text = null, $attributes = null)
 	{
-		$this->options(Helpers::queryToArray($results, $value, $key));
+		$this->options(Helpers::queryToArray($results, $text, $attributes));
 
 		return $this;
 	}

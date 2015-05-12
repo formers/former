@@ -31,4 +31,20 @@ class NudeFrameworkTest extends FormerTests
 
 		$this->assertEquals($matcher, $required);
 	}
+
+	public function testGroupOpenHasNoElement()
+	{
+		$group   = $this->former->group('foo')->__toString();
+		$matcher = '<label for="Foo">Foo</label>';
+
+		$this->assertEquals($matcher, $group);
+	}
+
+	public function testGroupCloseHasNoElement()
+	{
+		$this->former->group('foo');
+		$text = $this->former->closeGroup();
+
+		$this->assertEmpty($text);
+	}
 }
