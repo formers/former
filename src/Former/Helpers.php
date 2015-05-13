@@ -35,6 +35,8 @@ class Helpers
 	 */
 	public static function encode($value)
 	{
+		if (is_array($value)) $value = '';
+
 		return htmlentities($value, ENT_QUOTES, 'UTF-8', true);
 	}
 
