@@ -94,6 +94,7 @@ class Select extends Field
 			$this->value = (array) $this->value;
 		}
 
+		$this->clearSelected();
 		// Mark selected values as selected
 		if ($this->hasChildren() and !empty($this->value)) {
 			foreach ($this->value as $value) {
@@ -140,6 +141,28 @@ class Select extends Field
 			// Else iterate over subchilds
 			if ($child->hasChildren()) {
 				$this->selectValue($value, $child);
+			}
+		}
+	}
+
+	/**
+	 * Clear selected attribute for select options
+	 *
+	 * @param Element $parent
+	 *
+	 * @return void
+	 */
+	public function clearSelected($parent = null) {
+		// If no parent element defined, use direct children
+		if (!$parent) {
+			$parent = $this;
+		}
+
+		foreach ($parent->getChildren() as $child) {
+			$child->removeAttribute('selected');
+
+			if ($child->hasChildren()) {
+				$this->clearSelected($child);
 			}
 		}
 	}
