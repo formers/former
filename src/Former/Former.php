@@ -301,6 +301,8 @@ class Former
 
 			foreach ($expFieldRules as $rule) {
 
+				$parameters = null;
+
 				// If we have a rule with a value
 				if (($colon = strpos($rule, ':')) !== false) {
 					$parameters = str_getcsv(substr($rule, $colon + 1));
