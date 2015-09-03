@@ -189,11 +189,13 @@ class FieldTest extends FormerTests
 
 	public function testCantHaveDuplicateIdsForFields()
 	{
-		$field    = $this->former->text('name')->render();
-		$fieldTwo = $this->former->text('name')->render();
+		$field      = $this->former->text('name')->render();
+		$fieldTwo   = $this->former->text('name')->render();
+		$fieldThree = $this->former->text('name')->render();
 
 		$this->assertEquals('<input id="name" type="text" name="name">', $field);
 		$this->assertEquals('<input id="name-2" type="text" name="name">', $fieldTwo);
+		$this->assertEquals('<input id="name-3" type="text" name="name">', $fieldThree);
 	}
 
 	public function testCanChangeBindingOfField()
