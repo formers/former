@@ -161,7 +161,9 @@ class Populator extends Collection
 	public function getAttributeFromModel($model, $attribute, $fallback)
 	{
 		if ($model instanceof Model) {
-			return $model->getAttribute($attribute);
+			// Return fallback if attribute is null
+			$value = $model->getAttribute($attribute);
+			return is_null($value) ? $fallback : $value;
 		}
 
 		if (method_exists($model, 'toArray')) {
