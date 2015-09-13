@@ -354,4 +354,11 @@ class PopulatorTest extends FormerTests
 
 		$this->assertEquals('ter', $populator->get('foo[bar][bis]', array('bis' => 'ter')));
 	}
+
+	public function testCanGetClassNamesImplementingToArray()
+	{
+		$populator = new Populator(array('foo' => '\Former\Dummy\DummyEloquent'));
+
+		$this->assertEquals('\Former\Dummy\DummyEloquent', $populator->get('foo[0]'));
+	}
 }
