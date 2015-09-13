@@ -166,6 +166,10 @@ class Populator extends Collection
 			return is_null($value) ? $fallback : $value;
 		}
 
+		if ($model instanceof Collection) {
+			return $model->get($attribute, $fallback);
+		}
+
 		if (method_exists($model, 'toArray')) {
 			$model = $model->toArray();
 		} else {
