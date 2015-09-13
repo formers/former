@@ -56,9 +56,6 @@ class Populator extends Collection
 			// Get attribute from model
 			if (!is_array($value)) {
 				$value = $this->getAttributeFromModel($value, $relationship, $fallback);
-				if ($value === $fallback) {
-					break;
-				}
 
 				continue;
 			}
