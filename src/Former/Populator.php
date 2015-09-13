@@ -167,7 +167,7 @@ class Populator extends Collection
 			return $model->get($attribute, $fallback);
 		}
 
-		if (method_exists($model, 'toArray')) {
+		if (is_object($model) && method_exists($model, 'toArray')) {
 			$model = $model->toArray();
 		} else {
 			$model = (array) $model;
