@@ -67,8 +67,21 @@ class Populator extends Collection
 			if (array_key_exists($relationship, $value)) {
 				$value = $value[$relationship];
 			} else {
+				// Check array for submodels that may contain the relationship
+				$inSubmodel = false;
+
 				foreach ($value as $key => $submodel) {
 					$value[$key] = $this->getAttributeFromModel($submodel, $relationship, $fallback);
+
+					if ($value[$key] !== $fallback) {
+						$inSubmodel = true;
+					}
+				}
+
+				// If no submodels contained the relationship, return the fallback, not an array of fallbacks
+				if (!$inSubmodel) {
+					$value = $fallback;
+					break;
 				}
 			}
 		}
