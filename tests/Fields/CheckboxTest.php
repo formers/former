@@ -633,5 +633,38 @@ class CheckboxTest extends FormerTests
 		$this->assertEquals($matcher, $checkbox);
 	}
 
+	public function testNestedCanSetNonOverriddenConstructorParameters()
+	{
+		$checkbox = $this->former->checkbox('foo[bar]', 'Foo Bar Label', 'bis', ['class' => 'ter'])->__toString();
+		$matcher  = $this->controlGroup(
+			'<input class="ter" id="foo[bar]" type="checkbox" name="foo[bar]" value="bis">',
+			'<label for="foo[bar]" class="control-label">Foo Bar Label</label>'
+		);
 
+		$this->assertEquals($matcher, $checkbox);
+	}
+
+	public function testNestedCanSetNonOverriddenConstructorParametersAndBeRepopulated()
+	{
+		$this->former->populate(array('foo' => array('bar' => 'bis')));
+		$checkbox = $this->former->checkbox('foo[bar]', 'Foo Bar Label', 'bis', ['class' => 'ter'])->__toString();
+		$matcher  = $this->controlGroup(
+			'<input class="ter" id="foo[bar]" type="checkbox" name="foo[bar]" checked="checked" value="bis">',
+			'<label for="foo[bar]" class="control-label">Foo Bar Label</label>'
+		);
+
+		$this->assertEquals($matcher, $checkbox);
+	}
+
+	public function testNestedShouldNotBeCheckedIfContstructorValueParameterIsOverridden()
+	{
+		$this->former->populate(array('foo' => array('bar' => 'bis')));
+		$checkbox = $this->former->checkbox('foo[bar]', null, 'bis', ['value' => 'ter'])->__toString();
+		$matcher  = $this->controlGroup(
+			'<input value="ter" id="foo[bar]" type="checkbox" name="foo[bar]">',
+			'<label for="foo[bar]" class="control-label">Foo[bar]</label>'
+		);
+
+		$this->assertEquals($matcher, $checkbox);
+	}
 }
