@@ -259,10 +259,11 @@ class Select extends Field
 	 * @param  array           $results    An array of Eloquent models
 	 * @param  string|function $text       The value to use as text
 	 * @param  string|array    $attributes The data to use as attributes
+	 * @param  string	   $selected   The default selected item
 	 */
-	public function fromQuery($results, $text = null, $attributes = null)
+	public function fromQuery($results, $text = null, $attributes = null, $selected = null)
 	{
-		$this->options(Helpers::queryToArray($results, $text, $attributes));
+		$this->options(Helpers::queryToArray($results, $text, $attributes), $selected);
 
 		return $this;
 	}

@@ -69,6 +69,15 @@ class Former
 	 */
 	public $ids = array();
 
+	/**
+	 * A lookup table where the key is the input name,
+	 * and the value is number of times seen. This is
+	 * used to calculate unique ids.
+	 *
+	 * @var array
+	 */
+	public $names = array();
+
 	// Namespaces
 	////////////////////////////////////////////////////////////////////
 
