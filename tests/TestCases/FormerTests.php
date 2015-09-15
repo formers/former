@@ -44,6 +44,7 @@ abstract class FormerTests extends ContainerTestCase
 	{
 		$this->former->labels = array();
 		$this->former->ids    = array();
+		$this->former->names  = array();
 	}
 
 	////////////////////////////////////////////////////////////////////

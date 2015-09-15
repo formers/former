@@ -71,18 +71,16 @@ abstract class FormerObject extends Element
 	 */
 	protected function getUniqueId($name)
 	{
-		$existing = $this->app['former']->ids;
-		if (!in_array($name, $existing)) {
-			return $name;
+		$names = &$this->app['former']->names;
+
+		if (array_key_exists($name, $names)) {
+			$count = $names[$name] + 1;
+			$names[$name] = $count;
+			return $name . '-' . $count;
 		}
 
-		// Get the number of existing occurences
-		$existing = array_filter($existing, function ($value) use ($name) {
-			return $value == $name;
-		});
-		$existing = sizeof($existing) + 1;
-
-		return $name.'-'.$existing;
+		$names[$name] = 1;
+		return $name;
 	}
 
 	/**
