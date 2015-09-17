@@ -56,9 +56,6 @@ class Populator extends Collection
 			// Get attribute from model
 			if (!is_array($value)) {
 				$value = $this->getAttributeFromModel($value, $relationship, $fallback);
-				if ($value === $fallback) {
-					break;
-				}
 
 				continue;
 			}
@@ -67,8 +64,21 @@ class Populator extends Collection
 			if (array_key_exists($relationship, $value)) {
 				$value = $value[$relationship];
 			} else {
+				// Check array for submodels that may contain the relationship
+				$inSubmodel = false;
+
 				foreach ($value as $key => $submodel) {
 					$value[$key] = $this->getAttributeFromModel($submodel, $relationship, $fallback);
+
+					if ($value[$key] !== $fallback) {
+						$inSubmodel = true;
+					}
+				}
+
+				// If no submodels contained the relationship, return the fallback, not an array of fallbacks
+				if (!$inSubmodel) {
+					$value = $fallback;
+					break;
 				}
 			}
 		}
@@ -148,10 +158,16 @@ class Populator extends Collection
 	public function getAttributeFromModel($model, $attribute, $fallback)
 	{
 		if ($model instanceof Model) {
-			return $model->getAttribute($attribute);
+			// Return fallback if attribute is null
+			$value = $model->getAttribute($attribute);
+			return is_null($value) ? $fallback : $value;
 		}
 
-		if (method_exists($model, 'toArray')) {
+		if ($model instanceof Collection) {
+			return $model->get($attribute, $fallback);
+		}
+
+		if (is_object($model) && method_exists($model, 'toArray')) {
 			$model = $model->toArray();
 		} else {
 			$model = (array) $model;
