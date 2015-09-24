@@ -6,7 +6,7 @@
 [![Total Downloads](http://img.shields.io/packagist/dt/anahkiasen/former.svg?style=flat)](https://packagist.org/packages/anahkiasen/former)
 [![Visit our IRC channel](https://kiwiirc.com/buttons/chat.freenode.net/former.png)](https://kiwiirc.com/client/chat.freenode.net/#former)
 
-### For Laravel 4, use the [master branch](https://github.com/formers/former)
+### For Laravel 4, use the [master branch](https://github.com/formers/former/tree/master)
 
 Former is the name of a little project I'd like to present you — it's a PHP package that allows you to do all kinds of powerful stuff with forms while remaining pretty simple to use. It's also a really nice guy too once you get to know him.
 
