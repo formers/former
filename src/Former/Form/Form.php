@@ -114,7 +114,7 @@ class Form extends FormerObject
 		$action     = array_get($parameters, 0);
 		$method     = array_get($parameters, 1, 'POST');
 		$attributes = array_get($parameters, 2, array());
-		$secure     = array_get($parameters, 3, false);
+		$secure     = array_get($parameters, 3, null);
 
 		// Fetch errors if asked for
 		if ($this->app['former']->getOption('fetch_errors')) {
