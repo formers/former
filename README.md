@@ -50,8 +50,8 @@ This is the core of it, but Former offers a lot more. I invite you to consult th
 
 - [Getting started][]
 - [Features][]
-- [Anatomy][]
+- [Usage and Examples][]
 
-  [Anatomy]: https://github.com/formers/former/wiki/Anatomy
-  [Features]: https://github.com/formers/former/wiki/Features
   [Getting started]: https://github.com/formers/former/wiki/Getting-started
+  [Features]: https://github.com/formers/former/wiki/Features
+  [Usage and Examples]: https://github.com/formers/former/wiki/Usage-and-Examples
