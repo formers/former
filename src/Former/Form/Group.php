@@ -43,9 +43,9 @@ class Group extends Tag
 	/**
 	 * The group help
 	 *
-	 * @var string
+	 * @var array
 	 */
-	protected $help = null;
+	protected $help = array();
 
 	/**
 	 * An array of elements to preprend the field
