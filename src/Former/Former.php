@@ -427,7 +427,7 @@ class Former
 
 		// Reset all values
 		$this->errors = null;
-		$this->rules  = null;
+		$this->rules  = array();
 
 		return isset($closing) ? $closing : null;
 	}
