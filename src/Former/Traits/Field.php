@@ -303,7 +303,7 @@ abstract class Field extends FormerObject implements FieldInterface
 		// Check if we already have a value stored for this field or in POST data
 		$already = $this->repopulate();
 
-		if (!$already) {
+		if ($already === null) {
 			$this->value = $value;
 		}
 
