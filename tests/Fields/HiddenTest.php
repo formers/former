@@ -15,7 +15,7 @@ class HiddenTest extends FormerTests
 		$this->assertHTML($field, $input);
 	}
 
-	public function testCanRepopulateHiddenFields()
+	public function testCanPopulateHiddenFields()
 	{
 		$this->former->populate(array('foo' => 'bar'));
 
@@ -26,19 +26,7 @@ class HiddenTest extends FormerTests
 
 		$this->assertHTML($field, $input);
 	}
-
-	public function testCanRepopulateHiddenFieldsWithZero()
-	{
-		$this->former->populate(array('foo' => '0'));
-
-		$input                        = $this->former->hidden('foo')->value('bis')->__toString();
-		$matcher                      = $this->matchField(array(), 'hidden');
-		$field                        = array_except($matcher, 'id');
-		$field['attributes']['value'] = '0';
-
-		$this->assertHTML($field, $input);
-	}
-
+	
 	public function testEncodedValue()
 	{
 		$input = $this->former->hidden('foo')->value('<a>bar</a>')->__toString();
