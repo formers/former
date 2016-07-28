@@ -543,6 +543,15 @@ class LiveValidationTest extends FormerTests
 		$this->assertHTML($matcher, $input);
 	}
 
+	public function testCanApplyMultipleRulesWithString()
+    {
+        $input   = $this->former->number('foo')->rules('max:10|required')->__toString();
+        $matcher = $this->matchField(array('max' => 10, 'required' => true), 'number');
+
+        $this->assertControlGroup($input);
+        $this->assertHTML($matcher, $input);
+    }
+
 	public function testCanCreateMaxFileSizeForFiles()
 	{
 		$input = $this->former->file('foo')->rule('max', 10)->__toString();
