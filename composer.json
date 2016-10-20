@@ -30,6 +30,9 @@
     "mockery/mockery": "~0.9.1",
     "illuminate/database": "~5.0"
   },
+  "replace": {
+    "anahkiasen/former": "4.0.*"
+  },
   "autoload": {
     "psr-4": {
       "Former\\": [
