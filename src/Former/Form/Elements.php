@@ -43,7 +43,7 @@ class Elements
 	 */
 	public function token()
 	{
-		$csrf = $this->session->getToken();
+		$csrf = method_exists($this->session, 'getToken') ? $this->session->getToken() : $this->session->token();
 
 		return (string) $this->app['former']->hidden('_token', $csrf);
 	}
