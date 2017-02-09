@@ -3,8 +3,6 @@ language: php
 php:
   - 5.4
   - 5.5
-  - 5.6
-  - hhvm-nightly
   - nightly
 
 before_script:
@@ -13,7 +11,6 @@ before_script:
 
 matrix:
   allow_failures:
-    - php: hhvm-nightly
     - php: nightly
   fast_finish: true
 
