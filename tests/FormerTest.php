@@ -108,7 +108,7 @@ class FormerTest extends FormerTests
 
 	public function testCanUseFacadeWithoutContainer()
 	{
-        $this->markTestSkipped('Test currently failing, but I\m not sure if it matters. ' .
+        $this->markTestSkipped("Test currently failing, but I'm not sure how to fix or if it matters. " .
              'If using Facade without a container is broken for you, please file an issue or PR with details.');
 
 		$text = Former::text('foo')->render();
