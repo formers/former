@@ -13,4 +13,4 @@ matrix:
     - php: nightly
   fast_finish: true
 
-script: phpunit
+script: vendor/bin/phpunit
