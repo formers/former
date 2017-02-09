@@ -249,7 +249,7 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 		$messageBag = $this->mockMessageBag($errors);
 
 		return $this->mock('session', 'Illuminate\Session\Store', function ($mock) use ($messageBag, $errors) {
-			$mock->shouldReceive('getToken')->andReturn('csrf_token');
+			$mock->shouldReceive('token')->andReturn('csrf_token');
 			if ($errors) {
 				$mock->shouldReceive('has')->with('errors')->andReturn(true);
 				$mock->shouldReceive('get')->with('errors')->andReturn($messageBag);
