@@ -16,7 +16,7 @@
     }
   ],
   "require": {
-    "php": ">=5.4.0",
+    "php": ">=5.6.4",
     "anahkiasen/html-object": "~1.4",
     "illuminate/config": "~5.0",
     "illuminate/container": "~5.0",
