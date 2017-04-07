@@ -1,5 +1,5 @@
 {
-  "name": "anahkiasen/former",
+  "name": "weotch/former",
   "description": "A powerful form builder",
   "homepage": "http://anahkiasen.github.com/former/",
   "license": "MIT",
@@ -29,6 +29,9 @@
     "phpunit/phpunit": "~4",
     "mockery/mockery": "~0.9.1",
     "illuminate/database": "~5.0"
+  },
+  "replace": {
+    "anahkiasen/former": "4.1.*"
   },
   "autoload": {
     "psr-4": {

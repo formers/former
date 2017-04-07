@@ -1,6 +1,7 @@
 <?php
 namespace Former;
 
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -149,7 +150,7 @@ class Populator extends Collection
 	/**
 	 * Get an attribute from a model
 	 *
-	 * @param object $model     The model
+	 * @param object $model     The model or collection
 	 * @param string $attribute The attribute's name
 	 * @param string $fallback  Fallback value
 	 *
@@ -161,6 +162,10 @@ class Populator extends Collection
 			// Return fallback if attribute is null
 			$value = $model->getAttribute($attribute);
 			return is_null($value) ? $fallback : $value;
+		}
+
+		if ($model instanceof EloquentCollection) {
+			return $model->find($attribute, $fallback);
 		}
 
 		if ($model instanceof Collection) {
