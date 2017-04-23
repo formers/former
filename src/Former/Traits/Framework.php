@@ -291,7 +291,7 @@ abstract class Framework
 	 */
 	protected function getFrameworkOption($option)
 	{
-		return $this->app['config']->get("former::{$this->current()}.$option");
+		return $this->app['config']->get("former.{$this->current()}.$option");
 	}
 
 	////////////////////////////////////////////////////////////////////
