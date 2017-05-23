@@ -270,9 +270,14 @@ abstract class Field extends FormerObject implements FieldInterface
             $parameters = null;
 
             // If we have a rule with a value
-            if (($colon = strpos($rule, ':')) !== false) {
-                $parameters = str_getcsv(substr($rule, $colon + 1));
-            }
+			if (($colon = strpos($rule, ':')) !== false) {
+				$rulename = substr($rule, 0, $colon) ;
+				if($rulename !== 'regex'){
+					$parameters = str_getcsv(substr($rule, $colon + 1));
+				}else{
+					$parameters = [substr($rule, $colon + 1)];
+				}
+			}
 
             // Exclude unsupported rules
             $rule = is_numeric($colon) ? substr($rule, 0, $colon) : $rule;
