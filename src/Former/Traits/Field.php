@@ -266,7 +266,11 @@ abstract class Field extends FormerObject implements FieldInterface
      */
     public function rules($rules)
     {
-        foreach (explode('|', $rules) as $rule) {
+        if (!is_array($rules)) {
+            $rules = explode('|', $rules);
+        }
+
+        foreach ($rules as $rule) {
             $parameters = null;
 
             // If we have a rule with a value
