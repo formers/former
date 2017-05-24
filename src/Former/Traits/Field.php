@@ -91,8 +91,8 @@ abstract class Field extends FormerObject implements FieldInterface
 	public function __construct(Container $app, $type, $name, $label, $value, $attributes)
 	{
 		// Set base parameters
-		$this->app = $app;
-		$this->type = $type;
+		$this->app   = $app;
+		$this->type  = $type;
 		$this->value = $value;
 		$this->setAttributes($attributes);
 		$this->form = $this->app->bound('former.form') ? $this->app['former.form'] : null;
@@ -113,7 +113,7 @@ abstract class Field extends FormerObject implements FieldInterface
 
 		// Bind the Group class
 		$groupClass = $this->isCheckable() ? 'CheckableGroup' : 'Group';
-		$groupClass = Former::FORMSPACE . $groupClass;
+		$groupClass = Former::FORMSPACE.$groupClass;
 
 		$this->group = new $groupClass($this->app, $this->label);
 	}
@@ -305,15 +305,15 @@ abstract class Field extends FormerObject implements FieldInterface
 	/**
 	 * Adds a label to the group/field
 	 *
-	 * @param  string $text A label
-	 * @param  array $attributes The label's attributes
+	 * @param  string $text       A label
+	 * @param  array  $attributes The label's attributes
 	 *
 	 * @return Field              A field
 	 */
 	public function label($text, $attributes = array())
 	{
 		// Create the Label element
-		$for = $this->id ?: $this->name;
+		$for   = $this->id ?: $this->name;
 		$label = $this->app['former']->label($text, $for, $attributes);
 
 		// Set label
@@ -404,9 +404,9 @@ abstract class Field extends FormerObject implements FieldInterface
 	private function repopulate($fallback = null)
 	{
 		// Get values from POST, populated, and manually set value
-		$post = $this->app['former']->getPost($this->name);
+		$post      = $this->app['former']->getPost($this->name);
 		$populator = $this->form ? $this->form->getPopulator() : $this->app['former.populator'];
-		$populate = $populator->get($this->bind ?: $this->name);
+		$populate  = $populator->get($this->bind ?: $this->name);
 
 		// Assign a priority to each
 		if (!is_null($post)) {
@@ -423,7 +423,7 @@ abstract class Field extends FormerObject implements FieldInterface
 	 * Ponders a label and a field name, and tries to get the best out of it
 	 *
 	 * @param  string $label A label
-	 * @param  string $name A field name
+	 * @param  string $name  A field name
 	 *
 	 * @return false|null         A label and a field name
 	 */

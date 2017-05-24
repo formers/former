@@ -94,12 +94,12 @@ class Former
 	/**
 	 * Build a new Former instance
 	 *
-	 * @param Container $app
+	 * @param Container        $app
 	 * @param MethodDispatcher $dispatcher
 	 */
 	public function __construct(Container $app, MethodDispatcher $dispatcher)
 	{
-		$this->app = $app;
+		$this->app      = $app;
 		$this->dispatch = $dispatcher;
 	}
 
@@ -110,8 +110,8 @@ class Former
 	/**
 	 * Acts as a router that redirects methods to all of Former classes
 	 *
-	 * @param  string $method The method called
-	 * @param  array $parameters An array of parameters
+	 * @param  string $method     The method called
+	 * @param  array  $parameters An array of parameters
 	 *
 	 * @return mixed
 	 */
@@ -147,11 +147,11 @@ class Former
 
 		// Checking for any supplementary classes
 		$classes = explode('_', $method);
-		$method = array_pop($classes);
+		$method  = array_pop($classes);
 
 		// Dispatch to the different Form\Fields
 		$framework = isset($this->app['former.form.framework']) ? $this->app['former.form.framework'] : $this->app['former.framework'];
-		$field = $this->dispatch->toFields($method, $parameters);
+		$field     = $this->dispatch->toFields($method, $parameters);
 
 		if ($field instanceof Field) {
 			$field = $framework->getFieldClasses($field, $classes);
@@ -170,7 +170,7 @@ class Former
 	/**
 	 * Register a macro with Former
 	 *
-	 * @param  string $name The name of the macro
+	 * @param  string   $name  The name of the macro
 	 * @param  Callable $macro The macro itself
 	 *
 	 * @return mixed
@@ -222,7 +222,7 @@ class Former
 	 * Set the value of a particular field
 	 *
 	 * @param string $field The field's name
-	 * @param mixed $value Its new value
+	 * @param mixed  $value Its new value
 	 */
 	public function populateField($field, $value)
 	{
@@ -233,7 +233,7 @@ class Former
 	 * Get the value of a field
 	 *
 	 * @param string $field The field's name
-	 * @param null $fallback
+	 * @param null   $fallback
 	 *
 	 * @return mixed
 	 */
@@ -245,15 +245,15 @@ class Former
 	/**
 	 * Fetch a field value from both the new and old POST array
 	 *
-	 * @param  string $name A field name
+	 * @param  string $name     A field name
 	 * @param  string $fallback A fallback if nothing was found
 	 *
 	 * @return string           The results
 	 */
 	public function getPost($name, $fallback = null)
 	{
-		$name = str_replace(array('[', ']'), array('.', ''), $name);
-		$name = trim($name, '.');
+		$name     = str_replace(array('[', ']'), array('.', ''), $name);
+		$name     = trim($name, '.');
 		$oldValue = $this->app['request']->old($name, $fallback);
 
 		return $this->app['request']->input($name, $oldValue, true);
@@ -367,7 +367,7 @@ class Former
 	 */
 	public function getFrameworkInstance($framework)
 	{
-		$formerClass = __NAMESPACE__ . '\Framework\\' . $framework;
+		$formerClass = __NAMESPACE__.'\Framework\\'.$framework;
 
 		//get interfaces of the given framework
 		$interfaces = class_exists($framework) ? class_implements($framework) : array();
@@ -387,14 +387,14 @@ class Former
 	/**
 	 * Get an option from the config
 	 *
-	 * @param string $option The option
-	 * @param mixed $default Optional fallback
+	 * @param string $option  The option
+	 * @param mixed  $default Optional fallback
 	 *
 	 * @return mixed
 	 */
 	public function getOption($option, $default = null)
 	{
-		return $this->app['config']->get('former.' . $option, $default);
+		return $this->app['config']->get('former.'.$option, $default);
 	}
 
 	/**
@@ -405,7 +405,7 @@ class Former
 	 */
 	public function setOption($option, $value)
 	{
-		return $this->app['config']->set('former.' . $option, $value);
+		return $this->app['config']->set('former.'.$option, $value);
 	}
 
 	////////////////////////////////////////////////////////////////////
@@ -435,7 +435,7 @@ class Former
 
 		// Reset all values
 		$this->errors = null;
-		$this->rules = array();
+		$this->rules  = array();
 
 		return isset($closing) ? $closing : null;
 	}
