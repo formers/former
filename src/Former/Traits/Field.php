@@ -274,19 +274,19 @@ abstract class Field extends FormerObject implements FieldInterface
             $parameters = null;
 
             // If we have a rule with a value
-			if (($colon = strpos($rule, ':')) !== false) {
-				$rulename = substr($rule, 0, $colon) ;
+            if (($colon = strpos($rule, ':')) !== false) {
+                $rulename = substr($rule, 0, $colon) ;
 
-				/**
-				* Regular expressions may contain commas and should not be divided by str_getcsv.
-				* For regular expressions we are just using the complete expression as a parameter.
-				*/
-				if($rulename !== 'regex'){
-					$parameters = str_getcsv(substr($rule, $colon + 1));
-				}else{
-					$parameters = [substr($rule, $colon + 1)];
-				}
-			}
+                /**
+                * Regular expressions may contain commas and should not be divided by str_getcsv.
+                * For regular expressions we are just using the complete expression as a parameter.
+                */
+                if ($rulename !== 'regex') {
+                    $parameters = str_getcsv(substr($rule, $colon + 1));
+                } else {
+                    $parameters = [substr($rule, $colon + 1)];
+                }
+            }
 
             // Exclude unsupported rules
             $rule = is_numeric($colon) ? substr($rule, 0, $colon) : $rule;
