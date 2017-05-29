@@ -258,49 +258,49 @@ abstract class Field extends FormerObject implements FieldInterface
 		return $this;
 	}
 
-	/**
-	 * Apply multiple rules passed as a string.
-	 *
-	 * @param $rules
-	 * @return $this
-	 */
-	public function rules($rules)
-	{
-		if (!is_array($rules)) {
-			$rules = explode('|', $rules);
-		}
+    /**
+     * Apply multiple rules passed as a string.
+     *
+     * @param $rules
+     * @return $this
+     */
+    public function rules($rules)
+    {
+        if (!is_array($rules)) {
+            $rules = explode('|', $rules);
+        }
 
-		foreach ($rules as $rule) {
-			$parameters = null;
+        foreach ($rules as $rule) {
+            $parameters = null;
 
-			// If we have a rule with a value
+            // If we have a rule with a value
 			if (($colon = strpos($rule, ':')) !== false) {
-				$rulename = substr($rule, 0, $colon);
+				$rulename = substr($rule, 0, $colon) ;
 
 				/**
-				 * Regular expressions may contain commas and should not be divided by str_getcsv.
-				 * For regular expressions we are just using the complete expression as a parameter.
-				 */
-				if ($rulename !== 'regex') {
+				* Regular expressions may contain commas and should not be divided by str_getcsv.
+				* For regular expressions we are just using the complete expression as a parameter.
+				*/
+				if($rulename !== 'regex'){
 					$parameters = str_getcsv(substr($rule, $colon + 1));
-				} else {
+				}else{
 					$parameters = [substr($rule, $colon + 1)];
 				}
 			}
 
-			// Exclude unsupported rules
-			$rule = is_numeric($colon) ? substr($rule, 0, $colon) : $rule;
+            // Exclude unsupported rules
+            $rule = is_numeric($colon) ? substr($rule, 0, $colon) : $rule;
 
-			// Store processed rule in Former's array
-			if (!isset($parameters)) {
-				$parameters = array();
-			}
+            // Store processed rule in Former's array
+            if (!isset($parameters)) {
+                $parameters = array();
+            }
 
-			call_user_func_array([$this, 'rule'], array_merge([$rule], $parameters));
-		}
+            call_user_func_array([$this, 'rule'], array_merge([$rule], $parameters));
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
 	/**
 	 * Adds a label to the group/field
@@ -384,8 +384,7 @@ abstract class Field extends FormerObject implements FieldInterface
 	 *
 	 * @param $destination
 	 */
-	public function bind($destination)
-	{
+	public function bind($destination) {
 		$this->bind = $destination;
 		if ($this->type != 'password') {
 			$this->value = $this->repopulate();
