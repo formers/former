@@ -303,6 +303,28 @@ class LiveValidationTest extends FormerTests
 		$this->assertHTML($matcher, $input);
 	}
 
+    public function testSupportCommasInRegexRules()
+    {
+        $this->former->withRules(array('foo' => 'regex:/a,b/'));
+
+        $input   = $this->former->text('foo')->__toString();
+        $matcher = $this->matchField(array('pattern' => 'a,b'));
+
+        $this->assertControlGroup($input);
+        $this->assertHTML($matcher, $input);
+    }
+
+    public function testSupportCommasAndPipesInRegexRulesAsArray()
+    {
+        $this->former->withRules(array('foo' => ['regex:/a|,b/']));
+
+        $input   = $this->former->text('foo')->__toString();
+        $matcher = $this->matchField(array('pattern' => 'a|,b'));
+
+        $this->assertControlGroup($input);
+        $this->assertHTML($matcher, $input);
+    }
+
 	public function testCanSetNumberFieldAsNumeric()
 	{
 		$this->former->withRules(array('foo' => 'numeric'));
