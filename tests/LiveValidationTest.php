@@ -445,7 +445,38 @@ class LiveValidationTest extends FormerTests
 		$this->assertHTML($matcher, $input);
 	}
 
-	public function testCanForceFieldToImageAsArray()
+    public function testMaxFileSizeKB()
+    {
+        $input   = $this->former->file('foo')->max('100', 'KB')->__toString();
+        $matcher = $this->matchField([], 'file');
+        $hiddenMaxSizeMatcher = $this->matchField(['value' => 102400], 'hidden', 'MAX_FILE_SIZE');
+
+        $this->assertControlGroup($input);
+        $this->assertHTML($matcher, $input);
+        $this->assertHTML($hiddenMaxSizeMatcher, $input);
+    }
+
+    // Issue #415 claimed that after setting maxSize on an input, it applied to all files on same page
+    public function testNoMaxFileOnSecondFile()
+    {
+        $input1   = $this->former->file('foo')->max('100', 'KB')->__toString();
+        $input2   = $this->former->file('bar')->__toString();
+        $matcher1 = $this->matchField([], 'file');
+        $matcher2 = $this->matchField([], 'file', 'bar');
+
+        $hiddenMaxSizeMatcher1 = $this->matchField(['value' => 102400], 'hidden', 'MAX_FILE_SIZE');
+        $hiddenMaxSizeMatcher2 = $this->matchField([[]], 'hidden', 'MAX_FILE_SIZE');
+
+        $this->assertControlGroup($input1);
+        $this->assertHTML($matcher1, $input1);
+        $this->assertLabel($input2, 'bar');
+        $this->assertHTML($matcher2, $input2);
+
+        $this->assertHTML($hiddenMaxSizeMatcher1, $input1);
+        $this->assertNotHTML($hiddenMaxSizeMatcher2, $input2);
+    }
+
+    public function testCanForceFieldToImageAsArray()
 	{
 		$this->former->withRules(array('foo' => array('image')));
 
