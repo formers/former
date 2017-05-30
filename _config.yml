@@ -1,0 +1,8 @@
+title: Former
+description: A powerful form builder for the Laravel framework
+google_analytics: UA-728496-7
+show_downloads: true
+theme: jekyll-theme-architect
+
+gems:
+  - jekyll-mentions
