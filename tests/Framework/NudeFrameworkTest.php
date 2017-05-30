@@ -32,6 +32,23 @@ class NudeFrameworkTest extends FormerTests
 		$this->assertEquals($matcher, $required);
 	}
 
+	public function testCanDisplayNestedErrorMessages()
+	{
+		// Use special one-time-use validator
+		$this->former->withErrors($this->mockValidator("foo.bar", "Foo", null));
+
+		// Create field
+		$required = $this->former->text("foo[bar]")->id('foo')->label('Foo')->wrapAndRender();
+
+		// Matcher
+		$matcher =
+			'<label for="foo">Foo</label>'.
+			'<input id="foo" type="text" name="foo[bar]">'.
+			'<span class="help">The Foo field is required.</span>';
+
+		$this->assertEquals($matcher, $required);
+	}
+
 	public function testGroupOpenHasNoElement()
 	{
 		$group   = $this->former->group('foo')->__toString();
