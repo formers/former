@@ -1,6 +1,6 @@
 # Contribution guidelines
 
-If you have a code suggestion, do a pull request against the **develop** branch — not **master**.
+Thank you for contributing to Former!
 
 Don't forget to add a test in the `tests` folder :
 - If it's a feature you're adding, add a test proving it works.
