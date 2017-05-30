@@ -1,7 +1,6 @@
 <?php
 namespace Former;
 
-use Illuminate\Config\FileLoader as ConfigLoader;
 use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
 use Illuminate\Http\Request;
@@ -9,6 +8,7 @@ use Illuminate\Session\SessionManager;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Register the Former package with the Laravel framework
@@ -39,7 +39,7 @@ class FormerServiceProvider extends ServiceProvider
 	 */
 	public function provides()
 	{
-		return array('former');
+		return array('former', 'Former\Former');
 	}
 
 	////////////////////////////////////////////////////////////////////
@@ -112,10 +112,14 @@ class FormerServiceProvider extends ServiceProvider
 		// Config
 		//////////////////////////////////////////////////////////////////
 
-		$app->bindIf('config', function ($app) {
-			$fileloader = new ConfigLoader($app['files'], __DIR__.'/../config');
+		$app->bindIf('path.config', function ($app) {
+			return __DIR__ . '/../config/';
+		}, true);
 
-			return new Repository($fileloader, 'config');
+		$app->bindIf('config', function ($app) {
+			$config = new Repository;
+			$this->loadConfigurationFiles($app, $config);
+			return $config;
 		}, true);
 
 		// Localization
@@ -135,6 +139,39 @@ class FormerServiceProvider extends ServiceProvider
 	}
 
 	/**
+	 * Load the configuration items from all of the files.
+	 *
+	 * @param  Container $app
+	 * @param  Repository  $config
+	 * @return void
+	 */
+	protected function loadConfigurationFiles($app, Repository $config)
+	{
+		foreach ($this->getConfigurationFiles($app) as $key => $path)
+		{
+			$config->set($key, require $path);
+		}
+	}
+
+	/**
+	 * Get all of the configuration files for the application.
+	 *
+	 * @param  $app
+	 * @return array
+	 */
+	protected function getConfigurationFiles($app)
+	{
+		$files = array();
+
+		foreach (Finder::create()->files()->name('*.php')->in($app['path.config']) as $file)
+		{
+			$files[basename($file->getRealPath(), '.php')] = $file->getRealPath();
+		}
+
+		return $files;
+	}
+
+	/**
 	 * Bind Former classes to the container
 	 *
 	 * @param  Container $app
@@ -144,10 +181,14 @@ class FormerServiceProvider extends ServiceProvider
 	public function bindFormer(Container $app)
 	{
 		// Add config namespace
-		$app['config']->package('anahkiasen/former', __DIR__.'/../config');
-
+		$configPath = __DIR__ . '/../config/former.php';
+		$this->mergeConfigFrom($configPath, 'former');
+		$this->publishes([$configPath => $app['path.config'] . '/former.php']);
+		
+		$framework = $app['config']->get('former.framework');
+		
 		$app->bind('former.framework', function ($app) {
-			return $app['former']->getFrameworkInstance($app['config']->get('former::framework'));
+			return $app['former']->getFrameworkInstance($app['config']->get('former.framework'));
 		});
 
 		$app->singleton('former.populator', function ($app) {
@@ -161,6 +202,7 @@ class FormerServiceProvider extends ServiceProvider
 		$app->singleton('former', function ($app) {
 			return new Former($app, $app->make('former.dispatcher'));
 		});
+		$app->alias('former', 'Former\Former');
 
 		Helpers::setApp($app);
 
