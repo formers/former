@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 4.0.0
+- Laravel 5+ branch
+
 ## 3.5.3
 
 ### Added

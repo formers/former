@@ -52,7 +52,7 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 	 *
 	 * @param string  $binding
 	 * @param string  $name
-	 * @param Closure $expectations
+	 * @param \Closure $expectations
 	 *
 	 * @return Mockery
 	 */
@@ -104,7 +104,7 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 	 */
 	protected function mockConfig(array $options = array())
 	{
-		$defaults = include realpath(__DIR__.'/../../src/config/config.php');
+		$defaults = include realpath(__DIR__.'/../../src/config/former.php');
 
 		$options = array_merge($defaults, array(
 			'automatic_label'                     => true,
@@ -191,8 +191,8 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 			$mock->shouldReceive('set')->with(Mockery::any(), Mockery::any());
 
 			foreach ($options as $key => $value) {
-				$mock->shouldReceive('get')->with('former::'.$key)->andReturn($value);
-				$mock->shouldReceive('get')->with('former::'.$key, Mockery::any())->andReturn($value);
+				$mock->shouldReceive('get')->with('former.'.$key)->andReturn($value);
+				$mock->shouldReceive('get')->with('former.'.$key, Mockery::any())->andReturn($value);
 			}
 
 			return $mock;
@@ -232,7 +232,7 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 			'required' => 'The required field is required.',
 		));
 
-		return $this->mock('validator', 'Illuminate\Validation\Validator', function ($mock) use ($messageBag) {
+		return $this->mock('validator', 'Illuminate\Contracts\Validation\Validator', function ($mock) use ($messageBag) {
 			return $mock->shouldReceive('getMessageBag')->andReturn($messageBag);
 		});
 	}
@@ -249,7 +249,7 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 		$messageBag = $this->mockMessageBag($errors);
 
 		return $this->mock('session', 'Illuminate\Session\Store', function ($mock) use ($messageBag, $errors) {
-			$mock->shouldReceive('getToken')->andReturn('csrf_token');
+			$mock->shouldReceive('token')->andReturn('csrf_token');
 			if ($errors) {
 				$mock->shouldReceive('has')->with('errors')->andReturn(true);
 				$mock->shouldReceive('get')->with('errors')->andReturn($messageBag);

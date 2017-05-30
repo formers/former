@@ -1,8 +1,7 @@
 language: php
 
 php:
-  - 5.4
-  - 5.5
+  - 7.0
   - nightly
 
 before_script:
