@@ -79,7 +79,7 @@ class FileTest extends FormerTests
 		$file = $this->former->file('foo')->accept('video', 'image', 'audio', 'jpeg', 'image/gif')->__toString();
 
 		$this->assertControlGroup($file);
-		$this->assertHTML($this->matchFile('video/*|image/*|audio/*|image/jpeg|image/gif'), $file);
+		$this->assertHTML($this->matchFile('video/*,image/*,audio/*,image/jpeg,image/gif'), $file);
 	}
 
 	public function testCanSetMaxSizeInKilobytes()

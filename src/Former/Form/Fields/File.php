@@ -99,7 +99,7 @@ class File extends Field
 		}
 
 		// Add accept attribute by concatenating the mimes
-		$this->attributes['accept'] = implode('|', $mimes);
+		$this->attributes['accept'] = implode(',', $mimes);
 
 		return $this;
 	}
