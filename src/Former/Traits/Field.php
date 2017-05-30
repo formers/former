@@ -266,12 +266,26 @@ abstract class Field extends FormerObject implements FieldInterface
      */
     public function rules($rules)
     {
-        foreach (explode('|', $rules) as $rule) {
+        if (!is_array($rules)) {
+            $rules = explode('|', $rules);
+        }
+
+        foreach ($rules as $rule) {
             $parameters = null;
 
             // If we have a rule with a value
             if (($colon = strpos($rule, ':')) !== false) {
-                $parameters = str_getcsv(substr($rule, $colon + 1));
+                $rulename = substr($rule, 0, $colon) ;
+
+                /**
+                * Regular expressions may contain commas and should not be divided by str_getcsv.
+                * For regular expressions we are just using the complete expression as a parameter.
+                */
+                if ($rulename !== 'regex') {
+                    $parameters = str_getcsv(substr($rule, $colon + 1));
+                } else {
+                    $parameters = [substr($rule, $colon + 1)];
+                }
             }
 
             // Exclude unsupported rules
