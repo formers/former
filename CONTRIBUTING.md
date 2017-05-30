@@ -1,6 +1,6 @@
 # Contribution guidelines
 
-Thank you for contributing to Former!
+Thank you for contributing to Former! Please target all changes to the master branch.
 
 Don't forget to add a test in the `tests` folder :
 - If it's a feature you're adding, add a test proving it works.
