@@ -21,7 +21,7 @@ class LiveValidation
 	 *
 	 * @param Field $field The field
 	 */
-	public function __construct(Field &$field)
+	public function __construct(Field&$field)
 	{
 		$this->field = $field;
 	}
@@ -267,7 +267,7 @@ class LiveValidation
 	/**
 	 * Transform extensions and mime groups into a list of mime types
 	 *
-	 * @param  array $mimes An array of mimes
+	 * @param  string[] $mimes An array of mimes
 	 *
 	 * @return string A concatenated list of mimes
 	 */

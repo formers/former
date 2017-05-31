@@ -90,7 +90,7 @@ class Select extends Field
 			$this->name .= '[]';
 		}
 
-		if ( ! $this->value instanceOf \ArrayAccess) {
+		if (!$this->value instanceOf \ArrayAccess) {
 			$this->value = (array) $this->value;
 		}
 
@@ -132,7 +132,7 @@ class Select extends Field
 		foreach ($parent->getChildren() as $child) {
 			// Search by value
 
-			if ($child->getAttribute('value') === $value || is_numeric($value) && $child->getAttribute('value') === (int)$value ) {
+			if ($child->getAttribute('value') === $value || is_numeric($value) && $child->getAttribute('value') === (int) $value) {
 				$child->selected('selected');
 			}
 
@@ -170,7 +170,7 @@ class Select extends Field
 	 * Set the select options
 	 *
 	 * @param  array   $_options     The options as an array
-	 * @param  mixed   $selected     Facultative selected entry
+	 * @param  null|string   $selected     Facultative selected entry
 	 * @param  boolean $valuesAsKeys Whether the array's values should be used as
 	 *                               the option's values instead of the array's keys
 	 */

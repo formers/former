@@ -96,7 +96,7 @@ class Form extends FormerObject
 		$this->url       = $url;
 		$this->populator = $populator;
 
-		$this->app->singleton('former.form.framework', function ($app) {
+		$this->app->singleton('former.form.framework', function($app) {
 			return clone $app['former.framework'];
 		});
 	}
@@ -351,9 +351,9 @@ class Form extends FormerObject
 	}
 
 	/**
-	 * @param $name
+	 * @param string $name
 	 * @param $params
-	 * @param $type
+	 * @param string $type
 	 *
 	 * @return $this
 	 */
@@ -402,7 +402,7 @@ class Form extends FormerObject
 
 		// If raw form
 		if ($type == 'raw') {
-			$this->app->bind('former.form.framework', function ($app) {
+			$this->app->bind('former.form.framework', function($app) {
 				return $app['former']->getFrameworkInstance('Nude');
 			});
 		}

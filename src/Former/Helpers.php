@@ -127,7 +127,7 @@ class Helpers
 		//Convert parametrs of old format to new format
 		if (!is_callable($text)) {
 			$optionTextValue = $text;
-			$text = function ($model) use($optionTextValue) {
+			$text = function($model) use($optionTextValue) {
 				if ($optionTextValue and isset($model->$optionTextValue)) {
 					return $model->$optionTextValue;
 				} elseif (method_exists($model, '__toString')) {
@@ -172,7 +172,7 @@ class Helpers
 					$optionAttributeValue = $modelAttributeName($model);
 				} elseif ($modelAttributeName and isset($model->$modelAttributeName)) {
 					$optionAttributeValue = $model->$modelAttributeName;
-				} elseif($optionAttributeName === 'value') {
+				} elseif ($optionAttributeName === 'value') {
 					//For backward compatibility
 					if (method_exists($model, 'getKey')) {
 						$optionAttributeValue = $model->getKey();
