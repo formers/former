@@ -19,6 +19,7 @@ class CheckboxTest extends FormerTests
 	 * @param  integer $value
 	 * @param  boolean $inline
 	 * @param  boolean $checked
+	 * @param  mixed $disabled If 'disabled', rendered as `disabled="disabled"`. If true, then rendered as `disabled`.
 	 *
 	 * @return string
 	 */
@@ -31,7 +32,7 @@ class CheckboxTest extends FormerTests
 		$disabled = false
 	) {
 		$checkAttr = array(
-			'disabled' => 'true',
+			'disabled' => $disabled === 'disabled' ? 'disabled' : null,
 			'id'       => $name,
 			'type'     => 'checkbox',
 			'name'     => $name,

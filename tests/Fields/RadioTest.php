@@ -13,11 +13,12 @@ class RadioTest extends FormerTests
 	/**
 	 * Matches a radio element
 	 *
-	 * @param  string  $name
-	 * @param  string  $label
+	 * @param  string $name
+	 * @param  string $label
 	 * @param  integer $value
 	 * @param  boolean $inline
 	 * @param  boolean $checked
+	 * @param  mixed $disabled If 'disabled', rendered as `disabled="disabled"`. If true, then rendered as `disabled`.
 	 *
 	 * @return string
 	 */
@@ -30,7 +31,7 @@ class RadioTest extends FormerTests
 		$disabled = false
 	) {
 		$radioAttr = array(
-			'disabled' => 'true',
+			'disabled' => $disabled === 'disabled' ? 'disabled' : null,
 			'id'       => $name,
 			'type'     => 'radio',
 			'name'     => preg_replace('/[0-9]/', null, $name),

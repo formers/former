@@ -58,7 +58,7 @@ class LiveValidationTest extends FormerTests
 		$this->former->withRules(array('foo' => 'required | email'));
 		$input = $this->former->text('foo')->render();
 
-		$this->assertHTML($this->matchField(array('required' => true), 'email'), $input);
+		$this->assertHTML($this->matchField(array('required' => null), 'email'), $input);
 	}
 
 	public function testCanUseMultipleRulesArray()
@@ -70,7 +70,7 @@ class LiveValidationTest extends FormerTests
 
 		$this->assertLabel($input, 'foo', true);
 		$this->assertHTML($this->matchControlGroup(), $input);
-		$this->assertHTML($this->matchField(array('required' => 'true')), $input);
+		$this->assertHTML($this->matchField(array('required' => null)), $input);
 
 		// Second field
 		$email = $this->former->text('bar')->__toString();
@@ -89,7 +89,7 @@ class LiveValidationTest extends FormerTests
 
 		$this->assertLabel($input, 'foo', true);
 		$this->assertHTML($this->matchControlGroup(), $input);
-		$this->assertHTML($this->matchField(array('required' => 'true')), $input);
+		$this->assertHTML($this->matchField(array('required' => null)), $input);
 
 		// Second field
 		$email = $this->former->text('bar')->__toString();
@@ -104,7 +104,7 @@ class LiveValidationTest extends FormerTests
 		$this->former->withRules(array('foo' => 'required'));
 		$input = $this->former->text('foo')->__toString();
 
-		$this->assertHTML($this->matchField(array('required' => 'true')), $input);
+		$this->assertHTML($this->matchField(array('required' => null)), $input);
 		$this->assertLabel($input, 'foo', true);
 		$this->assertHTML($this->matchControlGroup(), $input);
 	}
@@ -114,7 +114,7 @@ class LiveValidationTest extends FormerTests
 		$this->former->withRules(array('foo[bar]' => 'required'));
 		$input = $this->former->text('foo[bar]')->name('foo')->__toString();
 
-		$this->assertHTML($this->matchField(array('required' => 'true')), $input);
+		$this->assertHTML($this->matchField(array('required' => null)), $input);
 		$this->assertLabel($input, 'foo', true);
 		$this->assertHTML($this->matchControlGroup(), $input);
 	}
@@ -124,7 +124,7 @@ class LiveValidationTest extends FormerTests
 		$this->former->withRules(array('foo.bar' => 'required'));
 		$input = $this->former->text('foo[bar]')->name('foo')->__toString();
 
-		$this->assertHTML($this->matchField(array('required' => 'true')), $input);
+		$this->assertHTML($this->matchField(array('required' => null)), $input);
 		$this->assertLabel($input, 'foo', true);
 		$this->assertHTML($this->matchControlGroup(), $input);
 	}
@@ -134,7 +134,7 @@ class LiveValidationTest extends FormerTests
 		$this->former->withRules(array('foo' => array('required')));
 		$input = $this->former->text('foo')->__toString();
 
-		$this->assertHTML($this->matchField(array('required' => 'true')), $input);
+		$this->assertHTML($this->matchField(array('required' => null)), $input);
 		$this->assertLabel($input, 'foo', true);
 		$this->assertHTML($this->matchControlGroup(), $input);
 	}
@@ -144,7 +144,7 @@ class LiveValidationTest extends FormerTests
 		$this->former->withRules(array('foo[bar]' => array('required')));
 		$input = $this->former->text('foo[bar]')->name('foo')->__toString();
 
-		$this->assertHTML($this->matchField(array('required' => 'true')), $input);
+		$this->assertHTML($this->matchField(array('required' => null)), $input);
 		$this->assertLabel($input, 'foo', true);
 		$this->assertHTML($this->matchControlGroup(), $input);
 	}
@@ -154,7 +154,7 @@ class LiveValidationTest extends FormerTests
 		$this->former->withRules(array('foo.bar' => array('required')));
 		$input = $this->former->text('foo[bar]')->name('foo')->__toString();
 
-		$this->assertHTML($this->matchField(array('required' => 'true')), $input);
+		$this->assertHTML($this->matchField(array('required' => null)), $input);
 		$this->assertLabel($input, 'foo', true);
 		$this->assertHTML($this->matchControlGroup(), $input);
 	}
@@ -168,7 +168,7 @@ class LiveValidationTest extends FormerTests
 		$label = $this->matchLabel('Foo', 'foo', true);
 		unset($label['attributes']['class']);
 
-		$this->assertHTML($this->matchField(array('required' => 'true')), $input);
+		$this->assertHTML($this->matchField(array('required' => null)), $input);
 		$this->assertHTML($label, $input);
 	}
 
@@ -181,7 +181,7 @@ class LiveValidationTest extends FormerTests
 		$label = $this->matchLabel('Foo', 'foo', true);
 		unset($label['attributes']['class']);
 
-		$this->assertHTML($this->matchField(array('required' => 'true')), $input);
+		$this->assertHTML($this->matchField(array('required' => null)), $input);
 		$this->assertHTML($label, $input);
 	}
 
@@ -568,7 +568,7 @@ class LiveValidationTest extends FormerTests
 	public function testCanApplyMultipleRulesWithString()
     {
         $input   = $this->former->number('foo')->rules('max:10|required')->__toString();
-        $matcher = $this->matchField(array('max' => 10, 'required' => true), 'number');
+        $matcher = $this->matchField(array('max' => 10, 'required' => null), 'number');
 
         $this->assertControlGroup($input);
         $this->assertHTML($matcher, $input);

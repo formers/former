@@ -17,7 +17,7 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "anahkiasen/html-object": "1.4.2",
+    "anahkiasen/html-object": "1.4.4",
     "illuminate/config": "~5.0",
     "illuminate/container": "~5.0",
     "illuminate/http": "~5.0",
@@ -25,6 +25,12 @@
     "illuminate/session": "~5.0",
     "illuminate/translation": "~5.0"
   },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url":  "git@github.com:claar/html-object.git"
+    }
+  ],
   "require-dev": {
     "phpunit/phpunit": "~4",
     "mockery/mockery": "~0.9.1",
