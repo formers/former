@@ -51,7 +51,7 @@ class Actions extends FormerObject
 	 */
 	public function getContent()
 	{
-		$content = array_map(function ($content) {
+		$content = array_map(function($content) {
 			return method_exists($content, '__toString') ? (string) $content : $content;
 		}, $this->value);
 

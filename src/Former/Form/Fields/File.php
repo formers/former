@@ -80,7 +80,6 @@ class File extends Field
 
 	/**
 	 * Set which types of files are accepted by the file input
-
 	 */
 	public function accept()
 	{

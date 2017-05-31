@@ -124,7 +124,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
 		$classes = array_intersect($classes, $this->fields);
 
 		// Prepend field type
-		$classes = array_map(function ($class) {
+		$classes = array_map(function($class) {
 			return Str::startsWith($class, 'span') ? $class : 'input-'.$class;
 		}, $classes);
 

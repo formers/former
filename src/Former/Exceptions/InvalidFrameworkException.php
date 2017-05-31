@@ -1,6 +1,6 @@
 <?php namespace Former\Exceptions;
 
-class InvalidFrameworkException extends \RuntimeException{
+class InvalidFrameworkException extends \RuntimeException {
 
 	/**
 	 * reference to framework class

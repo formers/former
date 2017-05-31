@@ -90,15 +90,15 @@ class FormerServiceProvider extends ServiceProvider
 		// Session and request
 		//////////////////////////////////////////////////////////////////
 
-		$app->bindIf('session.manager', function ($app) {
+		$app->bindIf('session.manager', function($app) {
 			return new SessionManager($app);
 		});
 
-		$app->bindIf('session', function ($app) {
+		$app->bindIf('session', function($app) {
 			return $app['session.manager']->driver('array');
 		}, true);
 
-		$app->bindIf('request', function ($app) {
+		$app->bindIf('request', function($app) {
 			$request = Request::createFromGlobals();
 			if (method_exists($request, 'setSessionStore')) {
 				$request->setSessionStore($app['session']);
@@ -112,11 +112,11 @@ class FormerServiceProvider extends ServiceProvider
 		// Config
 		//////////////////////////////////////////////////////////////////
 
-		$app->bindIf('path.config', function ($app) {
-			return __DIR__ . '/../config/';
+		$app->bindIf('path.config', function($app) {
+			return __DIR__.'/../config/';
 		}, true);
 
-		$app->bindIf('config', function ($app) {
+		$app->bindIf('config', function($app) {
 			$config = new Repository;
 			$this->loadConfigurationFiles($app, $config);
 			return $config;
@@ -125,11 +125,11 @@ class FormerServiceProvider extends ServiceProvider
 		// Localization
 		//////////////////////////////////////////////////////////////////
 
-		$app->bindIf('translation.loader', function ($app) {
+		$app->bindIf('translation.loader', function($app) {
 			return new FileLoader($app['files'], 'src/config');
 		});
 
-		$app->bindIf('translator', function ($app) {
+		$app->bindIf('translator', function($app) {
 			$loader = new FileLoader($app['files'], 'lang');
 
 			return new Translator($loader, 'fr');
@@ -156,7 +156,7 @@ class FormerServiceProvider extends ServiceProvider
 	/**
 	 * Get all of the configuration files for the application.
 	 *
-	 * @param  $app
+	 * @param  Container $app
 	 * @return array
 	 */
 	protected function getConfigurationFiles($app)
@@ -181,25 +181,25 @@ class FormerServiceProvider extends ServiceProvider
 	public function bindFormer(Container $app)
 	{
 		// Add config namespace
-		$configPath = __DIR__ . '/../config/former.php';
+		$configPath = __DIR__.'/../config/former.php';
 		$this->mergeConfigFrom($configPath, 'former');
-		$this->publishes([$configPath => $app['path.config'] . '/former.php']);
+		$this->publishes([$configPath => $app['path.config'].'/former.php']);
 		
 		$framework = $app['config']->get('former.framework');
 		
-		$app->bind('former.framework', function ($app) {
+		$app->bind('former.framework', function($app) {
 			return $app['former']->getFrameworkInstance($app['config']->get('former.framework'));
 		});
 
-		$app->singleton('former.populator', function ($app) {
+		$app->singleton('former.populator', function($app) {
 			return new Populator();
 		});
 
-		$app->singleton('former.dispatcher', function ($app) {
+		$app->singleton('former.dispatcher', function($app) {
 			return new MethodDispatcher($app, Former::FIELDSPACE);
 		});
 
-		$app->singleton('former', function ($app) {
+		$app->singleton('former', function($app) {
 			return new Former($app, $app->make('former.dispatcher'));
 		});
 		$app->alias('former', 'Former\Former');
