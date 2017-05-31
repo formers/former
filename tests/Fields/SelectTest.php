@@ -30,7 +30,7 @@ class SelectTest extends FormerTests
 	public function testMultiselect()
 	{
 		$select  = $this->former->multiselect('foo')->__toString();
-		$matcher = $this->controlGroup('<select id="foo" multiple="true" name="foo[]"></select>');
+		$matcher = $this->controlGroup('<select id="foo" multiple name="foo[]"></select>');
 
 		$this->assertEquals($matcher, $select);
 	}
@@ -38,7 +38,7 @@ class SelectTest extends FormerTests
 	public function testMultiselectOptions()
 	{
 		$select  = $this->former->multiselect('foo')->options($this->options)->value(array('foo', 'kal'))->__toString();
-		$matcher = $this->controlGroup('<select id="foo" multiple="true" name="foo[]"><option value="0">baz</option><option value="foo" selected="selected">bar</option><option value="kal" selected="selected">ter</option></select>');
+		$matcher = $this->controlGroup('<select id="foo" multiple name="foo[]"><option value="0">baz</option><option value="foo" selected="selected">bar</option><option value="kal" selected="selected">ter</option></select>');
 		$this->assertEquals($matcher, $select);
 	}
 
@@ -396,7 +396,7 @@ class SelectTest extends FormerTests
 
 		$select  = $this->former->multiselect('test')->options($options)->render();
 		$matcher =
-			'<select id="test" multiple="true" name="test[]">'.
+			'<select id="test" multiple name="test[]">'.
 			'<option value="foo" selected="selected">foo_name</option>'.
 			'<option value="bar" selected="selected">bar_name</option>'.
 			'<option value="baz">baz_name</option>'.
@@ -520,7 +520,7 @@ class SelectTest extends FormerTests
 		$this->request->shouldReceive('input')->with('foo', '', true)->andReturn(array(1));
 
 		$select  = $this->former->multiselect('foo')->options($options);
-		$matcher = '<select id="foo" multiple="true" name="foo[]"><option value="1" selected="selected">foo</option><option value="2">bar</option></select>';
+		$matcher = '<select id="foo" multiple name="foo[]"><option value="1" selected="selected">foo</option><option value="2">bar</option></select>';
 
 		$this->assertEquals($matcher, $select->render());
 	}

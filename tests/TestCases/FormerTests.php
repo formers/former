@@ -229,6 +229,8 @@ abstract class FormerTests extends ContainerTestCase
 
 			if (!is_null($value)) {
 				$html[] = $key.'="'.$value.'"';
+			} else {
+				$html[] = $key;
 			}
 		}
 

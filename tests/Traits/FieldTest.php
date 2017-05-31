@@ -96,7 +96,7 @@ class FieldTest extends FormerTests
 	public function testCanCreateViaMagicAttributeUnvalue()
 	{
 		$static  = $this->former->text('foo')->require()->__toString();
-		$matcher = $this->controlGroup('<input require="true" type="text" name="foo" id="foo">');
+		$matcher = $this->controlGroup('<input require type="text" name="foo" id="foo">');
 
 		$this->assertHTML($this->matchField(), $static);
 		$this->assertHTML($this->matchControlGroup(), $static);
@@ -109,7 +109,7 @@ class FieldTest extends FormerTests
 		$static = $this->former->text('foo')->require()->setAttributes($attributes)->__toString();
 
 		$field                           = $this->matchField();
-		$field['attributes']['require']  = 'true';
+		$field['attributes']['require']  = null;
 		$field['attributes']['class']    = 'foo';
 		$field['attributes']['data-foo'] = 'bar';
 		$this->assertHTML($field, $static);

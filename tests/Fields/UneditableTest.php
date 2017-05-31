@@ -33,7 +33,7 @@ class UneditableTest extends FormerTests
 		return array(
 			'tag'        => 'input',
 			'attributes' => array(
-				'disabled' => 'true',
+				'disabled' => 'disabled',
 				'type'     => 'text',
 				'name'     => 'foo',
 				'value'    => 'bar',
