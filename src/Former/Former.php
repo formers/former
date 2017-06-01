@@ -353,7 +353,7 @@ class Former
 		$this->setOption('framework', $framework);
 
 		$framework = $this->getFrameworkInstance($framework);
-		$this->app->bind('former.framework', function ($app) use ($framework) {
+		$this->app->bind('former.framework', function($app) use ($framework) {
 			return $framework;
 		});
 	}
@@ -373,9 +373,9 @@ class Former
 		//get interfaces of the given framework
 		$interfaces = class_exists($framework) ? class_implements($framework) : array();
 
-		if(class_exists($formerClass)) {
+		if (class_exists($formerClass)) {
 			$returnClass = $formerClass;
-		} elseif(class_exists($framework) && isset($interfaces['Former\Interfaces\FrameworkInterface'])) {
+		} elseif (class_exists($framework) && isset($interfaces['Former\Interfaces\FrameworkInterface'])) {
 			// We have some outside class, lets return it.
 			$returnClass = $framework;
 		} else {

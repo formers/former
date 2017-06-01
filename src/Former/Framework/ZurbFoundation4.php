@@ -198,7 +198,7 @@ class ZurbFoundation4 extends Framework implements FrameworkInterface
 	 *
 	 * @param Field $field
 	 *
-	 * @return Element
+	 * @return Input
 	 */
 	public function createPlainTextField(Field $field)
 	{

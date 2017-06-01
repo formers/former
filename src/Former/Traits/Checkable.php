@@ -411,7 +411,7 @@ abstract class Checkable extends Field
 		$this->app['former']->labels[] = $name;
 
 		// Count number of fields with the same ID
-		$where  = array_filter($this->app['former']->labels, function ($label) use ($name) {
+		$where  = array_filter($this->app['former']->labels, function($label) use ($name) {
 			return $label == $name;
 		});
 		$unique = sizeof($where);

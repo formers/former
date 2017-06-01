@@ -239,7 +239,7 @@ abstract class Framework
 	 */
 	protected function prependWith($classes, $with)
 	{
-		return array_map(function ($class) use ($with) {
+		return array_map(function($class) use ($with) {
 			return $with.$class;
 		}, $classes);
 	}
