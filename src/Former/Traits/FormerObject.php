@@ -76,7 +76,7 @@ abstract class FormerObject extends Element
 		if (array_key_exists($name, $names)) {
 			$count = $names[$name] + 1;
 			$names[$name] = $count;
-			return $name . '-' . $count;
+			return $name.'-'.$count;
 		}
 
 		$names[$name] = 1;

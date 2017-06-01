@@ -442,7 +442,7 @@ class Group extends Tag
 	/**
 	 * Format the field with prepended/appended elements
 	 *
-	 * @param  Field $field The field to format
+	 * @param  \Former\Traits\Field $field The field to format
 	 *
 	 * @return string        Field plus supplementary elements
 	 */
