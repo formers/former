@@ -59,6 +59,10 @@ Add then alias Former's main class by adding its facade to the `aliases` array i
 
     'Former' => 'Former\Facades\Former',
 
+Publish config files with artisan:
+    
+    php artisan vendor:publish --provider="Former\FormerServiceProvider"
+
 If you don't use Laravel, you can add Former to your Composer file, then use it with:
 
 ```php
