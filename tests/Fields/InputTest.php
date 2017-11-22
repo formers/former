@@ -3,6 +3,21 @@ namespace Former\Fields;
 
 use Former\Dummy\DummyEloquent;
 use Former\TestCases\FormerTests;
+use Illuminate\Contracts\Support\Htmlable;
+
+class HtmlValue implements Htmlable {
+
+	private $value;
+
+	function __construct($value)
+	{
+		$this->value = $value;
+	}
+
+	function toHtml() {
+		return $this->value;
+	}
+}
 
 class InputTest extends FormerTests
 {
@@ -93,6 +108,22 @@ class InputTest extends FormerTests
 		$this->assertHTML($this->matchLabel('Bar', 'foo'), $input);
 		$this->assertHTML($this->matchField(), $input);
 		$this->assertHTML($this->matchControlGroup(), $input);
+	}
+
+	public function testCanCreateTextLabelWithoutUppercase()
+	{
+		$static = $this->former->text('foo')->label(new HtmlValue('bar'), $this->testAttributes)->__toString();
+		$this->assertEquals(
+			'<div class="control-group"><label class="foo control-label" data-foo="bar" for="foo">bar</label>' .
+			'<div class="controls"><input id="foo" type="text" name="foo"></div></div>', $static);
+	}
+
+	public function testCanCreateTextLabelContainingHtml()
+	{
+		$static = $this->former->text('foo')->label(new HtmlValue('<span>bar</span>'), $this->testAttributes)->__toString();
+		$this->assertEquals(
+			'<div class="control-group"><label class="foo control-label" data-foo="bar" for="foo"><span>bar</span></label>' .
+			'<div class="controls"><input id="foo" type="text" name="foo"></div></div>', $static);
 	}
 
 	public function testCanCreateTextLabelWithoutBootstrap()

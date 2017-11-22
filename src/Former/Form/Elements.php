@@ -4,6 +4,7 @@ namespace Former\Form;
 use Former\Helpers;
 use HtmlObject\Element;
 use Illuminate\Container\Container;
+use Illuminate\Contracts\Support\Htmlable;
 
 /**
  * The different parts of a form that are neither fields nor groups
@@ -59,13 +60,17 @@ class Elements
 	 */
 	public function label($label, $for = null, $attributes = array())
 	{
-		$oldLabel = (string) $label;
-		$label    = Helpers::translate($oldLabel);
+		if (!$label instanceof Htmlable) {
+			$oldLabel = (string) $label;
+			$label    = Helpers::translate($oldLabel);
 
-		// If there was no change to the label,
-		// then a Laravel translation did not occur
-		if (lcfirst($label) == $oldLabel) {
-			$label = str_replace('_', ' ', $label);
+			// If there was no change to the label,
+			// then a Laravel translation did not occur
+			if (lcfirst($label) == $oldLabel) {
+				$label = str_replace('_', ' ', $label);
+			}
+		} else {
+			$label = (string) $label->toHtml();
 		}
 
 		$attributes['for']             = $for;
