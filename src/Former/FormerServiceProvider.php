@@ -103,7 +103,7 @@ class FormerServiceProvider extends ServiceProvider
 			if (method_exists($request, 'setSessionStore')) {
 				$request->setSessionStore($app['session']);
 			} else {
-				$request->setSession($app['session']);
+				$request->setLaravelSession($app['session']);
 			}
 
 			return $request;
