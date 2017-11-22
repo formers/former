@@ -40,8 +40,11 @@
     }
   },
   "extra": {
-      "branch-alias": {
-          "dev-master": "3.5.x-dev"
+      "providers": [
+          "Former\FormerServiceProvider"
+      ],
+      "aliases": {
+          "Former": "Former\Facades\Former"
       }
   }
 }
