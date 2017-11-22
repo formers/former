@@ -6,7 +6,7 @@
 [![Total Downloads](http://img.shields.io/packagist/dt/anahkiasen/former.svg?style=flat)](https://packagist.org/packages/anahkiasen/former)
 )
 
-### For Laravel 4, use the [master branch](https://github.com/formers/former/tree/master)
+### THIS BRANCH IS OLD AND WILL BE DELETED IN EARLY 2018. Please verify your composer.json is not pointing to this branch.
 
 Former outputs form elements in HTML compatible with your favorite CSS framework (Bootstrap and Foundation are currently supported). Former also handles repopulation after validation errors, including automatically rendering error text with affected fields.
 
