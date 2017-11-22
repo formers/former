@@ -41,10 +41,10 @@
   },
   "extra": {
       "providers": [
-          "Former\FormerServiceProvider"
+          "Former\\FormerServiceProvider"
       ],
       "aliases": {
-          "Former": "Former\Facades\Former"
+          "Former": "Former\\Facades\\Former"
       }
   }
 }
