@@ -51,23 +51,21 @@ Require Former package using Composer:
 
     composer require anahkiasen/former
 
-Then run "composer update". Next modify your `config/app.php`. In the `providers` array add :
+Publish config files with artisan:
+    
+    php artisan vendor:publish --provider="Former\FormerServiceProvider"
+
+#### App.php config for Laravel 5.4 and below
+
+For Laravel 5.4 and below, you must modify your `config/app.php`.
+
+In the `providers` array add :
 
     Former\FormerServiceProvider::class
 
 Add then alias Former's main class by adding its facade to the `aliases` array in the same file :
 
     'Former' => 'Former\Facades\Former',
-
-Publish config files with artisan:
-    
-    php artisan vendor:publish --provider="Former\FormerServiceProvider"
-
-If you don't use Laravel, you can add Former to your Composer file, then use it with:
-
-```php
-use Former\Facades\Former;
-```
 
 ### Table of contents
 
