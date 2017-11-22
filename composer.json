@@ -40,11 +40,13 @@
     }
   },
   "extra": {
+    "laravel": {
       "providers": [
           "Former\\FormerServiceProvider"
       ],
       "aliases": {
           "Former": "Former\\Facades\\Former"
       }
+    }
   }
 }
