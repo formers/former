@@ -102,8 +102,10 @@ class FormerServiceProvider extends ServiceProvider
 			$request = Request::createFromGlobals();
 			if (method_exists($request, 'setSessionStore')) {
 				$request->setSessionStore($app['session']);
-			} else {
+			} else if (method_exists($request, 'setLaravelSession')) {
 				$request->setLaravelSession($app['session']);
+			} else {
+				$request->setSession($app['session']);
 			}
 
 			return $request;
