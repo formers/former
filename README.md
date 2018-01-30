@@ -4,7 +4,6 @@
 [![Build Status](http://img.shields.io/travis/formers/former.svg?style=flat)](https://travis-ci.org/formers/former)
 [![Latest Stable Version](http://img.shields.io/packagist/v/anahkiasen/former.svg?style=flat)](https://packagist.org/packages/anahkiasen/former)
 [![Total Downloads](http://img.shields.io/packagist/dt/anahkiasen/former.svg?style=flat)](https://packagist.org/packages/anahkiasen/former)
-)
 
 Former outputs form elements in HTML compatible with your favorite CSS framework (Bootstrap and Foundation are currently supported). Former also handles repopulation after validation errors, including automatically rendering error text with affected fields.
 
