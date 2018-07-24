@@ -191,6 +191,23 @@ abstract class Field extends FormerObject implements FieldInterface
 	}
 
 	/**
+	 * Set required live validation attribute
+	 *
+	 * @param boolean $isRequired
+	 * @return $this
+	 */
+	public function required($isRequired=true)
+	{
+		if ($isRequired) {
+			$this->attributes['required'] = true;
+		} else {
+			unset($this->attributes['required']);
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Check if a field is unwrappable (no label)
 	 *
 	 * @return boolean

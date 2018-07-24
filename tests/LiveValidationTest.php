@@ -109,6 +109,33 @@ class LiveValidationTest extends FormerTests
 		$this->assertHTML($this->matchControlGroup(), $input);
 	}
 
+	public function testCanSetFieldAsRequiredUsingMethod()
+	{
+		$input = $this->former->text('foo')->required()->__toString();
+
+		$this->assertHTML($this->matchField(array('required' => null)), $input);
+		$this->assertLabel($input, 'foo', true);
+		$this->assertHTML($this->matchControlGroup(), $input);
+	}
+
+	public function testMatchFieldWithoutRequired()
+	{
+		$input = $this->former->text('foo')->__toString();
+
+		$this->assertHTML($this->matchField([]), $input);
+		$this->assertLabel($input, 'foo', false);
+		$this->assertHTML($this->matchControlGroup(), $input);
+	}
+
+	public function testCanSetFieldAsNotRequired()
+	{
+		$input = $this->former->text('foo')->required()->required(false)->__toString();
+
+		$this->assertHTML($this->matchField([]), $input);
+		$this->assertLabel($input, 'foo', false);
+		$this->assertHTML($this->matchControlGroup(), $input);
+	}
+
 	public function testCanSetNestedBracketFieldAsRequired()
 	{
 		$this->former->withRules(array('foo[bar]' => 'required'));
