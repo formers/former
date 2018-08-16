@@ -121,6 +121,8 @@ abstract class Checkable extends Field
 	{
 		$html = null;
 
+		$this->setFieldClasses();
+
 		// Multiple items
 		if ($this->items) {
 			unset($this->app['former']->labels[array_search($this->name, $this->app['former']->labels)]);
