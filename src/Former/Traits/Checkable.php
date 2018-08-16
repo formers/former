@@ -166,9 +166,9 @@ abstract class Checkable extends Field
 	/**
 	 * Set the checkables as inline
 	 */
-	public function inline()
+	public function inline($isInline = true)
 	{
-		$this->inline = true;
+		$this->inline = $isInline;
 
 		return $this;
 	}
@@ -176,9 +176,9 @@ abstract class Checkable extends Field
 	/**
 	 * Set the checkables as stacked
 	 */
-	public function stacked()
+	public function stacked($isStacked = true)
 	{
-		$this->inline = false;
+		$this->inline = !$isStacked;
 
 		return $this;
 	}
@@ -186,9 +186,9 @@ abstract class Checkable extends Field
 	/**
 	 * Set the checkables as grouped
 	 */
-	public function grouped()
+	public function grouped($isGrouped = true)
 	{
-		$this->grouped = true;
+		$this->grouped = $isGrouped;
 
 		return $this;
 	}
