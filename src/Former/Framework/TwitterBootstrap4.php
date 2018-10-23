@@ -1,5 +1,5 @@
 <?php
-namespace App\Extension\Former;
+namespace Former\Framework;
 
 use Former\Interfaces\FrameworkInterface;
 use Former\Traits\Field;
