@@ -383,9 +383,9 @@ abstract class Checkable extends Field
 			// Revised for Bootstrap 4, move the 'input' outside of the 'label'
 			$element = $field . Element::create('label', $label)->for($attributes['id'])->class($class)->render();
 
-			$wrapper_class = $this->inline ? 'form-check-inline' : 'form-check';
+			$wrapper_class = $this->inline ? 'form-check form-check-inline' : 'form-check';
 			
-			$element = Element::create('div', $element)->class('form-check form-check-inline')->render();
+			$element = Element::create('div', $element)->class($wrapper_class)->render();
 
 		} else {
 			// Original way is to add the 'input' inside the 'label'
