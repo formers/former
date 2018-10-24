@@ -20,12 +20,12 @@ class TwitterBootstrap4Test extends FormerTests
 
 	public function hmatch($label, $field)
 	{
-		return '<div class="form-group">'.$label.'<div class="col-lg-10 col-sm-8">'.$field.'</div></div>';
+		return '<div class="form-group row">'.$label.'<div class="col-lg-10 col-sm-8">'.$field.'</div></div>';
 	}
 
 	public function vmatch($label, $field)
 	{
-		return '<div class="form-group row">'.$label.$field.'</div>';
+		return '<div class="form-group">'.$label.$field.'</div>';
 	}
 
 	////////////////////////////////////////////////////////////////////
@@ -112,6 +112,7 @@ class TwitterBootstrap4Test extends FormerTests
 	{
 		// e.g. using other Glyphicon sets
 		$icon1  = $this->app['former.framework']->createIcon('facebook', null, array(
+			'tag'	 => 'span',
 			'set'    => 'social',
 			'prefix' => 'glyphicon',
 		))->__toString();
@@ -140,7 +141,7 @@ class TwitterBootstrap4Test extends FormerTests
 			'<div class="form-group has-error">'.
 			'<label for="required" class="control-label">Required</label>'.
 			'<input class="form-control" id="required" type="text" name="required">'.
-			'<span class="help-block">The required field is required.</span>'.
+			'<span class="form-text text-muted">The required field is required.</span>'.
 			'</div>';
 
 		$this->assertEquals($matcher, $required);
@@ -192,7 +193,7 @@ class TwitterBootstrap4Test extends FormerTests
 	{
 		$this->former->open_inline();
 		$buttons = $this->former->actions()->submit('Foo')->__toString();
-		$match   = '<div class="form-group">'.
+		$match   = '<div class="form-group row">'.
 			'<input class="btn" type="submit" value="Foo">'.
 			'</div>';
 
