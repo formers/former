@@ -67,6 +67,29 @@
 	// The framework to be used by Former
 	'framework'               => 'TwitterBootstrap3',
 
+	'TwitterBootstrap4'       => array(
+
+		// Map Former-supported viewports to Bootstrap 4 equivalents
+		'viewports'   => array(
+			'large'  => 'lg',
+			'medium' => 'md',
+			'small'  => 'sm',
+			'mini'   => 'xs',
+		),
+		// Width of labels for horizontal forms expressed as viewport => grid columns
+		'labelWidths' => array(
+			'large' => 2,
+			'small' => 4,
+		),
+		// HTML markup and classes used by Bootstrap 5 for icons
+		'icon'        => array(
+			'tag'    => 'i',
+			'set'    => 'fa',
+			'prefix' => 'fa',
+		),
+
+	),
+
 	'TwitterBootstrap3'       => array(
 
 		// Map Former-supported viewports to Bootstrap 3 equivalents
