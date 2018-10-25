@@ -294,7 +294,10 @@ class Group extends Tag
 	public function blockHelp($help, $attributes = array())
 	{
 		// Reserved method
-		if ($this->app['former.framework']->isnt('TwitterBootstrap') && $this->app['former.framework']->isnt('TwitterBootstrap3')) {
+		if ($this->app['former.framework']->isnt('TwitterBootstrap') &&
+		    $this->app['former.framework']->isnt('TwitterBootstrap3') &&
+		    $this->app['former.framework']->isnt('TwitterBootstrap4')
+		) {
 			throw new BadMethodCallException('This method is only available on the Bootstrap framework');
 		}
 
