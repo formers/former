@@ -65,7 +65,6 @@ class TwitterBootstrap4 extends Framework implements FrameworkInterface
 	 * @var array
 	 */
 	protected $states = array(
-		'is-valid',
 		'is-invalid',
 	);
 
@@ -339,6 +338,19 @@ class TwitterBootstrap4 extends Framework implements FrameworkInterface
 	{
 		return Element::create('span', $text, $attributes)->addClass('form-text text-muted');
 	}
+
+    /**
+     * Render an validation error text
+     *
+     * @param string $text
+     * @param array  $attributes
+     *
+     * @return string
+     */
+    public function createValidationError($text, $attributes = array())
+    {
+        return Element::create('div', $text, $attributes)->addClass('invalid-feedback');
+    }
 
 	/**
 	 * Render an help text

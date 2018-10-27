@@ -138,10 +138,10 @@ class TwitterBootstrap4Test extends FormerTests
 
 		$required = $this->former->text('required')->__toString();
 		$matcher  =
-			'<div class="form-group has-error">'.
+			'<div class="form-group is-invalid">'.
 			'<label for="required" class="control-label">Required</label>'.
-			'<input class="form-control" id="required" type="text" name="required">'.
-			'<span class="form-text text-muted">The required field is required.</span>'.
+			'<input class="form-control is-invalid" id="required" type="text" name="required">'.
+			'<div class="invalid-feedback">The required field is required.</div>'.
 			'</div>';
 
 		$this->assertEquals($matcher, $required);

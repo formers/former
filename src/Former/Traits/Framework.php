@@ -1,12 +1,13 @@
 <?php
 namespace Former\Traits;
 
+use Former\Interfaces\FrameworkInterface;
 use HtmlObject\Element;
 
 /**
  * Base helpers and common methods to all frameworks
  */
-abstract class Framework
+abstract class Framework implements FrameworkInterface
 {
 	/**
 	 * The Container
@@ -309,4 +310,21 @@ abstract class Framework
 	{
 		return $label;
 	}
+
+    ////////////////////////////////////////////////////////////////////
+    //////////////////////////// RENDER BLOCKS /////////////////////////
+    ////////////////////////////////////////////////////////////////////
+
+    /**
+     * Render an validation error text
+     *
+     * @param string $text
+     * @param array  $attributes
+     *
+     * @return string
+     */
+    public function createValidationError($text, $attributes = array())
+    {
+        return $this->createHelp($text, $attributes);
+    }
 }
