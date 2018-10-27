@@ -65,9 +65,8 @@ class TwitterBootstrap4 extends Framework implements FrameworkInterface
 	 * @var array
 	 */
 	protected $states = array(
-		'has-warning',
-		'has-error',
-		'has-success',
+		'is-valid',
+		'is-invalid',
 	);
 
 	/**
@@ -158,7 +157,7 @@ class TwitterBootstrap4 extends Framework implements FrameworkInterface
 	 */
 	public function errorState()
 	{
-		return 'has-error';
+		return 'is-invalid';
 	}
 
 	/**
@@ -239,6 +238,10 @@ class TwitterBootstrap4 extends Framework implements FrameworkInterface
 				)) and !in_array('form-control', $classes)
 		) {
 			$classes[] = 'form-control';
+		}
+
+		if ($this->app['former']->getErrors($field->getName())) {
+			$classes[] = $this->errorState();
 		}
 
 		return $this->addClassesToField($field, $classes);
