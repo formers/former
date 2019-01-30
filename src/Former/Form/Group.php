@@ -436,7 +436,7 @@ class Group extends Tag
 		// Replace help text with error if any found
 		$errors = $this->app['former']->getErrors();
 		if ($errors and $this->app['former']->getOption('error_messages')) {
-			$inline = $this->app['former.framework']->createHelp($errors);
+			$inline = $this->app['former.framework']->createValidationError($errors);
 		}
 
 		return join(null, array($inline, $block));

@@ -65,9 +65,7 @@ class TwitterBootstrap4 extends Framework implements FrameworkInterface
 	 * @var array
 	 */
 	protected $states = array(
-		'has-warning',
-		'has-error',
-		'has-success',
+		'is-invalid',
 	);
 
 	/**
@@ -158,7 +156,7 @@ class TwitterBootstrap4 extends Framework implements FrameworkInterface
 	 */
 	public function errorState()
 	{
-		return 'has-error';
+		return 'is-invalid';
 	}
 
 	/**
@@ -239,6 +237,10 @@ class TwitterBootstrap4 extends Framework implements FrameworkInterface
 				)) and !in_array('form-control', $classes)
 		) {
 			$classes[] = 'form-control';
+		}
+
+		if ($this->app['former']->getErrors($field->getName())) {
+			$classes[] = $this->errorState();
 		}
 
 		return $this->addClassesToField($field, $classes);
@@ -334,7 +336,20 @@ class TwitterBootstrap4 extends Framework implements FrameworkInterface
 	 */
 	public function createHelp($text, $attributes = array())
 	{
-		return Element::create('span', $text, $attributes)->addClass('form-text text-muted');
+		return Element::create('small', $text, $attributes)->addClass('text-muted');
+	}
+
+	/**
+	 * Render an validation error text
+	 *
+	 * @param string $text
+	 * @param array  $attributes
+	 *
+	 * @return string
+	 */
+	public function createValidationError($text, $attributes = array())
+	{
+		return Element::create('div', $text, $attributes)->addClass('invalid-feedback');
 	}
 
 	/**
@@ -347,7 +362,7 @@ class TwitterBootstrap4 extends Framework implements FrameworkInterface
 	 */
 	public function createBlockHelp($text, $attributes = array())
 	{
-		return Element::create('p', $text, $attributes)->addClass('form-text text-muted');
+		return Element::create('small', $text, $attributes)->addClass('form-text text-muted');
 	}
 
 	/**
