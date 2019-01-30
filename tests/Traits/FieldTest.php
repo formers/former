@@ -132,7 +132,7 @@ class FieldTest extends FormerTests
 
 	public function testCanGetAttribute()
 	{
-		$former = $this->former->span1_text('name')->foo('bar');
+		$former = $this->former->text('name')->addClass('span1')->foo('bar');
 
 		$this->assertEquals('span1', $former->class);
 		$this->assertEquals('bar', $former->foo);

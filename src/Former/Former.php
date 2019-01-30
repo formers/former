@@ -146,17 +146,14 @@ class Former
 		}
 
 		// Checking for any supplementary classes
-		$classes = explode('_', $method);
-		$method  = array_pop($classes);
-
+		$modifiers = explode('_', $method);
+		$method  = array_pop($modifiers);
+		
 		// Dispatch to the different Form\Fields
-		$framework = isset($this->app['former.form.framework']) ? $this->app['former.form.framework'] : $this->app['former.framework'];
 		$field     = $this->dispatch->toFields($method, $parameters);
-
-		if ($field instanceof Field) {
-			$field = $framework->getFieldClasses($field, $classes);
-		}
-
+		$field->setModifiers($modifiers);
+		$field->addClass('');
+		
 		// Else bind field
 		$this->app->instance('former.field', $field);
 
