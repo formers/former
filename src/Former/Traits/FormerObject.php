@@ -31,6 +31,13 @@ abstract class FormerObject extends Element
 	 */
 	protected $injectedProperties = array('name');
 
+	/**
+	 * The field's modifiers from method call
+	 *
+	 * @var string
+	 */
+	protected $modifiers;
+
 	////////////////////////////////////////////////////////////////////
 	/////////////////////////// ID AND LABELS //////////////////////////
 	////////////////////////////////////////////////////////////////////
@@ -84,6 +91,19 @@ abstract class FormerObject extends Element
 	}
 
 	/**
+	 * Runs the frameworks getFieldClasses method on this
+	 *
+	 * @return $this
+	 */
+	protected function setFieldClasses()
+	{
+		$framework = isset($this->app['former.form.framework']) ? $this->app['former.form.framework'] : $this->app['former.framework'];
+		$framework->getFieldClasses($this, $this->modifiers);
+
+		return $this;
+	}
+
+	/**
 	 * Render the FormerObject and set its id
 	 *
 	 * @return string
@@ -92,6 +112,10 @@ abstract class FormerObject extends Element
 	{
 		// Set the proper ID according to the label
 		$this->setId();
+
+		if($this instanceof Field) {
+			$this->setFieldClasses();
+		}
 
 		// Encode HTML value
 		$isButton = ($this instanceof Field) ? $this->isButton() : false;
@@ -152,5 +176,26 @@ abstract class FormerObject extends Element
 		$types = func_get_args();
 
 		return in_array($this->type, $types);
+	}
+	
+	/**
+	 * Set the modifiers from initial method call
+	 *
+	 * @return $this
+	 */
+	public function getModifiers()
+	{
+		return $this->modifiers;
+	}
+
+	/**
+	 * Set the modifiers from initial method call
+	 *
+	 * @return $this
+	 */
+	public function setModifiers($modifiers)
+	{
+		$this->modifiers = $modifiers;
+		return $this;
 	}
 }
