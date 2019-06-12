@@ -359,7 +359,7 @@ abstract class Checkable extends Field
 		}
 
 		// Create field
-		$field = Input::create($this->checkable, $name, $value, $attributes);
+		$field = Input::create($this->checkable, $name, Helpers::encode($value), $attributes);
 		if ($this->isChecked($item, $value)) {
 			$field->checked('checked');
 		}
