@@ -81,6 +81,13 @@ class Form extends FormerObject
 	 */
 	protected static $opened = false;
 
+	/**
+	 * If the urls shoudl be absolute or not
+	 *
+	 * @var boolean
+	 */
+	protected $absolute;
+
 	////////////////////////////////////////////////////////////////////
 	/////////////////////////// CORE METHODS ///////////////////////////
 	////////////////////////////////////////////////////////////////////
@@ -95,6 +102,7 @@ class Form extends FormerObject
 		$this->app       = $app;
 		$this->url       = $url;
 		$this->populator = $populator;
+		$this->absolute  = $app['former']->getOption('absolute') !== null ? $app['former']->getOption('absolute') : true;
 
 		$this->app->singleton('former.form.framework', function ($app) {
 			return clone $app['former.framework'];
@@ -189,7 +197,11 @@ class Form extends FormerObject
 	 */
 	public function action($action)
 	{
-		$this->action = $action ? $this->url->to($action, array(), $this->secure) : null;
+		if( !$this->absolute ){
+			$this->action = $action;
+		} else {
+			$this->action = $action ? $this->url->to($action, array(), $this->secure) : null;
+		}
 
 		return $this;
 	}
@@ -225,27 +237,33 @@ class Form extends FormerObject
 	/**
 	 * Change the form's action and method to a route
 	 *
-	 * @param  string $name   The name of the route to use
-	 * @param  array  $params Any route parameters
+	 * @param  string       $name     The name of the route to use
+	 * @param  array        $params   Any route parameters
+	 * @param  null|boolean $absolute Absolute URL or not
 	 *
 	 * @return Form
 	 */
-	public function route($name, $params = array())
+	public function route($name, $params = array(), $absolute = null)
 	{
-		return $this->setRouteOrAction($name, $params, 'route');
+		$absolute = !is_null($absolute) ? $absolute : $this->absolute;
+
+		return $this->setRouteOrAction($name, $params, 'route', $absolute);
 	}
 
 	/**
 	 * Change the form's action to a controller method
 	 *
-	 * @param  string $name   The controller and method
-	 * @param  array  $params Any method parameters
+	 * @param  string       $name     The controller and method
+	 * @param  array        $params   Any method parameters
+	 * @param  null|boolean $absolute Absolute URL or not
 	 *
 	 * @return Form
 	 */
-	public function controller($name, $params = array())
+	public function controller($name, $params = array(), $absolute = null)
 	{
-		return $this->setRouteOrAction($name, $params, 'action');
+		$absolute = !is_null($absolute) ? $absolute : $this->absolute;
+
+		return $this->setRouteOrAction($name, $params, 'action', $absolute);
 	}
 
 	/**
@@ -354,13 +372,14 @@ class Form extends FormerObject
 	 * @param $name
 	 * @param $params
 	 * @param $type
+	 * @param $absolute
 	 *
 	 * @return $this
 	 */
-	protected function setRouteOrAction($name, $params, $type)
+	protected function setRouteOrAction($name, $params, $type, $absolute)
 	{
 		// Set the form action
-		$this->action = $this->url->$type($name, $params);
+		$this->action = $this->url->$type($name, $params, $absolute);
 
 		// Set the proper method
 		if ($method = $this->findRouteMethod($name)) {
