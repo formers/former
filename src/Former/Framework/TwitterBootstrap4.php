@@ -253,7 +253,7 @@ class TwitterBootstrap4 extends Framework implements FrameworkInterface
 	 */
 	public function getGroupClasses()
 	{
-		if ($this->app['former.form']->isOfType('horizontal')) {
+		if (isset($this->app['former.form']) and $this->app['former.form']->isOfType('horizontal')) {
 			return 'form-group row';
 		} else {
 			return 'form-group';
