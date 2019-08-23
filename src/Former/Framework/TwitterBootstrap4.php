@@ -215,6 +215,8 @@ class TwitterBootstrap4 extends Framework implements FrameworkInterface
 	{
 		// Add inline class for checkables
 		if ($field->isCheckable()) {
+			// Adds correct checkbox input class when is a checkbox (or radio)
+			$field->addClass('form-check-input');
 			$classes[] = 'form-check';
 
 			if (in_array('inline', $classes)) {
