@@ -5,6 +5,7 @@ use Former\Helpers;
 use Former\Traits\Field;
 use HtmlObject\Element;
 use Illuminate\Container\Container;
+use Illuminate\Support\Str;
 
 /**
  * Everything list-related (select, multiselect, ...)
@@ -67,7 +68,7 @@ class Select extends Field
 		parent::__construct($app, $type, $name, $label, $selected, $attributes);
 
 		// Nested models population
-		if (str_contains($this->name, '.') and is_array($this->value) and !empty($this->value) and is_string($this->value[key($this->value)])) {
+		if (Str::contains($this->name, '.') and is_array($this->value) and !empty($this->value) and is_string($this->value[key($this->value)])) {
 			$this->fromQuery($this->value);
 			$this->value = $selected ?: null;
 		}

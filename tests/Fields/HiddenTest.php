@@ -2,6 +2,7 @@
 namespace Former\Fields;
 
 use Former\TestCases\FormerTests;
+use Illuminate\Support\Arr;
 
 class HiddenTest extends FormerTests
 {
@@ -10,7 +11,7 @@ class HiddenTest extends FormerTests
 	{
 		$input   = $this->former->hidden('foo')->value('bar')->__toString();
 		$matcher = $this->matchField(array(), 'hidden');
-		$field   = array_except($matcher, 'id');
+		$field   = Arr::except($matcher, 'id');
 
 		$this->assertHTML($field, $input);
 	}
@@ -21,12 +22,12 @@ class HiddenTest extends FormerTests
 
 		$input                        = $this->former->hidden('foo')->value('bis')->__toString();
 		$matcher                      = $this->matchField(array(), 'hidden');
-		$field                        = array_except($matcher, 'id');
+		$field                        = Arr::except($matcher, 'id');
 		$field['attributes']['value'] = 'bar';
 
 		$this->assertHTML($field, $input);
 	}
-	
+
 	public function testEncodedValue()
 	{
 		$input = $this->former->hidden('foo')->value('<a>bar</a>')->__toString();

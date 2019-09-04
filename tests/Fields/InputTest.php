@@ -4,6 +4,7 @@ namespace Former\Fields;
 use Former\Dummy\DummyEloquent;
 use Former\TestCases\FormerTests;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Arr;
 
 class HtmlValue implements Htmlable {
 
@@ -34,7 +35,7 @@ class InputTest extends FormerTests
 		$this->mockConfig(array('automatic_label' => false));
 
 		$input      = $this->former->text('foo')->__toString();
-		$matchField = array_except($this->matchField(), 'id');
+		$matchField = Arr::except($this->matchField(), 'id');
 
 		$this->assertHTML($this->matchControlGroup(), $input);
 		$this->assertHTML($matchField, $input);
@@ -43,7 +44,7 @@ class InputTest extends FormerTests
 	public function testCanCreateSingleTextWithoutLabelOnStart()
 	{
 		$input      = $this->former->text('foo', '')->__toString();
-		$matchField = array_except($this->matchField(), 'id');
+		$matchField = Arr::except($this->matchField(), 'id');
 
 		$this->assertHTML($this->matchControlGroup(), $input);
 		$this->assertHTML($matchField, $input);
@@ -52,7 +53,7 @@ class InputTest extends FormerTests
 	public function testCanCreateSingleTextWithoutLabel()
 	{
 		$input      = $this->former->text('foo')->label(null)->__toString();
-		$matchField = array_except($this->matchField(), 'id');
+		$matchField = Arr::except($this->matchField(), 'id');
 
 		$this->assertHTML($this->matchControlGroup(), $input);
 		$this->assertHTML($matchField, $input);
@@ -62,7 +63,7 @@ class InputTest extends FormerTests
 	{
 		$input      = $this->former->search('foo')->__toString();
 		$matchField = $this->matchField();
-		array_set($matchField, 'attributes.class', 'search-query');
+		Arr::set($matchField, 'attributes.class', 'search-query');
 
 		$this->assertControlGroup($input);
 		$this->assertHTML($matchField, $input);
@@ -74,7 +75,7 @@ class InputTest extends FormerTests
 
 		$input = $this->former->text('foo')->data('foo')->class('bar')->__toString();
 		$label = $this->matchLabel('Foo');
-		array_forget($label, 'attributes.class');
+		Arr::forget($label, 'attributes.class');
 
 		$this->assertHTML($label, $input);
 		$this->assertHTML($this->matchField(), $input);
