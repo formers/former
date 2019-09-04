@@ -6,6 +6,7 @@ use Former\Traits\Field;
 use HtmlObject\Element;
 use HtmlObject\Input;
 use Illuminate\Container\Container;
+use Illuminate\Support\Str;
 
 /**
  * Everything list-related (select, multiselect, ...)
@@ -80,13 +81,13 @@ class Choice extends Field
 		if ($choices) {
 			$this->choices($choices);
 		}
-		
+
 		parent::__construct($app, $type, $name, $label, $selected, $attributes);
-		
+
 		$this->setChoiceType();
 
 		// Nested models population
-		if (str_contains($this->name, '.') and is_array($this->value) and !empty($this->value) and is_string($this->value[key($this->value)])) {
+		if (Str::contains($this->name, '.') and is_array($this->value) and !empty($this->value) and is_string($this->value[key($this->value)])) {
 			$this->fromQuery($this->value);
 			$this->value = $selected ?: null;
 		}
@@ -129,7 +130,7 @@ class Choice extends Field
 			$field->multiple();
 			$name .= '[]';
 		}
-		
+
 		$field->setAttribute('name', $name);
 
 		$field->nest($this->getOptions());
@@ -140,7 +141,7 @@ class Choice extends Field
 	public function getOptions()
 	{
 		$children = [];
-		
+
 		// Add placeholder text if any
 		if ($placeholder = $this->getPlaceholder()) {
 			$children[] = $placeholder;
@@ -226,7 +227,7 @@ class Choice extends Field
 			if ($this->options['isMultiple']) {
 				$name .= '[]';
 			}
-		
+
 			if(!isset($attributes['id'])) {
 				$attributes['id'] = $this->id.'_'.count($children);
 			}
@@ -239,7 +240,7 @@ class Choice extends Field
 			$class = $this->app['former']->framework() == 'TwitterBootstrap3' ? trim($isInline) : $choiceType.$isInline;
 
 			$element = Input::create($choiceType, $name, $inputValue, $attributes);
-			
+
 			// $element->setAttribute('name', $name);
 
 			if ($this->hasValue($inputValue)) {
@@ -253,7 +254,7 @@ class Choice extends Field
 				$labelElement = Element::create('label', $rendered.$label);
 				$element = $labelElement->for($attributes['id'])->class($class);
 			}
-			
+
 			// If BS3, if checkables are stacked, wrap them in a div with the checkable type
 			if (!$isInline && $this->app['former']->framework() == 'TwitterBootstrap3') {
 				$wrapper = Element::create('div', $element->render())->class($choiceType);
@@ -266,7 +267,7 @@ class Choice extends Field
 			$children[] = $element;
 		}
 		$field->nest($children);
-		
+
 		return $field;
 	}
 
@@ -412,7 +413,7 @@ class Choice extends Field
 
 		return $this;
 	}
-	
+
 	/**
 	 * Set isMultiple
 	 *
@@ -426,7 +427,7 @@ class Choice extends Field
 
 		return $this;
 	}
-	
+
 	/**
 	 * Set isExpanded
 	 *
@@ -484,5 +485,5 @@ class Choice extends Field
 	{
 		return $this->choices;
 	}
-	
+
 }

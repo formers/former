@@ -3,6 +3,7 @@ namespace Former\TestCases;
 
 use Former\FormerServiceProvider;
 use Illuminate\Container\Container;
+use Illuminate\Contracts\Foundation\Application;
 use Mockery;
 use PHPUnit_Framework_TestCase;
 
@@ -31,7 +32,12 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 	public function setUp()
 	{
 		if (!static::$appCache) {
-			$this->app = FormerServiceProvider::make();
+			// Added to prevent issues with the missing method used in Laravel 6+
+			MacroableContainer::macro('configurationIsCached', function () {
+				return false;
+			});
+
+			$this->app = FormerServiceProvider::make(new MacroableContainer);
 
 			// Setup Illuminate
 			$this->mockSession();

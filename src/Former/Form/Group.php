@@ -6,6 +6,7 @@ use Former\Helpers;
 use HtmlObject\Element;
 use HtmlObject\Traits\Tag;
 use Illuminate\Container\Container;
+use Illuminate\Support\Arr;
 
 /**
  * Helper class to build groups
@@ -430,8 +431,8 @@ class Group extends Tag
 	 */
 	protected function getHelp()
 	{
-		$inline = array_get($this->help, 'inline');
-		$block  = array_get($this->help, 'block');
+		$inline = Arr::get($this->help, 'inline');
+		$block  = Arr::get($this->help, 'block');
 
 		// Replace help text with error if any found
 		$errors = $this->app['former']->getErrors();

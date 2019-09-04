@@ -3,6 +3,7 @@ namespace Former\Form;
 
 use Former\Traits\FormerObject;
 use Illuminate\Container\Container;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
@@ -70,9 +71,9 @@ class Actions extends FormerObject
 	{
 		// Dynamically add buttons to an actions block
 		if ($this->isButtonMethod($method)) {
-			$text       = array_get($parameters, 0);
-			$link       = array_get($parameters, 1);
-			$attributes = array_get($parameters, 2);
+			$text       = Arr::get($parameters, 0);
+			$link       = Arr::get($parameters, 1);
+			$attributes = Arr::get($parameters, 2);
 			if (!$attributes and is_array($link)) {
 				$attributes = $link;
 			}

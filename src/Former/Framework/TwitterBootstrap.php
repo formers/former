@@ -6,6 +6,7 @@ use Former\Traits\Field;
 use Former\Traits\Framework;
 use HtmlObject\Element;
 use Illuminate\Container\Container;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
@@ -287,7 +288,7 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
 		}
 
 		// Create tag
-		$tag  = array_get($iconSettings, 'tag', $this->iconTag);
+		$tag  = Arr::get($iconSettings, 'tag', $this->iconTag);
 		$icon = Element::create($tag, null, $attributes);
 
 		// White icons ignore user overrides to use legacy Bootstrap styling
@@ -298,8 +299,8 @@ class TwitterBootstrap extends Framework implements FrameworkInterface
 			$set    = null;
 			$prefix = 'icon';
 		} else {
-			$set    = array_get($iconSettings, 'set', $this->iconSet);
-			$prefix = array_get($iconSettings, 'prefix', $this->iconPrefix);
+			$set    = Arr::get($iconSettings, 'set', $this->iconSet);
+			$prefix = Arr::get($iconSettings, 'prefix', $this->iconPrefix);
 		}
 		$icon->addClass("$set $prefix-$iconType");
 
