@@ -626,4 +626,15 @@ class LiveValidationTest extends FormerTests
         $this->assertHTML($hiddenMaxSizeMatcher1, $input1);
         $this->assertNotHTML($hiddenMaxSizeMatcher2, $input2);
     }
+
+	public function testCanIgnoreValidationRuleClasses()
+	{
+		$this->former->withRules(array('foo' => array('required', new \stdClass())));
+
+		$input   = $this->former->text('foo')->__toString();
+		$matcher = $this->matchField();
+
+		$this->assertHTML($matcher, $input);
+		$this->assertControlGroup($input);
+	}
 }

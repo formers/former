@@ -307,6 +307,9 @@ class Former
 			}
 
 			foreach ($expFieldRules as $rule) {
+				if (is_object($rule)) {
+					continue;
+				}
 
 				$parameters = null;
 
