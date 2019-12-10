@@ -302,6 +302,10 @@ class Former
 		foreach ($rules as $name => $fieldRules) {
 			$expFieldRules = $fieldRules;
 			if (!is_array($expFieldRules)) {
+				if (is_object($expFieldRules)) {
+					continue;
+				}
+
 				$expFieldRules = explode('|', $expFieldRules);
 				$expFieldRules = array_map('trim', $expFieldRules);
 			}

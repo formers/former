@@ -637,4 +637,15 @@ class LiveValidationTest extends FormerTests
 		$this->assertHTML($matcher, $input);
 		$this->assertControlGroup($input);
 	}
+
+	public function testCanIgnoreValidationRuleClassesWithoutArray()
+	{
+		$this->former->withRules(array('foo' => new \stdClass()));
+
+		$input   = $this->former->text('foo')->__toString();
+		$matcher = $this->matchField();
+
+		$this->assertHTML($matcher, $input);
+		$this->assertControlGroup($input);
+	}
 }
