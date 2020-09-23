@@ -6,7 +6,7 @@ use Former\TestCases\FormerTests;
 class TwitterBootstrap4Test extends FormerTests
 {
 
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -207,6 +207,6 @@ class TwitterBootstrap4Test extends FormerTests
 		$button  = $this->former->text('foo')->append($this->former->button('Search'))->wrapAndRender();
 		$matcher = '<span class="input-group-btn"><button class="btn" type="button">Search</button></span>';
 
-		$this->assertContains($matcher, $button);
+		$this->assertStringContainsString($matcher, $button);
 	}
 }

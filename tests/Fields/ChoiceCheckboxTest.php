@@ -431,5 +431,7 @@ class ChoiceCheckboxTest extends FormerTests
 		$this->former->group();
 		$output = $this->choiceCheckbox()->choices(array('foo')).'';
 		$this->former->closeGroup();
+
+		$this->assertIsString($output);
 	}
 }

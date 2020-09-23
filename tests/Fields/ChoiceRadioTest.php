@@ -431,5 +431,7 @@ class ChoiceRadioTest extends FormerTests
 		$this->former->group();
 		$output = $this->choiceRadio()->choices(array('foo')).'';
 		$this->former->closeGroup();
+
+        $this->assertIsString($output);
 	}
 }

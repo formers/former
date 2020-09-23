@@ -3,7 +3,6 @@ namespace Former;
 
 use Former\TestCases\FormerTests;
 use Mockery;
-use PHPUnit_Framework_Assert;
 use ReflectionMethod;
 
 class MethodDispatcherTest extends FormerTests
@@ -11,11 +10,16 @@ class MethodDispatcherTest extends FormerTests
 	public function testCanAddRepositories()
 	{
 		$dispatcher = new MethodDispatcher($this->app, array());
-		$this->assertCount(0, PHPUnit_Framework_Assert::readAttribute($dispatcher, 'repositories'));
+
+		$reflector = new \ReflectionClass($dispatcher);
+		$attribute = $reflector->getProperty('repositories');
+		$attribute->setAccessible(true);
+
+		$this->assertCount(0, $attribute->getValue($dispatcher));
 
 		$dispatcher->addRepository('A\Namespace\\');
-		$this->assertCount(1, PHPUnit_Framework_Assert::readAttribute($dispatcher, 'repositories'));
-		$this->assertContains('A\Namespace\\', PHPUnit_Framework_Assert::readAttribute($dispatcher, 'repositories'));
+		$this->assertCount(1, $attribute->getValue($dispatcher));
+		$this->assertContains('A\Namespace\\', $attribute->getValue($dispatcher));
 	}
 
 	/**

@@ -616,7 +616,7 @@ class LiveValidationTest extends FormerTests
         $matcher2 = $this->matchField([], 'file', 'bar');
 
         $hiddenMaxSizeMatcher1 = $this->matchField(['value' => 102400], 'hidden', 'MAX_FILE_SIZE');
-        $hiddenMaxSizeMatcher2 = $this->matchField([[]], 'hidden', 'MAX_FILE_SIZE');
+        $hiddenMaxSizeMatcher2 = $this->matchField([], 'hidden', 'MAX_FILE_SIZE');
 
         $this->assertControlGroup($input1);
         $this->assertHTML($matcher1, $input1);
