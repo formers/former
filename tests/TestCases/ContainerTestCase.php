@@ -3,14 +3,13 @@ namespace Former\TestCases;
 
 use Former\FormerServiceProvider;
 use Illuminate\Container\Container;
-use Illuminate\Contracts\Foundation\Application;
 use Mockery;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * A TestCase that creates a mocked Container to use as core
  */
-abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
+abstract class ContainerTestCase extends TestCase
 {
 	/**
 	 * A cache of the container
@@ -29,7 +28,7 @@ abstract class ContainerTestCase extends PHPUnit_Framework_TestCase
 	/**
 	 * Build the IoC Container for the tests
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		if (!static::$appCache) {
 			// Added to prevent issues with the missing method used in Laravel 6+

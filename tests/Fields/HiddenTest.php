@@ -31,6 +31,6 @@ class HiddenTest extends FormerTests
 	public function testEncodedValue()
 	{
 		$input = $this->former->hidden('foo')->value('<a>bar</a>')->__toString();
-		$this->assertContains('value="&lt;a&gt;bar&lt;/a&gt;"', $input);
+		$this->assertStringContainsString('value="&lt;a&gt;bar&lt;/a&gt;"', $input);
 	}
 }

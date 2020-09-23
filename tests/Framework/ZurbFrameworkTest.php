@@ -6,7 +6,7 @@ use Former\TestCases\FormerTests;
 class ZurbFrameworkTest extends FormerTests
 {
 
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -62,7 +62,7 @@ class ZurbFrameworkTest extends FormerTests
 
 	public function testCantUseBootstrapReservedMethods()
 	{
-		$this->setExpectedException('BadMethodCallException');
+		$this->expectException('BadMethodCallException');
 
 		$this->former->text('foo')->blockHelp('bar')->__toString();
 	}

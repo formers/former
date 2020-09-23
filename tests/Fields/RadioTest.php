@@ -313,7 +313,7 @@ class RadioTest extends FormerTests
 
 		$radio = $this->former->radio('foo', 'bar')->__toString();
 
-		$this->assertInternalType('string', $radio);
+		$this->assertIsString($radio);
 	}
 
 	public function testDisabled()
@@ -336,6 +336,8 @@ class RadioTest extends FormerTests
 		$this->former->group();
 		$output = $this->former->radio('foo')->text('bar').'';
 		$this->former->closeGroup();
+
+        $this->assertIsString($output);
 	}
 
 	public function testCanBeManualyDefinied()

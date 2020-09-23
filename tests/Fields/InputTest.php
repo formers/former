@@ -309,7 +309,7 @@ class InputTest extends FormerTests
 	{
 		$range = $this->former->number('foo')->range(1, 5)->__toString();
 
-		$this->assertContains('min="1" max="5"', $range);
+		$this->assertStringContainsString('min="1" max="5"', $range);
 	}
 
 	public function testLabelCastsToString()

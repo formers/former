@@ -8,7 +8,7 @@ use Mockery;
 use DOMNode;
 use DOMDocument;
 use DOMNodeList;
-use PHPUnit_Util_XML;
+use PHPUnit\Util\Xml;
 
 /**
  * Base testing class
@@ -18,7 +18,7 @@ abstract class FormerTests extends ContainerTestCase
 	/**
 	 * Setup the app for testing
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		parent::setUp();
 
@@ -33,7 +33,7 @@ abstract class FormerTests extends ContainerTestCase
 	 *
 	 * @return void
 	 */
-	public function tearDown()
+	public function tearDown(): void
 	{
 		$this->former->closeGroup();
 		$this->former->close();
@@ -364,7 +364,7 @@ abstract class FormerTests extends ContainerTestCase
      */
     public static function assertTag($matcher, $actual, $message = '', $ishtml = true)
     {
-        $dom     = PHPUnit_Util_XML::load($actual, $ishtml);
+        $dom     = Xml::load($actual, $ishtml);
         $tags    = self::findNodes($dom, $matcher, $ishtml);
         $matched = count($tags) > 0 && $tags[0] instanceof DOMNode;
 
@@ -379,7 +379,7 @@ abstract class FormerTests extends ContainerTestCase
      */
     public static function assertNotTag($matcher, $actual, $message = '', $ishtml = true)
     {
-        $dom     = PHPUnit_Util_XML::load($actual, $ishtml);
+        $dom     = Xml::load($actual, $ishtml);
         $tags    = self::findNodes($dom, $matcher, $ishtml);
         $matched = $tags !== false && count($tags) > 0 && $tags[0] instanceof DOMNode;
 
