@@ -132,7 +132,7 @@ abstract class Field extends FormerObject implements FieldInterface
 		}
 
 		// Redirect calls to the Control Group
-		if (method_exists($this->group, $method) or Str::startsWith($method, 'onGroup')) {
+		if (method_exists($this->group ?: '', $method) or Str::startsWith($method, 'onGroup')) {
 			$method = str_replace('onGroup', '', $method);
 			$method = lcfirst($method);
 
