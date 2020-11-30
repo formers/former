@@ -1,5 +1,6 @@
 # Development
 .idea
+.phpunit.result.cache
 
 # Dependencies
 composer.lock

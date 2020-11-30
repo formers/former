@@ -333,7 +333,7 @@ class SelectTest extends FormerTests
 		$html[] = $this->former->select('frmVehicleMake')->label('Make')->options($this->options)->wrapAndRender();
 
 		$results = implode(' ', $html);
-		$this->assertContains('control-group', $results);
+		$this->assertStringContainsString('control-group', $results);
 	}
 
 	public function testCanPopulateMultipleSelects()
@@ -410,8 +410,8 @@ class SelectTest extends FormerTests
 		$select = $this->former->select('foo')->range(1, 10);
 
 		$this->assertEquals(range(1, 10), array_keys($select->getOptions()));
-		$this->assertContains('<option value="1">1</option>', $select->render());
-		$this->assertContains('<option value="10">10</option>', $select->render());
+		$this->assertStringContainsString('<option value="1">1</option>', $select->render());
+		$this->assertStringContainsString('<option value="10">10</option>', $select->render());
 	}
 
 	public function testCanCreateSelectGroups()
@@ -481,8 +481,8 @@ class SelectTest extends FormerTests
 
 		$matcher = '<option value="0" selected="selected">foo</option><option value="1">bar</option>';
 
-		$this->assertContains($matcher, $select2);
-		$this->assertContains($matcher, $select);
+		$this->assertStringContainsString($matcher, $select2);
+		$this->assertStringContainsString($matcher, $select);
 	}
 
 	public function testCanRepopulateFromPostArrayNotation()
@@ -540,6 +540,6 @@ class SelectTest extends FormerTests
 		$select  = $this->former->select('category_id')->options($items, 1);
 		$matcher = '<optgroup label="foo"><option value="1" selected="selected">foo</option></optgroup><optgroup label="bar"><option value="3">bar</option><option value="4">baz</option></optgroup>';
 
-		$this->assertContains($matcher, $select->render());
+		$this->assertStringContainsString($matcher, $select->render());
 	}
 }

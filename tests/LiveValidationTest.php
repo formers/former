@@ -616,7 +616,7 @@ class LiveValidationTest extends FormerTests
         $matcher2 = $this->matchField([], 'file', 'bar');
 
         $hiddenMaxSizeMatcher1 = $this->matchField(['value' => 102400], 'hidden', 'MAX_FILE_SIZE');
-        $hiddenMaxSizeMatcher2 = $this->matchField([[]], 'hidden', 'MAX_FILE_SIZE');
+        $hiddenMaxSizeMatcher2 = $this->matchField([], 'hidden', 'MAX_FILE_SIZE');
 
         $this->assertControlGroup($input1);
         $this->assertHTML($matcher1, $input1);
@@ -626,4 +626,26 @@ class LiveValidationTest extends FormerTests
         $this->assertHTML($hiddenMaxSizeMatcher1, $input1);
         $this->assertNotHTML($hiddenMaxSizeMatcher2, $input2);
     }
+
+	public function testCanIgnoreValidationRuleClasses()
+	{
+		$this->former->withRules(array('foo' => array('required', new \stdClass())));
+
+		$input   = $this->former->text('foo')->__toString();
+		$matcher = $this->matchField();
+
+		$this->assertHTML($matcher, $input);
+		$this->assertControlGroup($input);
+	}
+
+	public function testCanIgnoreValidationRuleClassesWithoutArray()
+	{
+		$this->former->withRules(array('foo' => new \stdClass()));
+
+		$input   = $this->former->text('foo')->__toString();
+		$matcher = $this->matchField();
+
+		$this->assertHTML($matcher, $input);
+		$this->assertControlGroup($input);
+	}
 }

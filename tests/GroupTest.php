@@ -348,14 +348,14 @@ class GroupTest extends FormerTests
 		$this->former->group('foobar');
 		$test = $this->former->text('foobar')->__toString();
 
-		$this->assertNotContains('control-group', $test);
+		$this->assertStringNotContainsString('control-group', $test);
 	}
 
 	public function testCanSetAttributesOnGroup()
 	{
 		$text = $this->former->text('foobar')->onGroupAddClass('foobar')->__toString();
 
-		$this->assertContains('control-group foobar', $text);
+		$this->assertStringContainsString('control-group foobar', $text);
 	}
 
 	public function testCloseUnopenedGroup()

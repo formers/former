@@ -333,7 +333,7 @@ class ChoiceSelectTest extends FormerTests
 		$html[] = $this->former->choice('frmVehicleMake')->label('Make')->choices($this->choices)->wrapAndRender();
 
 		$results = implode(' ', $html);
-		$this->assertContains('control-group', $results);
+		$this->assertStringContainsString('control-group', $results);
 	}
 
 	public function testCanPopulateMultipleSelects()
@@ -410,8 +410,8 @@ class ChoiceSelectTest extends FormerTests
 		$select = $this->former->choice('foo')->range(1, 10);
 
 		$this->assertEquals(range(1, 10), array_keys($select->getChoices()));
-		$this->assertContains('<option value="1">1</option>', $select->render());
-		$this->assertContains('<option value="10">10</option>', $select->render());
+		$this->assertStringContainsString('<option value="1">1</option>', $select->render());
+		$this->assertStringContainsString('<option value="10">10</option>', $select->render());
 	}
 
 	public function testCanCreateSelectGroups()
@@ -528,6 +528,6 @@ class ChoiceSelectTest extends FormerTests
 		$select  = $this->former->choice('category_id')->choices($items)->value(1);
 		$matcher = '<optgroup label="foo"><option value="1" selected="selected">foo</option></optgroup><optgroup label="bar"><option value="3">bar</option><option value="4">baz</option></optgroup>';
 
-		$this->assertContains($matcher, $select->render());
+		$this->assertStringContainsString($matcher, $select->render());
 	}
 }

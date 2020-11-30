@@ -583,7 +583,7 @@ class CheckboxTest extends FormerTests
 		$html = $this->former->label('<b>Views per Page</b>')->render();
 		$html .= $this->former->checkbox('per_page')->class('input')->render();
 
-		$this->assertInternalType('string', $html);
+		$this->assertIsString($html);
 	}
 
 	public function testDisabled()
@@ -606,6 +606,8 @@ class CheckboxTest extends FormerTests
 		$this->former->group();
 		$output = $this->former->checkbox('foo')->text('bar').'';
 		$this->former->closeGroup();
+
+		$this->assertIsString($output);
 	}
 
 	public function testCanBeManualyDefinied()

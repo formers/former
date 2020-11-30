@@ -5,7 +5,9 @@ use Former\Helpers;
 use HtmlObject\Element;
 use HtmlObject\Input;
 use Illuminate\Container\Container;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 /**
  * Abstract methods inherited by Checkbox and Radio
@@ -85,7 +87,7 @@ abstract class Checkable extends Field
 	public function __construct(Container $app, $type, $name, $label, $value, $attributes)
 	{
 		// Unify auto and chained methods of grouping checkboxes
-		if (ends_with($name, '[]')) {
+		if (Str::endsWith($name, '[]')) {
 			$name = substr($name, 0, -2);
 			$this->grouped();
 		}
@@ -106,7 +108,7 @@ abstract class Checkable extends Field
 	 */
 	public function __call($method, $parameters)
 	{
-		$focused = $this->setOnFocused('attributes.'.$method, array_get($parameters, 0));
+		$focused = $this->setOnFocused('attributes.'.$method, Arr::get($parameters, 0));
 		if ($focused) {
 			return $this;
 		}
@@ -304,7 +306,7 @@ abstract class Checkable extends Field
 			// If we gave custom information on the item, add them
 			if (is_array($name)) {
 				$attributes = $name;
-				$name       = array_get($attributes, 'name', $fallback);
+				$name       = Arr::get($attributes, 'name', $fallback);
 				unset($attributes['name']);
 			}
 
@@ -362,7 +364,7 @@ abstract class Checkable extends Field
 		}
 
 		// Create field
-		$field = Input::create($this->checkable, $name, $value, $attributes);
+		$field = Input::create($this->checkable, $name, Helpers::encode($value), $attributes);
 		if ($this->isChecked($item, $value)) {
 			$field->checked('checked');
 		}
@@ -386,7 +388,7 @@ abstract class Checkable extends Field
 			$element = $field . Element::create('label', $label)->for($attributes['id'])->class($class)->render();
 
 			$wrapper_class = $this->inline ? 'form-check form-check-inline' : 'form-check';
-			
+
 			$element = Element::create('div', $element)->class($wrapper_class)->render();
 
 		} else {
@@ -450,7 +452,7 @@ abstract class Checkable extends Field
 			return false;
 		}
 
-		$this->items[$this->focus] = array_set($this->items[$this->focus], $attribute, $value);
+		$this->items[$this->focus] = Arr::set($this->items[$this->focus], $attribute, $value);
 
 		return $this;
 	}
@@ -474,12 +476,12 @@ abstract class Checkable extends Field
 		if ($this->isCheckbox() or
 			!$this->isCheckbox() and !$this->items
 		) {
-			$checked = array_get($this->checked, $name, false);
+			$checked = Arr::get($this->checked, $name, false);
 
 			// If there are multiple, search for the value
 			// as the name are the same between radios
 		} else {
-			$checked = array_get($this->checked, $value, false);
+			$checked = Arr::get($this->checked, $value, false);
 		}
 
 		// Check the values and POST array

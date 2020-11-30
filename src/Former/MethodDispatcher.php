@@ -3,6 +3,7 @@ namespace Former;
 
 use Closure;
 use Illuminate\Container\Container;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
@@ -145,8 +146,8 @@ class MethodDispatcher
 		// Create opener
 		$group = new Form\Group(
 			$this->app,
-			array_get($parameters, 0, null),
-			array_get($parameters, 1, null)
+			Arr::get($parameters, 0, null),
+			Arr::get($parameters, 1, null)
 		);
 
 		// Set custom group as true
@@ -190,12 +191,12 @@ class MethodDispatcher
 		$field = new $class(
 			$this->app,
 			$method,
-			array_get($parameters, 0),
-			array_get($parameters, 1),
-			array_get($parameters, 2),
-			array_get($parameters, 3),
-			array_get($parameters, 4),
-			array_get($parameters, 5)
+			Arr::get($parameters, 0),
+			Arr::get($parameters, 1),
+			Arr::get($parameters, 2),
+			Arr::get($parameters, 3),
+			Arr::get($parameters, 4),
+			Arr::get($parameters, 5)
 		);
 
 		return $field;

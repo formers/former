@@ -4,6 +4,7 @@ namespace Former\Form;
 use Former\Populator;
 use Former\Traits\FormerObject;
 use Illuminate\Container\Container;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
@@ -119,10 +120,10 @@ class Form extends FormerObject
 	 */
 	public function openForm($type, $parameters)
 	{
-		$action     = array_get($parameters, 0);
-		$method     = array_get($parameters, 1, 'POST');
-		$attributes = array_get($parameters, 2, array());
-		$secure     = array_get($parameters, 3, null);
+		$action     = Arr::get($parameters, 0);
+		$method     = Arr::get($parameters, 1, 'POST');
+		$attributes = Arr::get($parameters, 2, array());
+		$secure     = Arr::get($parameters, 3, null);
 
 		// Fetch errors if asked for
 		if ($this->app['former']->getOption('fetch_errors')) {
@@ -352,7 +353,7 @@ class Form extends FormerObject
 			// Get string by uses
 		} else {
 			foreach ($this->app['router']->getRoutes() as $route) {
-				$routeUses = method_exists($route, 'getOption') ? $route->getOption('_uses') : array_get($route->getAction(), 'controller');
+				$routeUses = method_exists($route, 'getOption') ? $route->getOption('_uses') : Arr::get($route->getAction(), 'controller');
 				if ($action = $routeUses) {
 					if ($action == $name) {
 						break;
@@ -363,7 +364,7 @@ class Form extends FormerObject
 
 		// Get method
 		$methods = method_exists($route, 'getMethods') ? $route->getMethods() : $route->methods();
-		$method  = array_get($methods, 0);
+		$method  = Arr::get($methods, 0);
 
 		return $method;
 	}

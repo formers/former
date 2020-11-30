@@ -5,6 +5,7 @@ use Closure;
 use Former\Exceptions\InvalidFrameworkException;
 use Former\Traits\Field;
 use Illuminate\Container\Container;
+use Illuminate\Support\Arr;
 use Illuminate\Support\MessageBag;
 use Illuminate\Contracts\Validation\Validator;
 
@@ -148,12 +149,12 @@ class Former
 		// Checking for any supplementary classes
 		$modifiers = explode('_', $method);
 		$method  = array_pop($modifiers);
-		
+
 		// Dispatch to the different Form\Fields
 		$field     = $this->dispatch->toFields($method, $parameters);
 		$field->setModifiers($modifiers);
 		$field->addClass('');
-		
+
 		// Else bind field
 		$this->app->instance('former.field', $field);
 
@@ -301,11 +302,18 @@ class Former
 		foreach ($rules as $name => $fieldRules) {
 			$expFieldRules = $fieldRules;
 			if (!is_array($expFieldRules)) {
+				if (is_object($expFieldRules)) {
+					continue;
+				}
+
 				$expFieldRules = explode('|', $expFieldRules);
 				$expFieldRules = array_map('trim', $expFieldRules);
 			}
 
 			foreach ($expFieldRules as $rule) {
+				if (is_object($rule)) {
+					continue;
+				}
 
 				$parameters = null;
 
@@ -481,13 +489,13 @@ class Former
 	public function getRules($name)
 	{
 		// Check the rules for the name as given
-		$ruleset = array_get($this->rules, $name);
+		$ruleset = Arr::get($this->rules, $name);
 
 		// If no rules found, convert to dot notation and try again
 		if (is_null($ruleset)) {
 			$name = str_replace(array('[', ']'), array('.', ''), $name);
 			$name = trim($name, '.');
-			$ruleset = array_get($this->rules, $name);
+			$ruleset = Arr::get($this->rules, $name);
 		}
 
 		return $ruleset;
