@@ -4,7 +4,6 @@ on: [ push, pull_request ]
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
       matrix:
@@ -12,6 +11,7 @@ jobs:
         php: [ "8.0", "7.4", "7.3", "7.2" ]
 
     name: PHP ${{ matrix.php }} - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout code
