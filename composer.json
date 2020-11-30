@@ -16,7 +16,7 @@
     }
   ],
   "require": {
-    "php": ">=7.2.0",
+    "php": "^7.2|^8.0",
     "anahkiasen/html-object": "~1.4",
     "illuminate/config": "~5.0|^6.0|^7.0|^8.0",
     "illuminate/container": "~5.0|^6.0|^7.0|^8.0",
