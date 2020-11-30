@@ -116,7 +116,7 @@ class Helpers
 		// Automatically fetch Lang objects for people who store translated options lists
 		// Same of unfetched queries
 		if (!$query instanceof Collection) {
-			if (method_exists($query, 'get')) {
+			if ((is_object($query) || is_string($query)) && method_exists($query, 'get')) {
 				$query = $query->get();
 			}
 			if (!is_array($query)) {
@@ -127,10 +127,10 @@ class Helpers
 		//Convert parametrs of old format to new format
 		if (!is_callable($text)) {
 			$optionTextValue = $text;
-			$text = function ($model) use($optionTextValue) {
+			$text = function ($model) use ($optionTextValue) {
 				if ($optionTextValue and isset($model->$optionTextValue)) {
 					return $model->$optionTextValue;
-				} elseif (method_exists($model, '__toString')) {
+				} elseif ((is_object($model) || is_string($model)) && method_exists($model, '__toString')) {
 					return  $model->__toString();
 				} else {
 					return null;
