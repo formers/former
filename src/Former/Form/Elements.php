@@ -60,9 +60,7 @@ class Elements
 	 */
 	public function label($label, $for = null, $attributes = array())
 	{
-		if (class_exists(Htmlable::class) && $label instanceof Htmlable) {
-			$label = (string) $label->toHtml();
-		} else {
+		if (!$label instanceof Htmlable) {
 			$oldLabel = (string) $label;
 			$label    = Helpers::translate($oldLabel);
 
@@ -71,6 +69,8 @@ class Elements
 			if (lcfirst($label) == $oldLabel) {
 				$label = str_replace('_', ' ', $label);
 			}
+		} else {
+			$label = (string) $label->toHtml();
 		}
 
 		$attributes['for']             = $for;
