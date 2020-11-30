@@ -10,9 +10,8 @@ jobs:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
         php: [ "8.0", "7.4", "7.3", "7.2" ]
-        dependency-version: [ lowest, stable ]
 
-    name: PHP ${{ matrix.php }} (${{ matrix.dependency-version }}) - ${{ matrix.os }}
+    name: PHP ${{ matrix.php }} - ${{ matrix.os }}
 
     steps:
       - name: Checkout code
@@ -31,7 +30,7 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        run: composer update --prefer-${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+        run: composer update --prefer-stable --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
         run: vendor/bin/phpunit
