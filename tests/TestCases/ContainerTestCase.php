@@ -114,7 +114,7 @@ abstract class ContainerTestCase extends TestCase
 		$defaults = include realpath(__DIR__.'/../../src/config/former.php');
 
 		$options = array_merge($defaults, array(
-			'absolute'                            => true,
+			'absolute_route_actions'              => true,
 			'automatic_label'                     => true,
 			'capitalize_translations'             => true,
 			'default_form_type'                   => 'horizontal',

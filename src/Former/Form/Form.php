@@ -103,7 +103,7 @@ class Form extends FormerObject
 		$this->app       = $app;
 		$this->url       = $url;
 		$this->populator = $populator;
-		$this->absolute  = $app['former']->getOption('absolute') !== null ? $app['former']->getOption('absolute') : true;
+		$this->absolute  = $app['former']->getOption('absolute_route_actions') !== null ? $app['former']->getOption('absolute_route_actions') : true;
 
 		$this->app->singleton('former.form.framework', function ($app) {
 			return clone $app['former.framework'];
