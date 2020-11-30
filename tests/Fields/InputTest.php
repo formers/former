@@ -87,7 +87,7 @@ class InputTest extends FormerTests
 
 		$input = $this->former->text('foo')->data('foo')->class('bar')->__toString();
 
-		$label = array('tag' => 'label', 'content' => 'Foo', array('for' => 'foo'));
+		$label = array('tag' => 'label', 'content' => 'Foo', 'attributes' => array('for' => 'foo'));
 		$this->assertHTML($label, $input);
 		$this->assertHTML($this->matchField(), $input);
 

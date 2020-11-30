@@ -8,6 +8,7 @@ use Mockery;
 use DOMNode;
 use DOMDocument;
 use DOMNodeList;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Util\Xml;
 
 /**
@@ -416,7 +417,7 @@ abstract class FormerTests extends ContainerTestCase
         }
 
         if (!empty($unknown)) {
-            throw new PHPUnit_Framework_Exception(
+            throw new Exception(
                 'Unknown key(s): ' . implode(', ', $unknown)
             );
         }
