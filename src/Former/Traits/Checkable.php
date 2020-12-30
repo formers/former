@@ -385,7 +385,8 @@ abstract class Checkable extends Field
 			$element = (is_object($field)) ? $field->render() : $field;
 		} elseif ($this->app['former']->framework() == 'TwitterBootstrap4') {
 			// Revised for Bootstrap 4, move the 'input' outside of the 'label'
-			$element = $field . Element::create('label', $label)->for($attributes['id'])->class($class)->render();
+			$labelClass = 'form-check-label';
+			$element = $field . Element::create('label', $label)->for($attributes['id'])->class($labelClass)->render();
 
 			$wrapper_class = $this->inline ? 'form-check form-check-inline' : 'form-check';
 
