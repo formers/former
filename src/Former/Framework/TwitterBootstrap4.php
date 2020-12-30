@@ -405,17 +405,25 @@ class TwitterBootstrap4 extends Framework implements FrameworkInterface
 	 *
 	 * @return Element A wrapped item
 	 */
-	public function placeAround($item)
+	public function placeAround($item, $place = null)
 	{
 		// Render object
 		if (is_object($item) and method_exists($item, '__toString')) {
 			$item = $item->__toString();
 		}
 
-		// Get class to use
-		$class = (strpos($item, '<button') !== false) ? 'btn' : 'addon';
+		$items = (array) $item;
+		$element = '';
+		foreach ($items as $item) {
+			$hasHtmlTag = strpos(ltrim($item), '<') === 0;
 
-		return Element::create('span', $item)->addClass('input-group-'.$class);
+			// Get class to use
+			$class = $hasHtmlTag ? '' : 'input-group-text';
+
+			$element .= $hasHtmlTag ? $item : Element::create('span', $item)->addClass($class);
+		}
+
+		return Element::create('div', $element)->addClass('input-group-'.$place);
 	}
 
 	/**
