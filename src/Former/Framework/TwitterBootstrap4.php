@@ -415,12 +415,12 @@ class TwitterBootstrap4 extends Framework implements FrameworkInterface
 		$items = (array) $item;
 		$element = '';
 		foreach ($items as $item) {
-			$hasHtmlTag = strpos(ltrim($item), '<') === 0;
+			$hasButtonTag = strpos(ltrim($item), '<button') === 0;
 
 			// Get class to use
-			$class = $hasHtmlTag ? '' : 'input-group-text';
+			$class = $hasButtonTag ? '' : 'input-group-text';
 
-			$element .= $hasHtmlTag ? $item : Element::create('span', $item)->addClass($class);
+			$element .= $hasButtonTag ? $item : Element::create('span', $item)->addClass($class);
 		}
 
 		return Element::create('div', $element)->addClass('input-group-'.$place);
