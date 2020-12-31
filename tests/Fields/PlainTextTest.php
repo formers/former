@@ -28,7 +28,7 @@ class PlainTextTest extends FormerTests
 	 *
 	 * @return array
 	 */
-	public function matchPlainLabelWithBS3()
+	public function matchPlainLabelWithBS()
 	{
 		return array(
 			'tag' => 'label',
@@ -71,6 +71,22 @@ class PlainTextTest extends FormerTests
 		);
 	}
 
+	/**
+	 * Matches an plain text input as a p tag
+	 *
+	 * @return array
+	 */
+	public function matchPlainTextInputWithBS4()
+ 	{
+ 		return array(
+ 			'tag'        => 'div',
+ 			'content'    => 'bar',
+ 			'attributes' => array(
+ 				'class' => 'form-control-plaintext',
+ 			),
+ 		);
+ 	}
+
 	////////////////////////////////////////////////////////////////////
 	////////////////////////////// ASSERTIONS //////////////////////////
 	////////////////////////////////////////////////////////////////////
@@ -88,6 +104,21 @@ class PlainTextTest extends FormerTests
 		$label = '<label for="" class="control-label col-lg-2 col-sm-4">Foo</label>'
 	) {
 		return $this->formGroup($input, $label);
+	}
+
+	/**
+	 * Matches a Form Static Group
+	 *
+	 * @param  string $input
+	 * @param  string $label
+	 *
+	 * @return boolean
+	 */
+	protected function formStaticGroupForBS4(
+		$input = '<div class="form-control-plaintext" id="foo">bar</div>',
+		$label = '<label for="" class="control-label col-lg-2 col-sm-4">Foo</label>'
+	) {
+		return $this->formGroupWithBS4($input, $label);
 	}
 
 	////////////////////////////////////////////////////////////////////
@@ -115,10 +146,22 @@ class PlainTextTest extends FormerTests
 		$this->former->framework('TwitterBootstrap3');
 		$input = $this->former->plaintext('foo')->value('bar')->__toString();
 
-		$this->assertHTML($this->matchPlainLabelWithBS3(), $input);
+		$this->assertHTML($this->matchPlainLabelWithBS(), $input);
 		$this->assertHTML($this->matchPlainTextInput(), $input);
 
 		$matcher = $this->formStaticGroup();
+		$this->assertEquals($matcher, $input);
+	}
+
+	public function testCanCreatePlainTextFieldsWithBS4()
+	{
+		$this->former->framework('TwitterBootstrap4');
+		$input = $this->former->plaintext('foo')->value('bar')->__toString();
+
+		$this->assertHTML($this->matchPlainLabelWithBS(), $input);
+		$this->assertHTML($this->matchPlainTextInputWithBS4(), $input);
+
+		$matcher = $this->formStaticGroupForBS4();
 		$this->assertEquals($matcher, $input);
 	}
 }

@@ -303,6 +303,21 @@ abstract class FormerTests extends ContainerTestCase
 	}
 
 	/**
+	 * Matches a Form Group
+	 *
+	 * @param  string $input
+	 * @param  string $label
+	 *
+	 * @return boolean
+	 */
+	protected function formGroupWithBS4(
+		$input = '<input type="text" name="foo" id="foo">',
+		$label = '<label for="foo" class="control-label col-lg-2 col-sm-4">Foo</label>'
+	) {
+		return '<div class="form-group row">'.$label.'<div class="col-lg-10 col-sm-8">'.$input.'</div></div>';
+	}
+
+	/**
 	 * Matches a required Control Group
 	 *
 	 * @param  string $input
