@@ -209,6 +209,23 @@ class Group extends Tag
 	}
 
 	/**
+	 * Set a class on the Label
+	 *
+	 * @param string $class The class to add on the Label
+	 */
+	public function addLabelClass($class)
+	{
+		// Don't add a label class if it isn't an Element instance
+		if (!$this->label instanceof Element) {
+			return $this;
+		}
+
+		$this->label->addClass($class);
+
+		return $this;
+	}
+
+	/**
 	 * Adds a label to the group
 	 *
 	 * @param  string $label A label
