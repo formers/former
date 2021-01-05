@@ -22,7 +22,9 @@ class Plaintext extends Field
 	{
 		$this->addClass($this->app['former.framework']->getPlainTextClasses());
 		$this->setId();
-		$this->escapeValue();
+		if ($this->app['former']->getOption('escape_plaintext_value', true)) {
+			$this->escapeValue();
+		}
 
 		return $this->app['former.framework']->createPlainTextField($this);
 	}
