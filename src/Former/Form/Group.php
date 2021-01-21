@@ -175,8 +175,17 @@ class Group extends Tag
 	public function wrapField($field)
 	{
 		$label = $this->getLabel($field);
+		$help = $this->getHelp();
+		if ($field->isCheckable() && $this->app['former']->framework() == 'TwitterBootstrap4') {
+			$wrapperClass = $field->isInline() ? 'form-check form-check-inline' : 'form-check';
+			if ($this->app['former']->getErrors($field->getName())) {
+				$hiddenInput = Element::create('input', null, ['type' => 'hidden'])->class('form-check-input is-invalid');
+				$help = $hiddenInput.$help;
+			}
+			$help = Element::create('div', $help)->class($wrapperClass);
+		}
 		$field = $this->prependAppend($field);
-		$field .= $this->getHelp();
+		$field .= $help;
 
 		return $this->wrap($field, $label);
 	}
@@ -206,6 +215,23 @@ class Group extends Tag
 	public function addGroupClass($class)
 	{
 		$this->addClass($class);
+	}
+
+	/**
+	 * Set a class on the Label
+	 *
+	 * @param string $class The class to add on the Label
+	 */
+	public function addLabelClass($class)
+	{
+		// Don't add a label class if it isn't an Element instance
+		if (!$this->label instanceof Element) {
+			return $this;
+		}
+
+		$this->label->addClass($class);
+
+		return $this;
 	}
 
 	/**
@@ -409,20 +435,27 @@ class Group extends Tag
 	 *
 	 * @return string        A <label> tag
 	 */
-	protected function getLabel($field = null)
-	{
-		// Don't create a label if none exist
-		if (!$field or !$this->label) {
-			return null;
-		}
+	 protected function getLabel($field = null)
+ 	{
+ 		// Don't create a label if none exist
+ 		if (!$field or !$this->label) {
+ 			return null;
+ 		}
 
-		// Wrap label in framework classes
-		$this->label->addClass($this->app['former.framework']->getLabelClasses());
-		$this->label = $this->app['former.framework']->createLabelOf($field, $this->label);
-		$this->label = $this->app['former.framework']->wrapLabel($this->label);
+ 		// Wrap label in framework classes
+ 		$labelClasses = $this->app['former.framework']->getLabelClasses();
+ 		if ($field->isCheckable() &&
+ 			$this->app['former']->framework() == 'TwitterBootstrap4' &&
+ 			$this->app['former.form']->isOfType('horizontal')
+ 		) {
+ 			$labelClasses = array_merge($labelClasses, array('pt-0'));
+ 		}
+ 		$this->label->addClass($labelClasses);
+ 		$this->label = $this->app['former.framework']->createLabelOf($field, $this->label);
+ 		$this->label = $this->app['former.framework']->wrapLabel($this->label);
 
-		return $this->label;
-	}
+ 		return $this->label;
+ 	}
 
 	/**
 	 * Prints out the current help
@@ -469,7 +502,7 @@ class Group extends Tag
 	{
 		// Iterate over the items and place them where they should
 		foreach ((array) $items as $item) {
-			$item             = $this->app['former.framework']->placeAround($item);
+			$item             = $this->app['former.framework']->placeAround($item, $place);
 			$this->{$place}[] = $item;
 		}
 	}

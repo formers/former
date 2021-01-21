@@ -44,7 +44,7 @@ class TwitterBootstrap4Test extends FormerTests
 		$field = $this->former->text('foo')->__toString();
 		$this->former->close();
 
-		$match = $this->vmatch('<label for="foo" class="control-label">Foo</label>',
+		$match = $this->vmatch('<label for="foo" class="col-form-label">Foo</label>',
 			'<input class="form-control" id="foo" type="text" name="foo">');
 
 		$this->assertEquals($match, $field);
@@ -53,7 +53,7 @@ class TwitterBootstrap4Test extends FormerTests
 	public function testHorizontalFormWithDefaultLabelWidths()
 	{
 		$field = $this->former->text('foo')->__toString();
-		$match = $this->hmatch('<label for="foo" class="control-label col-lg-2 col-sm-4">Foo</label>',
+		$match = $this->hmatch('<label for="foo" class="col-form-label col-lg-2 col-sm-4">Foo</label>',
 			'<input class="form-control" id="foo" type="text" name="foo">');
 
 		$this->assertEquals($match, $field);
@@ -63,9 +63,9 @@ class TwitterBootstrap4Test extends FormerTests
 	{
 		$this->former->open_vertical();
 		$icon  = $this->former->text('foo')->prependIcon('thumbs-up')->__toString();
-		$match = $this->vmatch('<label for="foo" class="control-label">Foo</label>',
+		$match = $this->vmatch('<label for="foo" class="col-form-label">Foo</label>',
 			'<div class="input-group">'.
-			'<span class="input-group-addon"><i class="fa fa-thumbs-up"></i></span>'.
+			'<div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-thumbs-up"></i></span></div>'.
 			'<input class="form-control" id="foo" type="text" name="foo">'.
 			'</div>');
 
@@ -76,10 +76,10 @@ class TwitterBootstrap4Test extends FormerTests
 	{
 		$this->former->open_vertical();
 		$icon  = $this->former->text('foo')->appendIcon('thumbs-up')->__toString();
-		$match = $this->vmatch('<label for="foo" class="control-label">Foo</label>',
+		$match = $this->vmatch('<label for="foo" class="col-form-label">Foo</label>',
 			'<div class="input-group">'.
 			'<input class="form-control" id="foo" type="text" name="foo">'.
-			'<span class="input-group-addon"><i class="fa fa-thumbs-up"></i></span>'.
+			'<div class="input-group-append"><span class="input-group-text"><i class="fa fa-thumbs-up"></i></span></div>'.
 			'</div>');
 		$this->assertEquals($match, $icon);
 	}
@@ -88,7 +88,7 @@ class TwitterBootstrap4Test extends FormerTests
 	{
 		$this->former->open_vertical();
 		$field = $this->former->text('foo')->__toString();
-		$match = $this->vmatch('<label for="foo" class="control-label">Foo</label>',
+		$match = $this->vmatch('<label for="foo" class="col-form-label">Foo</label>',
 			'<input class="form-control" id="foo" type="text" name="foo">');
 
 		$this->assertEquals($match, $field);
@@ -139,7 +139,7 @@ class TwitterBootstrap4Test extends FormerTests
 		$required = $this->former->text('required')->__toString();
 		$matcher  =
 			'<div class="form-group is-invalid">'.
-			'<label for="required" class="control-label">Required</label>'.
+			'<label for="required" class="col-form-label">Required</label>'.
 			'<input class="form-control is-invalid" id="required" type="text" name="required">'.
 			'<div class="invalid-feedback">The required field is required.</div>'.
 			'</div>';
@@ -172,7 +172,7 @@ class TwitterBootstrap4Test extends FormerTests
 		$field = $this->former->lg_text('foo')->__toString();
 		$match =
 			'<div class="form-group">'.
-			'<label for="foo" class="control-label">Foo</label>'.
+			'<label for="foo" class="col-form-label">Foo</label>'.
 			'<input class="input-lg form-control" id="foo" type="text" name="foo">'.
 			'</div>';
 		$this->assertEquals($match, $field);
@@ -181,7 +181,7 @@ class TwitterBootstrap4Test extends FormerTests
 		$field = $this->former->sm_select('foo')->__toString();
 		$match =
 			'<div class="form-group">'.
-			'<label for="foo" class="control-label">Foo</label>'.
+			'<label for="foo" class="col-form-label">Foo</label>'.
 			'<select class="input-sm form-control" id="foo" name="foo"></select>'.
 			'</div>';
 		$this->assertEquals($match, $field);
@@ -202,10 +202,10 @@ class TwitterBootstrap4Test extends FormerTests
 		$this->former->close();
 	}
 
-	public function testButtonsAreWrappedInSpecialClass()
+	public function testButtonsAreNotWrapped()
 	{
 		$button  = $this->former->text('foo')->append($this->former->button('Search'))->wrapAndRender();
-		$matcher = '<span class="input-group-btn"><button class="btn" type="button">Search</button></span>';
+		$matcher = '<button class="btn" type="button">Search</button>';
 
 		$this->assertStringContainsString($matcher, $button);
 	}

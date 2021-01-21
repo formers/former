@@ -2,6 +2,7 @@
 namespace Former\Fields;
 
 use Former\TestCases\FormerTests;
+use Illuminate\Support\HtmlString;
 
 class PlainTextTest extends FormerTests
 {
@@ -28,7 +29,7 @@ class PlainTextTest extends FormerTests
 	 *
 	 * @return array
 	 */
-	public function matchPlainLabelWithBS()
+	public function matchPlainLabelWithBS3()
 	{
 		return array(
 			'tag' => 'label',
@@ -56,7 +57,7 @@ class PlainTextTest extends FormerTests
 	}
 
 	/**
-	 * Matches an plain text input as a p tag
+	 * Matches an plain text input as a div tag
 	 *
 	 * @return array
 	 */
@@ -77,15 +78,50 @@ class PlainTextTest extends FormerTests
 	 * @return array
 	 */
 	public function matchPlainTextInputWithBS4()
- 	{
- 		return array(
- 			'tag'        => 'div',
- 			'content'    => 'bar',
- 			'attributes' => array(
- 				'class' => 'form-control-plaintext',
- 			),
- 		);
- 	}
+	{
+	return array(
+			'tag'        => 'div',
+			'content'    => 'bar',
+			'attributes' => array(
+				'class' => 'form-control-plaintext',
+			),
+		);
+	}
+
+	/**
+	 * Matches an plain text input as a div tag
+	 *
+	 * @return array
+	 */
+	public function matchPlainTextInputWithHtmlValueEscaped()
+	{
+		return array(
+			'tag'        => 'div',
+			'content'    => '<script>alert(1);</script>',
+			'attributes' => array(
+				'class' => 'form-control-static',
+			),
+		);
+	}
+
+	/**
+	 * Matches an plain text input as a div tag
+	 *
+	 * @return array
+	 */
+	public function matchPlainTextInputWithHtmlValue()
+	{
+		return array(
+			'tag'        => 'div',
+			'child'      => array(
+				'tag'        => 'strong',
+				'content'    => 'bar',
+			),
+			'attributes' => array(
+				'class' => 'form-control-static',
+			),
+		);
+	}
 
 	////////////////////////////////////////////////////////////////////
 	////////////////////////////// ASSERTIONS //////////////////////////
@@ -121,6 +157,36 @@ class PlainTextTest extends FormerTests
 		return $this->formGroupWithBS4($input, $label);
 	}
 
+	/**
+	 * Matches a Form Static Group with HTML value escaped
+	 *
+	 * @param  string $input
+	 * @param  string $label
+	 *
+	 * @return boolean
+	 */
+	protected function formStaticGroupWithHtmlValueEscaped(
+		$input = '<div class="form-control-static" id="foo">&lt;script&gt;alert(1);&lt;/script&gt;</div>',
+		$label = '<label for="" class="control-label col-lg-2 col-sm-4">Foo</label>'
+	) {
+		return $this->formGroup($input, $label);
+	}
+
+	/**
+	 * Matches a Form Static Group with HTML value
+	 *
+	 * @param  string $input
+	 * @param  string $label
+	 *
+	 * @return boolean
+	 */
+	protected function formStaticGroupWithHtmlValue(
+		$input = '<div class="form-control-static" id="foo"><strong>bar</strong></div>',
+		$label = '<label for="" class="control-label col-lg-2 col-sm-4">Foo</label>'
+	) {
+		return $this->formGroup($input, $label);
+	}
+
 	////////////////////////////////////////////////////////////////////
 	//////////////////////////////// TESTS /////////////////////////////
 	////////////////////////////////////////////////////////////////////
@@ -146,7 +212,7 @@ class PlainTextTest extends FormerTests
 		$this->former->framework('TwitterBootstrap3');
 		$input = $this->former->plaintext('foo')->value('bar')->__toString();
 
-		$this->assertHTML($this->matchPlainLabelWithBS(), $input);
+		$this->assertHTML($this->matchPlainLabelWithBS3(), $input);
 		$this->assertHTML($this->matchPlainTextInput(), $input);
 
 		$matcher = $this->formStaticGroup();
@@ -158,10 +224,36 @@ class PlainTextTest extends FormerTests
 		$this->former->framework('TwitterBootstrap4');
 		$input = $this->former->plaintext('foo')->value('bar')->__toString();
 
-		$this->assertHTML($this->matchPlainLabelWithBS(), $input);
+		$this->assertHTML($this->matchPlainLabelWithBS3(), $input);
 		$this->assertHTML($this->matchPlainTextInputWithBS4(), $input);
 
 		$matcher = $this->formStaticGroupForBS4();
+		$this->assertEquals($matcher, $input);
+	}
+
+	public function testCanCreatePlainTextFieldsWithHtmlValueEscaped()
+	{
+		$this->former->framework('TwitterBootstrap3');
+		$htmlValue = '<script>alert(1);</script>';
+		$input = $this->former->plaintext('foo')->value($htmlValue)->__toString();
+
+		$this->assertHTML($this->matchPlainLabelWithBS3(), $input);
+		$this->assertHTML($this->matchPlainTextInputWithHtmlValueEscaped(), $input);
+
+		$matcher = $this->formStaticGroupWithHtmlValueEscaped();
+		$this->assertEquals($matcher, $input);
+	}
+
+	public function testCanCreatePlainTextFieldsWithHtmlValue()
+	{
+		$this->former->framework('TwitterBootstrap3');
+		$htmlValue = new HtmlString('<strong>bar</strong>');
+		$input = $this->former->plaintext('foo')->value($htmlValue)->__toString();
+
+		$this->assertHTML($this->matchPlainLabelWithBS3(), $input);
+		$this->assertHTML($this->matchPlainTextInputWithHtmlValue(), $input);
+
+		$matcher = $this->formStaticGroupWithHtmlValue();
 		$this->assertEquals($matcher, $input);
 	}
 }
