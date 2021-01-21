@@ -9,6 +9,16 @@
 	// The default form type
 	'default_form_type'       => 'horizontal',
 
+	// Whether Former should escape HTML tags of 'plaintext' fields value
+	// Enabled by default
+	//
+	// Instead of disabled this option, you should use the 'HtmlString' class:
+	//  Former::plaintext('text')
+	//      ->forceValue(
+	//          new Illuminate\Support\HtmlString('<b>your HTML data</b>')
+	//      )
+	'escape_plaintext_value'  => true,
+
 	// Validation
 	////////////////////////////////////////////////////////////////////
 
