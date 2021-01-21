@@ -435,20 +435,27 @@ class Group extends Tag
 	 *
 	 * @return string        A <label> tag
 	 */
-	protected function getLabel($field = null)
-	{
-		// Don't create a label if none exist
-		if (!$field or !$this->label) {
-			return null;
-		}
+	 protected function getLabel($field = null)
+ 	{
+ 		// Don't create a label if none exist
+ 		if (!$field or !$this->label) {
+ 			return null;
+ 		}
 
-		// Wrap label in framework classes
-		$this->label->addClass($this->app['former.framework']->getLabelClasses());
-		$this->label = $this->app['former.framework']->createLabelOf($field, $this->label);
-		$this->label = $this->app['former.framework']->wrapLabel($this->label);
+ 		// Wrap label in framework classes
+ 		$labelClasses = $this->app['former.framework']->getLabelClasses();
+ 		if ($field->isCheckable() &&
+ 			$this->app['former']->framework() == 'TwitterBootstrap4' &&
+ 			$this->app['former.form']->isOfType('horizontal')
+ 		) {
+ 			$labelClasses = array_merge($labelClasses, array('pt-0'));
+ 		}
+ 		$this->label->addClass($labelClasses);
+ 		$this->label = $this->app['former.framework']->createLabelOf($field, $this->label);
+ 		$this->label = $this->app['former.framework']->wrapLabel($this->label);
 
-		return $this->label;
-	}
+ 		return $this->label;
+ 	}
 
 	/**
 	 * Prints out the current help
