@@ -312,7 +312,7 @@ abstract class FormerTests extends ContainerTestCase
 	 */
 	protected function formGroupWithBS4(
 		$input = '<input type="text" name="foo" id="foo">',
-		$label = '<label for="foo" class="control-label col-lg-2 col-sm-4">Foo</label>'
+		$label = '<label for="foo" class="col-form-label col-lg-2 col-sm-4">Foo</label>'
 	) {
 		return '<div class="form-group row">'.$label.'<div class="col-lg-10 col-sm-8">'.$input.'</div></div>';
 	}

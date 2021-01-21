@@ -152,7 +152,7 @@ class PlainTextTest extends FormerTests
 	 */
 	protected function formStaticGroupForBS4(
 		$input = '<div class="form-control-plaintext" id="foo">bar</div>',
-		$label = '<label for="" class="control-label col-lg-2 col-sm-4">Foo</label>'
+		$label = '<label for="" class="col-form-label col-lg-2 col-sm-4">Foo</label>'
 	) {
 		return $this->formGroupWithBS4($input, $label);
 	}
