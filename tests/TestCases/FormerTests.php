@@ -367,7 +367,7 @@ abstract class FormerTests extends ContainerTestCase
     {
         $dom     = Xml::load($actual, $ishtml);
         $tags    = self::findNodes($dom, $matcher, $ishtml);
-        $matched = count($tags) > 0 && $tags[0] instanceof DOMNode;
+        $matched = $tags !== false && count($tags) > 0 && $tags[0] instanceof DOMNode;
 
         self::assertTrue($matched, $message);
     }
