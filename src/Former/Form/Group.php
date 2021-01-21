@@ -175,8 +175,17 @@ class Group extends Tag
 	public function wrapField($field)
 	{
 		$label = $this->getLabel($field);
+		$help = $this->getHelp();
+		if ($field->isCheckable() && $this->app['former']->framework() == 'TwitterBootstrap4') {
+			$wrapperClass = $field->isInline() ? 'form-check form-check-inline' : 'form-check';
+			if ($this->app['former']->getErrors($field->getName())) {
+				$hiddenInput = Element::create('input', null, ['type' => 'hidden'])->class('form-check-input is-invalid');
+				$help = $hiddenInput.$help;
+			}
+			$help = Element::create('div', $help)->class($wrapperClass);
+		}
 		$field = $this->prependAppend($field);
-		$field .= $this->getHelp();
+		$field .= $help;
 
 		return $this->wrap($field, $label);
 	}
