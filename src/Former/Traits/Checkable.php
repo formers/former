@@ -257,6 +257,17 @@ abstract class Checkable extends Field
 		return $this;
 	}
 
+
+	/**
+	 * Check if the checkables are inline
+	 *
+	 * @return boolean
+	 */
+	public function isInline()
+	{
+		return $this->inline;
+	}
+
 	////////////////////////////////////////////////////////////////////
 	////////////////////////// INTERNAL METHODS ////////////////////////
 	////////////////////////////////////////////////////////////////////
@@ -385,12 +396,12 @@ abstract class Checkable extends Field
 			$element = (is_object($field)) ? $field->render() : $field;
 		} elseif ($this->app['former']->framework() == 'TwitterBootstrap4') {
 			// Revised for Bootstrap 4, move the 'input' outside of the 'label'
-			$element = $field . Element::create('label', $label)->for($attributes['id'])->class($class)->render();
+			$labelClass = 'form-check-label';
+			$element = $field . Element::create('label', $label)->for($attributes['id'])->class($labelClass)->render();
 
 			$wrapper_class = $this->inline ? 'form-check form-check-inline' : 'form-check';
 
 			$element = Element::create('div', $element)->class($wrapper_class)->render();
-
 		} else {
 			// Original way is to add the 'input' inside the 'label'
 			$element = Element::create('label', $field.$label)->for($attributes['id'])->class($class)->render();

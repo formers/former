@@ -65,7 +65,7 @@ class TwitterBootstrap4Test extends FormerTests
 		$icon  = $this->former->text('foo')->prependIcon('thumbs-up')->__toString();
 		$match = $this->vmatch('<label for="foo" class="control-label">Foo</label>',
 			'<div class="input-group">'.
-			'<span class="input-group-addon"><i class="fa fa-thumbs-up"></i></span>'.
+			'<div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-thumbs-up"></i></span></div>'.
 			'<input class="form-control" id="foo" type="text" name="foo">'.
 			'</div>');
 
@@ -79,7 +79,7 @@ class TwitterBootstrap4Test extends FormerTests
 		$match = $this->vmatch('<label for="foo" class="control-label">Foo</label>',
 			'<div class="input-group">'.
 			'<input class="form-control" id="foo" type="text" name="foo">'.
-			'<span class="input-group-addon"><i class="fa fa-thumbs-up"></i></span>'.
+			'<div class="input-group-append"><span class="input-group-text"><i class="fa fa-thumbs-up"></i></span></div>'.
 			'</div>');
 		$this->assertEquals($match, $icon);
 	}
@@ -202,10 +202,10 @@ class TwitterBootstrap4Test extends FormerTests
 		$this->former->close();
 	}
 
-	public function testButtonsAreWrappedInSpecialClass()
+	public function testButtonsAreNotWrapped()
 	{
 		$button  = $this->former->text('foo')->append($this->former->button('Search'))->wrapAndRender();
-		$matcher = '<span class="input-group-btn"><button class="btn" type="button">Search</button></span>';
+		$matcher = '<button class="btn" type="button">Search</button>';
 
 		$this->assertStringContainsString($matcher, $button);
 	}
