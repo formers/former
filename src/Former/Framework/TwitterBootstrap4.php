@@ -295,7 +295,7 @@ class TwitterBootstrap4 extends Framework implements FrameworkInterface
 	 */
 	public function getPlainTextClasses()
 	{
-		return 'form-control-static';
+		return 'form-control-plaintext';
 	}
 
 	/**
