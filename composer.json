@@ -42,9 +42,6 @@
     }
   },
   "extra": {
-    "branch-alias": {
-        "dev-master": "4.1-dev"
-    },
     "laravel": {
       "providers": [
           "Former\\FormerServiceProvider"
@@ -53,5 +50,7 @@
           "Former": "Former\\Facades\\Former"
       }
     }
-  }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
