@@ -304,6 +304,15 @@ class GroupTest extends FormerTests
 		$this->assertEquals($matcher, $control);
 	}
 
+	public function testCanAddClassToLabel()
+	{
+		$control = $this->former->text('foo')->addLabelClass('foo-label')->__toString();
+		$matcher = $this->createMatcher();
+		$matcher = str_replace('control-label"', 'foo-label control-label"', $matcher);
+
+		$this->assertEquals($matcher, $control);
+	}
+
 	public function testCanRecognizeGroupValidationErrors()
 	{
 		$this->mockSession(array('foo' => 'bar', 'bar' => 'baz'));
