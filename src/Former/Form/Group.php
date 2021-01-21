@@ -469,7 +469,7 @@ class Group extends Tag
 	{
 		// Iterate over the items and place them where they should
 		foreach ((array) $items as $item) {
-			$item             = $this->app['former.framework']->placeAround($item);
+			$item             = $this->app['former.framework']->placeAround($item, $place);
 			$this->{$place}[] = $item;
 		}
 	}
