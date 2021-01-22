@@ -363,10 +363,9 @@ abstract class Checkable extends Field
 		// If inline items, add class
 		$isInline = $this->inline ? ' '.$this->app['former.framework']->getInlineLabelClass($this) : null;
 
-		// In Bootsrap 3 or 4, don't append the the checkable type (radio/checkbox) as a class if
+		// In Bootsrap 3 or 4 or 5, don't append the the checkable type (radio/checkbox) as a class if
 		// rendering inline.
-		$class =  ($this->app['former']->framework() == 'TwitterBootstrap3' ||
-			$this->app['former']->framework() == 'TwitterBootstrap4') ? trim($isInline) : $this->checkable.$isInline;
+		$class =  in_array($this->app['former']->framework(), ['TwitterBootstrap3', 'TwitterBootstrap4', 'TwitterBootstrap5']) ? trim($isInline) : $this->checkable.$isInline;
 
 		// Merge custom attributes with global attributes
 		$attributes = array_merge($this->attributes, $attributes);
@@ -394,7 +393,7 @@ abstract class Checkable extends Field
 		// If no label to wrap, return plain checkable
 		if (!$label) {
 			$element = (is_object($field)) ? $field->render() : $field;
-		} elseif ($this->app['former']->framework() == 'TwitterBootstrap4') {
+		} elseif (in_array($this->app['former']->framework(), ['TwitterBootstrap4', 'TwitterBootstrap5'])) {
 			// Revised for Bootstrap 4, move the 'input' outside of the 'label'
 			$labelClass = 'form-check-label';
 			$element = $field . Element::create('label', $label)->for($attributes['id'])->class($labelClass)->render();

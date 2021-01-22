@@ -176,7 +176,9 @@ class Group extends Tag
 	{
 		$label = $this->getLabel($field);
 		$help = $this->getHelp();
-		if ($field->isCheckable() && $this->app['former']->framework() == 'TwitterBootstrap4') {
+		if ($field->isCheckable() &&
+			in_array($this->app['former']->framework(), ['TwitterBootstrap4', 'TwitterBootstrap5'])
+		) {
 			$wrapperClass = $field->isInline() ? 'form-check form-check-inline' : 'form-check';
 			if ($this->app['former']->getErrors($field->getName())) {
 				$hiddenInput = Element::create('input', null, ['type' => 'hidden'])->class('form-check-input is-invalid');
@@ -323,7 +325,8 @@ class Group extends Tag
 		// Reserved method
 		if ($this->app['former.framework']->isnt('TwitterBootstrap') &&
 		    $this->app['former.framework']->isnt('TwitterBootstrap3') &&
-		    $this->app['former.framework']->isnt('TwitterBootstrap4')
+			$this->app['former.framework']->isnt('TwitterBootstrap4') &&
+		    $this->app['former.framework']->isnt('TwitterBootstrap5')
 		) {
 			throw new BadMethodCallException('This method is only available on the Bootstrap framework');
 		}
@@ -445,7 +448,7 @@ class Group extends Tag
  		// Wrap label in framework classes
  		$labelClasses = $this->app['former.framework']->getLabelClasses();
  		if ($field->isCheckable() &&
- 			$this->app['former']->framework() == 'TwitterBootstrap4' &&
+ 			in_array($this->app['former']->framework(), ['TwitterBootstrap4', 'TwitterBootstrap5']) &&
  			$this->app['former.form']->isOfType('horizontal')
  		) {
  			$labelClasses = array_merge($labelClasses, array('pt-0'));
