@@ -190,7 +190,7 @@ class TwitterBootstrap5 extends Framework implements FrameworkInterface
 			if ($viewport) {
 				$labelWidthClass .= " col-$viewports[$viewport]-$columns";
 				$fieldWidthClass .= " col-$viewports[$viewport]-".(12 - $columns);
-				$fieldOffsetClass .= " col-$viewports[$viewport]-offset-$columns";
+				$fieldOffsetClass .= " offset-$viewports[$viewport]-$columns";
 			}
 		}
 
