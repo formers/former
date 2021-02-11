@@ -324,9 +324,9 @@ class Group extends Tag
 	{
 		// Reserved method
 		if ($this->app['former.framework']->isnt('TwitterBootstrap') &&
-		    $this->app['former.framework']->isnt('TwitterBootstrap3') &&
+			$this->app['former.framework']->isnt('TwitterBootstrap3') &&
 			$this->app['former.framework']->isnt('TwitterBootstrap4') &&
-		    $this->app['former.framework']->isnt('TwitterBootstrap5')
+			$this->app['former.framework']->isnt('TwitterBootstrap5')
 		) {
 			throw new BadMethodCallException('This method is only available on the Bootstrap framework');
 		}
