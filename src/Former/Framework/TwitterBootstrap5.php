@@ -343,7 +343,7 @@ class TwitterBootstrap5 extends Framework implements FrameworkInterface
 	 */
 	public function createHelp($text, $attributes = array())
 	{
-		return Element::create('small', $text, $attributes)->addClass('text-muted');
+		return Element::create('span', $text, $attributes)->addClass('form-text');
 	}
 
 	/**
@@ -369,7 +369,7 @@ class TwitterBootstrap5 extends Framework implements FrameworkInterface
 	 */
 	public function createBlockHelp($text, $attributes = array())
 	{
-		return Element::create('small', $text, $attributes)->addClass('form-text text-muted');
+		return Element::create('div', $text, $attributes)->addClass('form-text');
 	}
 
 	/**

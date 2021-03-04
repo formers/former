@@ -177,7 +177,7 @@ class Group extends Tag
 		$label = $this->getLabel($field);
 		$help = $this->getHelp();
 		if ($field->isCheckable() &&
-			in_array($this->app['former']->framework(), ['TwitterBootstrap4', 'TwitterBootstrap5'])
+			$this->app['former']->framework() === 'TwitterBootstrap4'
 		) {
 			$wrapperClass = $field->isInline() ? 'form-check form-check-inline' : 'form-check';
 			if ($this->app['former']->getErrors($field->getName())) {
