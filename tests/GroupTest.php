@@ -304,6 +304,21 @@ class GroupTest extends FormerTests
 		$this->assertEquals($matcher, $control);
 	}
 
+	public function testCanRemoveClassToGroup()
+	{
+		$element = $this->former->text('foo')->addGroupClass('foo');
+		$control = $element->__toString();
+		$matcher = $this->createMatcher();
+		$matcher = str_replace('group"', 'group foo"', $matcher);
+
+		$this->assertEquals($matcher, $control);
+
+		$controlWithoutClass = $element->removeGroupClass('foo')->__toString();
+		$matcherWithoutClass = str_replace('group foo"', 'group"', $matcher);
+
+		$this->assertEquals($matcherWithoutClass, $controlWithoutClass);
+	}
+
 	public function testCanAddClassToLabel()
 	{
 		$control = $this->former->text('foo')->addLabelClass('foo-label')->__toString();
@@ -311,6 +326,21 @@ class GroupTest extends FormerTests
 		$matcher = str_replace('control-label"', 'foo-label control-label"', $matcher);
 
 		$this->assertEquals($matcher, $control);
+	}
+
+	public function testCanRemoveClassToLabel()
+	{
+		$element = $this->former->text('foo')->addLabelClass('foo-label');
+		$control = $element->__toString();
+		$matcher = $this->createMatcher();
+		$matcher = str_replace('control-label"', 'foo-label control-label"', $matcher);
+
+		$this->assertEquals($matcher, $control);
+
+		$controlWithoutClass = $element->removeLabelClass('foo-label')->__toString();
+		$matcherWithoutClass = str_replace('foo-label control-label"', 'control-label"', $matcher);
+
+		$this->assertEquals($matcherWithoutClass, $controlWithoutClass);
 	}
 
 	public function testCanRecognizeGroupValidationErrors()

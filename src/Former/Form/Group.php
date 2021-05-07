@@ -212,7 +212,7 @@ class Group extends Tag
 	/**
 	 * Set a class on the Group
 	 *
-	 * @param string $class The class to add
+	 * @param string $class The class(es) to add on the Group
 	 */
 	public function addGroupClass($class)
 	{
@@ -220,9 +220,19 @@ class Group extends Tag
 	}
 
 	/**
+	 * Remove one or more classes on the Group
+	 *
+	 * @param string $class The class(es) to remove on the Group
+	 */
+	public function removeGroupClass($class)
+	{
+		$this->removeClass($class);
+	}
+
+	/**
 	 * Set a class on the Label
 	 *
-	 * @param string $class The class to add on the Label
+	 * @param string $class The class(es) to add on the Label
 	 */
 	public function addLabelClass($class)
 	{
@@ -232,6 +242,23 @@ class Group extends Tag
 		}
 
 		$this->label->addClass($class);
+
+		return $this;
+	}
+
+	/**
+	 * Remove one or more classes on the Label
+	 *
+	 * @param string $class The class(es) to remove on the Label
+	 */
+	public function removeLabelClass($class)
+	{
+		// Don't remove a label class if it isn't an Element instance
+		if (!$this->label instanceof Element) {
+			return $this;
+		}
+
+		$this->label->removeClass($class);
 
 		return $this;
 	}
