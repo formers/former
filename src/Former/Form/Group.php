@@ -186,8 +186,16 @@ class Group extends Tag
 			}
 			$help = Element::create('div', $help)->class($wrapperClass);
 		}
+		$withFloatingLabel = $field->withFloatingLabel();
+
 		$field = $this->prependAppend($field);
 		$field .= $help;
+
+		if ($withFloatingLabel &&
+			$this->app['former']->framework() === 'TwitterBootstrap5'
+		) {
+			return $this->wrapWithFloatingLabel($field, $label);
+		}
 
 		return $this->wrap($field, $label);
 	}
@@ -456,6 +464,23 @@ class Group extends Tag
 		$group .= $this->close();
 
 		return $group;
+	}
+
+	/**
+	 * Wraps content in a group with floating label
+	 *
+	 * @param string $contents The content
+	 * @param string $label    The label to add
+	 *
+	 * @return string A group
+	 */
+	public function wrapWithFloatingLabel($contents, $label = null)
+	{
+		$floatingLabelClass = $this->app['former.framework']->getFloatingLabelClass();
+		if ($floatingLabelClass) {
+			$this->addClass($floatingLabelClass);
+		}
+		return $this->wrap($label, $contents);
 	}
 
 	/**

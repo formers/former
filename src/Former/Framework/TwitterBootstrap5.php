@@ -329,6 +329,16 @@ class TwitterBootstrap5 extends Framework implements FrameworkInterface
 		return null;
 	}
 
+	/**
+	 * Add floating label class
+	 *
+	 * @return string Get the floating label class
+	 */
+	public function getFloatingLabelClass()
+	{
+		return 'form-floating';
+	}
+
 	////////////////////////////////////////////////////////////////////
 	//////////////////////////// RENDER BLOCKS /////////////////////////
 	////////////////////////////////////////////////////////////////////
