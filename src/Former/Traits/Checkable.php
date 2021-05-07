@@ -380,7 +380,7 @@ abstract class Checkable extends Field
 		}
 
 		// Add hidden checkbox if requested
-		if ($this->isOfType('checkbox', 'checkboxes')) {
+		if ($this->isOfType('checkbox', 'checkboxes', 'switch', 'switches')) {
 			if ($this->isPushed or ($this->app['former']->getOption('push_checkboxes') and $this->isPushed !== false)) {
 				$field = $this->app['former']->hidden($name)->forceValue($this->app['former']->getOption('unchecked_value')).$field->render();
 
@@ -398,9 +398,13 @@ abstract class Checkable extends Field
 			$labelClass = 'form-check-label';
 			$element = $field . Element::create('label', $label)->for($attributes['id'])->class($labelClass)->render();
 
-			$wrapper_class = $this->inline ? 'form-check form-check-inline' : 'form-check';
-
-			$element = Element::create('div', $element)->class($wrapper_class)->render();
+			$wrapperClass = $this->inline ? 'form-check form-check-inline' : 'form-check';
+			if ($this->app['former']->framework() === 'TwitterBootstrap5' &&
+				$this->isOfType('switch', 'switches')
+			) {
+				$wrapperClass.= ' form-switch';
+			}
+			$element = Element::create('div', $element)->class($wrapperClass)->render();
 		} else {
 			// Original way is to add the 'input' inside the 'label'
 			$element = Element::create('label', $field.$label)->for($attributes['id'])->class($class)->render();

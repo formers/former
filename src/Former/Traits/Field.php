@@ -230,7 +230,7 @@ abstract class Field extends FormerObject implements FieldInterface
 	 */
 	public function isCheckable()
 	{
-		return $this->isOfType('checkbox', 'checkboxes', 'radio', 'radios');
+		return $this->isOfType('checkbox', 'checkboxes', 'radio', 'radios', 'switch', 'switches');
 	}
 
 	/**
