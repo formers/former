@@ -3,6 +3,7 @@ namespace Former\Form;
 
 use BadMethodCallException;
 use Former\Helpers;
+use HtmlObject\Input;
 use HtmlObject\Element;
 use HtmlObject\Traits\Tag;
 use Illuminate\Container\Container;
@@ -177,14 +178,17 @@ class Group extends Tag
 		$label = $this->getLabel($field);
 		$help = $this->getHelp();
 		if ($field->isCheckable() &&
-			$this->app['former']->framework() === 'TwitterBootstrap4'
+			in_array($this->app['former']->framework(), ['TwitterBootstrap4', 'TwitterBootstrap5'])
 		) {
-			$wrapperClass = $field->isInline() ? 'form-check form-check-inline' : 'form-check';
+			$wrapperClass = null;
+			if ($this->app['former']->framework() === 'TwitterBootstrap4') {
+				$wrapperClass = $field->isInline() ? 'form-check form-check-inline' : 'form-check';
+			}
 			if ($this->app['former']->getErrors($field->getName())) {
-				$hiddenInput = Element::create('input', null, ['type' => 'hidden'])->class('form-check-input is-invalid');
+				$hiddenInput = Input::create('hidden')->addClass('form-check-input is-invalid');
 				$help = $hiddenInput.$help;
 			}
-			$help = Element::create('div', $help)->class($wrapperClass);
+			$help = $help ? Element::create('div', $help)->addClass($wrapperClass) : '';
 		}
 		$withFloatingLabel = $field->withFloatingLabel();
 

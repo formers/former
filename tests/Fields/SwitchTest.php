@@ -122,6 +122,14 @@ class SwitchTest extends FormerTests
 	//////////////////////////////// TESTS /////////////////////////////
 	////////////////////////////////////////////////////////////////////
 
+	public function testCanCreateASingleCheckedSwitch()
+	{
+		$switch = $this->former->switch('foo')->__toString();
+		$matcher  = $this->formGroupWithBS5($this->matchSwitch('foo'));
+
+		$this->assertEquals($matcher, $switch);
+	}
+
 	public function testCanCreateASwitchWithALabel()
 	{
 		$switch  = $this->former->switch('foo')->text('bar')->__toString();
@@ -227,8 +235,8 @@ class SwitchTest extends FormerTests
 
 	public function testCanCheckASingleSwitch()
 	{
-		$switch  = $this->former->switch('foo')->text('Bar')->check()->__toString();
-		$matcher = $this->formGroupWithBS5($this->matchCheckedSwitch('foo', 'Bar'));
+		$switch  = $this->former->switch('foo')->check()->__toString();
+		$matcher = $this->formGroupWithBS5($this->matchCheckedSwitch('foo'));
 
 		$this->assertEquals($matcher, $switch);
 	}
@@ -420,7 +428,10 @@ class SwitchTest extends FormerTests
 						'<input class="form-check-input is-invalid" id="foo_1" type="checkbox" name="foo[]" value="1">'.
 						'<label for="foo_1" class="form-check-label">Value 02</label>'.
 					'</div>'.
-					'<div class="invalid-feedback">bar</div>'.
+					'<div>'.
+						'<input type="hidden" class="form-check-input is-invalid">'.
+						'<div class="invalid-feedback">bar</div>'.
+					'</div>'.
 				'</div>'.
 			'</div>';
 
@@ -431,8 +442,8 @@ class SwitchTest extends FormerTests
 	public function testCanHandleAZeroUncheckedValue()
 	{
 		$this->mockConfig(array('unchecked_value' => 0));
-		$switches = $this->former->switches('foo')->text('Buz')->value('bar')->__toString();
-		$matcher  = $this->formGroupWithBS5($this->matchSwitch('foo', 'Buz', 'bar'));
+		$switches = $this->former->switches('foo')->value('bar')->__toString();
+		$matcher  = $this->formGroupWithBS5($this->matchSwitch('foo', null, 'bar'));
 
 		$this->assertEquals($matcher, $switches);
 	}
@@ -466,8 +477,8 @@ class SwitchTest extends FormerTests
 
 	public function testDisabled()
 	{
-		$switch  = $this->former->switch('foo')->text('Bar')->disabled()->__toString();
-		$matcher = $this->formGroupWithBS5($this->matchSwitch('foo', 'Bar', 1, false, false, true));
+		$switch  = $this->former->switch('foo')->disabled()->__toString();
+		$matcher = $this->formGroupWithBS5($this->matchSwitch('foo', null, 1, false, false, true));
 		$this->assertEquals($matcher, $switch);
 	}
 
@@ -483,7 +494,7 @@ class SwitchTest extends FormerTests
 	public function testCanBeManualyDefinied()
 	{
 		$switch  = $this->former->switch('foo', null, 'foo', ['value' => 'bar'])->__toString();
-		$matcher = $this->formGroupWithBS5('<input value="bar" class="form-check-input" id="foo" type="checkbox" name="foo">');
+		$matcher = $this->formGroupWithBS5('<div class="form-check form-switch"><input value="bar" class="form-check-input" id="foo" type="checkbox" name="foo"></div>');
 
 		$this->assertEquals($matcher, $switch);
 	}
@@ -492,7 +503,10 @@ class SwitchTest extends FormerTests
 	{
 		$this->former->populate(array('foo' => 'bar'));
 		$switch  = $this->former->switch('foo', null, 'foo', ['value' => 'bar'])->__toString();
-		$matcher = $this->formGroupWithBS5('<input value="bar" class="form-check-input" id="foo" type="checkbox" name="foo" checked="checked">');
+		$matcher = $this->formGroupWithBS5(
+			'<div class="form-check form-switch">'.
+				'<input value="bar" class="form-check-input" id="foo" type="checkbox" name="foo" checked="checked">'.
+			'</div>');
 
 		$this->assertEquals($matcher, $switch);
 	}
@@ -501,7 +515,10 @@ class SwitchTest extends FormerTests
 	{
 		$this->former->populate(array('foo' => 'foo'));
 		$switch  = $this->former->switch('foo', null, 'foo', ['value' => 'bar'])->__toString();
-		$matcher = $this->formGroupWithBS5('<input value="bar" class="form-check-input" id="foo" type="checkbox" name="foo">');
+		$matcher = $this->formGroupWithBS5(
+			'<div class="form-check form-switch">'.
+				'<input value="bar" class="form-check-input" id="foo" type="checkbox" name="foo">'.
+			'</div>');
 
 		$this->assertEquals($matcher, $switch);
 	}
@@ -510,7 +527,9 @@ class SwitchTest extends FormerTests
 	{
 		$switch  = $this->former->switch('foo[bar]', 'Foo Bar Label', 'bis', ['class' => 'ter'])->__toString();
 		$matcher = $this->formGroupWithBS5(
-			'<input class="ter form-check-input" id="foo[bar]" type="checkbox" name="foo[bar]" value="bis">',
+			'<div class="form-check form-switch">'.
+				'<input class="ter form-check-input" id="foo[bar]" type="checkbox" name="foo[bar]" value="bis">'.
+			'</div>',
 			'<label for="foo[bar]" class="col-form-label col-lg-2 col-sm-4 pt-0">Foo Bar Label</label>'
 		);
 
@@ -522,7 +541,9 @@ class SwitchTest extends FormerTests
 		$this->former->populate(array('foo' => array('bar' => 'bis')));
 		$switch  = $this->former->switch('foo[bar]', 'Foo Bar Label', 'bis', ['class' => 'ter'])->__toString();
 		$matcher = $this->formGroupWithBS5(
-			'<input class="ter form-check-input" id="foo[bar]" type="checkbox" name="foo[bar]" checked="checked" value="bis">',
+			'<div class="form-check form-switch">'.
+				'<input class="ter form-check-input" id="foo[bar]" type="checkbox" name="foo[bar]" checked="checked" value="bis">'.
+			'</div>',
 			'<label for="foo[bar]" class="col-form-label col-lg-2 col-sm-4 pt-0">Foo Bar Label</label>'
 		);
 
@@ -534,7 +555,9 @@ class SwitchTest extends FormerTests
 		$this->former->populate(array('foo' => array('bar' => 'bis')));
 		$switch  = $this->former->switch('foo[bar]', null, 'bis', ['value' => 'ter'])->__toString();
 		$matcher = $this->formGroupWithBS5(
-			'<input value="ter" class="form-check-input" id="foo[bar]" type="checkbox" name="foo[bar]">',
+			'<div class="form-check form-switch">'.
+				'<input value="ter" class="form-check-input" id="foo[bar]" type="checkbox" name="foo[bar]">'.
+			'</div>',
 			'<label for="foo[bar]" class="col-form-label col-lg-2 col-sm-4 pt-0">Foo[bar]</label>'
 		);
 

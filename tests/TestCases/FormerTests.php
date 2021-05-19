@@ -288,21 +288,6 @@ abstract class FormerTests extends ContainerTestCase
 	}
 
 	/**
-	 * Matches a Control Group for Bootstrap 5
-	 *
-	 * @param  string $input
-	 * @param  string $label
-	 *
-	 * @return boolean
-	 */
-	protected function controlGroupWithBS5(
-		$input = '<input class="form-control" type="text" name="foo" id="foo">',
-		$label = '<label for="foo" class="col-form-label">Foo</label>'
-	) {
-		return '<div class="mb-3">'.$label.$input.'</div>';
-	}
-
-	/**
 	 * Matches a Form Group
 	 *
 	 * @param  string $input

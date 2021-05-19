@@ -391,12 +391,15 @@ abstract class Checkable extends Field
 		}
 
 		// If no label to wrap, return plain checkable
-		if (!$label) {
+		if (!$label && !$this->isOfType('switch', 'switches')) {
 			$element = (is_object($field)) ? $field->render() : $field;
 		} elseif (in_array($this->app['former']->framework(), ['TwitterBootstrap4', 'TwitterBootstrap5'])) {
-			// Revised for Bootstrap 4, move the 'input' outside of the 'label'
-			$labelClass = 'form-check-label';
-			$element = $field . Element::create('label', $label)->for($attributes['id'])->class($labelClass)->render();
+			$element = $field;
+			if ($label) {
+				// Revised for Bootstrap 4 and 5, move the 'input' outside of the 'label'
+				$labelClass = 'form-check-label';
+				$element .= Element::create('label', $label)->for($attributes['id'])->class($labelClass)->render();
+			}
 
 			$wrapperClass = $this->inline ? 'form-check form-check-inline' : 'form-check';
 			if ($this->app['former']->framework() === 'TwitterBootstrap5' &&
