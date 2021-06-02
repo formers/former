@@ -66,6 +66,13 @@ abstract class Field extends FormerObject implements FieldInterface
 	protected $bind;
 
 	/**
+	 * Renders with floating label
+	 *
+	 * @var boolean
+	 */
+	protected $floatingLabel = false;
+
+	/**
 	 * Get the current framework instance
 	 *
 	 * @return Framework
@@ -230,7 +237,7 @@ abstract class Field extends FormerObject implements FieldInterface
 	 */
 	public function isCheckable()
 	{
-		return $this->isOfType('checkbox', 'checkboxes', 'radio', 'radios');
+		return $this->isOfType('checkbox', 'checkboxes', 'radio', 'radios', 'switch', 'switches');
 	}
 
 	/**
@@ -241,6 +248,16 @@ abstract class Field extends FormerObject implements FieldInterface
 	public function isButton()
 	{
 		return false;
+	}
+
+	/**
+	 * Check if the field get a floating label
+	 *
+	 * @return boolean
+	 */
+	public function withFloatingLabel()
+	{
+		return $this->floatingLabel;
 	}
 
 	/**
@@ -382,6 +399,16 @@ abstract class Field extends FormerObject implements FieldInterface
 
 		// Also relink the label to the new name
 		$this->label($name);
+
+		return $this;
+	}
+
+	/**
+	 * Set the field as floating label
+	 */
+	public function floatingLabel($isFloatingLabel = true)
+	{
+		$this->floatingLabel = $isFloatingLabel;
 
 		return $this;
 	}

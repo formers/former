@@ -230,6 +230,10 @@ class MethodDispatcher
 
 		// Else convert known fields to their classes
 		switch ($method) {
+			case 'switch':
+			case 'switches':
+				$class = Former::FIELDSPACE.'Switchbox';
+				break;
 			case 'submit':
 			case 'link':
 			case 'reset':

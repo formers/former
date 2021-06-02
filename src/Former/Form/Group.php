@@ -3,6 +3,7 @@ namespace Former\Form;
 
 use BadMethodCallException;
 use Former\Helpers;
+use HtmlObject\Input;
 use HtmlObject\Element;
 use HtmlObject\Traits\Tag;
 use Illuminate\Container\Container;
@@ -176,16 +177,29 @@ class Group extends Tag
 	{
 		$label = $this->getLabel($field);
 		$help = $this->getHelp();
-		if ($field->isCheckable() && $this->app['former']->framework() == 'TwitterBootstrap4') {
-			$wrapperClass = $field->isInline() ? 'form-check form-check-inline' : 'form-check';
+		if ($field->isCheckable() &&
+			in_array($this->app['former']->framework(), ['TwitterBootstrap4', 'TwitterBootstrap5'])
+		) {
+			$wrapperClass = null;
+			if ($this->app['former']->framework() === 'TwitterBootstrap4') {
+				$wrapperClass = $field->isInline() ? 'form-check form-check-inline' : 'form-check';
+			}
 			if ($this->app['former']->getErrors($field->getName())) {
-				$hiddenInput = Element::create('input', null, ['type' => 'hidden'])->class('form-check-input is-invalid');
+				$hiddenInput = Input::create('hidden')->addClass('form-check-input is-invalid');
 				$help = $hiddenInput.$help;
 			}
-			$help = Element::create('div', $help)->class($wrapperClass);
+			$help = $help ? Element::create('div', $help)->addClass($wrapperClass) : '';
 		}
+		$withFloatingLabel = $field->withFloatingLabel();
+
 		$field = $this->prependAppend($field);
 		$field .= $help;
+
+		if ($withFloatingLabel &&
+			$this->app['former']->framework() === 'TwitterBootstrap5'
+		) {
+			return $this->wrapWithFloatingLabel($field, $label);
+		}
 
 		return $this->wrap($field, $label);
 	}
@@ -210,7 +224,7 @@ class Group extends Tag
 	/**
 	 * Set a class on the Group
 	 *
-	 * @param string $class The class to add
+	 * @param string $class The class(es) to add on the Group
 	 */
 	public function addGroupClass($class)
 	{
@@ -218,9 +232,19 @@ class Group extends Tag
 	}
 
 	/**
+	 * Remove one or more classes on the Group
+	 *
+	 * @param string $class The class(es) to remove on the Group
+	 */
+	public function removeGroupClass($class)
+	{
+		$this->removeClass($class);
+	}
+
+	/**
 	 * Set a class on the Label
 	 *
-	 * @param string $class The class to add on the Label
+	 * @param string $class The class(es) to add on the Label
 	 */
 	public function addLabelClass($class)
 	{
@@ -230,6 +254,23 @@ class Group extends Tag
 		}
 
 		$this->label->addClass($class);
+
+		return $this;
+	}
+
+	/**
+	 * Remove one or more classes on the Label
+	 *
+	 * @param string $class The class(es) to remove on the Label
+	 */
+	public function removeLabelClass($class)
+	{
+		// Don't remove a label class if it isn't an Element instance
+		if (!$this->label instanceof Element) {
+			return $this;
+		}
+
+		$this->label->removeClass($class);
 
 		return $this;
 	}
@@ -322,8 +363,9 @@ class Group extends Tag
 	{
 		// Reserved method
 		if ($this->app['former.framework']->isnt('TwitterBootstrap') &&
-		    $this->app['former.framework']->isnt('TwitterBootstrap3') &&
-		    $this->app['former.framework']->isnt('TwitterBootstrap4')
+			$this->app['former.framework']->isnt('TwitterBootstrap3') &&
+			$this->app['former.framework']->isnt('TwitterBootstrap4') &&
+			$this->app['former.framework']->isnt('TwitterBootstrap5')
 		) {
 			throw new BadMethodCallException('This method is only available on the Bootstrap framework');
 		}
@@ -429,6 +471,23 @@ class Group extends Tag
 	}
 
 	/**
+	 * Wraps content in a group with floating label
+	 *
+	 * @param string $contents The content
+	 * @param string $label    The label to add
+	 *
+	 * @return string A group
+	 */
+	public function wrapWithFloatingLabel($contents, $label = null)
+	{
+		$floatingLabelClass = $this->app['former.framework']->getFloatingLabelClass();
+		if ($floatingLabelClass) {
+			$this->addClass($floatingLabelClass);
+		}
+		return $this->wrap($label, $contents);
+	}
+
+	/**
 	 * Prints out the current label
 	 *
 	 * @param  string $field The field to create a label for
@@ -445,7 +504,7 @@ class Group extends Tag
  		// Wrap label in framework classes
  		$labelClasses = $this->app['former.framework']->getLabelClasses();
  		if ($field->isCheckable() &&
- 			$this->app['former']->framework() == 'TwitterBootstrap4' &&
+ 			in_array($this->app['former']->framework(), ['TwitterBootstrap4', 'TwitterBootstrap5']) &&
  			$this->app['former.form']->isOfType('horizontal')
  		) {
  			$labelClasses = array_merge($labelClasses, array('pt-0'));

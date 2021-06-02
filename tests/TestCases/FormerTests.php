@@ -303,7 +303,7 @@ abstract class FormerTests extends ContainerTestCase
 	}
 
 	/**
-	 * Matches a Form Group
+	 * Matches a Form Group for Bootstrap 4
 	 *
 	 * @param  string $input
 	 * @param  string $label
@@ -315,6 +315,21 @@ abstract class FormerTests extends ContainerTestCase
 		$label = '<label for="foo" class="col-form-label col-lg-2 col-sm-4">Foo</label>'
 	) {
 		return '<div class="form-group row">'.$label.'<div class="col-lg-10 col-sm-8">'.$input.'</div></div>';
+	}
+
+	/**
+	 * Matches a Form Group for Bootstrap 5
+	 *
+	 * @param  string $input
+	 * @param  string $label
+	 *
+	 * @return boolean
+	 */
+	protected function formGroupWithBS5(
+		$input = '<input class="form-control" type="text" name="foo" id="foo">',
+		$label = '<label for="foo" class="col-form-label col-lg-2 col-sm-4 pt-0">Foo</label>'
+	) {
+		return '<div class="mb-3 row">'.$label.'<div class="col-lg-10 col-sm-8">'.$input.'</div></div>';
 	}
 
 	/**
