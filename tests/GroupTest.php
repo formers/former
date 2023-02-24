@@ -78,9 +78,9 @@ class GroupTest extends FormerTests
 			'<label for="foo" class="control-label">Foo</label>'.
 			'<div class="controls">'.
 			'<div class="'.implode(' ', $class).'">'.
-			join(null, $prepend).
+			implode('', $prepend).
 			'<input id="foo" type="text" name="foo">'.
-			join(null, $append).
+			implode('', $append).
 			'</div>'.
 			'</div>'.
 			'</div>';

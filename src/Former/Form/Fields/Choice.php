@@ -191,7 +191,7 @@ class Choice extends Field
 
 	public function getCheckables($choiceType)
 	{
-		if (!(is_array($this->value) || $this->value instanceof \ArrayAccess)) {
+		if ($this->value !== null && !(is_array($this->value) || $this->value instanceof \ArrayAccess)) {
 			$this->value = explode(',', $this->value);
 		}
 
@@ -233,7 +233,7 @@ class Choice extends Field
 			}
 
 			// If inline items, add class
-			$isInline = $this->inline ? ' '.$this->app['former.framework']->getInlineLabelClass($this) : null;
+			$isInline = $this->inline ? ' '.$this->app['former.framework']->getInlineLabelClass($this) : '';
 
 			// In Bootsrap 3, don't append the the checkable type (radio/checkbox) as a class if
 			// rendering inline.

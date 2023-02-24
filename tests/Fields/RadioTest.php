@@ -34,7 +34,7 @@ class RadioTest extends FormerTests
 			'disabled' => $disabled === 'disabled' ? 'disabled' : null,
 			'id'       => $name,
 			'type'     => 'radio',
-			'name'     => preg_replace('/[0-9]/', null, $name),
+			'name'     => preg_replace('/[0-9]/', '', $name),
 			'checked'  => 'checked',
 			'value'    => $value,
 		);

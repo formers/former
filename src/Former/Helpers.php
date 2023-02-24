@@ -54,7 +54,7 @@ class Helpers
 	{
 		// If nothing was given, return nothing, bitch
 		if (!$key) {
-			return null;
+			return $fallback;
 		}
 
 		// If no fallback, use the key
