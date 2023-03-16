@@ -17,7 +17,6 @@
   ],
   "require": {
     "php": "^7.2|^8.0",
-    "anahkiasen/html-object": "~1.4",
     "illuminate/config": "^5.1.3|^6.0|^7.0|^8.0|^9.0|^10.0",
     "illuminate/container": "^5.1.3|^6.0|^7.0|^8.0|^9.0|^10.0",
     "illuminate/contracts": "^5.1.3|^6.0|^7.0|^8.0|^9.0|^10.0",
@@ -25,7 +24,8 @@
     "illuminate/routing": "^5.1.3|^6.0|^7.0|^8.0|^9.0|^10.0",
     "illuminate/session": "^5.1.3|^6.0|^7.0|^8.0|^9.0|^10.0",
     "illuminate/translation": "^5.1.3|^6.0|^7.0|^8.0|^9.0|^10.0",
-    "illuminate/support": "^5.1.3|^6.0|^7.0|^8.0|^9.0|^10.0"
+    "illuminate/support": "^5.1.3|^6.0|^7.0|^8.0|^9.0|^10.0",
+    "kylekatarnls/html-object": "^1.5"
   },
   "require-dev": {
     "phpunit/phpunit": "^8.5",
