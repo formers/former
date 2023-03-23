@@ -440,7 +440,7 @@ class Group extends Tag
 			$inline = $this->app['former.framework']->createValidationError($errors);
 		}
 
-		return join(null, array($inline, $block));
+		return implode('', array($inline, $block));
 	}
 
 	/**

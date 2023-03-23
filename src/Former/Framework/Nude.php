@@ -161,9 +161,9 @@ class Nude extends Framework implements FrameworkInterface
 	public function prependAppend($field, $prepend, $append)
 	{
 		$return = '<div>';
-		$return .= join(null, $prepend);
+		$return .= implode('', $prepend);
 		$return .= $field->render();
-		$return .= join(null, $append);
+		$return .= implode('', $append);
 		$return .= '</div>';
 
 		return $return;
