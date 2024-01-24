@@ -35,7 +35,12 @@ class Helpers
 	 */
 	public static function encode($value)
 	{
-		return htmlentities($value ?? '', ENT_QUOTES, 'UTF-8', true);
+		// Check if $value is null and return empty string
+		if ($value === null) {
+			return '';		
+		}
+		
+		return htmlentities($value, ENT_QUOTES, 'UTF-8', true);
 	}
 
 	////////////////////////////////////////////////////////////////////
