@@ -29,17 +29,16 @@ class Helpers
 	/**
 	 * Encodes HTML
 	 *
-	 * @param string $value The string to encode
+	 * @param string|null $value The string to encode
 	 *
 	 * @return string
 	 */
 	public static function encode($value)
 	{
-		// Check if $value is null and return empty string
 		if ($value === null) {
-			return '';		
+			return '';
 		}
-		
+
 		return htmlentities($value, ENT_QUOTES, 'UTF-8', true);
 	}
 
