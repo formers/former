@@ -304,8 +304,8 @@ abstract class Checkable extends Field
 
 			// Grouped fields
 			if ($this->isGrouped()) {
-				$attributes['id'] = str_replace('[]', null, $fallback);
-				$fallback         = str_replace('[]', null, $this->name).'[]';
+				$attributes['id'] = str_replace('[]', '', $fallback);
+				$fallback         = str_replace('[]', '', $this->name).'[]';
 			}
 
 			// If we haven't any name defined for the checkable, try to compute some
@@ -361,7 +361,7 @@ abstract class Checkable extends Field
 		}
 
 		// If inline items, add class
-		$isInline = $this->inline ? ' '.$this->app['former.framework']->getInlineLabelClass($this) : null;
+		$isInline = $this->inline ? ' '.$this->app['former.framework']->getInlineLabelClass($this) : '';
 
 		// In Bootsrap 3 or 4 or 5, don't append the the checkable type (radio/checkbox) as a class if
 		// rendering inline.

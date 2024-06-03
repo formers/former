@@ -1,7 +1,6 @@
 # Former
 ## A Laravelish way to create and format forms
 
-[![Build Status](http://img.shields.io/travis/formers/former.svg?style=flat)](https://travis-ci.org/formers/former)
 [![Latest Stable Version](http://img.shields.io/packagist/v/anahkiasen/former.svg?style=flat)](https://packagist.org/packages/anahkiasen/former)
 [![Total Downloads](http://img.shields.io/packagist/dt/anahkiasen/former.svg?style=flat)](https://packagist.org/packages/anahkiasen/former)
 
@@ -66,12 +65,8 @@ Add then alias Former's main class by adding its facade to the `aliases` array i
 
     'Former' => 'Former\Facades\Former',
 
-### Table of contents
+-----
 
-- [Getting started][]
-- [Features][]
-- [Usage and Examples][]
+### Documentation
 
-  [Getting started]: https://github.com/formers/former/wiki/Getting-started
-  [Features]: https://github.com/formers/former/wiki/Features
-  [Usage and Examples]: https://github.com/formers/former/wiki/Usage-and-Examples
+Please refer to the [wiki](https://github.com/formers/former/wiki) for the full documentation.

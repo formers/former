@@ -250,7 +250,7 @@ class Former
 	 */
 	public function getPost($name, $fallback = null)
 	{
-		$name     = str_replace(array('[', ']'), array('.', ''), $name);
+		$name     = str_replace(array('[', ']'), array('.', ''), $name ?? '');
 		$name     = trim($name, '.');
 		$oldValue = $this->app['request']->old($name, $fallback);
 

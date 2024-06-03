@@ -128,7 +128,7 @@ abstract class FormerTests extends ContainerTestCase
 	 */
 	protected function matchLabel($name = 'foo', $field = 'foo', $required = false)
 	{
-		$text = str_replace('[]', null, $name);
+		$text = str_replace('[]', '', $name);
 		if ($required) {
 			$text .= '*';
 		}
@@ -664,7 +664,7 @@ abstract class FormerTests extends ContainerTestCase
 
                 foreach ($options['attributes'] as $name => $value) {
                     // match by regexp if like "regexp:/foo/i"
-                    if (preg_match('/^regexp\s*:\s*(.*)/i', $value, $matches)) {
+                    if (!empty($value) && preg_match('/^regexp\s*:\s*(.*)/i', $value, $matches)) {
                         if (!preg_match($matches[1], $node->getAttribute($name))) {
                             $invalid = true;
                         }

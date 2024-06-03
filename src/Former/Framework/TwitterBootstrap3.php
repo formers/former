@@ -406,9 +406,9 @@ class TwitterBootstrap3 extends Framework implements FrameworkInterface
 	public function prependAppend($field, $prepend, $append)
 	{
 		$return = '<div class="input-group">';
-		$return .= join(null, $prepend);
+		$return .= implode('', $prepend);
 		$return .= $field->render();
-		$return .= join(null, $append);
+		$return .= implode('', $append);
 		$return .= '</div>';
 
 		return $return;

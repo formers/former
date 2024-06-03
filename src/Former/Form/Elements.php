@@ -62,7 +62,7 @@ class Elements
 	{
 		if (!$label instanceof Htmlable) {
 			$oldLabel = (string) $label;
-			$label    = Helpers::translate($oldLabel);
+			$label    = Helpers::translate($oldLabel, '');
 
 			// If there was no change to the label,
 			// then a Laravel translation did not occur
@@ -70,7 +70,7 @@ class Elements
 				$label = str_replace('_', ' ', $label);
 			}
 		} else {
-			$label = (string) $label->toHtml();
+			$label = $label->toHtml();
 		}
 
 		$attributes['for']             = $for;
