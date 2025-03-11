@@ -316,7 +316,7 @@ abstract class Field extends FormerObject implements FieldInterface
                 * For regular expressions we are just using the complete expression as a parameter.
                 */
                 if ($rulename !== 'regex') {
-                    $parameters = str_getcsv(substr($rule, $colon + 1));
+                    $parameters = str_getcsv(substr($rule, $colon + 1), ',', '"', "\\");
                 } else {
                     $parameters = [substr($rule, $colon + 1)];
                 }

@@ -52,7 +52,13 @@ class ChoiceRadioTest extends FormerTests
 
 	protected function choiceRadio($name = 'foo') {
 		$func_get_args = func_get_args();
-		$ref = new \ReflectionMethod(__METHOD__);
+
+        // ReflectionMethod::createFromMethodName() is available since PHP 8.3
+        if (PHP_VERSION_ID > 80300) {
+            $ref = \ReflectionMethod::createFromMethodName(__METHOD__);
+        } else {
+            $ref = new \ReflectionMethod(__METHOD__);
+        }
 
 		foreach ($ref->getParameters() as $key => $param) {
 			if(!isset($func_get_args[ $key ]) && $param->isDefaultValueAvailable()){

@@ -254,7 +254,7 @@ abstract class Framework implements FrameworkInterface
 	 *
 	 * @return string A label
 	 */
-	public function createLabelOf(Field $field, Element $label = null)
+	public function createLabelOf(Field $field, ?Element $label = null)
 	{
 		// Get the label and its informations
 		if (!$label) {
