@@ -542,4 +542,57 @@ class SelectTest extends FormerTests
 
 		$this->assertStringContainsString($matcher, $select->render());
 	}
+
+    public function testCanClearPreviouslySelectedOptions()
+    {
+        $select = $this->former->select('foo')->options([
+            'One' => ['value' => 1, 'selected' => 'selected'],
+            'Two' => ['value' => 2],
+        ])->select(2);
+
+        $matcher = $this->controlGroup(
+            '<select id="foo" name="foo">'.
+            '<option value="1">One</option>'.
+            '<option value="2" selected="selected">Two</option>'.
+            '</select>'
+        );
+
+        $this->assertEquals($matcher, $select->__toString());
+    }
+
+    public function testOptgroupSupportsNestedOptionsWithAttributes()
+    {
+        $select = $this->former->select('foo')->addOption([
+            'A' => ['value' => 1, 'data-type' => 'x'],
+            'B' => ['value' => 2, 'data-type' => 'y'],
+        ], 'Group 1');
+
+        $matcher = $this->controlGroup(
+            '<select id="foo" name="foo">'.
+            '<optgroup label="Group 1">'.
+            '<option value="1" data-type="x">A</option>'.
+            '<option value="2" data-type="y">B</option>'.
+            '</optgroup>'.
+            '</select>'
+        );
+
+        $this->assertEquals($matcher, $select->__toString());
+    }
+
+    public function testSelectHandlesLooseTypeMatchingForValues()
+    {
+        $select = $this->former->select('foo')->options([
+            'Zero' => ['value' => 0],
+            'One' => ['value' => 1],
+        ])->select('0');
+
+        $matcher = $this->controlGroup(
+            '<select id="foo" name="foo">'.
+            '<option value="0" selected="selected">Zero</option>'.
+            '<option value="1">One</option>'.
+            '</select>'
+        );
+
+        $this->assertEquals($matcher, $select->__toString());
+    }
 }
