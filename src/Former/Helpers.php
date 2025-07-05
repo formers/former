@@ -33,18 +33,18 @@ class Helpers
 	 *
 	 * @return string
 	 */
-    public static function encode($value)
-    {
-        if ($value === null) {
-            return '';
-        }
+	public static function encode($value)
+	{
+		if ($value === null) {
+			return '';
+		}
 
-        if (is_array($value)) {
-            $value = '';
-        }
+		if (is_array($value)) {
+			$value = '';
+		}
 
-        return htmlentities($value, ENT_QUOTES, 'UTF-8', true);
-    }
+		return htmlentities($value, ENT_QUOTES, 'UTF-8', true);
+	}
 
 	////////////////////////////////////////////////////////////////////
 	///////////////////////// LOCALIZATION HELPERS /////////////////////

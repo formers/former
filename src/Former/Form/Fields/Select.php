@@ -95,7 +95,7 @@ class Select extends Field
 			$this->value = (array) $this->value;
 		}
 
-        $this->clearSelected();
+		$this->clearSelected();
 
 		// Mark selected values as selected
 		if ($this->hasChildren() and !empty($this->value)) {
@@ -133,9 +133,9 @@ class Select extends Field
 		}
 
 		foreach ($parent->getChildren() as $child) {
-            $optionValue = $child->getAttribute('value');
+			$optionValue = $child->getAttribute('value');
 
-            if ($optionValue === $value || (is_numeric($value) && is_numeric($optionValue) && (int)$optionValue === (int)$value) ) {
+			if ($optionValue === $value || (is_numeric($value) && is_numeric($optionValue) && (int)$optionValue === (int)$value)) {
 				$child->selected('selected');
 			}
 
@@ -241,11 +241,11 @@ class Select extends Field
 		if (is_array($text)) {
 			$this->children[$childrenKey] = Element::create('optgroup')->label($value);
 			foreach ($text as $key => $value) {
-                if (is_array($value)) {
-                    $option = Element::create('option', $key)->setAttributes($value);
-                } else {
-                    $option = Element::create('option', $value)->setAttribute('value', $key);
-                }
+				if (is_array($value)) {
+					$option = Element::create('option', $key)->setAttributes($value);
+				} else {
+					$option = Element::create('option', $value)->setAttribute('value', $key);
+				}
 				$this->children[$childrenKey]->nest($option);
 			}
 			// Else if it's a simple option
@@ -260,27 +260,28 @@ class Select extends Field
 		return $this;
 	}
 
-    /**
-     * Clear selected attribute for select options
-     *
-     * @param Element $parent
-     *
-     * @return void
-     */
-    public function clearSelected($parent = null) {
-        // If no parent element defined, use direct children
-        if (!$parent) {
-            $parent = $this;
-        }
+	/**
+	 * Clear selected attribute for select options
+	 *
+	 * @param Element $parent
+	 *
+	 * @return void
+	 */
+	public function clearSelected($parent = null)
+	{
+		// If no parent element defined, use direct children
+		if (!$parent) {
+			$parent = $this;
+		}
 
-        foreach ($parent->getChildren() as $child) {
-            $child->removeAttribute('selected');
+		foreach ($parent->getChildren() as $child) {
+			$child->removeAttribute('selected');
 
-            if ($child->hasChildren()) {
-                $this->clearSelected($child);
-            }
-        }
-    }
+			if ($child->hasChildren()) {
+				$this->clearSelected($child);
+			}
+		}
+	}
 
 	/**
 	 * Use the results from a Fluent/Eloquent query as options
