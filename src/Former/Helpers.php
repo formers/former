@@ -29,7 +29,7 @@ class Helpers
 	/**
 	 * Encodes HTML
 	 *
-	 * @param string|null $value The string to encode
+	 * @param string|array|null $value The string to encode
 	 *
 	 * @return string
 	 */
@@ -37,6 +37,10 @@ class Helpers
 	{
 		if ($value === null) {
 			return '';
+		}
+
+		if (is_array($value)) {
+			$value = '';
 		}
 
 		return htmlentities($value, ENT_QUOTES, 'UTF-8', true);

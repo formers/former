@@ -257,6 +257,24 @@ abstract class Checkable extends Field
 		return $this;
 	}
 
+	/**
+	 * Creates a series of checkable items from query with attributes
+	 *
+	 * @param mixed $query
+	 * @param mixed $text
+	 * @param mixed $attributes
+	 * @return $this
+	 */
+	public function fromQuery($query, $text = null, $attributes = null)
+	{
+		if ($this->isGrouped()) {
+			// Remove any possible items added by the Populator.
+			$this->items = array();
+		}
+		$this->items($query, $text, $attributes);
+
+		return $this;
+	}
 
 	/**
 	 * Check if the checkables are inline
@@ -275,9 +293,11 @@ abstract class Checkable extends Field
 	/**
 	 * Creates a series of checkable items
 	 *
-	 * @param array $_items Items to create
+	 * @param array|Collection $_items Items to create
+	 * @param string|function  $text The value to use as text
+	 * @param string|array     $attributes The data to use as attributes
 	 */
-	protected function items($_items)
+	protected function items($_items, $text = null, $attributes = null)
 	{
 		// If passing an array
 		if (sizeof($_items) == 1 and
@@ -288,9 +308,11 @@ abstract class Checkable extends Field
 		}
 
 		// Fetch models if that's what we were passed
-		if (isset($_items[0]) and is_object($_items[0])) {
-			$_items = Helpers::queryToArray($_items);
-			$_items = array_flip($_items);
+		if ((isset($_items[0]) and is_object($_items[0])) or ($_items instanceof Collection)) {
+			$_items = Helpers::queryToArray($_items, $text, $attributes);
+			if (is_null($text) && is_null($attributes)) {
+				$_items = array_flip($_items);
+			}
 		}
 
 		// Iterate through items, assign a name and a label to each
@@ -542,7 +564,7 @@ abstract class Checkable extends Field
 
 		if (!is_null($post) and $post !== $this->app['former']->getOption('unchecked_value')) {
 			$isChecked = ($post == $value);
-		} elseif (!is_null($static)) {
+		} elseif (!is_null($static) && !(is_array($static) && empty($static))) {
 			$isChecked = ($static == $value);
 		} else {
 			$isChecked = $checked;
